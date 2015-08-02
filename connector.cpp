@@ -27,7 +27,6 @@ void Connector::onConnect(QString login, QString pass)
     qlonglong nonceNumber = qrand() * 100000000000000000000000 + qrand() * 10000000000000000 + qrand() * 100000000 + qrand();
     QString nonce = QString::number( nonceNumber );
 
-    qDebug() << "#############" << nonce << nonceNumber;
     addGetParam("oauth_nonce", nonce/*"8bbf43b453f89a860c6107082fd18618"QString::number(encoded.toLong())*/);
 
     addGetParam("oauth_signature_method", "HMAC-SHA1");
@@ -50,8 +49,32 @@ void Connector::onConnect(QString login, QString pass)
 void Connector::replyFinished(QNetworkReply *reply)
 {
     if (reply->error() == QNetworkReply::NoError) {
-        qDebug() << QByteArray::fromPercentEncoding(reply->readAll());
-    } else {
+        QString returns = QUrl::fromPercentEncoding(reply->readAll());
+        QStringList params = returns.split("&");
+        foreach (QString param, params) {
+            QStringList splitedParam = param.split("=");
+            if (splitedParam.size() >= 2) {
+                QString paramName = splitedParam.at(0);
+                QString paramValue = param.right(param.size() - paramName.length() - 1);
+                if (paramName == "oauth_token") {
+                    Parameter *param = new Parameter();
+                    param->setName(paramName);
+                    param->setValue(paramValue);
+                    m_parameters << param;
+                    m_tokenKey = paramValue;
+                } else if (paramName == "oauth_token_secret") {
+                    Parameter *param = new Parameter();
+                    param->setName(paramName);
+                    param->setValue(paramValue);
+                    m_parameters << param;
+                    m_tokenSecret = paramValue;
+                }
+            } else {
+                qWarning() << "A param is malformed" << param;
+            }
+        }
+
+        } else {
         qDebug() << reply->errorString();
     }
 }
