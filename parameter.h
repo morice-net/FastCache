@@ -7,11 +7,21 @@ class Parameter : public QObject
 {
     Q_OBJECT
 public:
-    explicit Parameter(QObject *parent = 0);
+    Parameter(QObject *parent = 0);
 
-signals:
+    QString name() const;
+    void setName(const QString &name);
 
-public slots:
+    QString value() const;
+    void setValue(const QString &value);
+
+    bool encoded() const;
+    void setEncoded(bool encoded);
+
+private:
+    QString m_name;
+    QString m_value;
+    bool m_encoded;
 };
 
 #endif // PARAMETER_H

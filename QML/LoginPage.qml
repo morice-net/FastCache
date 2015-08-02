@@ -1,27 +1,33 @@
-import QtQuick 2.0
+import QtQuick 2.3
+
+import "JavaScript/Palette.js" as Palette
 
 Rectangle {
-    width: 480
-    height: 640
-    color: "#1abc9c"
+    color: Palette.greenSea()
 
-    Text {
-        anchors.fill: parent
-        text: qsTr("\n\nFast caching")
-        horizontalAlignment: Text.AlignHCenter
-        color: "#f4f4f4"
-        font.pointSize: 48
-        font.underline: true
-    }
+    state: "Unconnected"
+
+    states: [
+        State {
+           name: "Unconnected"
+           PropertyChanges { target: loginField; visible: true }
+           PropertyChanges { target: passField; visible: true }
+        },
+        State {
+            name: "Connecting"
+            PropertyChanges { target: loginField; visible: false }
+            PropertyChanges { target: passField; visible: false }
+        }
+       ]
 
     TextField {
         id: loginField
         fieldName: qsTr("Login")
-        width: parent.width/1.5
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 3 * ( height + 10 )
+        y: (parent.height-126)/2
+        width: parent.width*2/3
         anchors.horizontalCenter: parent.horizontalCenter
     }
+
     TextField {
         id: passField
         fieldName: qsTr("Password")
@@ -36,13 +42,13 @@ Rectangle {
         width: loginField.width
         anchors.top: passField.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.margins: 25
 
         text: qsTr("Connect")
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
-        color: "#f4f4f4"
+        color: Palette.white()
         font.pointSize: 16
+        font.italic: true
 
         SequentialAnimation {
             running: true
@@ -53,7 +59,13 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: { console.log("Login: " + loginField.value + ", Password: " + passField.value) }
+            onClicked: {
+                //if (loginField.value !=  qsTr("Login") && passField.value != qsTr("Password")) {
+                    state = "Connecting";
+                    //main.connect(loginField.value,passField.value);
+                main.connect("test","test");
+                //}
+            }
         }
     }
 

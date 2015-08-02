@@ -1,24 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.3
 
-/** Tested with
+import "JavaScript/Palette.js" as Palette
 
-    TextField {
-        id: loginField
-        fieldName: qsTr("Login")
-        width: parent.width/1.5
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 3 * ( height + 10 )
-        anchors.horizontalCenter: parent.horizontalCenter
-    }
-    TextField {
-        id: passField
-        fieldName: qsTr("Password")
-        width: loginField.width
-        anchors.top: loginField.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        secret: true
-    }
-*/
 Item {
     id: textField
     height: 42
@@ -31,7 +14,7 @@ Item {
     Rectangle {
         width: parent.width
         height: 1
-        color: "#16a085"
+        color: Palette.white()
 
         anchors.bottom: parent.bottom
         anchors.margins: 5
@@ -44,13 +27,13 @@ Item {
 
         verticalAlignment: Text.AlignVCenter
 
-        color: "#e1e3e4"
+        color: Palette.backgroundGrey()
         font.pointSize: 16
 
         onFocusChanged: {
             if (focus) {
                 text = "";
-                color = "#f4f4f4";
+                color = Palette.white();
                 echoMode = textField.secret ? TextInput.Password : TextInput.Normal
             }
         }

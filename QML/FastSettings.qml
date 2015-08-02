@@ -1,7 +1,8 @@
-import QtQuick 2.0
+import QtQuick 2.3
+import Qt.labs.settings 1.0
 
-Rectangle {
-    width: 100
-    height: 62
+Settings {
+    property string login: ""
+    property string password: ""
 }
 
