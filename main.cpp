@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
     QQuickView view(QUrl(QStringLiteral("qrc:/main.qml")));
     QObject *root = view.rootObject();
 
-    Connector connector;
-    QObject::connect ( root, SIGNAL(connect(QString,QString)), &connector, SLOT(onConnect(QString,QString)) );
+	Connector connector;
+	QObject::connect ( root, SIGNAL(connect()), &connector, SLOT(onConnect()) );
 
 
     view.show();

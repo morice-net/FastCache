@@ -12,15 +12,14 @@ class Connector : public QObject
 public:
     explicit Connector(QObject *parent = 0);
 
-    void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
-    QString buildSignature(QString request);
-    //QString hmacSha1(const QString &message, const QString &key);
-    QString hmacSha1(QByteArray key, QByteArray baseString);
+	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
+	QString buildSignature(QString request);
+	QString hmacSha1(QByteArray key, QByteArray baseString);
 signals:
 
 public slots:
-    void onConnect(QString login, QString pass);
-    void replyFinished(QNetworkReply* reply);
+	void onConnect();
+	void replyFinished(QNetworkReply* reply);
 
 private:
     QString m_requestString;

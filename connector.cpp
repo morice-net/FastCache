@@ -7,9 +7,9 @@ Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("90C7F340
 {
 }
 
-void Connector::onConnect(QString login, QString pass)
+void Connector::onConnect()
 {
-    qDebug() << "Component connect:" <<  login << pass;
+	qDebug() << "Component connect.";
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
@@ -24,7 +24,7 @@ void Connector::onConnect(QString login, QString pass)
 
     addGetParam("oauth_consumer_key", m_consumerKey);
 
-    qlonglong nonceNumber = qrand() * 100000000000000000000000 + qrand() * 10000000000000000 + qrand() * 100000000 + qrand();
+	qlonglong nonceNumber = qrand() * qlonglong(10^20) + qrand() * qlonglong(10^16) + qrand() * qlonglong(10^8) + qrand();
     QString nonce = QString::number( nonceNumber );
 
     addGetParam("oauth_nonce", nonce/*"8bbf43b453f89a860c6107082fd18618"QString::number(encoded.toLong())*/);
@@ -37,7 +37,6 @@ void Connector::onConnect(QString login, QString pass)
     addGetParam("oauth_version", "1.0");
 
     QString oauthSignature = buildSignature(m_requestString);
-    qDebug() << oauthSignature;
     addGetParam("oauth_signature", oauthSignature);
 
     QNetworkRequest request;
@@ -74,8 +73,8 @@ void Connector::replyFinished(QNetworkReply *reply)
             }
         }
 
-        } else {
-        qDebug() << reply->errorString();
+	} else {
+		qDebug() << "Connection in error:" << reply->errorString();
     }
 }
 
@@ -100,7 +99,7 @@ QString Connector::buildSignature(QString request)
     QStringList paramsEncoded;
     foreach (Parameter *param, m_parameters) {
 
-        qDebug() << param->name() << "=" << param->value();
+		qDebug() << "\t*" << param->name() << "=" << param->value();
         if (param->encoded()) {
             paramsEncoded.append(param->name() + "=" + param->value());
         } else {

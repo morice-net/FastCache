@@ -50,6 +50,10 @@ Rectangle {
                     NumberAnimation { target: image; property: "opacity"; from: 0; to: 1; duration: 1000; easing.type: "OutQuart" }
                     NumberAnimation{ target: image; property: "opacity"; from: 1; to: 0; duration: 1000; easing.type: "InQuart" }
                 }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: main.connect()
+                }
             }
         }
 

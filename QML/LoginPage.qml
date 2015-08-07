@@ -63,7 +63,7 @@ Rectangle {
                 //if (loginField.value !=  qsTr("Login") && passField.value != qsTr("Password")) {
                     state = "Connecting";
                     //main.connect(loginField.value,passField.value);
-                main.connect("test","test");
+                //main.connect("test","test");
                 //}
             }
         }
