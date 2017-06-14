@@ -25,12 +25,13 @@ void Connector::onConnect()
     addGetParam("oauth_version", "1.0");
     addGetParam("oauth_signature_method", "HMAC-SHA1");
 
-    m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?";
+    m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();
+
     QString oauthSignature = buildSignature(m_requestString);
     addGetParam("oauth_signature", oauthSignature);
 
     QNetworkRequest request;
-    qDebug() << m_requestString;
+    qDebug() << "request string" << m_requestString;
     request.setUrl(QUrl(m_requestString));
     manager->get(request);
 }
@@ -81,21 +82,25 @@ void Connector::addGetParam(QString parameterName, QString parameterValue, bool 
     m_parameters << param;
 }
 
-QByteArray Connector::buildSignature(QString request)
-{
-    int position = request.indexOf("?");
-
+QString Connector::joinParams() {
     QStringList paramsEncoded;
     foreach (Parameter *param, m_parameters) {
         qDebug() << "\t*" << param->name() << "=" << param->value();
         if (param->encoded()) {
-            paramsEncoded.append(param->name() + "=" + param->value());
-        } else {
             paramsEncoded.append(param->name() + "=" + QUrl::toPercentEncoding(param->value()));
+        } else {
+            paramsEncoded.append(param->name() + "=" + param->value());
         }
     }
+    return paramsEncoded.join("&");
+}
 
-    QString joinedParams = paramsEncoded.join("&");
+QByteArray Connector::buildSignature(const QString& request)
+{
+    int position = request.indexOf("?");
+
+    QString joinedParams = joinParams();
+    qDebug() << "joinedParams = " << joinedParams;
     QUrl url(request.left(position));
     QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
     QString baseString = "GET&" + QUrl::toPercentEncoding(url.toString(QUrl::RemoveQuery)) + "&" + joinedParams;

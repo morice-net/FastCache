@@ -13,7 +13,7 @@ public:
     explicit Connector(QObject *parent = 0);
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
-    QByteArray buildSignature(QString request);
+    QByteArray buildSignature(const QString &request);
 	QString hmacSha1(QByteArray key, QByteArray baseString);
     QByteArray nonce();
 
@@ -31,6 +31,7 @@ private:
     QString m_tokenSecret;
     QList<Parameter*> m_parameters;
 
+    QString joinParams();
 };
 
 #endif // CONNECTOR_H
