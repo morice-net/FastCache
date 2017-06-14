@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick location
+QT += qml quick location webengine
 
 SOURCES += main.cpp \
     connector.cpp \

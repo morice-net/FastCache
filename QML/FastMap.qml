@@ -21,7 +21,7 @@ Rectangle {
         zoomLevel: { 14.5 }
 
         gesture.enabled: true
-        gesture.activeGestures: MapGestureArea.ZoomGesture
+        //gesture.activeGestures: MapGestureArea.ZoomGesture
 
 
         MapCircle {

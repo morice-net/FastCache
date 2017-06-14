@@ -2,40 +2,30 @@
 
 #include <QDebug>
 #include <QNetworkAccessManager>
+#include <QMessageAuthenticationCode>
 
-Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("90C7F340-7998-477D-B4D3-AC48A9A0F560"), m_consumerSecret("55BBC3C1-24CF-4D1B-B7EC-7A8E75DAB7D1")
+Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("CF2B186B-0DD2-4E45-93B1-FAD7DF5593D4"), m_consumerSecret("7D0E212A-ADF8-4798-906E-9E6099B68E79")
 {
 }
 
 void Connector::onConnect()
 {
-	qDebug() << "Component connect.";
+    qDebug() << "Component connect.";
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
 
     // Building request
-    m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?";
-
     QString callback = "x-locus://oauth.callback/callback/geocaching";
-    addGetParam("oauth_callback", callback, true);
-
-    //addGetParam("consumerSecret", m_consumerSecret);
-
+    addGetParam("oauth_callback", callback);
     addGetParam("oauth_consumer_key", m_consumerKey);
-
-	qlonglong nonceNumber = qrand() * qlonglong(10^20) + qrand() * qlonglong(10^16) + qrand() * qlonglong(10^8) + qrand();
-    QString nonce = QString::number( nonceNumber );
-
-    addGetParam("oauth_nonce", nonce/*"8bbf43b453f89a860c6107082fd18618"QString::number(encoded.toLong())*/);
-
-    addGetParam("oauth_signature_method", "HMAC-SHA1");
-
+    addGetParam("oauth_nonce", nonce());
     QString oauthTimestamap = QString::number(QDateTime::currentDateTimeUtc().toTime_t());
     addGetParam("oauth_timestamp", oauthTimestamap);
-
     addGetParam("oauth_version", "1.0");
+    addGetParam("oauth_signature_method", "HMAC-SHA1");
 
+    m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?";
     QString oauthSignature = buildSignature(m_requestString);
     addGetParam("oauth_signature", oauthSignature);
 
@@ -73,8 +63,8 @@ void Connector::replyFinished(QNetworkReply *reply)
             }
         }
 
-	} else {
-		qDebug() << "Connection in error:" << reply->errorString();
+    } else {
+        qDebug() << "Connection in error:" << reply->errorString();
     }
 }
 
@@ -91,28 +81,26 @@ void Connector::addGetParam(QString parameterName, QString parameterValue, bool 
     m_parameters << param;
 }
 
-QString Connector::buildSignature(QString request)
+QByteArray Connector::buildSignature(QString request)
 {
-    QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
     int position = request.indexOf("?");
 
     QStringList paramsEncoded;
     foreach (Parameter *param, m_parameters) {
-
-		qDebug() << "\t*" << param->name() << "=" << param->value();
+        qDebug() << "\t*" << param->name() << "=" << param->value();
         if (param->encoded()) {
             paramsEncoded.append(param->name() + "=" + param->value());
         } else {
             paramsEncoded.append(param->name() + "=" + QUrl::toPercentEncoding(param->value()));
         }
     }
+
     QString joinedParams = paramsEncoded.join("&");
-    QString url = request.left(position);
-    QString encodedUrl = "GET&" + QUrl::toPercentEncoding(url) + "&" + QUrl::toPercentEncoding(joinedParams);
+    QUrl url(request.left(position));
+    QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
+    QString baseString = "GET&" + QUrl::toPercentEncoding(url.toString(QUrl::RemoveQuery)) + "&" + joinedParams;
 
-    QString signature = hmacSha1(keysPacked.toUtf8(),encodedUrl.toUtf8());
-
-    return QString(QUrl::toPercentEncoding(signature));
+    return QMessageAuthenticationCode::hash(baseString.toUtf8(), keysPacked.toUtf8(), QCryptographicHash::Sha1).toBase64();
 }
 
 QString Connector::hmacSha1(QByteArray key, QByteArray baseString)
@@ -139,5 +127,17 @@ QString Connector::hmacSha1(QByteArray key, QByteArray baseString)
     total.append(QCryptographicHash::hash(part, QCryptographicHash::Sha1));
     QByteArray hashed = QCryptographicHash::hash(total, QCryptographicHash::Sha1);
     return hashed.toBase64();
+}
+
+QByteArray Connector::nonce()
+{
+    static bool firstTime = true;
+    if (firstTime) {
+        firstTime = false;
+        qsrand(QTime::currentTime().msec());
+    }
+    QString u = QString::number(QDateTime::currentDateTimeUtc().toTime_t());
+    u.append(QString::number(qrand()));
+    return u.toLatin1();
 }
 

@@ -13,8 +13,10 @@ public:
     explicit Connector(QObject *parent = 0);
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
-	QString buildSignature(QString request);
+    QByteArray buildSignature(QString request);
 	QString hmacSha1(QByteArray key, QByteArray baseString);
+    QByteArray nonce();
+
 signals:
 
 public slots:
