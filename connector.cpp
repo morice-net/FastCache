@@ -19,9 +19,9 @@ void Connector::onConnect()
     QString callback = "x-locus://oauth.callback/callback/geocaching";
     addGetParam("oauth_callback", callback);
     addGetParam("oauth_consumer_key", m_consumerKey);
+    QString oauthTimestamp = QString::number(QDateTime::currentDateTimeUtc().toTime_t()).toLatin1();
     addGetParam("oauth_nonce", nonce());
-    QString oauthTimestamap = QString::number(QDateTime::currentDateTimeUtc().toTime_t());
-    addGetParam("oauth_timestamp", oauthTimestamap);
+    addGetParam("oauth_timestamp", oauthTimestamp);
     addGetParam("oauth_version", "1.0");
     addGetParam("oauth_signature_method", "HMAC-SHA1");
 
@@ -40,6 +40,7 @@ void Connector::replyFinished(QNetworkReply *reply)
 {
     if (reply->error() == QNetworkReply::NoError) {
         QString returns = QUrl::fromPercentEncoding(reply->readAll());
+        qDebug() << "Reply finished:" << returns;
         QStringList params = returns.split("&");
         foreach (QString param, params) {
             QStringList splitedParam = param.split("=");
