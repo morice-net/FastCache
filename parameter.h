@@ -18,6 +18,10 @@ public:
     bool encoded() const;
     void setEncoded(bool encoded);
 
+    bool operator <(const Parameter &other) const {
+        return (m_name == other.name())? (m_value < other.value()): (m_name < other.name());
+    }
+
 private:
     QString m_name;
     QString m_value;

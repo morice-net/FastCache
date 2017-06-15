@@ -17,3 +17,5 @@ include(deployment.pri)
 HEADERS += \
     connector.h \
     parameter.h
+
+DISTFILES +=

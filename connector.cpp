@@ -27,6 +27,7 @@ void Connector::onConnect()
 
     m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();
 
+    qSort(m_parameters);
     QString oauthSignature = buildSignature(m_requestString);
     addGetParam("oauth_signature", oauthSignature);
 
