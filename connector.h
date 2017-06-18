@@ -11,15 +11,16 @@ class Connector : public QObject
     Q_OBJECT
 public:
     explicit Connector(QObject *parent = 0);
+    Q_INVOKABLE void connect();
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
     QByteArray buildSignature(const QString &request);
     QByteArray nonce();
 
 signals:
+    void logOn(const QString& url);
 
 public slots:
-	void onConnect();
 	void replyFinished(QNetworkReply* reply);
 
 private:

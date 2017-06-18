@@ -8,11 +8,11 @@ Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("CF2B186B
 {
 }
 
-void Connector::onConnect()
+void Connector::connect()
 {
     qDebug() << "Component connect.";
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
+    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
 
     // Building request
@@ -28,7 +28,7 @@ void Connector::onConnect()
 
     m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();
 
- //   qSort(m_parameters);
+    //   qSort(m_parameters);
     QString oauthSignature = buildSignature(m_requestString);
     addGetParam("oauth_signature", oauthSignature, true);
 
@@ -50,23 +50,18 @@ void Connector::replyFinished(QNetworkReply *reply)
                 QString paramName = splitedParam.at(0);
                 QString paramValue = param.right(param.size() - paramName.length() - 1);
                 if (paramName == "oauth_token") {
-                    Parameter *param = new Parameter();
-                    param->setName(paramName);
-                    param->setValue(paramValue);
-                    m_parameters << param;
-                    m_tokenKey = paramValue;
-                } else if (paramName == "oauth_token_secret") {
-                    Parameter *param = new Parameter();
-                    param->setName(paramName);
-                    param->setValue(paramValue);
-                    m_parameters << param;
-                    m_tokenSecret = paramValue;
+                    addGetParam(paramName, paramValue);
+                    QString webUrl("https://www.geocaching.com/oauth/mobileoauth.ashx?oauth_token=" + QUrl::toPercentEncoding(paramValue));
+                    qDebug() << "Calling for" << webUrl;
+                    emit logOn(webUrl);
+                }
+                if (paramName == "oauth_token_secret") {
+                    addGetParam(paramName, paramValue);
                 }
             } else {
                 qWarning() << "A param is malformed" << param;
             }
         }
-
     } else {
         qDebug() << "Connection in error:" << reply->errorString();
     }
@@ -87,9 +82,7 @@ void Connector::addGetParam(QString parameterName, QString parameterValue, bool 
 
 QString Connector::joinParams() {
     QStringList paramsEncoded;
-    qDebug() <<" ------ JOINED PARAMS -----";
     foreach (Parameter *param, m_parameters) {
-        qDebug() << "\t*" << param->name() << "=" << param->value();
         paramsEncoded << param->name() + "=" + param->value();
     }
     return paramsEncoded.join("&");

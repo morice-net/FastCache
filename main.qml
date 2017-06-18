@@ -7,6 +7,7 @@ import QtWebEngine 1.0
 
 import "QML/JavaScript/Palette.js" as Palette
 import "QML"
+import com.mycompany.connecting 1.0
 
 Item {
     id: main
@@ -34,20 +35,23 @@ Item {
 
     }
 
-    /*
+    MouseArea {
+        anchors.fill: parent
+        onClicked: connector.connect()
+    }
+
+    // Used for loggin
     WebEngineView {
+        id: webEngine
         url: ""
         anchors.fill: parent
+        visible: false
+
+        onUrlChanged: console.log(url)
     }
-    */
 
     LoadingPage {
         id: loadingPage
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: main.connect()
     }
 
     Component.onCompleted: {
@@ -56,5 +60,14 @@ Item {
 
     function onConnected() {
 
+    }
+
+    Connector{
+        id: connector
+        onLogOn: {
+            console.log("\n\n***\nDownloading... " + url);
+            webEngine.url = url;
+            webEngine.visible = true;
+        }
     }
 }
