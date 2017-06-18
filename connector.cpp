@@ -19,7 +19,7 @@ void Connector::onConnect()
     QString callback = "x-locus://oauth.callback/callback/geocaching";
     addGetParam("oauth_callback", callback, true);
     addGetParam("oauth_consumer_key", m_consumerKey);
-    QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch());
+    QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch()/1000);
     // QString::number(QDateTime::currentDateTimeUtc().toTime_t()).toLatin1();
     addGetParam("oauth_nonce", nonce());
     addGetParam("oauth_signature_method", "HMAC-SHA1");
@@ -28,7 +28,7 @@ void Connector::onConnect()
 
     m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();
 
-    qSort(m_parameters);
+ //   qSort(m_parameters);
     QString oauthSignature = buildSignature(m_requestString);
     addGetParam("oauth_signature", oauthSignature, true);
 
