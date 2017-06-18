@@ -14,7 +14,6 @@ public:
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
     QByteArray buildSignature(const QString &request);
-	QString hmacSha1(QByteArray key, QByteArray baseString);
     QByteArray nonce();
 
 signals:

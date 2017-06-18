@@ -17,19 +17,20 @@ void Connector::onConnect()
 
     // Building request
     QString callback = "x-locus://oauth.callback/callback/geocaching";
-    addGetParam("oauth_callback", callback);
+    addGetParam("oauth_callback", callback, true);
     addGetParam("oauth_consumer_key", m_consumerKey);
-    QString oauthTimestamp = QString::number(QDateTime::currentDateTimeUtc().toTime_t()).toLatin1();
+    QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch());
+    // QString::number(QDateTime::currentDateTimeUtc().toTime_t()).toLatin1();
     addGetParam("oauth_nonce", nonce());
+    addGetParam("oauth_signature_method", "HMAC-SHA1");
     addGetParam("oauth_timestamp", oauthTimestamp);
     addGetParam("oauth_version", "1.0");
-    addGetParam("oauth_signature_method", "HMAC-SHA1");
 
     m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();
 
     qSort(m_parameters);
     QString oauthSignature = buildSignature(m_requestString);
-    addGetParam("oauth_signature", oauthSignature);
+    addGetParam("oauth_signature", oauthSignature, true);
 
     QNetworkRequest request;
     qDebug() << "request string" << m_requestString;
@@ -86,13 +87,10 @@ void Connector::addGetParam(QString parameterName, QString parameterValue, bool 
 
 QString Connector::joinParams() {
     QStringList paramsEncoded;
+    qDebug() <<" ------ JOINED PARAMS -----";
     foreach (Parameter *param, m_parameters) {
         qDebug() << "\t*" << param->name() << "=" << param->value();
-        if (param->encoded()) {
-            paramsEncoded.append(param->name() + "=" + QUrl::toPercentEncoding(param->value()));
-        } else {
-            paramsEncoded.append(param->name() + "=" + param->value());
-        }
+        paramsEncoded << param->name() + "=" + param->value();
     }
     return paramsEncoded.join("&");
 }
@@ -105,46 +103,16 @@ QByteArray Connector::buildSignature(const QString& request)
     qDebug() << "joinedParams = " << joinedParams;
     QUrl url(request.left(position));
     QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
-    QString baseString = "GET&" + QUrl::toPercentEncoding(url.toString(QUrl::RemoveQuery)) + "&" + joinedParams;
-
+    QString baseString = "GET&" + QUrl::toPercentEncoding(url.toString(QUrl::RemoveQuery)) + "&" + QUrl::toPercentEncoding(joinedParams);
+    qDebug()<< "base string = " << baseString;
+    // GET&https%3A%2F%2Fwww.geocaching.com%2Foauth%2Fmobileoauth.ashx&oauth_callback%3Dx-locus%253A%252F%252Foauth.callback%252Fcallback%252Fgeocaching%26oauth_consumer_key%3DCF2B186B-0DD2-4E45-93B1-FAD7DF5593D4%26oauth_nonce%3D3a5738e3e162c90cfab29567cfdb24b0%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1497791384%26oauth_version%3D1.0
     return QMessageAuthenticationCode::hash(baseString.toUtf8(), keysPacked.toUtf8(), QCryptographicHash::Sha1).toBase64();
-}
-
-QString Connector::hmacSha1(QByteArray key, QByteArray baseString)
-{
-    int blockSize = 64; // HMAC-SHA-1 block size, defined in SHA-1 standard
-    if (key.length() > blockSize) { // if key is longer than block size (64), reduce key length with SHA-1 compression
-        key = QCryptographicHash::hash(key, QCryptographicHash::Sha1);
-    }
-
-    QByteArray innerPadding(blockSize, char(0x36)); // initialize inner padding with char "6"
-    QByteArray outerPadding(blockSize, char(0x5c)); // initialize outer padding with char "quot;
-    // ascii characters 0x36 ("6") and 0x5c ("quot;) are selected because they have large
-    // Hamming distance (http://en.wikipedia.org/wiki/Hamming_distance)
-
-    for (int i = 0; i < key.length(); i++) {
-        innerPadding[i] = innerPadding[i] ^ key.at(i); // XOR operation between every byte in key and innerpadding, of key length
-        outerPadding[i] = outerPadding[i] ^ key.at(i); // XOR operation between every byte in key and outerpadding, of key length
-    }
-
-    // result = hash ( outerPadding CONCAT hash ( innerPadding CONCAT baseString ) ).toBase64
-    QByteArray total = outerPadding;
-    QByteArray part = innerPadding;
-    part.append(baseString);
-    total.append(QCryptographicHash::hash(part, QCryptographicHash::Sha1));
-    QByteArray hashed = QCryptographicHash::hash(total, QCryptographicHash::Sha1);
-    return hashed.toBase64();
 }
 
 QByteArray Connector::nonce()
 {
-    static bool firstTime = true;
-    if (firstTime) {
-        firstTime = false;
-        qsrand(QTime::currentTime().msec());
-    }
-    QString u = QString::number(QDateTime::currentDateTimeUtc().toTime_t());
-    u.append(QString::number(qrand()));
-    return u.toLatin1();
+    QString u = QString::number(QDateTime::currentMSecsSinceEpoch());
+    return QCryptographicHash::hash(u.toLatin1(), QCryptographicHash::Md5).toHex();
+
 }
 
