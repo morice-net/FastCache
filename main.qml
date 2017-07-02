@@ -2,7 +2,7 @@ import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtPositioning 5.3
-import QtWebEngine 1.0
+import QtWebView 1.1
 
 
 import "QML/JavaScript/Palette.js" as Palette
@@ -41,13 +41,14 @@ Item {
     }
 
     // Used for loggin
-    WebEngineView {
+    WebView {
         id: webEngine
         url: ""
         anchors.fill: parent
         visible: false
 
-        onUrlChanged: console.log(url)
+        onTitleChanged: console.log("title " + title)
+        
     }
 
     LoadingPage {
