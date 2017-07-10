@@ -6,14 +6,19 @@
 
 Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("CF2B186B-0DD2-4E45-93B1-FAD7DF5593D4"), m_consumerSecret("7D0E212A-ADF8-4798-906E-9E6099B68E79")
 {
+    m_networkManager = new QNetworkAccessManager(this);
+    QObject::connect(m_networkManager, SIGNAL(finished(QNetworkReply*)),
+                     this, SLOT(replyFinished(QNetworkReply*)));
+}
+
+Connector::~Connector()
+{
+    delete m_networkManager;
 }
 
 void Connector::connect()
 {
     qDebug() << "Component connect.";
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    QObject::connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyFinished(QNetworkReply*)));
 
     // Building request
     QString callback = "x-locus://oauth.callback/callback/geocaching";
@@ -35,7 +40,7 @@ void Connector::connect()
     QNetworkRequest request;
     qDebug() << "request string" << m_requestString;
     request.setUrl(QUrl(m_requestString));
-    manager->get(request);
+    m_networkManager->get(request);
 }
 
 void Connector::replyFinished(QNetworkReply *reply)
@@ -56,6 +61,7 @@ void Connector::replyFinished(QNetworkReply *reply)
                     emit logOn(webUrl);
                 }
                 if (paramName == "oauth_token_secret") {
+                    m_tokenSecret = paramValue;
                     addGetParam(paramName, paramValue);
                 }
             } else {
@@ -109,3 +115,18 @@ QByteArray Connector::nonce()
 
 }
 
+void Connector::oauthVerifierAndToken(QString url)
+{
+    //x-locus://oauth.callback/callback/geocaching?oauth_verifier=WfVRP2w%3D&oauth_token=IuIZaYAmmd2enILSuS%2F%2BiTd55Rk%3D
+    QStringList parameters(url.split("geocaching?").last().split("&"));
+
+        // oauth_token=ViNluyhuEqpDhgnfuakQyVhscaI%3D&oauth_token_secret=%2FSJIovcLALnCVuXr1uTs7XTphgE%3D
+    QNetworkRequest requestUrl;
+    requestUrl.setUrl(QUrl("https://www.geocaching.com/oauth/mobileoauth.ashx"));
+    QByteArray postData;
+    postData.append(parameters.last() + "&");
+    postData.append("oauth_token_secret=" + QUrl::toPercentEncoding(m_tokenSecret));
+    qDebug() << "POST DATA =====>>>>>> " << postData;
+    m_networkManager->post(requestUrl,postData);
+
+}

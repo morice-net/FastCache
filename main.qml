@@ -47,8 +47,13 @@ Item {
         anchors.fill: parent
         visible: false
 
-        onTitleChanged: console.log("title " + title)
-        
+        onLoadingChanged: {
+            if (loadRequest.errorString == "net::ERR_UNKNOWN_URL_SCHEME") {
+                console.log("error: " + loadRequest.errorString + " url: " + loadRequest.url)
+                connector.oauthVerifierAndToken(loadRequest.url)
+                webEngine.visible = false
+            }
+        }
     }
 
     LoadingPage {
