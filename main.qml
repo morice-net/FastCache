@@ -48,7 +48,8 @@ Item {
         visible: false
 
         onLoadingChanged: {
-            if (loadRequest.errorString == "net::ERR_UNKNOWN_URL_SCHEME") {
+            console.log("***   error: " + loadRequest.errorString + " url: " + loadRequest.url)
+            if (connector.beginsWith(loadRequest.url, "http://oauth.callback/") ) {
                 console.log("error: " + loadRequest.errorString + " url: " + loadRequest.url)
                 connector.oauthVerifierAndToken(loadRequest.url)
                 webEngine.visible = false

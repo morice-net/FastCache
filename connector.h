@@ -15,6 +15,7 @@ public:
 
     Q_INVOKABLE void connect();
     Q_INVOKABLE void oauthVerifierAndToken(QString url);
+    Q_INVOKABLE bool beginsWith(QString obj, QString value);
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
     QByteArray buildSignature(const QString &request);

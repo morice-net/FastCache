@@ -21,7 +21,7 @@ void Connector::connect()
     qDebug() << "Component connect.";
 
     // Building request
-    QString callback = "x-locus://oauth.callback/callback/geocaching";
+    QString callback = "http://oauth.callback/callback/geocaching";
     addGetParam("oauth_callback", callback, true);
     addGetParam("oauth_consumer_key", m_consumerKey);
     QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch()/1000);
@@ -129,4 +129,9 @@ void Connector::oauthVerifierAndToken(QString url)
     qDebug() << "POST DATA =====>>>>>> " << postData;
     m_networkManager->post(requestUrl,postData);
 
+}
+
+bool Connector::beginsWith(QString obj, QString value)
+{
+    return obj.contains(value);
 }
