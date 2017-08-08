@@ -55,6 +55,7 @@ void Connector::replyFinished(QNetworkReply *reply)
                 QString paramName = splitedParam.at(0);
                 QString paramValue = param.right(param.size() - paramName.length() - 1);
                 if (paramName == "oauth_token") {
+                    m_tokenKey = paramValue;
                     addGetParam(paramName, paramValue);
                     QString webUrl("https://www.geocaching.com/oauth/mobileoauth.ashx?oauth_token=" + QUrl::toPercentEncoding(paramValue));
                     qDebug() << "Calling for" << webUrl;
@@ -118,17 +119,25 @@ QByteArray Connector::nonce()
 void Connector::oauthVerifierAndToken(QString url)
 {
     //x-locus://oauth.callback/callback/geocaching?oauth_verifier=WfVRP2w%3D&oauth_token=IuIZaYAmmd2enILSuS%2F%2BiTd55Rk%3D
-    QStringList parameters(url.split("geocaching?").last().split("&"));
+    QStringList parameters(url.split("oauth_verifier=").last().split("&"));
 
         // oauth_token=ViNluyhuEqpDhgnfuakQyVhscaI%3D&oauth_token_secret=%2FSJIovcLALnCVuXr1uTs7XTphgE%3D
     QNetworkRequest requestUrl;
     requestUrl.setUrl(QUrl("https://www.geocaching.com/oauth/mobileoauth.ashx"));
     QByteArray postData;
-    postData.append(parameters.last() + "&");
-    postData.append("oauth_token_secret=" + QUrl::toPercentEncoding(m_tokenSecret));
+    postData.append("oauth_consumer_key=" + QUrl::toPercentEncoding(m_consumerKey)+"&");
+    postData.append("oauth_nonce=" +nonce()+"&");
+    postData.append("oauth_signature_method=" +QUrl::toPercentEncoding( "HMAC-SHA1") + "&");
+    QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch()/1000);
+    postData.append("oauth_timestamp=" +QUrl::toPercentEncoding( oauthTimestamp) + "&");
+    postData.append("oauth_token=" +QUrl::toPercentEncoding(m_tokenKey)+ "&");
+    postData.append("oauth_verifier=" +QUrl::toPercentEncoding( parameters.at(0))+ "&");
+    postData.append("oauth_version=" +QUrl::toPercentEncoding( "1.0") + "&");
+    postData.append("oauth_signature=" + QUrl::toPercentEncoding(""));
     qDebug() << "POST DATA =====>>>>>> " << postData;
-    m_networkManager->post(requestUrl,postData);
 
+    requestUrl.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    m_networkManager->post(requestUrl,postData);
 }
 
 bool Connector::beginsWith(QString obj, QString value)
