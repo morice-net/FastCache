@@ -4,7 +4,8 @@ QT += qml quick location webengine
 
 SOURCES += main.cpp \
     connector.cpp \
-    parameter.cpp
+    parameter.cpp \
+    tools.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,7 +17,8 @@ include(deployment.pri)
 
 HEADERS += \
     connector.h \
-    parameter.h
+    parameter.h \
+    tools.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

@@ -3,10 +3,12 @@
 #include <QQuickView>
 #include <QQuickItem>
 #include "connector.h"
+#include "tools.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
+    qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
 
     QGuiApplication app(argc, argv);
     QtWebEngine::initialize();

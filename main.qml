@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
 import QtPositioning 5.3
 import QtWebView 1.1
+import Qt.labs.settings 1.0
 
 
 import "QML/JavaScript/Palette.js" as Palette
@@ -15,10 +16,6 @@ Item {
     anchors.fill: parent
 
     signal connect
-
-    FastSettings {
-        id: settings
-    }
 
     PositionSource {
         id: currentPosition
@@ -35,11 +32,6 @@ Item {
 
     }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: connector.connect()
-    }
-
     // Used for loggin
     WebView {
         id: webEngine
@@ -48,9 +40,7 @@ Item {
         visible: false
 
         onLoadingChanged: {
-            console.log("***   error: " + loadRequest.errorString + " url: " + loadRequest.url)
-            if (connector.beginsWith(loadRequest.url, "http://oauth.callback/") ) {
-                console.log("error: " + loadRequest.errorString + " url: " + loadRequest.url)
+            if (tools.beginsWith(loadRequest.url, "http://oauth.callback/") ) {
                 connector.oauthVerifierAndToken(loadRequest.url)
                 webEngine.visible = false
             }
@@ -61,12 +51,13 @@ Item {
         id: loadingPage
     }
 
-    Component.onCompleted: {
-        loadingPage.opacity = 0;
-    }
 
     function onConnected() {
 
+    }
+
+    Tools {
+        id: tools
     }
 
     Connector{
@@ -76,5 +67,27 @@ Item {
             webEngine.url = url;
             webEngine.visible = true;
         }
+    }
+
+    Settings {
+        id: settings
+        category: "ConnectorKeys"
+        property alias consumerKey: connector.consumerKey
+        property alias consumerSecret: connector.consumerSecret
+        property alias tokenKey: connector.tokenKey
+        property alias tokenSecret: connector.tokenSecret
+    }
+
+    Component.onCompleted: {
+
+        // token key not set means connection to GC needed
+        if (connector.tokenKey != "") {
+            console.log("FastSettings: tokenKey=" + connector.tokenKey)
+        } else {
+            connector.connect()
+        }
+
+        // Mask the loading page
+        loadingPage.opacity = 0;
     }
 }

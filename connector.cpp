@@ -71,6 +71,50 @@ void Connector::replyFinished(QNetworkReply *reply)
     }
 }
 
+QString Connector::tokenSecret() const
+{
+    return m_tokenSecret;
+}
+
+void Connector::setTokenSecret(const QString &tokenSecret)
+{
+    m_tokenSecret = tokenSecret;
+    emit tokenSecretChanged();
+}
+
+QString Connector::tokenKey() const
+{
+    return m_tokenKey;
+}
+
+void Connector::setTokenKey(const QString &tokenKey)
+{
+    m_tokenKey = tokenKey;
+    emit tokenKeyChanged();
+}
+
+QString Connector::consumerSecret() const
+{
+    return m_consumerSecret;
+}
+
+void Connector::setConsumerSecret(const QString &consumerSecret)
+{
+    m_consumerSecret = consumerSecret;
+    emit consumerSecretChanged();
+}
+
+QString Connector::consumerKey() const
+{
+    return m_consumerKey;
+}
+
+void Connector::setConsumerKey(const QString &consumerKey)
+{
+    m_consumerKey = consumerKey;
+    emit consumerKeyChanged();
+}
+
 void Connector::addGetParam(QString parameterName, QString parameterValue, bool encoding)
 {
     if (!m_requestString.endsWith("?")) {
@@ -144,9 +188,4 @@ void Connector::oauthVerifierAndToken(QString url)
     qDebug() << "POST DATA =====>>>>>> " << postData;
     requestUrl.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     m_networkManager->post(requestUrl,postData);
-}
-
-bool Connector::beginsWith(QString obj, QString value)
-{
-    return obj.contains(value);
 }
