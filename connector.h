@@ -19,6 +19,7 @@ public:
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
     QByteArray buildSignature(const QString &request);
+    QByteArray buildPostSignature(const QUrl &postRequest, const QByteArray &postJoinedParameters);
     QByteArray nonce();
 
 signals:

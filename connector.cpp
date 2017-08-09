@@ -109,6 +109,18 @@ QByteArray Connector::buildSignature(const QString& request)
     return QMessageAuthenticationCode::hash(baseString.toUtf8(), keysPacked.toUtf8(), QCryptographicHash::Sha1).toBase64();
 }
 
+QByteArray Connector::buildPostSignature(const QUrl &postRequest, const QByteArray &postJoinedParameters)
+{
+    QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
+    QString baseString = "POST&" + QUrl::toPercentEncoding(postRequest.toString(QUrl::RemoveQuery)) + "&" + QUrl::toPercentEncoding(QString(postJoinedParameters));
+
+    // Log for debug
+    qDebug() << "keysPacked = " << keysPacked;
+    qDebug()<< "base string = " << baseString;
+
+    return QMessageAuthenticationCode::hash(baseString.toUtf8(), keysPacked.toUtf8(), QCryptographicHash::Sha1).toBase64();
+}
+
 QByteArray Connector::nonce()
 {
     QString u = QString::number(QDateTime::currentMSecsSinceEpoch());
@@ -131,9 +143,9 @@ void Connector::oauthVerifierAndToken(QString url)
     QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch()/1000);
     postData.append("oauth_timestamp=" +QUrl::toPercentEncoding( oauthTimestamp) + "&");
     postData.append("oauth_token=" +QUrl::toPercentEncoding(m_tokenKey)+ "&");
-    postData.append("oauth_verifier=" +QUrl::toPercentEncoding( parameters.at(0))+ "&");
+    postData.append("oauth_verifier=" +/*QUrl::toPercentEncoding(*/ parameters.at(0)/*)*/+ "&");
     postData.append("oauth_version=" +QUrl::toPercentEncoding( "1.0") + "&");
-    postData.append("oauth_signature=" + QUrl::toPercentEncoding(""));
+    postData.append("oauth_signature=" + QUrl::toPercentEncoding(buildPostSignature(requestUrl.url(), postData)));
     qDebug() << "POST DATA =====>>>>>> " << postData;
 
     requestUrl.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
