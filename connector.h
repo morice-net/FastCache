@@ -47,15 +47,20 @@ public slots:
     void replyFinished(QNetworkReply* reply);
 
 private:
+    /// The network manager
     QNetworkAccessManager *m_networkManager;
 
-    QString m_requestString;
+    /// The keys properties
     QString m_consumerKey;
     QString m_consumerSecret;
     QString m_tokenKey;
     QString m_tokenSecret;
+
+    /// Privates members
+    QString m_requestString;
     QList<Parameter*> m_parameters;
     QList<Parameter*> m_postParameters;
+    bool m_postRequest;
 
     /// Privates methods
     QString joinParams();

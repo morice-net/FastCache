@@ -17,25 +17,23 @@ Connector::~Connector()
 
 void Connector::connect()
 {
-    qDebug() << "Component connect.";
-
-    // Building getRequest
+    // Building parameters of the request
     QString callback = "http://oauth.callback/callback/geocaching";
     addGetParam("oauth_callback", callback, true);
     addGetParam("oauth_consumer_key", m_consumerKey);
     QString oauthTimestamp = QString::number(QDateTime::currentMSecsSinceEpoch()/1000);
-    // QString::number(QDateTime::currentDateTimeUtc().toTime_t()).toLatin1();
     addGetParam("oauth_nonce", nonce());
     addGetParam("oauth_signature_method", "HMAC-SHA1");
     addGetParam("oauth_timestamp", oauthTimestamp);
     addGetParam("oauth_version", "1.0");
 
-    m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();    
+    m_requestString = "https://www.geocaching.com/oauth/mobileoauth.ashx?" + joinParams();
     QString oauthSignature = buildGetSignature(m_requestString);
     addGetParam("oauth_signature", oauthSignature, true);
 
+    // Building getRequest
     QNetworkRequest request;
-    qDebug() << "request string" << m_requestString;
+    qDebug() << "GET Request string" << m_requestString;
     request.setUrl(QUrl(m_requestString));
     m_networkManager->get(request);
 }
@@ -45,6 +43,8 @@ void Connector::replyFinished(QNetworkReply *reply)
     if (reply->error() == QNetworkReply::NoError) {
         QString returns = QUrl::fromPercentEncoding(reply->readAll());
         qDebug() << "Reply finished:" << returns;
+
+        // Retrieving parameters in an old fashionned way... could be improved
         QStringList params = returns.split("&");
         foreach (QString param, params) {
             QStringList splitedParam = param.split("=");
@@ -52,10 +52,18 @@ void Connector::replyFinished(QNetworkReply *reply)
                 QString paramName = splitedParam.at(0);
                 QString paramValue = param.right(param.size() - paramName.length() - 1);
                 if (paramName == "oauth_token") {
+                    // Update the token according to the response
                     m_tokenKey = paramValue;
                     addGetParam(paramName, paramValue);
+                    // Post request is the end of the treatment, nothing more to do
+                    if (m_postRequest) {
+                        m_postRequest = false;
+                        return;
+                    }
+                    // Get end case, the next step Log on the GC page
                     QString webUrl("https://www.geocaching.com/oauth/mobileoauth.ashx?oauth_token=" + QUrl::toPercentEncoding(paramValue));
                     qDebug() << "Calling for" << webUrl;
+
                     emit logOn(webUrl);
                 }
                 if (paramName == "oauth_token_secret") {
@@ -139,14 +147,14 @@ QString Connector::joinParams() {
 QByteArray Connector::buildGetSignature(const QString& request)
 {
     int position = request.indexOf("?");
-
     QString joinedParams = joinParams();
     qDebug() << "joinedParams = " << joinedParams;
+
     QUrl url(request.left(position));
     QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
     QString baseString = "GET&" + QUrl::toPercentEncoding(url.toString(QUrl::RemoveQuery)) + "&" + QUrl::toPercentEncoding(joinedParams);
     qDebug()<< "base string = " << baseString;
-    // GET&https%3A%2F%2Fwww.geocaching.com%2Foauth%2Fmobileoauth.ashx&oauth_callback%3Dx-locus%253A%252F%252Foauth.callback%252Fcallback%252Fgeocaching%26oauth_consumer_key%3DCF2B186B-0DD2-4E45-93B1-FAD7DF5593D4%26oauth_nonce%3D3a5738e3e162c90cfab29567cfdb24b0%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1497791384%26oauth_version%3D1.0
+
     return QMessageAuthenticationCode::hash(baseString.toUtf8(), keysPacked.toUtf8(), QCryptographicHash::Sha1).toBase64();
 }
 
@@ -154,6 +162,7 @@ QByteArray Connector::buildPostSignature(const QUrl &postRequest, const QByteArr
 {
     QString keysPacked = QUrl::toPercentEncoding(m_consumerSecret) + "&" + QUrl::toPercentEncoding(m_tokenSecret);
     QString baseString = "POST&" + QUrl::toPercentEncoding(postRequest.toString(QUrl::RemoveQuery)) + "&" + QUrl::toPercentEncoding(QString(postJoinedParameters));
+
     // Log for debug
     qDebug() << "keysPacked = " << keysPacked;
     qDebug()<< "base string = " << baseString;
@@ -165,16 +174,17 @@ QByteArray Connector::nonce()
 {
     QString u = QString::number(QDateTime::currentMSecsSinceEpoch());
     return QCryptographicHash::hash(u.toLatin1(), QCryptographicHash::Md5).toHex();
-
 }
 
 void Connector::oauthVerifierAndToken(QString url)
-{    
-
+{
     // Building postRequest
     QStringList parameters(url.split("oauth_verifier=").last().split("&"));
     QNetworkRequest requestUrl;
     requestUrl.setUrl(QUrl("https://www.geocaching.com/oauth/mobileoauth.ashx"));
+    requestUrl.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    // Adding parameters to the request
     QByteArray postData;
     postData.append("oauth_consumer_key=" + QUrl::toPercentEncoding(m_consumerKey)+"&");
     postData.append("oauth_nonce=" +nonce()+"&");
@@ -186,6 +196,8 @@ void Connector::oauthVerifierAndToken(QString url)
     postData.append("oauth_version=" +QUrl::toPercentEncoding( "1.0"));
     postData.append( "&oauth_signature=" + QUrl::toPercentEncoding(buildPostSignature(requestUrl.url(), postData)));
     qDebug() << "POST DATA =====>>>>>> " << postData;
-    requestUrl.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    // Sending post request
+    m_postRequest = true;
     m_networkManager->post(requestUrl,postData);
 }
