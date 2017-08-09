@@ -72,13 +72,19 @@ Item {
     Settings {
         id: settings
         category: "ConnectorKeys"
-        property alias consumerKey: connector.consumerKey
-        property alias consumerSecret: connector.consumerSecret
-        property alias tokenKey: connector.tokenKey
-        property alias tokenSecret: connector.tokenSecret
+        property string consumerKey: ""
+        property string consumerSecret: ""
+        property string tokenKey: ""
+        property string tokenSecret: ""
     }
 
     Component.onCompleted: {
+
+        // retrieve settings (todo: remove and put alias in settings instead)
+        connector.consumerKey = settings.consumerKey
+        connector.consumerSecret = settings.consumerSecret
+        connector.tokenKey = settings.tokenKey
+        connector.tokenSecret = settings.tokenSecret
 
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {
@@ -89,5 +95,12 @@ Item {
 
         // Mask the loading page
         loadingPage.opacity = 0;
+    }
+
+    Component.onDestruction: {
+        settings.consumerKey = connector.consumerKey
+        settings.consumerSecret = connector.consumerSecret
+        settings.tokenKey = connector.tokenKey
+        settings.tokenSecret = connector.tokenSecret
     }
 }

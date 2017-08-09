@@ -5,7 +5,6 @@
         <file>QML/JavaScript/Palette.js</file>
         <file>Image/cache.png</file>
         <file>Image/location.png</file>
-        <file>QML/FastSettings.qml</file>
         <file>QML/FastMap.qml</file>
         <file>QML/LoginPage.qml</file>
         <file>QML/TextField.qml</file>
