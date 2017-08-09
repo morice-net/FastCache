@@ -18,7 +18,7 @@ public:
     Q_INVOKABLE bool beginsWith(QString obj, QString value);
 
 	void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
-    QByteArray buildSignature(const QString &request);
+    QByteArray buildGetSignature(const QString &request);
     QByteArray buildPostSignature(const QUrl &postRequest, const QByteArray &postJoinedParameters);
     QByteArray nonce();
 
