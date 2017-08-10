@@ -72,8 +72,8 @@ Item {
     Settings {
         id: settings
         category: "ConnectorKeys"
-        property string consumerKey: ""
-        property string consumerSecret: ""
+        property string consumerKey: "CF2B186B-0DD2-4E45-93B1-FAD7DF5593D4"
+        property string consumerSecret: "7D0E212A-ADF8-4798-906E-9E6099B68E79"
         property string tokenKey: ""
         property string tokenSecret: ""
     }
