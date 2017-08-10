@@ -6,6 +6,8 @@ Rectangle {
     id: background
     anchors.fill: parent
     color: Palette.backgroundGrey()
+    opacity: 1
+
     Text {
         id: title
         text: "Fast cache"

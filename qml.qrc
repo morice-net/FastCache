@@ -6,7 +6,9 @@
         <file>Image/cache.png</file>
         <file>Image/location.png</file>
         <file>QML/FastMap.qml</file>
-        <file>QML/LoginPage.qml</file>
         <file>QML/TextField.qml</file>
+        <file>FastSettings.qml</file>
+        <file>FastMenuHeader.qml</file>
+        <file>Image/menuIcon.png</file>
     </qresource>
 </RCC>

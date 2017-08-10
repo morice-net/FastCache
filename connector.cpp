@@ -3,7 +3,7 @@
 #include <QNetworkAccessManager>
 #include <QMessageAuthenticationCode>
 
-Connector::Connector(QObject *parent) : QObject(parent)
+Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("CF2B186B-0DD2-4E45-93B1-FAD7DF5593D4"), m_consumerSecret("7D0E212A-ADF8-4798-906E-9E6099B68E79"), m_postRequest(false)
 {
     m_networkManager = new QNetworkAccessManager(this);
     QObject::connect(m_networkManager, SIGNAL(finished(QNetworkReply*)),

@@ -15,8 +15,6 @@ Item {
     visible: true
     anchors.fill: parent
 
-    signal connect
-
     PositionSource {
         id: currentPosition
         updateInterval: 1000
@@ -29,7 +27,8 @@ Item {
     }
 
     FastMap {
-
+        id: fastMap
+        anchors.top: fastMenuHeader.bottom
     }
 
     // Used for loggin
@@ -47,18 +46,17 @@ Item {
         }
     }
 
-    LoadingPage {
-        id: loadingPage
+    FastMenuHeader {
+        id: fastMenuHeader
     }
 
+    LoadingPage { id: loadingPage }
 
-    function onConnected() {
+    /////////////////////////
+    // Invisible elements  //
+    /////////////////////////
 
-    }
-
-    Tools {
-        id: tools
-    }
+    Tools { id: tools }
 
     Connector{
         id: connector
@@ -69,20 +67,11 @@ Item {
         }
     }
 
-    Settings {
-        id: settings
-        category: "ConnectorKeys"
-        property string consumerKey: "CF2B186B-0DD2-4E45-93B1-FAD7DF5593D4"
-        property string consumerSecret: "7D0E212A-ADF8-4798-906E-9E6099B68E79"
-        property string tokenKey: ""
-        property string tokenSecret: ""
-    }
+    FastSettings { id: settings }
 
     Component.onCompleted: {
 
         // retrieve settings (todo: remove and put alias in settings instead)
-        connector.consumerKey = settings.consumerKey
-        connector.consumerSecret = settings.consumerSecret
         connector.tokenKey = settings.tokenKey
         connector.tokenSecret = settings.tokenSecret
 
@@ -98,8 +87,6 @@ Item {
     }
 
     Component.onDestruction: {
-        settings.consumerKey = connector.consumerKey
-        settings.consumerSecret = connector.consumerSecret
         settings.tokenKey = connector.tokenKey
         settings.tokenSecret = connector.tokenSecret
     }

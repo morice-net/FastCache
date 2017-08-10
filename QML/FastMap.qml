@@ -6,7 +6,8 @@ import "JavaScript/Palette.js" as Palette
 
 Rectangle {
     id: fastMap
-    anchors.fill: parent
+    width: parent.width
+    height: parent.height
 
     Plugin {
         id: osm
