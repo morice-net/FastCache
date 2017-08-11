@@ -67,6 +67,8 @@ Item {
         }
     }
 
+    Requestor { id: requestor }
+
     FastSettings { id: settings }
 
     Component.onCompleted: {
@@ -78,6 +80,7 @@ Item {
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
+            requestor.retrieveAccountInfo()
         } else {
             connector.connect()
         }

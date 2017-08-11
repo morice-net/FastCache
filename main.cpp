@@ -4,11 +4,13 @@
 #include <QQuickItem>
 #include "connector.h"
 #include "tools.h"
+#include "requestor.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
     qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
+    qmlRegisterType<Requestor>("com.mycompany.connecting", 1, 0, "Requestor");
 
     QGuiApplication app(argc, argv);
     QtWebEngine::initialize();
