@@ -10,5 +10,6 @@
         <file>Image/menuIcon.png</file>
         <file>QML/FastMenuHeader.qml</file>
         <file>QML/FastSettings.qml</file>
+        <file>QML/FastMenu.qml</file>
     </qresource>
 </RCC>

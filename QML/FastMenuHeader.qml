@@ -1,13 +1,8 @@
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
-import QtPositioning 5.3
-import QtWebView 1.1
-import Qt.labs.settings 1.0
-
 
 import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
 
 Rectangle {
     id: fastMenuHeader
@@ -21,6 +16,11 @@ Rectangle {
         x: y
         height: parent.height*0.8
         width: height
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: fastMenu.showMenu()
+        }
 
     }
 }

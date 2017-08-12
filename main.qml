@@ -31,6 +31,10 @@ Item {
         anchors.top: fastMenuHeader.bottom
     }
 
+    FastMenuHeader { id: fastMenuHeader }
+
+    FastMenu { id: fastMenu }
+
     // Used for loggin
     WebView {
         id: webEngine
@@ -44,10 +48,6 @@ Item {
                 webEngine.visible = false
             }
         }
-    }
-
-    FastMenuHeader {
-        id: fastMenuHeader
     }
 
     LoadingPage { id: loadingPage }
