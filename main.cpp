@@ -1,5 +1,7 @@
 #include <QGuiApplication>
-#include <QtWebEngine/qtwebengineglobal.h>
+#if !defined Q_OS_ANDROID
+    #include <QtWebEngine/qtwebengineglobal.h>
+#endif
 #include <QQuickView>
 #include <QQuickItem>
 #include "connector.h"
@@ -13,7 +15,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<Requestor>("com.mycompany.connecting", 1, 0, "Requestor");
 
     QGuiApplication app(argc, argv);
+#if !defined Q_OS_ANDROID
     QtWebEngine::initialize();
+#endif
 
     QQuickView view(QUrl(QStringLiteral("qrc:/main.qml")));
 

@@ -1,6 +1,11 @@
 TEMPLATE = app
 
-QT += qml quick location webengine
+QT += qml quick location
+
+linux:!android {
+    QT += webengine
+
+}
 
 SOURCES += main.cpp \
     connector.cpp \
