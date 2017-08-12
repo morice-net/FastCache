@@ -6,8 +6,7 @@ import QtWebView 1.1
 import Qt.labs.settings 1.0
 
 
-import "QML/JavaScript/Palette.js" as Palette
-import "QML"
+import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 Rectangle {

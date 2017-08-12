@@ -7,8 +7,8 @@
         <file>Image/location.png</file>
         <file>QML/FastMap.qml</file>
         <file>QML/TextField.qml</file>
-        <file>FastSettings.qml</file>
-        <file>FastMenuHeader.qml</file>
         <file>Image/menuIcon.png</file>
+        <file>QML/FastMenuHeader.qml</file>
+        <file>QML/FastSettings.qml</file>
     </qresource>
 </RCC>
