@@ -10,7 +10,7 @@ class Requestor : public QObject
 public:
     explicit Requestor(QObject *parent = 0);
 
-     Q_INVOKABLE void retrieveAccountInfo();
+     Q_INVOKABLE void retrieveAccountInfo(QString token);
 
 signals:
 
