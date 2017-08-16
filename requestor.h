@@ -16,6 +16,9 @@ signals:
 
 public slots:
     void onReplyFinished(QNetworkReply* reply);
+
+private:
+    QNetworkAccessManager *m_networkManager;
 };
 
 #endif // REQUESTOR_H
