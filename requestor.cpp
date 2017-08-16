@@ -28,6 +28,7 @@ void Requestor::retrieveAccountInfo(QString token)
     ProfileOptions.insert("PublicProfileData", QJsonValue(false));
     ProfileOptions.insert("SouvenirData", QJsonValue(false));
     ProfileOptions.insert("TrackableData", QJsonValue(false));
+
     parameters.insert("ProfileOptions", ProfileOptions);
 
     DeviceInfo.insert("ApplicationCurrentMemoryUsage", QJsonValue(0));
@@ -40,10 +41,12 @@ void Requestor::retrieveAccountInfo(QString token)
     DeviceInfo.insert("DeviceUniqueId", QJsonValue("Unknown"));
     DeviceInfo.insert("MobileHardwareVersion", QJsonValue("Unknown"));
     DeviceInfo.insert("WebBrowserVersion", QJsonValue("Unknown"));
+
     parameters.insert("DeviceInfo", DeviceInfo);
 
     QNetworkRequest request;
     request.setUrl(uri);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QNetworkReply *reply = m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
