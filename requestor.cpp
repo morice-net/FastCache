@@ -15,7 +15,7 @@ void Requestor::retrieveAccountInfo(QString token)
     QNetworkAccessManager networkManager;
         connect( &networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
 
-        QUrl uri("https://www.geocaching.com/GetYourUserProfile?format=json");
+        QUrl uri("https://staging.api.groundspeak.com/Live/V6Beta/geocaching.svc/GetYourUserProfile?format=json");
 
         QJsonObject parameters;
         QJsonObject ProfileOptions;
