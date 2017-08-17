@@ -14,7 +14,7 @@ Requestor::Requestor(QObject *parent) : QObject(parent)
 void Requestor::retrieveAccountInfo(QString token)
 {
 
-    QUrl uri("https://staging.api.groundspeak.com/Live/V6Beta/geocaching.svc/GetYourUserProfile?format=json");
+    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//GetYourUserProfile?format=json");
 
     QJsonObject parameters;
     QJsonObject ProfileOptions;
