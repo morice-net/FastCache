@@ -65,6 +65,7 @@ Item {
             webEngine.url = url;
             webEngine.visible = true;
         }
+        onLoginProcedureDone: requestor.retrieveAccountInfo(connector.tokenKey)
     }
 
     Requestor { id: requestor }

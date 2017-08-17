@@ -58,6 +58,7 @@ void Connector::replyFinished(QNetworkReply *reply)
                     // Post request is the end of the treatment, nothing more to do
                     if (m_postRequest) {
                         m_postRequest = false;
+                        emit loginProcedureDone();
                         return;
                     }
                     // Get end case, the next step Log on the GC page

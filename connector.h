@@ -37,6 +37,7 @@ public:
 
 signals:
     void logOn(const QString& url);
+    void loginProcedureDone();
 
     void consumerKeyChanged();
     void consumerSecretChanged();

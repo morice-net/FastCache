@@ -47,6 +47,7 @@ void Requestor::retrieveAccountInfo(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     QNetworkReply *reply = m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
