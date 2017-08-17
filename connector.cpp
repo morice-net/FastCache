@@ -58,6 +58,7 @@ void Connector::replyFinished(QNetworkReply *reply)
                     // Post request is the end of the treatment, nothing more to do
                     if (m_postRequest) {
                         m_postRequest = false;
+                        m_tokenKey = QUrl::toPercentEncoding(m_tokenKey);
                         emit loginProcedureDone();
                         return;
                     }
