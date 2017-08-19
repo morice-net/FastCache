@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     connector.cpp \
     parameter.cpp \
     tools.cpp \
-    requestor.cpp
+    requestor.cpp \
+    userinfo.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,7 +26,8 @@ HEADERS += \
     connector.h \
     parameter.h \
     tools.h \
-    requestor.h
+    requestor.h \
+    userinfo.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

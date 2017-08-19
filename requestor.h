@@ -1,6 +1,5 @@
 #ifndef REQUESTOR_H
 #define REQUESTOR_H
-
 #include <QObject>
 #include <QNetworkReply>
 

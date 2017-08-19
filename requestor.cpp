@@ -1,4 +1,5 @@
 #include "requestor.h"
+#include "userinfo.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -53,5 +54,41 @@ void Requestor::retrieveAccountInfo(QString token)
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
 {
-    qDebug() << "retrieveAccountInfo " << reply->readAll();
+
+    QJsonDocument dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+
+    if ( dataJsonDoc.isNull()) {
+
+        UserInfo *info= new UserInfo("", 0, "", false, UserInfo::UserInfoStatus::Erreur);
+        return;
+            }
+
+    QString name ;
+    qint64 finds ;
+    QString avatarUrl;
+    QString premium;
+
+    QJsonObject JsonObj= dataJsonDoc.object();
+    QJsonObject obj1 = JsonObj["Profile"].toObject();
+    QJsonObject obj2 = obj1["User"].toObject();
+    QJsonObject obj3 = obj2["MemberType"].toObject();
+
+    if (obj2.isEmpty()) {
+
+        UserInfo *info=  new UserInfo("", 0, "", false, UserInfo::UserInfoStatus::Erreur);
+        return   ;
+    }
+
+    name = obj2["UserName"].toString();
+    finds =obj2["FindCount"].toInt();
+    avatarUrl = obj2["AvatarUrl"].toString();
+    premium = obj3["MemberTypeName"].toString();
+
+    UserInfo *info= new UserInfo(name, finds, avatarUrl, premium, UserInfo::UserInfoStatus::Ok );
+    qDebug() << "name:"<< info->getName();
+    qDebug() << "finds:"<< info->getFinds();
+    qDebug() << "avatarUrl:"<<info->getAvatarUrl();
+    qDebug() << "premium:"<< info->getPremium();
+     qDebug() << "status:"<< info->getStatus();
+    return;
 }
