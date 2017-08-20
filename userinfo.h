@@ -8,28 +8,43 @@ class UserInfo : public QObject
     Q_OBJECT
     Q_ENUMS(UserInfoStatus)
 
-public:
-    enum UserInfoStatus { Connection, Ok, Erreur };   
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(int finds READ finds WRITE setFinds NOTIFY findsChanged)
 
-    explicit  UserInfo(QString name, qint64 finds, QString avatarUrl, QString premium , UserInfoStatus status, QObject *parent = 0);
+public:
+    enum UserInfoStatus {
+        Connection,
+        Ok,
+        Erreur
+    };
+
+    explicit  UserInfo(QString m_name, qint64 m_finds, QString m_avatarUrl, QString m_premium , UserInfoStatus status, QObject *parent = 0);
     ~UserInfo();
 
-    QString getName() const;
-    void  setName(QString &name);
-    qint64  getFinds()const;
-    void    setFinds( qint64 &finds);
-    QString getAvatarUrl()const ;
-    void    setAvatarUrl( QString &avatarUrl);
-    QString getPremium()const;
-    void    setPremium( QString &avatarUrl);
-    UserInfoStatus getStatus()const;
-    void    setStatus( UserInfo::UserInfoStatus &status);
+    QString name() const;
+    void  setName(QString &m_name);
+
+    int  finds()const;
+    void    setFinds(int &m_finds);
+
+    QString avatarUrl()const ;
+    void    setAvatarUrl(QString &m_avatarUrl);
+
+    QString premium()const;
+    void    setPremium(QString &m_avatarUrl);
+
+    UserInfoStatus status()const;
+    void    setStatus(UserInfo::UserInfoStatus &status);
+
+signals:
+    void nameChanged();
+    void findsChanged();
 
 private:
-    QString name;
-    qint64 finds;
-    QString avatarUrl;
-    QString premium;
-    UserInfoStatus status;
+    QString m_name;
+    qint64 m_finds;
+    QString m_avatarUrl;
+    QString m_premium;
+    UserInfoStatus m_status;
 };
 #endif // USERINFO_H

@@ -58,10 +58,9 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
     QJsonDocument dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
 
     if ( dataJsonDoc.isNull()) {
-
         UserInfo *info= new UserInfo("", 0, "", false, UserInfo::UserInfoStatus::Erreur);
         return;
-            }
+    }
 
     QString name ;
     qint64 finds ;
@@ -73,22 +72,21 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
     QJsonObject obj2 = obj1["User"].toObject();
     QJsonObject obj3 = obj2["MemberType"].toObject();
 
+    UserInfo *info;
     if (obj2.isEmpty()) {
-
-        UserInfo *info=  new UserInfo("", 0, "", false, UserInfo::UserInfoStatus::Erreur);
-        return   ;
+        info =  new UserInfo("", 0, "", false, UserInfo::UserInfoStatus::Erreur);
+        return;
     }
 
     name = obj2["UserName"].toString();
-    finds =obj2["FindCount"].toInt();
+    finds = obj2["FindCount"].toInt();
     avatarUrl = obj2["AvatarUrl"].toString();
     premium = obj3["MemberTypeName"].toString();
 
-    UserInfo *info= new UserInfo(name, finds, avatarUrl, premium, UserInfo::UserInfoStatus::Ok );
-    qDebug() << "name:"<< info->getName();
-    qDebug() << "finds:"<< info->getFinds();
-    qDebug() << "avatarUrl:"<<info->getAvatarUrl();
-    qDebug() << "premium:"<< info->getPremium();
-     qDebug() << "status:"<< info->getStatus();
-    return;
+    info= new UserInfo(name, finds, avatarUrl, premium, UserInfo::UserInfoStatus::Ok );
+    qDebug() << "name:"<< info->name();
+    qDebug() << "finds:"<< info->finds();
+    qDebug() << "avatarUrl:"<<info->avatarUrl();
+    qDebug() << "premium:"<< info->premium();
+    qDebug() << "status:"<< info->status();
 }
