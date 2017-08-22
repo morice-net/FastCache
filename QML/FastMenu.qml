@@ -35,8 +35,44 @@ Item {
         height: parent.height
         x: -parent.width
         color: Palette.white()
+
         Behavior on x { NumberAnimation { duration: 600 } }
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      user info on the top of the menu                 //
+        ///////////////////////////////////////////////////////////////////////////
+        Item {
+            id: userInfoMenu
+            height: parent.height * 0.12
+            width: parent.width
+
+            Row {
+                x: 10
+                y: 10
+                spacing: 10
+                Image {
+                    height: userInfoMenu.height - 20
+                    width: height
+                    source: userInfo.avatarUrl
+                }
+                Column {
+                    Text {
+                        text: userInfo.name
+                        font.family: "Calibri"
+                        font.pixelSize: userInfoMenu.height * 0.4
+                        color: Palette.black()
+                    }
+                    Text {
+                        text: userInfo.finds + " caches trouvées (" + userInfo.premium + ")"
+                        font.family: "Calibri"
+                        font.pixelSize: userInfoMenu.height * 0.15
+                        color: Palette.greenSea()
+                    }
+                }
+            }
+        }
     }
+
 
     function showMenu() {
         console.log("Show menu...")

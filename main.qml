@@ -58,17 +58,17 @@ Item {
 
     Tools { id: tools }
 
-    Connector{
+    Connector {
         id: connector
         onLogOn: {
             console.log("\n\n***\nDownloading... " + url);
             webEngine.url = url;
             webEngine.visible = true;
         }
-        onLoginProcedureDone: requestor.retrieveAccountInfo(connector.tokenKey)
+        onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey)
     }
 
-    Requestor { id: requestor }
+    UserInfo { id: userInfo }
 
     FastSettings { id: settings }
 
@@ -81,7 +81,7 @@ Item {
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {            
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
-            requestor.retrieveAccountInfo(connector.tokenKey)
+            userInfo.sendRequest(connector.tokenKey)
         } else {
             connector.connect()
         }
