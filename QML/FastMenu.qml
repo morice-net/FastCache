@@ -59,13 +59,13 @@ Item {
                     Text {
                         text: userInfo.name
                         font.family: "Calibri"
-                        font.pixelSize: userInfoMenu.height * 0.4
+                        font.pixelSize: userInfoMenu.height * 0.45
                         color: Palette.black()
                     }
                     Text {
                         text: userInfo.finds + " caches trouvées (" + userInfo.premium + ")"
                         font.family: "Calibri"
-                        font.pixelSize: userInfoMenu.height * 0.15
+                        font.pixelSize: userInfoMenu.height * 0.2
                         color: Palette.greenSea()
                     }
                 }
