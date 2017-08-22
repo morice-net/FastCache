@@ -1,9 +1,9 @@
 #ifndef USERINFO_H
 #define USERINFO_H
-#include <QObject>
 
+#include "requestor.h"
 
-class UserInfo : public QObject
+class UserInfo : public Requestor
 {
     Q_OBJECT
     Q_ENUMS(UserInfoStatus)
@@ -20,8 +20,10 @@ public:
         Erreur
     };
 
-    explicit  UserInfo(QString m_name, qint64 m_finds, QString m_avatarUrl, QString m_premium , UserInfoStatus status, QObject *parent = 0);
+    explicit  UserInfo(QObject *parent = 0);
     ~UserInfo();
+
+    Q_INVOKABLE void sendRequest(QString token) override;
 
     QString name() const;
     void  setName(QString &m_name);
@@ -43,6 +45,9 @@ signals:
     void findsChanged();
 	void avatarUrlChanged();
 	void premiumChanged();
+	
+public slots:
+    void onReplyFinished(QNetworkReply* reply) override;
 
 private:
     QString m_name;

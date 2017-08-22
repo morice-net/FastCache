@@ -2,17 +2,18 @@
 #if !defined Q_OS_ANDROID
     #include <QtWebEngine/qtwebengineglobal.h>
 #endif
+
 #include <QQuickView>
 #include <QQuickItem>
 #include "connector.h"
 #include "tools.h"
-#include "requestor.h"
+#include "userinfo.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
     qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
-    qmlRegisterType<Requestor>("com.mycompany.connecting", 1, 0, "Requestor");
+    qmlRegisterType<UserInfo>("com.mycompany.connecting", 1, 0, "UserInfo");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID

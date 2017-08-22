@@ -9,14 +9,12 @@ class Requestor : public QObject
 public:
     explicit Requestor(QObject *parent = 0);
 
-     Q_INVOKABLE void retrieveAccountInfo(QString token);
-
-signals:
+    Q_INVOKABLE virtual void sendRequest(QString token) = 0;
 
 public slots:
-    void onReplyFinished(QNetworkReply* reply);
+    virtual void onReplyFinished(QNetworkReply* reply) = 0;
 
-private:
+protected:
     QNetworkAccessManager *m_networkManager;
 };
 
