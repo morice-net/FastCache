@@ -92,6 +92,10 @@ void UserInfo::onReplyFinished(QNetworkReply *reply)
     qDebug() << "premium:" << m_premium;
     qDebug() << "status:" << m_status;
 
+    emit nameChanged();
+    emit findsChanged();
+    emit avatarUrlChanged();
+    emit premiumChanged();
 }
 
 /** Getters & Setters **/
