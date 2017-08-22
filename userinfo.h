@@ -10,6 +10,8 @@ class UserInfo : public QObject
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(int finds READ finds WRITE setFinds NOTIFY findsChanged)
+    Q_PROPERTY(QString avatarUrl READ avatarUrl WRITE setAvatarUrl NOTIFY avatarUrlChanged)
+    Q_PROPERTY(QString premium READ premium WRITE setPremium NOTIFY premiumChanged)
 
 public:
     enum UserInfoStatus {
@@ -39,6 +41,8 @@ public:
 signals:
     void nameChanged();
     void findsChanged();
+	void avatarUrlChanged();
+	void premiumChanged();
 
 private:
     QString m_name;

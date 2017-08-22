@@ -14,44 +14,56 @@ UserInfo::~UserInfo()
 }
 
 
-QString UserInfo::name() const {
+QString UserInfo::name() const
+{
     return m_name;
 }
 
-void UserInfo::setName(QString &name) {
+void UserInfo::setName(QString &name)
+{
     m_name = name;
     emit nameChanged();
 }
 
-int UserInfo::finds() const {
+int UserInfo::finds() const
+{
     return m_finds;
 }
 
-void UserInfo::setFinds(int &finds) {
+void UserInfo::setFinds(int &finds)
+{
     m_finds = finds;
     emit findsChanged();
 }
 
 
-QString UserInfo::avatarUrl() const {
+QString UserInfo::avatarUrl() const
+{
     return m_avatarUrl;
 }
-void UserInfo::setAvatarUrl(QString &avatarUrl) {
+void UserInfo::setAvatarUrl(QString &avatarUrl)
+{
     m_avatarUrl = avatarUrl;
+	emit avatarUrlChanged();
 }
 
-QString UserInfo::premium() const {
+QString UserInfo::premium() const
+{
     return m_premium;
 }
 
-void UserInfo::setPremium( QString &premium) {
+void UserInfo::setPremium( QString &premium)
+{
     m_premium = premium;
+	emit premiumChanged();
 }
 
-UserInfo::UserInfoStatus  UserInfo::status() const{
+UserInfo::UserInfoStatus  UserInfo::status() const
+{
     return m_status;
 }
 
-void UserInfo::setStatus(UserInfo::UserInfoStatus  &status) {
+void UserInfo::setStatus(UserInfo::UserInfoStatus  &status)
+{
     m_status = status;
 }
