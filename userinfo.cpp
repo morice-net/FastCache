@@ -64,7 +64,13 @@ void UserInfo::sendRequest(QString token)
 
 void UserInfo::onReplyFinished(QNetworkReply *reply)
 {
-    QJsonDocument dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+    QJsonDocument dataJsonDoc;
+    if (reply->error() == QNetworkReply::NoError) {
+        dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+    } else {
+        m_status = UserInfoStatus::Erreur;
+        return;
+    }
 
     if (dataJsonDoc.isNull()) {
         m_status = UserInfoStatus::Erreur;
