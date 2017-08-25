@@ -79,7 +79,7 @@ Item {
         connector.tokenSecret = settings.tokenSecret
 
         // token key not set means connection to GC needed
-        if (connector.tokenKey != "") {            
+        if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
         } else {
