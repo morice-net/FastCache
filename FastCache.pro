@@ -45,12 +45,14 @@ DISTFILES += \
     android/res/values/libs.xml \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew.bat
+    android/gradlew.bat \
+    android/libcrypto.so \
+    android/libssl.so
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
-        /home/artaud/WorkspaceQt/FastCache/../../Android/Sdk/libcrypto.so \
-        $$PWD/../../Android/Sdk/libssl.so
+        /home/artaud/WorkspaceQt/FastCache/android/libcrypto.so \
+        $$PWD/android/libssl.so
 }
