@@ -72,6 +72,10 @@ Item {
 
     FastSettings { id: settings }
 
+    CacheIcon {
+        anchors.centerIn: parent
+    }
+
     Component.onCompleted: {
 
         // retrieve settings (todo: remove and put alias in settings instead)

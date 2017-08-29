@@ -8,7 +8,6 @@ Item {
     id: fastMenu
     anchors.fill: parent
 
-
     Rectangle {
         id: menuShadow
         anchors.fill: parent

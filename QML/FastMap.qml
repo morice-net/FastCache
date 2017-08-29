@@ -43,7 +43,7 @@ Rectangle {
 
             sourceItem: Image {
                 id: image
-                source: "qrc:/Image/location.png"
+                source: "qrc:/Image/cache.png"
                 opacity: 0.8
                 SequentialAnimation {
                     running: true

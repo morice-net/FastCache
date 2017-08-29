@@ -11,5 +11,7 @@
         <file>QML/FastMenuHeader.qml</file>
         <file>QML/FastSettings.qml</file>
         <file>QML/FastMenu.qml</file>
+        <file>QML/CacheIcon.qml</file>
+        <file>Image/cacheList.png</file>
     </qresource>
 </RCC>
