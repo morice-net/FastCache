@@ -53,6 +53,6 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_EXTRA_LIBS = \
-        /home/artaud/WorkspaceQt/FastCache/android/libcrypto.so \
+        $$PWD/android/libcrypto.so \
         $$PWD/android/libssl.so
 }
