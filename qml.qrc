@@ -12,8 +12,6 @@
         <file>QML/FastMenu.qml</file>
         <file>QML/CacheIcon.qml</file>
         <file>Image/cacheList.png</file>
-        <file>../../cgeo/main/res/drawable-hdpi/marker.png</file>
-        <file>../../marker.png</file>
         <file>Image/marker.png</file>
     </qresource>
 </RCC>
