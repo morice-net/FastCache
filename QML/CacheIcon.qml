@@ -5,7 +5,7 @@ Item {
     property int type: 0
     Image {
         id: cacheIconBackground
-        source: "qrc:/Image/location.png"
+        source: "qrc:/Image/marker.png"
     }
 
     AnimatedSprite {
