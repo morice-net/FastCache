@@ -20,10 +20,9 @@ Rectangle {
         anchors.fill: parent
         center: currentPosition.position.coordinate
         zoomLevel: { 14.5 }
-
         gesture.enabled: true
-        //gesture.activeGestures: MapGestureArea.ZoomGesture
 
+        //gesture.activeGestures: MapGestureArea.ZoomGesture
 
         MapCircle {
             id: circleSearchArea
