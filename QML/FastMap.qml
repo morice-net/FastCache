@@ -40,16 +40,8 @@ Rectangle {
             anchorPoint.x: image.width * 0.5
             anchorPoint.y: image.height
 
-            sourceItem: Image {
-                id: image
-                source: "qrc:/Image/cache.png"
-                opacity: 0.8
-                SequentialAnimation {
-                    running: true
-                    loops: Animation.Infinite
-                    NumberAnimation { target: image; property: "opacity"; from: 0; to: 1; duration: 1000; easing.type: "OutQuart" }
-                    NumberAnimation{ target: image; property: "opacity"; from: 1; to: 0; duration: 1000; easing.type: "InQuart" }
-                }
+            sourceItem: CacheIcon {
+                id: cacheIcon
             }
         }
 
