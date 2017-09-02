@@ -46,6 +46,7 @@ signals:
 
 public slots:
     void replyFinished(QNetworkReply* reply);
+    void sslErrorsSlot(QNetworkReply *reply, const QList<QSslError> &errors);
 
 private:
     /// The network manager

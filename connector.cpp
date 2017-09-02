@@ -6,8 +6,10 @@
 Connector::Connector(QObject *parent) : QObject(parent), m_consumerKey("CF2B186B-0DD2-4E45-93B1-FAD7DF5593D4"), m_consumerSecret("7D0E212A-ADF8-4798-906E-9E6099B68E79"), m_postRequest(false)
 {
     m_networkManager = new QNetworkAccessManager(this);
-    QObject::connect(m_networkManager, SIGNAL(finished(QNetworkReply*)),
-                     this, SLOT(replyFinished(QNetworkReply*)));
+    QObject::connect(m_networkManager, &QNetworkAccessManager::finished,
+                     this, &Connector::replyFinished);
+    QObject::connect(m_networkManager, &QNetworkAccessManager::sslErrors,
+                     this, &Connector::sslErrorsSlot);
 }
 
 Connector::~Connector()
@@ -79,6 +81,13 @@ void Connector::replyFinished(QNetworkReply *reply)
     } else {
         qDebug() << "Connection in error:" << reply->errorString();
     }
+}
+
+void Connector::sslErrorsSlot(QNetworkReply *reply, const QList<QSslError> &errors)
+{
+    Q_UNUSED(errors)
+    qDebug() << reply->errorString();
+    reply->ignoreSslErrors();
 }
 
 QString Connector::tokenSecret() const
