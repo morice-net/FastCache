@@ -12,9 +12,7 @@ CachesBBox::~CachesBBox()
 {
 }
 
-/** Data retriever using the requestor **/
-
-void CachesBBox::sendRequest(QString token, double latBottomRight, double lonBottomRight , double latTopLeft , double lonTopLeft)
+void CachesBBox::sendRequest(QString token)
 {
     // lat, lon on format E6.
 
@@ -31,10 +29,10 @@ void CachesBBox::sendRequest(QString token, double latBottomRight, double lonBot
     parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
     parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
 
-    bottomRight.insert("Latitude", QJsonValue(latBottomRight));
-    bottomRight.insert("Longitude", QJsonValue(lonBottomRight));
-    topLeft.insert("Latitude", QJsonValue(latTopLeft));
-    topLeft.insert("Longitude", QJsonValue(lonTopLeft));
+    bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
+    bottomRight.insert("Longitude", QJsonValue(m_lonBottomRight));
+    topLeft.insert("Latitude", QJsonValue(m_latTopLeft));
+    topLeft.insert("Longitude", QJsonValue(m_lonTopLeft));
 
     viewport.insert("BottomRight", QJsonValue(bottomRight));
     viewport.insert("TopLeft", QJsonValue(topLeft));
@@ -47,6 +45,19 @@ void CachesBBox::sendRequest(QString token, double latBottomRight, double lonBot
     qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
 
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+
+}
+
+/** Data retriever using the requestor **/
+
+void CachesBBox::sendRequest(QString token, double latBottomRight, double lonBottomRight , double latTopLeft , double lonTopLeft)
+{
+    m_latBottomRight = latBottomRight;
+    m_lonBottomRight = lonBottomRight;
+    m_latTopLeft = latTopLeft;
+    m_lonTopLeft = lonTopLeft;
+
+    sendRequest(token);
 }
 
 void CachesBBox::sendRequestMore(QString token)
@@ -83,6 +94,50 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
     }
 
     return;
+}
+
+double CachesBBox::lonTopLeft() const
+{
+    return m_lonTopLeft;
+}
+
+void CachesBBox::setLonTopLeft(double lonTopLeft)
+{
+    m_lonTopLeft = lonTopLeft;
+    emit lonTopLeftChanged();
+}
+
+double CachesBBox::latTopLeft() const
+{
+    return m_latTopLeft;
+}
+
+void CachesBBox::setLatTopLeft(double latTopLeft)
+{
+    m_latTopLeft = latTopLeft;
+    emit latTopLeftChanged();
+}
+
+double CachesBBox::lonBottomRight() const
+{
+    return m_lonBottomRight;
+}
+
+void CachesBBox::setLonBottomRight(double lonBottomRight)
+{
+    m_lonBottomRight = lonBottomRight;
+    emit lonBottomRightChanged();
+}
+
+double CachesBBox::latBottomRight() const
+{
+    return m_latBottomRight;
+}
+
+void CachesBBox::setLatBottomRight(double latBottomRight)
+{
+    m_latBottomRight = latBottomRight;
+    emit latBottomRightChanged();
 }
 
 
