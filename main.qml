@@ -70,6 +70,8 @@ Item {
 
     UserInfo { id: userInfo }
 
+    CachesBBox{ id: cachesBBox }
+
     FastSettings { id: settings }
 
     CacheIcon {
@@ -86,6 +88,8 @@ Item {
         if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
+        //    cachesBBox.sendRequest(connector.tokenKey, , , ,)
+
         } else {
             connector.connect()
         }

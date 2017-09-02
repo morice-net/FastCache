@@ -15,7 +15,7 @@ public:
     Q_INVOKABLE void sendRequest(QString token, double latBottomRight, double lonBottomRight , double latTopLeft , double lonTopLeft) ;
 
 public slots:
-    void onReplyFinished(QNetworkReply* reply);
+    void onReplyFinished(QNetworkReply* reply) override;
 
 private:
     int MAX_PER_PAGE=40;

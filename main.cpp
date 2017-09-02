@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #if !defined Q_OS_ANDROID
-    #include <QtWebEngine/qtwebengineglobal.h>
+#include <QtWebEngine/qtwebengineglobal.h>
 #endif
 
 #include <QQuickView>
@@ -8,12 +8,14 @@
 #include "connector.h"
 #include "tools.h"
 #include "userinfo.h"
+#include "cachesbbox.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
     qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
     qmlRegisterType<UserInfo>("com.mycompany.connecting", 1, 0, "UserInfo");
+    qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID

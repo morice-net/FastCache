@@ -5,6 +5,8 @@ import QtPositioning 5.3
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
+    property variant basDroit : map.toCoordinate(map.BottomRight,false)
+    property variant hautGauche : map.toCoordinate(map.TopLeft,false)
     id: fastMap
     width: parent.width
     height: parent.height
