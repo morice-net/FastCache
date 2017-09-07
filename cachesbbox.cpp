@@ -42,7 +42,7 @@ void CachesBBox::sendRequest(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
+    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
 
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 

@@ -88,7 +88,13 @@ Item {
         if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
-        //    cachesBBox.sendRequest(connector.tokenKey, , , ,)
+
+            var x = fastMap.bas.coordinate ;
+            var y = fastMap.haut.coordinate ;
+            console.log("bottomleft:", x.longitude, x.latitude);
+            console.log("topleft:", x.longitude, x.latitude);
+
+            cachesBBox.sendRequest(connector.tokenKey,x.latitude , x.longitude,y.latitude ,y.longitude)
 
         } else {
             connector.connect()

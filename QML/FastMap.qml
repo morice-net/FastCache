@@ -5,8 +5,9 @@ import QtPositioning 5.3
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
-    property variant basDroit : map.toCoordinate(map.BottomRight,false)
-    property variant hautGauche : map.toCoordinate(map.TopLeft,false)
+    property alias bas :basDroit
+    property alias haut :hautGauche
+
     id: fastMap
     width: parent.width
     height: parent.height
@@ -24,8 +25,17 @@ Rectangle {
         zoomLevel: { 14.5 }
         gesture.enabled: true
 
-        //gesture.activeGestures: MapGestureArea.ZoomGesture
+        Location{
+            id : basDroit
+            coordinate: map.toCoordinate(map.BottomRight,false)
+        }
 
+        Location{
+            id : hautGauche
+            coordinate: map.toCoordinate(map.TopLeft,false)
+        }
+
+        //gesture.activeGestures: MapGestureArea.ZoomGesture
         MapCircle {
             id: circleSearchArea
             center: parent.center
