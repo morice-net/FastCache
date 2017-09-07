@@ -1,5 +1,5 @@
 #include <QGuiApplication>
-#if !defined Q_OS_ANDROID
+#if defined Q_OS_LINUX
 #include <QtWebEngine/qtwebengineglobal.h>
 #endif
 
@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
 
     QGuiApplication app(argc, argv);
-#if !defined Q_OS_ANDROID
+#if defined Q_OS_LINUX
     QtWebEngine::initialize();
 #endif
 
