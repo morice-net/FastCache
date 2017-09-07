@@ -89,8 +89,8 @@ Item {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
 
-            var a = fastMap.topCoordinate
-            var b = fastMap.bottomCoordinate
+            var a = fastMap.getTopLeft()
+            var b = fastMap.getBottomRight()
             console.log("bottomleft:", a.longitude, a.latitude)
             console.log("topleft:", b.longitude, b.latitude)
 
