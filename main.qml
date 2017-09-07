@@ -89,12 +89,12 @@ Item {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
 
-            var x = fastMap.bas.coordinate ;
-            var y = fastMap.haut.coordinate ;
-            console.log("bottomleft:", x.longitude, x.latitude);
-            console.log("topleft:", x.longitude, x.latitude);
+            var a = fastMap.topCoordinate
+            var b = fastMap.bottomCoordinate
+            console.log("bottomleft:", a.longitude, a.latitude)
+            console.log("topleft:", b.longitude, b.latitude)
 
-            cachesBBox.sendRequest(connector.tokenKey,x.latitude , x.longitude,y.latitude ,y.longitude)
+            cachesBBox.sendRequest(connector.tokenKey, a.latitude, a.longitude, b.latitude, b.longitude)
 
         } else {
             connector.connect()

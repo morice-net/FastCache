@@ -5,8 +5,8 @@ import QtPositioning 5.3
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
-    property alias bas :basDroit
-    property alias haut :hautGauche
+    property alias bottomCoordinate: bottomRight.coordinate
+    property alias topCoordinate: topLeft.coordinate
 
     id: fastMap
     width: parent.width
@@ -25,13 +25,13 @@ Rectangle {
         zoomLevel: { 14.5 }
         gesture.enabled: true
 
-        Location{
-            id : basDroit
+        Location {
+            id : bottomRight
             coordinate: map.toCoordinate(map.BottomRight,false)
         }
 
-        Location{
-            id : hautGauche
+        Location {
+            id : topLeft
             coordinate: map.toCoordinate(map.TopLeft,false)
         }
 
@@ -49,8 +49,6 @@ Rectangle {
         MapQuickItem {
             id: centerItem
             coordinate: parent.center
-            anchorPoint.x: image.width * 0.5
-            anchorPoint.y: image.height
 
             sourceItem: CacheIcon {
                 id: cacheIcon
