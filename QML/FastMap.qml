@@ -9,6 +9,8 @@ Rectangle {
     width: parent.width
     height: parent.height
 
+    property alias mapItem: map
+
     Plugin {
         id: osm
         name: "osm"
@@ -57,14 +59,14 @@ Rectangle {
             }
         }
     }
-
+/*
     function getTopLeft() {
         return map.toCoordinate(Qt.point(0,0))
     }
 
     function getBottomRight() {
         return map.toCoordinate(Qt.point(width,height))
-    }
+    }*/
 }
 
 

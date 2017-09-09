@@ -4,7 +4,7 @@
 #include <QJsonObject>
 
 CachesBBox::CachesBBox(QObject *parent)
-    : Requestor(parent)
+    : Requestor(parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0)
 {
 }
 
@@ -14,6 +14,10 @@ CachesBBox::~CachesBBox()
 
 void CachesBBox::sendRequest(QString token)
 {
+    if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
+        return;
+    }
+
     // lat, lon on format E6.
 
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
@@ -48,17 +52,6 @@ void CachesBBox::sendRequest(QString token)
 
 }
 
-/** Data retriever using the requestor **/
-
-void CachesBBox::sendRequest(QString token, double latBottomRight, double lonBottomRight , double latTopLeft , double lonTopLeft)
-{
-    m_latBottomRight = latBottomRight;
-    m_lonBottomRight = lonBottomRight;
-    m_latTopLeft = latTopLeft;
-    m_lonTopLeft = lonTopLeft;
-
-    sendRequest(token);
-}
 
 void CachesBBox::sendRequestMore(QString token)
 {

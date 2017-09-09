@@ -70,17 +70,17 @@ Item {
 
     UserInfo {
         id: userInfo
-        onRequestReady: {
-            var a = fastMap.getBottomRight()
-            var b = fastMap.getTopLeft()
-            console.log("bottomright:", a.latitude, a.longitude)
-            console.log("topleft:", b.latitude, b.longitude)
-
-            cachesBBox.sendRequest(connector.tokenKey, a.latitude, a.longitude, b.latitude, b.longitude)
-        }
+        onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
     }
 
-    CachesBBox{ id: cachesBBox }
+    CachesBBox {
+        id: cachesBBox
+
+        latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).latitude
+        lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).longitude
+        latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(parent.width,parent.height)).latitude
+        lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(parent.width,parent.height)).longitude
+    }
 
     FastSettings { id: settings }
 

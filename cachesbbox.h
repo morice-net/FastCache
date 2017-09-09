@@ -18,7 +18,6 @@ public:
     ~CachesBBox();
 
     Q_INVOKABLE virtual void sendRequest(QString token);
-    Q_INVOKABLE void sendRequest(QString token, double latBottomRight, double lonBottomRight , double latTopLeft , double lonTopLeft) ;
 
     double latBottomRight() const;
     void setLatBottomRight(double latBottomRight);
