@@ -68,7 +68,17 @@ Item {
         onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey)
     }
 
-    UserInfo { id: userInfo }
+    UserInfo {
+        id: userInfo
+        onRequestReady: {
+            var a = fastMap.getTopLeft()
+            var b = fastMap.getBottomRight()
+            console.log("bottomleft:", a.longitude, a.latitude)
+            console.log("topleft:", b.longitude, b.latitude)
+
+            cachesBBox.sendRequest(connector.tokenKey, a.latitude, a.longitude, b.latitude, b.longitude)
+        }
+    }
 
     CachesBBox{ id: cachesBBox }
 
@@ -88,14 +98,6 @@ Item {
         if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
-
-            var a = fastMap.getTopLeft()
-            var b = fastMap.getBottomRight()
-            console.log("bottomleft:", a.longitude, a.latitude)
-            console.log("topleft:", b.longitude, b.latitude)
-
-            cachesBBox.sendRequest(connector.tokenKey, a.latitude, a.longitude, b.latitude, b.longitude)
-
         } else {
             connector.connect()
         }

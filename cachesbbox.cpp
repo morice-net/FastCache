@@ -84,6 +84,7 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
 {
     QJsonDocument dataJsonDoc;
     if (reply->error() == QNetworkReply::NoError) {
+        qDebug() << "*** CachesBBox ***\n" << reply->readAll();
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
     } else {
         return;

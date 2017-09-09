@@ -11,6 +11,9 @@ public:
 
     Q_INVOKABLE virtual void sendRequest(QString token) = 0;
 
+signals:
+    void requestReady();
+
 public slots:
     virtual void onReplyFinished(QNetworkReply* reply) = 0;
 

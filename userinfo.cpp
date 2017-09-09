@@ -102,6 +102,9 @@ void UserInfo::onReplyFinished(QNetworkReply *reply)
     emit findsChanged();
     emit avatarUrlChanged();
     emit premiumChanged();
+
+    // request success
+    emit requestReady();
 }
 
 /** Getters & Setters **/
