@@ -71,10 +71,10 @@ Item {
     UserInfo {
         id: userInfo
         onRequestReady: {
-            var a = fastMap.getTopLeft()
-            var b = fastMap.getBottomRight()
-            console.log("bottomleft:", a.longitude, a.latitude)
-            console.log("topleft:", b.longitude, b.latitude)
+            var a = fastMap.getBottomRight()
+            var b = fastMap.getTopLeft()
+            console.log("bottomright:", a.latitude, a.longitude)
+            console.log("topleft:", b.latitude, b.longitude)
 
             cachesBBox.sendRequest(connector.tokenKey, a.latitude, a.longitude, b.latitude, b.longitude)
         }
