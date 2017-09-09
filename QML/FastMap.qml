@@ -59,14 +59,6 @@ Rectangle {
             }
         }
     }
-/*
-    function getTopLeft() {
-        return map.toCoordinate(Qt.point(0,0))
-    }
-
-    function getBottomRight() {
-        return map.toCoordinate(Qt.point(width,height))
-    }*/
 }
 
 
