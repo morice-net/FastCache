@@ -29,13 +29,13 @@ Rectangle {
         color: Palette.white()
         radius: 3
 
-        property int destWidth: parent.width - menuIcon.width - searchIcon.width - menuIcon.x - 10
+        property int destWidth: parent.width * 0.75
         width: 0
         height: parent.height * 0.8
         y: parent.height * 0.1
 
         anchors.right: searchIcon.left
-        anchors.margins: 5
+        anchors.margins: parent.width * 0.03
 
         TextInput {
             id: searchInput
@@ -43,18 +43,12 @@ Rectangle {
             font.pixelSize: height * 0.8
             color: Palette.black()
 
+            onAccepted: search(text)
+
         }
 
         Behavior on width { NumberAnimation { duration: 500 } }
 
-        function activate() {
-            width = destWidth
-            searchInput.forceActiveFocus()
-        }
-
-        function unactivate() {
-            width = 0
-        }
     }
 
     Image {
@@ -67,8 +61,25 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: searchRectangle.activate()
+            onClicked: activateSearch()
         }
+    }
 
+    CacheFilter {
+        id: cacheFilter
+    }
+
+    function search(searchText) {
+
+    }
+
+    function activateSearch() {
+        searchRectangle.width = searchRectangle.destWidth
+        searchRectangle.forceActiveFocus()
+        cacheFilter.opacity = 1
+    }
+
+    function unactivateSearch() {
+        searchRectangle.width = 0
     }
 }

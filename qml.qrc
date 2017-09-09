@@ -14,5 +14,8 @@
         <file>Image/cacheList.png</file>
         <file>Image/marker.png</file>
         <file>Image/magnifying-glass.png</file>
+        <file>QML/CacheFilter.qml</file>
+        <file>Image/filterHeadArrow.png</file>
+        <file>QML/SelectableIcon.qml</file>
     </qresource>
 </RCC>
