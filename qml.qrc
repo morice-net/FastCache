@@ -13,5 +13,6 @@
         <file>QML/CacheIcon.qml</file>
         <file>Image/cacheList.png</file>
         <file>Image/marker.png</file>
+        <file>Image/magnifying-glass.png</file>
     </qresource>
 </RCC>
