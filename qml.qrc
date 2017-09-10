@@ -17,5 +17,7 @@
         <file>QML/CacheFilter.qml</file>
         <file>Image/filterHeadArrow.png</file>
         <file>QML/SelectableIcon.qml</file>
+        <file>QML/SelectableFilter.qml</file>
+        <file>QML/Filters.qml</file>
     </qresource>
 </RCC>

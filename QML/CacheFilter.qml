@@ -15,14 +15,17 @@ Item {
 
     Behavior on opacity { NumberAnimation { duration: 500 } }
 
+    property var favouriteCacheType: [9,8,7,2]
+    property var otherCacheType: [0,1,3,4,5,6,10,11,12,13]
+
     Rectangle {
+        id: searchRectangle
         x: 5
         y: 5
-        id: searchRectangle
         color: Palette.white()
         radius: 3
-        border.width: 1
-        border.color: Palette.silver().replace("#", "#66")
+        border.width: 2
+        border.color: Palette.greenSea()
 
         property int destWidth: parent.width * 0.75
         width: parent.width
@@ -31,22 +34,19 @@ Item {
         anchors.margins: -2
 
         Column {
+
             Text {
-                x: 10
-                text: "Par type"
-                font.family: "Roboto"
-                font.pointSize: 12
-                color: Palette.black()
+                width: searchRectangle.width
+                font.pointSize: 24
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                color: Palette.greenSea()
+                text: "Filtres"
             }
 
-            Grid {
-                columns: 7
-                Repeater {
-                    model: 14
-                    SelectableIcon {
-                        type: index
-                    }
-                }
+
+            Filters {
+                id: typeFilter
             }
         }
     }

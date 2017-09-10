@@ -7,8 +7,9 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     property int type
     property bool selected: false
+    property bool favourite: false
 
-    height: searchRectangle.width / 7
+    height: favourite ? searchRectangle.width / 5 : searchRectangle.width / 6
     width: height
     color: selected ? Palette.greenSea() : "#00000000"
 
