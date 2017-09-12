@@ -11,6 +11,7 @@ Rectangle {
     Text {
         id: title
         text: "Fast cache"
+        font.family: localFont.name
         font.pointSize: 22
         anchors.horizontalCenter: parent.horizontalCenter
         color: Palette.greenSea()
@@ -19,6 +20,7 @@ Rectangle {
     Text {
         id: loading
         text: "Laoding..."
+        font.family: localFont.name
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.margins: 15

@@ -41,6 +41,7 @@ Rectangle {
             id: searchInput
             anchors.fill: parent
             font.pixelSize: height * 0.8
+            font.family: localFont.name
             color: Palette.black()
 
             onAccepted: search(text)

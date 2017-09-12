@@ -37,6 +37,7 @@ Item {
 
             Text {
                 width: searchRectangle.width
+                font.family: localFont.name
                 font.pointSize: 24
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

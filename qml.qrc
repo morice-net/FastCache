@@ -19,5 +19,6 @@
         <file>QML/SelectableIcon.qml</file>
         <file>QML/SelectableFilter.qml</file>
         <file>QML/Filters.qml</file>
+        <file>Ressources/DellaRespira-Regular.ttf</file>
     </qresource>
 </RCC>

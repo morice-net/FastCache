@@ -29,6 +29,7 @@ Item {
 
         color: Palette.backgroundGrey()
         font.pointSize: 16
+        font.family: localFont.name
 
         onFocusChanged: {
             if (focus) {

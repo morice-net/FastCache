@@ -56,6 +56,8 @@ Item {
     // Invisible elements  //
     /////////////////////////
 
+    FontLoader { id: localFont; source: "qrc:/Ressources/DellaRespira-Regular.ttf" }
+
     Tools { id: tools }
 
     Connector {

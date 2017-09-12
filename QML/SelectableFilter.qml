@@ -17,7 +17,7 @@ Item {
 
         Text {
             text: " " + selectableFilter.filterText
-            font.family: "Roboto"
+            font.family: localFont.name
             font.pointSize: 22
             color: filterSelected ? Palette.greenSea() : Palette.silver()
             width: selectableFilter.width/2
