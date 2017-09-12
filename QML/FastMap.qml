@@ -43,21 +43,6 @@ Rectangle {
                 id: cacheIcon
             }
         }
-
-        MapQuickItem {
-            id: firstCache
-            coordinate: parent.center
-            visible: false
-
-            anchorPoint.x: cacheImage.width * 0.5
-            anchorPoint.y: cacheImage.height
-
-            sourceItem: Image {
-                id: cacheImage
-                source: "qrc:/Image/cache.png"
-                opacity: 0.8
-            }
-        }
     }
 }
 

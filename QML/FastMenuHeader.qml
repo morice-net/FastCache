@@ -26,7 +26,7 @@ Rectangle {
 
     Rectangle {
         id: searchRectangle
-        color: Palette.white()
+        color: Palette.white().replace("#","#AA")
         radius: 3
 
         property int destWidth: parent.width * 0.75
@@ -46,6 +46,32 @@ Rectangle {
 
             onAccepted: search(text)
 
+        }
+
+        Rectangle {
+            color: Palette.turquoise()
+            radius: 10
+            height: searchInput.height * 0.8
+            width: height
+            visible: searchInput.width > 0
+            anchors.margins: 5
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+
+            Image {
+                source: "qrc:/Image/filter.png"
+                fillMode: Image.PreserveAspectFit
+                anchors.fill: parent
+                anchors.margins: 5
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    console.log("Filter clicked")
+                    cacheFilter.activate()
+                }
+            }
         }
 
         Behavior on width { NumberAnimation { duration: 500 } }
@@ -77,7 +103,6 @@ Rectangle {
     function activateSearch() {
         searchRectangle.width = searchRectangle.destWidth
         searchRectangle.forceActiveFocus()
-        cacheFilter.opacity = 1
     }
 
     function unactivateSearch() {

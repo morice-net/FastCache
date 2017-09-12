@@ -6,7 +6,7 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: selectableFilter
-    width: searchRectangle.width
+    width: parent.width
     height: 60
     property bool filterSelected: false
     property string filterText: ""
