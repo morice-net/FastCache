@@ -21,5 +21,6 @@
         <file>QML/Filters.qml</file>
         <file>Ressources/DellaRespira-Regular.ttf</file>
         <file>Image/filter.png</file>
+        <file>QML/CacheTypes.qml</file>
     </qresource>
 </RCC>

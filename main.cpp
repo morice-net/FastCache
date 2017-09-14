@@ -9,6 +9,7 @@
 #include "tools.h"
 #include "userinfo.h"
 #include "cachesbbox.h"
+#include "cachetype.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
     qmlRegisterType<UserInfo>("com.mycompany.connecting", 1, 0, "UserInfo");
     qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
+    qmlRegisterType<CacheType>("com.mycompany.connecting", 1, 0, "CacheType");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID

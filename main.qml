@@ -84,6 +84,10 @@ Item {
         lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(parent.width,parent.height)).longitude
     }
 
+    CacheTypes {
+        id: cacheTypes
+    }
+
     FastSettings { id: settings }
 
     Component.onCompleted: {
@@ -102,10 +106,16 @@ Item {
 
         // Mask the loading page
         loadingPage.opacity = 0;
+
     }
 
     Component.onDestruction: {
         settings.tokenKey = connector.tokenKey
         settings.tokenSecret = connector.tokenSecret
+        console.log(" ---> TYPES       ###########")
+        console.log(cacheTypes.types[0].typeId)
+        console.log(cacheTypes.types[0].pattern)
+        console.log(cacheTypes.types[0].markerId)
+        console.log(cacheTypes.types[0].typeIdGs)
     }
 }

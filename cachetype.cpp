@@ -2,7 +2,7 @@
 
 CacheType::CacheType(QObject *parent):QObject(parent)
 
-  , m_id("")
+  , m_typeId("")
   , m_pattern("")
   , m_markerId(-1)
   , m_typeIdGs(-1)
@@ -16,15 +16,15 @@ CacheType::~CacheType()
 
 /** Getters & Setters **/
 
-QString CacheType::id() const
+QString CacheType::typeId() const
 {
-    return m_id;
+    return m_typeId;
 }
 
-void CacheType::setId(QString &id)
+void CacheType::setTypeId(QString &id)
 {
-    m_id = id;
-    emit idChanged();
+    m_typeId = id;
+    emit typeIdChanged();
 }
 
 QString CacheType::pattern() const
