@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     tools.cpp \
     requestor.cpp \
     userinfo.cpp \
-    cachesbbox.cpp
+    cachesbbox.cpp \
+    cache.cpp
 
 RESOURCES += qml.qrc
 
@@ -29,7 +30,8 @@ HEADERS += \
     tools.h \
     requestor.h \
     userinfo.h \
-    cachesbbox.h
+    cachesbbox.h \
+    cache.h
 
 DISTFILES += \
     android/AndroidManifest.xml \
