@@ -1,7 +1,11 @@
 #include "cachesbbox.h"
 
+#include <QMetaObject>
+#include <QMetaProperty>
 #include <QJsonDocument>
 #include <QJsonObject>
+
+#include "cache.h"
 
 CachesBBox::CachesBBox(QObject *parent)
     : Requestor(parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0)
@@ -79,6 +83,23 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
     if (reply->error() == QNetworkReply::NoError) {
         qDebug() << "*** CachesBBox ***\n" << reply->readAll();
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+
+
+        // PARSING LOOP START
+
+        QVariant readValue;
+        Cache cache;
+        const QMetaObject *metaObj = cache.metaObject();
+
+        qDebug() << "properties: ";
+        for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
+            qDebug() << metaObj->property(i).name() << " " << metaObj->property(i).typeName();
+            cache.setProperty(metaObj->property(i).name(), readValue);
+        }
+        m_caches.append(cache);
+
+        // PARSING LOOP END
+
     } else {
         return;
     }

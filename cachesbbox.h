@@ -3,6 +3,8 @@
 
 #include "requestor.h"
 
+class Cache;
+
 class CachesBBox : public Requestor
 {
 
@@ -49,6 +51,8 @@ private:
     double m_lonBottomRight;
     double m_latTopLeft;
     double m_lonTopLeft;
+
+    QList<Cache> m_caches;
 
     void   sendRequestMore(QString token);
 };
