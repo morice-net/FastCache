@@ -5,7 +5,6 @@
 
 class Cache : public QObject
 {
-
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
@@ -24,7 +23,6 @@ class Cache : public QObject
     Q_PROPERTY(double lat READ lat WRITE setLat NOTIFY latChanged)
     Q_PROPERTY(double lon READ lon WRITE setLon NOTIFY lonChanged)
 
-
 public:
     explicit  Cache(QObject *parent = 0);
     ~Cache();
@@ -39,40 +37,40 @@ public:
     void    setSize(QString &m_size);
 
     int difficulty()const;
-    void    setDifficulty(int &m_difficulty);
+    void    setDifficulty(int m_difficulty);
 
     int terrain() const;
-    void  setTerrain(int &m_terrain);
+    void  setTerrain(int m_terrain);
 
-    QString  type()const;
+    QString  type() const;
     void    setType(QString &m_type);
 
-    QString date()const ;
+    QString date() const ;
     void    setDate(QString &m_date);
 
-    bool archived()const;
-    void    setArchived(bool &m_archived);
+    bool archived() const;
+    void    setArchived(bool m_archived);
 
-    bool disabled()const;
-    void  setDisabled(bool &m_disabled);
+    bool disabled() const;
+    void  setDisabled(bool m_disabled);
 
-    int  favoritePoints()const;
-    void    setFavoritePoints(int &m_favoritePoints);
+    int  favoritePoints() const;
+    void    setFavoritePoints(int m_favoritePoints);
 
-    int trackableCount()const ;
-    void    setTrackableCount(int &m_trackableCount);
+    int trackableCount() const ;
+    void    setTrackableCount(int m_trackableCount);
 
-    QString owner()const;
+    QString owner() const;
     void    setOwner(QString &m_owner);
 
-    bool found()const;
-    void  setFound(bool &m_found);
+    bool found() const;
+    void  setFound(bool m_found);
 
-    double  lat()const;
-    void    setLat(double &m_lat);
+    double  lat() const;
+    void    setLat(double m_lat);
 
-    double  lon()const;
-    void    setLon(double &m_lon);
+    double  lon() const;
+    void    setLon(double m_lon);
 
 signals:
     void nameChanged();

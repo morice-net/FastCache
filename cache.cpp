@@ -65,7 +65,7 @@ int Cache::difficulty() const
     return m_difficulty;
 }
 
-void Cache::setDifficulty( int &difficulty)
+void Cache::setDifficulty( int difficulty)
 {
     m_difficulty = difficulty;
     emit difficultyChanged();
@@ -76,7 +76,7 @@ int Cache::terrain() const
     return m_terrain;
 }
 
-void Cache::setTerrain(int  &terrain)
+void Cache::setTerrain(int  terrain)
 {
     m_terrain = terrain;
 }
@@ -108,7 +108,7 @@ bool Cache::archived() const
 {
     return m_archived;
 }
-void Cache::setArchived(bool &archived)
+void Cache::setArchived(bool archived)
 {
     m_archived = archived;
     emit archivedChanged();
@@ -119,7 +119,7 @@ bool Cache::disabled() const
     return m_disabled;
 }
 
-void Cache::setDisabled( bool &disabled)
+void Cache::setDisabled( bool disabled)
 {
     m_disabled = disabled;
     emit disabledChanged();
@@ -130,7 +130,7 @@ int Cache::favoritePoints() const
     return m_favoritePoints;
 }
 
-void Cache::setFavoritePoints(int  &favoritePoints)
+void Cache::setFavoritePoints(int  favoritePoints)
 {
     m_favoritePoints = favoritePoints;
 }
@@ -138,7 +138,7 @@ int Cache::trackableCount() const
 {
     return m_trackableCount;
 }
-void Cache::setTrackableCount(int  &trackableCount)
+void Cache::setTrackableCount(int  trackableCount)
 {
     m_trackableCount = trackableCount;
 }
@@ -156,7 +156,7 @@ bool Cache::found() const
 {
     return m_found;
 }
-void Cache::setFound(bool  &found)
+void Cache::setFound(bool found)
 {
     m_found = found;
 }
@@ -165,7 +165,7 @@ double Cache::lat() const
 {
     return m_lat;
 }
-void Cache::setLat(double  &lat)
+void Cache::setLat(double lat)
 {
     m_lat = lat;
 }
@@ -174,7 +174,7 @@ double Cache::lon() const
 {
     return m_lon;
 }
-void Cache::setLon(double  &lon)
+void Cache::setLon(double lon)
 {
     m_lon = lon;
 }

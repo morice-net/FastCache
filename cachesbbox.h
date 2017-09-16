@@ -53,7 +53,7 @@ private:
     double m_latTopLeft;
     double m_lonTopLeft;
 
-    QList<Cache> m_caches;
+    QList<Cache*> m_caches;
 
     void   sendRequestMore(QString token);    
 };

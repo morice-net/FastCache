@@ -6,12 +6,10 @@
 
 class CacheSize : public QObject
 {
-
     Q_OBJECT
 
     Q_PROPERTY(QString sizeId READ sizeId WRITE setSizeId NOTIFY sizeIdChanged)
-    Q_PROPERTY(int sizeIdGs READ sizeIdGs WRITE setSizeIdGs NOTIFY sizeIdGSChanged)
-
+    Q_PROPERTY(int sizeIdGs READ sizeIdGs WRITE setSizeIdGs NOTIFY sizeIdGsChanged)
 
 public:
     explicit  CacheSize(QObject *parent = 0);
@@ -22,7 +20,6 @@ public:
 
     int  sizeIdGs()const;
     void    setSizeIdGs(int &m_sizeIdGs);
-
 
 
 signals:
