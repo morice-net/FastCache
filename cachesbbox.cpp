@@ -1,11 +1,11 @@
 #include "cachesbbox.h"
-
-#include <QMetaObject>
-#include <QMetaProperty>
+#include "cache.h"
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
+#include <QList>
 
-#include "cache.h"
+
 
 CachesBBox::CachesBBox(QObject *parent)
     : Requestor(parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0)
@@ -81,33 +81,56 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
 {
     QJsonDocument dataJsonDoc;
     if (reply->error() == QNetworkReply::NoError) {
-        qDebug() << "*** CachesBBox ***\n" << reply->readAll();
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+        qDebug() << "*** CachesBBox ***\n" <<dataJsonDoc ;
 
+        if (dataJsonDoc.isNull()) {
+            return;
+        }
 
-        // PARSING LOOP START
+        QJsonObject JsonObj = dataJsonDoc.object();
+        QJsonValue value = JsonObj.value("Geocaches");
+        QJsonArray caches = value.toArray();
 
-  //      QVariant readValue;
-    //    Cache cache;
-      //  const QMetaObject *metaObj = cache.metaObject();
+        int lengthCaches = caches.size();
+        if (lengthCaches == 0) {
+            return ;
+        }
 
-     //   qDebug() << "properties: ";
-    //    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
-      //      qDebug() << metaObj->property(i).name() << " " << metaObj->property(i).typeName();
-        //    cache.setProperty(metaObj->property(i).name(), readValue);
-   //     }
-   //     m_caches.append(cache);
+        foreach ( const QJsonValue & v, caches)
+        {
+            Cache *cache ;
+            cache = new Cache();
 
-        // PARSING LOOP END
+            cache->setArchived(v.toObject().value("Archived").toBool());
+            cache->setDisabled(v.toObject().value("Available").toBool());
+
+            QJsonObject v1 = v["Owner"].toObject();
+            QString owner = v1.value("UserName").toString();
+            cache->setOwner(owner);
+
+            QString date = v.toObject.value("DateCreated").toString();
+            cache->setDate(date);
+            //    cache->setType();
+            cache->setGeocode(v.toObject().value("Code").toString());
+            cache->setGeocode(v.toObject().value("Code").toString());
+            //   cache->setSize();
+            cache->setDifficulty(v.toObject().value("Difficulty").toInt());
+            cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
+            cache->setLat(v.toObject().value("Latitude").toDouble());
+            cache->setLon(v.toObject().value("Longitude").toDouble());
+            cache->setName(v.toObject().value("Name").toString());
+            cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
+            cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
+            cache->setTerrain(v.toObject().value("Terrain").toInt());
+
+            m_caches.append(cache);
+            delete cache;
+        }
 
     } else {
         return;
     }
-
-    if (dataJsonDoc.isNull()) {
-        return;
-    }
-
     return;
 }
 

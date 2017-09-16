@@ -3,6 +3,7 @@
 
 #include "requestor.h"
 
+
 class Cache;
 
 class CachesBBox : public Requestor
@@ -54,7 +55,7 @@ private:
 
     QList<Cache> m_caches;
 
-    void   sendRequestMore(QString token);
+    void   sendRequestMore(QString token);    
 };
 
 #endif // CACHESBBOX_H
