@@ -15,8 +15,8 @@ Item {
         paused: true
         x: cacheIconBackground.width * 0.05
         source: "qrc:/Image/cacheList.png"
-        frameCount: 14
-        currentFrame: type % 14
+        frameCount: 15
+        currentFrame: type % 15
         width: cacheIconBackground.width * 0.9
         height: width
         anchors.centerIn: cacheIconBackground
