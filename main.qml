@@ -117,5 +117,9 @@ Item {
         console.log(cacheTypes.types[0].pattern)
         console.log(cacheTypes.types[0].markerId)
         console.log(cacheTypes.types[0].typeIdGs)
+        console.log(" ---> SIZES       ###########")
+        console.log(cacheSizes.sizes[0].sizeId)
+        console.log(cacheSizes.sizes[0].sizeIdGs)
+
     }
 }
