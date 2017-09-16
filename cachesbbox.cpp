@@ -87,16 +87,16 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
 
         // PARSING LOOP START
 
-        QVariant readValue;
-        Cache cache;
-        const QMetaObject *metaObj = cache.metaObject();
+  //      QVariant readValue;
+    //    Cache cache;
+      //  const QMetaObject *metaObj = cache.metaObject();
 
-        qDebug() << "properties: ";
-        for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
-            qDebug() << metaObj->property(i).name() << " " << metaObj->property(i).typeName();
-            cache.setProperty(metaObj->property(i).name(), readValue);
-        }
-        m_caches.append(cache);
+     //   qDebug() << "properties: ";
+    //    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
+      //      qDebug() << metaObj->property(i).name() << " " << metaObj->property(i).typeName();
+        //    cache.setProperty(metaObj->property(i).name(), readValue);
+   //     }
+   //     m_caches.append(cache);
 
         // PARSING LOOP END
 
