@@ -3,7 +3,7 @@ import QtQuick 2.3
 import com.mycompany.connecting 1.0
 
 Item {
-    id: CacheSizes
+    id: cacheSizes
     property var sizes: []
 
     CacheSize {

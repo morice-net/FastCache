@@ -88,6 +88,10 @@ Item {
         id: cacheTypes
     }
 
+    CacheSizes {
+        id: cacheSizes
+    }
+
     FastSettings { id: settings }
 
     Component.onCompleted: {

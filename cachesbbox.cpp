@@ -129,7 +129,7 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
             cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
             cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
             cache->setTerrain(v.toObject().value("Terrain").toInt());
-
+            qDebug() << "*** Caches***\n" <<cache->name() ;
             m_caches.append(cache);
         }
 
