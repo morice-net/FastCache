@@ -44,7 +44,6 @@ Item {
         Grid {
             opacity: 0
             visible: typeFilterSelectable.filterSelected
-            //width: searchRectangle.width
             height: 2 * searchRectangle.width / 6
             anchors.horizontalCenter: parent.horizontalCenter
             columns: 5
