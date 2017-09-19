@@ -7,9 +7,9 @@ import "JavaScript/Palette.js" as Palette
 Item {
     id: filters
     width: searchRectangle.width
-    height: main.height / 3
 
     Column {
+        id: internFilterColumn
         anchors.fill:parent
 
         SelectableFilter {
@@ -18,8 +18,8 @@ Item {
         }
 
         Row {
+            opacity: 0
             visible: typeFilterSelectable.filterSelected
-            //width: searchRectangle.width
             height: searchRectangle.width / 5
             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -30,9 +30,19 @@ Item {
                     favourite: true
                 }
             }
+
+            onVisibleChanged: {
+                if (visible)
+                    opacity = 1
+                else
+                    opacity = 0
+            }
+
+            Behavior on opacity { NumberAnimation { duration: 500 } }
         }
 
         Grid {
+            opacity: 0
             visible: typeFilterSelectable.filterSelected
             //width: searchRectangle.width
             height: 2 * searchRectangle.width / 6
@@ -45,6 +55,15 @@ Item {
                 }
             }
 
+            onVisibleChanged: {
+                if (visible)
+                    opacity = 1
+                else
+                    opacity = 0
+            }
+
+            Behavior on opacity { NumberAnimation { duration: 500 } }
+
         }
 
         SelectableFilter {
@@ -52,14 +71,49 @@ Item {
             filterText: "Taille"
         }
 
+        MultiPointSlider {
+            id: sizeSlider
+            visible: sizeFilterSelectable.filterSelected
+            x: 10
+        }
+
         SelectableFilter {
             id: difficultyFilterSelectable
             filterText: "Difficulté"
+        }
+
+        MultiPointSlider {
+            id: difficultySlider
+            visible: difficultyFilterSelectable.filterSelected
+
         }
 
         SelectableFilter {
             id: fieldFilterSelectable
             filterText: "Terrain"
         }
+
+        MultiPointSlider {
+            id: fieldSlider
+            visible: fieldFilterSelectable.filterSelected
+            x: 10
+        }
+    }
+
+    function updateHeight() {
+        var computedHeight = typeFilterSelectable.height + sizeFilterSelectable.height + difficultyFilterSelectable.height + fieldFilterSelectable.height
+        if (typeFilterSelectable.filterSelected)
+            computedHeight += 3 * searchRectangle.width / 5
+        if (sizeFilterSelectable.filterSelected)
+            computedHeight += 60
+        if (difficultyFilterSelectable.filterSelected)
+            computedHeight += 60
+        if (fieldFilterSelectable.filterSelected)
+            computedHeight += 60
+        height = computedHeight
+    }
+
+    Component.onCompleted: {
+        updateHeight()
     }
 }

@@ -18,8 +18,8 @@ Rectangle {
         paused: true
         x: parent.width * 0.05
         source: "qrc:/Image/cacheList.png"
-        frameCount: 14
-        currentFrame: type % 14
+        frameCount: 15
+        currentFrame: type % 15
         width: parent.width * 0.9
         height: width
         anchors.centerIn: parent

@@ -14,26 +14,27 @@ Item {
     Behavior on width { NumberAnimation { duration: 500 } }
     Behavior on height { NumberAnimation { duration: 500 } }
 
-    property var favouriteCacheType: [9,8,7,2]
-    property var otherCacheType: [0,1,3,4,5,6,10,11,12,13]
+
+    property var favouriteCacheType: [9,8,7,2,1]
+    property var otherCacheType: [0,3,4,5,6,10,11,12,13,14]
 
     Rectangle {
         id: filtersRectangle
         x: 5
         y: 5
-        color: Palette.white().replace("#","#AA")
+        color: Palette.white().replace("#","#99")
         radius: 3
         border.width: 2
         border.color: Palette.greenSea()
 
         property int destWidth: parent.width * 0.75
         width: parent.width
-        height: main.height * 0.4
+        height: filterColumn.height//main.height * 0.4
         anchors.top: filterHeadArrow.bottom
         anchors.margins: -2
 
         Column {
-
+            id: filterColumn
             Text {
                 width: filtersRectangle.width
                 font.family: localFont.name
@@ -47,6 +48,8 @@ Item {
 
             Filters {
                 id: typeFilter
+                Behavior on width { NumberAnimation { duration: 500 } }
+                Behavior on height { NumberAnimation { duration: 500 } }
             }
         }
     }

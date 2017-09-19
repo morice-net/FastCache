@@ -19,7 +19,7 @@ Item {
             text: " " + selectableFilter.filterText
             font.family: localFont.name
             font.pointSize: 22
-            color: filterSelected ? Palette.greenSea() : Palette.silver()
+            color: filterSelected ? Palette.greenSea() : Palette.black()
             width: selectableFilter.width/2
 
         }
@@ -51,4 +51,6 @@ Item {
             }
         }
     }
+
+    onFilterSelectedChanged: updateHeight()
 }
