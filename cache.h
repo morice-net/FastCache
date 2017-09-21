@@ -10,8 +10,8 @@ class Cache : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString geocode READ geocode WRITE setGeocode NOTIFY geocodeChanged)
     Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
-    Q_PROPERTY(int difficulty READ difficulty WRITE setDifficulty NOTIFY difficultyChanged)
-    Q_PROPERTY(int terrain READ terrain WRITE setTerrain NOTIFY terrainChanged)
+    Q_PROPERTY(float difficulty READ difficulty WRITE setDifficulty NOTIFY difficultyChanged)
+    Q_PROPERTY(float terrain READ terrain WRITE setTerrain NOTIFY terrainChanged)
     Q_PROPERTY(int type READ type WRITE setType NOTIFY typeChanged)
     Q_PROPERTY(QString date READ date WRITE setDate NOTIFY dateChanged)
     Q_PROPERTY(bool archived READ archived WRITE setArchived NOTIFY archivedChanged)
@@ -36,11 +36,11 @@ public:
     int size()const ;
     void    setSize(int m_size);
 
-    int difficulty()const;
-    void    setDifficulty(int m_difficulty);
+    float difficulty()const;
+    void    setDifficulty(float m_difficulty);
 
-    int terrain() const;
-    void  setTerrain(int m_terrain);
+    float terrain() const;
+    void  setTerrain(float m_terrain);
 
     int  type() const;
     void    setType(int m_type);
