@@ -4,10 +4,10 @@ Cache::Cache(QObject *parent):QObject(parent)
 
   , m_name("")
   , m_geocode("")
-  , m_size("")
+  , m_size(0)
   , m_difficulty(0)
   , m_terrain(0)
-  , m_type("")
+  , m_type(0)
   , m_date("")
   , m_archived(true)
   , m_disabled(true)
@@ -50,11 +50,11 @@ void Cache::setGeocode(QString &geocode)
 }
 
 
-QString Cache::size() const
+int Cache::size() const
 {
     return m_size;
 }
-void Cache::setSize(QString &size)
+void Cache::setSize(int size)
 {
     m_size = size;
     emit sizeChanged();
@@ -81,12 +81,12 @@ void Cache::setTerrain(int  terrain)
     m_terrain = terrain;
 }
 
-QString Cache::type() const
+int Cache::type() const
 {
     return m_type;
 }
 
-void Cache::setType(QString &type)
+void Cache::setType(int type)
 {
     m_type = type;
     emit typeChanged();

@@ -23,6 +23,8 @@ CachesBBox::~CachesBBox()
 
 void CachesBBox::sendRequest(QString token)
 {
+    m_caches.empty();
+
     if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
         return;
     }
@@ -55,8 +57,7 @@ void CachesBBox::sendRequest(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-
+    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);    
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 
 }
@@ -77,8 +78,7 @@ void CachesBBox::sendRequestMore(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-
+    qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);    
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
@@ -116,10 +116,18 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
 
             QString date(v.toObject().value("DateCreated").toString());
             cache->setDate(date);
-            //    cache->setType();
+
+            QJsonObject v2 = v.toObject().value("CacheType").toObject();
+            int cacheTypeId= v2.value("GeocacheTypeId").toInt();
+            cache->setType(cacheTypeId);
+
             QString code(v.toObject().value("Code").toString());
             cache->setGeocode(code);
-            //   cache->setSize();
+
+            QJsonObject v3 = v.toObject().value("ContainerType").toObject();
+            int cacheSizeId= v3.value("ContainerTypeId").toInt();
+            cache->setSize(cacheSizeId);
+
             cache->setDifficulty(v.toObject().value("Difficulty").toInt());
             cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
             cache->setLat(v.toObject().value("Latitude").toDouble());
