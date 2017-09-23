@@ -4,7 +4,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QList>
-
+#include "connector.h"
 
 
 CachesBBox::CachesBBox(QObject *parent)
@@ -24,6 +24,7 @@ CachesBBox::~CachesBBox()
 void CachesBBox::sendRequest(QString token)
 {
     m_caches.empty();
+    indexMoreCachesBBox = 0;
 
     if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
         return;
@@ -37,6 +38,8 @@ void CachesBBox::sendRequest(QString token)
     QJsonObject viewport;
     QJsonObject bottomRight;
     QJsonObject topLeft;
+
+    tokenTemp=token;
 
     parameters.insert("AccessToken", QJsonValue(token));
     parameters.insert("IsLite", QJsonValue(true));
@@ -57,20 +60,21 @@ void CachesBBox::sendRequest(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);    
+    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
-
 }
-
 
 void CachesBBox::sendRequestMore(QString token)
 {
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
+    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//GetMoreGeocaches?format=json");
 
     QJsonObject parameters;
 
+    indexMoreCachesBBox = indexMoreCachesBBox + MAX_PER_PAGE;
+
     parameters.insert("AccessToken", QJsonValue(token));
     parameters.insert("IsLite", QJsonValue(true));
+    parameters.insert("StartIndex",indexMoreCachesBBox);
     parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
     parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
     parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
@@ -78,7 +82,7 @@ void CachesBBox::sendRequestMore(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);    
+    qDebug() <<"cachesbboxJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
@@ -139,6 +143,9 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
             cache->setTerrain(v.toObject().value("Terrain").toInt());
             qDebug() << "*** Caches***\n" <<cache->name() ;
             m_caches.append(cache);
+        }
+        if (lengthCaches == MAX_PER_PAGE) {
+            sendRequestMore(tokenTemp);
         }
 
     } else {

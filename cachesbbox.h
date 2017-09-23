@@ -1,6 +1,7 @@
 #ifndef CACHESBBOX_H
 #define CACHESBBOX_H
 
+#include <QObject>
 #include "requestor.h"
 
 
@@ -47,15 +48,18 @@ private:
     const int MAX_PER_PAGE=40;
     const int GEOCACHE_LOG_COUNT=30;
     const int TRACKABLE_LOG_COUNT=30;
+    int indexMoreCachesBBox;
 
     double m_latBottomRight;
     double m_lonBottomRight;
     double m_latTopLeft;
     double m_lonTopLeft;
 
+    QString tokenTemp ;
+
     QList<Cache*> m_caches;
 
-    void   sendRequestMore(QString token);    
+    void   sendRequestMore(QString token);
 };
 
 #endif // CACHESBBOX_H
