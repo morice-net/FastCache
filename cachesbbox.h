@@ -2,8 +2,9 @@
 #define CACHESBBOX_H
 
 #include <QObject>
-#include "requestor.h"
+#include <QQmlListProperty>
 
+#include "requestor.h"
 
 class Cache;
 
@@ -17,11 +18,15 @@ class CachesBBox : public Requestor
     Q_PROPERTY(double latTopLeft READ latTopLeft WRITE setLatTopLeft NOTIFY latTopLeftChanged)
     Q_PROPERTY(double lonTopLeft READ lonTopLeft WRITE setLonTopLeft NOTIFY lonTopLeftChanged)
 
+    Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches )
+
 public:
     explicit  CachesBBox(QObject *parent = 0);
     ~CachesBBox();
 
     Q_INVOKABLE virtual void sendRequest(QString token);
+
+    QQmlListProperty<Cache> caches();
 
     double latBottomRight() const;
     void setLatBottomRight(double latBottomRight);

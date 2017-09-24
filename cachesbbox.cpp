@@ -1,10 +1,11 @@
 #include "cachesbbox.h"
 #include "cache.h"
+#include "connector.h"
+
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QList>
-#include "connector.h"
 
 
 CachesBBox::CachesBBox(QObject *parent)
@@ -19,6 +20,11 @@ CachesBBox::~CachesBBox()
             delete cache;
         }
     }
+}
+
+QQmlListProperty < Cache > CachesBBox :: caches()
+{
+    return QQmlListProperty < Cache > ( this , m_caches );
 }
 
 void CachesBBox::sendRequest(QString token)

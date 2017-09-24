@@ -11,12 +11,14 @@
 #include "cachesbbox.h"
 #include "cachetype.h"
 #include "cachesize.h"
+#include "cache.h"
 
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
     qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
     qmlRegisterType<UserInfo>("com.mycompany.connecting", 1, 0, "UserInfo");
+    qmlRegisterType<Cache>("com.mycompany.connecting", 1, 0, "Cache");
     qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
     qmlRegisterType<CacheType>("com.mycompany.connecting", 1, 0, "CacheType");
     qmlRegisterType<CacheSize>("com.mycompany.connecting", 1, 0, "CacheSize");
