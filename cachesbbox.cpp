@@ -157,6 +157,7 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
     } else {
         return;
     }
+    emit cachesChanged() ;
     return;
 }
 

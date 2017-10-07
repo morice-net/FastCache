@@ -2,6 +2,8 @@ import QtQuick 2.3
 import QtLocation 5.3
 import QtPositioning 5.3
 
+
+
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
@@ -39,13 +41,12 @@ Rectangle {
             id: displayCaches
             model: cachesBBox.caches
             delegate:MapQuickItem {
-                coordinate:QtPositioning.coordinate(modelData.lat(),modelData.lon())
-                sourceItem: CacheIcon{
-
+                coordinate: QtPositioning.coordinate(modelData.lat, modelData.lon)
+                sourceItem: CacheIcon {
+                    id: cacheIcon
                 }
             }
         }
-
     }
-
 }
+

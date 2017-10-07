@@ -18,7 +18,7 @@ class CachesBBox : public Requestor
     Q_PROPERTY(double latTopLeft READ latTopLeft WRITE setLatTopLeft NOTIFY latTopLeftChanged)
     Q_PROPERTY(double lonTopLeft READ lonTopLeft WRITE setLonTopLeft NOTIFY lonTopLeftChanged)
 
-    Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches )
+    Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
 
 public:
     explicit  CachesBBox(QObject *parent = 0);
@@ -45,6 +45,7 @@ signals:
     void lonBottomRightChanged();
     void latTopLeftChanged();
     void lonTopLeftChanged();
+    void cachesChanged();
 
 public slots:
     void onReplyFinished(QNetworkReply* reply) override;
