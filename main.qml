@@ -80,8 +80,8 @@ Item {
 
         latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).latitude
         lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).longitude
-        latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(parent.width,parent.height)).latitude
-        lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(parent.width,parent.height)).longitude
+        latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).latitude
+        lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).longitude
     }
 
     CacheTypes {
@@ -123,6 +123,9 @@ Item {
         console.log(" ---> SIZES       ###########")
         console.log(cacheSizes.sizes[0].sizeId)
         console.log(cacheSizes.sizes[0].sizeIdGs)
+        console.log(" ---> BBox       ###########")
+        console.log(cachesBBox.caches[0].name)
+
 
     }
 }
