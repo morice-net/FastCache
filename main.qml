@@ -5,7 +5,6 @@ import QtPositioning 5.3
 import QtWebView 1.1
 import Qt.labs.settings 1.0
 
-
 import "QML/JavaScript/Palette.js" as Palette
 import "QML"
 import com.mycompany.connecting 1.0
@@ -25,6 +24,7 @@ Item {
             console.log("Coordinate:", coord.longitude, coord.latitude);
         }
     }
+
 
     FastMap {
         id: fastMap
@@ -110,7 +110,6 @@ Item {
 
         // Mask the loading page
         loadingPage.opacity = 0;
-
     }
 
     Component.onDestruction: {

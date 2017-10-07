@@ -35,16 +35,17 @@ Rectangle {
             opacity: 0.25
         }
 
-        MapQuickItem {
-            id: centerItem
-            coordinate: parent.center
+        Repeater {
+            id: displayCaches
+            model: cachesBBox.caches
+            delegate:MapQuickItem {
+                coordinate:QtPositioning.coordinate(modelData.lat(),modelData.lon())
+                sourceItem: CacheIcon{
 
-            sourceItem: CacheIcon {
-                id: cacheIcon
+                }
             }
         }
+
     }
 
 }
-
-
