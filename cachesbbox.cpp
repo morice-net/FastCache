@@ -22,9 +22,9 @@ CachesBBox::~CachesBBox()
     }
 }
 
-QQmlListProperty < Cache > CachesBBox :: caches()
+QQmlListProperty<Cache> CachesBBox :: caches()
 {
-    return QQmlListProperty < Cache > ( this , m_caches );
+    return QQmlListProperty<Cache>(this, m_caches);
 }
 
 void CachesBBox::sendRequest(QString token)
@@ -155,6 +155,7 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
         }
 
     } else {
+        qDebug() << "*** CachesBBox ERROR ***\n" <<reply->errorString() ;
         return;
     }
     emit cachesChanged() ;
