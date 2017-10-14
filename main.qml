@@ -25,6 +25,16 @@ Item {
         }
     }
 
+    CachesBBox {
+        id: cachesBBox
+
+        latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).latitude
+        lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).longitude
+        latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).latitude
+        lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).longitude
+
+        onCachesChanged: fastMap.updateCachesOnMap()
+    }
 
     FastMap {
         id: fastMap
@@ -75,14 +85,7 @@ Item {
         onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
     }
 
-    CachesBBox {
-        id: cachesBBox
 
-        latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).latitude
-        lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMap.x,fastMap.y)).longitude
-        latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).latitude
-        lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).longitude
-    }
 
     CacheTypes {
         id: cacheTypes

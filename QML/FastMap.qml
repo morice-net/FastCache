@@ -12,6 +12,7 @@ Rectangle {
     height: parent.height
 
     property alias mapItem: map
+    property var component
 
     Plugin {
         id: osm
@@ -26,27 +27,14 @@ Rectangle {
         zoomLevel: { 14.5 }
         gesture.enabled: true
 
-        //gesture.activeGestures: MapGestureArea.ZoomGesture
-        MapCircle {
-            id: circleSearchArea
-            center: parent.center
-            radius: 1000
-            color: Palette.turquoise()
-            border.width: 1
-            border.color: Palette.greenSea()
-            opacity: 0.25
+    }
+
+    function updateCachesOnMap() {
+        for (var i = 0; i < cachesBBox.caches.length; i++) {
+            var itemMap = Qt.createQmlObject('FastMapItem {}', map)
+            itemMap.index = i
+            map.addMapItem(itemMap)
         }
 
-        Repeater {
-            id: displayCaches
-            model: cachesBBox.caches
-            delegate:MapQuickItem {
-                coordinate: QtPositioning.coordinate(modelData.lat, modelData.lon)
-                sourceItem: CacheIcon {
-                    id: cacheIcon
-                }
-            }
-        }
     }
 }
-

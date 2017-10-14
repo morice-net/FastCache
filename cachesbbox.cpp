@@ -9,7 +9,7 @@
 
 
 CachesBBox::CachesBBox(QObject *parent)
-    : Requestor(parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0)
+    : Requestor(parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0),m_caches(QList<Cache*>())
 {
 }
 
@@ -22,14 +22,13 @@ CachesBBox::~CachesBBox()
     }
 }
 
-QQmlListProperty<Cache> CachesBBox :: caches()
+QQmlListProperty<Cache> CachesBBox::caches()
 {
     return QQmlListProperty<Cache>(this, m_caches);
 }
 
-void CachesBBox::sendRequest(QString token)
-{
-    m_caches.empty();
+void CachesBBox::sendRequest(QString token){
+
     indexMoreCachesBBox = 0;
 
     if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
