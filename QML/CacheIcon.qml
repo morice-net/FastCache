@@ -2,7 +2,7 @@ import QtQuick 2.3
 
 Item {
 
-    property int type: 0
+    property int type: 9
     Image {
         id: cacheIconBackground
         source: "qrc:/Image/marker.png"
@@ -25,8 +25,5 @@ Item {
 
     MouseArea {
         anchors.fill: cacheIconBackground
-        z: 100
-        onClicked: type++
     }
-
 }

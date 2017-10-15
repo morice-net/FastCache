@@ -6,11 +6,12 @@ Item {
     id: cacheTypes
     property var types: []
 
+
     CacheType {
         id: firstType
         typeId: "traditional"
         pattern: "Traditional Cache"
-        markerId: 1
+        markerId: 9
         typeIdGs: 2
         Component.onCompleted: {
             types.push(firstType)
@@ -21,7 +22,7 @@ Item {
         id: secondType
         typeId: "multi"
         pattern: "Multi-cache"
-        markerId: 3
+        markerId: 7
         typeIdGs: 3
         Component.onCompleted: {
             types.push(secondType)
@@ -32,7 +33,7 @@ Item {
         id: thirdType
         typeId: "mystery"
         pattern: "Unknown Cache"
-        markerId: 2
+        markerId: 8
         typeIdGs: 8
         Component.onCompleted: {
             types.push(thirdType)
@@ -43,7 +44,7 @@ Item {
         id: fourthType
         typeId: "letterbox"
         pattern: "Letterbox hybrid"
-        markerId: 9
+        markerId: 5
         typeIdGs: 5
         Component.onCompleted: {
             types.push(fourthType)
@@ -54,7 +55,7 @@ Item {
         id: fifthType
         typeId: "event"
         pattern: "Event Cache"
-        markerId: 7
+        markerId: 3
         typeIdGs: 6
         Component.onCompleted: {
             types.push(fifthType)
@@ -65,7 +66,7 @@ Item {
         id: sixthType
         typeId: "mega"
         pattern: "Mega-Event Cache"
-        markerId: 10
+        markerId: 6
         typeIdGs: 453
         Component.onCompleted: {
             types.push(sixthType)
@@ -76,7 +77,7 @@ Item {
         id: seventhType
         typeId: "giga"
         pattern: "Giga-Event Cache"
-        markerId: 8
+        markerId: 4
         typeIdGs: 7005
         Component.onCompleted: {
             types.push(seventhType)
@@ -87,7 +88,7 @@ Item {
         id: eighthType
         typeId: "earth"
         pattern: "Earthcache"
-        markerId: 4
+        markerId: 2
         typeIdGs: 137
         Component.onCompleted: {
             types.push(eighthType)
@@ -98,7 +99,7 @@ Item {
         id: ninthType
         typeId: "cito"
         pattern: "Cache in Trash out Event"
-        markerId: 6
+        markerId: 1
         typeIdGs: 13
         Component.onCompleted: {
             types.push(ninthType)
@@ -109,7 +110,7 @@ Item {
         id: tenthType
         typeId: "webcam"
         pattern: "Webcam Cache"
-        markerId: 13
+        markerId: 12
         typeIdGs: 11
         Component.onCompleted: {
             types.push(tenthType)
@@ -120,7 +121,7 @@ Item {
         id: eleventhType
         typeId: "virtual"
         pattern: "Virtual Cache"
-        markerId: 12
+        markerId: 11
         typeIdGs: 4
         Component.onCompleted: {
             types.push(eleventhType)
@@ -131,7 +132,7 @@ Item {
         id: twelfthType
         typeId: "wherigo"
         pattern: "Wherigo Cache"
-        markerId: 14
+        markerId: 13
         typeIdGs: 1858
         Component.onCompleted: {
             types.push(twelfthType)
@@ -142,7 +143,7 @@ Item {
         id: thirteenthType
         typeId: "lostfound"
         pattern: "Lost and Found Event Cache"
-        markerId: 7
+        markerId: 3
         typeIdGs: 3653
         Component.onCompleted: {
             types.push(thirteenthType)
@@ -153,7 +154,7 @@ Item {
         id: fourteenthType
         typeId: "ape"
         pattern: "Project Ape Cache"
-        markerId: 5
+        markerId: 0
         typeIdGs: 9
         Component.onCompleted: {
             types.push(fourteenthType)
@@ -164,7 +165,7 @@ Item {
         id: fifteenthType
         typeId: "gchq"
         pattern: "Groundspeak HQ"
-        markerId: 11
+        markerId: 14
         typeIdGs: 3773
         Component.onCompleted: {
             types.push(fifteenthType)
@@ -175,7 +176,7 @@ Item {
         id: sixteenthType
         typeId: "gps"
         pattern: "GPS Adventures Exhibit"
-        markerId: 7
+        markerId: 3
         typeIdGs: 1304
         Component.onCompleted: {
             types.push(sixteenthType)
@@ -186,7 +187,7 @@ Item {
         id: seventeenthType
         typeId: "block"
         pattern: "Groundspeak Block Party"
-        markerId: 7
+        markerId: 3
         typeIdGs: 4738
         Component.onCompleted: {
             types.push(seventeenthType)

@@ -19,7 +19,6 @@ class CachesBBox : public Requestor
     Q_PROPERTY(double lonTopLeft READ lonTopLeft WRITE setLonTopLeft NOTIFY lonTopLeftChanged)
 
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
-    //Q_PROPERTY ( QList<Cache*> caches READ caches WRITE setCaches NOTIFY cachesChanged)
 
 public:
     explicit  CachesBBox(QObject *parent = 0);
