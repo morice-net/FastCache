@@ -82,7 +82,7 @@ Item {
 
     UserInfo {
         id: userInfo
-        onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
+    //    onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
     }
 
 

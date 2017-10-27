@@ -9,7 +9,7 @@ Rectangle {
     property bool selected: false
     property bool favourite: false
 
-    height: favourite ? searchRectangle.width / 5 : searchRectangle.width / 6
+    height: searchRectangle.width /6
     width: height
     color: selected ? Palette.greenSea() : "#00000000"
 

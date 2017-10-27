@@ -16,7 +16,7 @@ Item {
 
 
     property var favouriteCacheType: [9,8,7,2,1]
-    property var otherCacheType: [0,3,4,5,6,10,11,12,13,14]
+    property var otherCacheType: [0,3,4,5,6,11,12,13,14]
 
     Rectangle {
         id: filtersRectangle

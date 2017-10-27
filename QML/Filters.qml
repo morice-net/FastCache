@@ -7,6 +7,11 @@ import "JavaScript/Palette.js" as Palette
 Item {
     id: filters
     width: searchRectangle.width
+    height: 700
+
+    MouseArea {
+        anchors.fill: parent
+    }
 
     Column {
         id: internFilterColumn
@@ -18,9 +23,9 @@ Item {
         }
 
         Row {
-            opacity: 0
-            visible: typeFilterSelectable.filterSelected
-            height: searchRectangle.width / 5
+            opacity: 1
+            visible: true
+            height: searchRectangle.width /6
             anchors.horizontalCenter: parent.horizontalCenter
 
             Repeater {
@@ -42,8 +47,8 @@ Item {
         }
 
         Grid {
-            opacity: 0
-            visible: typeFilterSelectable.filterSelected
+            opacity: 1
+            visible: true
             height: 2 * searchRectangle.width / 6
             anchors.horizontalCenter: parent.horizontalCenter
             columns: 5
@@ -63,6 +68,9 @@ Item {
 
             Behavior on opacity { NumberAnimation { duration: 500 } }
 
+
+
+
         }
 
         SelectableFilter {
@@ -72,7 +80,7 @@ Item {
 
         MultiPointSlider {
             id: sizeSlider
-            visible: sizeFilterSelectable.filterSelected
+            visible: true
             x: 10
         }
 
@@ -83,7 +91,7 @@ Item {
 
         MultiPointSlider {
             id: difficultySlider
-            visible: difficultyFilterSelectable.filterSelected
+            visible: true
 
         }
 
@@ -94,25 +102,9 @@ Item {
 
         MultiPointSlider {
             id: fieldSlider
-            visible: fieldFilterSelectable.filterSelected
+            visible: true
             x: 10
         }
     }
 
-    function updateHeight() {
-        var computedHeight = typeFilterSelectable.height + sizeFilterSelectable.height + difficultyFilterSelectable.height + fieldFilterSelectable.height
-        if (typeFilterSelectable.filterSelected)
-            computedHeight += 3 * searchRectangle.width / 5
-        if (sizeFilterSelectable.filterSelected)
-            computedHeight += 60
-        if (difficultyFilterSelectable.filterSelected)
-            computedHeight += 60
-        if (fieldFilterSelectable.filterSelected)
-            computedHeight += 60
-        height = computedHeight
-    }
-
-    Component.onCompleted: {
-        updateHeight()
-    }
 }
