@@ -1,4 +1,4 @@
-import QtQuick 2.3
+import QtQuick 2.6
 import QtLocation 5.3
 import QtPositioning 5.3
 

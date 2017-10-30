@@ -1,4 +1,4 @@
-import QtQuick 2.3
+import QtQuick 2.6
 
 import com.mycompany.connecting 1.0
 
