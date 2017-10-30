@@ -14,13 +14,13 @@ Item {
         width: searchRectangle.width
 
         Text {
-            text: " " + selectableFilter.filterText
+            horizontalAlignment: Text.AlignHCenter
             font.family: localFont.name
             font.pointSize: 22
             color: Palette.black()
-            width: selectableFilter.width/2
+            width: parent.width
+            text: selectableFilter.filterText
 
         }
     }
-
 }

@@ -92,7 +92,7 @@ Item {
         MultiPointSlider {
             id: difficultySlider
             visible: true
-
+            x: 10
         }
 
         SelectableFilter {
