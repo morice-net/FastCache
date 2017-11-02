@@ -4,6 +4,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: cacheSizes
+
     property var sizes:[]
 
     CacheSize {
@@ -17,7 +18,7 @@ Item {
 
     CacheSize {
         id: secondSize
-        sizeId: "Petite"
+        sizeId: "Small"
         sizeIdGs: 8
         Component.onCompleted: {
             sizes.push(secondSize)
@@ -26,7 +27,7 @@ Item {
 
     CacheSize {
         id: thirdSize
-        sizeId: "Normale"
+        sizeId: "Regular"
         sizeIdGs: 3
         Component.onCompleted: {
             sizes.push(thirdSize)
@@ -35,7 +36,7 @@ Item {
 
     CacheSize {
         id: fourthSize
-        sizeId: "Grande"
+        sizeId: "Large"
         sizeIdGs: 4
         Component.onCompleted: {
             sizes.push(fourthSize)
@@ -44,7 +45,7 @@ Item {
 
     CacheSize {
         id: fifthSize
-        sizeId: "Non renseignée"
+        sizeId: "Not Chosen"
         sizeIdGs: 6
         Component.onCompleted: {
             sizes.push(fifthSize)
@@ -53,7 +54,7 @@ Item {
 
     CacheSize {
         id: sixthSize
-        sizeId: "Virtuelle"
+        sizeId: "Virtual"
         sizeIdGs: 5
         Component.onCompleted: {
             sizes.push(sixthSize)
@@ -62,7 +63,7 @@ Item {
 
     CacheSize {
         id: seventhSize
-        sizeId: "Autre"
+        sizeId: "Other"
         sizeIdGs: 7
         Component.onCompleted: {
             sizes.push(seventhSize)
@@ -71,7 +72,7 @@ Item {
 
     CacheSize {
         id: eighthSize
-        sizeId: "Inconnue"
+        sizeId: "Unknown"
         sizeIdGs: 9
         Component.onCompleted: {
             sizes.push(eighthSize)

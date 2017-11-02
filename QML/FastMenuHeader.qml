@@ -74,7 +74,7 @@ Rectangle {
             }
         }
 
-        Behavior on width { NumberAnimation { duration: 500 } }
+        Behavior on width { NumberAnimation { duration: 400 } }
 
     }
 

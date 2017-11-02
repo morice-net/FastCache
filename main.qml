@@ -10,6 +10,7 @@ import "QML"
 import com.mycompany.connecting 1.0
 
 Item {
+
     id: main
     visible: true
     anchors.fill: parent
@@ -85,8 +86,6 @@ Item {
         onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
     }
 
-
-
     CacheTypes {
         id: cacheTypes
     }
@@ -95,7 +94,9 @@ Item {
         id: cacheSizes
     }
 
+
     FastSettings { id: settings }
+
 
     Component.onCompleted: {
 
@@ -124,11 +125,8 @@ Item {
         console.log(cacheTypes.types[0].markerId)
         console.log(cacheTypes.types[0].typeIdGs)
         console.log(" ---> SIZES       ###########")
-        console.log(cacheSizes.sizes[0].sizeId)
-        console.log(cacheSizes.sizes[0].sizeIdGs)
-        console.log(" ---> BBox       ###########")
-        console.log(cachesBBox.caches[0].name)
-
+        console.log(cacheSizes.sizes[6].sizeId)
+        console.log(cacheSizes.sizes[6].sizeIdGs)
 
     }
 }
