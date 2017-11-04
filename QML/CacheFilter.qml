@@ -14,8 +14,7 @@ Item {
     Behavior on width { NumberAnimation { duration: 400 } }
     Behavior on height { NumberAnimation { duration: 400 } }
 
-    property var favouriteCacheType: [9,8,7,2,1]
-    property var otherCacheType: [0,3,4,5,6,11,12,13,14]    
+    property var cacheType: [9,8,7,2,1,0,3,4,5,6,11,12,13,14]
 
     Rectangle {
         id: filtersRectangle
@@ -47,8 +46,8 @@ Item {
 
             Filters {
                 id: typeFilter
-                Behavior on width { NumberAnimation { duration: 300 } }
-                Behavior on height { NumberAnimation { duration: 300 } }
+                Behavior on width { NumberAnimation { duration: 400 } }
+                Behavior on height { NumberAnimation { duration: 400 } }
             }
         }
     }

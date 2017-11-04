@@ -58,6 +58,7 @@ RangeSlider {
         text: " Min:"+minValueSlider()
 
     }
+
     Label {
         anchors.right: control.right
         anchors.bottom: control.top

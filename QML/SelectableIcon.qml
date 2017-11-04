@@ -5,12 +5,15 @@ import QtQuick.Controls.Styles 1.4
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
+    id: selectableIcon
     property int type
-    property bool selected: false
-    property bool favourite: false
+    property bool selected
 
-    height: searchRectangle.width /6
+    height: searchRectangle.width /7
     width: height
+    radius: 15
+    border.width:1
+    border.color: Palette.black()
     color: selected ? Palette.greenSea() : "#00000000"
 
     AnimatedSprite {
@@ -27,6 +30,10 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: selected = !selected
+        onClicked: {
+            selected = !selected
+            settingsFilterType.filterTypes[index] = selected
+        }
     }
+
 }

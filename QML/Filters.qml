@@ -9,7 +9,7 @@ import "JavaScript/Palette.js" as Palette
 Item {
     id: filters
     width: searchRectangle.width
-    height: 800
+    height: main.height * 0.9
 
     MouseArea {
         anchors.fill: parent
@@ -24,40 +24,18 @@ Item {
             filterText: "Type"
         }
 
-        Row {
-            opacity: 1
-            visible: true
-            height: searchRectangle.width /6
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            Repeater {
-                model: favouriteCacheType
-                SelectableIcon {
-                    type: modelData
-                    favourite: true
-                }
-            }
-
-            onVisibleChanged: {
-                if (visible)
-                    opacity = 1
-                else
-                    opacity = 0
-            }
-
-            Behavior on opacity { NumberAnimation { duration: 500 } }
-        }
-
         Grid {
             opacity: 1
             visible: true
-            height: 2 * searchRectangle.width / 6
+            height: 3 * searchRectangle.width / 6
             anchors.horizontalCenter: parent.horizontalCenter
             columns: 5
             Repeater {
-                model: otherCacheType
+                model: cacheType
                 SelectableIcon {
+                    id: selectableIcon
                     type: modelData
+                    selected: settingsFilterType.filterTypes[index]
                 }
             }
 
@@ -67,8 +45,19 @@ Item {
                 else
                     opacity = 0
             }
-            Behavior on opacity { NumberAnimation { duration: 500 } }
 
+            Behavior on opacity { NumberAnimation { duration: 400 } }
+
+            Settings {
+                id: settingsFilterType
+                category: "filter caches by type"
+
+                property var filterTypes : [false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+            }
+
+            Component.onDestruction: {
+                console.log("liste:  "+settingsFilterType.filterTypes)
+            }
         }
 
         SelectableFilter {
@@ -154,6 +143,20 @@ Item {
             id: difficultySlider
             visible: true
             x: 10
+            first.value:   settingsDifficulty.difficultyMin
+            second.value:  settingsDifficulty.difficultyMax
+
+            Settings {
+                id: settingsDifficulty
+                category: "filter caches by difficulty "
+                property real difficultyMin: 1
+                property real difficultyMax: 5
+            }
+
+            Component.onDestruction: {
+                settingsDifficulty.difficultyMin = minValueSlider()
+                settingsDifficulty.difficultyMax = maxValueSlider()
+            }
         }
 
         SelectableFilter {
@@ -165,6 +168,20 @@ Item {
             id: fieldSlider
             visible: true
             x: 10
+            first.value:   settingsTerrain.terrainMin
+            second.value:  settingsTerrain.terrainMax
+
+            Settings {
+                id: settingsTerrain
+                category: "filter caches by terrain "
+                property real terrainMin: 1
+                property real terrainMax: 5
+            }
+
+            Component.onDestruction: {
+                settingsTerrain.terrainMin = minValueSlider()
+                settingsTerrain.terrainMax = maxValueSlider()
+            }
         }
 
         CheckBox {id :found ; text: "Exclure les caches trouvées et mes.." ;checked: settingsFilterFound.excludeCachesFound
@@ -181,7 +198,11 @@ Item {
 
         }
 
-        CheckBox {id :archived ; text: "Exclure les caches désactivées" ;checked: settingsFilterArchived.excludeCachesArchived
+        CheckBox {
+            id :archived
+            text: "Exclure les caches désactivées"
+            checked: settingsFilterArchived.excludeCachesArchived
+
             Settings {
                 id: settingsFilterArchived
                 category: "filter caches archived"

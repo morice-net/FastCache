@@ -15,6 +15,8 @@ Item {
     visible: true
     anchors.fill: parent
 
+    FastSettings { id: settings }
+
     PositionSource {
         id: currentPosition
         updateInterval: 1000
@@ -94,8 +96,6 @@ Item {
         id: cacheSizes
     }
 
-
-    FastSettings { id: settings }
 
 
     Component.onCompleted: {
