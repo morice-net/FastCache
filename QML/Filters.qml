@@ -16,6 +16,10 @@ Item {
     width: searchRectangle.width
     height: main.height * 0.8
 
+    CacheTypes {
+        id: cacheTypes
+    }
+
     MouseArea {
         anchors.fill: parent
     }
@@ -34,7 +38,7 @@ Item {
             visible: true
             height: 3 * searchRectangle.width / 6
             anchors.horizontalCenter: parent.horizontalCenter
-            columns: 5            
+            columns: 5
             Repeater {
                 model: listTypes
                 SelectableIcon {
@@ -70,6 +74,9 @@ Item {
                 property bool webcam: false
                 property bool wherigo: false
                 property bool gchq: false
+            }
+            Component.onDestruction: {
+                createFilterTypesGs()
             }
         }
 
@@ -208,7 +215,6 @@ Item {
             Component.onDestruction: {
                 settingsFilterFound.excludeCachesFound = found.checkState
             }
-
         }
 
         CheckBox {
@@ -226,5 +232,22 @@ Item {
                 settingsFilterArchived.excludeCachesArchived = archived.checkState
             }
         }
+    }
+
+    function createFilterTypesGs(){
+        var  list = [] ;
+        cacheTypes.types.reverse()
+        for (var i = 0; i < listTypes.length; i++) {
+            if(listTypes[i] === false ){
+                list.push( cacheTypes.types[i].typeIdGs)
+                if(cacheTypes.types[i].markerId === 6){
+                    list.push(4738 )
+                    list.push(1304)
+                    list.push(3653 )
+                }
+            }
+        }
+        console.log("listTypesGs:  " + list)
+        return list
     }
 }

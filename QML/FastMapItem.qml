@@ -18,6 +18,6 @@ MapQuickItem {
                 return  cacheTypes.types[i].markerId
             }
         }
-        return 10
+        return 14
     }
 }

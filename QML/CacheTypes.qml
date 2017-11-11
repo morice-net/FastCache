@@ -6,7 +6,6 @@ Item {
     id: cacheTypes
     property var types: []
 
-
     CacheType {
         id: firstType
         typeId: "traditional"
@@ -20,10 +19,10 @@ Item {
 
     CacheType {
         id: secondType
-        typeId: "multi"
-        pattern: "Multi-cache"
-        markerId: 2
-        typeIdGs: 3
+        typeId: "mystery"
+        pattern: "Unknown Cache"
+        markerId: 1
+        typeIdGs: 8
         Component.onCompleted: {
             types.push(secondType)
         }
@@ -31,10 +30,10 @@ Item {
 
     CacheType {
         id: thirdType
-        typeId: "mystery"
-        pattern: "Unknown Cache"
-        markerId: 1
-        typeIdGs: 8
+        typeId: "multi"
+        pattern: "Multi-cache"
+        markerId: 2
+        typeIdGs: 3
         Component.onCompleted: {
             types.push(thirdType)
         }
@@ -42,10 +41,10 @@ Item {
 
     CacheType {
         id: fourthType
-        typeId: "letterbox"
-        pattern: "Letterbox hybrid"
-        markerId: 8
-        typeIdGs: 5
+        typeId: "earth"
+        pattern: "Earthcache"
+        markerId: 3
+        typeIdGs: 137
         Component.onCompleted: {
             types.push(fourthType)
         }
@@ -53,10 +52,10 @@ Item {
 
     CacheType {
         id: fifthType
-        typeId: "event"
-        pattern: "Event Cache"
-        markerId: 6
-        typeIdGs: 6
+        typeId: "cito"
+        pattern: "Cache in Trash out Event"
+        markerId: 4
+        typeIdGs: 13
         Component.onCompleted: {
             types.push(fifthType)
         }
@@ -64,10 +63,10 @@ Item {
 
     CacheType {
         id: sixthType
-        typeId: "mega"
-        pattern: "Mega-Event Cache"
-        markerId: 9
-        typeIdGs: 453
+        typeId: "ape"
+        pattern: "Project Ape Cache"
+        markerId: 5
+        typeIdGs: 9
         Component.onCompleted: {
             types.push(sixthType)
         }
@@ -75,10 +74,10 @@ Item {
 
     CacheType {
         id: seventhType
-        typeId: "giga"
-        pattern: "Giga-Event Cache"
-        markerId: 7
-        typeIdGs: 7005
+        typeId: "event"
+        pattern: "Event Cache"
+        markerId: 6
+        typeIdGs: 6
         Component.onCompleted: {
             types.push(seventhType)
         }
@@ -86,10 +85,10 @@ Item {
 
     CacheType {
         id: eighthType
-        typeId: "earth"
-        pattern: "Earthcache"
-        markerId: 3
-        typeIdGs: 137
+        typeId: "giga"
+        pattern: "Giga-Event Cache"
+        markerId: 7
+        typeIdGs: 7005
         Component.onCompleted: {
             types.push(eighthType)
         }
@@ -97,10 +96,10 @@ Item {
 
     CacheType {
         id: ninthType
-        typeId: "cito"
-        pattern: "Cache in Trash out Event"
-        markerId: 4
-        typeIdGs: 13
+        typeId: "letterbox"
+        pattern: "Letterbox hybrid"
+        markerId: 8
+        typeIdGs: 5
         Component.onCompleted: {
             types.push(ninthType)
         }
@@ -108,10 +107,10 @@ Item {
 
     CacheType {
         id: tenthType
-        typeId: "webcam"
-        pattern: "Webcam Cache"
-        markerId: 11
-        typeIdGs: 11
+        typeId: "mega"
+        pattern: "Mega-Event Cache"
+        markerId: 9
+        typeIdGs: 453
         Component.onCompleted: {
             types.push(tenthType)
         }
@@ -130,10 +129,10 @@ Item {
 
     CacheType {
         id: twelfthType
-        typeId: "wherigo"
-        pattern: "Wherigo Cache"
-        markerId: 12
-        typeIdGs: 1858
+        typeId: "webcam"
+        pattern: "Webcam Cache"
+        markerId: 11
+        typeIdGs: 11
         Component.onCompleted: {
             types.push(twelfthType)
         }
@@ -141,10 +140,10 @@ Item {
 
     CacheType {
         id: thirteenthType
-        typeId: "lostfound"
-        pattern: "Lost and Found Event Cache"
-        markerId: 6
-        typeIdGs: 3653
+        typeId: "wherigo"
+        pattern: "Wherigo Cache"
+        markerId: 12
+        typeIdGs: 1858
         Component.onCompleted: {
             types.push(thirteenthType)
         }
@@ -152,10 +151,10 @@ Item {
 
     CacheType {
         id: fourteenthType
-        typeId: "ape"
-        pattern: "Project Ape Cache"
-        markerId: 5
-        typeIdGs: 9
+        typeId: "gchq"
+        pattern: "Groundspeak HQ"
+        markerId: 13
+        typeIdGs: 3773
         Component.onCompleted: {
             types.push(fourteenthType)
         }
@@ -163,10 +162,10 @@ Item {
 
     CacheType {
         id: fifteenthType
-        typeId: "gchq"
-        pattern: "Groundspeak HQ"
-        markerId: 13
-        typeIdGs: 3773
+        typeId: "lostfound"
+        pattern: "Lost and Found Event Cache"
+        markerId: 6
+        typeIdGs: 3653
         Component.onCompleted: {
             types.push(fifteenthType)
         }
@@ -191,6 +190,7 @@ Item {
         typeIdGs: 4738
         Component.onCompleted: {
             types.push(seventeenthType)
+
         }
     }
 }
