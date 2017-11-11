@@ -80,12 +80,12 @@ Item {
             webEngine.url = url;
             webEngine.visible = true;
         }
-     //   onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey)
+        onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey)
     }
 
     UserInfo {
         id: userInfo
-     //   onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
+        onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
     }
 
     CacheTypes {
