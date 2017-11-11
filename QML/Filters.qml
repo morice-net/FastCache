@@ -8,8 +8,13 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: filters
+
+    property var listTypes : [settingsFilterType.traditional , settingsFilterType.mystery , settingsFilterType.multi , settingsFilterType.earth , settingsFilterType.cito,
+        settingsFilterType.ape , settingsFilterType.event , settingsFilterType.giga , settingsFilterType.letterbox , settingsFilterType.mega , settingsFilterType.virtual ,
+        settingsFilterType.webcam , settingsFilterType.wherigo , settingsFilterType.gchq]
+
     width: searchRectangle.width
-    height: main.height * 0.9
+    height: main.height * 0.8
 
     MouseArea {
         anchors.fill: parent
@@ -29,13 +34,12 @@ Item {
             visible: true
             height: 3 * searchRectangle.width / 6
             anchors.horizontalCenter: parent.horizontalCenter
-            columns: 5
+            columns: 5            
             Repeater {
-                model: cacheType
+                model: listTypes
                 SelectableIcon {
                     id: selectableIcon
                     type: modelData
-                    selected: settingsFilterType.filterTypes[index]
                 }
             }
 
@@ -52,11 +56,20 @@ Item {
                 id: settingsFilterType
                 category: "filter caches by type"
 
-                property var filterTypes : [false,false,false,false,false,false,false,false,false,false,false,false,false,false]
-            }
-
-            Component.onDestruction: {
-                console.log("liste:  "+settingsFilterType.filterTypes)
+                property bool traditional : false
+                property bool mystery : false
+                property bool multi : false
+                property bool earth : false
+                property bool cito : false
+                property bool ape: false
+                property bool event: false
+                property bool giga : false
+                property bool letterbox: false
+                property bool mega: false
+                property bool virtual: false
+                property bool webcam: false
+                property bool wherigo: false
+                property bool gchq: false
             }
         }
 
