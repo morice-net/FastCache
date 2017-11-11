@@ -14,8 +14,6 @@ Item {
     Behavior on width { NumberAnimation { duration: 400 } }
     Behavior on height { NumberAnimation { duration: 400 } }
 
-    property var cacheType: [9,8,7,2,1,0,3,4,5,6,11,12,13,14]
-
     Rectangle {
         id: filtersRectangle
         x: 5

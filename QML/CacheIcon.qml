@@ -2,7 +2,7 @@ import QtQuick 2.6
 
 Item {
 
-    property int type: 9
+    property int type: 0
     Image {
         id: cacheIconBackground
         source: "qrc:/Image/marker.png"

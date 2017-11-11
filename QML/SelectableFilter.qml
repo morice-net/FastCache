@@ -6,7 +6,7 @@ Item {
     id: selectableFilter
     width: parent.width
     height: 60
-    property bool filterSelected: true
+
     property string filterText: ""
 
     Row {
