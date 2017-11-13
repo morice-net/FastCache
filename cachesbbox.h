@@ -25,6 +25,7 @@ public:
     ~CachesBBox();
 
     Q_INVOKABLE virtual void sendRequest(QString token);
+    Q_INVOKABLE   void updateFilterTypes(QList <int > list);
 
     QQmlListProperty<Cache> caches();
 
@@ -64,6 +65,7 @@ private:
     QString tokenTemp ;
 
     QList<Cache*> m_caches;
+    QList<int> filterTypes;
 
     void   sendRequestMore(QString token);
 };

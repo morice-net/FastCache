@@ -40,9 +40,11 @@ void CachesBBox::sendRequest(QString token){
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
 
     QJsonObject parameters;
+    QJsonObject geocacheType;
     QJsonObject viewport;
     QJsonObject bottomRight;
     QJsonObject topLeft;
+    QJsonArray geocacheTypeIds;
 
     tokenTemp=token;
 
@@ -52,14 +54,22 @@ void CachesBBox::sendRequest(QString token){
     parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
     parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
 
+    // filter by type.
+    if(!filterTypes.isEmpty()){
+        foreach ( int type, filterTypes)
+        {
+            geocacheTypeIds.append(type);
+        }
+        geocacheType.insert("GeocacheTypeIds", QJsonValue(geocacheTypeIds));
+        parameters.insert("GeocacheType",QJsonValue(geocacheType));
+    }
+
     bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
     bottomRight.insert("Longitude", QJsonValue(m_lonBottomRight));
     topLeft.insert("Latitude", QJsonValue(m_latTopLeft));
     topLeft.insert("Longitude", QJsonValue(m_lonTopLeft));
-
     viewport.insert("BottomRight", QJsonValue(bottomRight));
     viewport.insert("TopLeft", QJsonValue(topLeft));
-
     parameters.insert("Viewport", QJsonValue(viewport));
 
     QNetworkRequest request;
@@ -205,4 +215,7 @@ void CachesBBox::setLatBottomRight(double latBottomRight)
     emit latBottomRightChanged();
 }
 
-
+void CachesBBox::updateFilterTypes(QList<int> list)
+{
+    filterTypes = list ;
+}

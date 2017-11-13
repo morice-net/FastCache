@@ -85,7 +85,10 @@ Item {
 
     UserInfo {
         id: userInfo
-        onRequestReady: cachesBBox.sendRequest(connector.tokenKey)
+        onRequestReady:{
+            cachesBBox.updateFilterTypes(filters.createFilterTypesGs())
+            cachesBBox.sendRequest(connector.tokenKey)
+        }
     }
 
     CacheTypes {
@@ -96,7 +99,10 @@ Item {
         id: cacheSizes
     }
 
-
+    Filters {
+        id: filters
+        visible :  false
+    }
 
     Component.onCompleted: {
 

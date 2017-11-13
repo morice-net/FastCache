@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.1
 import Qt.labs.settings 1.0
 
 import "JavaScript/Palette.js" as Palette
+import com.mycompany.connecting 1.0
 
 Item {
     id: filters
@@ -74,9 +75,6 @@ Item {
                 property bool webcam: false
                 property bool wherigo: false
                 property bool gchq: false
-            }
-            Component.onDestruction: {
-                createFilterTypesGs()
             }
         }
 
@@ -247,7 +245,7 @@ Item {
                 }
             }
         }
-        console.log("listTypesGs:  " + list)
-        return list
+        if(list.length == 0 || list.length == cacheTypes.types.length) return []
+        else return list
     }
 }
