@@ -41,10 +41,12 @@ void CachesBBox::sendRequest(QString token){
 
     QJsonObject parameters;
     QJsonObject geocacheType;
+    QJsonObject geocacheSize;
     QJsonObject viewport;
     QJsonObject bottomRight;
     QJsonObject topLeft;
     QJsonArray geocacheTypeIds;
+    QJsonArray geocacheSizeIds;
 
     tokenTemp=token;
 
@@ -62,6 +64,16 @@ void CachesBBox::sendRequest(QString token){
         }
         geocacheType.insert("GeocacheTypeIds", QJsonValue(geocacheTypeIds));
         parameters.insert("GeocacheType",QJsonValue(geocacheType));
+    }
+
+    // filter by size.
+    if(!filterSizes.isEmpty()){
+        foreach ( int size, filterSizes)
+        {
+            geocacheSizeIds.append(size);
+        }
+        geocacheSize.insert("GeocacheContainerSizeIds", QJsonValue(geocacheSizeIds));
+        parameters.insert("GeocacheContainerSize",QJsonValue(geocacheSize));
     }
 
     bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
@@ -218,4 +230,9 @@ void CachesBBox::setLatBottomRight(double latBottomRight)
 void CachesBBox::updateFilterTypes(QList<int> list)
 {
     filterTypes = list ;
+}
+
+void CachesBBox::updateFilterSizes(QList<int> list)
+{
+    filterSizes = list ;
 }

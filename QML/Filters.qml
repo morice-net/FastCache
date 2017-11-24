@@ -91,35 +91,23 @@ Item {
             }
 
             ColumnLayout {
-                CheckBox { id :size1; text:"Micro"; checked: settingsFilterSize.micro}
-                CheckBox {id :size2; text: "Petite" ;  checked: settingsFilterSize.small}
-                CheckBox {id :size3; text: "Normale";  checked: settingsFilterSize.regular }
-                CheckBox {id :size4; text: "Grande"; checked: settingsFilterSize.large }
-                CheckBox { id :size5;text: "Non renseignée" ; checked: settingsFilterSize.notChosen }
-                CheckBox { id :size6;text: "Virtuelle"; checked: settingsFilterSize.virtual }
-                CheckBox {id :size7; text: "Autre";  checked: settingsFilterSize.other  }
-            }
-
-            Settings {
-                id: settingsFilterSize
-                category: "filter cache size"
-                property bool micro: true
-                property bool small: true
-                property bool regular: true
-                property bool large: true
-                property bool notChosen: true
-                property bool virtual: true
-                property bool other: true
+                CheckBox { id :size1; text:"Micro"; checked: settings.micro}
+                CheckBox {id :size2; text: "Petite" ;  checked: settings.small}
+                CheckBox {id :size3; text: "Normale";  checked: settings.regular }
+                CheckBox {id :size4; text: "Grande"; checked: settings.large }
+                CheckBox { id :size5;text: "Non renseignée" ; checked: settings.notChosen }
+                CheckBox { id :size6;text: "Virtuelle"; checked: settings.virtualSize }
+                CheckBox {id :size7; text: "Autre";  checked: settings.other  }
             }
 
             Component.onDestruction: {
-                settingsFilterSize.micro = size1.checkState
-                settingsFilterSize.small =size2.checkState
-                settingsFilterSize.regular = size3.checkState
-                settingsFilterSize.large = size4.checkState
-                settingsFilterSize.notChosen = size5.checkState
-                settingsFilterSize.virtual = size6.checkState
-                settingsFilterSize.other = size7.checkState
+                settings.micro = size1.checkState
+                settings.small =size2.checkState
+                settings.regular = size3.checkState
+                settings.large = size4.checkState
+                settings.notChosen = size5.checkState
+                settings.virtualSize = size6.checkState
+                settings.other = size7.checkState
             }
         }
 

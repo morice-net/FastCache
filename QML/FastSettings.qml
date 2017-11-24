@@ -10,9 +10,11 @@ import com.mycompany.connecting 1.0
 Settings {
     id: settings
 
+// tokens
     property string tokenKey: ""
     property string tokenSecret: ""
 
+// filter by type.
     property bool traditional : false
     property bool mystery : false
     property bool multi : false
@@ -27,6 +29,15 @@ Settings {
     property bool webcam: false
     property bool wherigo: false
     property bool gchq: false
+
+  // filter by size.
+    property bool micro: true
+    property bool small: true
+    property bool regular: true
+    property bool large: true
+    property bool notChosen: true
+    property bool virtualSize: true
+    property bool other: true
 }
 
 

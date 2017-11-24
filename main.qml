@@ -19,6 +19,9 @@ Item {
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
         settings.webcam , settings.wherigo , settings.gchq]
 
+    property var listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,
+        settings.virtualSize , settings.other]
+
     visible: true
     anchors.fill: parent
 
@@ -92,6 +95,7 @@ Item {
         id: userInfo
         onRequestReady:{
             cachesBBox.updateFilterTypes(createFilterTypesGs())
+            cachesBBox.updateFilterSizes(createFilterSizesGs())
             cachesBBox.sendRequest(connector.tokenKey)
         }
     }
@@ -148,6 +152,21 @@ Item {
             }
         }
         if(list.length == 0 || list.length == cacheTypes.types.length) return []
+        else return list
+    }
+
+    function createFilterSizesGs(){
+        var  list = [] ;
+        cacheSizes.sizes.reverse()
+        for (var i = 0; i < listSizes.length; i++) {
+            if(listSizes[i] === true ){
+                list.push( cacheSizes.sizes[i].sizeIdGs)
+            }
+        }
+        console.log("listsizes:   " + list)
+
+
+        if(list.length == 0 || list.length == cacheSizes.sizes.length) return []
         else return list
     }
 }
