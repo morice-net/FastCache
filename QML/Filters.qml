@@ -9,17 +9,8 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: filters
-
-    property var listTypes : [settingsFilterType.traditional , settingsFilterType.mystery , settingsFilterType.multi , settingsFilterType.earth , settingsFilterType.cito,
-        settingsFilterType.ape , settingsFilterType.event , settingsFilterType.giga , settingsFilterType.letterbox , settingsFilterType.mega , settingsFilterType.virtual ,
-        settingsFilterType.webcam , settingsFilterType.wherigo , settingsFilterType.gchq]
-
     width: searchRectangle.width
     height: main.height * 0.8
-
-    CacheTypes {
-        id: cacheTypes
-    }
 
     MouseArea {
         anchors.fill: parent
@@ -41,7 +32,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             columns: 5
             Repeater {
-                model: listTypes
+                model: main.listTypes
                 SelectableIcon {
                     id: selectableIcon
                     type: modelData
@@ -56,26 +47,6 @@ Item {
             }
 
             Behavior on opacity { NumberAnimation { duration: 400 } }
-
-            Settings {
-                id: settingsFilterType
-                category: "filter caches by type"
-
-                property bool traditional : false
-                property bool mystery : false
-                property bool multi : false
-                property bool earth : false
-                property bool cito : false
-                property bool ape: false
-                property bool event: false
-                property bool giga : false
-                property bool letterbox: false
-                property bool mega: false
-                property bool virtual: false
-                property bool webcam: false
-                property bool wherigo: false
-                property bool gchq: false
-            }
         }
 
         SelectableFilter {
@@ -232,20 +203,4 @@ Item {
         }
     }
 
-    function createFilterTypesGs(){
-        var  list = [] ;
-        cacheTypes.types.reverse()
-        for (var i = 0; i < listTypes.length; i++) {
-            if(listTypes[i] === false ){
-                list.push( cacheTypes.types[i].typeIdGs)
-                if(cacheTypes.types[i].markerId === 6){
-                    list.push(4738 )
-                    list.push(1304)
-                    list.push(3653 )
-                }
-            }
-        }
-        if(list.length == 0 || list.length == cacheTypes.types.length) return []
-        else return list
-    }
 }

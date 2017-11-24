@@ -12,10 +12,15 @@ import com.mycompany.connecting 1.0
 Item {
 
     id: main
-    visible: true
-    anchors.fill: parent
 
     FastSettings { id: settings }
+
+    property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
+        settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
+        settings.webcam , settings.wherigo , settings.gchq]
+
+    visible: true
+    anchors.fill: parent
 
     PositionSource {
         id: currentPosition
@@ -86,7 +91,7 @@ Item {
     UserInfo {
         id: userInfo
         onRequestReady:{
-            cachesBBox.updateFilterTypes(filters.createFilterTypesGs())
+            cachesBBox.updateFilterTypes(createFilterTypesGs())
             cachesBBox.sendRequest(connector.tokenKey)
         }
     }
@@ -99,16 +104,10 @@ Item {
         id: cacheSizes
     }
 
-    Filters {
-        id: filters
-        visible :  false
-    }
-
     Component.onCompleted: {
 
         // retrieve settings (todo: remove and put alias in settings instead)
         connector.tokenKey = settings.tokenKey
-        connector.tokenSecret = settings.tokenSecret
 
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {
@@ -124,7 +123,6 @@ Item {
 
     Component.onDestruction: {
         settings.tokenKey = connector.tokenKey
-        settings.tokenSecret = connector.tokenSecret
         console.log(" ---> TYPES       ###########")
         console.log(cacheTypes.types[0].typeId)
         console.log(cacheTypes.types[0].pattern)
@@ -134,5 +132,22 @@ Item {
         console.log(cacheSizes.sizes[6].sizeId)
         console.log(cacheSizes.sizes[6].sizeIdGs)
 
+    }
+
+    function createFilterTypesGs(){
+        var  list = [] ;
+        cacheTypes.types.reverse()
+        for (var i = 0; i < listTypes.length; i++) {
+            if(listTypes[i] === false ){
+                list.push( cacheTypes.types[i].typeIdGs)
+                if(cacheTypes.types[i].markerId === 6){
+                    list.push(4738 )
+                    list.push(1304)
+                    list.push(3653 )
+                }
+            }
+        }
+        if(list.length == 0 || list.length == cacheTypes.types.length) return []
+        else return list
     }
 }

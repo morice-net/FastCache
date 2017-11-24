@@ -8,10 +8,27 @@ import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 Settings {
-    id:settings
-    category: "ConnectorTokens"
+    id: settings
+
     property string tokenKey: ""
     property string tokenSecret: ""
+
+    property bool traditional : false
+    property bool mystery : false
+    property bool multi : false
+    property bool earth : false
+    property bool cito : false
+    property bool ape: false
+    property bool event: false
+    property bool giga : false
+    property bool letterbox: false
+    property bool mega: false
+    property bool virtual: false
+    property bool webcam: false
+    property bool wherigo: false
+    property bool gchq: false
 }
+
+
 
 
