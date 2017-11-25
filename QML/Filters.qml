@@ -144,7 +144,6 @@ Item {
             x: 10
             first.value: settings.terrainMin
             second.value: settings.terrainMax
-
             Component.onDestruction: {
                 settings.terrainMin = minValueSlider()
                 settings.terrainMax = maxValueSlider()
@@ -154,32 +153,18 @@ Item {
         CheckBox {
             id :found
             text: "Exclure les caches trouvées et mes.."
-            checked: settingsFilterFound.excludeCachesFound
-
-            Settings {
-                id: settingsFilterFound
-                category: "filter caches found"
-                property bool excludeCachesFound: true
-            }
-
+            checked: settings.excludeCachesFound
             Component.onDestruction: {
-                settingsFilterFound.excludeCachesFound = found.checkState
+                settings.excludeCachesFound = found.checkState
             }
         }
 
         CheckBox {
             id :archived
             text: "Exclure les caches désactivées"
-            checked: settingsFilterArchived.excludeCachesArchived
-
-            Settings {
-                id: settingsFilterArchived
-                category: "filter caches archived"
-                property bool excludeCachesArchived: true
-            }
-
+            checked: settings.excludeCachesArchived
             Component.onDestruction: {
-                settingsFilterArchived.excludeCachesArchived = archived.checkState
+                settings.excludeCachesArchived = archived.checkState
             }
         }
     }

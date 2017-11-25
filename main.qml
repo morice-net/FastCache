@@ -94,9 +94,8 @@ Item {
     UserInfo {
         id: userInfo
         onRequestReady:{
-            cachesBBox.updateFilterTypes(createFilterTypesGs())
-            cachesBBox.updateFilterSizes(createFilterSizesGs())
-            cachesBBox.updateFilterDifficultyTerrain(createFilterDifficultyTerrainGs())
+            cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+                                          createFilterExcludeCachesArchived(),userInfo.name )
             cachesBBox.sendRequest(connector.tokenKey)
         }
     }
@@ -152,8 +151,8 @@ Item {
                 }
             }
         }
-        if(list.length == 0 || list.length == cacheTypes.types.length) return []
-        else return list
+        if(list.length == 0 || list.length == cacheTypes.types.length){ return []}
+        else { return list  }
     }
 
     function createFilterSizesGs(){
@@ -164,8 +163,8 @@ Item {
                 list.push( cacheSizes.sizes[i].sizeIdGs)
             }
         }
-        if(list.length == 0 || list.length == cacheSizes.sizes.length) return []
-        else return list
+        if(list.length == 0 || list.length == cacheSizes.sizes.length-1){ return []}
+        else {return list}
     }
 
     function createFilterDifficultyTerrainGs(){
@@ -175,5 +174,17 @@ Item {
         list.push(settings.terrainMin)
         list.push(settings.terrainMax)
         return list
+    }
+
+    function createFilterExcludeCachesFound(){
+        var  value
+        value = settings.excludeCachesFound
+        return value
+    }
+
+    function createFilterExcludeCachesArchived(){
+        var  value
+        value = settings.excludeCachesArchived
+        return value
     }
 }

@@ -10,11 +10,11 @@ import com.mycompany.connecting 1.0
 Settings {
     id: settings
 
-// tokens
+    // tokens
     property string tokenKey: ""
     property string tokenSecret: ""
 
-// filter by type
+    // filter by type
     property bool traditional : false
     property bool mystery : false
     property bool multi : false
@@ -30,7 +30,7 @@ Settings {
     property bool wherigo: false
     property bool gchq: false
 
-  // filter by size.
+    // filter by size.
     property bool micro: true
     property bool small: true
     property bool regular: true
@@ -46,6 +46,12 @@ Settings {
     // filter byterrain
     property real terrainMin: 1
     property real terrainMax: 5
+
+    // Exclude caches found.
+    property bool excludeCachesFound: true
+
+    // Exclude caches archived.
+    property bool excludeCachesArchived: true
 }
 
 

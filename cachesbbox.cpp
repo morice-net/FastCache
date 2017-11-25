@@ -47,8 +47,13 @@ void CachesBBox::sendRequest(QString token){
     QJsonObject viewport;
     QJsonObject bottomRight;
     QJsonObject topLeft;
+    QJsonObject excludeFounds;
+    QJsonObject excludeMine;
+    QJsonObject geocacheExclusion;
+
     QJsonArray geocacheTypeIds;
     QJsonArray geocacheSizeIds;
+    QJsonArray userNames;
 
     tokenTemp=token;
 
@@ -85,6 +90,22 @@ void CachesBBox::sendRequest(QString token){
     geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
     parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
     parameters.insert("Terrain", QJsonValue(geocacheTerrain));
+
+    // Exclude caches found and mine.
+    if(filterExcludeFound == true){
+        userNames.append(userName);
+        excludeFounds.insert("UserNames", QJsonValue(userNames));
+        excludeMine.insert("UserNames", QJsonValue(userNames));
+        parameters.insert("NotFoundByUsers",QJsonValue(excludeFounds));
+        parameters.insert("NotHiddenByUsers",QJsonValue(excludeMine));
+    }
+
+    // Exclude caches archived and available.
+    if(filterExcludeArchived == true){
+        geocacheExclusion.insert("Archived", QJsonValue(filterExcludeArchived));
+        geocacheExclusion.insert("Available", QJsonValue(filterExcludeArchived));
+        parameters.insert("GeocacheExclusions",QJsonValue(geocacheExclusion));
+    }
 
     // createBBox.
     bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
@@ -238,17 +259,12 @@ void CachesBBox::setLatBottomRight(double latBottomRight)
     emit latBottomRightChanged();
 }
 
-void CachesBBox::updateFilterTypes(QList<int> list)
+void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived , QString name)
 {
-    filterTypes = list ;
-}
-
-void CachesBBox::updateFilterSizes(QList<int> list)
-{
-    filterSizes = list ;
-}
-
-void CachesBBox::updateFilterDifficultyTerrain(QList<double> list)
-{
-    filterDifficultyTerrain = list ;
+    filterTypes = types ;
+    filterSizes = sizes ;
+    filterDifficultyTerrain = difficultyTerrain ;
+    filterExcludeFound = found ;
+    filterExcludeArchived = archived ;
+    userName = name ;
 }
