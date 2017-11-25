@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE virtual void sendRequest(QString token);
     Q_INVOKABLE   void updateFilterTypes(QList <int > list);
     Q_INVOKABLE   void updateFilterSizes(QList <int > list);
+    Q_INVOKABLE   void updateFilterDifficultyTerrain(QList <double > list);
 
     QQmlListProperty<Cache> caches();
 
@@ -68,6 +69,7 @@ private:
     QList<Cache*> m_caches;
     QList<int> filterTypes;
     QList<int> filterSizes;
+    QList<double> filterDifficultyTerrain;
 
     void   sendRequestMore(QString token);
 };

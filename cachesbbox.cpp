@@ -42,6 +42,8 @@ void CachesBBox::sendRequest(QString token){
     QJsonObject parameters;
     QJsonObject geocacheType;
     QJsonObject geocacheSize;
+    QJsonObject geocacheDifficulty;
+    QJsonObject geocacheTerrain;
     QJsonObject viewport;
     QJsonObject bottomRight;
     QJsonObject topLeft;
@@ -76,6 +78,15 @@ void CachesBBox::sendRequest(QString token){
         parameters.insert("GeocacheContainerSize",QJsonValue(geocacheSize));
     }
 
+    // filter by difficulty, terrain.
+    geocacheDifficulty.insert("MinDifficulty", QJsonValue(filterDifficultyTerrain[0]));
+    geocacheDifficulty.insert("MaxDifficulty", QJsonValue(filterDifficultyTerrain[1]));
+    geocacheTerrain.insert("MinTerrain", QJsonValue(filterDifficultyTerrain[2]));
+    geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
+    parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
+    parameters.insert("Terrain", QJsonValue(geocacheTerrain));
+
+    // createBBox.
     bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
     bottomRight.insert("Longitude", QJsonValue(m_lonBottomRight));
     topLeft.insert("Latitude", QJsonValue(m_latTopLeft));
@@ -235,4 +246,9 @@ void CachesBBox::updateFilterTypes(QList<int> list)
 void CachesBBox::updateFilterSizes(QList<int> list)
 {
     filterSizes = list ;
+}
+
+void CachesBBox::updateFilterDifficultyTerrain(QList<double> list)
+{
+    filterDifficultyTerrain = list ;
 }

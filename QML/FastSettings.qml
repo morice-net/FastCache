@@ -14,7 +14,7 @@ Settings {
     property string tokenKey: ""
     property string tokenSecret: ""
 
-// filter by type.
+// filter by type
     property bool traditional : false
     property bool mystery : false
     property bool multi : false
@@ -38,6 +38,14 @@ Settings {
     property bool notChosen: true
     property bool virtualSize: true
     property bool other: true
+
+    // filter by difficulty
+    property real difficultyMin: 1
+    property real difficultyMax: 5
+
+    // filter byterrain
+    property real terrainMin: 1
+    property real terrainMax: 5
 }
 
 

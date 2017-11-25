@@ -96,6 +96,7 @@ Item {
         onRequestReady:{
             cachesBBox.updateFilterTypes(createFilterTypesGs())
             cachesBBox.updateFilterSizes(createFilterSizesGs())
+            cachesBBox.updateFilterDifficultyTerrain(createFilterDifficultyTerrainGs())
             cachesBBox.sendRequest(connector.tokenKey)
         }
     }
@@ -163,10 +164,16 @@ Item {
                 list.push( cacheSizes.sizes[i].sizeIdGs)
             }
         }
-        console.log("listsizes:   " + list)
-
-
         if(list.length == 0 || list.length == cacheSizes.sizes.length) return []
         else return list
+    }
+
+    function createFilterDifficultyTerrainGs(){
+        var  list = [] ;
+        list.push(settings.difficultyMin)
+        list.push(settings.difficultyMax)
+        list.push(settings.terrainMin)
+        list.push(settings.terrainMax)
+        return list
     }
 }

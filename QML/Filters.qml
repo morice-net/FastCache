@@ -12,6 +12,10 @@ Item {
     width: searchRectangle.width
     height: main.height * 0.8
 
+    FastSettings {
+        id: settings
+    }
+
     MouseArea {
         anchors.fill: parent
     }
@@ -120,19 +124,12 @@ Item {
             id: difficultySlider
             visible: true
             x: 10
-            first.value:   settingsDifficulty.difficultyMin
-            second.value:  settingsDifficulty.difficultyMax
-
-            Settings {
-                id: settingsDifficulty
-                category: "filter caches by difficulty "
-                property real difficultyMin: 1
-                property real difficultyMax: 5
-            }
+            first.value: settings.difficultyMin
+            second.value: settings.difficultyMax
 
             Component.onDestruction: {
-                settingsDifficulty.difficultyMin = minValueSlider()
-                settingsDifficulty.difficultyMax = maxValueSlider()
+                settings.difficultyMin = minValueSlider()
+                settings.difficultyMax = maxValueSlider()
             }
         }
 
@@ -145,23 +142,19 @@ Item {
             id: fieldSlider
             visible: true
             x: 10
-            first.value:   settingsTerrain.terrainMin
-            second.value:  settingsTerrain.terrainMax
-
-            Settings {
-                id: settingsTerrain
-                category: "filter caches by terrain "
-                property real terrainMin: 1
-                property real terrainMax: 5
-            }
+            first.value: settings.terrainMin
+            second.value: settings.terrainMax
 
             Component.onDestruction: {
-                settingsTerrain.terrainMin = minValueSlider()
-                settingsTerrain.terrainMax = maxValueSlider()
+                settings.terrainMin = minValueSlider()
+                settings.terrainMax = maxValueSlider()
             }
         }
 
-        CheckBox {id :found ; text: "Exclure les caches trouvées et mes.." ;checked: settingsFilterFound.excludeCachesFound
+        CheckBox {
+            id :found
+            text: "Exclure les caches trouvées et mes.."
+            checked: settingsFilterFound.excludeCachesFound
 
             Settings {
                 id: settingsFilterFound
@@ -190,5 +183,4 @@ Item {
             }
         }
     }
-
 }
