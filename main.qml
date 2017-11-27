@@ -109,7 +109,6 @@ Item {
     }
 
     Component.onCompleted: {
-
         // retrieve settings (todo: remove and put alias in settings instead)
         connector.tokenKey = settings.tokenKey
 

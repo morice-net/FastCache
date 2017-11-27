@@ -84,12 +84,16 @@ void CachesBBox::sendRequest(QString token){
     }
 
     // filter by difficulty, terrain.
-    geocacheDifficulty.insert("MinDifficulty", QJsonValue(filterDifficultyTerrain[0]));
-    geocacheDifficulty.insert("MaxDifficulty", QJsonValue(filterDifficultyTerrain[1]));
-    geocacheTerrain.insert("MinTerrain", QJsonValue(filterDifficultyTerrain[2]));
-    geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
-    parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
-    parameters.insert("Terrain", QJsonValue(geocacheTerrain));
+    if(filterDifficultyTerrain[0] != 1 || filterDifficultyTerrain[1] != 5){
+        geocacheDifficulty.insert("MinDifficulty", QJsonValue(filterDifficultyTerrain[0]));
+        geocacheDifficulty.insert("MaxDifficulty", QJsonValue(filterDifficultyTerrain[1]));
+        parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
+    }
+    if(filterDifficultyTerrain[2] != 1 || filterDifficultyTerrain[3] != 5){
+        geocacheTerrain.insert("MinTerrain", QJsonValue(filterDifficultyTerrain[2]));
+        geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
+        parameters.insert("Terrain", QJsonValue(geocacheTerrain));
+    }
 
     // Exclude caches found and mine.
     if(filterExcludeFound == true){
