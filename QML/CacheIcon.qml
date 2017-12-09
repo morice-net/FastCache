@@ -3,6 +3,10 @@ import QtQuick 2.6
 Item {
 
     property int type: 0
+
+    width: cacheIconBackground.width
+    height: cacheIconBackground.height
+
     Image {
         id: cacheIconBackground
         source: "qrc:/Image/marker.png"

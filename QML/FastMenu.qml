@@ -11,10 +11,10 @@ Item {
     Rectangle {
         id: menuShadow
         anchors.fill: parent
+        visible: false
 
         color: Palette.black()
         opacity: 0
-        visible: false
 
         Behavior on opacity { NumberAnimation { duration: 1200 } }
 

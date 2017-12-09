@@ -5,7 +5,7 @@ import QtQuick.Controls.Styles 1.4
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
-    id: fastMenuHeader
+    id: fastMenuHeader    
     color: Palette.greenSea()
     width: parent.width
     height: parent.height * 0.08

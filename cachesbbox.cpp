@@ -29,6 +29,11 @@ QQmlListProperty<Cache> CachesBBox::caches()
 
 void CachesBBox::sendRequest(QString token){
 
+    foreach(Cache* cache, m_caches) {
+        if (cache != NULL)
+            delete cache;
+    }
+    m_caches.clear();
     indexMoreCachesBBox = 0;
 
     if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {

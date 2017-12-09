@@ -8,15 +8,15 @@ import "JavaScript/Palette.js" as Palette
 
 Rectangle {
     id: fastMap
-    width: parent.width
-    height: parent.height
+    anchors.fill: parent
 
     property alias mapItem: map
     property var component
 
     Plugin {
         id: osm
-        name: "osm"
+        preferred: ["osm"]
+        //required: Plugin.AnyMappingFeatures | Plugin.AnyGeocodingFeatures
     }
 
     Map {
@@ -24,17 +24,27 @@ Rectangle {
         plugin: osm
         anchors.fill: parent
         center: currentPosition.position.coordinate
+        property real zoomlevelRecord: 14.5
         zoomLevel: { 14.5 }
         gesture.enabled: true
-
-    }
-
-    function updateCachesOnMap() {
-        for (var i = 0; i < cachesBBox.caches.length; i++) {
-            var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-            itemMap.index = i
-            map.addMapItem(itemMap)
+        gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
+        onZoomLevelChanged: {
+            console.log(zoomLevel)
+            if ((zoomlevelRecord > (zoomLevel + 1)) || (zoomlevelRecord < (zoomLevel - 1))) {
+                zoomlevelRecord = zoomLevel
+                map.clearMapItems()
+                userInfo.sendRequest(connector.tokenKey)
+            }
         }
 
+        function updateCachesOnMap() {
+            for (var i = 0; i < cachesBBox.caches.length; i++) {
+                var itemMap = Qt.createQmlObject('FastMapItem {}', map)
+                itemMap.index = i
+                addMapItem(itemMap)
+            }
+
+        }
     }
+
 }
