@@ -15,8 +15,8 @@ Rectangle {
 
     Plugin {
         id: osm
-        preferred: ["osm"]
-        //required: Plugin.AnyMappingFeatures | Plugin.AnyGeocodingFeatures
+        preferred: ["here" | "osm"]
+        // required: Plugin.AnyMappingFeatures | Plugin.AnyGeocodingFeatures
     }
 
     Map {

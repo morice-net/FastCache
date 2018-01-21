@@ -25,6 +25,5 @@
         <file>QML/CacheSizes.qml</file>
         <file>QML/MultiPointSlider.qml</file>
         <file>QML/FastMapItem.qml</file>
-        <file>../../Téléchargements/cacheList.png</file>
     </qresource>
 </RCC>

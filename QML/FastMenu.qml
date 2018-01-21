@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
@@ -34,6 +34,7 @@ Item {
         height: parent.height
         x: -parent.width
         color: Palette.white()
+        clip: true
 
         Behavior on x { NumberAnimation { duration: 600 } }
 
@@ -68,6 +69,48 @@ Item {
                         color: Palette.greenSea()
                     }
                 }
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      button on the bottom of the menu                 //
+        ///////////////////////////////////////////////////////////////////////////
+        Item {
+            id: connectButtonMenu
+            height: parent.height * 0.12
+            width: parent.width
+            y: parent.height - height - 20
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.margins: 20
+                color: Palette.turquoise()
+
+                Text {
+                    id: connectButtonName
+                    anchors.fill: parent
+                    font.family: localFont.name
+                    font.pointSize: 24
+                    text: "Connect"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: Palette.white()
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        if (connectButtonName.text == "Connect") {
+                            connectButtonName.text = "Disconnect"
+                            main.reconnectAccount()
+                        } else {
+                            connectButtonName.text = "Connect"
+                            main.disconnectAccount()
+
+                        }
+                    }
+                }
+
+
             }
         }
     }
