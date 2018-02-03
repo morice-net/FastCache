@@ -6,9 +6,14 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: cacheFilter
-    anchors.top: parent.bottom
-    x: parent.width * 0.1
+    anchors.fill: parent
+    anchors.topMargin: 80
+    anchors.bottomMargin: 20
+    anchors.rightMargin: 20
+    anchors.leftMargin: 20
+
     opacity: 0
+    visible: opacity > 0
 
     Behavior on opacity { NumberAnimation { duration: 400 } }
     Behavior on width { NumberAnimation { duration: 400 } }
@@ -16,8 +21,7 @@ Item {
 
     Rectangle {
         id: filtersRectangle
-        x: 5
-        y: 5
+        anchors.fill: parent
         color: Palette.white().replace("#","#99")
         radius: 3
         border.width: 2
@@ -54,31 +58,7 @@ Item {
         id: filterHeadArrow
         source: "qrc:/Image/filterHeadArrow.png"
         anchors.right: parent.right
-    }
-
-
-    onOpacityChanged: {
-        visible = opacity > 0 ? true : false
-    }
-
-    function activate() {
-        if (cacheFilter.width == 0) {
-            show()
-        } else {
-            hide()
-        }
-    }
-
-    function show() {
-        cacheFilter.width = parent.width * 0.8
-        cacheFilter.height = filtersRectangle.height + filterHeadArrow.height
-        cacheFilter.opacity = 1
-    }
-
-    function hide() {
-        cacheFilter.width = 0
-        cacheFilter.height = 0
-        cacheFilter.opacity = 0
+        anchors.bottom: parent.top
     }
 
 }

@@ -9,7 +9,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: filters
-    width: searchRectangle.width
+    width: parent.width * 0.9
     height: main.height * 0.8
 
     FastSettings {
@@ -22,7 +22,7 @@ Item {
 
     Column {
         id: internFilterColumn
-        anchors.fill:parent
+        anchors.centerIn: parent
 
         SelectableFilter {
             id: typeFilterSelectable
@@ -30,10 +30,7 @@ Item {
         }
 
         Grid {
-            opacity: 1
-            visible: true
-            height: 3 * searchRectangle.width / 6
-            anchors.horizontalCenter: parent.horizontalCenter
+            x: 20
             columns: 5
             Repeater {
                 model: main.listTypes
@@ -42,15 +39,6 @@ Item {
                     type: modelData
                 }
             }
-
-            onVisibleChanged: {
-                if (visible)
-                    opacity = 1
-                else
-                    opacity = 0
-            }
-
-            Behavior on opacity { NumberAnimation { duration: 400 } }
         }
 
         SelectableFilter {

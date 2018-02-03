@@ -2,7 +2,7 @@ import QtQuick 2.6
 
 import "JavaScript/Palette.js" as Palette
 
-Item {
+ Item {
     id: selectableFilter
     width: parent.width
     height: 60
@@ -11,7 +11,7 @@ Item {
 
     Row {
         spacing: selectableFilter.width / 2 - 100
-        width: searchRectangle.width
+        width: parent.width * 0.9
 
         Text {
             horizontalAlignment: Text.AlignHCenter

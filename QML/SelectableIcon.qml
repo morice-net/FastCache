@@ -14,7 +14,7 @@ CheckBox {
         updateFilterType() }
     indicator: Rectangle {
         opacity: 0.8
-        implicitWidth: searchRectangle.width /7
+        implicitWidth: main.width / 8
         implicitHeight: implicitWidth
         radius: 15
         border.color: Palette.black()

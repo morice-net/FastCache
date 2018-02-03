@@ -39,18 +39,15 @@ Item {
     CachesBBox {
         id: cachesBBox
 
-        latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMenuHeader.x,fastMenuHeader.height)).latitude
-        lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(fastMenuHeader.x,fastMenuHeader.height)).longitude
+        latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(0,0)).latitude
+        lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(0,0)).longitude
         latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).latitude
         lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.height)).longitude
 
         onCachesChanged: fastMap.mapItem.updateCachesOnMap()
     }
 
-    FastMap {
-        id: fastMap
-        //anchors.top: fastMenuHeader.bottom
-    }
+    FastMap { id: fastMap }
 
     FastMenuHeader { id: fastMenuHeader }
 
