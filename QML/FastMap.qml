@@ -13,15 +13,24 @@ Rectangle {
     property alias mapItem: map
     property var component
 
-    Plugin {
-        id: osm
-        preferred: ["here" | "osm"]
-        // required: Plugin.AnyMappingFeatures | Plugin.AnyGeocodingFeatures
-    }
-
     Map {
         id: map
-        plugin: osm
+        plugin: Plugin {
+            name: "mapbox"
+            // configure your own map_id and access_token here
+            parameters: [  PluginParameter {
+                    name: "mapbox.mapping.map_id"
+                    value: "mapbox.streets"
+                },
+                PluginParameter {
+                    name: "mapbox.access_token"
+                    value: "pk.eyJ1IjoiZ3R2cGxheSIsImEiOiJjaWZ0Y2pkM2cwMXZqdWVsenJhcGZ3ZDl5In0.6xMVtyc0CkYNYup76iMVNQ"
+                },
+                PluginParameter {
+                    name: "mapbox.mapping.highdpi_tiles"
+                    value: true
+                }]
+        }
         anchors.fill: parent
         center: currentPosition.position.coordinate
         property real zoomlevelRecord: 14.5
