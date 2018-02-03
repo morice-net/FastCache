@@ -91,7 +91,7 @@ Item {
                     anchors.fill: parent
                     font.family: localFont.name
                     font.pointSize: 24
-                    text: "Connect"
+                    text: userInfo.name.length > 0 ? "Se déconnecter" : "Se connecter"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     color: Palette.white()
@@ -99,20 +99,15 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        if (connectButtonName.text == "Connect") {
-                            connectButtonName.text = "Disconnect"
+                        if (connectButtonName.text == "Se connecter")
                             main.reconnectAccount()
-                        } else {
-                            connectButtonName.text = "Connect"
+                        else
                             main.disconnectAccount()
-
-                        }
                     }
                 }
-
-
             }
         }
+        // Footer
     }
 
 

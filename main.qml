@@ -189,6 +189,10 @@ Item {
 
     function disconnectAccount() {
         connector.tokenKey = ""
+        userInfo.name = ""
+        userInfo.finds = 0
+        userInfo.avatarUrl = ""
+        userInfo.premium = ""
     }
 
     function reconnectAccount() {
