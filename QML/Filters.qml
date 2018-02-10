@@ -9,6 +9,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: filters
+    x: parent.width * 0.05
     width: parent.width * 0.9
     height: main.height * 0.8
 
@@ -47,16 +48,22 @@ Item {
         }
 
         Button {
+            x: 10
+            width: parent.width
+            height: parent.height * 0.08
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pixelSize: userInfoMenu.height * 0.45
+
             contentItem: Text {
-                text: "Ok"
+                id: textButtonId
                 color: Palette.greenSea()
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
             background: Rectangle {
-                x:10
-                implicitWidth: 100
-                implicitHeight: 25
+                anchors.fill: parent
+                anchors.margins: 5
                 opacity: 0.9
                 border.color: Palette.greenSea()
                 border.width: 1
@@ -83,13 +90,13 @@ Item {
             }
 
             ColumnLayout {
-                CheckBox { id :size1; text:"Micro"; checked: settings.micro}
-                CheckBox {id :size2; text: "Petite" ;  checked: settings.small}
-                CheckBox {id :size3; text: "Normale";  checked: settings.regular }
-                CheckBox {id :size4; text: "Grande"; checked: settings.large }
-                CheckBox { id :size5;text: "Non renseignée" ; checked: settings.notChosen }
-                CheckBox { id :size6;text: "Virtuelle"; checked: settings.virtualSize }
-                CheckBox {id :size7; text: "Autre";  checked: settings.other  }
+                CheckBox { id: size1 ; text:"Micro" ; checked: settings.micro ; onCheckedChanged: textSizeButton() }
+                CheckBox { id: size2 ; text: "Petite" ;  checked: settings.small ; onCheckedChanged: textSizeButton() }
+                CheckBox { id: size3 ; text: "Normale" ;  checked: settings.regular ; onCheckedChanged: textSizeButton() }
+                CheckBox { id: size4 ; text: "Grande" ; checked: settings.large ; onCheckedChanged: textSizeButton() }
+                CheckBox { id: size5 ; text: "Non renseignée" ; checked: settings.notChosen ; onCheckedChanged: textSizeButton() }
+                CheckBox { id: size6 ; text: "Virtuelle" ; checked: settings.virtualSize; onCheckedChanged: textSizeButton() }
+                CheckBox { id: size7 ; text: "Autre" ;  checked: settings.other ; onCheckedChanged: textSizeButton() }
             }
 
             Component.onDestruction: {
@@ -155,5 +162,34 @@ Item {
                 settings.excludeCachesArchived = archived.checkState
             }
         }
+    }
+
+
+    function textSizeButton() {
+        console.log("check text size button")
+        if(size1.checked && size2.checked && size3.checked && size4.checked && size5.checked && size6.checked && size7.checked)
+        {
+            textButtonId.text = "Toutes..."
+            return
+        }
+
+        var textArray = ""
+        if(size1.checked)
+            textArray+="Mc. "
+        if(size2.checked)
+            textArray+="Pt. "
+        if(size3.checked)
+            textArray+="Nm. "
+        if(size4.checked)
+            textArray+="Gr. "
+        if(size5.checked)
+            textArray+="NonRenseignée "
+        if(size6.checked)
+            textArray+="Virt. "
+        if(size7.checked)
+            textArray+="Autre "
+        if(textArray == "")
+            textArray="Aucune"
+        textButtonId.text = textArray
     }
 }

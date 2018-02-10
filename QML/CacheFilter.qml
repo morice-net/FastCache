@@ -8,9 +8,9 @@ Item {
     id: cacheFilter
     anchors.fill: parent
     anchors.topMargin: 80
-    anchors.bottomMargin: 20
-    anchors.rightMargin: 20
-    anchors.leftMargin: 20
+    anchors.bottomMargin: anchors.topMargin
+    anchors.rightMargin: anchors.topMargin/2
+    anchors.leftMargin: anchors.topMargin/2
 
     opacity: 0
     visible: opacity > 0
@@ -23,7 +23,7 @@ Item {
         id: filtersRectangle
         anchors.fill: parent
         color: Palette.white().replace("#","#99")
-        radius: 3
+        radius: parent.width/20
         border.width: 2
         border.color: Palette.greenSea()
 
@@ -50,6 +50,30 @@ Item {
                 id: typeFilter
                 Behavior on width { NumberAnimation { duration: 300 } }
                 Behavior on height { NumberAnimation { duration: 300 } }
+
+                Rectangle {
+                    anchors.bottom: parent.bottom
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    anchors.margins: 20
+                    height: 80
+                    color: Palette.turquoise()
+
+                    Text {
+                        id: connectButtonName
+                        anchors.fill: parent
+                        font.family: localFont.name
+                        font.pointSize: 18
+                        text: "Appliquer le filtre"
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        color: Palette.white()
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: reloadCaches()
+                    }
+                }
             }
         }
     }

@@ -130,7 +130,7 @@ Item {
     }
 
     function createFilterTypesGs(){
-        var  list = [] ;
+        var  list = []
         cacheTypes.types.reverse()
         for (var i = 0; i < listTypes.length; i++) {
             if(listTypes[i] === false ){
@@ -142,8 +142,9 @@ Item {
                 }
             }
         }
-        if(list.length == 0 || list.length == cacheTypes.types.length){ return []}
-        else { return list  }
+        if(list.length == cacheTypes.types.length)
+            return []
+        return list
     }
 
     function createFilterSizesGs(){
@@ -154,12 +155,13 @@ Item {
                 list.push( cacheSizes.sizes[i].sizeIdGs)
             }
         }
-        if(list.length == 0 || list.length == cacheSizes.sizes.length-1){ return []}
-        else {return list}
+        if(list.length == cacheSizes.sizes.length - 1)
+            return []
+        return list
     }
 
     function createFilterDifficultyTerrainGs(){
-        var  list = [] ;
+        var  list = []
         list.push(settings.difficultyMin)
         list.push(settings.difficultyMax)
         list.push(settings.terrainMin)
@@ -168,15 +170,11 @@ Item {
     }
 
     function createFilterExcludeCachesFound(){
-        var  value
-        value = settings.excludeCachesFound
-        return value
+        return settings.excludeCachesFound
     }
 
     function createFilterExcludeCachesArchived(){
-        var  value
-        value = settings.excludeCachesArchived
-        return value
+        return settings.excludeCachesArchived
     }
 
     function disconnectAccount() {
@@ -189,5 +187,10 @@ Item {
 
     function reconnectAccount() {
         connector.connect()
+    }
+
+    function reloadCaches(){
+        fastMap.clearMap()
+        userInfo.sendRequest(connector.tokenKey)
     }
 }

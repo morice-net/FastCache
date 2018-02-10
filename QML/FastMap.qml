@@ -175,4 +175,8 @@ Rectangle {
             timer.stop()
         }
     }
+
+    function clearMap() {
+        map.clearMapItems()
+    }
 }
