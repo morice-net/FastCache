@@ -15,9 +15,9 @@ Item {
     opacity: 0
     visible: opacity > 0
 
-    Behavior on opacity { NumberAnimation { duration: 400 } }
-    Behavior on width { NumberAnimation { duration: 400 } }
-    Behavior on height { NumberAnimation { duration: 400 } }
+    Behavior on opacity { NumberAnimation { duration: 300 } }
+    Behavior on width { NumberAnimation { duration: 300 } }
+    Behavior on height { NumberAnimation { duration: 300 } }
 
     Rectangle {
         id: filtersRectangle
@@ -48,8 +48,8 @@ Item {
 
             Filters {
                 id: typeFilter
-                Behavior on width { NumberAnimation { duration: 400 } }
-                Behavior on height { NumberAnimation { duration: 400 } }
+                Behavior on width { NumberAnimation { duration: 300 } }
+                Behavior on height { NumberAnimation { duration: 300 } }
             }
         }
     }
