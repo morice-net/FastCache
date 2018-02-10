@@ -25,5 +25,8 @@
         <file>QML/CacheSizes.qml</file>
         <file>QML/MultiPointSlider.qml</file>
         <file>QML/FastMapItem.qml</file>
+        <file>Image/add.png</file>
+        <file>Image/remove.png</file>
+        <file>Image/tracker.png</file>
     </qresource>
 </RCC>
