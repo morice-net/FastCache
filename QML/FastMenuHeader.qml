@@ -8,10 +8,11 @@ Item {
     id: fastMenuHeader
     anchors.fill: parent
 
+    // Menu caller
     Rectangle {
         color: Palette.turquoise().replace("#","#99")
         radius: 10
-        height: parent.height * 0.07
+        height: parent.height * 0.05
         width: height
         anchors.margins: 5
         anchors.left: parent.left
@@ -32,10 +33,11 @@ Item {
         }
     }
 
+    // Filters
     Rectangle {
         color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
         radius: 10
-        height: parent.height * 0.07
+        height: parent.height * 0.05
         width: height
         anchors.margins: 5
         anchors.right: parent.right
