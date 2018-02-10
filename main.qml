@@ -29,11 +29,6 @@ Item {
         id: currentPosition
         updateInterval: 1000
         active: true
-
-        onPositionChanged: {
-            var coord = currentPosition.position.coordinate;
-            console.log("Coordinate:", coord.longitude, coord.latitude);
-        }
     }
 
     CachesBBox {
