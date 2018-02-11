@@ -28,5 +28,6 @@
         <file>Image/add.png</file>
         <file>Image/remove.png</file>
         <file>Image/tracker.png</file>
+        <file>Image/update-arrows.png</file>
     </qresource>
 </RCC>

@@ -191,6 +191,8 @@ Item {
 
     function reloadCaches(){
         fastMap.clearMap()
-        userInfo.sendRequest(connector.tokenKey)
+        cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+                                      createFilterExcludeCachesArchived(),userInfo.name )
+        cachesBBox.sendRequest(connector.tokenKey)
     }
 }

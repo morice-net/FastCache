@@ -8,9 +8,9 @@ Item {
     id: cacheFilter
     anchors.fill: parent
     anchors.topMargin: 80
-    anchors.bottomMargin: anchors.topMargin
-    anchors.rightMargin: anchors.topMargin/2
-    anchors.leftMargin: anchors.topMargin/2
+    anchors.bottomMargin: anchors.topMargin/2
+    anchors.rightMargin: anchors.topMargin/3
+    anchors.leftMargin: anchors.topMargin/3
 
     opacity: 0
     visible: opacity > 0
@@ -27,7 +27,6 @@ Item {
         border.width: 2
         border.color: Palette.greenSea()
 
-        property int destWidth: parent.width * 0.75
         width: parent.width
         height: filterColumn.height//main.height * 0.4
         anchors.top: filterHeadArrow.bottom
@@ -35,45 +34,49 @@ Item {
 
         Column {
             id: filterColumn
-            Text {
+            Row {
                 width: filtersRectangle.width
-                font.family: localFont.name
-                font.pointSize: 24
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                color: Palette.greenSea()
-                text: "Filtres"
-            }
+                x: filtersRectangle.width/3
+                y: 10
 
+                Text {
+                    y: 10
+                    width: filtersRectangle.width / 2
+                    font.family: localFont.name
+                    font.pointSize: 24
+                    verticalAlignment: Text.AlignLeft
+                    horizontalAlignment: Text.AlignLeft
+                    color: Palette.greenSea()
+                    text: "Filtres"
+                }
+
+
+                Rectangle {
+                    y: 10
+                    height: filtersRectangle.width * 0.1
+                    width: height
+                    radius: 10
+                    color: Palette.turquoise()
+
+                    Image {
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        source: "qrc:/Image/update-arrows.png"
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: reloadCaches()
+                    }
+                }
+
+            }
 
             Filters {
                 id: typeFilter
                 Behavior on width { NumberAnimation { duration: 300 } }
                 Behavior on height { NumberAnimation { duration: 300 } }
 
-                Rectangle {
-                    anchors.bottom: parent.bottom
-                    anchors.right: parent.right
-                    anchors.left: parent.left
-                    anchors.margins: 20
-                    height: 80
-                    color: Palette.turquoise()
-
-                    Text {
-                        id: connectButtonName
-                        anchors.fill: parent
-                        font.family: localFont.name
-                        font.pointSize: 18
-                        text: "Appliquer le filtre"
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        color: Palette.white()
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: reloadCaches()
-                    }
-                }
             }
         }
     }

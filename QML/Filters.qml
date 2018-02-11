@@ -13,10 +13,6 @@ Item {
     width: parent.width * 0.9
     height: main.height * 0.8
 
-    FastSettings {
-        id: settings
-    }
-
     MouseArea {
         anchors.fill: parent
     }
@@ -53,7 +49,7 @@ Item {
             height: parent.height * 0.08
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
-            font.pixelSize: userInfoMenu.height * 0.45
+            font.pixelSize: height * 0.45
 
             contentItem: Text {
                 id: textButtonId
@@ -175,17 +171,17 @@ Item {
 
         var textArray = ""
         if(size1.checked)
-            textArray+="Mc. "
+            textArray+="Mc "
         if(size2.checked)
-            textArray+="Pt. "
+            textArray+="Pt "
         if(size3.checked)
-            textArray+="Nm. "
+            textArray+="Nm "
         if(size4.checked)
-            textArray+="Gr. "
+            textArray+="Gr "
         if(size5.checked)
             textArray+="NonRenseignée "
         if(size6.checked)
-            textArray+="Virt. "
+            textArray+="Virt "
         if(size7.checked)
             textArray+="Autre "
         if(textArray == "")
