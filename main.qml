@@ -193,6 +193,8 @@ Item {
         fastMap.clearMap()
         cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                       createFilterExcludeCachesArchived(),userInfo.name )
+        cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+                                      createFilterExcludeCachesArchived(),userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
     }
 }
