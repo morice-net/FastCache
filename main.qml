@@ -131,7 +131,7 @@ Item {
 
     function createFilterTypesGs(){
         var  list = []
-        cacheTypes.types.reverse()
+  //      cacheTypes.types.reverse()
         for (var i = 0; i < listTypes.length; i++) {
             if(listTypes[i] === false ){
                 list.push( cacheTypes.types[i].typeIdGs)
@@ -142,6 +142,7 @@ Item {
                 }
             }
         }
+   //     cacheTypes.types.reverse()
         if(list.length == cacheTypes.types.length)
             return []
         return list
@@ -155,6 +156,7 @@ Item {
                 list.push( cacheSizes.sizes[i].sizeIdGs)
             }
         }
+        cacheSizes.sizes.reverse()
         if(list.length == cacheSizes.sizes.length - 1)
             return []
         return list
@@ -192,9 +194,7 @@ Item {
     function reloadCaches(){
         fastMap.clearMap()
         cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                      createFilterExcludeCachesArchived(),userInfo.name )
-        cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                      createFilterExcludeCachesArchived(),userInfo.name )
+                                      createFilterExcludeCachesArchived(),userInfo.name )        
         cachesBBox.sendRequest(connector.tokenKey)
     }
 }
