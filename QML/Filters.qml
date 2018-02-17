@@ -1,4 +1,4 @@
-import QtQuick 2.6
+﻿import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
@@ -117,7 +117,8 @@ Item {
             x: 10
             first.value: settings.difficultyMin
             second.value: settings.difficultyMax
-
+            first.onValueChanged: main.listDifficultyTerrain[0] = minValueSlider()
+            second.onValueChanged: main.listDifficultyTerrain[1] = maxValueSlider()
             Component.onDestruction: {
                 settings.difficultyMin = minValueSlider()
                 settings.difficultyMax = maxValueSlider()
@@ -135,6 +136,8 @@ Item {
             x: 10
             first.value: settings.terrainMin
             second.value: settings.terrainMax
+            first.onValueChanged: main.listDifficultyTerrain[2] = minValueSlider()
+            second.onValueChanged: main.listDifficultyTerrain[3] = maxValueSlider()
             Component.onDestruction: {
                 settings.terrainMin = minValueSlider()
                 settings.terrainMax = maxValueSlider()
@@ -145,6 +148,7 @@ Item {
             id :found
             text: "Exclure les caches trouvées et mes.."
             checked: settings.excludeCachesFound
+            onCheckedChanged: main.excludeFound = found.checkState
             Component.onDestruction: {
                 settings.excludeCachesFound = found.checkState
             }
@@ -154,38 +158,73 @@ Item {
             id :archived
             text: "Exclure les caches désactivées"
             checked: settings.excludeCachesArchived
+            onCheckedChanged: main.excludeArchived = archived.checkState
             Component.onDestruction: {
                 settings.excludeCachesArchived = archived.checkState
             }
         }
     }
 
-
     function textSizeButton() {
         console.log("check text size button")
         if(size1.checked && size2.checked && size3.checked && size4.checked && size5.checked && size6.checked && size7.checked)
         {
             textButtonId.text = "Toutes..."
+            main.listSizes[0] = true
+            main.listSizes[1] = true
+            main.listSizes[2] = true
+            main.listSizes[3] = true
+            main.listSizes[4] = true
+            main.listSizes[5] = true
+            main.listSizes[6] = true
             return
         }
-
         var textArray = ""
-        if(size1.checked)
+        main.listSizes[0] = false
+        main.listSizes[1] = false
+        main.listSizes[2] = false
+        main.listSizes[3] = false
+        main.listSizes[4] = false
+        main.listSizes[5] = false
+        main.listSizes[6] = false
+
+        if(size1.checked){
             textArray+="Mc "
-        if(size2.checked)
+            main.listSizes[0]  = true
+        }
+
+        if(size2.checked){
             textArray+="Pt "
-        if(size3.checked)
+            main.listSizes[1] = true
+        }
+
+        if(size3.checked){
             textArray+="Nm "
-        if(size4.checked)
+            main.listSizes[2] = true
+        }
+
+        if(size4.checked){
             textArray+="Gr "
-        if(size5.checked)
+            main.listSizes[3] = true
+        }
+
+        if(size5.checked){
             textArray+="NonRenseignée "
-        if(size6.checked)
+            main.listSizes[4] = true
+        }
+
+        if(size6.checked){
             textArray+="Virt "
-        if(size7.checked)
+            main.listSizes[5] = true
+        }
+
+        if(size7.checked){
             textArray+="Autre "
+            main.listSizes[6] = true
+        }
+
         if(textArray == "")
-            textArray="Aucune"
+            textArray = "Aucune"
         textButtonId.text = textArray
     }
 }

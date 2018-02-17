@@ -22,6 +22,11 @@ Item {
     property var listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,
         settings.virtualSize , settings.other]
 
+    property var listDifficultyTerrain : [settings.difficultyMin , settings.difficultyMax , settings.terrainMin , settings.terrainMax]
+
+    property bool excludeFound : settings.excludeCachesFound
+    property bool excludeArchived: settings.excludeCachesArchived
+
     visible: true
     anchors.fill: parent
 
@@ -160,19 +165,19 @@ Item {
 
     function createFilterDifficultyTerrainGs(){
         var  list = []
-        list.push(settings.difficultyMin)
-        list.push(settings.difficultyMax)
-        list.push(settings.terrainMin)
-        list.push(settings.terrainMax)
+        list.push(listDifficultyTerrain[0])
+        list.push(listDifficultyTerrain[1])
+        list.push(listDifficultyTerrain[2])
+        list.push(listDifficultyTerrain[3])
         return list
     }
 
     function createFilterExcludeCachesFound(){
-        return settings.excludeCachesFound
+        return excludeFound
     }
 
     function createFilterExcludeCachesArchived(){
-        return settings.excludeCachesArchived
+        return excludeArchived
     }
 
     function disconnectAccount() {
