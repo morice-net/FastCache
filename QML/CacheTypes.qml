@@ -83,7 +83,6 @@ Item {
         }
     }
 
-
     CacheType {
         id: tenthType
         typeId: "mega"
@@ -116,6 +115,7 @@ Item {
             types.push(eighthType)
         }
     }
+
     CacheType {
         id: seventhType
         typeId: "event"
@@ -126,6 +126,7 @@ Item {
             types.push(seventhType)
         }
     }
+
     CacheType {
         id: sixthType
         typeId: "ape"
@@ -136,6 +137,7 @@ Item {
             types.push(sixthType)
         }
     }
+
     CacheType {
         id: fifthType
         typeId: "cito"
@@ -146,6 +148,7 @@ Item {
             types.push(fifthType)
         }
     }
+
     CacheType {
         id: fourthType
         typeId: "earth"
@@ -156,6 +159,7 @@ Item {
             types.push(fourthType)
         }
     }
+
     CacheType {
         id: thirdType
         typeId: "multi"
@@ -177,6 +181,7 @@ Item {
             types.push(secondType)
         }
     }
+
     CacheType {
         id: firstType
         typeId: "traditional"
@@ -187,36 +192,5 @@ Item {
             types.push(firstType)
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
