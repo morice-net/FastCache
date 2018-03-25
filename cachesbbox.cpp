@@ -27,7 +27,11 @@ QQmlListProperty<Cache> CachesBBox::caches()
     return QQmlListProperty<Cache>(this, m_caches);
 }
 
-void CachesBBox::sendRequest(QString token){
+void CachesBBox::sendRequest(QString token)
+{
+    if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
+        return;
+    }
 
     foreach(Cache* cache, m_caches) {
         if (cache != NULL)
@@ -35,10 +39,6 @@ void CachesBBox::sendRequest(QString token){
     }
     m_caches.clear();
     indexMoreCachesBBox = 0;
-
-    if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
-        return;
-    }
 
     // lat, lon on format E6.
 

@@ -38,12 +38,6 @@ Item {
 
     CachesBBox {
         id: cachesBBox
-
-        latBottomRight: fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).latitude
-        lonBottomRight: fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).longitude
-        latTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.y)).latitude
-        lonTopLeft: fastMap.mapItem.toCoordinate(Qt.point(main.width,main.y)).longitude
-
         onCachesChanged: fastMap.mapItem.updateCachesOnMap()
     }
 
@@ -93,7 +87,7 @@ Item {
         onRequestReady:{
             cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                           createFilterExcludeCachesArchived(),userInfo.name )
-            cachesBBox.sendRequest(connector.tokenKey)
+            reloadCaches()
         }
     }
 
@@ -192,8 +186,23 @@ Item {
         connector.connect()
     }
 
+    Timer {
+        id: lastReload
+        interval: 4000
+    }
+
     function reloadCaches(){
+        if (lastReload.running){
+            return;
+        }
+        lastReload.start()
         fastMap.clearMap()
+
+        cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).latitude
+        cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).longitude
+        cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.width,main.y)).latitude
+        cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.width,main.y)).longitude
+
         cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                       createFilterExcludeCachesArchived(),userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)

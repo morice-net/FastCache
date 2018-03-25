@@ -42,24 +42,20 @@ Rectangle {
 
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
-
-        minimumZoomLevel: 8.
-        maximumZoomLevel: 18.
-
-        Behavior on zoomLevel { NumberAnimation { duration: 300 } }
+        gesture.onPanFinished: { console.log("pannnn") ; reloadCaches() }
+        //gesture.onTiltFinished: reloadCaches()
 
         onZoomLevelChanged: {
             console.log(zoomLevel)
             if ((zoomlevelRecord > (zoomLevel + 0.7)) || (zoomlevelRecord < (zoomLevel - 0.7))) {
                 zoomlevelRecord = zoomLevel
                 map.clearMapItems()
-                userInfo.sendRequest(connector.tokenKey)
+                reloadCaches()
             }
         }
-        onCenterChanged: {
-            map.clearMapItems()
-            userInfo.sendRequest(connector.tokenKey)
-        }
+
+        minimumZoomLevel: 8.
+        maximumZoomLevel: 18.
 
         MouseArea {
             anchors.fill: parent
@@ -68,9 +64,11 @@ Rectangle {
 
         function updateCachesOnMap() {
             for (var i = 0; i < cachesBBox.caches.length; i++) {
-                var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-                itemMap.index = i
-                addMapItem(itemMap)
+                if (cachesBBox.caches[i].lat != "" && cachesBBox.caches[i].lon != "") {
+                    var itemMap = Qt.createQmlObject('FastMapItem {}', map)
+                    itemMap.index = i
+                    addMapItem(itemMap)
+                }
             }
 
         }
