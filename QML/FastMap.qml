@@ -36,6 +36,7 @@ Rectangle {
     Map {
         id: map
         plugin: mapPlugin
+        property int lastCachesLength: 0
 
         anchors.fill: parent
         zoomLevel: currentZoomlevel
@@ -43,13 +44,11 @@ Rectangle {
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
         gesture.onPanFinished: { console.log("pannnn") ; reloadCaches() }
-        //gesture.onTiltFinished: reloadCaches()
 
         onZoomLevelChanged: {
             console.log(zoomLevel)
             if ((zoomlevelRecord > (zoomLevel + 0.7)) || (zoomlevelRecord < (zoomLevel - 0.7))) {
                 zoomlevelRecord = zoomLevel
-                map.clearMapItems()
                 reloadCaches()
             }
         }
@@ -63,14 +62,20 @@ Rectangle {
         }
 
         function updateCachesOnMap() {
-            for (var i = 0; i < cachesBBox.caches.length; i++) {
+            var currentCachesLength = cachesBBox.caches.length
+            if (lastCachesLength >= currentCachesLength) {
+                clearMap()
+                lastCachesLength = 0
+            }
+
+            for (var i = lastCachesLength; i < currentCachesLength; i++) {
                 if (cachesBBox.caches[i].lat != "" && cachesBBox.caches[i].lon != "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i
                     addMapItem(itemMap)
                 }
             }
-
+            lastCachesLength = cachesBBox.caches.length
         }
 
         Component.onCompleted: map.center = currentPosition.position.coordinate
