@@ -29,5 +29,8 @@
         <file>Image/remove.png</file>
         <file>Image/tracker.png</file>
         <file>Image/update-arrows.png</file>
+        <file>QML/FastScale.qml</file>
+        <file>QML/JavaScript/helper.js</file>
+        <file>Image/scale.png</file>
     </qresource>
 </RCC>

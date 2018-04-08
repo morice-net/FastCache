@@ -2,8 +2,6 @@ import QtQuick 2.6
 import QtLocation 5.3
 import QtPositioning 5.3
 
-
-
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
@@ -47,14 +45,32 @@ Rectangle {
 
         onZoomLevelChanged: {
             console.log(zoomLevel)
-            if ((zoomlevelRecord > (zoomLevel + 0.7)) || (zoomlevelRecord < (zoomLevel - 0.7))) {
+            if ((zoomlevelRecord > (zoomLevel + 0.6)) || (zoomlevelRecord < (zoomLevel - 0.6))) {
                 zoomlevelRecord = zoomLevel
                 reloadCaches()
             }
         }
 
+        MapQuickItem {
+            id: positionMarker
+            anchorPoint.x: width/2
+            anchorPoint.y: height/2
+            coordinate: currentPosition.position.coordinate
+
+            sourceItem: Rectangle {
+                color: Palette.turquoise()
+                width: 15
+                height: width
+                radius: height/2
+            }
+        }
+
         minimumZoomLevel: 8.
         maximumZoomLevel: 18.
+
+        FastScale {
+            id: scale
+        }
 
         MouseArea {
             anchors.fill: parent
@@ -76,10 +92,15 @@ Rectangle {
                 }
             }
             lastCachesLength = cachesBBox.caches.length
+
+            scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x+scale.width,scale.y)))
         }
+
 
         Component.onCompleted: map.center = currentPosition.position.coordinate
     }
+
+
 
     Column {
         id: mapControls
