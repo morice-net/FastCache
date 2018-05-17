@@ -207,4 +207,13 @@ Item {
                                       createFilterExcludeCachesArchived(),userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
     }
+
+    function  cacheMarkerId(typeGs) {
+        for (var i = 0; i < cacheTypes.types.length; i++) {
+            if(cacheTypes.types[i].typeIdGs == typeGs ){
+                return  cacheTypes.types[i].markerId
+            }
+        }
+        return
+    }
 }

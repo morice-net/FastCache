@@ -34,5 +34,7 @@
         <file>Image/scale.png</file>
         <file>QML/PositionMarker.qml</file>
         <file>QML/MapControls.qml</file>
+        <file>QML/SelectedCacheItem.qml</file>
+        <file>QML/RaterField.qml</file>
     </qresource>
 </RCC>

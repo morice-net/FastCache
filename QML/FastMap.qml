@@ -7,10 +7,11 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastMap
     anchors.fill: parent
-
+    
     property alias mapItem: map
     property var component
-
+    property var selectedCache
+    
     // Map properties
     property real zoomlevelRecord: 14.5
     property real currentZoomlevel: 14.5
@@ -35,14 +36,14 @@ Rectangle {
         id: map
         plugin: mapPlugin
         property int lastCachesLength: 0
-
+        
         anchors.fill: parent
         zoomLevel: currentZoomlevel
-
+        
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
         gesture.onPanFinished: { reloadCaches() }
-
+        
         onZoomLevelChanged: {
             console.log(zoomLevel)
             if ((zoomlevelRecord > (zoomLevel + 0.6)) || (zoomlevelRecord < (zoomLevel - 0.6))) {
@@ -50,26 +51,26 @@ Rectangle {
                 reloadCaches()
             }
         }
-
+        
         minimumZoomLevel: 8.
         maximumZoomLevel: 18.
-
+        
         FastScale {
             id: scale
         }
-
+        
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
         }
-
+        
         function updateCachesOnMap() {
             var currentCachesLength = cachesBBox.caches.length
             if (lastCachesLength >= currentCachesLength) {
                 clearMap()
                 lastCachesLength = 0
             }
-
+            
             for (var i = lastCachesLength; i < currentCachesLength; i++) {
                 if (cachesBBox.caches[i].lat != "" && cachesBBox.caches[i].lon != "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
@@ -78,22 +79,28 @@ Rectangle {
                 }
             }
             lastCachesLength = cachesBBox.caches.length
-
+            
             scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x+scale.width,scale.y)))
         }
-
-
+        
+        
         Component.onCompleted: map.center = currentPosition.position.coordinate
     }
-
+    
     PositionMarker {
         id: positionMarker
     }
-
+    
     MapControls {
         id: mapControls
     }
-
+    
+    SelectedCacheItem {
+        id: selectedCacheItem
+    }
+    
+    onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
+    
     function clearMap() {
         map.clearMapItems()
     }

@@ -12,14 +12,10 @@ MapQuickItem {
     sourceItem: CacheIcon {
         id: cacheIcon
         type: cacheMarkerId(cachesBBox.caches[index].type)
-    }
 
-    function  cacheMarkerId( typeGs) {
-        for (var i = 0; i < cacheTypes.types.length; i++) {
-            if(cacheTypes.types[i].typeIdGs == typeGs ){
-                return  cacheTypes.types[i].markerId
-            }
+        MouseArea {
+            anchors.fill: parent
+            onClicked: selectedCache = cachesBBox.caches[index]
         }
-        return
     }
 }
