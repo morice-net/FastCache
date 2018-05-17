@@ -6,10 +6,6 @@ import "JavaScript/Palette.js" as Palette
 
 Rectangle {
     id: selectedCacheItem
-    property string geocode
-    property int size
-    property double difficulty
-    property double terrain
     
     color: Palette.white().replace("#","#99")
     radius: parent.width/30
@@ -48,8 +44,7 @@ Rectangle {
         font.pixelSize: parent.height * 0.15
         color: Palette.black()
         clip: true
-        width: parent.width - selectedCacheIconField.width - 3 * anchors.margins
-        
+        width: parent.width - selectedCacheIconField.width - 3 * anchors.margins 
     }
     
     Text {
