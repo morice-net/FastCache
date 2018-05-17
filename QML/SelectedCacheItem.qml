@@ -91,25 +91,10 @@ Rectangle {
         ratingName: "Terrain"
     }
 
-    Rectangle {
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.margins: 5
-        color: Palette.white()
-        border.color: Palette.turquoise()
-        border.width: 1
-        height: selectedCacheItem.height / 4.5
-        width: height
-        radius: width / 2
-        Text {
-            anchors.centerIn: parent
-            text: "x"
-            color: Palette.turquoise()
-        }
-        MouseArea {
-            anchors.fill: parent
-            onClicked: selectedCacheItem.opacity = 0
-        }
+    Timer {
+        id: hideTimer
+        interval: 3200
+        onTriggered: selectedCacheItem.opacity = 0
     }
 
     Behavior on opacity { NumberAnimation { duration: 250 } }
@@ -121,6 +106,13 @@ Rectangle {
         selectedCacheDifficultyField.ratingValue = Math.floor(selectedCache.difficulty)
         selectedCacheTerrainField.ratingValue = Math.floor(selectedCache.terrain)
         selectedCacheIconField.type = cacheMarkerId(selectedCache.type)
+        if (hideTimer.running)
+            hideTimer.restart()
+
         opacity = 1
+    }
+
+    function hide() {
+        hideTimer.start()
     }
 }

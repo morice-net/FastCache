@@ -97,6 +97,11 @@ Rectangle {
     
     SelectedCacheItem {
         id: selectedCacheItem
+
+        onOpacityChanged: {
+            if (opacity == 1)
+                hide()
+        }
     }
     
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
