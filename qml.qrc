@@ -32,5 +32,7 @@
         <file>QML/FastScale.qml</file>
         <file>QML/JavaScript/helper.js</file>
         <file>Image/scale.png</file>
+        <file>QML/PositionMarker.qml</file>
+        <file>QML/MapControls.qml</file>
     </qresource>
 </RCC>
