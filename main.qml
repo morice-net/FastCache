@@ -45,6 +45,8 @@ Item {
 
     FastMap { id: fastMap }
 
+    FastList { id: fastList }
+
     FastMenuHeader { id: fastMenuHeader }
 
     FastMenu { id: fastMenu }

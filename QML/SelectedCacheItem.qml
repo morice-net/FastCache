@@ -10,13 +10,10 @@ Rectangle {
     color: Palette.white().replace("#","#99")
     radius: parent.width/30
     border.width: 2
-    border.color: Palette.greenSea()
+    border.color: main.state == "map" ? Palette.greenSea() : Palette.silver()
     
-    width: parent.width - 40
-    height: parent.height * 0.12
-    anchors.bottom: parent.bottom
-    anchors.right: parent.right
-    anchors.margins: 20
+    width: main.width - 40
+    height: main.height * 0.12
     
     opacity: 0
     visible: opacity > 0

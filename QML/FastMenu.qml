@@ -88,6 +88,7 @@ Item {
 
             function buttonClicked() {
                 main.state = "map"
+                hideMenu()
             }
         }
 
@@ -102,6 +103,7 @@ Item {
 
             function buttonClicked() {
                 main.state = "list"
+                hideMenu()
             }
         }
 
