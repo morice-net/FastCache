@@ -41,7 +41,7 @@ Rectangle {
         font.pixelSize: parent.height * 0.15
         color: Palette.black()
         clip: true
-        width: parent.width - selectedCacheIconField.width - 3 * anchors.margins 
+        width: parent.width - selectedCacheIconField.width - 3 * anchors.margins
     }
     
     Text {
@@ -91,13 +91,30 @@ Rectangle {
 
     Behavior on opacity { NumberAnimation { duration: 250 } }
 
-    function show(selectedCache) {
-        selectedCacheNameField.text = selectedCache.name
-        selectedCacheGeocadeField.text = selectedCache.geocode
-        selectedCacheSizeField.ratingValue = Math.floor((selectedCache.size + 1)/2)
-        selectedCacheDifficultyField.ratingValue = Math.floor(selectedCache.difficulty)
-        selectedCacheTerrainField.ratingValue = Math.floor(selectedCache.terrain)
-        selectedCacheIconField.type = cacheMarkerId(selectedCache.type)
+    function show(selectedCacheVar) {
+        selectedCacheNameField.text = selectedCacheVar.name
+        selectedCacheGeocadeField.text = selectedCacheVar.geocode
+        // Size rounding
+        switch(selectedCacheVar.size) {
+            case 8:
+                selectedCacheSizeField.ratingValue = 2
+                break;
+            case 2:
+                selectedCacheSizeField.ratingValue = 1
+                break;
+            case 3:
+                selectedCacheSizeField.ratingValue = 2
+                break;
+            case 4:
+                selectedCacheSizeField.ratingValue = 4
+                break;
+            default:
+                selectedCacheSizeField.ratingValue = 0
+        }
+
+        selectedCacheDifficultyField.ratingValue = Math.floor(selectedCacheVar.difficulty)
+        selectedCacheTerrainField.ratingValue = Math.floor(selectedCacheVar.terrain)
+        selectedCacheIconField.type = cacheMarkerId(selectedCacheVar.type)
         if (hideTimer.running)
             hideTimer.restart()
 

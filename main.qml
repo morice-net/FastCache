@@ -27,8 +27,6 @@ Item {
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
-
-
     visible: true
     anchors.fill: parent
 

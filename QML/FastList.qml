@@ -8,7 +8,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastList
     anchors.fill: parent
-    visible: main.state == "list"
+    opacity: main.state == "list" ? 1 : 0
     color: Palette.white()
     
     property var selectedCache
@@ -47,24 +47,4 @@ Rectangle {
             }
         }
     }
-
-    function updateCachesOnMap() {
-        var currentCachesLength = cachesBBox.caches.length
-        if (lastCachesLength >= currentCachesLength) {
-            clearMap()
-            lastCachesLength = 0
-        }
-
-        for (var i = lastCachesLength; i < currentCachesLength; i++) {
-            if (cachesBBox.caches[i].lat != "" && cachesBBox.caches[i].lon != "") {
-                var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-                itemMap.index = i
-                addMapItem(itemMap)
-            }
-        }
-        lastCachesLength = cachesBBox.caches.length
-
-        scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x+scale.width,scale.y)))
-    }
-
 }
