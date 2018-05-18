@@ -72,6 +72,73 @@ Item {
             }
         }
 
+
+        ///////////////////////////////////////////////////////////////////////////
+        //                      button on the middle of the menu                 //
+        ///////////////////////////////////////////////////////////////////////////
+
+        Item {
+            id: mapButtonMenu
+            height: parent.height * 0.12
+            width: parent.width
+            anchors.top: userInfoMenu.bottom
+            anchors.topMargin: 20
+            anchors.bottomMargin: 2
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.topMargin: 20
+                anchors.bottomMargin: 2
+                color: Palette.turquoise()
+
+                Text {
+                    anchors.fill: parent
+                    font.family: localFont.name
+                    font.pointSize: 24
+                    text: "Carte\t\t>"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: Palette.white()
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        //TODO
+                    }
+                }
+            }
+        }
+        Item {
+            id: listButtonMenu
+            height: parent.height * 0.12
+            width: parent.width
+            anchors.top: mapButtonMenu.bottom
+            anchors.topMargin: 2
+            anchors.bottomMargin: 20
+
+            Rectangle {
+                anchors.fill: parent
+                anchors.topMargin: 2
+                anchors.bottomMargin: 20
+                color: Palette.turquoise()
+
+                Text {
+                    anchors.fill: parent
+                    font.family: localFont.name
+                    font.pointSize: 24
+                    text: "Liste\t\t\t>"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: Palette.white()
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        //TODO
+                    }
+                }
+            }
+        }
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
