@@ -77,71 +77,38 @@ Item {
         //                      button on the middle of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
 
-        Item {
+        FastSelectableButtonMenu {
             id: mapButtonMenu
-            height: parent.height * 0.12
-            width: parent.width
+            anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
             anchors.topMargin: 20
-            anchors.bottomMargin: 2
 
-            Rectangle {
-                anchors.fill: parent
-                anchors.topMargin: 20
-                anchors.bottomMargin: 2
-                color: Palette.turquoise()
+            buttonSelected: main.state == "map"
+            buttonText: "Carte\t\t>"
 
-                Text {
-                    anchors.fill: parent
-                    font.family: localFont.name
-                    font.pointSize: 24
-                    text: "Carte\t\t>"
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    color: Palette.white()
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        //TODO
-                    }
-                }
+            function buttonClicked() {
+                main.state = "map"
             }
         }
-        Item {
+
+        FastSelectableButtonMenu {
             id: listButtonMenu
-            height: parent.height * 0.12
-            width: parent.width
             anchors.top: mapButtonMenu.bottom
             anchors.topMargin: 2
             anchors.bottomMargin: 20
 
-            Rectangle {
-                anchors.fill: parent
-                anchors.topMargin: 2
-                anchors.bottomMargin: 20
-                color: Palette.turquoise()
+            buttonSelected: main.state == "list"
+            buttonText: "Liste\t\t\t>"
 
-                Text {
-                    anchors.fill: parent
-                    font.family: localFont.name
-                    font.pointSize: 24
-                    text: "Liste\t\t\t>"
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    color: Palette.white()
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        //TODO
-                    }
-                }
+            function buttonClicked() {
+                main.state = "list"
             }
         }
+
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
+
         Item {
             id: connectButtonMenu
             height: parent.height * 0.12

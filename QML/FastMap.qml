@@ -7,6 +7,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastMap
     anchors.fill: parent
+    visible: main.state == "map"
     
     property alias mapItem: map
     property var component

@@ -27,6 +27,8 @@ Item {
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
+
+
     visible: true
     anchors.fill: parent
 
@@ -100,6 +102,8 @@ Item {
     }
 
     Component.onCompleted: {
+        main.state = "map"
+
         // retrieve settings (todo: remove and put alias in settings instead)
         connector.tokenKey = settings.tokenKey
 

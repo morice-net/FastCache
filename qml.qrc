@@ -36,5 +36,6 @@
         <file>QML/MapControls.qml</file>
         <file>QML/SelectedCacheItem.qml</file>
         <file>QML/RaterField.qml</file>
+        <file>QML/FastSelectableButtonMenu.qml</file>
     </qresource>
 </RCC>
