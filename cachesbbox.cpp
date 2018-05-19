@@ -15,11 +15,6 @@ CachesBBox::CachesBBox(QObject *parent)
 
 CachesBBox::~CachesBBox()
 {
-    foreach (Cache* cache, m_caches) {
-        if (cache != NULL) {
-            delete cache;
-        }
-    }
 }
 
 QQmlListProperty<Cache> CachesBBox::caches()
@@ -33,10 +28,6 @@ void CachesBBox::sendRequest(QString token)
         return;
     }
 
-    foreach(Cache* cache, m_caches) {
-        if (cache != NULL)
-            delete cache;
-    }
     m_caches.clear();
     indexMoreCachesBBox = 0;
 

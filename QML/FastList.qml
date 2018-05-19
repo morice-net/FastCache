@@ -9,6 +9,7 @@ Rectangle {
     id: fastList
     anchors.fill: parent
     opacity: main.state == "list" ? 1 : 0
+    visible: opacity > 0
     color: Palette.white()
 
     Rectangle {
