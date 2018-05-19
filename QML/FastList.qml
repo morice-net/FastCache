@@ -12,6 +12,20 @@ Rectangle {
     visible: opacity > 0
     color: Palette.white()
 
+
+    ListView {
+        id: fastListColumn
+        width: parent.width
+        height: parent.height - fastListHeader.height - 10
+        y: fastListHeader.height + 10
+        spacing: 5
+        model: cachesBBox.caches
+        delegate: SelectedCacheItem {
+            x: (fastList.width - width ) / 2
+            Component.onCompleted: show(modelData)
+        }
+    }
+
     Rectangle {
         id: fastListHeader
         width: parent.width
@@ -26,19 +40,6 @@ Rectangle {
             font.pixelSize: parent.height * 0.65
             color: Palette.greenSea()
             text: "Liste de caches"
-        }
-    }
-
-    ListView {
-        id: fastListColumn
-        width: parent.width
-        height: parent.height - fastListHeader.height - 10
-        y: fastListHeader.height + 10
-        spacing: 5
-        model: cachesBBox.caches
-        delegate: SelectedCacheItem {
-            x: (fastList.width - width ) / 2
-            Component.onCompleted: show(modelData)
         }
     }
 }
