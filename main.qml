@@ -200,7 +200,6 @@ Item {
             return;
         }
         lastReload.start()
-        fastMap.clearMap()
 
         cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).latitude
         cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).longitude

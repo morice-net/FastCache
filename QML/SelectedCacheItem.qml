@@ -92,6 +92,9 @@ Rectangle {
     Behavior on opacity { NumberAnimation { duration: 250 } }
 
     function show(selectedCacheVar) {
+        if (!selectedCacheVar)
+            return;
+
         selectedCacheNameField.text = selectedCacheVar.name
         selectedCacheGeocadeField.text = selectedCacheVar.geocode
         // Size rounding

@@ -10,8 +10,6 @@ Rectangle {
     anchors.fill: parent
     opacity: main.state == "list" ? 1 : 0
     color: Palette.white()
-    
-    property var selectedCache
 
     Rectangle {
         id: fastListHeader
@@ -30,21 +28,16 @@ Rectangle {
         }
     }
 
-    ScrollView {
+    ListView {
+        id: fastListColumn
         width: parent.width
         height: parent.height - fastListHeader.height - 10
         y: fastListHeader.height + 10
-        Column {
-            width: parent.width
-            height: cachesBBox.caches.length * (0.12 * parent.height + 5)
-            spacing: 5
-            Repeater {
-                model: cachesBBox.caches
-                SelectedCacheItem {
-                    x: (fastList.width - width ) / 2
-                    Component.onCompleted: show(modelData)
-                }
-            }
+        spacing: 5
+        model: cachesBBox.caches
+        delegate: SelectedCacheItem {
+            x: (fastList.width - width ) / 2
+            Component.onCompleted: show(modelData)
         }
     }
 }
