@@ -73,7 +73,7 @@ Rectangle {
             }
             
             for (var i = lastCachesLength; i < currentCachesLength; i++) {
-                if (cachesBBox.caches[i].lat != "" && cachesBBox.caches[i].lon != "") {
+                if (cachesBBox.caches[i].lat !== "" && cachesBBox.caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i
                     addMapItem(itemMap)
@@ -119,7 +119,7 @@ Rectangle {
         }
 
         for (var i = lastCachesLength; i < currentCachesLength; i++) {
-            if (cachesBBox.caches[i].lat != "" && cachesBBox.caches[i].lon != "") {
+            if (cachesBBox.caches[i].lat !== "" && cachesBBox.caches[i].lon !== "") {
                 var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                 itemMap.index = i
                 addMapItem(itemMap)

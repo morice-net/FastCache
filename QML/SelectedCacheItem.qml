@@ -55,13 +55,15 @@ Rectangle {
         clip: true
     }
     
-    RaterField {
+    Text {
         id: selectedCacheSizeField
         anchors.margins: 10
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheTerrainField.left
-
-        ratingName: "Taille"
+        font.family: localFont.name
+        font.pixelSize: parent.height * 0.15
+        color: Palette.black()
+        clip: true
     }
 
     RaterField {
@@ -97,22 +99,13 @@ Rectangle {
 
         selectedCacheNameField.text = selectedCacheVar.name
         selectedCacheGeocadeField.text = selectedCacheVar.geocode
-        // Size rounding
-        switch(selectedCacheVar.size) {
-            case 8:
-                selectedCacheSizeField.ratingValue = 2
+
+        // Size rounding        
+        for (var i = 0; i < cacheSizes.sizes.length; i++) {
+            if(cacheSizes.sizes[i].sizeIdGs === selectedCacheVar.size ){
+                selectedCacheSizeField.text = "Taille: " + cacheSizes.sizes[i].sizeId
                 break;
-            case 2:
-                selectedCacheSizeField.ratingValue = 1
-                break;
-            case 3:
-                selectedCacheSizeField.ratingValue = 2
-                break;
-            case 4:
-                selectedCacheSizeField.ratingValue = 4
-                break;
-            default:
-                selectedCacheSizeField.ratingValue = 0
+            }
         }
 
         selectedCacheDifficultyField.ratingValue = Math.floor(selectedCacheVar.difficulty)
