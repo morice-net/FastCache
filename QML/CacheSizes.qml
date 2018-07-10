@@ -8,7 +8,7 @@ Item {
 
     CacheSize {
         id: eighthSize
-        sizeId: "Unknown"
+        sizeId: "Inconnue"
         sizeIdGs: 9
         Component.onCompleted: {
             sizes.push(eighthSize)
@@ -17,7 +17,7 @@ Item {
 
     CacheSize {
         id: seventhSize
-        sizeId: "Other"
+        sizeId: "Autre"
         sizeIdGs: 7
         Component.onCompleted: {
             sizes.push(seventhSize)
@@ -26,7 +26,7 @@ Item {
 
     CacheSize {
         id: sixthSize
-        sizeId: "Virtual"
+        sizeId: "Virtuelle"
         sizeIdGs: 5
         Component.onCompleted: {
             sizes.push(sixthSize)
@@ -35,7 +35,7 @@ Item {
 
     CacheSize {
         id: fifthSize
-        sizeId: "Not Chosen"
+        sizeId: "Non renseignée"
         sizeIdGs: 6
         Component.onCompleted: {
             sizes.push(fifthSize)
@@ -44,7 +44,7 @@ Item {
 
     CacheSize {
         id: fourthSize
-        sizeId: "Large"
+        sizeId: "Grande"
         sizeIdGs: 4
         Component.onCompleted: {
             sizes.push(fourthSize)
@@ -53,7 +53,7 @@ Item {
 
     CacheSize {
         id: thirdSize
-        sizeId: "Regular"
+        sizeId: "Normale"
         sizeIdGs: 3
         Component.onCompleted: {
             sizes.push(thirdSize)
@@ -62,7 +62,7 @@ Item {
 
     CacheSize {
         id: secondSize
-        sizeId: "Small"
+        sizeId: "Petite"
         sizeIdGs: 8
         Component.onCompleted: {
             sizes.push(secondSize)
