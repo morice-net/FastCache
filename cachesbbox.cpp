@@ -24,7 +24,7 @@ QQmlListProperty<Cache> CachesBBox::caches()
 
 void CachesBBox::sendRequest(QString token)
 {
-    if(m_latBottomRight == 0 && m_lonBottomRight == 0 && m_latTopLeft ==  0 && m_lonTopLeft == 0) {
+    if(m_latBottomRight == 0.0 && m_lonBottomRight == 0.0 && m_latTopLeft ==  0.0 && m_lonTopLeft == 0.0) {
         return;
     }
 
@@ -80,12 +80,12 @@ void CachesBBox::sendRequest(QString token)
     }
 
     // filter by difficulty, terrain.
-    if(filterDifficultyTerrain[0] != 1 || filterDifficultyTerrain[1] != 5){
+    if(filterDifficultyTerrain[0] != 1.0 || filterDifficultyTerrain[1] != 5.0){
         geocacheDifficulty.insert("MinDifficulty", QJsonValue(filterDifficultyTerrain[0]));
         geocacheDifficulty.insert("MaxDifficulty", QJsonValue(filterDifficultyTerrain[1]));
         parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
     }
-    if(filterDifficultyTerrain[2] != 1 || filterDifficultyTerrain[3] != 5){
+    if(filterDifficultyTerrain[2] != 1.0 || filterDifficultyTerrain[3] != 5.0){
         geocacheTerrain.insert("MinTerrain", QJsonValue(filterDifficultyTerrain[2]));
         geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
         parameters.insert("Terrain", QJsonValue(geocacheTerrain));
@@ -191,7 +191,7 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
             int cacheSizeId= v3.value("ContainerTypeId").toInt();
             cache->setSize(cacheSizeId);
 
-            cache->setDifficulty(v.toObject().value("Difficulty").toInt());
+            cache->setDifficulty(v.toObject().value("Difficulty").toDouble());
             cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
             cache->setLat(v.toObject().value("Latitude").toDouble());
             cache->setLon(v.toObject().value("Longitude").toDouble());
@@ -199,12 +199,12 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
             cache->setName(name);
             cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
             cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
-            cache->setTerrain(v.toObject().value("Terrain").toInt());
+            cache->setTerrain(v.toObject().value("Terrain").toDouble());
             qDebug() << "*** Caches***\n" <<cache->name() ;
             m_caches.append(cache);
         }
         if (lengthCaches == MAX_PER_PAGE) {
-            sendRequestMore(tokenTemp);
+//            sendRequestMore(tokenTemp);
         }
 
     } else {

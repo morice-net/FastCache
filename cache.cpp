@@ -60,23 +60,23 @@ void Cache::setSize(int size)
     emit sizeChanged();
 }
 
-float Cache::difficulty() const
+double Cache::difficulty() const
 {
     return m_difficulty;
 }
 
-void Cache::setDifficulty( float difficulty)
+void Cache::setDifficulty( double difficulty)
 {
     m_difficulty = difficulty;
     emit difficultyChanged();
 }
 
-float Cache::terrain() const
+double Cache::terrain() const
 {
     return m_terrain;
 }
 
-void Cache::setTerrain(float  terrain)
+void Cache::setTerrain(double  terrain)
 {
     m_terrain = terrain;
 }

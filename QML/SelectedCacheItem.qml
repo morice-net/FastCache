@@ -109,8 +109,8 @@ Rectangle {
             }
         }
 
-        selectedCacheDifficultyField.ratingValue = Math.floor(selectedCacheVar.difficulty)
-        selectedCacheTerrainField.ratingValue = Math.floor(selectedCacheVar.terrain)
+        selectedCacheDifficultyField.ratingValue = selectedCacheVar.difficulty
+        selectedCacheTerrainField.ratingValue = selectedCacheVar.terrain
         selectedCacheIconField.type = cacheMarkerId(selectedCacheVar.type)
         if (hideTimer.running)
             hideTimer.restart()
