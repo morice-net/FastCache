@@ -16,7 +16,8 @@ SOURCES += main.cpp \
     cachesbbox.cpp \
     cache.cpp \
     cachetype.cpp \
-    cachesize.cpp
+    cachesize.cpp \
+    cachesnear.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,7 +36,8 @@ HEADERS += \
     cachesbbox.h \
     cache.h \
     cachetype.h \
-    cachesize.h
+    cachesize.h \
+    cachesnear.h
 
 DISTFILES += \
     android/AndroidManifest.xml \
