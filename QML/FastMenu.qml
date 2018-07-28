@@ -107,6 +107,21 @@ Item {
             }
         }
 
+        FastSelectableButtonMenu {
+            id: nearButtonMenu
+            anchors.top: listButtonMenu.bottom
+            anchors.topMargin: 2
+            anchors.bottomMargin: 20
+
+            buttonSelected: main.state == "near"
+            buttonText: "Caches proches\t>"
+
+            function buttonClicked() {
+                main.state = "near"
+                hideMenu()
+            }
+        }
+
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
