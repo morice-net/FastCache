@@ -6,7 +6,7 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: fastMenu
-    anchors.fill: parent
+    anchors.fill: parent    
 
     Rectangle {
         id: menuShadow
@@ -119,6 +119,13 @@ Item {
             function buttonClicked() {
                 main.state = "near"
                 hideMenu()
+                var coord = currentPosition.position.coordinate
+                cachesNear.latPoint = coord.latitude
+                cachesNear.lonPoint = coord.longitude
+                cachesNear.distance = 100000
+                cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+                                              createFilterExcludeCachesArchived(),userInfo.name )
+                cachesNear.sendRequest(connector.tokenKey)
             }
         }
 
@@ -160,7 +167,6 @@ Item {
         }
         // Footer
     }
-
 
     function showMenu() {
         console.log("Show menu...")

@@ -8,7 +8,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastList
     anchors.fill: parent
-    opacity: main.state == "list" ? 1 : 0
+    opacity: main.state == "list" || main.state == "near" ? 1 : 0
     visible: opacity > 0
     color: Palette.white()
 
@@ -19,7 +19,7 @@ Rectangle {
         height: parent.height - fastListHeader.height - 10
         y: fastListHeader.height + 10
         spacing: 5
-        model: cachesBBox.caches
+        model: modelState()
         delegate: SelectedCacheItem {
             x: (fastList.width - width ) / 2
             Component.onCompleted: show(modelData)
@@ -41,5 +41,12 @@ Rectangle {
             color: Palette.greenSea()
             text: "Liste de caches"
         }
+    }
+
+    function modelState() {
+        if(main.state == "list" ){
+            return  cachesBBox.caches }
+        if(main.state == "near" ){
+            return  cachesNear.caches }
     }
 }

@@ -40,8 +40,7 @@ void CachesNear::sendRequest(QString token)
     QJsonObject geocacheSize;
     QJsonObject geocacheDifficulty;
     QJsonObject geocacheTerrain;
-    QJsonObject pointRadius;
-    QJsonObject distanceInMeters;
+    QJsonObject pointRadius;    
     QJsonObject point;
     QJsonObject excludeFounds;
     QJsonObject excludeMine;
@@ -109,9 +108,8 @@ void CachesNear::sendRequest(QString token)
 
     // createCenterPoint.
     point.insert("Latitude", QJsonValue(m_latPoint));
-    point.insert("Longitude", QJsonValue(m_lonPoint));
-    distanceInMeters.insert("DistanceInMeters", QJsonValue(m_distance));
-    pointRadius.insert("DistanceInMeters", QJsonValue(distanceInMeters));
+    point.insert("Longitude", QJsonValue(m_lonPoint));    
+    pointRadius.insert("DistanceInMeters", QJsonValue(m_distance));
     pointRadius.insert("Point", QJsonValue(point));
     parameters.insert("PointRadius", QJsonValue(pointRadius));
 

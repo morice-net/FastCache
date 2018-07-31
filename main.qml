@@ -25,7 +25,7 @@ Item {
     property var listDifficultyTerrain : [settings.difficultyMin , settings.difficultyMax , settings.terrainMin , settings.terrainMax]
 
     property bool excludeFound : settings.excludeCachesFound
-    property bool excludeArchived: settings.excludeCachesArchived
+    property bool excludeArchived: settings.excludeCachesArchived    
 
     visible: true
     anchors.fill: parent
@@ -33,12 +33,16 @@ Item {
     PositionSource {
         id: currentPosition
         updateInterval: 1000
-        active: true
+        active: true       
     }
 
     CachesBBox {
         id: cachesBBox
         onCachesChanged: fastMap.mapItem.updateCachesOnMap()
+    }
+
+    CachesNear{
+        id: cachesNear
     }
 
     FastMap { id: fastMap }
@@ -219,4 +223,5 @@ Item {
         }
         return
     }
+
 }
