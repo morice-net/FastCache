@@ -116,7 +116,7 @@ void CachesNear::sendRequest(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
+     qDebug() <<"cachesNearJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
@@ -138,7 +138,7 @@ void CachesNear::sendRequestMore(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesbboxJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
+    qDebug() <<"cachesNearJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
@@ -147,7 +147,7 @@ void CachesNear::onReplyFinished(QNetworkReply *reply)
     QJsonDocument dataJsonDoc;
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
-        qDebug() << "*** CachesBBox ***\n" <<dataJsonDoc ;
+        qDebug() << "*** CachesNear ***\n" <<dataJsonDoc ;
 
         if (dataJsonDoc.isNull()) {
             return;

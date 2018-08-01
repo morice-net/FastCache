@@ -24,6 +24,7 @@ public:
     ~CachesNear();
 
     Q_INVOKABLE virtual void sendRequest(QString token);
+    Q_INVOKABLE void sendRequestMore(QString token);
     Q_INVOKABLE   void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
 
     QQmlListProperty<Cache> caches();
@@ -68,7 +69,6 @@ private:
     bool filterExcludeFound;
     bool filterExcludeArchived;
 
-    void   sendRequestMore(QString token);
 };
 
 #endif // CACHESNEAR_H

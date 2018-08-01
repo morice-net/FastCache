@@ -12,6 +12,8 @@ Item {
     property string buttonText
     
     Rectangle {
+        radius: 20
+        anchors.margins: 20
         anchors.fill: parent
         anchors.topMargin: 20
         anchors.bottomMargin: 2

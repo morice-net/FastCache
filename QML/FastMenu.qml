@@ -84,7 +84,7 @@ Item {
             anchors.topMargin: 20
 
             buttonSelected: main.state == "map"
-            buttonText: "Carte\t\t>"
+            buttonText: "Carte:"
 
             function buttonClicked() {
                 main.state = "map"
@@ -99,7 +99,7 @@ Item {
             anchors.bottomMargin: 20
 
             buttonSelected: main.state == "list"
-            buttonText: "Liste\t\t\t>"
+            buttonText: "Liste:"
 
             function buttonClicked() {
                 main.state = "list"
@@ -114,7 +114,7 @@ Item {
             anchors.bottomMargin: 20
 
             buttonSelected: main.state == "near"
-            buttonText: "Caches proches\t>"
+            buttonText: "Caches proches:"
 
             function buttonClicked() {
                 main.state = "near"
@@ -123,6 +123,7 @@ Item {
                 cachesNear.latPoint = coord.latitude
                 cachesNear.lonPoint = coord.longitude
                 cachesNear.distance = 100000
+
                 cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                               createFilterExcludeCachesArchived(),userInfo.name )
                 cachesNear.sendRequest(connector.tokenKey)
@@ -140,6 +141,7 @@ Item {
             y: parent.height - height - 20
 
             Rectangle {
+                radius: 20
                 anchors.fill: parent
                 anchors.margins: 20
                 color: Palette.turquoise()
