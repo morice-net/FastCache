@@ -20,7 +20,7 @@ class CachesNear : public Requestor
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
 
 public:
-    explicit  CachesNear(QObject *parent = 0);
+    explicit  CachesNear(QObject *parent = nullptr);
     ~CachesNear();
 
     Q_INVOKABLE virtual void sendRequest(QString token);

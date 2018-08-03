@@ -24,7 +24,7 @@ Rectangle {
             x: (fastList.width - width ) / 2
             Component.onCompleted: show(modelData)
         }        
-        ScrollBar.vertical: ScrollBar {active: true}
+        ScrollBar.vertical: ScrollBar {}
     }
 
     Rectangle {

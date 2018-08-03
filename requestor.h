@@ -7,7 +7,7 @@ class Requestor : public QObject
 {
     Q_OBJECT
 public:
-    explicit Requestor(QObject *parent = 0);
+    explicit Requestor(QObject *parent = nullptr);
 
     Q_INVOKABLE virtual void sendRequest(QString token) = 0;
 

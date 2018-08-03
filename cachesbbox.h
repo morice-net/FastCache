@@ -20,7 +20,7 @@ class CachesBBox : public Requestor
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
 
 public:
-    explicit  CachesBBox(QObject *parent = 0);
+    explicit  CachesBBox(QObject *parent = nullptr);
     ~CachesBBox();
 
     Q_INVOKABLE virtual void sendRequest(QString token);

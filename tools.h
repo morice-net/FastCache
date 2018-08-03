@@ -7,7 +7,7 @@ class Tools : public QObject
 {
     Q_OBJECT
 public:
-    explicit Tools(QObject *parent = 0);
+    explicit Tools(QObject *parent = nullptr);
 
     Q_INVOKABLE bool beginsWith(QString obj, QString value);
 };

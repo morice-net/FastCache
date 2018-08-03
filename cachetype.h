@@ -15,7 +15,7 @@ class CacheType : public QObject
 
 
 public:
-    explicit  CacheType(QObject *parent = 0);
+    explicit  CacheType(QObject *parent = nullptr);
     ~CacheType();
 
     QString typeId() const;

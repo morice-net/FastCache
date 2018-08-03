@@ -16,7 +16,7 @@ class Connector : public QObject
     Q_PROPERTY(QString tokenSecret READ tokenSecret WRITE setTokenSecret NOTIFY tokenSecretChanged)
 
 public:
-    explicit Connector(QObject *parent = 0);
+    explicit Connector(QObject *parent = nullptr);
     ~Connector();
 
     Q_INVOKABLE void connect();

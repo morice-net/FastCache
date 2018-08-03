@@ -7,7 +7,7 @@ class Parameter : public QObject
 {
     Q_OBJECT
 public:
-    Parameter(QObject *parent = 0);
+    Parameter(QObject *parent = nullptr);
 
     QString name() const;
     void setName(const QString &name);

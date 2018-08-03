@@ -12,7 +12,7 @@ class CacheSize : public QObject
     Q_PROPERTY(int sizeIdGs READ sizeIdGs WRITE setSizeIdGs NOTIFY sizeIdGsChanged)
 
 public:
-    explicit  CacheSize(QObject *parent = 0);
+    explicit  CacheSize(QObject *parent = nullptr);
     ~CacheSize();
 
     QString sizeId() const;

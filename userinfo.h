@@ -20,7 +20,7 @@ public:
         Erreur
     };
 
-    explicit  UserInfo(QObject *parent = 0);
+    explicit  UserInfo(QObject *parent = nullptr);
     ~UserInfo();
 
     Q_INVOKABLE void sendRequest(QString token) override;

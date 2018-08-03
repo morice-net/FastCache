@@ -24,7 +24,7 @@ class Cache : public QObject
     Q_PROPERTY(double lon READ lon WRITE setLon NOTIFY lonChanged)
 
 public:
-    explicit  Cache(QObject *parent = 0);
+    explicit  Cache(QObject *parent = nullptr);
     ~Cache();
 
     QString name() const;
