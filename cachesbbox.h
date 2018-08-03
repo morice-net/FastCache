@@ -21,9 +21,9 @@ class CachesBBox : public Requestor
 
 public:
     explicit  CachesBBox(QObject *parent = nullptr);
-    ~CachesBBox();
+    ~CachesBBox() override;
 
-    Q_INVOKABLE virtual void sendRequest(QString token);
+    Q_INVOKABLE virtual void sendRequest(QString token) override;
     Q_INVOKABLE   void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
 
     QQmlListProperty<Cache> caches();

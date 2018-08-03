@@ -20,10 +20,10 @@ class CachesNear : public Requestor
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
 
 public:
-    explicit  CachesNear(QObject *parent = nullptr);
-    ~CachesNear();
+    explicit  CachesNear(QObject *parent = nullptr) ;
+    ~CachesNear() override;
 
-    Q_INVOKABLE virtual void sendRequest(QString token);
+    Q_INVOKABLE virtual void sendRequest(QString token) override;
     Q_INVOKABLE void sendRequestMore(QString token);
     Q_INVOKABLE   void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
 

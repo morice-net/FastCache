@@ -21,7 +21,7 @@ public:
     };
 
     explicit  UserInfo(QObject *parent = nullptr);
-    ~UserInfo();
+    ~UserInfo() override;
 
     Q_INVOKABLE void sendRequest(QString token) override;
 
