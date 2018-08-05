@@ -154,12 +154,3 @@ void CachesBBox::setLatBottomRight(double latBottomRight)
     emit latBottomRightChanged();
 }
 
-void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived , QString name)
-{
-    filterTypes = types ;
-    filterSizes = sizes ;
-    filterDifficultyTerrain = difficultyTerrain ;
-    filterExcludeFound = found ;
-    filterExcludeArchived = archived ;
-    userName = name ;
-}

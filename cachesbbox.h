@@ -16,9 +16,7 @@ class CachesBBox : public CachesRetriever
 
 public:
     explicit  CachesBBox(QObject *parent = nullptr);
-    ~CachesBBox() override;
-
-    Q_INVOKABLE  void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
+    ~CachesBBox() override;    
 
     double latBottomRight() const;
     void setLatBottomRight(double latBottomRight);

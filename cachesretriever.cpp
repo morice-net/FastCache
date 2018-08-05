@@ -133,3 +133,13 @@ void CachesRetriever::sendRequestMore(QString token)
     qDebug() <<"cachesJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
+
+void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived , QString name)
+{
+    filterTypes = types ;
+    filterSizes = sizes ;
+    filterDifficultyTerrain = difficultyTerrain ;
+    filterExcludeFound = found ;
+    filterExcludeArchived = archived ;
+    userName = name ;
+}

@@ -3,7 +3,6 @@
 
 #include "requestor.h"
 
-#include <QObject>
 #include <QNetworkReply>
 #include <QQmlListProperty>
 
@@ -14,11 +13,13 @@ class CachesRetriever : public Requestor
     Q_OBJECT
 
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
+
 public:
     explicit CachesRetriever(QObject *parent = nullptr);
 
     Q_INVOKABLE void sendRequest(QString token);
     Q_INVOKABLE void sendRequestMore(QString token);
+    Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
 
     QQmlListProperty<Cache> caches();
 

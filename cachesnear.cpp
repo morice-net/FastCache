@@ -139,12 +139,4 @@ void CachesNear::setDistance(double distance)
 }
 
 
-void CachesNear::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived , QString name)
-{
-    filterTypes = types ;
-    filterSizes = sizes ;
-    filterDifficultyTerrain = difficultyTerrain ;
-    filterExcludeFound = found ;
-    filterExcludeArchived = archived ;
-    userName = name ;
-}
+

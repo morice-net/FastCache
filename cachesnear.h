@@ -17,8 +17,6 @@ public:
     explicit  CachesNear(QObject *parent = nullptr) ;
     ~CachesNear();
 
-    Q_INVOKABLE   void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
-
     double latPoint() const;
     void setLatPoint(double latPoint);
 
