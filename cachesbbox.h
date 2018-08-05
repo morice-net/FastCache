@@ -1,9 +1,6 @@
 #ifndef CACHESBBOX_H
 #define CACHESBBOX_H
 
-#include <QObject>
-#include <QQmlListProperty>
-
 #include "cachesretriever.h"
 
 class Cache;
