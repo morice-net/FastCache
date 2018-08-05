@@ -93,7 +93,7 @@ bool CachesNear::parameterChecker()
 
 }
 
-void CachesNear::addSpecificParameters(QJsonObject parameters)
+void CachesNear::addSpecificParameters(QJsonObject &parameters)
 {
     // createCenterPoint.
     QJsonObject pointRadius;

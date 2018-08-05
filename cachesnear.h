@@ -39,7 +39,7 @@ public slots:
 
 protected:
     bool parameterChecker() override;
-    void addSpecificParameters(QJsonObject parameters) override;
+    void addSpecificParameters(QJsonObject &parameters) override;
 
 private:
     double m_latPoint;

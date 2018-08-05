@@ -95,7 +95,7 @@ bool CachesBBox::parameterChecker()
     return true;
 }
 
-void CachesBBox::addSpecificParameters(QJsonObject parameters)
+void CachesBBox::addSpecificParameters(QJsonObject& parameters)
 {
     // createViewport.
     QJsonObject viewport;

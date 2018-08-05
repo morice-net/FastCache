@@ -24,7 +24,7 @@ public:
 
 protected:
     virtual bool parameterChecker() = 0;
-    virtual void addSpecificParameters(QJsonObject parameters) = 0;
+    virtual void addSpecificParameters(QJsonObject& parameters) = 0;
 
 signals:
     void cachesChanged();
