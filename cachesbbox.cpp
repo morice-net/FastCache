@@ -9,140 +9,12 @@
 
 
 CachesBBox::CachesBBox(QObject *parent)
-    : Requestor(parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0),m_caches(QList<Cache*>())
+    : CachesRetriever (parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0)
 {
 }
 
 CachesBBox::~CachesBBox()
 {
-}
-
-QQmlListProperty<Cache> CachesBBox::caches()
-{
-    return QQmlListProperty<Cache>(this, m_caches);
-}
-
-void CachesBBox::sendRequest(QString token)
-{
-    if(m_latBottomRight == 0.0 && m_lonBottomRight == 0.0 && m_latTopLeft ==  0.0 && m_lonTopLeft == 0.0) {
-        return;
-    }
-
-    m_caches.clear();
-    indexMoreCachesBBox = 0;
-
-    // lat, lon on format E6.
-
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
-
-    QJsonObject parameters;
-    QJsonObject geocacheType;
-    QJsonObject geocacheSize;
-    QJsonObject geocacheDifficulty;
-    QJsonObject geocacheTerrain;
-    QJsonObject viewport;
-    QJsonObject bottomRight;
-    QJsonObject topLeft;
-    QJsonObject excludeFounds;
-    QJsonObject excludeMine;
-    QJsonObject geocacheExclusion;
-
-    QJsonArray geocacheTypeIds;
-    QJsonArray geocacheSizeIds;
-    QJsonArray userNames;
-
-    tokenTemp=token;
-
-    parameters.insert("AccessToken", QJsonValue(token));
-    parameters.insert("IsLite", QJsonValue(true));
-    parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
-    parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
-    parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
-
-    // filter by type.
-    if(!filterTypes.isEmpty()){
-        foreach ( int type, filterTypes)
-        {
-            geocacheTypeIds.append(type);
-        }
-        geocacheType.insert("GeocacheTypeIds", QJsonValue(geocacheTypeIds));
-        parameters.insert("GeocacheType",QJsonValue(geocacheType));
-    }
-
-    // filter by size.
-    if(!filterSizes.isEmpty()){
-        foreach ( int size, filterSizes)
-        {
-            geocacheSizeIds.append(size);
-        }
-        geocacheSize.insert("GeocacheContainerSizeIds", QJsonValue(geocacheSizeIds));
-        parameters.insert("GeocacheContainerSize",QJsonValue(geocacheSize));
-    }
-
-    // filter by difficulty, terrain.
-    if(filterDifficultyTerrain[0] != 1.0 || filterDifficultyTerrain[1] != 5.0){
-        geocacheDifficulty.insert("MinDifficulty", QJsonValue(filterDifficultyTerrain[0]));
-        geocacheDifficulty.insert("MaxDifficulty", QJsonValue(filterDifficultyTerrain[1]));
-        parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
-    }
-    if(filterDifficultyTerrain[2] != 1.0 || filterDifficultyTerrain[3] != 5.0){
-        geocacheTerrain.insert("MinTerrain", QJsonValue(filterDifficultyTerrain[2]));
-        geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
-        parameters.insert("Terrain", QJsonValue(geocacheTerrain));
-    }
-
-    // Exclude caches found and mine.
-    if(filterExcludeFound == true){
-        userNames.append(userName);
-        excludeFounds.insert("UserNames", QJsonValue(userNames));
-        excludeMine.insert("UserNames", QJsonValue(userNames));
-        parameters.insert("NotFoundByUsers",QJsonValue(excludeFounds));
-        parameters.insert("NotHiddenByUsers",QJsonValue(excludeMine));
-    }
-
-    // Exclude caches archived and available.
-    if(filterExcludeArchived == true){
-        geocacheExclusion.insert("Archived", QJsonValue(filterExcludeArchived));
-        geocacheExclusion.insert("Available", QJsonValue(filterExcludeArchived));
-        parameters.insert("GeocacheExclusions",QJsonValue(geocacheExclusion));
-    }
-
-    // createBBox.
-    bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
-    bottomRight.insert("Longitude", QJsonValue(m_lonBottomRight));
-    topLeft.insert("Latitude", QJsonValue(m_latTopLeft));
-    topLeft.insert("Longitude", QJsonValue(m_lonTopLeft));
-    viewport.insert("BottomRight", QJsonValue(bottomRight));
-    viewport.insert("TopLeft", QJsonValue(topLeft));
-    parameters.insert("Viewport", QJsonValue(viewport));
-
-    QNetworkRequest request;
-    request.setUrl(uri);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesbboxJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
-}
-
-void CachesBBox::sendRequestMore(QString token)
-{
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//GetMoreGeocaches?format=json");
-
-    QJsonObject parameters;
-
-    indexMoreCachesBBox = indexMoreCachesBBox + MAX_PER_PAGE;
-
-    parameters.insert("AccessToken", QJsonValue(token));
-    parameters.insert("IsLite", QJsonValue(true));
-    parameters.insert("StartIndex",indexMoreCachesBBox);
-    parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
-    parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
-    parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
-
-    QNetworkRequest request;
-    request.setUrl(uri);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesbboxJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
 void CachesBBox::onReplyFinished(QNetworkReply *reply)
@@ -204,7 +76,7 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
             m_caches.append(cache);
         }
         if (lengthCaches == MAX_PER_PAGE) {
-            sendRequestMore(tokenTemp);
+            // sendRequestMore(tokenTemp);
         }
 
     } else {
@@ -213,6 +85,28 @@ void CachesBBox::onReplyFinished(QNetworkReply *reply)
     }
     emit cachesChanged() ;
     return;
+}
+
+bool CachesBBox::parameterChecker()
+{
+    if(m_latBottomRight == 0.0 && m_lonBottomRight == 0.0 && m_latTopLeft ==  0.0 && m_lonTopLeft == 0.0) {
+        return false;
+    }
+    return true;
+}
+
+QJsonObject CachesBBox::addSpecificParameters()
+{
+    QJsonObject viewport;
+    QJsonObject bottomRight;
+    QJsonObject topLeft;
+    bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
+    bottomRight.insert("Longitude", QJsonValue(m_lonBottomRight));
+    topLeft.insert("Latitude", QJsonValue(m_latTopLeft));
+    topLeft.insert("Longitude", QJsonValue(m_lonTopLeft));
+    viewport.insert("BottomRight", QJsonValue(bottomRight));
+    viewport.insert("TopLeft", QJsonValue(topLeft));
+    return viewport;
 }
 
 double CachesBBox::lonTopLeft() const
