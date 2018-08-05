@@ -1,6 +1,6 @@
-#include "cachesbbox.h"
 #include "cache.h"
 #include "connector.h"
+#include "cachesbbox.h"
 
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -95,8 +95,9 @@ bool CachesBBox::parameterChecker()
     return true;
 }
 
-QJsonObject CachesBBox::addSpecificParameters()
+void CachesBBox::addSpecificParameters(QJsonObject parameters)
 {
+    // createViewport.
     QJsonObject viewport;
     QJsonObject bottomRight;
     QJsonObject topLeft;
@@ -106,7 +107,7 @@ QJsonObject CachesBBox::addSpecificParameters()
     topLeft.insert("Longitude", QJsonValue(m_lonTopLeft));
     viewport.insert("BottomRight", QJsonValue(bottomRight));
     viewport.insert("TopLeft", QJsonValue(topLeft));
-    return viewport;
+    parameters.insert("Viewport", QJsonValue(viewport));
 }
 
 double CachesBBox::lonTopLeft() const

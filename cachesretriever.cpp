@@ -1,6 +1,5 @@
 #include "cachesretriever.h"
 #include "cache.h"
-#include "cachesretriever.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -104,12 +103,12 @@ void CachesRetriever::sendRequest(QString token)
     }
 
     // Adding specific parameters
-    parameters.insert("PointRadius", QJsonValue(addSpecificParameters()));
+    addSpecificParameters(parameters);
 
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-     qDebug() <<"cachesNearJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
+     qDebug() <<"cachesJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
@@ -131,6 +130,6 @@ void CachesRetriever::sendRequestMore(QString token)
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesNearJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
+    qDebug() <<"cachesJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }

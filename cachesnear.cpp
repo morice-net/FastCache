@@ -93,7 +93,7 @@ bool CachesNear::parameterChecker()
 
 }
 
-QJsonObject CachesNear::addSpecificParameters()
+void CachesNear::addSpecificParameters(QJsonObject parameters)
 {
     // createCenterPoint.
     QJsonObject pointRadius;
@@ -102,7 +102,7 @@ QJsonObject CachesNear::addSpecificParameters()
     point.insert("Longitude", QJsonValue(m_lonPoint));
     pointRadius.insert("DistanceInMeters", QJsonValue(m_distance));
     pointRadius.insert("Point", QJsonValue(point));
-    return pointRadius;
+    parameters.insert("pointRadius", QJsonValue(pointRadius));
 }
 
 double CachesNear::lonPoint() const
