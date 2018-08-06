@@ -110,25 +110,7 @@ Rectangle {
     }
     
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
-    
-    function updateCachesOnMap() {
-        var currentCachesLength = cachesBBox.caches.length
-        if (lastCachesLength >= currentCachesLength) {
-            clearMap()
-            lastCachesLength = 0
-        }
 
-        for (var i = lastCachesLength; i < currentCachesLength; i++) {
-            if (cachesBBox.caches[i].lat !== "" && cachesBBox.caches[i].lon !== "") {
-                var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-                itemMap.index = i
-                addMapItem(itemMap)
-            }
-        }
-        lastCachesLength = cachesBBox.caches.length
-
-        scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x+scale.width,scale.y)))
-    }
 
     function clearMap() {
         map.clearMapItems()

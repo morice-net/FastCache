@@ -8,7 +8,7 @@ Item {
     //visible: scaleText.text != "0 m"
     anchors.bottom: parent.bottom;
     anchors.left: parent.left
-    anchors.margins: 20
+    anchors.margins: 30
     height: scaleText.height * 2
     width: scaleImage.width
 
