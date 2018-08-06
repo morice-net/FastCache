@@ -205,10 +205,10 @@ Item {
         }
         lastReload.start()
 
-        cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).latitude
-        cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x,main.height)).longitude
-        cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.width,main.y)).latitude
-        cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.width,main.y)).longitude
+        cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
+        cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
+        cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
+        cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
 
         cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                       createFilterExcludeCachesArchived(),userInfo.name )
