@@ -15,14 +15,29 @@ Item {
     property variant scaleLengths: [5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000, 2000000]
 
     Image {
+        id: scaleImageLeft
+        source: "qrc:/Image/scaleEnd.png"
+        anchors.bottom: parent.bottom
+        anchors.right: scaleImage.left
+    }
+
+    Image {
         id: scaleImage
         source: "qrc:/Image/scale.png"
         anchors.bottom: parent.bottom
+        anchors.right: scaleImageRight.left
+    }
+
+    Image {
+        id: scaleImageRight
+        source: "qrc:/Image/scaleEnd.png"
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
     }
 
     Text {
         id: scaleText
-        color: Palette.turquoise()
+        color: Palette.black()
         anchors.centerIn: parent
         text: "0 m"
     }
@@ -50,7 +65,7 @@ Item {
         }
 
         text = Helper.formatDistance(dist);
-        scaleImage.width = (scaleImage.sourceSize.width * f) - 4;
+        scaleImage.width = (scaleImage.sourceSize.width * f) - 2 * scaleImageLeft.sourceSize.width;
         scaleText.text = text;
     }
 
