@@ -57,7 +57,7 @@ Column {
             anchors.fill: parent
             onClicked: {
                 console.log("Plus clicked")
-                currentZoomlevel += 0.5
+                currentZoomlevel += 1.0
             }
         }
     }
@@ -80,7 +80,7 @@ Column {
             anchors.fill: parent
             onClicked: {
                 console.log("Minus clicked")
-                currentZoomlevel -= 0.5
+                currentZoomlevel -= 1.0
             }
         }
     }

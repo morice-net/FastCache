@@ -37,8 +37,6 @@
         <file>QML/RaterField.qml</file>
         <file>QML/FastSelectableButtonMenu.qml</file>
         <file>QML/FastList.qml</file>
-        <file>../../Téléchargements/scaleEnd.png</file>
-        <file>../../Téléchargements/scale.png</file>
         <file>Image/scale.png</file>
         <file>Image/scaleEnd.png</file>
     </qresource>

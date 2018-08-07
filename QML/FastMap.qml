@@ -79,9 +79,8 @@ Rectangle {
                     addMapItem(itemMap)
                 }
             }
+            scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
             lastCachesLength = cachesBBox.caches.length
-
-            scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x+scale.width,scale.y)))
         }
         
         
