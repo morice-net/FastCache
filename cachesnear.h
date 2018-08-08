@@ -15,7 +15,7 @@ class CachesNear : public CachesRetriever
 
 public:
     explicit  CachesNear(QObject *parent = nullptr) ;
-    ~CachesNear();
+    ~CachesNear() override;
 
     double latPoint() const;
     void setLatPoint(double latPoint);
@@ -31,9 +31,6 @@ signals:
     void latPointChanged();
     void lonPointChanged();
     void distanceChanged();
-
-public slots:
-    void onReplyFinished(QNetworkReply* reply) override;
 
 protected:
     bool parameterChecker() override;

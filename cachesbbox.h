@@ -16,7 +16,7 @@ class CachesBBox : public CachesRetriever
 
 public:
     explicit  CachesBBox(QObject *parent = nullptr);
-    ~CachesBBox() override;    
+    ~CachesBBox() override;
 
     double latBottomRight() const;
     void setLatBottomRight(double latBottomRight);
@@ -35,10 +35,6 @@ signals:
     void lonBottomRightChanged();
     void latTopLeftChanged();
     void lonTopLeftChanged();
-    void cachesChanged();
-
-public slots:
-    void onReplyFinished(QNetworkReply* reply) override;
 
 protected:
     bool parameterChecker() override;

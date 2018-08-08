@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
     qmlRegisterType<CachesNear>("com.mycompany.connecting", 1, 0, "CachesNear");
     qmlRegisterType<CacheType>("com.mycompany.connecting", 1, 0, "CacheType");
-    qmlRegisterType<CacheSize>("com.mycompany.connecting", 1, 0, "CacheSize");
+    qmlRegisterType<CacheSize>("com.mycompany.connecting", 1, 0, "CacheSize");    
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID
