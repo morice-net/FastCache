@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import Qt.labs.settings 1.0
+import QtQuick.Dialogs 1.3
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
@@ -44,9 +45,9 @@ Item {
         }
 
         Button {
-            x: 10
+            x:10
             width: parent.width
-            height: parent.height * 0.08
+            height: parent.height * 0.06
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
@@ -163,6 +164,106 @@ Item {
                 settings.excludeCachesArchived = archived.checkState
             }
         }
+
+
+        SelectableFilter {
+            id: keywordFilterSelectable
+            filterText: "Mot-clé , Découvreur..."
+        }
+
+        Button {
+            x:10
+            width: parent.width
+            height: parent.height * 0.06
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pixelSize: height * 0.45
+
+            contentItem: Text {
+                id: keywordButtonId
+                color: Palette.greenSea()
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+            background: Rectangle {
+                anchors.fill: parent
+                anchors.margins: 5
+                opacity: 0.9
+                border.color: Palette.greenSea()
+                border.width: 1
+                radius: 10
+            }
+            onClicked: dialog.open()
+        }
+
+        Dialog {
+            id: dialog
+            standardButtons: StandardButton.Ok | StandardButton.Cancel
+            onAccepted: dialog.close()
+            onRejected: dialog.close()
+
+            ColumnLayout {
+                id: column
+
+                Label {
+                    id:label1
+                    text: "Mot-clé:"
+                }
+
+                TextField {
+                    id:mot
+                    anchors.left: label1.right
+                    anchors.verticalCenter:label1.verticalCenter
+                    anchors.leftMargin:10
+                    placeholderText: qsTr("")
+                    background: Rectangle {
+                        implicitWidth: main.width/2.2
+                        radius:10
+                        border.color: mot.focus ? Palette.black() :Palette.turquoise()
+                    }
+                }
+
+                Label {
+                    id:label2
+                    text: "Découvreur:"
+                    anchors.topMargin: 5
+                }
+
+                TextField {
+                    id:decouvreur
+                    anchors.left: label2.right
+                    anchors.verticalCenter:label2.verticalCenter
+                    anchors.leftMargin:10
+                    placeholderText: qsTr("")
+                    background: Rectangle {
+                        implicitWidth: main.width/2.2
+                        radius:10
+                        border.color: decouvreur.focus ? Palette.black() :Palette.turquoise()
+                    }
+                }
+
+                Label {
+                    id:label3
+                    text: "Proprietaire:"
+                }
+
+                TextField {
+                    id:proprietaire
+                    anchors.left: label3.right
+                    anchors.verticalCenter:label3.verticalCenter
+                    anchors.leftMargin:10
+                    placeholderText: qsTr("")
+                    background: Rectangle {
+                        implicitWidth: main.width/2.2
+                        radius:10
+                        border.color: proprietaire.focus ? Palette.black() :Palette.turquoise()
+                    }
+
+                }
+
+            }
+        }
+
     }
 
     function textSizeButton() {

@@ -5,7 +5,7 @@ import "JavaScript/Palette.js" as Palette
  Item {
     id: selectableFilter
     width: parent.width
-    height: 60
+    height: 50
 
     property string filterText: ""
 
@@ -16,7 +16,7 @@ import "JavaScript/Palette.js" as Palette
         Text {
             horizontalAlignment: Text.AlignHCenter
             font.family: localFont.name
-            font.pointSize: 22
+            font.pointSize: 18
             color: Palette.black()
             width: parent.width
             text: selectableFilter.filterText

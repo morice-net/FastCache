@@ -7,7 +7,7 @@ import "JavaScript/Palette.js" as Palette
 Item {
     id: cacheFilter
     anchors.fill: parent
-    anchors.topMargin: 80
+    anchors.topMargin: 40
     anchors.bottomMargin: anchors.topMargin/2
     anchors.rightMargin: anchors.topMargin/3
     anchors.leftMargin: anchors.topMargin/3
@@ -28,7 +28,7 @@ Item {
         border.color: Palette.greenSea()
 
         width: parent.width
-        height: filterColumn.height//main.height * 0.4
+        height: filterColumn.height
         anchors.top: filterHeadArrow.bottom
         anchors.margins: -2
 
@@ -36,27 +36,26 @@ Item {
             id: filterColumn
             Row {
                 width: filtersRectangle.width
-                x: filtersRectangle.width/3
-                y: 10
+                x: 8
+                y: 5
 
                 Text {
                     y: 10
-                    width: filtersRectangle.width / 2
                     font.family: localFont.name
                     font.pointSize: 24
                     verticalAlignment: Text.AlignLeft
                     horizontalAlignment: Text.AlignLeft
                     color: Palette.greenSea()
-                    text: "Filtres"
+                    text: "  Filtrer les caches par:     "
                 }
 
-
                 Rectangle {
-                    y: 10
+                    y: 13
                     height: filtersRectangle.width * 0.1
                     width: height
                     radius: 10
                     color: Palette.turquoise()
+
 
                     Image {
                         anchors.fill: parent
