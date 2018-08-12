@@ -66,11 +66,11 @@ Item {
                 border.width: 1
                 radius: 10
             }
-            onClicked: popup.open()
+            onClicked: popupSize.open()
         }
 
         Popup {
-            id: popup
+            id: popupSize
             x: 100
             y: 100
             width: 300
@@ -173,7 +173,7 @@ Item {
 
         Button {
             x:10
-            width: parent.width
+            width: parent.width*0.7
             height: parent.height * 0.06
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
@@ -181,6 +181,7 @@ Item {
 
             contentItem: Text {
                 id: keywordButtonId
+                text:"Pas de filtres.."
                 color: Palette.greenSea()
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -193,14 +194,18 @@ Item {
                 border.width: 1
                 radius: 10
             }
-            onClicked: dialog.open()
+            onClicked: keyWordPopup.open()
         }
 
-        Dialog {
-            id: dialog
-            standardButtons: StandardButton.Ok | StandardButton.Cancel
-            onAccepted: dialog.close()
-            onRejected: dialog.close()
+        Popup {
+            id: keyWordPopup
+            background: Rectangle {
+                implicitWidth: main.width*0.8
+                border.color: Palette.greenSea()
+                border.width: 1
+                opacity:0.9
+                radius: 10
+            }
 
             ColumnLayout {
                 id: column
@@ -215,12 +220,18 @@ Item {
                     anchors.left: label1.right
                     anchors.verticalCenter:label1.verticalCenter
                     anchors.leftMargin:10
-                    placeholderText: qsTr("")
+                    text:  qsTr(settings.keyWord)
+                    onTextChanged: keyWordButton()
+                    Component.onDestruction: {
+                        settings.keyWord = mot.text
+
+                    }
                     background: Rectangle {
                         implicitWidth: main.width/2.2
                         radius:10
                         border.color: mot.focus ? Palette.black() :Palette.turquoise()
                     }
+
                 }
 
                 Label {
@@ -234,7 +245,12 @@ Item {
                     anchors.left: label2.right
                     anchors.verticalCenter:label2.verticalCenter
                     anchors.leftMargin:10
-                    placeholderText: qsTr("")
+                    text: qsTr(settings.discover)
+                    onTextChanged: keyWordButton()
+                    Component.onDestruction: {
+                        settings.discover = decouvreur.text
+
+                    }
                     background: Rectangle {
                         implicitWidth: main.width/2.2
                         radius:10
@@ -252,7 +268,12 @@ Item {
                     anchors.left: label3.right
                     anchors.verticalCenter:label3.verticalCenter
                     anchors.leftMargin:10
-                    placeholderText: qsTr("")
+                    text: qsTr(settings.owner)
+                    onTextChanged: keyWordButton()
+                    Component.onDestruction: {
+                        settings.owner = proprietaire.text
+
+                    }
                     background: Rectangle {
                         implicitWidth: main.width/2.2
                         radius:10
@@ -260,7 +281,31 @@ Item {
                     }
 
                 }
+                Button {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.family: localFont.name
+                    font.pixelSize: height * 0.45
+                    contentItem: Text {
+                        id: efface
+                        text: "Effacer"
+                        color: Palette.greenSea()
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+                    background: Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        opacity: 0.9
+                        border.color: Palette.greenSea()
+                        border.width: 1
+                        radius: 5
+                    }
+                    onClicked:{
+                        mot.text=""
+                        decouvreur.text=""
+                        proprietaire.text=""
+                    }
 
+                }
             }
         }
 
@@ -327,5 +372,18 @@ Item {
         if(textArray == "")
             textArray = "Aucune"
         textButtonId.text = textArray
+    }
+
+    function keyWordButton(){
+        var index = 0
+        if(mot.text.length) index += 1
+        if(decouvreur.text.length) index += 1
+        if(proprietaire.text.length) index += 1
+
+        if(!index) {
+            keywordButtonId.text = "Pas de filtres.."
+        } else {
+            keywordButtonId.text = "Nombre de filtres:   " + index
+        }
     }
 }

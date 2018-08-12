@@ -52,6 +52,15 @@ Settings {
 
     // Exclude caches archived.
     property bool excludeCachesArchived: true
+
+    // Filter by key word.
+    property string keyWord: ""
+
+    // Filter by discover.
+    property string discover: ""
+
+    // Filter by owner.
+    property string owner: ""
 }
 
 
