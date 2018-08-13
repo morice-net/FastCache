@@ -11,7 +11,7 @@
 CachesNear::CachesNear(QObject *parent)
     : CachesRetriever(parent), m_latPoint(0), m_lonPoint(0), m_distance(0)
 {
-    moreCachesBBox = false;
+    m_moreCachesBBox = false;
 }
 
 CachesNear::~CachesNear()

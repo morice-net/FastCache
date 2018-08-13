@@ -19,7 +19,7 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token) override;
     Q_INVOKABLE void sendRequestMore(QString token);
-    Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived , QString userName);
+    Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
 
     QQmlListProperty<Cache> caches();
 
@@ -37,19 +37,20 @@ protected:
     const int MAX_PER_PAGE=40;
     const int GEOCACHE_LOG_COUNT=30;
     const int TRACKABLE_LOG_COUNT=30;
-    int indexMoreCachesBBox;
-    bool moreCachesBBox=false;
+    int m_indexMoreCachesBBox;
+    bool m_moreCachesBBox;
 
-    QString tokenTemp ;
-    QString userName;
+    QString m_tokenTemp ;
+    QString m_userName;
 
     QList<Cache*> m_caches;
-    QList<int> filterTypes;
-    QList<int> filterSizes;
-    QList<double> filterDifficultyTerrain;
+    QList<int> m_filterTypes;
+    QList<int> m_filterSizes;
+    QList<double> m_filterDifficultyTerrain;
+    QList<QString> m_keyWordDiscoverOwner;
 
-    bool filterExcludeFound;
-    bool filterExcludeArchived;
+    bool m_filterExcludeFound;
+    bool m_filterExcludeArchived;
 
 };
 

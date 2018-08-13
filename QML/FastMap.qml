@@ -65,7 +65,7 @@ Rectangle {
             onClicked: mapControls.show()
         }
 
-        function updateCachesOnMap() {
+        function updateCachesOnMap() {            
             var currentCachesLength = cachesBBox.caches.length
             if (lastCachesLength >= currentCachesLength) {
                 clearMap()

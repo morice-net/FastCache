@@ -24,6 +24,8 @@ Item {
 
     property var listDifficultyTerrain : [settings.difficultyMin , settings.difficultyMax , settings.terrainMin , settings.terrainMax]
 
+    property var listKeywordDiscoverOwner : [settings.keyWord , settings.discover , settings.owner]
+
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
@@ -92,7 +94,7 @@ Item {
         id: userInfo
         onRequestReady:{
             cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                          createFilterExcludeCachesArchived(),userInfo.name )
+                                          createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
             reloadCaches()
         }
     }
@@ -182,6 +184,14 @@ Item {
         return excludeArchived
     }
 
+    function createFilterKeywordDiscoverOwner(){
+        var  list = []
+        list.push(listKeywordDiscoverOwner[0])
+        list.push(listKeywordDiscoverOwner[1])
+        list.push(listKeywordDiscoverOwner[2])
+        return list
+    }
+
     function disconnectAccount() {
         connector.tokenKey = ""
         userInfo.name = ""
@@ -211,7 +221,7 @@ Item {
         cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
 
         cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                      createFilterExcludeCachesArchived(),userInfo.name )
+                                      createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner(),userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
     }
 

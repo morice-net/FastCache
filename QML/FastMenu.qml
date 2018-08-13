@@ -6,7 +6,7 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: fastMenu
-    anchors.fill: parent    
+    anchors.fill: parent
 
     Rectangle {
         id: menuShadow
@@ -125,7 +125,7 @@ Item {
                 cachesNear.distance = 100000
 
                 cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                              createFilterExcludeCachesArchived(),userInfo.name )
+                                              createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
                 cachesNear.sendRequest(connector.tokenKey)
             }
         }

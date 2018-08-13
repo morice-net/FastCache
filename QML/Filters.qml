@@ -221,16 +221,13 @@ Item {
                     anchors.verticalCenter:label1.verticalCenter
                     anchors.leftMargin:10
                     text:  qsTr(settings.keyWord)
-                    onTextChanged: keyWordButton()
-                    Component.onDestruction: {
-                        settings.keyWord = mot.text
-
-                    }
                     background: Rectangle {
                         implicitWidth: main.width/2.2
                         radius:10
                         border.color: mot.focus ? Palette.black() :Palette.turquoise()
                     }
+                    onTextChanged: keyWordButton()
+                    Component.onDestruction: settings.keyWord = mot.text
 
                 }
 
@@ -246,16 +243,13 @@ Item {
                     anchors.verticalCenter:label2.verticalCenter
                     anchors.leftMargin:10
                     text: qsTr(settings.discover)
-                    onTextChanged: keyWordButton()
-                    Component.onDestruction: {
-                        settings.discover = decouvreur.text
-
-                    }
                     background: Rectangle {
                         implicitWidth: main.width/2.2
                         radius:10
                         border.color: decouvreur.focus ? Palette.black() :Palette.turquoise()
                     }
+                    onTextChanged: keyWordButton()
+                    Component.onDestruction: settings.discover = decouvreur.text
                 }
 
                 Label {
@@ -269,16 +263,13 @@ Item {
                     anchors.verticalCenter:label3.verticalCenter
                     anchors.leftMargin:10
                     text: qsTr(settings.owner)
-                    onTextChanged: keyWordButton()
-                    Component.onDestruction: {
-                        settings.owner = proprietaire.text
-
-                    }
                     background: Rectangle {
                         implicitWidth: main.width/2.2
                         radius:10
                         border.color: proprietaire.focus ? Palette.black() :Palette.turquoise()
                     }
+                    onTextChanged: keyWordButton()
+                    Component.onDestruction: settings.owner = proprietaire.text
 
                 }
                 Button {
@@ -303,12 +294,13 @@ Item {
                         mot.text=""
                         decouvreur.text=""
                         proprietaire.text=""
+                        main.listKeywordDiscoverOwner[0] = mot.text
+                        main.listKeywordDiscoverOwner[1] = decouvreur.text
+                        main.listKeywordDiscoverOwner[2] = proprietaire.text
                     }
-
                 }
             }
         }
-
     }
 
     function textSizeButton() {
@@ -376,9 +368,16 @@ Item {
 
     function keyWordButton(){
         var index = 0
+
+        main.listKeywordDiscoverOwner[0] = mot.text
+        main.listKeywordDiscoverOwner[1] = decouvreur.text
+        main.listKeywordDiscoverOwner[2] = proprietaire.text
+
         if(mot.text.length) index += 1
+
         if(decouvreur.text.length) index += 1
-        if(proprietaire.text.length) index += 1
+
+        if(proprietaire.text.length)  index += 1
 
         if(!index) {
             keywordButtonId.text = "Pas de filtres.."

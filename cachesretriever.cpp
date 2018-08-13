@@ -25,7 +25,7 @@ void CachesRetriever::sendRequest(QString token)
         return;
 
     m_caches.clear();
-    indexMoreCachesBBox = 0;
+    m_indexMoreCachesBBox = 0;
 
     // lat, lon on format E6.
 
@@ -42,11 +42,17 @@ void CachesRetriever::sendRequest(QString token)
     QJsonObject excludeMine;
     QJsonObject geocacheExclusion;
 
+    QJsonObject geocacheName;
+    QJsonObject foundByUser;
+    QJsonObject hiddenByUsers;
+
+
+
     QJsonArray geocacheTypeIds;
     QJsonArray geocacheSizeIds;
     QJsonArray userNames;
 
-    tokenTemp=token;
+    m_tokenTemp=token;
 
     parameters.insert("AccessToken", QJsonValue(token));
     parameters.insert("IsLite", QJsonValue(true));
@@ -55,8 +61,8 @@ void CachesRetriever::sendRequest(QString token)
     parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
 
     // filter by type.
-    if(!filterTypes.isEmpty()){
-        foreach ( int type, filterTypes)
+    if(!m_filterTypes.isEmpty()){
+        foreach ( int type, m_filterTypes)
         {
             geocacheTypeIds.append(type);
         }
@@ -65,8 +71,8 @@ void CachesRetriever::sendRequest(QString token)
     }
 
     // filter by size.
-    if(!filterSizes.isEmpty()){
-        foreach ( int size, filterSizes)
+    if(!m_filterSizes.isEmpty()){
+        foreach ( int size, m_filterSizes)
         {
             geocacheSizeIds.append(size);
         }
@@ -75,20 +81,35 @@ void CachesRetriever::sendRequest(QString token)
     }
 
     // filter by difficulty, terrain.
-    if(filterDifficultyTerrain[0] != 1.0 || filterDifficultyTerrain[1] != 5.0){
-        geocacheDifficulty.insert("MinDifficulty", QJsonValue(filterDifficultyTerrain[0]));
-        geocacheDifficulty.insert("MaxDifficulty", QJsonValue(filterDifficultyTerrain[1]));
+    if(m_filterDifficultyTerrain[0] != 1.0 || m_filterDifficultyTerrain[1] != 5.0){
+        geocacheDifficulty.insert("MinDifficulty", QJsonValue(m_filterDifficultyTerrain[0]));
+        geocacheDifficulty.insert("MaxDifficulty", QJsonValue(m_filterDifficultyTerrain[1]));
         parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
     }
-    if(filterDifficultyTerrain[2] != 1.0 || filterDifficultyTerrain[3] != 5.0){
-        geocacheTerrain.insert("MinTerrain", QJsonValue(filterDifficultyTerrain[2]));
-        geocacheTerrain.insert("MaxTerrain", QJsonValue(filterDifficultyTerrain[3]));
+    if(m_filterDifficultyTerrain[2] != 1.0 || m_filterDifficultyTerrain[3] != 5.0){
+        geocacheTerrain.insert("MinTerrain", QJsonValue(m_filterDifficultyTerrain[2]));
+        geocacheTerrain.insert("MaxTerrain", QJsonValue(m_filterDifficultyTerrain[3]));
         parameters.insert("Terrain", QJsonValue(geocacheTerrain));
     }
 
+    // filter by keyword,discover and owner.
+    if(!m_keyWordDiscoverOwner[0].isEmpty() ){
+        geocacheName.insert("GeocacheName", QJsonValue(m_keyWordDiscoverOwner[0]));
+        parameters.insert("GeocacheName", QJsonValue(geocacheName));
+    }
+    if(!m_keyWordDiscoverOwner[1].isEmpty() ){
+        foundByUser.insert("UserName", QJsonValue(m_keyWordDiscoverOwner[1]));
+        parameters.insert("FoundByUser", QJsonValue(foundByUser));
+    }
+    if(!m_keyWordDiscoverOwner[2].isEmpty() ){
+        QJsonArray array = { QString(m_keyWordDiscoverOwner[2]) };
+        hiddenByUsers.insert("UserNames", QJsonValue(array));
+        parameters.insert("HiddenByUsers", QJsonValue(hiddenByUsers));
+    }
+
     // Exclude caches found and mine.
-    if(filterExcludeFound == true){
-        userNames.append(userName);
+    if(m_filterExcludeFound == true){
+        userNames.append(m_userName);
         excludeFounds.insert("UserNames", QJsonValue(userNames));
         excludeMine.insert("UserNames", QJsonValue(userNames));
         parameters.insert("NotFoundByUsers",QJsonValue(excludeFounds));
@@ -96,9 +117,9 @@ void CachesRetriever::sendRequest(QString token)
     }
 
     // Exclude caches archived and available.
-    if(filterExcludeArchived == true){
-        geocacheExclusion.insert("Archived", QJsonValue(filterExcludeArchived));
-        geocacheExclusion.insert("Available", QJsonValue(filterExcludeArchived));
+    if(m_filterExcludeArchived == true){
+        geocacheExclusion.insert("Archived", QJsonValue(m_filterExcludeArchived));
+        geocacheExclusion.insert("Available", QJsonValue(m_filterExcludeArchived));
         parameters.insert("GeocacheExclusions",QJsonValue(geocacheExclusion));
     }
 
@@ -118,11 +139,11 @@ void CachesRetriever::sendRequestMore(QString token)
 
     QJsonObject parameters;
 
-    indexMoreCachesBBox = indexMoreCachesBBox + MAX_PER_PAGE;
+    m_indexMoreCachesBBox = m_indexMoreCachesBBox + MAX_PER_PAGE;
 
     parameters.insert("AccessToken", QJsonValue(token));
     parameters.insert("IsLite", QJsonValue(true));
-    parameters.insert("StartIndex",indexMoreCachesBBox);
+    parameters.insert("StartIndex",m_indexMoreCachesBBox);
     parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
     parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
     parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
@@ -151,6 +172,7 @@ void CachesRetriever::onReplyFinished(QNetworkReply *reply)
 
         int lengthCaches = caches.size();
         if (lengthCaches == 0) {
+            emit cachesChanged() ;
             return ;
         }
 
@@ -192,8 +214,8 @@ void CachesRetriever::onReplyFinished(QNetworkReply *reply)
             qDebug() << "*** Caches***\n" <<cache->name() ;
             m_caches.append(cache);
         }
-        if (moreCachesBBox == true && lengthCaches == MAX_PER_PAGE) {
-            sendRequestMore(tokenTemp);
+        if (m_moreCachesBBox == true && lengthCaches == MAX_PER_PAGE) {
+            sendRequestMore(m_tokenTemp);
         }
 
     } else {
@@ -204,12 +226,14 @@ void CachesRetriever::onReplyFinished(QNetworkReply *reply)
     return;
 }
 
-void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived , QString name)
+void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
+                                         QList<QString> keyWordDiscoverOwner ,QString name)
 {
-    filterTypes = types ;
-    filterSizes = sizes ;
-    filterDifficultyTerrain = difficultyTerrain ;
-    filterExcludeFound = found ;
-    filterExcludeArchived = archived ;
-    userName = name ;
+    m_filterTypes = types ;
+    m_filterSizes = sizes ;
+    m_filterDifficultyTerrain = difficultyTerrain ;
+    m_filterExcludeFound = found ;
+    m_filterExcludeArchived = archived ;
+    m_keyWordDiscoverOwner = keyWordDiscoverOwner;
+    m_userName = name ;
 }

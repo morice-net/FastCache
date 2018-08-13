@@ -11,7 +11,7 @@
 CachesBBox::CachesBBox(QObject *parent)
     : CachesRetriever (parent), m_latBottomRight(0), m_lonBottomRight(0), m_latTopLeft(0), m_lonTopLeft(0)
 {
-    moreCachesBBox = true;
+    m_moreCachesBBox = true;
 }
 
 CachesBBox::~CachesBBox()
