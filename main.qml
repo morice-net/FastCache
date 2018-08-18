@@ -53,7 +53,7 @@ Item {
 
     FastMenuHeader { id: fastMenuHeader }
 
-    FastMenu { id: fastMenu }
+    FastMenu { id: fastMenu }    
 
     // Used for loggin
     WebView {

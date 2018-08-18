@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
 
-Item {
+Item {     
     id: fastMenu
     anchors.fill: parent
 
@@ -141,8 +141,13 @@ Item {
 
             function buttonClicked() {
                 main.state = "address"
-                hideMenu()
+                //   hideMenu()
+                geocode.open()
             }
+        }
+
+        Geocode {
+            id: geocode
         }
 
         ///////////////////////////////////////////////////////////////////////////

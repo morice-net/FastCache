@@ -39,5 +39,6 @@
         <file>QML/FastList.qml</file>
         <file>Image/scale.png</file>
         <file>Image/scaleEnd.png</file>
+        <file>QML/Geocode.qml</file>
     </qresource>
 </RCC>
