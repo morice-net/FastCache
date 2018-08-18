@@ -130,6 +130,21 @@ Item {
             }
         }
 
+        FastSelectableButtonMenu {
+            id: addressButtonMenu
+            anchors.top: nearButtonMenu.bottom
+            anchors.topMargin: 2
+            anchors.bottomMargin: 20
+
+            buttonSelected: main.state == "address"
+            buttonText: "Par adresse:"
+
+            function buttonClicked() {
+                main.state = "address"
+                hideMenu()
+            }
+        }
+
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
