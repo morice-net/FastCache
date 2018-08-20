@@ -40,5 +40,6 @@
         <file>Image/scale.png</file>
         <file>Image/scaleEnd.png</file>
         <file>QML/Geocode.qml</file>
+        <file>QML/FastDoubleButtonMenu.qml</file>
     </qresource>
 </RCC>

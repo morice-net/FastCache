@@ -77,56 +77,84 @@ Item {
         //                      button on the middle of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
 
-        FastSelectableButtonMenu {
+        FastDoubleButtonMenu {
             id: mapButtonMenu
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
             anchors.topMargin: 20
 
-            buttonSelected: main.state == "map"
-            buttonText: "Carte:"
+            firstButtonSelected: true
+            button1Text: "Carte"
+            button2Text: "Liste"
 
             function buttonClicked() {
-                main.state = "map"
-                hideMenu()
+
+                firstButtonSelected = !firstButtonSelected
+
+                if (firstButtonSelected)
+                    main.viewState = "map"
+                else
+                    main.viewState = "list"
+
+                if (main.state == "bbox")
+                    fastMap.mapItem.updateCachesOnMap(cachesBBox)
+                else if (main.state == "near")
+                    nearCachesClicked()
             }
         }
 
         FastSelectableButtonMenu {
-            id: listButtonMenu
+            id: bboxButtonMenu
             anchors.top: mapButtonMenu.bottom
             anchors.topMargin: 2
             anchors.bottomMargin: 20
+            buttonSelected: false
 
-            buttonSelected: main.state == "list"
-            buttonText: "Liste:"
+            buttonText: " Carte active"
+            centered: false
+
+            Item {
+                height: parent.height * 0.8
+                width: parent.width * 0.45
+                anchors.right: parent.right
+                y: parent.height * 0.1
+
+                FastDoubleButtonMenu {
+                    id: activeCaches
+                    height: parent.height
+
+                    firstButtonSelected: main.cachesActive
+                    button1Text: "On"
+                    button2Text: "Off"
+
+                    function buttonClicked() {
+                        main.cachesActive = !(main.cachesActive)
+                        if (firstButtonSelected) {
+                            main.state = "bbox"
+                            reloadCaches()
+                        } else {
+                            main.cachesActive = false
+                        }
+                    }
+                }
+            }
 
             function buttonClicked() {
-                main.state = "list"
-                hideMenu()
             }
         }
 
         FastSelectableButtonMenu {
             id: nearButtonMenu
-            anchors.top: listButtonMenu.bottom
-            anchors.topMargin: 2
+            anchors.top: bboxButtonMenu.bottom
+            anchors.topMargin: 62
             anchors.bottomMargin: 20
 
             buttonSelected: main.state == "near"
-            buttonText: "Caches proches:"
+            buttonText: "Caches proches"
 
             function buttonClicked() {
-                main.state = "near"
-                hideMenu()
-                var coord = currentPosition.position.coordinate
-                cachesNear.latPoint = coord.latitude
-                cachesNear.lonPoint = coord.longitude
-                cachesNear.distance = 100000
-
-                cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                              createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
-                cachesNear.sendRequest(connector.tokenKey)
+                nearCachesClicked()
+                main.cachesActive = false
             }
         }
 
@@ -137,17 +165,14 @@ Item {
             anchors.bottomMargin: 20
 
             buttonSelected: main.state == "address"
-            buttonText: "Par adresse:"
+            buttonText: "Adresse"
 
             function buttonClicked() {
                 main.state = "address"
-                //   hideMenu()
+                main.cachesActive = false
+                hideMenu()
                 geocode.open()
             }
-        }
-
-        Geocode {
-            id: geocode
         }
 
         ///////////////////////////////////////////////////////////////////////////
@@ -200,6 +225,19 @@ Item {
         console.log("Hide menu...")
         menu.x = menu.width * -1
         menuShadow.opacity = 0
+    }
+
+    function nearCachesClicked() {
+        main.state = "near"
+        hideMenu()
+        var coord = currentPosition.position.coordinate
+        cachesNear.latPoint = coord.latitude
+        cachesNear.lonPoint = coord.longitude
+        cachesNear.distance = 100000
+
+        cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+                                      createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.sendRequest(connector.tokenKey)
     }
 
 }

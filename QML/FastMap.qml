@@ -7,7 +7,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastMap
     anchors.fill: parent
-    opacity: main.state == "map" ? 1 : 0
+    opacity: main.viewState == "map" ? 1 : 0
     
     property alias mapItem: map
     property var component
@@ -65,22 +65,22 @@ Rectangle {
             onClicked: mapControls.show()
         }
 
-        function updateCachesOnMap() {            
-            var currentCachesLength = cachesBBox.caches.length
+        function updateCachesOnMap(caches) {
+            var currentCachesLength = caches.caches.length
             if (lastCachesLength >= currentCachesLength) {
                 clearMap()
                 lastCachesLength = 0
             }
 
             for (var i = lastCachesLength; i < currentCachesLength; i++) {
-                if (cachesBBox.caches[i].lat !== "" && cachesBBox.caches[i].lon !== "") {
+                if (caches.caches[i].lat !== "" && caches.caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i
                     addMapItem(itemMap)
                 }
             }
             scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
-            lastCachesLength = cachesBBox.caches.length
+            lastCachesLength = caches.caches.length
         }
         
         

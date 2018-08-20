@@ -15,6 +15,9 @@ Item {
 
     FastSettings { id: settings }
 
+    // State can take "bbox" "near" "address"....
+    property string viewState: "" // "map" or "list"
+
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
         settings.webcam , settings.wherigo , settings.gchq]
@@ -29,6 +32,8 @@ Item {
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
+    property bool cachesActive: false
+
     visible: true
     anchors.fill: parent
 
@@ -40,11 +45,12 @@ Item {
 
     CachesBBox {
         id: cachesBBox
-        onCachesChanged: fastMap.mapItem.updateCachesOnMap()
+        onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesBBox)
     }
 
     CachesNear{
         id: cachesNear
+        onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesNear)
     }
 
     FastMap { id: fastMap }
@@ -53,7 +59,9 @@ Item {
 
     FastMenuHeader { id: fastMenuHeader }
 
-    FastMenu { id: fastMenu }    
+    FastMenu { id: fastMenu }
+
+    Geocode { id: geocode }
 
     // Used for loggin
     WebView {
@@ -108,7 +116,10 @@ Item {
     }
 
     Component.onCompleted: {
-        main.state = "map"
+        main.viewState = "map"
+        main.state= "bbox"
+
+        fastMap.mapItem.updateCachesOnMap(cachesBBox)
 
         // retrieve settings (todo: remove and put alias in settings instead)
         connector.tokenKey = settings.tokenKey
@@ -211,6 +222,9 @@ Item {
 
     function reloadCaches(){
         if (lastReload.running){
+            return;
+        }
+        if (!cachesActive){
             return;
         }
         lastReload.start()

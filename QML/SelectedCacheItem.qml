@@ -10,7 +10,7 @@ Rectangle {
     color: Palette.white().replace("#","#99")
     radius: parent.width/30
     border.width: 2
-    border.color: main.state == "map" ? Palette.greenSea() : Palette.silver()
+    border.color: main.viewState == "map" ? Palette.greenSea() : Palette.silver()
     
     width: main.width - 40
     height: main.height * 0.12

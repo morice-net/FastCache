@@ -8,7 +8,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastList
     anchors.fill: parent
-    opacity: main.state == "list" || main.state == "near" ? 1 : 0
+    opacity: main.viewState == "list" ? 1 : 0
     visible: opacity > 0
     color: Palette.white()
 
@@ -73,19 +73,17 @@ Rectangle {
 
 
     function modelState() {
-        if(main.state == "list" ){
+        if(main.state == "bbox" ){
             return  cachesBBox.caches
-        }
-        if(main.state == "near" ){
+        } else if(main.state == "near" ){
             return  cachesNear.caches
         }
     }
 
     function textHeader() {
-        if(main.state == "list" ){
+        if(main.state == "bbox" ){
             return "Liste de caches(" + fastListColumn.count + ")"
-        }
-        if(main.state == "near" ){
+        } else if(main.state == "near" ){
             return  "Caches proches(" + fastListColumn.count + ")"
         }
     }

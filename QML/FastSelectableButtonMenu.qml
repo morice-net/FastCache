@@ -10,6 +10,7 @@ Item {
     width: parent.width
     property bool buttonSelected
     property string buttonText
+    property bool centered: true
     
     Rectangle {
         radius: 20
@@ -25,7 +26,7 @@ Item {
             font.pointSize: 24
             text: fastSelectableButtonMenu.buttonText
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
+            horizontalAlignment: centered ? Text.AlignHCenter : Text.AlignLeft
             color: fastSelectableButtonMenu.buttonSelected ? Palette.turquoise() : Palette.white()
         }
         MouseArea {
