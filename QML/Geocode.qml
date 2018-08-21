@@ -9,7 +9,8 @@ import "JavaScript/Palette.js" as Palette
 
 
 Popup {
-    id:geocode
+    id: geocode
+    opacity: 0
 
     background: Rectangle {
         x:20
@@ -206,6 +207,16 @@ Popup {
                 Layout.columnSpan: 2
             }
         }
+    }
+
+    Behavior on opacity { NumberAnimation { duration: 800 } }
+
+
+    onVisibleChanged: {
+        if (visible)
+            opacity = 1
+        else
+            opacity = 0
     }
 
     Component.onCompleted: {

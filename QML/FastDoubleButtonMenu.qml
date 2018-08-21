@@ -11,6 +11,7 @@ Item {
     property bool firstButtonSelected
     property string button1Text
     property string button2Text
+    property bool small: false
 
     Rectangle {
         radius: 20
@@ -26,6 +27,8 @@ Item {
             width: parent.width/2
             x: fastDoubleButtonMenu.firstButtonSelected ? 0 : parent.width/2
             color: Palette.turquoise()
+            border.color: Palette.white()
+            border.width: small ? 1 : 0
 
             Behavior on x { PropertyAnimation { duration: 400 } }
         }
@@ -36,7 +39,7 @@ Item {
                 width: parent.width/2
                 height: parent.height
                 font.family: localFont.name
-                font.pointSize: 24
+                font.pointSize: small ? 20 : 24
                 text: fastDoubleButtonMenu.button1Text
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -46,7 +49,7 @@ Item {
                 width: parent.width/2
                 height: parent.height
                 font.family: localFont.name
-                font.pointSize: 24
+                font.pointSize: small ? 20 : 24
                 text: fastDoubleButtonMenu.button2Text
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter

@@ -117,6 +117,7 @@ Item {
                 height: parent.height * 0.8
                 width: parent.width * 0.45
                 anchors.right: parent.right
+                anchors.margins: parent.height * 0.1
                 y: parent.height * 0.1
 
                 FastDoubleButtonMenu {
@@ -126,6 +127,7 @@ Item {
                     firstButtonSelected: main.cachesActive
                     button1Text: "On"
                     button2Text: "Off"
+                    small: true
 
                     function buttonClicked() {
                         main.cachesActive = !(main.cachesActive)
@@ -186,10 +188,19 @@ Item {
             y: parent.height - height - 20
 
             Rectangle {
+                id: connectButtonMenuRectangle
                 radius: 20
                 anchors.fill: parent
                 anchors.margins: 20
                 color: Palette.turquoise()
+
+                SequentialAnimation on opacity {
+                    id: buttonAnimation
+                    running: false
+                    loops: 3
+                    NumberAnimation { to: 0; duration: 200 }
+                    NumberAnimation { to: 1; duration: 200 }
+                }
 
                 Text {
                     id: connectButtonName
@@ -204,6 +215,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        buttonAnimation.start()
                         if (connectButtonName.text == "Se connecter")
                             main.reconnectAccount()
                         else
