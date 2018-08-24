@@ -20,7 +20,7 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        name: "esri"
+        name: "mapbox"
         // configure your own map_id and access_token here
         parameters: [  PluginParameter {
                 name: "mapbox.mapping.map_id"
@@ -111,6 +111,7 @@ Rectangle {
     }
 
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
+
 
     function clearMap() {
         map.clearMapItems()

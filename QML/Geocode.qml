@@ -245,9 +245,7 @@ Popup {
             if ((status == GeocodeModel.Ready) || (status == GeocodeModel.Error))
                 geocodeMessage()
         }
-
     }
-
 
     function geocoding( address)   {
         geocodeModel.query = address
