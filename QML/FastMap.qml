@@ -8,17 +8,19 @@ Rectangle {
     id: fastMap
     anchors.fill: parent
     opacity: main.viewState == "map" ? 1 : 0
-    
+
     property alias mapItem: map
+    property alias mapPlugin:mapPlugin
     property var component
     property var selectedCache
-    
+
     // Map properties
     property real zoomlevelRecord: 14.5
     property real currentZoomlevel: 14.5
+
     Plugin {
         id: mapPlugin
-        name: "mapbox"
+        name: "esri"
         // configure your own map_id and access_token here
         parameters: [  PluginParameter {
                 name: "mapbox.mapping.map_id"
@@ -37,14 +39,14 @@ Rectangle {
         id: map
         plugin: mapPlugin
         property int lastCachesLength: 0
-        
+
         anchors.fill: parent
         zoomLevel: currentZoomlevel
-        
+
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
         gesture.onPanFinished: { reloadCaches() }
-        
+
         onZoomLevelChanged: {
             console.log(zoomLevel)
             if ((zoomlevelRecord > (zoomLevel + 0.6)) || (zoomlevelRecord < (zoomLevel - 0.6))) {
@@ -52,14 +54,14 @@ Rectangle {
                 reloadCaches()
             }
         }
-        
+
         minimumZoomLevel: 8.
         maximumZoomLevel: 18.
-        
+
         FastScale {
             id: scale
         }
-        
+
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
@@ -82,19 +84,19 @@ Rectangle {
             scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
             lastCachesLength = caches.caches.length
         }
-        
-        
+
+
         Component.onCompleted: map.center = currentPosition.position.coordinate
     }
-    
+
     PositionMarker {
         id: positionMarker
     }
-    
+
     MapControls {
         id: mapControls
     }
-    
+
     SelectedCacheItem {
         id: selectedCacheItem
 
@@ -107,11 +109,11 @@ Rectangle {
                 hide()
         }
     }
-    
-    onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
+    onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
     function clearMap() {
         map.clearMapItems()
     }
+
 }

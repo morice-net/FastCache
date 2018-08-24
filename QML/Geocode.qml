@@ -4,6 +4,8 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import Qt.labs.settings 1.0
+import QtPositioning 5.3
+import QtLocation 5.6
 
 import "JavaScript/Palette.js" as Palette
 
@@ -11,7 +13,6 @@ import "JavaScript/Palette.js" as Palette
 Popup {
     id: geocode
     opacity: 0
-
     background: Rectangle {
         x:20
         y:20
@@ -156,12 +157,12 @@ Popup {
                         radius: 5
                     }
                     onClicked: {
-                 //       address.street = street.text
-                  //      address.city = city.text
-                  //      address.state = stateName.text
-                  //      address.country = country.text
-                   //     address.postalCode = postalCode.text
-                  //      showPlace(address)
+                        address.street = street.text
+                        address.city = city.text
+                        address.state = stateName.text
+                        address.country = country.text
+                        address.postalCode = postalCode.text
+                        geocoding(address)
                     }
                 }
 
@@ -197,7 +198,7 @@ Popup {
                         radius: 5
                     }
                     onClicked: {
-                   //     closeForm()
+
                     }
                 }
             }
@@ -220,10 +221,57 @@ Popup {
     }
 
     Component.onCompleted: {
-   //     street.text = address.street
-    //    city.text = address.city
-    //    stateName.text = address.state
-    //    country.text = address.country
-   //     postalCode.text = address.postalCode
+        street.text = address.street
+        city.text = address.city
+        stateName.text = address.state
+        country.text = address.country
+        postalCode.text = address.postalCode
+    }
+
+    Address {
+        id: address
+        street: ""
+        city: ""
+        state:""
+        country: ""
+        postalCode: ""
+    }
+
+    GeocodeModel {
+        id: geocodeModel
+        plugin: fastMap.mapPlugin
+        autoUpdate: false
+        onStatusChanged: {
+            if ((status == GeocodeModel.Ready) || (status == GeocodeModel.Error))
+                geocodeMessage()
+        }
+
+    }
+
+
+    function geocoding( address)   {
+        geocodeModel.query = address
+        geocodeModel.update()
+    }
+
+    function geocodeMessage()  {
+        var street, city, state,  country, postalCode, latitude, longitude, text
+        latitude = Math.round(geocodeModel.get(0).coordinate.latitude * 10000) / 10000
+        longitude =Math.round(geocodeModel.get(0).coordinate.longitude * 10000) / 10000
+        street = geocodeModel.get(0).address.street
+        city = geocodeModel.get(0).address.city
+        state = geocodeModel.get(0).address.state
+        country = geocodeModel.get(0).address.country
+        postalCode = geocodeModel.get(0).address.postalCode
+
+        text = "<b>Latitude:</b> " + latitude + "<br/>"
+        text +="<b>Longitude:</b> " + longitude + "<br/>" + "<br/>"
+        if (street) text +="<b>Street: </b>"+ street + " <br/>"
+        if (city) text +="<b>City: </b>"+ city + " <br/>"
+        if (state) text +="<b>State: </b>"+ state + " <br/>"
+        if (country) text +="<b>Country: </b>"+ country + " <br/>"
+        if (postalCode) text +="<b>PostalCode: </b>"+ postalCode + " <br/>"
+
+        console.log("salut les gars:  " + text)
     }
 }

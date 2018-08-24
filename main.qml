@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.2
 import QtPositioning 5.3
 import QtWebView 1.1
 import Qt.labs.settings 1.0
+import QtLocation 5.3
 
 import "QML/JavaScript/Palette.js" as Palette
 import "QML"
