@@ -270,6 +270,6 @@ Popup {
         if (country) text +="<b>Country: </b>"+ country + " <br/>"
         if (postalCode) text +="<b>PostalCode: </b>"+ postalCode + " <br/>"
 
-        console.log("salut les gars:  " + text)
+        console.log("geocoding response:  " + text)
     }
 }

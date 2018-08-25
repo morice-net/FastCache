@@ -1,10 +1,12 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Layouts 1.2
+
 
 import "JavaScript/Palette.js" as Palette
 
-Item {     
+Item {
     id: fastMenu
     anchors.fill: parent
 
@@ -171,9 +173,14 @@ Item {
 
             function buttonClicked() {
                 main.state = "address"
-                main.cachesActive = false
-                hideMenu()
-                geocode.open()
+                if(fastMap.mapPlugin.supportsGeocoding()){
+                    main.cachesActive = false
+                    hideMenu()
+                    geocode.open()
+                } else {
+                    hideMenu()
+                    geocodeAlert.open()
+                }
             }
         }
 
@@ -224,8 +231,8 @@ Item {
                 }
             }
         }
-        // Footer
     }
+
 
     function showMenu() {
         console.log("Show menu...")
@@ -253,3 +260,4 @@ Item {
     }
 
 }
+

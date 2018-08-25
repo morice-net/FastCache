@@ -64,6 +64,8 @@ Item {
 
     Geocode { id: geocode }
 
+    GeocodeAlert { id: geocodeAlert }
+
     // Used for loggin
     WebView {
         id: webEngine
