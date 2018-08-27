@@ -231,11 +231,32 @@ Popup {
 
     Popup {
         id: geocodeResponse
+        x:50
+        background: Rectangle {
+            color: Palette.turquoise()
+            radius:10
+        }
+        width: main.width/1.6
+        height: main.height*0.9
+
+        ListView {
+            id: geocodelist
+            width: parent.width
+            height: main.height*0.7
+            model: listModel
+            delegate: delegate
+            ScrollBar.vertical: ScrollBar {}
+        }
+
+        ListModel {
+            id: listModel
+        }
 
         Component {
             id: delegate
 
             Item {
+                id: item
                 width: main.width/1.6
                 height: main.height/5
 
@@ -282,22 +303,8 @@ Popup {
                         text: country + valCountry
                         color: Palette.white()
                     }
-
                 }
             }
-        }
-
-        ListModel {
-            id: listModel
-        }
-
-        ListView {
-            id: geocodelist
-            width: parent.width
-            model: listModel
-            delegate: delegate
-            ScrollBar.vertical: ScrollBar {}
-            highlight: Rectangle { color: Palette.turquoise(); radius: 10 }
         }
     }
 
