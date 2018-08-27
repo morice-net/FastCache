@@ -210,14 +210,6 @@ Popup {
             opacity = 0
     }
 
-    Component.onCompleted: {
-        street.text = address.street
-        city.text = address.city
-        stateName.text = address.state
-        country.text = address.country
-        postalCode.text = address.postalCode
-    }
-
     Address {
         id: address
         street: ""
@@ -309,7 +301,6 @@ Popup {
         }
     }
 
-
     function geocoding( address)   {
         geocodeModel.query = address
         geocodeModel.update()
@@ -321,9 +312,8 @@ Popup {
         if(count <= 0){
             geocode.close()
         } else {
-
+            listModel.clear()
             for (var i=0; i<count; i++){
-
                 listModel.append({"lat":"Latitude:  " , "valLat": Math.round(geocodeModel.get(i).coordinate.latitude * 10000) / 10000,
                                      "lon":"Longitude:   " , "valLon": Math.round(geocodeModel.get(i).coordinate.longitude * 10000) / 10000,
                                      "city":"Ville:   " ,"valCity":geocodeModel.get(i).address.city,
