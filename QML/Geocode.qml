@@ -240,14 +240,11 @@ Popup {
     Popup {
         id: geocodeResponse
 
-
-
         Component {
             id: delegate
 
-
             Item {
-                width: main.width/2
+                width: main.width/1.6
                 height: main.height/5
 
                 MouseArea {
@@ -293,8 +290,6 @@ Popup {
                         text: country + valCountry
                         color: Palette.white()
                     }
-
-
 
                 }
             }

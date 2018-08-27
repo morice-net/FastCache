@@ -16,14 +16,14 @@ Rectangle {
     ListView {
         id: fastListColumn
         width: parent.width
-        height: main.state == "near" ? parent.height - fastListHeader.height - fastListBottom.height -10 : parent.height - fastListHeader.height -10
-        y: main.state == "near" ? fastListHeader.height + fastListBottom.height +10 : fastListHeader.height + 10
+        height: main.state == "near" || main.state == "address" ? parent.height - fastListHeader.height - fastListBottom.height -10 : parent.height - fastListHeader.height -10
+        y: main.state == "near" || main.state == "address" ? fastListHeader.height + fastListBottom.height +10 : fastListHeader.height + 10
         spacing: 5
         model: modelState()
         delegate: SelectedCacheItem {
             x: (fastList.width - width ) / 2
             Component.onCompleted: show(modelData)
-        }        
+        }
         ScrollBar.vertical: ScrollBar {}
     }
 
@@ -51,9 +51,9 @@ Rectangle {
         color: Palette.turquoise()
         radius:10
         anchors.top: fastListHeader.bottom
-        visible:main.state == "near" ? true : false
+        visible:main.state == "near" || main.state == "address" ? true : false
 
-        Text {            
+        Text {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.fill: parent
@@ -75,7 +75,7 @@ Rectangle {
     function modelState() {
         if(main.state == "bbox" ){
             return  cachesBBox.caches
-        } else if(main.state == "near" ){
+        } else if(main.state == "near" || main.state == "address"  ){
             return  cachesNear.caches
         }
     }
@@ -85,6 +85,8 @@ Rectangle {
             return "Liste de caches(" + fastListColumn.count + ")"
         } else if(main.state == "near" ){
             return  "Caches proches(" + fastListColumn.count + ")"
+        } else if(main.state == "address" ){
+            return  "Par adresse(" + fastListColumn.count + ")"
         }
     }
 }
