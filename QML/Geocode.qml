@@ -12,13 +12,14 @@ import "JavaScript/Palette.js" as Palette
 
 Popup {
     id: geocode
+
     opacity: 0
     background: Rectangle {
         x:20
         y:20
         implicitWidth: main.width*0.8
         implicitHeight:main.height*0.4
-        color:Palette.backgroundGrey()
+        color:Palette.turquoise()
         border.color: Palette.greenSea()
         border.width: 1
         opacity:0.9
@@ -36,7 +37,7 @@ Popup {
 
         Label {
             id: tabTitle
-            color: Palette.black()
+            color: Palette.white()
             text: qsTr("Adresse")
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
@@ -68,6 +69,7 @@ Popup {
             Label {
                 id: label2
                 text: qsTr("Rue")
+                color: Palette.white()
             }
 
             TextField {
@@ -83,6 +85,7 @@ Popup {
             Label {
                 id: label3
                 text: qsTr("Ville")
+                color: Palette.white()
             }
 
             TextField {
@@ -98,6 +101,7 @@ Popup {
             Label {
                 id: label4
                 text: qsTr("Etat")
+                color: Palette.white()
             }
 
             TextField {
@@ -113,6 +117,7 @@ Popup {
             Label {
                 id: label5
                 text: qsTr("Pays")
+                color: Palette.white()
             }
 
             TextField {
@@ -128,6 +133,7 @@ Popup {
             Label {
                 id: label6
                 text: qsTr("Code postal")
+                color: Palette.white()
             }
 
             TextField {
@@ -185,22 +191,6 @@ Popup {
                         postalCode.text = ""
                     }
                 }
-
-                Button {
-                    id: cancelButton
-                    text: qsTr("Annuler")
-                    background: Rectangle {
-                        anchors.fill: parent
-                        anchors.margins: 5
-                        opacity: 0.9
-                        border.color: Palette.greenSea()
-                        border.width: 1
-                        radius: 5
-                    }
-                    onClicked: {
-
-                    }
-                }
             }
 
             Item {
@@ -247,29 +237,107 @@ Popup {
         }
     }
 
+    Popup {
+        id: geocodeResponse
+
+
+
+        Component {
+            id: delegate
+
+
+            Item {
+                width: main.width/2
+                height: main.height/5
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        geocodeResponse.close()
+                        main.state = "address"
+                        cachesNear.latPoint = listModel.get(index).valLat
+                        cachesNear.lonPoint = listModel.get(index).valLon
+                        cachesNear.distance = 100000
+                        cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+                                                      createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+                        cachesNear.sendRequest(connector.tokenKey)
+
+                    }
+                }
+
+                Column {
+                    leftPadding: 20
+                    topPadding: 10
+
+                    Text {
+                        text: lat + valLat
+                        color: Palette.white()
+                    }
+
+                    Text {
+                        text: lon + valLon
+                        color: Palette.white()
+                    }
+
+                    Text {
+                        text: city + valCity
+                        color: Palette.white()
+                    }
+
+                    Text {
+                        text: state + valState
+                        color: Palette.white()
+                    }
+
+                    Text {
+                        text: country + valCountry
+                        color: Palette.white()
+                    }
+
+
+
+                }
+            }
+        }
+
+        ListModel {
+            id: listModel
+        }
+
+        ListView {
+            id: geocodelist
+            width: parent.width
+            model: listModel
+            delegate: delegate
+            ScrollBar.vertical: ScrollBar {}
+            highlight: Rectangle { color: Palette.turquoise(); radius: 10 }
+        }
+    }
+
+
     function geocoding( address)   {
         geocodeModel.query = address
         geocodeModel.update()
     }
 
     function geocodeMessage()  {
-        var street, city, state,  country, postalCode, latitude, longitude, text
-        latitude = Math.round(geocodeModel.get(0).coordinate.latitude * 10000) / 10000
-        longitude =Math.round(geocodeModel.get(0).coordinate.longitude * 10000) / 10000
-        street = geocodeModel.get(0).address.street
-        city = geocodeModel.get(0).address.city
-        state = geocodeModel.get(0).address.state
-        country = geocodeModel.get(0).address.country
-        postalCode = geocodeModel.get(0).address.postalCode
+        var   count = geocodeModel.count
 
-        text = "<b>Latitude:</b> " + latitude + "<br/>"
-        text +="<b>Longitude:</b> " + longitude + "<br/>" + "<br/>"
-        if (street) text +="<b>Street: </b>"+ street + " <br/>"
-        if (city) text +="<b>City: </b>"+ city + " <br/>"
-        if (state) text +="<b>State: </b>"+ state + " <br/>"
-        if (country) text +="<b>Country: </b>"+ country + " <br/>"
-        if (postalCode) text +="<b>PostalCode: </b>"+ postalCode + " <br/>"
+        if(count <= 0){
+            geocode.close()
+        } else {
 
-        console.log("geocoding response:  " + text)
+            for (var i=0; i<count; i++){
+
+                listModel.append({"lat":"Latitude:  " , "valLat": Math.round(geocodeModel.get(i).coordinate.latitude * 10000) / 10000,
+                                     "lon":"Longitude:   " , "valLon": Math.round(geocodeModel.get(i).coordinate.longitude * 10000) / 10000,
+                                     "city":"Ville:   " ,"valCity":geocodeModel.get(i).address.city,
+                                     "state":"Etat:   " ,"valState":geocodeModel.get(i).address.state,
+                                     "country":"Pays:   " , "valCountry": geocodeModel.get(i).address.country});
+
+            }
+            geocodeResponse.open()
+            geocode.close()
+        }
     }
 }

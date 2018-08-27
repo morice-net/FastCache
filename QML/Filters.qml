@@ -81,7 +81,8 @@ Item {
                 implicitWidth: 110
                 implicitHeight: 25
                 opacity: 0.8
-                border.color: Palette.greenSea()
+                border.color: Palette.turquoise()
+                color:Palette.turquoise()
                 border.width: 1
                 radius: 10
             }
@@ -201,7 +202,8 @@ Item {
             id: keyWordPopup
             background: Rectangle {
                 implicitWidth: main.width*0.8
-                border.color: Palette.greenSea()
+                border.color: Palette.turquoise()
+                color: Palette.turquoise()
                 border.width: 1
                 opacity:0.9
                 radius: 10
@@ -213,6 +215,7 @@ Item {
                 Label {
                     id:label1
                     text: "Mot-clé:"
+                    color:Palette.white()
                 }
 
                 TextField {
@@ -234,6 +237,7 @@ Item {
                 Label {
                     id:label2
                     text: "Découvreur:"
+                    color:Palette.white()
                     anchors.topMargin: 5
                 }
 
@@ -255,6 +259,7 @@ Item {
                 Label {
                     id:label3
                     text: "Proprietaire:"
+                    color:Palette.white()
                 }
 
                 TextField {

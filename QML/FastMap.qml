@@ -20,7 +20,7 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        name: "mapbox"
+        name: "esri"
         // configure your own map_id and access_token here
         parameters: [  PluginParameter {
                 name: "mapbox.mapping.map_id"
