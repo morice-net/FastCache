@@ -44,7 +44,6 @@ Item {
     }
 
     function updateScale(coord1, coord2) {
-        console.log("#### Updating Scale #### " + coord1.longitude + " ***** " + coord2.latitude)
         var dist, text, f;
         f = 0;
         dist = Math.round(coord1.distanceTo(coord2));

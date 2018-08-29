@@ -13,7 +13,7 @@ class FullCache : public Cache
 public:
     FullCache();
 
-    Q_INVOKABLE void loadCache(const QString &token, const QString &geocode);
+    Q_INVOKABLE void loadCache(const QString &token, Cache *cache);
 
     QString description() const;
     void setDescription(const QString &description);

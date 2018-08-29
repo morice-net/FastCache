@@ -7,15 +7,16 @@ FullCache::FullCache(): m_state(), m_description()
 
 }
 
-void FullCache::loadCache(const QString &token, const QString &geocode)
+void FullCache::loadCache(const QString &token, Cache *cache)
 {
+    setParent(cache);
     setState("loading");
-    setDescription(geocode);
     QTimer::singleShot(5000, this, SLOT(onReplyFinished()));
 }
 
 void FullCache::onReplyFinished()
 {
+    setDescription(name() + " - " + geocode());
     setState("loaded");
 }
 
