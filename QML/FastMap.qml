@@ -46,15 +46,16 @@ Rectangle {
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
         gesture.onPanFinished: { reloadCaches() }
-
         onZoomLevelChanged: {
-            console.log(zoomLevel)
+            scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
+
             if ((zoomlevelRecord > (zoomLevel + 0.6)) || (zoomlevelRecord < (zoomLevel - 0.6))) {
                 zoomlevelRecord = zoomLevel
                 reloadCaches()
             }
         }
 
+        onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y))) ;
         minimumZoomLevel: 8.
         maximumZoomLevel: 18.
 
@@ -81,12 +82,12 @@ Rectangle {
                     addMapItem(itemMap)
                 }
             }
-            scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
             lastCachesLength = caches.caches.length
         }
 
-
-        Component.onCompleted: map.center = currentPosition.position.coordinate
+        Component.onCompleted:{
+            map.center = currentPosition.position.coordinate
+        }
     }
 
     PositionMarker {
