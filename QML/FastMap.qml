@@ -56,6 +56,7 @@ Rectangle {
         }
 
         onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y))) ;
+
         minimumZoomLevel: 8.
         maximumZoomLevel: 18.
 

@@ -184,6 +184,26 @@ Item {
             }
         }
 
+        FastSelectableButtonMenu {
+            id: coordinatesButtonMenu
+            anchors.top: addressButtonMenu.bottom
+            anchors.topMargin: 2
+            anchors.bottomMargin: 20
+
+            buttonSelected: main.state == "coordinates"
+            buttonText: "Coordonnées"
+
+            function buttonClicked() {
+                main.state = "coordinates"
+                main.cachesActive = false
+                hideMenu()
+                //      geocode.open()
+            }
+        }
+
+
+
+
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
