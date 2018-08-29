@@ -17,7 +17,7 @@ Item {
     FastSettings { id: settings }
 
     // State can take "bbox" "near" "address"....
-    property string viewState: "" // "map" or "list"
+    property string viewState: "" // "map" or "list" or "fullcache"
 
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
@@ -57,6 +57,8 @@ Item {
     FastMap { id: fastMap }
 
     FastList { id: fastList }
+
+    FastCache { id: fastCache }
 
     FastMenuHeader { id: fastMenuHeader }
 
@@ -118,6 +120,10 @@ Item {
 
     CacheSizes {
         id: cacheSizes
+    }
+
+    FullCache {
+        id: fullCache
     }
 
     Component.onCompleted: {

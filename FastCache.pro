@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     cache.cpp \
     cachetype.cpp \
     cachesize.cpp \
-    cachesnear.cpp
+    cachesnear.cpp \
+    fullcache.cpp
 
 RESOURCES += qml.qrc
 
@@ -39,7 +40,8 @@ HEADERS += \
     cache.h \
     cachetype.h \
     cachesize.h \
-    cachesnear.h
+    cachesnear.h \
+    fullcache.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

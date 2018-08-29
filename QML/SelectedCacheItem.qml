@@ -3,6 +3,7 @@ import QtLocation 5.3
 import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette
+import com.mycompany.connecting 1.0
 
 Rectangle {
     id: selectedCacheItem
@@ -17,6 +18,8 @@ Rectangle {
     
     opacity: 0
     visible: opacity > 0
+
+    property var selectedCache: Cache {}
     
     AnimatedSprite {
         id: selectedCacheIconField
@@ -42,6 +45,7 @@ Rectangle {
         color: Palette.black()
         clip: true
         width: parent.width - selectedCacheIconField.width - 3 * anchors.margins
+        text: selectedCache.name
     }
     
     Text {
@@ -53,6 +57,7 @@ Rectangle {
         font.pixelSize: parent.height * 0.15
         color: Palette.black()
         clip: true
+        text: selectedCache.geocode
     }
     
     Text {
@@ -74,6 +79,7 @@ Rectangle {
         anchors.left: parent.left
 
         ratingName: "Difficulté"
+        ratingValue: selectedCache.difficulty
     }
     
     RaterField {
@@ -83,6 +89,18 @@ Rectangle {
         anchors.left: selectedCacheDifficultyField.right
 
         ratingName: "Terrain"
+        ratingValue: selectedCache.terrain
+    }
+
+    MouseArea {
+        id: cacheItemArea
+        anchors.fill: parent
+
+        onClicked: {
+            console.log("Selected cache item")
+            fullCache.loadCache(connector.tokenKey, selectedCache)
+            main.viewState = "fullcache"
+        }
     }
 
     Timer {
@@ -97,8 +115,7 @@ Rectangle {
         if (!selectedCacheVar)
             return;
 
-        selectedCacheNameField.text = selectedCacheVar.name
-        selectedCacheGeocadeField.text = selectedCacheVar.geocode
+        selectedCache = selectedCacheVar
 
         // Size rounding
         selectedCacheSizeField.text = "Taille: ??? "
@@ -109,8 +126,6 @@ Rectangle {
             }
         }
 
-        selectedCacheDifficultyField.ratingValue = selectedCacheVar.difficulty
-        selectedCacheTerrainField.ratingValue = selectedCacheVar.terrain
         selectedCacheIconField.type = cacheMarkerId(selectedCacheVar.type)
         if (hideTimer.running)
             hideTimer.restart()

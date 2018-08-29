@@ -13,6 +13,7 @@
 #include "cachetype.h"
 #include "cachesize.h"
 #include "cache.h"
+#include "fullcache.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
     qmlRegisterType<UserInfo>("com.mycompany.connecting", 1, 0, "UserInfo");
     qmlRegisterType<Cache>("com.mycompany.connecting", 1, 0, "Cache");
+    qmlRegisterType<FullCache>("com.mycompany.connecting", 1, 0, "FullCache");
     qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
     qmlRegisterType<CachesNear>("com.mycompany.connecting", 1, 0, "CachesNear");
     qmlRegisterType<CacheType>("com.mycompany.connecting", 1, 0, "CacheType");
