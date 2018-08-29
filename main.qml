@@ -66,6 +66,8 @@ Item {
 
     GeocodeAlert { id: geocodeAlert }
 
+    CoordinatesBox { id: coordinatesBox }
+
     // Used for loggin
     WebView {
         id: webEngine

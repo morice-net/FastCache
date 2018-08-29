@@ -42,5 +42,6 @@
         <file>QML/Geocode.qml</file>
         <file>QML/FastDoubleButtonMenu.qml</file>
         <file>QML/GeocodeAlert.qml</file>
+        <file>QML/CoordinatesBox.qml</file>
     </qresource>
 </RCC>

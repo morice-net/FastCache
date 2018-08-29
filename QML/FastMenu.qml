@@ -197,7 +197,7 @@ Item {
                 main.state = "coordinates"
                 main.cachesActive = false
                 hideMenu()
-                //      geocode.open()
+                coordinatesBox.open()
             }
         }
 
