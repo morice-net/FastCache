@@ -41,6 +41,7 @@ Popup {
             text: qsTr("Adresse")
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
         }
     }
 
@@ -70,6 +71,7 @@ Popup {
                 id: label2
                 text: qsTr("Rue")
                 color: Palette.white()
+                font.family: localFont.name
             }
 
             TextField {
@@ -80,12 +82,14 @@ Popup {
                     radius:10
                     border.color: street.focus ? Palette.black() :Palette.turquoise()
                 }
+                font.family: localFont.name
             }
 
             Label {
                 id: label3
                 text: qsTr("Ville")
                 color: Palette.white()
+                font.family: localFont.name
             }
 
             TextField {
@@ -96,12 +100,14 @@ Popup {
                     radius:10
                     border.color: city.focus ? Palette.black() :Palette.turquoise()
                 }
+                font.family: localFont.name
             }
 
             Label {
                 id: label4
                 text: qsTr("Etat")
                 color: Palette.white()
+                font.family: localFont.name
             }
 
             TextField {
@@ -118,6 +124,7 @@ Popup {
                 id: label5
                 text: qsTr("Pays")
                 color: Palette.white()
+                font.family: localFont.name
             }
 
             TextField {
@@ -128,12 +135,14 @@ Popup {
                     radius:10
                     border.color: country.focus ? Palette.black() :Palette.turquoise()
                 }
+                font.family: localFont.name
             }
 
             Label {
                 id: label6
                 text: qsTr("Code postal")
                 color: Palette.white()
+                font.family: localFont.name
             }
 
             TextField {
@@ -144,6 +153,7 @@ Popup {
                     radius:10
                     border.color: postalCode.focus ? Palette.black() :Palette.turquoise()
                 }
+                font.family: localFont.name
             }
 
             RowLayout {
@@ -162,6 +172,7 @@ Popup {
                         border.width: 1
                         radius: 5
                     }
+                    font.family: localFont.name
                     onClicked: {
                         address.street = street.text
                         address.city = city.text
@@ -183,6 +194,7 @@ Popup {
                         border.width: 1
                         radius: 5
                     }
+                    font.family: localFont.name
                     onClicked: {
                         street.text = ""
                         city.text = ""
@@ -234,6 +246,7 @@ Popup {
         x:50
         background: Rectangle {
             color: Palette.turquoise()
+            opacity: 0.3
             radius:10
         }
         width: main.width/1.6
@@ -255,10 +268,14 @@ Popup {
         Component {
             id: delegate
 
-            Item {
+            Rectangle {
                 id: item
-                width: main.width/1.6
-                height: main.height/5
+                width: parent.width
+                height: main.height/6
+                color: Palette.white()
+                border.width: 1
+                border.color: Palette.greenSea()
+                radius: 5
 
                 MouseArea {
                     anchors.fill: parent
@@ -279,29 +296,36 @@ Popup {
                     leftPadding: 20
                     topPadding: 10
 
-                    Text {
-                        text: lat + valLat
-                        color: Palette.white()
-                    }
+                    Row {
+                        Text {
+                            text: lat + valLat + " - "
+                            color: Palette.greenSea()
+                            font.family: localFont.name
+                        }
 
-                    Text {
-                        text: lon + valLon
-                        color: Palette.white()
+                        Text {
+                            text: lon + valLon
+                            color: Palette.greenSea()
+                            font.family: localFont.name
+                        }
                     }
 
                     Text {
                         text: city + valCity
-                        color: Palette.white()
+                        color: Palette.greenSea()
+                        font.family: localFont.name
                     }
 
                     Text {
                         text: state + valState
-                        color: Palette.white()
+                        color: Palette.greenSea()
+                        font.family: localFont.name
                     }
 
                     Text {
                         text: country + valCountry
-                        color: Palette.white()
+                        color: Palette.greenSea()
+                        font.family: localFont.name
                     }
                 }
             }
@@ -321,11 +345,11 @@ Popup {
         } else {
             listModel.clear()
             for (var i=0; i<count; i++){
-                listModel.append({"lat":"Latitude:  " , "valLat": Math.round(geocodeModel.get(i).coordinate.latitude * 10000) / 10000,
-                                     "lon":"Longitude:   " , "valLon": Math.round(geocodeModel.get(i).coordinate.longitude * 10000) / 10000,
-                                     "city":"Ville:   " ,"valCity":geocodeModel.get(i).address.city,
-                                     "state":"Etat:   " ,"valState":geocodeModel.get(i).address.state,
-                                     "country":"Pays:   " , "valCountry": geocodeModel.get(i).address.country});
+                listModel.append({"lat":"Lat.: " , "valLat": Math.round(geocodeModel.get(i).coordinate.latitude * 10000) / 10000,
+                                     "lon":"Long.: " , "valLon": Math.round(geocodeModel.get(i).coordinate.longitude * 10000) / 10000,
+                                     "city":"Ville: " ,"valCity":geocodeModel.get(i).address.city,
+                                     "state":"Etat: " ,"valState":geocodeModel.get(i).address.state,
+                                     "country":"Pays: " , "valCountry": geocodeModel.get(i).address.country});
 
             }
             geocodeResponse.open()

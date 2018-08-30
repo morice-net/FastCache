@@ -14,12 +14,22 @@ Rectangle {
     color: Palette.greenSea()
 
     Text {
+        id: descriptionText
         anchors.fill: parent
         font.family: localFont.name
         font.pointSize: 24
         text: fullCache.state == "loading" ? "Loading...." : fullCache.description
+        color: Palette.white()
 
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
     }
+
+    BusyIndicator {
+        id: busyIndicator
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: descriptionText.bottom
+        running: fullCache.state == "loading"
+    }
+
 }
