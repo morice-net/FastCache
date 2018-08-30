@@ -16,7 +16,10 @@ void FullCache::loadCache(const QString &token, Cache *cache)
 
 void FullCache::onReplyFinished()
 {
-    setDescription(name() + " - " + geocode());
+    Cache* cache = qobject_cast<Cache*>(parent());
+    if (cache != nullptr) {
+        setDescription(cache->name() + " - " + cache->geocode());
+    }
     setState("loaded");
 }
 
