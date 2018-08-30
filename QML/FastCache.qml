@@ -17,8 +17,8 @@ Rectangle {
         id: descriptionText
         anchors.fill: parent
         font.family: localFont.name
-        font.pointSize: 24
-        text: fullCache.state == "loading" ? "Loading...." : fullCache.description
+        font.pointSize: 20
+        text: fullCache.state == "loading" ? "Loading....\n\n\n" : fullCache.description
         color: Palette.white()
 
         verticalAlignment: Text.AlignVCenter
@@ -27,8 +27,7 @@ Rectangle {
 
     BusyIndicator {
         id: busyIndicator
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: descriptionText.bottom
+        anchors.centerIn: parent
         running: fullCache.state == "loading"
     }
 

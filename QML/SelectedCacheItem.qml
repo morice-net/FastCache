@@ -97,7 +97,6 @@ Rectangle {
         anchors.fill: parent
 
         onClicked: {
-            console.log("Selected cache item")
             fullCache.loadCache(connector.tokenKey, selectedCache)
             main.viewState = "fullcache"
         }
