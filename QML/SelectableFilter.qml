@@ -19,7 +19,7 @@ import "JavaScript/Palette.js" as Palette
             font.pointSize: 18
             color: Palette.black()
             width: parent.width
-            text: selectableFilter.filterText
+            text: selectableFilter.filterText            
 
         }
     }

@@ -6,16 +6,23 @@ MapQuickItem {
 
     property int index: 0
 
-    coordinate: QtPositioning.coordinate(cachesBBox.caches[index].lat, cachesBBox.caches[index].lon)
+    coordinate: QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon)
     anchorPoint.x: cacheIcon.width/2
     anchorPoint.y: cacheIcon.height
     sourceItem: CacheIcon {
         id: cacheIcon
-        type: cacheMarkerId(cachesBBox.caches[index].type)
+        type: cacheMarkerId(listCaches()[index].type)
 
         MouseArea {
             anchors.fill: parent
-            onClicked: selectedCache = cachesBBox.caches[index]
+            onClicked: selectedCache = listCaches()[index]
         }
+    }
+
+    function listCaches() {
+        if(main.cachesActive)
+            return cachesBBox.caches
+        if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
+            return cachesNear.caches
     }
 }

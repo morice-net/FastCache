@@ -130,6 +130,7 @@ Item {
         SelectableFilter {
             id: fieldFilterSelectable
             filterText: "Terrain"
+
         }
 
         MultiPointSlider {
@@ -216,6 +217,7 @@ Item {
                     id:label1
                     text: "Mot-clé:"
                     color:Palette.white()
+                    font.family: localFont.name
                 }
 
                 TextField {
@@ -239,6 +241,7 @@ Item {
                     text: "Découvreur:"
                     color:Palette.white()
                     anchors.topMargin: 5
+                    font.family: localFont.name
                 }
 
                 TextField {
@@ -260,6 +263,7 @@ Item {
                     id:label3
                     text: "Proprietaire:"
                     color:Palette.white()
+                    font.family: localFont.name
                 }
 
                 TextField {

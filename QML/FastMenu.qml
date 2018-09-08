@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.2
+import QtPositioning 5.3
 
 
 import "JavaScript/Palette.js" as Palette
@@ -90,18 +91,13 @@ Item {
             button2Text: "Liste"
 
             function buttonClicked() {
-
                 firstButtonSelected = !firstButtonSelected
-
                 if (firstButtonSelected)
                     main.viewState = "map"
                 else
                     main.viewState = "list"
-
-                if (main.state == "bbox")
+                if (main.cachesActive)
                     fastMap.mapItem.updateCachesOnMap(cachesBBox)
-                else if (main.state == "near")
-                    nearCachesClicked()
             }
         }
 
@@ -134,7 +130,6 @@ Item {
                     function buttonClicked() {
                         main.cachesActive = !(main.cachesActive)
                         if (firstButtonSelected) {
-                            main.state = "bbox"
                             reloadCaches()
                         } else {
                             main.cachesActive = false
@@ -157,8 +152,11 @@ Item {
             buttonText: "Caches proches"
 
             function buttonClicked() {
-                nearCachesClicked()
+                main.state = "near"
+                hideMenu()
                 main.cachesActive = false
+                nearCachesClicked()
+                fastMap.mapItem.center = currentPosition.position.coordinate
             }
         }
 

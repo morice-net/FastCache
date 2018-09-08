@@ -74,7 +74,7 @@ Rectangle {
 
 
     function modelState() {
-        if(main.state == "bbox" ){
+        if(main.cachesActive){
             return  cachesBBox.caches
         } else if(main.state == "near" || main.state == "address" || main.state == "coordinates" ){
             return  cachesNear.caches
@@ -82,7 +82,7 @@ Rectangle {
     }
 
     function textHeader() {
-        if(main.state == "bbox" ){
+        if(main.cachesActive){
             return "Liste de caches(" + fastListColumn.count + ")"
         } else if(main.state == "near" ){
             return  "Caches proches(" + fastListColumn.count + ")"

@@ -18,7 +18,7 @@ Popup {
         x:20
         y:20
         implicitWidth: main.width*0.8
-        implicitHeight:main.height*0.4
+        implicitHeight:main.height*0.42
         color:Palette.turquoise()
         border.color: Palette.greenSea()
         border.width: 1
@@ -50,7 +50,7 @@ Popup {
         anchors.rightMargin: 20
         anchors.leftMargin: 20
         anchors.bottomMargin: 20
-        anchors.topMargin: 20
+        anchors.topMargin: 10
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
@@ -289,6 +289,7 @@ Popup {
                                                       createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
                         cachesNear.sendRequest(connector.tokenKey)
 
+                        fastMap.mapItem.center =QtPositioning.coordinate(listModel.get(index).valLat , listModel.get(index).valLon)
                     }
                 }
 

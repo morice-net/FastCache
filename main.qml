@@ -16,8 +16,9 @@ Item {
 
     FastSettings { id: settings }
 
-    // State can take "bbox" "near" "address"....
+    // State can take "near" "address" "coordinates"....
     property string viewState: "" // "map" or "list" or "fullcache"
+    property bool cachesActive: false
 
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
@@ -32,8 +33,6 @@ Item {
 
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
-
-    property bool cachesActive: false
 
     visible: true
     anchors.fill: parent
@@ -128,7 +127,6 @@ Item {
 
     Component.onCompleted: {
         main.viewState = "map"
-        main.state= "bbox"
 
         fastMap.mapItem.updateCachesOnMap(cachesBBox)
 
