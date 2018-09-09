@@ -39,8 +39,6 @@ Popup {
             id: tabTitle
             color: Palette.white()
             text: qsTr("Adresse")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
         }
     }
@@ -250,12 +248,12 @@ Popup {
             radius:10
         }
         width: main.width/1.6
-        height: main.height*0.9
+        height: popupResponseHeight( )+20
 
         ListView {
             id: geocodelist
             width: parent.width
-            height: main.height*0.7
+            height: popupResponseHeight( )*0.85
             model: listModel
             delegate: delegate
             ScrollBar.vertical: ScrollBar {}
@@ -330,6 +328,15 @@ Popup {
                     }
                 }
             }
+        }
+    }
+
+    function popupResponseHeight( )  {
+        if((geocodeModel.count)*(main.height/6 )<= main.height*0.9)
+        {
+            return (geocodeModel.count)*(main.height/6 )
+        } else {
+            return main.height*0.9
         }
     }
 
