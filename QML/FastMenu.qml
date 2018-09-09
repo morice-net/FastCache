@@ -133,6 +133,7 @@ Item {
                             reloadCaches()
                         } else {
                             main.cachesActive = false
+                            fastMap.mapItem.updateCachesOnMap(cachesNear)
                         }
                     }
                 }

@@ -184,7 +184,7 @@ Item {
             contentItem: Text {
                 id: keywordButtonId
                 text:"Pas de filtres.."
-                color: Palette.greenSea()
+                color: Palette.turquoise()
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
