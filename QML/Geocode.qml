@@ -28,19 +28,11 @@ Popup {
 
     ColumnLayout {
         id: tabRectangle
-        y: 20
-        height: tabTitle.height * 2
+        y: 20        
         anchors.rightMargin: 0
         anchors.leftMargin: 0
         anchors.left: parent.left
         anchors.right: parent.right
-
-        Label {
-            id: tabTitle
-            color: Palette.white()
-            text: qsTr("Adresse")
-            font.family: localFont.name
-        }
     }
 
     Item {

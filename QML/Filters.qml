@@ -180,7 +180,6 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
-
             contentItem: Text {
                 id: keywordButtonId
                 text:"Pas de filtres.."
