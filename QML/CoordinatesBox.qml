@@ -2,11 +2,16 @@ import QtQuick 2.6
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.2
+import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette
 
 Popup {
     id: coordinatesBox
+
+    property double lat:0.0
+    property double lon:0.0
+
     x:50
     y:50
     background: Rectangle {
@@ -315,7 +320,19 @@ Popup {
                         radius: 10
                     }
                     onClicked: {
+                        if(box1Lat() !== "" && box1Lon()  !== "") {
+                            coordinatesBox.close()
+                            main.state = "coordinates"
+                            cachesNear.latPoint = box1Lat()
+                            cachesNear.lonPoint = box1Lon()
+                            cachesNear.distance = 100000
+                            cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
+                                                          createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+                                                          createFilterKeywordDiscoverOwner() , userInfo.name )
+                            cachesNear.sendRequest(connector.tokenKey)
 
+                            fastMap.mapItem.center =QtPositioning.coordinate(box1Lat() , box1Lon())
+                        }
                     }
                 }
 
@@ -337,11 +354,37 @@ Popup {
                         radius: 10
                     }
                     onClicked: {
+                        box1Degrees.text=""
+                        box1Minutes.text=""
+                        box1Decimal.text=""
+                        box1Degrees2.text=""
+                        box1Minutes2.text=""
+                        box1Decimal2.text=""
 
                     }
                 }
             }
         }
+    }
+
+    function  box1Lat(){
+        if(box1Degrees.text === "" || box1Minutes.text === "" ||box1Decimal.text === "")
+            return ""
+        lat = parseFloat( box1Degrees.text) + parseFloat((box1Minutes.text + "." + box1Decimal.text)/60)
+        if(lat > 90) return ""
+        if(box1ButtonNS.text==="S") lat = -lat
+        console.log("Latitude:   " + lat)
+        return lat
+    }
+
+    function  box1Lon(){
+        if(box1Degrees2.text === "" || box1Minutes2.text === "" ||box1Decimal2.text === "")
+            return ""
+        lon = parseFloat( box1Degrees2.text) + parseFloat((box1Minutes2.text + "." + box1Decimal2.text)/60)
+        if(lon > 180) return ""
+        if(box1ButtonEO.text==="O") lon = -lon
+        console.log("Longitude:   " + lon)
+        return lon
     }
 
     // second box coordinates.
@@ -446,7 +489,7 @@ Popup {
                     font.family: localFont.name
                     font.pixelSize: 30
                     anchors.left: box2ButtonEO.right
-                    anchors.leftMargin:10
+                    anchors.leftMargin:15
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius:10
@@ -502,7 +545,19 @@ Popup {
                         radius: 10
                     }
                     onClicked: {
+                        if(box2Lat() !== "" && box2Lon()  !== "") {
+                            coordinatesBox.close()
+                            main.state = "coordinates"
+                            cachesNear.latPoint = box2Lat()
+                            cachesNear.lonPoint = box2Lon()
+                            cachesNear.distance = 100000
+                            cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
+                                                          createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+                                                          createFilterKeywordDiscoverOwner() , userInfo.name )
+                            cachesNear.sendRequest(connector.tokenKey)
 
+                            fastMap.mapItem.center =QtPositioning.coordinate(box2Lat() , box2Lon())
+                        }
                     }
                 }
 
@@ -524,12 +579,35 @@ Popup {
                         radius: 10
                     }
                     onClicked: {
-
+                        box2Degrees.text=""
+                        box2Decimal.text=""
+                        box2Degrees2.text=""
+                        box2Decimal2.text=""
                     }
                 }
 
             }
         }
+    }
+
+    function  box2Lat(){
+        if(box2Degrees.text === "" || box2Decimal.text === "")
+            return ""
+        lat = box2Degrees.text + "." + box2Decimal.text
+        if(lat > 90) return ""
+        if(box2ButtonNS.text==="S") lat = -lat
+        console.log("Latitude:   " + lat)
+        return lat
+    }
+
+    function  box2Lon(){
+        if(box2Degrees2.text === "" ||box2Decimal2.text === "")
+            return ""
+        lon = box2Degrees2.text + "." + box2Decimal2.text
+        if(lon > 180) return ""
+        if(box2ButtonEO.text==="O") lon = -lon
+        console.log("Longitude:   " + lon)
+        return lon
     }
 
     // third box coordinates.
@@ -784,7 +862,19 @@ Popup {
                         radius: 10
                     }
                     onClicked: {
+                        if(box3Lat() !== "" && box3Lon() !== "") {
+                            coordinatesBox.close()
+                            main.state = "coordinates"
+                            cachesNear.latPoint = box3Lat()
+                            cachesNear.lonPoint = box3Lon()
+                            cachesNear.distance = 100000
+                            cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
+                                                          createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+                                                          createFilterKeywordDiscoverOwner() , userInfo.name )
+                            cachesNear.sendRequest(connector.tokenKey)
 
+                            fastMap.mapItem.center =QtPositioning.coordinate(box3Lat() , box3Lon())
+                        }
                     }
                 }
 
@@ -806,11 +896,39 @@ Popup {
                         radius: 10
                     }
                     onClicked: {
+                        box3Degrees.text=""
+                        box3Minutes.text=""
+                        box3Seconds.text=""
+                        box3Decimal.text=""
+                        box3Degrees2.text=""
+                        box3Minutes2.text=""
+                        box3Seconds2.text=""
+                        box3Decimal2.text=""
 
                     }
                 }
             }
         }
+    }
+
+    function  box3Lat(){
+        if(box3Degrees.text === "" || box3Minutes.text === "" || box3Seconds.text === "" || box3Decimal.text === "")
+            return ""
+        lat = parseFloat( box3Degrees.text) + parseFloat(box3Minutes.text)/60 + parseFloat((box3Seconds.text + "." + box3Decimal.text)/3600)
+        if(lat > 90) return ""
+        if(box3ButtonNS.text==="S") lat = -lat
+        console.log("Latitude:   " + lat)
+        return lat
+    }
+
+    function  box3Lon(){
+        if(box3Degrees2.text === "" || box3Minutes2.text === "" || box3Seconds2.text === "" || box3Decimal2.text === "")
+            return ""
+        lon = parseFloat( box3Degrees2.text) + parseFloat(box3Minutes2.text)/60 + parseFloat((box3Seconds2.text + "." + box3Decimal2.text)/3600)
+        if(lon > 180) return ""
+        if(box3ButtonEO.text==="O") lon = -lon
+        console.log("Longitude:   " + lon)
+        return lon
     }
 }
 
