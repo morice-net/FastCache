@@ -97,7 +97,8 @@ Rectangle {
         anchors.fill: parent
 
         onClicked: {
-            fullCache.loadCache(connector.tokenKey, selectedCache)
+            fullCache.cacheCode = selectedCache.geocode
+            fullCache.sendRequest(connector.tokenKey)
             main.viewState = "fullcache"
         }
     }

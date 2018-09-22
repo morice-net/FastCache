@@ -1,31 +1,68 @@
 #include "fullcache.h"
-
 #include <QTimer>
 
-FullCache::FullCache(): m_state(), m_description()
-{
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QList>
 
+FullCache::FullCache(QObject *parent): Requestor(parent) ,  m_state(), m_description() , m_cacheCode()
+{
 }
 
-void FullCache::loadCache(const QString &token, Cache *cache)
-{
-    setParent(cache);
-    setState("loading");
-    QTimer::singleShot(5000, this, SLOT(onReplyFinished()));
+void FullCache::sendRequest( QString token){
+
+setState("loading");
+
+QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
+
+QJsonObject parameters;
+QJsonObject geocacheCode;
+
+QJsonArray geocachesCodes;
+
+geocachesCodes.append(m_cacheCode);
+geocacheCode.insert("CacheCodes",QJsonValue(geocachesCodes));
+
+parameters.insert("AccessToken", QJsonValue(token));
+parameters.insert("IsLite", QJsonValue(false));
+parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
+parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
+parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
+parameters.insert("CacheCode", QJsonValue(geocacheCode));
+
+QNetworkRequest request;
+request.setUrl(uri);
+request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+qDebug() <<"cacheJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
+m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
 }
 
 void FullCache::onReplyFinished()
-{
-    Cache* cache = qobject_cast<Cache*>(parent());
-    if (cache != nullptr) {
-        setDescription(cache->name() + " - " + cache->geocode());
-    }
+{    
     setState("loaded");
 }
 
 void FullCache::onReplyFinished(QNetworkReply *reply)
 {
+    onReplyFinished();
 
+    QJsonDocument dataJsonDoc;
+    if (reply->error() == QNetworkReply::NoError) {
+        dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+        qDebug() << "*** Cache ***\n" <<dataJsonDoc ;
+        if (dataJsonDoc.isNull()) {
+            return;
+        }
+        QJsonObject JsonObj = dataJsonDoc.object();
+        QJsonValue value = JsonObj.value("Geocache");
+    }   else {
+        qDebug() << "*** Cache ERROR ***\n" <<reply->errorString() ;
+        return;
+    }
+    return;
 }
 
 QString FullCache::description() const
@@ -50,3 +87,15 @@ void FullCache::setState(const QString &state)
     m_state = state;
     emit stateChanged();
 }
+
+QString FullCache::cacheCode() const
+{
+    return m_cacheCode;
+}
+
+void FullCache::setCacheCode(const QString &cacheCode)
+{
+    m_cacheCode = cacheCode;
+    emit cacheCodeChanged();
+}
+
