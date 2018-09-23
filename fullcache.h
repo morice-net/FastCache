@@ -10,10 +10,10 @@ class FullCache : public Cache
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)    
+    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
 
 public:
- explicit FullCache(Cache *parent = nullptr);
+    explicit FullCache(Cache *parent = nullptr);
 
     Q_INVOKABLE void sendRequest(QString token) ;
 
@@ -38,8 +38,6 @@ private:
     QNetworkAccessManager *m_networkManager;
 
     QString m_state;
-    QString m_description;
-    QString m_cacheCode;
 };
 
 #endif // FULLCACHE_H

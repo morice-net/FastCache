@@ -9,10 +9,11 @@
 #include <QList>
 
 
-CachesRetriever::CachesRetriever(QObject *parent) : Requestor(parent), m_caches(QList<Cache*>())
+CachesRetriever::CachesRetriever(QObject *parent) : QObject(parent), m_caches(QList<Cache*>())
 {
+    m_networkManager = new QNetworkAccessManager(this);
+    connect( m_networkManager, &QNetworkAccessManager::finished, this, &CachesRetriever::onReplyFinished);
 }
-
 
 QQmlListProperty<Cache> CachesRetriever::caches()
 {

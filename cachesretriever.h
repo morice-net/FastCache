@@ -1,14 +1,13 @@
 #ifndef CACHESRETRIEVER_H
 #define CACHESRETRIEVER_H
 
-#include "requestor.h"
-
 #include <QNetworkReply>
 #include <QQmlListProperty>
+#include <QObject>
 
 class Cache;
 
-class CachesRetriever : public Requestor
+class CachesRetriever : public QObject
 {
     Q_OBJECT
 
@@ -17,7 +16,7 @@ class CachesRetriever : public Requestor
 public:
     explicit CachesRetriever(QObject *parent = nullptr);
 
-    Q_INVOKABLE void sendRequest(QString token) override;
+    Q_INVOKABLE void sendRequest(QString token) ;
     Q_INVOKABLE void sendRequestMore(QString token);
     Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
 
@@ -31,7 +30,7 @@ signals:
     void cachesChanged();
 
 public slots:
-    void onReplyFinished(QNetworkReply* reply) override;
+    void onReplyFinished(QNetworkReply* reply) ;
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -51,6 +50,12 @@ protected:
 
     bool m_filterExcludeFound;
     bool m_filterExcludeArchived;
+
+private:
+
+    //  network manager
+
+    QNetworkAccessManager *m_networkManager;
 
 };
 
