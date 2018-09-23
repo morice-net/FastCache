@@ -1,9 +1,10 @@
 #ifndef USERINFO_H
 #define USERINFO_H
 
-#include "requestor.h"
+#include <QObject>
+#include <QNetworkReply>
 
-class UserInfo : public Requestor
+class UserInfo : public QObject
 {
     Q_OBJECT
     Q_ENUMS(UserInfoStatus)
@@ -23,7 +24,7 @@ public:
     explicit  UserInfo(QObject *parent = nullptr);
     ~UserInfo() override;
 
-    Q_INVOKABLE void sendRequest(QString token) override;
+    Q_INVOKABLE void sendRequest(QString token) ;
 
     QString name() const;
     void  setName(QString &m_name);
@@ -43,13 +44,18 @@ public:
 signals:
     void nameChanged();
     void findsChanged();
-	void avatarUrlChanged();
-	void premiumChanged();
-	
+    void avatarUrlChanged();
+    void premiumChanged();
+    void requestReady();
+
 public slots:
-    void onReplyFinished(QNetworkReply* reply) override;
+    void onReplyFinished(QNetworkReply* reply) ;
 
 private:
+
+    //  network manager
+    QNetworkAccessManager *m_networkManager;
+
     QString m_name;
     qint64 m_finds;
     QString m_avatarUrl;
