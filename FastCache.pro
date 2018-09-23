@@ -11,7 +11,6 @@ SOURCES += main.cpp \
     connector.cpp \
     parameter.cpp \
     tools.cpp \
-    requestor.cpp \
     cachesretriever.cpp \
     userinfo.cpp \
     cachesbbox.cpp \    
@@ -33,7 +32,6 @@ HEADERS += \
     connector.h \
     parameter.h \
     tools.h \
-    requestor.h \
     cachesretriever.h \
     userinfo.h \
     cachesbbox.h \    
