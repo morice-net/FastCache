@@ -7,20 +7,20 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: selectedCacheItem
-    
+
     color: Palette.white().replace("#","#99")
     radius: parent.width/30
     border.width: 2
     border.color: main.viewState == "map" ? Palette.greenSea() : Palette.silver()
-    
+
     width: main.width - 40
     height: main.height * 0.12
-    
+
     opacity: 0
     visible: opacity > 0
 
     property var selectedCache: Cache {}
-    
+
     AnimatedSprite {
         id: selectedCacheIconField
         property int type: 0
@@ -34,7 +34,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.left: parent.left
     }
-    
+
     Text {
         id: selectedCacheNameField
         anchors.margins: 10
@@ -47,7 +47,7 @@ Rectangle {
         width: parent.width - selectedCacheIconField.width - 3 * anchors.margins
         text: selectedCache.name
     }
-    
+
     Text {
         id: selectedCacheGeocadeField
         anchors.margins: 10
@@ -59,7 +59,7 @@ Rectangle {
         clip: true
         text: selectedCache.geocode
     }
-    
+
     Text {
         id: selectedCacheSizeField
         anchors.margins: 10
@@ -81,7 +81,7 @@ Rectangle {
         ratingName: "Difficulté"
         ratingValue: selectedCache.difficulty
     }
-    
+
     RaterField {
         id: selectedCacheTerrainField
         anchors.margins: 10
@@ -97,7 +97,7 @@ Rectangle {
         anchors.fill: parent
 
         onClicked: {
-            fullCache.cacheCode = selectedCache.geocode
+            fullCache.geocode = selectedCache.geocode
             fullCache.sendRequest(connector.tokenKey)
             main.viewState = "fullcache"
         }

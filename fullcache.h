@@ -1,39 +1,30 @@
 #ifndef FULLCACHE_H
 #define FULLCACHE_H
 
-#include "cache.h"
-#include "requestor.h"
+#include <QNetworkReply>
+#include <QObject>
 
-class FullCache : public Requestor
+#include "cache.h"
+
+class FullCache : public Cache
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString cacheCode READ cacheCode WRITE setCacheCode NOTIFY cacheCodeChanged)
-    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
-    Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)    
 
 public:
- explicit FullCache(QObject *parent = nullptr);
+ explicit FullCache(Cache *parent = nullptr);
 
-    Q_INVOKABLE void sendRequest(QString token) override;
-
-    QString description() const;
-    void setDescription(const QString &description);
-
-    QString cacheCode() const;
-    void setCacheCode(const QString &cacheCode);
+    Q_INVOKABLE void sendRequest(QString token) ;
 
     QString state() const;
     void setState(const QString &state);
 
-public slots:
-    void onReplyFinished();
-    void onReplyFinished(QNetworkReply* reply) override ;
+public slots:  
+    void onReplyFinished(QNetworkReply* reply)  ;
 
 signals:
     void stateChanged();
-    void descriptionChanged();
-    void cacheCodeChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -41,6 +32,11 @@ protected:
     const int TRACKABLE_LOG_COUNT=30;
 
 private:
+
+    //  network manager
+
+    QNetworkAccessManager *m_networkManager;
+
     QString m_state;
     QString m_description;
     QString m_cacheCode;
