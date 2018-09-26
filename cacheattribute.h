@@ -1,7 +1,6 @@
 #ifndef CACHEATTRIBUTE_H
 #define CACHEATTRIBUTE_H
 
-
 #include <QObject>
 
 class CacheAttribute : public QObject
