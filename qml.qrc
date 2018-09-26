@@ -44,5 +44,6 @@
         <file>QML/GeocodeAlert.qml</file>
         <file>QML/CoordinatesBox.qml</file>
         <file>QML/FastCache.qml</file>
+        <file>QML/CacheAttributes.qml</file>
     </qresource>
 </RCC>
