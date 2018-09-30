@@ -7,7 +7,11 @@
 #include <QJsonArray>
 #include <QList>
 
-FullCache::FullCache(Cache *parent):  Cache (parent),  m_state()
+FullCache::FullCache(Cache *parent):  Cache (parent)  
+  ,  m_attributes(QList<int>())
+  ,  m_attributesBool(QList<bool>())
+  ,  m_state()
+
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &FullCache::onReplyFinished);
@@ -53,7 +57,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             return;
         }
         QJsonObject JsonObj = dataJsonDoc.object();
-        QJsonValue value = JsonObj.value("Geocache");
+        QJsonValue value = JsonObj.value("Geocaches");
         QJsonArray caches = value.toArray();
 
         int lengthCaches = caches.size();
@@ -97,16 +101,49 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
             cache->setTerrain(v.toObject().value("Terrain").toDouble());
 
+            // Attributes of cache.
+            m_attributes.clear();
+            m_attributesBool.clear();
 
-
+            QJsonArray  atts = v.toObject().value("Attributes").toArray();
+            foreach ( const QJsonValue & att, atts)
+            {
+                m_attributes.append(att.toObject().value("AttributeTypeID").toInt());
+                m_attributesBool.append(att.toObject().value("IsOn").toBool());
+            }
+            qDebug() << "*** attributs**\n" <<m_attributes ;
+            qDebug() << "*** attributsBool**\n" <<m_attributesBool ;
+            emit attributesChanged();
+            emit attributesBoolChanged();
         }
-
 
     }   else {
         qDebug() << "*** Cache ERROR ***\n" <<reply->errorString() ;
         return;
     }
     return;
+}
+
+QList<int> FullCache::attributes()
+{
+    return  m_attributes;
+}
+
+void FullCache::setAttributes( QList<int> &attributes)
+{
+    m_attributes = attributes;
+    emit attributesChanged();
+}
+
+QList<bool> FullCache::attributesBool()
+{
+    return  m_attributesBool;
+}
+
+void FullCache::setAttributesBool( QList<bool> &attributesBool)
+{
+    m_attributesBool = attributesBool;
+    emit attributesBoolChanged();
 }
 
 QString FullCache::state() const
