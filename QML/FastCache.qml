@@ -52,66 +52,24 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        Item {
-            id: waypoints
-            Text {
-                id: waypointsText
-                anchors.fill: parent
-                font.family: localFont.name
-                font.pointSize: 20
-                text: "Etapes"
-                color: Palette.white()
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
+        FastCacheWaypointsPage {
+            id: waypointsPage
         }
 
-        Item {
-            id: description
-            Text {
-                id: descriptionText
-                anchors.fill: parent
-                font.family: localFont.name
-                font.pointSize: 20
-                text: "Description"
-                color: Palette.white()
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
+        FastCacheDescriptionPage {
+            id: descriptionPage
         }
 
         FastCacheDetailsPage {
             id: detailsPage
         }
 
-        Item {
-            id: logs
-            Text {
-                id: logsText
-                anchors.fill: parent
-                font.family: localFont.name
-                font.pointSize: 20
-                text: "Carnet de visite"
-                color: Palette.white()
-
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
+        FastCacheLogsPage {
+            id: logsPage
         }
-        Item {
-            id: images
-            Text {
-                id: imagesText
-                anchors.fill: parent
-                font.family: localFont.name
-                font.pointSize: 20
-                text: "Images"
-                color: Palette.white()
 
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-            }
+        FastCacheImagesPage {
+            id: imagesPage
         }
     }
 

@@ -114,5 +114,9 @@
         <file>Image/attribute_winter.png</file>
         <file>Image/attribute_wirelessbeacon.png</file>
         <file>QML/FastCacheDetailsPage.qml</file>
+        <file>QML/FastCacheWaypointsPage.qml</file>
+        <file>QML/FastCacheDescriptionPage.qml</file>
+        <file>QML/FastCacheLogsPage.qml</file>
+        <file>QML/FastCacheImagesPage.qml</file>
     </qresource>
 </RCC>
