@@ -19,11 +19,12 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token) ;
 
-    QList<int> attributes();
-    void setAttributes(QList<int> &attributes);
+    QList<int> attributes() const;
+    void setAttributes(const QList<int> &attributes);
 
-    QList<bool> attributesBool();
-    void setAttributesBool(  QList<bool> &attributesBool);
+    QList<bool> attributesBool() const;
+    void setAttributesBool(const  QList<bool> &attributesBool);
+
     QString state() const;
     void setState(const QString &state);
 

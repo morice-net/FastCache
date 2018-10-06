@@ -124,23 +124,23 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
     return;
 }
 
-QList<int> FullCache::attributes()
+QList<int> FullCache::attributes() const
 {
     return  m_attributes;
 }
 
-void FullCache::setAttributes( QList<int> &attributes)
+void FullCache::setAttributes(const QList<int> &attributes)
 {
     m_attributes = attributes;
     emit attributesChanged();
 }
 
-QList<bool> FullCache::attributesBool()
+QList<bool> FullCache::attributesBool() const
 {
     return  m_attributesBool;
 }
 
-void FullCache::setAttributesBool( QList<bool> &attributesBool)
+void FullCache::setAttributesBool(const QList<bool> &attributesBool)
 {
     m_attributesBool = attributesBool;
     emit attributesBoolChanged();

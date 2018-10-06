@@ -28,49 +28,49 @@ public:
     ~Cache();
 
     QString name() const;
-    void  setName(const QString &m_name);
+    void setName(const QString &name);
 
-    QString  geocode()const;
-    void    setGeocode(QString &m_geocode);
+    QString  geocode() const;
+    void setGeocode(const QString &geocode);
 
-    int size()const ;
-    void    setSize(int m_size);
+    int size() const ;
+    void    setSize(const int &size);
 
-    double difficulty()const;
-    void    setDifficulty(double m_difficulty);
+    double difficulty() const;
+    void setDifficulty(const double &difficulty);
 
     double terrain() const;
-    void  setTerrain(double m_terrain);
+    void  setTerrain(const double &terrain);
 
     int  type() const;
-    void    setType(int m_type);
+    void setType(const int &type);
 
     QString date() const ;
-    void    setDate(QString &m_date);
+    void setDate(const QString &date);
 
     bool archived() const;
-    void    setArchived(bool m_archived);
+    void setArchived(const bool &archived);
 
     bool disabled() const;
-    void  setDisabled(bool m_disabled);
+    void setDisabled(const bool &disabled);
 
     int  favoritePoints() const;
-    void    setFavoritePoints(int m_favoritePoints);
+    void setFavoritePoints(const int &favoritePoints);
 
     int trackableCount() const ;
-    void    setTrackableCount(int m_trackableCount);
+    void setTrackableCount(const int &trackableCount);
 
     QString owner() const;
-    void    setOwner(QString &m_owner);
+    void    setOwner(const QString &owner);
 
     bool found() const;
-    void  setFound(bool m_found);
+    void setFound(const bool &found);
 
-    double  lat() const;
-    void    setLat(double m_lat);
+    double lat() const;
+    void setLat(const double &lat);
 
-    double  lon() const;
-    void    setLon(double m_lon);
+    double lon() const;
+    void setLon(const double &lon);
 
 signals:
     void nameChanged();
@@ -89,7 +89,7 @@ signals:
     void latChanged();
     void lonChanged();
 
-protected:
+private:
     QString m_name;
     QString m_geocode;
     int m_size;
