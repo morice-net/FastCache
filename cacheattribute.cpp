@@ -1,11 +1,11 @@
 #include "cacheattribute.h"
 
-CacheAttribute::CacheAttribute(QObject *parent):QObject(parent)
-
-  , m_gcId(0)
-  , m_textYes("")
-  , m_textNo("")
-  , m_icon("")
+CacheAttribute::CacheAttribute(QObject *parent)
+    :QObject(parent)
+    , m_gcId(0)
+    , m_textYes("")
+    , m_textNo("")
+    , m_icon("")
 
 {
 }

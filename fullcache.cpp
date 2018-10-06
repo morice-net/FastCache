@@ -8,10 +8,11 @@
 #include <QList>
 
 
-FullCache::FullCache(Cache *parent):  Cache (parent)
-  ,  m_attributes(QList<int>())
-  ,  m_attributesBool(QList<bool>())
-  ,  m_state()
+FullCache::FullCache(Cache *parent)
+    :  Cache (parent)
+    ,  m_attributes(QList<int>())
+    ,  m_attributesBool(QList<bool>())
+    ,  m_state()
 
 {
     m_networkManager = new QNetworkAccessManager(this);

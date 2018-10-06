@@ -1,8 +1,9 @@
 #include "parameter.h"
 
-Parameter::Parameter(QObject *parent) : QObject(parent)
-{
+Parameter::Parameter(QObject *parent)
+    : QObject(parent)
 
+{
 }
 
 QString Parameter::name() const

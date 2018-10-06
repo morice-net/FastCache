@@ -10,6 +10,7 @@ UserInfo::UserInfo(QObject *parent)
     , m_avatarUrl("")
     , m_premium("")
     , m_status(UserInfoStatus::Erreur)
+
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &UserInfo::onReplyFinished);

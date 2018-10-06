@@ -1,9 +1,9 @@
 #include "cachesize.h"
 
-CacheSize::CacheSize(QObject *parent):QObject(parent)
-
-  , m_sizeId("")
-  , m_sizeIdGs(-1)
+CacheSize::CacheSize(QObject *parent)
+    :QObject(parent)
+    , m_sizeId("")
+    , m_sizeIdGs(-1)
 
 {
 }

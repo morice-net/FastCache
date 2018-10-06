@@ -1,11 +1,11 @@
 #include "cachetype.h"
 
-CacheType::CacheType(QObject *parent):QObject(parent)
-
-  , m_typeId("")
-  , m_pattern("")
-  , m_markerId(-1)
-  , m_typeIdGs(-1)
+CacheType::CacheType(QObject *parent)
+    :QObject(parent)
+    , m_typeId("")
+    , m_pattern("")
+    , m_markerId(-1)
+    , m_typeIdGs(-1)
 
 {
 }
