@@ -20,16 +20,15 @@ class Cache : public QObject
     Q_PROPERTY(int tackableCount READ trackableCount WRITE setTrackableCount NOTIFY trackableCountChanged)
     Q_PROPERTY(QString owner READ owner WRITE setOwner NOTIFY ownerChanged)
     Q_PROPERTY(bool found READ found WRITE setFound NOTIFY foundChanged)
-    Q_PROPERTY(double lat READ lat WRITE setLat NOTIFY latChanged)    
+    Q_PROPERTY(double lat READ lat WRITE setLat NOTIFY latChanged)
     Q_PROPERTY(double lon READ lon WRITE setLon NOTIFY lonChanged)
-
 
 public:
     explicit  Cache(QObject *parent = nullptr);
     ~Cache();
 
     QString name() const;
-    void  setName(QString &m_name);
+    void  setName(const QString &m_name);
 
     QString  geocode()const;
     void    setGeocode(QString &m_geocode);
@@ -90,7 +89,7 @@ signals:
     void latChanged();
     void lonChanged();
 
-private:
+protected:
     QString m_name;
     QString m_geocode;
     int m_size;

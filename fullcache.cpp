@@ -7,7 +7,8 @@
 #include <QJsonArray>
 #include <QList>
 
-FullCache::FullCache(Cache *parent):  Cache (parent)  
+
+FullCache::FullCache(Cache *parent):  Cache (parent)
   ,  m_attributes(QList<int>())
   ,  m_attributesBool(QList<bool>())
   ,  m_state()
@@ -17,15 +18,15 @@ FullCache::FullCache(Cache *parent):  Cache (parent)
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &FullCache::onReplyFinished);
 }
 
-void FullCache::sendRequest( QString token){
-
+void FullCache::sendRequest( QString token)
+{
+    // Inform QML we are loading
     setState("loading");
 
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
 
     QJsonObject parameters;
     QJsonObject geocacheCode;
-
     QJsonArray geocachesCodes;
 
     geocachesCodes.append(FullCache::geocode());
@@ -47,8 +48,6 @@ void FullCache::sendRequest( QString token){
 
 void FullCache::onReplyFinished(QNetworkReply *reply)
 {
-    setState("loaded");
-
     QJsonDocument dataJsonDoc;
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
@@ -67,39 +66,37 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
 
         foreach ( const QJsonValue & v, caches)
         {
-            FullCache *cache ;
-            cache = new FullCache();
-
-            cache->setArchived(v.toObject().value("Archived").toBool());
-            cache->setDisabled(v.toObject().value("Available").toBool());
+            setArchived(v.toObject().value("Archived").toBool());
+            setDisabled(v.toObject().value("Available").toBool());
 
             QJsonObject v1 = v.toObject().value("Owner").toObject();
             QString owner = v1.value("UserName").toString();
-            cache->setOwner(owner);
+            setOwner(owner);
 
             QString date(v.toObject().value("DateCreated").toString());
-            cache->setDate(date);
+            setDate(date);
 
             QJsonObject v2 = v.toObject().value("CacheType").toObject();
             int cacheTypeId= v2.value("GeocacheTypeId").toInt();
-            cache->setType(cacheTypeId);
+            setType(cacheTypeId);
 
             QString code(v.toObject().value("Code").toString());
-            cache->setGeocode(code);
+            setGeocode(code);
 
             QJsonObject v3 = v.toObject().value("ContainerType").toObject();
             int cacheSizeId= v3.value("ContainerTypeId").toInt();
-            cache->setSize(cacheSizeId);
+            setSize(cacheSizeId);
 
-            cache->setDifficulty(v.toObject().value("Difficulty").toDouble());
-            cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
-            cache->setLat(v.toObject().value("Latitude").toDouble());
-            cache->setLon(v.toObject().value("Longitude").toDouble());
-            QString name(v.toObject().value("Name").toString());
-            cache->setName(name);
-            cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
-            cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
-            cache->setTerrain(v.toObject().value("Terrain").toDouble());
+            setDifficulty(v.toObject().value("Difficulty").toDouble());
+            setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
+            setLat(v.toObject().value("Latitude").toDouble());
+            setLon(v.toObject().value("Longitude").toDouble());
+
+            setName(v.toObject().value("Name").toString());
+
+            setTrackableCount(v.toObject().value("TrackableCount").toInt());
+            setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
+            setTerrain(v.toObject().value("Terrain").toDouble());
 
             // Attributes of cache.
             m_attributes.clear();
@@ -121,6 +118,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         qDebug() << "*** Cache ERROR ***\n" <<reply->errorString() ;
         return;
     }
+
+    // Inform the QML we are loaded
+    setState("loaded");
     return;
 }
 

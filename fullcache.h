@@ -24,10 +24,8 @@ public:
 
     QList<bool> attributesBool();
     void setAttributesBool(  QList<bool> &attributesBool);
-
     QString state() const;
     void setState(const QString &state);
-
 
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
