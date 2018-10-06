@@ -113,5 +113,6 @@
         <file>Image/attribute_wheelchair.png</file>
         <file>Image/attribute_winter.png</file>
         <file>Image/attribute_wirelessbeacon.png</file>
+        <file>QML/FastCacheDetailsPage.qml</file>
     </qresource>
 </RCC>
