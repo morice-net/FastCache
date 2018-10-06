@@ -32,35 +32,67 @@ Rectangle {
         running: fullCache.state == "loading"
     }
 
+    Text {
+        id: fastCacheHeader
+        width: parent.width
+        font.family: localFont.name
+        font.bold: true
+        horizontalAlignment: Text.AlignHCenter
+        font.pointSize: 18
+        text: fullCache.name
+        color: Palette.white()
+    }
+
     SwipeView {
         id: swipeFastCache
         visible: fullCache.state != "loading"
-        currentIndex: 1
-        anchors.fill: parent
+        currentIndex: 2
+        anchors.top: fastCacheHeader.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
 
         Item {
-            id: firstPage
+            id: waypoints
             Text {
-                id: page1Text
+                id: waypointsText
                 anchors.fill: parent
                 font.family: localFont.name
                 font.pointSize: 20
-                text: "Page 1"
+                text: "Etapes"
+                color: Palette.white()
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+            }
+        }
+
+        Item {
+            id: description
+            Text {
+                id: descriptionText
+                anchors.fill: parent
+                font.family: localFont.name
+                font.pointSize: 20
+                text: "Description"
                 color: Palette.white()
 
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
-
         }
+
+        FastCacheDetailsPage {
+            id: detailsPage
+        }
+
         Item {
-            id: secondPage
+            id: logs
             Text {
-                id: page2Text
+                id: logsText
                 anchors.fill: parent
                 font.family: localFont.name
                 font.pointSize: 20
-                text: "Page 2"
+                text: "Carnet de visite"
                 color: Palette.white()
 
                 verticalAlignment: Text.AlignVCenter
@@ -68,13 +100,13 @@ Rectangle {
             }
         }
         Item {
-            id: thirdPage
+            id: images
             Text {
-                id: page3Text
+                id: imagesText
                 anchors.fill: parent
                 font.family: localFont.name
                 font.pointSize: 20
-                text: "Page 3"
+                text: "Images"
                 color: Palette.white()
 
                 verticalAlignment: Text.AlignVCenter
@@ -92,8 +124,5 @@ Rectangle {
 
         anchors.bottom: fastCache.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-
-
     }
-
 }
