@@ -257,4 +257,22 @@ Item {
         return
     }
 
+    function  cacheType(typeGs) {
+        for (var i = 0; i < cacheTypes.types.length; i++) {
+            if(cacheTypes.types[i].typeIdGs === typeGs ){
+                return  cacheTypes.types[i].frenchPattern
+            }
+        }
+        return
+    }
+
+    function  cacheSize(sizeGs) {
+        for (var i = 0; i < cacheSizes.sizes.length; i++) {
+            if(cacheSizes.sizes[i].sizeIdGs === sizeGs ){
+                return  cacheSizes.sizes[i].frenchPattern
+            }
+        }
+        return
+    }
+
 }

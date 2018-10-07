@@ -121,7 +121,7 @@ Rectangle {
         selectedCacheSizeField.text = "Taille: ??? "
         for (var i = 0; i < cacheSizes.sizes.length; i++) {
             if(cacheSizes.sizes[i].sizeIdGs === selectedCacheVar.size ){
-                selectedCacheSizeField.text = "Taille: " + cacheSizes.sizes[i].sizeId
+                selectedCacheSizeField.text = "Taille: " + cacheSizes.sizes[i].frenchPattern
                 break;
             }
         }
