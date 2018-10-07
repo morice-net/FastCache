@@ -266,6 +266,7 @@ Item {
         return
     }
 
+
     function  cacheSize(sizeGs) {
         for (var i = 0; i < cacheSizes.sizes.length; i++) {
             if(cacheSizes.sizes[i].sizeIdGs === sizeGs ){
@@ -275,4 +276,33 @@ Item {
         return
     }
 
+    function  formatLat( lat) {
+        var latitude = "N "
+        var degrees = 0
+        var min = 0
+        if(lat<0){
+            latitude = "S "
+        }
+        degrees = Math.floor(Math.abs(lat))
+        min = (Math.abs(lat) - degrees) * 60
+        var minString = min.toString().substring(0 , 6)
+        latitude += degrees + "°" + minString + "'"
+        return latitude
+
+    }
+
+    function  formatLon( lon) {
+        var longitude = "E "
+        var degrees = 0
+        var min = 0
+        if(lon<0){
+            longitude = "O "
+        }
+        degrees = Math.floor(Math.abs(lon))
+        min = (Math.abs(lon) - degrees) * 60
+        var minString = min.toString().substring(0 , 6)
+        longitude += degrees + "°" + minString + "'"
+        return longitude
+
+    }
 }

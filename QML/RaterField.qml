@@ -8,51 +8,53 @@ Row {
     id: raterField
     property string ratingName
     property real ratingValue: 1.0
-    width: selectedCacheItem.width / 2
+    property bool reversedColor: false
+    width: parent.width / 2
     spacing: 2
     
     Text {
         font.family: localFont.name
         font.pixelSize: selectedCacheItem.height * 0.15
-        color: Palette.black()
+        color: reversedColor ? Palette.white() : Palette.black()
         text: raterField.ratingName
+        font.bold: reversedColor
     }
 
     Repeater {
         model: Math.floor(raterField.ratingValue)
         Rectangle {
-            width: selectedCacheGeocodeField.height
+            width: parent.height
             height: width
             radius: width/2
-            color: Palette.greenSea()
+            color: reversedColor ? Palette.white() : Palette.greenSea()
         }
     }
     
     Repeater {
         model: Math.ceil(raterField.ratingValue) - Math.floor(raterField.ratingValue)
         Rectangle {
-            width: selectedCacheGeocodeField.height
+            width: parent.height
             height: width
             radius: width/2
             rotation: 90
-            border.color: Palette.greenSea()
+            border.color: reversedColor ? Palette.white() : Palette.greenSea()
             gradient: Gradient {
                 GradientStop {
-                     position: 0.000
-                     color: Palette.white()
-                  }
+                    position: 0.000
+                    color: reversedColor ? Palette.silver() : Palette.white()
+                }
                 GradientStop {
-                     position: 0.500
-                     color: Palette.white()
-                  }
-                  GradientStop {
-                     position: 0.501
-                     color: Palette.greenSea()
-                  }
-                  GradientStop {
-                     position: 1
-                     color: Palette.greenSea()
-                  }
+                    position: 0.500
+                    color: reversedColor ? Palette.silver() : Palette.white()
+                }
+                GradientStop {
+                    position: 0.501
+                    color: reversedColor ? Palette.white() : Palette.greenSea()
+                }
+                GradientStop {
+                    position: 1
+                    color: reversedColor ? Palette.white() : Palette.greenSea()
+                }
             }
         }
     }
@@ -60,11 +62,11 @@ Row {
     Repeater {
         model: 5 - Math.ceil(raterField.ratingValue)
         Rectangle {
-            width: selectedCacheGeocodeField.height
+            width: raterField.height
             height: width
             radius: width/2
-            border.color: Palette.greenSea()
-            color: Palette.white()
+            border.color: reversedColor ? Palette.white() : Palette.greenSea()
+            color: reversedColor ? Palette.silver() : Palette.white()
         }
     }
 }

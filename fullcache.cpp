@@ -13,6 +13,7 @@ FullCache::FullCache(Cache *parent)
     ,  m_attributes(QList<int>())
     ,  m_attributesBool(QList<bool>())
     ,  m_state()
+    , m_location("")
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -113,6 +114,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             qDebug() << "*** attributsBool**\n" <<m_attributesBool ;
             emit attributesChanged();
             emit attributesBoolChanged();
+
+            //State
+            setLocation(v.toObject().value("State").toString());
         }
 
     }   else {
@@ -156,6 +160,17 @@ void FullCache::setState(const QString &state)
 {
     m_state = state;
     emit stateChanged();
+}
+
+QString FullCache::location() const
+{
+    return m_location;
+}
+
+void FullCache::setLocation(const QString &location)
+{
+    m_location = location;
+    emit locationChanged();
 }
 
 

@@ -29,7 +29,7 @@ Rectangle {
     BusyIndicator {
         id: busyIndicator
         anchors.centerIn: parent
-        running: fullCache.state == "loading"
+        running: fullCache.state === "loading"
     }
 
     Row {

@@ -1,6 +1,8 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
+import QtPositioning 5.2
 
+import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
@@ -101,7 +103,8 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 13
-                text: ""
+                text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
+                                                       .distanceTo(QtPositioning.coordinate(fullCache.lat, fullCache.lon))))
                 color: Palette.white()
             }
         }
@@ -117,11 +120,12 @@ Item {
                 text: "Difficulté"
                 color: Palette.silver()
             }
-            Text {
-                font.family: localFont.name
-                font.pointSize: 13
-                text: ""
-                color: Palette.white()
+
+            RaterField {
+                y: 5
+                reversedColor: true
+                ratingName: fullCache.difficulty + "  "
+                ratingValue: fullCache.difficulty
             }
         }
 
@@ -136,11 +140,12 @@ Item {
                 text: "Terrain"
                 color: Palette.silver()
             }
-            Text {
-                font.family: localFont.name
-                font.pointSize: 13
-                text: ""
-                color: Palette.white()
+
+            RaterField {
+                y: 5
+                reversedColor: true
+                ratingName: fullCache.terrain + "  "
+                ratingValue: fullCache.terrain
             }
         }
 
@@ -158,7 +163,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 13
-                text: ""
+                text: fullCache.favoritePoints
                 color: Palette.white()
             }
         }
@@ -177,7 +182,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 13
-                text: ""
+                text: fullCache.owner
                 color: Palette.white()
             }
         }
@@ -196,7 +201,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 13
-                text: ""
+                text: fullCache.location
                 color: Palette.white()
             }
         }
@@ -215,7 +220,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 13
-                text: ""
+                text: main.formatLat(fullCache.lat) + "   " + main.formatLon(fullCache.lon)
                 color: Palette.white()
             }
         }
