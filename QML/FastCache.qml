@@ -34,7 +34,8 @@ Rectangle {
 
     Row {
         id:fastCacheHeader
-        height: parent.height * 0.05
+        y: 10
+        height: parent.height * 0.02
         width: parent.width - parent.height * 0.075
         anchors.right: parent.right
         spacing: 10
@@ -49,11 +50,11 @@ Rectangle {
         }
 
         Text {
-            width: parent.width
+            width: parent.width - fastCacheHeaderIcon.width - fastCacheHeader.spacing
             font.family: localFont.name
             font.bold: true
             font.pointSize: 18
-            text: fullCache.name + " (" + fullCache.geocode +  ")"
+            text: fullCache.name
             color: Palette.white()
         }
     }
