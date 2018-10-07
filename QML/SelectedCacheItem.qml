@@ -28,7 +28,7 @@ Rectangle {
         source: "qrc:/Image/cacheList.png"
         frameCount: 15
         currentFrame: type % 15
-        width: selectedCacheNameField.height + selectedCacheGeocadeField.height + 10
+        width: selectedCacheNameField.height + selectedCacheGeocodeField.height + 10
         height: width
         anchors.margins: 10
         anchors.top: parent.top
@@ -49,7 +49,7 @@ Rectangle {
     }
 
     Text {
-        id: selectedCacheGeocadeField
+        id: selectedCacheGeocodeField
         anchors.margins: 10
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheIconField.right
@@ -75,7 +75,7 @@ Rectangle {
         id: selectedCacheDifficultyField
         anchors.topMargin: 10
         anchors.leftMargin: 20
-        anchors.top: selectedCacheGeocadeField.bottom
+        anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: parent.left
 
         ratingName: "Difficulté"
@@ -85,7 +85,7 @@ Rectangle {
     RaterField {
         id: selectedCacheTerrainField
         anchors.margins: 10
-        anchors.top: selectedCacheGeocadeField.bottom
+        anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: selectedCacheDifficultyField.right
 
         ratingName: "Terrain"

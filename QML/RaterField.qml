@@ -21,7 +21,7 @@ Row {
     Repeater {
         model: Math.floor(raterField.ratingValue)
         Rectangle {
-            width: selectedCacheGeocadeField.height
+            width: selectedCacheGeocodeField.height
             height: width
             radius: width/2
             color: Palette.greenSea()
@@ -31,7 +31,7 @@ Row {
     Repeater {
         model: Math.ceil(raterField.ratingValue) - Math.floor(raterField.ratingValue)
         Rectangle {
-            width: selectedCacheGeocadeField.height
+            width: selectedCacheGeocodeField.height
             height: width
             radius: width/2
             rotation: 90
@@ -60,7 +60,7 @@ Row {
     Repeater {
         model: 5 - Math.ceil(raterField.ratingValue)
         Rectangle {
-            width: selectedCacheGeocadeField.height
+            width: selectedCacheGeocodeField.height
             height: width
             radius: width/2
             border.color: Palette.greenSea()
