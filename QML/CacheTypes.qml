@@ -9,7 +9,7 @@ Item {
     CacheType {
         id: seventeenthType
         typeId: "block"
-        pattern: "fête locale Groundspeak"
+        frenchPattern: "fête locale Groundspeak"
         markerId: 6
         typeIdGs: 4738
         Component.onCompleted: {
@@ -20,7 +20,7 @@ Item {
     CacheType {
         id: sixteenthType
         typeId: "gps"
-        pattern: "GPS Adventures Exhibit"
+        frenchPattern: "GPS Adventures Exhibit"
         markerId: 6
         typeIdGs: 1304
         Component.onCompleted: {
@@ -31,7 +31,7 @@ Item {
     CacheType {
         id: fifteenthType
         typeId: "lostfound"
-        pattern: "Evènement perdu & trouvé"
+        frenchPattern: "Evènement perdu & trouvé"
         markerId: 6
         typeIdGs: 3653
         Component.onCompleted: {
@@ -42,7 +42,7 @@ Item {
     CacheType {
         id: fourteenthType
         typeId: "gchq"
-        pattern: "Siège de Groundspeak"
+        frenchPattern: "Siège de Groundspeak"
         markerId: 13
         typeIdGs: 3773
         Component.onCompleted: {
@@ -53,7 +53,7 @@ Item {
     CacheType {
         id: thirteenthType
         typeId: "wherigo"
-        pattern: "Wherigo"
+        frenchPattern: "Wherigo"
         markerId: 12
         typeIdGs: 1858
         Component.onCompleted: {
@@ -64,7 +64,7 @@ Item {
     CacheType {
         id: twelfthType
         typeId: "webcam"
-        pattern: "Webcam"
+        frenchPattern: "Webcam"
         markerId: 11
         typeIdGs: 11
         Component.onCompleted: {
@@ -75,7 +75,7 @@ Item {
     CacheType {
         id: eleventhType
         typeId: "virtual"
-        pattern: "Virtuelle"
+        frenchPattern: "Virtuelle"
         markerId: 10
         typeIdGs: 4
         Component.onCompleted: {
@@ -86,7 +86,7 @@ Item {
     CacheType {
         id: tenthType
         typeId: "mega"
-        pattern: "Méga-Evènement"
+        frenchPattern: "Méga-Evènement"
         markerId: 9
         typeIdGs: 453
         Component.onCompleted: {
@@ -97,7 +97,7 @@ Item {
     CacheType {
         id: ninthType
         typeId: "letterbox"
-        pattern: "Boîte aux lettres hybride"
+        frenchPattern: "Boîte aux lettres hybride"
         markerId: 8
         typeIdGs: 5
         Component.onCompleted: {
@@ -108,7 +108,7 @@ Item {
     CacheType {
         id: eighthType
         typeId: "giga"
-        pattern: "Giga-Evènement"
+        frenchPattern: "Giga-Evènement"
         markerId: 7
         typeIdGs: 7005
         Component.onCompleted: {
@@ -119,7 +119,7 @@ Item {
     CacheType {
         id: seventhType
         typeId: "event"
-        pattern: "Evènement"
+        frenchPattern: "Evènement"
         markerId: 6
         typeIdGs: 6
         Component.onCompleted: {
@@ -130,7 +130,7 @@ Item {
     CacheType {
         id: sixthType
         typeId: "ape"
-        pattern: "Project ape cache"
+        frenchPattern: "Project ape cache"
         markerId: 5
         typeIdGs: 9
         Component.onCompleted: {
@@ -141,7 +141,7 @@ Item {
     CacheType {
         id: fifthType
         typeId: "cito"
-        pattern: "Cito"
+        frenchPattern: "Cito"
         markerId: 4
         typeIdGs: 13
         Component.onCompleted: {
@@ -152,7 +152,7 @@ Item {
     CacheType {
         id: fourthType
         typeId: "earth"
-        pattern: "Earthcache"
+        frenchPattern: "Earthcache"
         markerId: 3
         typeIdGs: 137
         Component.onCompleted: {
@@ -163,7 +163,7 @@ Item {
     CacheType {
         id: thirdType
         typeId: "multi"
-        pattern: "Multiple"
+        frenchPattern: "Multiple"
         markerId: 2
         typeIdGs: 3
         Component.onCompleted: {
@@ -174,7 +174,7 @@ Item {
     CacheType {
         id: secondType
         typeId: "mystery"
-        pattern: "Mystère"
+        frenchPattern: "Mystère"
         markerId: 1
         typeIdGs: 8
         Component.onCompleted: {
@@ -185,7 +185,7 @@ Item {
     CacheType {
         id: firstType
         typeId: "traditional"
-        pattern: "Traditionnelle"
+        frenchPattern: "Traditionnelle"
         markerId: 0
         typeIdGs: 2
         Component.onCompleted: {

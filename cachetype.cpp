@@ -3,7 +3,7 @@
 CacheType::CacheType(QObject *parent)
     :QObject(parent)
     , m_typeId("")
-    , m_pattern("")
+    , m_frenchPattern("")
     , m_markerId(-1)
     , m_typeIdGs(-1)
 
@@ -21,21 +21,21 @@ QString CacheType::typeId() const
     return m_typeId;
 }
 
-void CacheType::setTypeId(QString &id)
+void CacheType::setTypeId(const QString &typeId)
 {
-    m_typeId = id;
+    m_typeId = typeId;
     emit typeIdChanged();
 }
 
-QString CacheType::pattern() const
+QString CacheType::frenchPattern() const
 {
-    return m_pattern;
+    return m_frenchPattern;
 }
 
-void CacheType::setPattern(QString &pattern)
+void CacheType::setFrenchPattern(const QString &pattern)
 {
-    m_pattern = pattern;
-    emit patternChanged();
+    m_frenchPattern = pattern;
+    emit frenchPatternChanged();
 }
 
 int CacheType::markerId() const
@@ -43,7 +43,7 @@ int CacheType::markerId() const
     return m_markerId;
 }
 
-void CacheType::setMarkerId(int &markerId)
+void CacheType::setMarkerId(const int &markerId)
 {
     m_markerId = markerId;
     emit markerIdChanged();
@@ -54,7 +54,7 @@ int CacheType::typeIdGs() const
     return m_typeIdGs;
 }
 
-void CacheType::setTypeIdGs(int &typeIdGs)
+void CacheType::setTypeIdGs(const int &typeIdGs)
 {
     m_typeIdGs = typeIdGs;
     emit typeIdGsChanged();
