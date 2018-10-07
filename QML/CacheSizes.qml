@@ -8,7 +8,7 @@ Item {
 
     CacheSize {
         id: eighthSize
-        sizeId: "Inconnue"
+        frenchPattern: "Inconnue"
         sizeIdGs: 9
         Component.onCompleted: {
             sizes.push(eighthSize)
@@ -17,7 +17,7 @@ Item {
 
     CacheSize {
         id: seventhSize
-        sizeId: "Autre"
+        frenchPattern: "Autre"
         sizeIdGs: 7
         Component.onCompleted: {
             sizes.push(seventhSize)
@@ -26,7 +26,7 @@ Item {
 
     CacheSize {
         id: sixthSize
-        sizeId: "Virtuelle"
+        frenchPattern: "Virtuelle"
         sizeIdGs: 5
         Component.onCompleted: {
             sizes.push(sixthSize)
@@ -35,7 +35,7 @@ Item {
 
     CacheSize {
         id: fifthSize
-        sizeId: "Non renseignée"
+        frenchPattern: "Non renseignée"
         sizeIdGs: 6
         Component.onCompleted: {
             sizes.push(fifthSize)
@@ -44,7 +44,7 @@ Item {
 
     CacheSize {
         id: fourthSize
-        sizeId: "Grande"
+        frenchPattern: "Grande"
         sizeIdGs: 4
         Component.onCompleted: {
             sizes.push(fourthSize)
@@ -53,7 +53,7 @@ Item {
 
     CacheSize {
         id: thirdSize
-        sizeId: "Normale"
+        frenchPattern: "Normale"
         sizeIdGs: 3
         Component.onCompleted: {
             sizes.push(thirdSize)
@@ -62,7 +62,7 @@ Item {
 
     CacheSize {
         id: secondSize
-        sizeId: "Petite"
+        frenchPattern: "Petite"
         sizeIdGs: 8
         Component.onCompleted: {
             sizes.push(secondSize)
@@ -71,7 +71,7 @@ Item {
 
     CacheSize {
         id: firstSize
-        sizeId: "Micro"
+        frenchPattern: "Micro"
         sizeIdGs: 2
         Component.onCompleted: {
             sizes.push(firstSize)

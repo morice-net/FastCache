@@ -8,26 +8,26 @@ class CacheSize : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString sizeId READ sizeId WRITE setSizeId NOTIFY sizeIdChanged)
+    Q_PROPERTY(QString frenchPattern READ frenchPattern WRITE setFrenchPattern NOTIFY frenchPatternChanged)
     Q_PROPERTY(int sizeIdGs READ sizeIdGs WRITE setSizeIdGs NOTIFY sizeIdGsChanged)
 
 public:
     explicit  CacheSize(QObject *parent = nullptr);
     ~CacheSize();
 
-    QString sizeId() const;
-    void  setSizeId(QString &m_sizeId);
+    QString frenchPattern() const;
+    void  setFrenchPattern(const QString &french);
 
     int  sizeIdGs()const;
-    void    setSizeIdGs(int &m_sizeIdGs);
+    void    setSizeIdGs(const int &sizeIdGs);
 
 
 signals:
-    void sizeIdChanged();
+    void frenchPatternChanged();
     void sizeIdGsChanged();
 
 private:
-    QString m_sizeId;
+    QString m_frenchPattern;
     int m_sizeIdGs;
 
 };
