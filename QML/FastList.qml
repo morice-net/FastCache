@@ -72,7 +72,6 @@ Rectangle {
         }
     }
 
-
     function modelState() {
         if(main.cachesActive){
             return  cachesBBox.caches

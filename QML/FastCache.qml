@@ -42,7 +42,8 @@ Rectangle {
 
         AnimatedSprite {
             id: fastCacheHeaderIcon
-            scale: 1.3
+            scale: 1.6
+            y:10
             paused: true
             source: "qrc:/Image/cacheList.png"
             frameCount: 15

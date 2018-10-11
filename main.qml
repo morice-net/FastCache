@@ -113,6 +113,10 @@ Item {
         }
     }
 
+    CacheAttributes {
+        id: cacheAttributes
+    }
+
     CacheTypes {
         id: cacheTypes
     }
@@ -279,14 +283,13 @@ Item {
     function  formatLat( lat) {
         var latitude = "N "
         var degrees = 0
-        var min = 0
+        var min = 0.0
         if(lat<0){
             latitude = "S "
         }
         degrees = Math.floor(Math.abs(lat))
         min = (Math.abs(lat) - degrees) * 60
-        var minString = min.toString().substring(0 , 6)
-        latitude += degrees + "°" + minString + "'"
+        latitude += degrees + "°" + min.toFixed(3) + "'"
         return latitude
 
     }
@@ -294,15 +297,13 @@ Item {
     function  formatLon( lon) {
         var longitude = "E "
         var degrees = 0
-        var min = 0
+        var min = 0.0
         if(lon<0){
             longitude = "O "
         }
         degrees = Math.floor(Math.abs(lon))
         min = (Math.abs(lon) - degrees) * 60
-        var minString = min.toString().substring(0 , 6)
-        longitude += degrees + "°" + minString + "'"
+        longitude += degrees + "°" + min.toFixed(3) + "'"
         return longitude
-
     }
 }
