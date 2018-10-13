@@ -232,19 +232,68 @@ Item {
             height: 2
             color: Palette.white()
             radius:10
-
         }
 
-        Row {
+        Rectangle {
+            anchors.top:separator.anchors.bottom
             width: parent.width
-            spacing: 2
+            height:width/5
+            color: Palette.greenSea()
+            visible: true
 
-            Repeater {
-                model:8
-                Image {
-                    source: "qrc:/Image/" + cacheAttributes.attributes[fullCache.attributes[index]-1].icon
+            // attributes of caches(icons).
+
+            Grid {
+                id:attIcons
+                x:5
+                visible: true
+                width: parent.width
+                columns:10
+                spacing: 2
+                Repeater {
+                    model:fullCache.attributes.length
+
+                    Image {
+                        source:"qrc:/Image/" + cacheAttributes.attributes[fullCache.attributes[index]-1].icon
+                        Image {
+                            source:"qrc:/Image/" + "attribute_no.png"
+                            visible: !fullCache.attributesBool[index]
+                        }
+                    }
+                }
+
+            }
+
+            // attributes of caches(icons).
+
+            Column {
+                id:attText
+                x:5
+                width: parent.width
+                visible:false
+
+                Repeater {
+                    model:fullCache.attributes.length
+
+                    Text {
+                        text:fullCache.attributesBool[index] ? cacheAttributes.attributes[fullCache.attributes[index]-1].textYes
+                                                             : cacheAttributes.attributes[fullCache.attributes[index]-1].textNo
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        attIcons.visible = ! attIcons.visible ;
+                        attText.visiblẹ = ! attText.visible ;
+                    }
                 }
             }
+
+
         }
     }
 }
+
+
+

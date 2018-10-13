@@ -18,7 +18,7 @@ class FullCache : public Cache
 public:
     explicit FullCache(Cache *parent = nullptr);
 
-    Q_INVOKABLE void sendRequest(QString token) ;
+    Q_INVOKABLE void sendRequest(QString token);
 
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);

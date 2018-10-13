@@ -118,5 +118,6 @@
         <file>QML/FastCacheDescriptionPage.qml</file>
         <file>QML/FastCacheLogsPage.qml</file>
         <file>QML/FastCacheImagesPage.qml</file>
+        <file>Image/attribute_no.png</file>
     </qresource>
 </RCC>

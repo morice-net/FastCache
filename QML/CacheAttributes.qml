@@ -567,13 +567,13 @@ Item {
     }
 
     CacheAttribute {
-        id:nothing
+        id:no
         gcId: 16
         textYes: ""
         textNo: ""
-        icon: ""
+        icon:"attribute_no.png"
         Component.onCompleted: {
-            attributes.push(nothing)
+            attributes.push(no)
         }
     }
 
