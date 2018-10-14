@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     view.setWidth(450);
     view.setHeight(840);
     view.show();
+    QObject::connect((QObject*)view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
     return app.exec();
 }
