@@ -14,6 +14,7 @@ class FullCache : public Cache
     Q_PROPERTY(QList<int> attributes READ attributes WRITE setAttributes NOTIFY attributesChanged)
     Q_PROPERTY(QList<bool> attributesBool READ attributesBool WRITE setAttributesBool NOTIFY attributesBoolChanged)
     Q_PROPERTY(QString location READ location WRITE setLocation NOTIFY locationChanged)
+    Q_PROPERTY(bool favorited READ favorited WRITE setFavorited NOTIFY favoritedChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -32,6 +33,9 @@ public:
     QString location() const;
     void setLocation(const QString &location);
 
+    bool favorited() const;
+    void setFavorited(const bool &favor);
+
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -40,6 +44,7 @@ signals:
     void attributesChanged();
     void attributesBoolChanged();
     void locationChanged();
+    void favoritedChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -56,6 +61,7 @@ private:
 
     QString m_state;
     QString m_location;
+    bool m_favorited;
 };
 
 #endif // FULLCACHE_H

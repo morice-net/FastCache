@@ -226,6 +226,15 @@ Item {
             }
         }
 
+        Text {
+            x:10
+            width: parent.width
+            font.family: localFont.name
+            font.pointSize: 14
+            text:fullCache.favorited ? "Cette cache est dans vos favoris": "Cette cache n'est pas dans vos favoris"
+            color: Palette.white()
+        }
+
         Rectangle {
             id: separator
             width: parent.width
@@ -235,6 +244,7 @@ Item {
         }
 
         Rectangle {
+            id:rect
             anchors.top:separator.anchors.bottom
             width: parent.width
             height:width/5
@@ -245,30 +255,32 @@ Item {
 
             Grid {
                 id:attIcons
-                x:5
+                x:10
+                y:10
                 visible: true
                 width: parent.width
                 columns:10
-                spacing: 2
+                spacing: 17
                 Repeater {
                     model:fullCache.attributes.length
 
                     Image {
+                        scale:1.3
                         source:"qrc:/Image/" + cacheAttributes.attributes[fullCache.attributes[index]-1].icon
                         Image {
+
                             source:"qrc:/Image/" + "attribute_no.png"
                             visible: !fullCache.attributesBool[index]
                         }
                     }
                 }
-
             }
 
             // attributes of caches(icons).
 
             Column {
                 id:attText
-                x:5
+                x:10
                 width: parent.width
                 visible:false
 
@@ -278,19 +290,20 @@ Item {
                     Text {
                         text:fullCache.attributesBool[index] ? cacheAttributes.attributes[fullCache.attributes[index]-1].textYes
                                                              : cacheAttributes.attributes[fullCache.attributes[index]-1].textNo
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        attIcons.visible = ! attIcons.visible ;
-                        attText.visiblẹ = ! attText.visible ;
+                        font.family: localFont.name
+                        font.pointSize: 14
+                        color: Palette.white()
                     }
                 }
             }
 
-
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    attIcons.visible = ! attIcons.visible ;
+                    attText.visiblẹ = ! attText.visible ;
+                }
+            }
         }
     }
 }

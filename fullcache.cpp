@@ -14,6 +14,7 @@ FullCache::FullCache(Cache *parent)
     ,  m_attributesBool(QList<bool>())
     ,  m_state()
     , m_location("")
+    , m_favorited(false)
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -117,6 +118,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
 
             //State
             setLocation(v.toObject().value("State").toString());
+
+            // Favorited
+            setFavorited(v.toObject().value("HasbeenFavoritedbyUser").toBool());
         }
 
     }   else {
@@ -172,6 +176,19 @@ void FullCache::setLocation(const QString &location)
     m_location = location;
     emit locationChanged();
 }
+
+bool FullCache::favorited() const
+{
+    return m_favorited;
+}
+
+void FullCache::setFavorited(const bool &favor)
+{
+    m_favorited = favor;
+    emit favoritedChanged();
+}
+
+
 
 
 
