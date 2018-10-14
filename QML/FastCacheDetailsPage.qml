@@ -247,7 +247,7 @@ Item {
             id:rect
             anchors.top:separator.anchors.bottom
             width: parent.width
-            height:width/5
+            height:attIcons.visible ? attIcons.height : attText.height
             color: Palette.greenSea()
             visible: true
 
@@ -282,7 +282,7 @@ Item {
                 id:attText
                 x:10
                 width: parent.width
-                visible:false
+                visible:!attIcons.visible
 
                 Repeater {
                     model:fullCache.attributes.length
@@ -301,7 +301,6 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     attIcons.visible = ! attIcons.visible ;
-                    attText.visiblẹ = ! attText.visible ;
                 }
             }
         }
