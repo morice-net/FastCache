@@ -15,6 +15,10 @@ class FullCache : public Cache
     Q_PROPERTY(QList<bool> attributesBool READ attributesBool WRITE setAttributesBool NOTIFY attributesBoolChanged)
     Q_PROPERTY(QString location READ location WRITE setLocation NOTIFY locationChanged)
     Q_PROPERTY(bool favorited READ favorited WRITE setFavorited NOTIFY favoritedChanged)
+    Q_PROPERTY(QString longDescription READ longDescription WRITE setLongDescription NOTIFY longDescriptionChanged)
+    Q_PROPERTY(bool longDescriptionIsHtml READ longDescriptionIsHtml WRITE setLongDescriptionIsHtml NOTIFY longDescriptionIsHtmlChanged)
+    Q_PROPERTY(QString shortDescription READ shortDescription WRITE setShortDescription NOTIFY shortDescriptionChanged)
+    Q_PROPERTY(bool shortDescriptionIsHtml READ shortDescriptionIsHtml WRITE setShortDescriptionIsHtml NOTIFY shortDescriptionIsHtmlChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -36,6 +40,18 @@ public:
     bool favorited() const;
     void setFavorited(const bool &favor);
 
+    QString longDescription() const;
+    void setLongDescription(const QString &description);
+
+    QString shortDescription() const;
+    void setShortDescription(const QString &description);
+
+    bool longDescriptionIsHtml() const;
+    void setLongDescriptionIsHtml(const bool &html);
+
+    bool shortDescriptionIsHtml() const;
+    void setShortDescriptionIsHtml(const bool &html);
+
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -45,6 +61,10 @@ signals:
     void attributesBoolChanged();
     void locationChanged();
     void favoritedChanged();
+    void longDescriptionChanged();
+    void shortDescriptionChanged();
+    void longDescriptionIsHtmlChanged();
+    void shortDescriptionIsHtmlChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -62,6 +82,10 @@ private:
     QString m_state;
     QString m_location;
     bool m_favorited;
+    QString m_longDescription;
+    QString m_shortDescription;
+    bool m_longDescriptionIsHtml;
+    bool m_shortDescriptionIsHtml;
 };
 
 #endif // FULLCACHE_H

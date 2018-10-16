@@ -15,6 +15,10 @@ FullCache::FullCache(Cache *parent)
     ,  m_state()
     , m_location("")
     , m_favorited(false)
+    , m_longDescription("")
+    , m_shortDescription("")
+    , m_longDescriptionIsHtml(false)
+    , m_shortDescriptionIsHtml(false)
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -121,6 +125,14 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
 
             // Favorited
             setFavorited(v.toObject().value("HasbeenFavoritedbyUser").toBool());
+
+            // Short description
+            setShortDescriptionIsHtml(v.toObject().value("ShortDescriptionIsHtml").toBool());
+            setShortDescription(v.toObject().value("ShortDescription").toString());
+
+            // Long description
+            setLongDescriptionIsHtml(v.toObject().value("LongDescriptionIsHtml").toBool());
+            setLongDescription(v.toObject().value("LongDescription").toString());
         }
 
     }   else {
@@ -188,10 +200,49 @@ void FullCache::setFavorited(const bool &favor)
     emit favoritedChanged();
 }
 
+QString FullCache::longDescription() const
+{
+    return m_longDescription;
+}
 
+void FullCache::setLongDescription(const QString &description)
+{
+    m_longDescription = description;
+    emit longDescriptionChanged();
+}
 
+QString FullCache::shortDescription() const
+{
+    return m_shortDescription;
+}
 
+void FullCache::setShortDescription(const QString &description)
+{
+    m_shortDescription = description;
+    emit shortDescriptionChanged();
+}
 
+bool FullCache::longDescriptionIsHtml() const
+{
+    return m_longDescriptionIsHtml;
+}
+
+void FullCache::setLongDescriptionIsHtml(const bool &html)
+{
+    m_longDescriptionIsHtml = html;
+    emit longDescriptionIsHtmlChanged();
+}
+
+bool FullCache::shortDescriptionIsHtml() const
+{
+    return m_shortDescriptionIsHtml;
+}
+
+void FullCache::setShortDescriptionIsHtml(const bool &html)
+{
+    m_shortDescriptionIsHtml = html;
+    emit shortDescriptionIsHtmlChanged();
+}
 
 
 
