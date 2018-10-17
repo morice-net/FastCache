@@ -19,6 +19,7 @@ FullCache::FullCache(Cache *parent)
     , m_shortDescription("")
     , m_longDescriptionIsHtml(false)
     , m_shortDescriptionIsHtml(false)
+    , m_hints("")
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -133,6 +134,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             // Long description
             setLongDescriptionIsHtml(v.toObject().value("LongDescriptionIsHtml").toBool());
             setLongDescription(v.toObject().value("LongDescription").toString());
+
+            // Hints
+            setHints(v.toObject().value("EncodedHints").toString());
         }
 
     }   else {
@@ -243,6 +247,18 @@ void FullCache::setShortDescriptionIsHtml(const bool &html)
     m_shortDescriptionIsHtml = html;
     emit shortDescriptionIsHtmlChanged();
 }
+
+QString FullCache::hints() const
+{
+    return m_hints;
+}
+
+void FullCache::setHints(const QString &hint)
+{
+    m_hints = hint;
+    emit hintsChanged();
+}
+
 
 
 
