@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.4
+import QtQuick.Controls 2.1
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
@@ -61,7 +61,18 @@ Item {
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: fullCache.hints
+                text: "****** *** ****** ********** *** ******** **********"
+
+                MouseArea {
+                    id: hintArea
+                    anchors.fill: parent
+                    onClicked: {
+                        if (tools.beginsWith(hint.text, "**"))
+                            hint.text = fullCache.hints
+                        else
+                            hint.text = "****** *** ****** ********** *** ******** **********"
+                    }
+                }
             }
         }
 
