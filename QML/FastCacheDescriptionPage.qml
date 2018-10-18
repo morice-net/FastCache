@@ -6,7 +6,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: descriptionPage
-
+    height: swipeFastCache.height
     Flickable {
         id: longDescription
         anchors.fill: parent
@@ -14,34 +14,36 @@ Item {
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        TextArea.flickable:
+        Column {
+            width: descriptionPage.width
             TextArea {
-            font.family: localFont.name
-            font.pointSize: 14
-            color: Palette.white()
-            textFormat: Qt.AutoText
-            wrapMode: TextArea.Wrap
-            readOnly: true
-            persistentSelection: true
-            leftPadding: 15
-            rightPadding: 15
-            topPadding: 15
-            onLinkActivated: Qt.openUrlExternally(link)
-            text: fullCache.longDescription;
-
+                width: parent.width
+                font.family: localFont.name
+                font.pointSize: 14
+                color: Palette.white()
+                textFormat: Qt.AutoText
+                wrapMode: TextArea.Wrap
+                readOnly: true
+                persistentSelection: true
+                leftPadding: 15
+                rightPadding: 15
+                topPadding: 15
+                onLinkActivated: Qt.openUrlExternally(link)
+                text: fullCache.longDescription
+            }
             Rectangle {
-                id: separator
-                y:parent.height+20
+                id: separator1
+
                 width: parent.width
                 height: 2
                 color: Palette.white()
                 radius:10
             }
 
-            Text {
+            TextArea {
                 id:ind
                 width: parent.width
-                y:separator.y + 10
+                y:separator1.y + 10
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
@@ -74,20 +76,34 @@ Item {
                     }
                 }
             }
-        }
+            Rectangle {
+                id: separator2
 
-        Rectangle {
-            id: separator1
-            y:hint.y + hint.height + 10
-            width: parent.width
-            height: 2
-            color: Palette.white()
-            radius:10
-        }
+                width: parent.width
+                height: 2
+                color: Palette.white()
+                radius:10
+            }
 
+            TextArea {
+                id: bonjour
+                width: parent.width
+
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 14
+                text: "B\nO\nN\nJ\nO\nU\nR"
+                color: Palette.silver()
+            }
+        }
+    }
+    Rectangle {
+        id: separator3
+        y:hint.y + hint.height + 10
+        width: parent.width
+        height: 2
+        color: Palette.white()
+        radius:10
     }
 }
-
-
-
 
