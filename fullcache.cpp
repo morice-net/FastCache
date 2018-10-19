@@ -20,6 +20,7 @@ FullCache::FullCache(Cache *parent)
     , m_longDescriptionIsHtml(false)
     , m_shortDescriptionIsHtml(false)
     , m_hints("")
+    , m_note("")
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -137,6 +138,13 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
 
             // Hints
             setHints(v.toObject().value("EncodedHints").toString());
+
+            // Note
+            m_note = "";
+            if ( !v.toObject().value("GeocacheNote").toString().isNull()) {
+                setNote(v.toObject().value("GeocacheNote").toString());
+            }
+
         }
 
     }   else {
@@ -257,6 +265,17 @@ void FullCache::setHints(const QString &hint)
 {
     m_hints = hint;
     emit hintsChanged();
+}
+
+QString FullCache::note() const
+{
+    return m_note;
+}
+
+void FullCache::setNote(const QString &note)
+{
+    m_note = note;
+    emit noteChanged();
 }
 
 

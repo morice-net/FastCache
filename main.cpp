@@ -15,6 +15,7 @@
 #include "cache.h"
 #include "fullcache.h"
 #include "cacheattribute.h"
+#include "sendcachenote.h"
 
 int main(int argc, char *argv[])
 {
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheType>("com.mycompany.connecting", 1, 0, "CacheType");
     qmlRegisterType<CacheSize>("com.mycompany.connecting", 1, 0, "CacheSize");
     qmlRegisterType<CacheAttribute>("com.mycompany.connecting", 1, 0, "CacheAttribute");
+    qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID

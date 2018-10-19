@@ -7,6 +7,11 @@ import com.mycompany.connecting 1.0
 Item {
     id: descriptionPage
     height: swipeFastCache.height
+
+    SendCacheNote{
+        id:sendCacheNote
+    }
+
     Flickable {
         id: longDescription
         anchors.fill: parent
@@ -27,13 +32,13 @@ Item {
                 persistentSelection: true
                 leftPadding: 15
                 rightPadding: 15
-                topPadding: 15
+                topPadding: 25
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: fullCache.longDescription
             }
+
             Rectangle {
                 id: separator1
-
                 width: parent.width
                 height: 2
                 color: Palette.white()
@@ -47,6 +52,7 @@ Item {
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
+                readOnly: true
                 text: "INDICE"
                 color: Palette.silver()
             }
@@ -76,9 +82,9 @@ Item {
                     }
                 }
             }
+
             Rectangle {
                 id: separator2
-
                 width: parent.width
                 height: 2
                 color: Palette.white()
@@ -86,24 +92,74 @@ Item {
             }
 
             TextArea {
-                id: bonjour
+                id: note
                 width: parent.width
-
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
-                text: "B\nO\nN\nJ\nO\nU\nR"
+                text: "NOTE PERSONNELLE "
+                readOnly: true
                 color: Palette.silver()
+            }
+
+            TextArea {
+                id: personalNote
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 14
+                text: fullCache.note
+                color: Palette.white()
+            }
+
+            Button {
+                id:buttonDel
+                contentItem: Text {
+                    text:"Effacer"
+                    font.family: localFont.name
+                    font.pixelSize: 28
+                    color: Palette.turquoise()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+                background: Rectangle {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    opacity: 0.9
+                    border.color: Palette.greenSea()
+                    border.width: 1
+                    radius: 10
+                }
+                onClicked: {
+                    personalNote.text = ""
+                }
+
+                Button {
+                    id:buttonSend
+                    anchors.left: buttonDel.right
+                    contentItem: Text {
+                        text:"Envoyer"
+                        font.family: localFont.name
+                        font.pixelSize: 28
+                        color: Palette.turquoise()
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                    background: Rectangle {
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        opacity: 0.9
+                        border.color: Palette.greenSea()
+                        border.width: 1
+                        radius: 10
+                    }
+                    onClicked: {
+
+                        sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode ,personalNote.text )
+
+                    }
+                }
             }
         }
     }
-    Rectangle {
-        id: separator3
-        y:hint.y + hint.height + 10
-        width: parent.width
-        height: 2
-        color: Palette.white()
-        radius:10
-    }
 }
-

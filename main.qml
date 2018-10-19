@@ -164,7 +164,7 @@ Item {
     }
 
     Keys.onPressed: {
-        if (event.key == Qt.Key_Escape || event.key == Qt.Key_Back) {
+        if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
             if (main.viewState == "fullcache" || main.viewState == "list")
                 main.viewState = "map"
             else

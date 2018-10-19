@@ -20,6 +20,7 @@ class FullCache : public Cache
     Q_PROPERTY(QString shortDescription READ shortDescription WRITE setShortDescription NOTIFY shortDescriptionChanged)
     Q_PROPERTY(bool shortDescriptionIsHtml READ shortDescriptionIsHtml WRITE setShortDescriptionIsHtml NOTIFY shortDescriptionIsHtmlChanged)
     Q_PROPERTY(QString hints READ hints WRITE setHints NOTIFY hintsChanged)
+    Q_PROPERTY(QString note READ note WRITE setNote NOTIFY noteChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -56,6 +57,9 @@ public:
     QString hints() const;
     void setHints(const QString &hint);
 
+    QString note() const;
+    void setNote(const QString &note);
+
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -70,6 +74,7 @@ signals:
     void longDescriptionIsHtmlChanged();
     void shortDescriptionIsHtmlChanged();
     void hintsChanged();
+    void noteChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -92,6 +97,7 @@ private:
     bool m_longDescriptionIsHtml;
     bool m_shortDescriptionIsHtml;
     QString m_hints;
+    QString m_note;
 };
 
 #endif // FULLCACHE_H
