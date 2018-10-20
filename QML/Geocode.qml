@@ -12,39 +12,25 @@ import "JavaScript/Palette.js" as Palette
 
 Popup {
     id: geocode
-
+    x: parent.height * 0.05 + 10
+    y: parent.height * 0.05 + 10
     opacity: 0
     background: Rectangle {
-        x:20
-        y:20
-        implicitWidth: main.width*0.8
-        implicitHeight:main.height*0.42
-        color:Palette.turquoise()
+        anchors.fill: parent
+        implicitWidth: main.width*0.7
+        implicitHeight:main.height*0.32
+        color: Palette.turquoise()
         border.color: Palette.greenSea()
         border.width: 1
-        opacity:0.9
-        radius: 10
-    }
-
-    ColumnLayout {
-        id: tabRectangle
-        y: 20        
-        anchors.rightMargin: 0
-        anchors.leftMargin: 0
-        anchors.left: parent.left
-        anchors.right: parent.right
+        opacity:0.8
+        radius: 5
     }
 
     Item {
         id: item2
-        anchors.rightMargin: 20
-        anchors.leftMargin: 20
-        anchors.bottomMargin: 20
-        anchors.topMargin: 10
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: tabRectangle.bottom
+        anchors.margins: 5
+
+        anchors.fill: parent
 
         GridLayout {
             id: gridLayout3
@@ -68,9 +54,9 @@ Popup {
                 id: street
                 Layout.fillWidth: true
                 background: Rectangle {
-                    implicitWidth: main.width/2.2
-                    radius:10
-                    border.color: street.focus ? Palette.black() :Palette.turquoise()
+                    implicitWidth: parent.width - label2.width
+                    radius:5
+                    border.color: street.focus ? Palette.white() :Palette.turquoise()
                 }
                 font.family: localFont.name
             }
@@ -86,9 +72,9 @@ Popup {
                 id: city
                 Layout.fillWidth: true
                 background: Rectangle {
-                    implicitWidth: main.width/2.2
-                    radius:10
-                    border.color: city.focus ? Palette.black() :Palette.turquoise()
+                    implicitWidth: parent.width - label2.width
+                    radius:5
+                    border.color: street.focus ? Palette.white() :Palette.turquoise()
                 }
                 font.family: localFont.name
             }
@@ -104,9 +90,9 @@ Popup {
                 id: stateName
                 Layout.fillWidth: true
                 background: Rectangle {
-                    implicitWidth: main.width/2.2
-                    radius:10
-                    border.color: stateName.focus ? Palette.black() :Palette.turquoise()
+                    implicitWidth: parent.width - label2.width
+                    radius:5
+                    border.color: street.focus ? Palette.white() :Palette.turquoise()
                 }
             }
 
@@ -121,9 +107,9 @@ Popup {
                 id: country
                 Layout.fillWidth: true
                 background: Rectangle {
-                    implicitWidth: main.width/2.2
-                    radius:10
-                    border.color: country.focus ? Palette.black() :Palette.turquoise()
+                    implicitWidth: parent.width - label2.width
+                    radius:5
+                    border.color: street.focus ? Palette.white() :Palette.turquoise()
                 }
                 font.family: localFont.name
             }
@@ -139,9 +125,9 @@ Popup {
                 id: postalCode
                 Layout.fillWidth: true
                 background: Rectangle {
-                    implicitWidth: main.width/2.2
-                    radius:10
-                    border.color: postalCode.focus ? Palette.black() :Palette.turquoise()
+                    implicitWidth: parent.width - label2.width
+                    radius:5
+                    border.color: street.focus ? Palette.white() :Palette.turquoise()
                 }
                 font.family: localFont.name
             }
@@ -156,8 +142,8 @@ Popup {
                     text: qsTr("Ok")
                     background: Rectangle {
                         anchors.fill: parent
-                        anchors.margins: 5
                         opacity: 0.9
+                        color: Palette.white()
                         border.color: Palette.greenSea()
                         border.width: 1
                         radius: 5
@@ -178,8 +164,8 @@ Popup {
                     text: qsTr("Effacer")
                     background: Rectangle {
                         anchors.fill: parent
-                        anchors.margins: 5
                         opacity: 0.9
+                        color: Palette.white()
                         border.color: Palette.greenSea()
                         border.width: 1
                         radius: 5
