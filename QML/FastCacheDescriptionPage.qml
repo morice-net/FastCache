@@ -75,12 +75,14 @@ Item {
                     id: hintArea
                     anchors.fill: parent
                     onClicked: {
-                        if (tools.beginsWith(hint.text, "**"))
+                        if (hint.text == "****** *** ****** ********** *** ******** **********")
                             hint.text = fullCache.hints
                         else
                             hint.text = "****** *** ****** ********** *** ******** **********"
                     }
                 }
+
+                onVisibleChanged: text = "****** *** ****** ********** *** ******** **********"
             }
 
             Rectangle {
