@@ -53,6 +53,7 @@ Popup {
         width: coordinatesBoxBackground.width - 20
         anchors.top: gpsFormatCombo.bottom
         anchors.margins: 10
+        anchors.topMargin: 30
 
         Button {
             contentItem: Text {
@@ -632,15 +633,12 @@ Popup {
     //////////////////////////////////////////////////////////////////////
     ///        OK
     //////////////////////////////////////////////////////////////////////
+
     Button {
+        id: goButton
+        text: qsTr("Ok")
         x: 0.5 * coordinatesBox.width
         y: parent.height - height - 10
-        contentItem: Text {
-            id: box1ButtonOK
-            text: "Ok"
-            font.family: localFont.name
-            font.pixelSize: 16
-        }
         background: Rectangle {
             anchors.fill: parent
             opacity: 0.9
@@ -649,6 +647,7 @@ Popup {
             border.width: 1
             radius: 5
         }
+        font.family: localFont.name
         onClicked: {
             if (gpsFormatCombo.currentIndex == 0)
                 if(box1Lat() !== "" && box1Lon()  !== "") {
@@ -661,10 +660,10 @@ Popup {
                                                   createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
                                                   createFilterKeywordDiscoverOwner() , userInfo.name )
                     cachesNear.sendRequest(connector.tokenKey)
-
                     fastMap.mapItem.center =QtPositioning.coordinate(box1Lat() , box1Lon())
                 }
-            else if (gpsFormatCombo.currentIndex == 1)
+
+            if (gpsFormatCombo.currentIndex == 1)
                 if(box2Lat() !== "" && box2Lon()  !== "") {
                     coordinatesBox.close()
                     main.state = "coordinates"
@@ -675,46 +674,43 @@ Popup {
                                                   createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
                                                   createFilterKeywordDiscoverOwner() , userInfo.name )
                     cachesNear.sendRequest(connector.tokenKey)
-
                     fastMap.mapItem.center =QtPositioning.coordinate(box2Lat() , box2Lon())
                 }
-            else if (gpsFormatCombo.currentIndex == 2)
-                    if(box3Lat() !== "" && box3Lon() !== "") {
-                        coordinatesBox.close()
-                        main.state = "coordinates"
-                        cachesNear.latPoint = box3Lat()
-                        cachesNear.lonPoint = box3Lon()
-                        cachesNear.distance = 100000
-                        cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
-                                                      createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
-                                                      createFilterKeywordDiscoverOwner() , userInfo.name )
-                        cachesNear.sendRequest(connector.tokenKey)
 
-                        fastMap.mapItem.center =QtPositioning.coordinate(box3Lat() , box3Lon())
-                    }
+            if (gpsFormatCombo.currentIndex == 2)
+                if(box3Lat() !== "" && box3Lon() !== "") {
+                    coordinatesBox.close()
+                    main.state = "coordinates"
+                    cachesNear.latPoint = box3Lat()
+                    cachesNear.lonPoint = box3Lon()
+                    cachesNear.distance = 100000
+                    cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
+                                                  createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+                                                  createFilterKeywordDiscoverOwner() , userInfo.name )
+                    cachesNear.sendRequest(connector.tokenKey)
+
+                    fastMap.mapItem.center =QtPositioning.coordinate(box3Lat() , box3Lon())
+                }
         }
     }
-
 
     //////////////////////////////////////////////////////////////////////
     ///        Erase button
     //////////////////////////////////////////////////////////////////////
     Button {
+        id: clearButton
         x: 0.65 * coordinatesBox.width
         y: parent.height - height - 10
-        contentItem: Text {
-            id: box3ButtonDel
-            text:"Effacer"
-            font.family: localFont.name
-            font.pixelSize: 16
-        }
+        text: qsTr("Effacer")
         background: Rectangle {
             anchors.fill: parent
             opacity: 0.9
+            color: Palette.white()
             border.color: Palette.greenSea()
-            border.width: 2
+            border.width: 1
             radius: 5
         }
+        font.family: localFont.name
         onClicked: {
             box1Degrees.text=""
             box1Minutes.text=""
