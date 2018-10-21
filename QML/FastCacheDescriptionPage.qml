@@ -26,7 +26,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 14
                 color: Palette.white()
-                textFormat: Qt.AutoText
+                textFormat: Qt.RichText
                 wrapMode: TextArea.Wrap
                 readOnly: true
                 persistentSelection: true
