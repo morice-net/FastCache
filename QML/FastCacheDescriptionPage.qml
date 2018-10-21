@@ -21,10 +21,12 @@ Item {
 
         Column {
             width: descriptionPage.width
+            spacing: 20
             TextArea {
                 width: parent.width
                 font.family: localFont.name
                 font.pointSize: 14
+                horizontalAlignment: TextEdit.AlignJustify
                 color: Palette.white()
                 textFormat: Qt.RichText
                 wrapMode: TextArea.Wrap
@@ -99,69 +101,92 @@ Item {
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
-                text: "NOTE PERSONNELLE "
+                text: "NOTE PERSONNELLE"
                 readOnly: true
                 color: Palette.silver()
             }
 
             TextArea {
                 id: personalNote
-                width: parent.width
+                x: 10
+                width: parent.width - 20
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
                 text: fullCache.note
-                color: Palette.white()
-            }
-
-            Button {
-                id:buttonDel
-                contentItem: Text {
-                    text:"Effacer"
-                    font.family: localFont.name
-                    font.pixelSize: 28
-                    color: Palette.turquoise()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
+                color: Palette.greenSea()
                 background: Rectangle {
                     anchors.fill: parent
-                    anchors.margins: 5
                     opacity: 0.9
-                    border.color: Palette.greenSea()
+                    border.color: Palette.white()
                     border.width: 1
-                    radius: 10
+                    radius: 5
                 }
-                onClicked: {
-                    personalNote.text = ""
-                }
+            }
 
+            Row {
+                spacing: 10
+                x: parent.width / 2
                 Button {
-                    id:buttonSend
-                    anchors.left: buttonDel.right
+                    id:buttonDel
                     contentItem: Text {
-                        text:"Envoyer"
+                        text:"Effacer"
                         font.family: localFont.name
                         font.pixelSize: 28
-                        color: Palette.turquoise()
+                        color: Palette.white()
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                     }
                     background: Rectangle {
                         anchors.fill: parent
-                        anchors.margins: 5
                         opacity: 0.9
-                        border.color: Palette.greenSea()
+                        color: Palette.greenSea()
+                        border.color: Palette.white()
                         border.width: 1
-                        radius: 10
+                        radius: 5
                     }
-                    onClicked: {
-
-                        sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode ,personalNote.text )
-
-                    }
+                    onClicked: personalNote.text = ""
                 }
+                Button {
+                    id:buttonSend
+                    contentItem: Text {
+                        text:"Envoyer"
+                        font.family: localFont.name
+                        font.pixelSize: 28
+                        color: Palette.white()
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                    background: Rectangle {
+                        anchors.fill: parent
+                        opacity: 0.9
+                        color: Palette.greenSea()
+                        border.color: Palette.white()
+                        border.width: 1
+                        radius: 5
+                    }
+                    onClicked: sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode ,personalNote.text )
+                }
+            }
+
+            TextArea {
+                id: spaceBottom
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 14
+                text: "\n\n\n\n\n"
+                color: Palette.white()
+            }
+
+            Rectangle {
+                id: separator3
+                width: parent.width
+                height: 2
+                color: Palette.white()
+                radius:10
             }
         }
     }
 }
+
