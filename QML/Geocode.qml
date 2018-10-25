@@ -18,7 +18,7 @@ Popup {
     background: Rectangle {
         anchors.fill: parent
         implicitWidth: main.width*0.7
-        implicitHeight:main.height*0.32
+        implicitHeight:main.height*0.33
         color: Palette.turquoise()
         border.color: Palette.greenSea()
         border.width: 1
@@ -226,7 +226,7 @@ Popup {
             radius:10
         }
         width: main.width/1.6
-        height: popupResponseHeight( )+20
+        height: popupResponseHeight( )+25
 
         ListView {
             id: geocodelist
@@ -247,7 +247,7 @@ Popup {
             Rectangle {
                 id: item
                 width: parent.width
-                height: main.height/6
+                height: main.height/5.5
                 color: Palette.white()
                 border.width: 1
                 border.color: Palette.greenSea()
@@ -273,18 +273,16 @@ Popup {
                     leftPadding: 20
                     topPadding: 10
 
-                    Row {
-                        Text {
-                            text: lat + main.formatLat(valLat) + " - "
-                            color: Palette.greenSea()
-                            font.family: localFont.name
-                        }
+                    Text {
+                        text: lat + main.formatLat(valLat)
+                        color: Palette.greenSea()
+                        font.family: localFont.name
+                    }
 
-                        Text {
-                            text: lon + main.formatLon(valLon)
-                            color: Palette.greenSea()
-                            font.family: localFont.name
-                        }
+                    Text {
+                        text: lon + main.formatLon(valLon)
+                        color: Palette.greenSea()
+                        font.family: localFont.name
                     }
 
                     Text {
@@ -331,8 +329,8 @@ Popup {
         } else {
             listModel.clear()
             for (var i=0; i<count; i++){
-                listModel.append({"lat":"Lat.: " , "valLat": Math.round(geocodeModel.get(i).coordinate.latitude * 10000) / 10000,
-                                     "lon":"Long.: " , "valLon": Math.round(geocodeModel.get(i).coordinate.longitude * 10000) / 10000,
+                listModel.append({"lat":"Latitude: " , "valLat": Math.round(geocodeModel.get(i).coordinate.latitude * 10000) / 10000,
+                                     "lon":"Longitude: " , "valLon": Math.round(geocodeModel.get(i).coordinate.longitude * 10000) / 10000,
                                      "city":"Ville: " ,"valCity":geocodeModel.get(i).address.city,
                                      "state":"Etat: " ,"valState":geocodeModel.get(i).address.state,
                                      "country":"Pays: " , "valCountry": geocodeModel.get(i).address.country});
