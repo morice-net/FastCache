@@ -21,6 +21,9 @@ FullCache::FullCache(Cache *parent)
     , m_shortDescriptionIsHtml(false)
     , m_hints("")
     , m_note("")
+    , m_imagesName(QList<QString>())
+    , m_imagesDescription(QList<QString>())
+    , m_imagesUrl(QList<QString>())
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -145,6 +148,25 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
                 setNote(v.toObject().value("GeocacheNote").toString());
             }
 
+            // Images
+            m_imagesName.clear();
+            m_imagesDescription.clear();
+            m_imagesUrl.clear();
+
+            QJsonArray  images = v.toObject().value("Images").toArray();
+            foreach ( const QJsonValue & image, images)
+            {
+                m_imagesName.append(image.toObject().value("Name").toString());
+                m_imagesDescription.append(image.toObject().value("Description").toString());
+                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
+
+            }
+            qDebug() << "*** imagesName**\n" <<m_imagesName ;
+            qDebug() << "*** imagesDescription**\n" <<m_imagesDescription ;
+            qDebug() << "*** imagesUrl**\n" <<m_imagesUrl ;
+            emit imagesNameChanged();
+            emit imagesDescriptionChanged();
+            emit imagesUrlChanged();
         }
 
     }   else {
@@ -277,6 +299,41 @@ void FullCache::setNote(const QString &note)
     m_note = note;
     emit noteChanged();
 }
+
+QList<QString> FullCache::imagesName() const
+{
+    return  m_imagesName;
+}
+
+void FullCache::setImagesName(const QList<QString> &names)
+{
+    m_imagesName = names;
+    emit imagesNameChanged();
+}
+
+QList<QString> FullCache::imagesDescription() const
+{
+    return  m_imagesDescription;
+}
+
+void FullCache::setImagesDescription(const QList<QString> &descriptions)
+{
+    m_imagesDescription = descriptions;
+    emit imagesDescriptionChanged();
+}
+
+QList<QString> FullCache::imagesUrl() const
+{
+    return  m_imagesUrl;
+}
+
+void FullCache::setImagesUrl(const QList<QString> &urls)
+{
+    m_imagesUrl = urls;
+    emit imagesUrlChanged();
+}
+
+
 
 
 

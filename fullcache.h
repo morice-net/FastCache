@@ -21,6 +21,9 @@ class FullCache : public Cache
     Q_PROPERTY(bool shortDescriptionIsHtml READ shortDescriptionIsHtml WRITE setShortDescriptionIsHtml NOTIFY shortDescriptionIsHtmlChanged)
     Q_PROPERTY(QString hints READ hints WRITE setHints NOTIFY hintsChanged)
     Q_PROPERTY(QString note READ note WRITE setNote NOTIFY noteChanged)
+    Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
+    Q_PROPERTY(QList<QString > imagesDescription READ imagesDescription WRITE setImagesDescription NOTIFY imagesDescriptionChanged)
+    Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -60,6 +63,15 @@ public:
     QString note() const;
     void setNote(const QString &note);
 
+    QList<QString> imagesName() const;
+    void setImagesName(const QList<QString> &names);
+
+    QList<QString> imagesDescription() const;
+    void setImagesDescription(const QList<QString> &descriptions);
+
+    QList<QString> imagesUrl() const;
+    void setImagesUrl(const QList<QString> &urls);
+
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -75,6 +87,9 @@ signals:
     void shortDescriptionIsHtmlChanged();
     void hintsChanged();
     void noteChanged();
+    void imagesNameChanged();
+    void imagesDescriptionChanged();
+    void imagesUrlChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -83,6 +98,9 @@ protected:
 
     QList<int> m_attributes;
     QList<bool> m_attributesBool;
+    QList<QString> m_imagesName;
+    QList<QString> m_imagesDescription;
+    QList<QString> m_imagesUrl;
 
 private:    
     //  network manager
