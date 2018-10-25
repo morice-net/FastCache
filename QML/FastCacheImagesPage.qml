@@ -9,7 +9,6 @@ Item {
 
     Flickable {
         id: images
-
         anchors.fill: parent
         anchors.topMargin: 25
         flickableDirection: Flickable.VerticalFlick
@@ -24,7 +23,6 @@ Item {
                 model:fullCache.imagesName.length
 
                 Column{
-
                     Text {
                         text: fullCache.imagesName[index]
                         leftPadding: 15

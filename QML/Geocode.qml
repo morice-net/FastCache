@@ -275,13 +275,13 @@ Popup {
 
                     Row {
                         Text {
-                            text: lat + valLat + " - "
+                            text: lat + main.formatLat(valLat) + " - "
                             color: Palette.greenSea()
                             font.family: localFont.name
                         }
 
                         Text {
-                            text: lon + valLon
+                            text: lon + main.formatLon(valLon)
                             color: Palette.greenSea()
                             font.family: localFont.name
                         }
