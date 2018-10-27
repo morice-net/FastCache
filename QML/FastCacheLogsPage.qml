@@ -24,41 +24,57 @@ Item {
 
                 Column{
 
-                    Text {
-                        text: fullCache.findersName[index]
-                        leftPadding: 15
-                        font.family: localFont.name
-                        font.bold: true
-                        font.pointSize: 15
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
+                    Item {
+                        width: logs.width
+                        height: 35
+                        Text {
+                            text: fullCache.findersName[index]
+                            leftPadding: 15
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 15
+                            color: Palette.white()
+                            wrapMode: Text.Wrap
+                            anchors.left: parent.left
+                        }
+
+                        Text {
+                            text: new Date(fullCache.findersDate[index]).toLocaleDateString(Qt.locale("fr_FR"))
+                            leftPadding: 15
+                            font.family: localFont.name
+                            font.pointSize: 13
+                            color: Palette.silver()
+                            wrapMode: Text.Wrap
+                            anchors.right: parent.right
+                            anchors.rightMargin: 10
+                        }
+
                     }
 
-                    Text {
-                        text: new Date(fullCache.findersDate[index]).toLocaleDateString(Qt.locale("fr_FR"))
-                        leftPadding: 15
-                        font.family: localFont.name
-                        font.pointSize: 13
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-                    }
 
-                    Text {
-                        text: fullCache.logsType[index]
-                        leftPadding: 15
-                        font.family: localFont.name
-                        font.pointSize: 13
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-                    }
+                    Item {
+                        width: logs.width
+                        height: 35
+                        Text {
+                            text: fullCache.logsType[index]
+                            leftPadding: 15
+                            font.family: localFont.name
+                            font.pointSize: 13
+                            color: Palette.silver()
+                            wrapMode: Text.Wrap
+                            anchors.left: parent.left
+                        }
 
-                    Text {
-                        text: "Nombre de caches:  " + fullCache.findersCount[index]
-                        leftPadding: 15
-                        font.family: localFont.name
-                        font.pointSize: 13
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
+                        Text {
+                            text: "Nombre de caches:  " + fullCache.findersCount[index]
+                            leftPadding: 15
+                            font.family: localFont.name
+                            font.pointSize: 13
+                            color: Palette.silver()
+                            wrapMode: Text.Wrap
+                            anchors.right: parent.right
+                            anchors.rightMargin: 10
+                        }
                     }
 
                     TextArea {
@@ -75,6 +91,12 @@ Item {
                         rightPadding: 15
                         onLinkActivated: Qt.openUrlExternally(link)
                         text: fullCache.logs[index]
+                    }
+
+                    Rectangle {
+                        height: 1
+                        width: parent.width
+                        color: Palette.silver()
                     }
                 }
             }
