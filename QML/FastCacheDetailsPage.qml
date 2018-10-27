@@ -197,6 +197,25 @@ Item {
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 14
+                text: "Cachée le"
+                color: Palette.silver()
+            }
+            Text {
+                font.family: localFont.name
+                font.pointSize: 14
+                text: formatDate(fullCache.date)
+                color: Palette.white()
+            }
+        }
+
+        Row {
+            width: parent.width
+            spacing: 15
+            Text {
+                width: fastCache.width * 0.25
+                font.family: localFont.name
+                horizontalAlignment: Text.AlignRight
+                font.pointSize: 14
                 text: "Localisation"
                 color: Palette.silver()
             }
@@ -305,6 +324,11 @@ Item {
                 }
             }
         }
+    }
+
+    function formatDate(date) {
+        var   substring = date.substring(date.indexOf("(") + 1 , date.indexOf(")"))
+        return new Date(parseFloat(substring)).toLocaleDateString(Qt.locale("fr_FR"))
     }
 }
 

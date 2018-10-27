@@ -44,7 +44,7 @@ FullCache::FullCache(Cache *parent)
     m_mapLogType.insert("Participera",9 );
     m_mapLogType.insert("A participé",10);
     m_mapLogType.insert("Récupéré",13 );
-    m_mapLogType.insert("Déposé", 4 );
+    m_mapLogType.insert("Déposé", 14 );
     m_mapLogType.insert("Pris ailleurs",19 );
     m_mapLogType.insert("Ajouté à une collection",69);
     m_mapLogType.insert("Ajouté à l\'inventaire",70);
