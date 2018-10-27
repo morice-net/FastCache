@@ -24,6 +24,12 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
     Q_PROPERTY(QList<QString > imagesDescription READ imagesDescription WRITE setImagesDescription NOTIFY imagesDescriptionChanged)
     Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
+    Q_PROPERTY(QList<QString > findersName READ findersName WRITE setFindersName NOTIFY findersNameChanged)
+    Q_PROPERTY(QList<QString > logs READ logs WRITE setLogs NOTIFY logsChanged)
+    Q_PROPERTY(QList<int > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
+    Q_PROPERTY(QList<int > findersCount READ findersCount WRITE setFindersCount NOTIFY findersCountChanged)
+    Q_PROPERTY(QList<QString > findersDate READ findersDate WRITE setFindersDate NOTIFY findersDateChanged)
+
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -72,6 +78,21 @@ public:
     QList<QString> imagesUrl() const;
     void setImagesUrl(const QList<QString> &urls);
 
+    QList<QString> findersName() const;
+    void setFindersName(const QList<QString> &names);
+
+    QList<int> findersCount() const;
+    void setFindersCount(const QList<int> &counts);
+
+    QList<QString> findersDate() const;
+    void setFindersDate(const QList<QString> &dates);
+
+    QList<int> logsType() const;
+    void setLogsType(const QList<int> &types);
+
+    QList<QString> logs() const;
+    void setLogs(const QList<QString> &logs);
+
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -90,6 +111,11 @@ signals:
     void imagesNameChanged();
     void imagesDescriptionChanged();
     void imagesUrlChanged();
+    void findersNameChanged();
+    void logsChanged();
+    void logsTypeChanged();
+    void findersCountChanged();
+    void findersDateChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -101,6 +127,11 @@ protected:
     QList<QString> m_imagesName;
     QList<QString> m_imagesDescription;
     QList<QString> m_imagesUrl;
+    QList<int> m_findersCount;
+    QList<QString> m_findersName;
+    QList<QString> m_findersDate;
+    QList<int> m_logsType;
+    QList<QString> m_logs;
 
 private:    
     //  network manager

@@ -24,6 +24,11 @@ FullCache::FullCache(Cache *parent)
     , m_imagesName(QList<QString>())
     , m_imagesDescription(QList<QString>())
     , m_imagesUrl(QList<QString>())
+    , m_findersName(QList<QString>())
+    , m_findersDate(QList<QString>())
+    , m_findersCount(QList<int>())
+    , m_logsType(QList<int>())
+    , m_logs(QList<QString>())
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -164,9 +169,46 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             qDebug() << "*** imagesName**\n" <<m_imagesName ;
             qDebug() << "*** imagesDescription**\n" <<m_imagesDescription ;
             qDebug() << "*** imagesUrl**\n" <<m_imagesUrl ;
+
+            // Logs
+            m_findersCount.clear();
+            m_findersDate.clear();
+            m_findersName.clear();
+            m_logs.clear()  ;
+            m_logsType.clear();
+
+            QJsonArray  geocacheLogs = v.toObject().value("GeocacheLogs").toArray();
+            foreach ( const QJsonValue & geocacheLog, geocacheLogs)
+            {
+                m_logs.append(geocacheLog.toObject().value("LogText").toString());
+                m_findersDate.append(geocacheLog.toObject().value("VisitDateIso").toString());
+
+                QJsonObject finder = geocacheLog.toObject().value("Finder").toObject();
+                m_findersName.append(finder.value("UserName").toString());
+                m_findersCount.append(finder.value("FindCount").toInt());
+
+                QJsonObject type = geocacheLog.toObject().value("LogType").toObject();
+                m_logsType.append(type.value("WptLogTypeId").toInt());
+
+                QJsonArray  logsImage = geocacheLog.toObject().value("Images").toArray();
+                foreach ( const QJsonValue & logImage, logsImage)
+                {
+                    m_imagesName.append(logImage.toObject().value("Name").toString());
+                    m_imagesDescription.append(logImage.toObject().value("Description").toString());
+                    m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());
+                }
+
+            }
             emit imagesNameChanged();
             emit imagesDescriptionChanged();
             emit imagesUrlChanged();
+
+            emit logsChanged();
+            emit logsTypeChanged();
+            emit findersCountChanged();
+            emit findersDateChanged();
+            emit findersNameChanged();
+
         }
 
     }   else {
@@ -331,6 +373,61 @@ void FullCache::setImagesUrl(const QList<QString> &urls)
 {
     m_imagesUrl = urls;
     emit imagesUrlChanged();
+}
+
+QList<QString> FullCache::findersName() const
+{
+    return  m_findersName;
+}
+
+void FullCache::setFindersName(const QList<QString> &names)
+{
+    m_findersName = names;
+    emit findersNameChanged();
+}
+
+QList<QString> FullCache::findersDate() const
+{
+    return  m_findersDate;
+}
+
+void FullCache::setFindersDate(const QList<QString> &dates)
+{
+    m_findersDate = dates;
+    emit findersDateChanged();
+}
+
+QList<int> FullCache::findersCount() const
+{
+    return  m_findersCount;
+}
+
+void FullCache::setFindersCount(const QList<int> &counts)
+{
+    m_findersCount = counts;
+    emit findersCountChanged();
+}
+
+QList<QString> FullCache::logs() const
+{
+    return  m_logs;
+}
+
+void FullCache::setLogs(const QList<QString> &logs)
+{
+    m_logs = logs;
+    emit logsChanged();
+}
+
+QList<int> FullCache::logsType() const
+{
+    return  m_logsType;
+}
+
+void FullCache::setLogsType(const QList<int> &types)
+{
+    m_logsType = types;
+    emit logsTypeChanged();
 }
 
 
