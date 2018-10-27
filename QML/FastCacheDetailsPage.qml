@@ -13,6 +13,7 @@ Item {
         spacing: 5
         anchors.fill: parent
         anchors.topMargin: parent.height * 0.05
+        clip: true
 
         Row {
             width: parent.width
@@ -22,7 +23,7 @@ Item {
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 14
-                text: "Name"
+                text: "Nom"
                 color: Palette.silver()
             }
             Text {
