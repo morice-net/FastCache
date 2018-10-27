@@ -1,10 +1,8 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.0
-//import QtQml 2.11
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
-
 
 Item {
     id: logsPage

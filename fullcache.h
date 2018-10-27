@@ -26,7 +26,7 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
     Q_PROPERTY(QList<QString > findersName READ findersName WRITE setFindersName NOTIFY findersNameChanged)
     Q_PROPERTY(QList<QString > logs READ logs WRITE setLogs NOTIFY logsChanged)
-    Q_PROPERTY(QList<int > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
+    Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
     Q_PROPERTY(QList<int > findersCount READ findersCount WRITE setFindersCount NOTIFY findersCountChanged)
     Q_PROPERTY(QList<QString > findersDate READ findersDate WRITE setFindersDate NOTIFY findersDateChanged)
 
@@ -87,8 +87,8 @@ public:
     QList<QString> findersDate() const;
     void setFindersDate(const QList<QString> &dates);
 
-    QList<int> logsType() const;
-    void setLogsType(const QList<int> &types);
+    QList<QString> logsType() const;
+    void setLogsType(const QList<QString> &types);
 
     QList<QString> logs() const;
     void setLogs(const QList<QString> &logs);
@@ -130,8 +130,9 @@ protected:
     QList<int> m_findersCount;
     QList<QString> m_findersName;
     QList<QString> m_findersDate;
-    QList<int> m_logsType;
+    QList<QString> m_logsType;
     QList<QString> m_logs;
+
 
 private:    
     //  network manager
@@ -147,6 +148,7 @@ private:
     bool m_shortDescriptionIsHtml;
     QString m_hints;
     QString m_note;
+    QMap<QString, int> m_mapLogType;
 };
 
 #endif // FULLCACHE_H

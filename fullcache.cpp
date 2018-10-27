@@ -6,6 +6,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QList>
+#include <QMap>
 
 
 FullCache::FullCache(Cache *parent)
@@ -27,12 +28,39 @@ FullCache::FullCache(Cache *parent)
     , m_findersName(QList<QString>())
     , m_findersDate(QList<QString>())
     , m_findersCount(QList<int>())
-    , m_logsType(QList<int>())
+    , m_logsType(QList<QString>())
     , m_logs(QList<QString>())
 
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &FullCache::onReplyFinished);
+
+    m_mapLogType.insert("Trouvée",2);
+    m_mapLogType.insert("Non trouvée",3);
+    m_mapLogType.insert("Note",4);
+    m_mapLogType.insert("Publiée",1003);
+    m_mapLogType.insert("Activée",23 );
+    m_mapLogType.insert("Désactivée",22 );
+    m_mapLogType.insert("Participera",9 );
+    m_mapLogType.insert("A participé",10);
+    m_mapLogType.insert("Récupéré",13 );
+    m_mapLogType.insert("Déposé", 4 );
+    m_mapLogType.insert("Pris ailleurs",19 );
+    m_mapLogType.insert("Ajouté à une collection",69);
+    m_mapLogType.insert("Ajouté à l\'inventaire",70);
+    m_mapLogType.insert("Maintenance effectuée",46  );
+    m_mapLogType.insert("Nécessite une maintenance",45 );
+    m_mapLogType.insert("Coordonnées mises à jour",47 );
+    m_mapLogType.insert("Archivée",5  );
+    m_mapLogType.insert("Désarchivée",12  );
+    m_mapLogType.insert("Nécessite d\'être archivée",7 );
+    m_mapLogType.insert("Découverte",48 );
+    m_mapLogType.insert("Note du relecteur",18);
+    m_mapLogType.insert("Soumettre pour examen",76  );
+    m_mapLogType.insert("Visite retirée",25 );
+    m_mapLogType.insert("Marquer comme absente",16 );
+    m_mapLogType.insert("Photo prise par la webcam", 11);
+
 }
 
 void FullCache::sendRequest( QString token)
@@ -188,7 +216,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
                 m_findersCount.append(finder.value("FindCount").toInt());
 
                 QJsonObject type = geocacheLog.toObject().value("LogType").toObject();
-                m_logsType.append(type.value("WptLogTypeId").toInt());
+                m_logsType.append(m_mapLogType.key(type.value("WptLogTypeId").toInt()));
 
                 QJsonArray  logsImage = geocacheLog.toObject().value("Images").toArray();
                 foreach ( const QJsonValue & logImage, logsImage)
@@ -419,16 +447,17 @@ void FullCache::setLogs(const QList<QString> &logs)
     emit logsChanged();
 }
 
-QList<int> FullCache::logsType() const
+QList<QString> FullCache::logsType() const
 {
     return  m_logsType;
 }
 
-void FullCache::setLogsType(const QList<int> &types)
+void FullCache::setLogsType(const QList<QString> &types)
 {
     m_logsType = types;
     emit logsTypeChanged();
 }
+
 
 
 
