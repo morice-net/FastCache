@@ -10,7 +10,7 @@ Item {
     Flickable {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: 25
+        anchors.topMargin: 35
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
@@ -77,7 +77,7 @@ Item {
                         }
                     }
 
-                    TextArea {
+                    Text {
                         width: logsPage.width
                         font.family: localFont.name
                         font.pointSize: 15
@@ -85,8 +85,6 @@ Item {
                         color: Palette.white()
                         textFormat: Qt.RichText
                         wrapMode: TextArea.Wrap
-                        readOnly: true
-                        persistentSelection: true
                         leftPadding: 15
                         rightPadding: 15
                         onLinkActivated: Qt.openUrlExternally(link)

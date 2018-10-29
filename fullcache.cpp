@@ -1,4 +1,5 @@
 #include "fullcache.h"
+#include "smileygc.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -7,7 +8,6 @@
 #include <QJsonArray>
 #include <QList>
 #include <QMap>
-
 
 FullCache::FullCache(Cache *parent)
     :  Cache (parent)
@@ -93,6 +93,7 @@ void FullCache::sendRequest( QString token)
 
 void FullCache::onReplyFinished(QNetworkReply *reply)
 {
+
     QJsonDocument dataJsonDoc;
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
@@ -108,6 +109,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         if (lengthCaches == 0) {
             return ;
         }
+
+        SmileyGc * smileys;
+        smileys = new SmileyGc;
 
         foreach ( const QJsonValue & v, caches)
         {
@@ -208,7 +212,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             QJsonArray  geocacheLogs = v.toObject().value("GeocacheLogs").toArray();
             foreach ( const QJsonValue & geocacheLog, geocacheLogs)
             {
-                m_logs.append(geocacheLog.toObject().value("LogText").toString());
+                m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog.toObject().value("LogText").toString()));
                 m_findersDate.append(geocacheLog.toObject().value("VisitDateIso").toString());
 
                 QJsonObject finder = geocacheLog.toObject().value("Finder").toObject();
@@ -230,13 +234,13 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             emit imagesNameChanged();
             emit imagesDescriptionChanged();
             emit imagesUrlChanged();
-
             emit logsChanged();
             emit logsTypeChanged();
             emit findersCountChanged();
             emit findersDateChanged();
             emit findersNameChanged();
 
+            delete smileys ;
         }
 
     }   else {

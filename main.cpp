@@ -16,6 +16,7 @@
 #include "fullcache.h"
 #include "cacheattribute.h"
 #include "sendcachenote.h"
+#include "smileygc.h"
 
 int main(int argc, char *argv[])
 {

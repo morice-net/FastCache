@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     cachesnear.cpp \
     fullcache.cpp \
     cacheattribute.cpp \
-    sendcachenote.cpp
+    sendcachenote.cpp \
+    smileygc.cpp
 
 RESOURCES += qml.qrc
 
@@ -43,7 +44,8 @@ HEADERS += \
     cachesnear.h \
     fullcache.h \
     cacheattribute.h \
-    sendcachenote.h
+    sendcachenote.h \
+    smileygc.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

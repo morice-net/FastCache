@@ -14,6 +14,7 @@ Item {
 
     Flickable {
         id: longDescription
+        anchors.topMargin: 29
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
@@ -22,21 +23,20 @@ Item {
         Column {
             width: descriptionPage.width
             spacing: 20
-            TextArea {
+
+            Text {
                 width: parent.width
                 font.family: localFont.name
                 font.pointSize: 14
                 horizontalAlignment: TextEdit.AlignJustify
                 color: Palette.white()
                 textFormat: Qt.RichText
-                wrapMode: TextArea.Wrap
-                readOnly: true
-                persistentSelection: true
+                wrapMode: Text.Wrap
                 leftPadding: 15
                 rightPadding: 15
                 topPadding: 25
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: fullCache.longDescription
+                text: fullCache.shortDescription + fullCache.longDescription
             }
 
             Rectangle {
@@ -47,19 +47,18 @@ Item {
                 radius:10
             }
 
-            TextArea {
+            Text {
                 id:ind
                 width: parent.width
                 y:separator1.y + 10
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
-                readOnly: true
                 text: "INDICE"
                 color: Palette.silver()
             }
 
-            TextArea {
+            Text {
                 id:hint
                 width: parent.width
                 y:ind.y + 30
@@ -95,14 +94,13 @@ Item {
                 radius:10
             }
 
-            TextArea {
+            Text {
                 id: note
                 width: parent.width
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
                 text: "NOTE PERSONNELLE"
-                readOnly: true
                 color: Palette.silver()
             }
 
@@ -169,7 +167,7 @@ Item {
                 }
             }
 
-            TextArea {
+            Text {
                 id: spaceBottom
                 width: parent.width
                 font.family: localFont.name

@@ -10,7 +10,7 @@ Item {
     Flickable {
         id: images
         anchors.fill: parent
-        anchors.topMargin: 25
+        anchors.topMargin: 35
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
@@ -18,14 +18,14 @@ Item {
         Column{
             spacing:10
             width: imagesPage.width
+            leftPadding: 15
 
             Repeater{
                 model:fullCache.imagesName.length
 
                 Column{
                     Text {
-                        text: fullCache.imagesName[index]
-                        leftPadding: 15
+                        text: fullCache.imagesName[index]                        
                         font.family: localFont.name
                         font.bold: true
                         font.pointSize: 15
@@ -34,8 +34,7 @@ Item {
                     }
 
                     Text {
-                        text: fullCache.imagesDescription[index]
-                        leftPadding: 15
+                        text: fullCache.imagesDescription[index]                        
                         font.family: localFont.name
                         font.pointSize: 15
                         color: Palette.white()
