@@ -126,9 +126,14 @@ Item {
         id: cacheSizes
     }
 
+    WaypointTypes {
+        id: waypointTypes
+    }
+
     FullCache {
         id: fullCache
     }
+
 
     Component.onCompleted: {
         main.viewState = "map"

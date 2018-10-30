@@ -30,6 +30,11 @@ FullCache::FullCache(Cache *parent)
     , m_findersCount(QList<int>())
     , m_logsType(QList<QString>())
     , m_logs(QList<QString>())
+    , m_wptsDescription(QList<QString>())
+    , m_wptsName(QList<QString>())
+    , m_wptsLat(QList<double>())
+    , m_wptsLon(QList<double>())
+    , m_wptsComment(QList<QString>())
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -239,6 +244,28 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             emit findersCountChanged();
             emit findersDateChanged();
             emit findersNameChanged();
+
+            // Waypoints
+            m_wptsDescription.clear();
+            m_wptsName.clear();
+            m_wptsLat.clear();
+            m_wptsLon.clear()  ;
+            m_wptsComment.clear();
+
+            QJsonArray  waypoints = v.toObject().value("AdditionalWaypoints").toArray();
+            foreach ( const QJsonValue & waypoint, waypoints)
+            {
+                m_wptsDescription.append(waypoint.toObject().value("UrlName").toString());
+                m_wptsName.append(waypoint.toObject().value("Name").toString());
+                m_wptsLat.append(waypoint.toObject().value("Latitude").toDouble());
+                m_wptsLon.append(waypoint.toObject().value("Longitude").toDouble());
+                m_wptsComment.append(waypoint.toObject().value("Comment").toString());
+            }
+            emit wptsDescriptionChanged();
+            emit wptsNameChanged();
+            emit wptsLatChanged();
+            emit wptsLonChanged();
+            emit wptsCommentChanged();
 
             delete smileys ;
         }
@@ -460,6 +487,61 @@ void FullCache::setLogsType(const QList<QString> &types)
 {
     m_logsType = types;
     emit logsTypeChanged();
+}
+
+QList<QString> FullCache::wptsDescription() const
+{
+    return  m_wptsDescription;
+}
+
+void FullCache::setWptsDescription(const QList<QString> &descriptions)
+{
+    m_wptsDescription = descriptions;
+    emit wptsDescriptionChanged();
+}
+
+QList<QString> FullCache::wptsName() const
+{
+    return  m_wptsName;
+}
+
+void FullCache::setWptsName(const QList<QString> &names)
+{
+    m_wptsName = names;
+    emit wptsNameChanged();
+}
+
+QList<double> FullCache::wptsLat() const
+{
+    return  m_wptsLat;
+}
+
+void FullCache::setWptsLat(const QList<double> &lats)
+{
+    m_wptsLat = lats;
+    emit wptsLatChanged();
+}
+
+QList<double> FullCache::wptsLon() const
+{
+    return  m_wptsLon;
+}
+
+void FullCache::setWptsLon(const QList<double> &lons)
+{
+    m_wptsLon = lons;
+    emit wptsLonChanged();
+}
+
+QList<QString> FullCache::wptsComment() const
+{
+    return  m_wptsComment;
+}
+
+void FullCache::setWptsComment(const QList<QString> &comments)
+{
+    m_wptsComment = comments;
+    emit wptsCommentChanged();
 }
 
 

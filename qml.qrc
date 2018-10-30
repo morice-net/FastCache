@@ -119,5 +119,12 @@
         <file>QML/FastCacheLogsPage.qml</file>
         <file>QML/FastCacheImagesPage.qml</file>
         <file>Image/attribute_no.png</file>
+        <file>Image/waypoint_waypoint.png</file>
+        <file>Image/waypoint_trailhead.png</file>
+        <file>Image/waypoint_stage.png</file>
+        <file>Image/waypoint_puzzle.png</file>
+        <file>Image/waypoint_pkg.png</file>
+        <file>Image/waypoint_flag.png</file>
+        <file>QML/WaypointTypes.qml</file>
     </qresource>
 </RCC>

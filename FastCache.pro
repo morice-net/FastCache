@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     fullcache.cpp \
     cacheattribute.cpp \
     sendcachenote.cpp \
-    smileygc.cpp
+    smileygc.cpp \
+    waypointtype.cpp
 
 RESOURCES += qml.qrc
 
@@ -45,7 +46,8 @@ HEADERS += \
     fullcache.h \
     cacheattribute.h \
     sendcachenote.h \
-    smileygc.h
+    smileygc.h \
+    waypointtype.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

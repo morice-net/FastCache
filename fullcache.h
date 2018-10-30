@@ -29,7 +29,11 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
     Q_PROPERTY(QList<int > findersCount READ findersCount WRITE setFindersCount NOTIFY findersCountChanged)
     Q_PROPERTY(QList<QString > findersDate READ findersDate WRITE setFindersDate NOTIFY findersDateChanged)
-
+    Q_PROPERTY(QList<QString > wptsDescription READ wptsDescription WRITE setWptsDescription NOTIFY wptsDescriptionChanged)
+    Q_PROPERTY(QList<QString > wptsName READ wptsName WRITE setWptsName NOTIFY wptsNameChanged)
+    Q_PROPERTY(QList<double > wptsLat READ wptsLat WRITE setWptsLat NOTIFY wptsLatChanged)
+    Q_PROPERTY(QList<double > wptsLon READ wptsLon WRITE setWptsLon NOTIFY wptsLonChanged)
+    Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -93,6 +97,22 @@ public:
     QList<QString> logs() const;
     void setLogs(const QList<QString> &logs);
 
+
+    QList<QString> wptsDescription() const;
+    void setWptsDescription(const QList<QString> &descriptions);
+
+    QList<QString> wptsName() const;
+    void setWptsName(const QList<QString> &names);
+
+    QList<double> wptsLat() const;
+    void setWptsLat(const QList<double> &lats);
+
+    QList<double> wptsLon() const;
+    void setWptsLon(const QList<double> &lons);
+
+    QList<QString> wptsComment() const;
+    void setWptsComment(const QList<QString> &comments);
+
 public slots:  
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -116,6 +136,11 @@ signals:
     void logsTypeChanged();
     void findersCountChanged();
     void findersDateChanged();
+    void wptsDescriptionChanged();
+    void wptsNameChanged();
+    void wptsLatChanged();
+    void wptsLonChanged();
+    void wptsCommentChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -132,7 +157,11 @@ protected:
     QList<QString> m_findersDate;
     QList<QString> m_logsType;
     QList<QString> m_logs;
-
+    QList<QString> m_wptsDescription;
+    QList<QString> m_wptsName;
+    QList<double> m_wptsLat;
+    QList<double> m_wptsLon;
+    QList<QString> m_wptsComment;
 
 private:    
     //  network manager

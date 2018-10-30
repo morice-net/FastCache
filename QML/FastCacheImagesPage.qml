@@ -25,7 +25,7 @@ Item {
 
                 Column{
                     Text {
-                        text: fullCache.imagesName[index]                        
+                        text: fullCache.imagesName[index]
                         font.family: localFont.name
                         font.bold: true
                         font.pointSize: 15
@@ -34,7 +34,7 @@ Item {
                     }
 
                     Text {
-                        text: fullCache.imagesDescription[index]                        
+                        text: fullCache.imagesDescription[index]
                         font.family: localFont.name
                         font.pointSize: 15
                         color: Palette.white()

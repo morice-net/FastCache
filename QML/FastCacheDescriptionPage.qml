@@ -13,7 +13,7 @@ Item {
     }
 
     Flickable {
-        id: longDescription
+        id: shortLongDescription
         anchors.topMargin: 29
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
@@ -25,6 +25,7 @@ Item {
             spacing: 20
 
             Text {
+                clip:true
                 width: parent.width
                 font.family: localFont.name
                 font.pointSize: 14
@@ -32,12 +33,14 @@ Item {
                 color: Palette.white()
                 textFormat: Qt.RichText
                 wrapMode: Text.Wrap
+                minimumPointSize: 14
                 leftPadding: 15
                 rightPadding: 15
                 topPadding: 25
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: fullCache.shortDescription + fullCache.longDescription
             }
+
 
             Rectangle {
                 id: separator1
