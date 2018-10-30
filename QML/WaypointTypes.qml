@@ -1,7 +1,8 @@
 import QtQuick 2.6
+
 import com.mycompany.connecting 1.0
 
-item {
+Item {
     id: waypointTypes
     property var types:[]
 
