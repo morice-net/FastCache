@@ -61,7 +61,7 @@ Popup {
                 text:"N"
 
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 color: Palette.turquoise()
             }
             background: Rectangle {
@@ -81,7 +81,7 @@ Popup {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 90;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box1ButtonNS.right
                 anchors.leftMargin:15
                 background: Rectangle {
@@ -94,7 +94,7 @@ Popup {
             Label {
                 id: box1LabelDegrees
                 text: "°"
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left:box1Degrees.right
                 anchors.leftMargin:2
             }
@@ -104,7 +104,7 @@ Popup {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 59;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box1LabelDegrees.right
                 anchors.leftMargin:4
                 background: Rectangle {
@@ -117,7 +117,7 @@ Popup {
             Label {
                 id: box1LabelPoint
                 text: "."
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left:box1Minutes.right
                 anchors.leftMargin:2
             }
@@ -127,7 +127,7 @@ Popup {
                 maximumLength : 3
                 validator: IntValidator{bottom:0 ; top: 999;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box1LabelPoint.right
                 anchors.leftMargin:4
                 background: Rectangle {
@@ -140,7 +140,7 @@ Popup {
             Label {
                 id: box1LabelMinute
                 text: "'"
-                font.pixelSize: 24
+                font.pixelSize: 30
                 anchors.left:box1Decimal.right
                 anchors.leftMargin:2
             }
@@ -151,7 +151,7 @@ Popup {
                     id: box1ButtonEO
                     text:"E"
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     color: Palette.turquoise()
 
                 }
@@ -172,7 +172,7 @@ Popup {
                     maximumLength : 3
                     validator: IntValidator {bottom: 0; top: 180;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box1ButtonEO.right
                     anchors.leftMargin:15
                     background: Rectangle {
@@ -185,7 +185,7 @@ Popup {
                 Label {
                     id: box1LabelDegrees2
                     text: "°"
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left:box1Degrees2.right
                     anchors.leftMargin:2
                 }
@@ -195,7 +195,7 @@ Popup {
                     maximumLength : 2
                     validator: IntValidator {bottom: 0; top: 59;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box1LabelDegrees2.right
                     anchors.leftMargin:4
                     background: Rectangle {
@@ -208,7 +208,7 @@ Popup {
                 Label {
                     id: box1LabelPoint2
                     text: "."
-                    font.pixelSize: 24
+                    font.pixelSize: 30
                     anchors.left:box1Minutes2.right
                     anchors.leftMargin:2
                 }
@@ -218,7 +218,7 @@ Popup {
                     maximumLength : 3
                     validator: IntValidator{bottom:0 ; top: 999;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box1LabelPoint2.right
                     anchors.leftMargin:4
                     background: Rectangle {
@@ -231,7 +231,7 @@ Popup {
                 Label {
                     id: box1LabelMinute2
                     text: "'"
-                    font.pixelSize: 24
+                    font.pixelSize: 30
                     anchors.left:box1Decimal2.right
                     anchors.leftMargin:2
                 }
@@ -255,7 +255,7 @@ Popup {
                 id: box2ButtonNS
                 text:"N"
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 color: Palette.turquoise()
             }
             background: Rectangle {
@@ -275,7 +275,7 @@ Popup {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 90;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box2ButtonNS.right
                 anchors.leftMargin:15
                 background: Rectangle {
@@ -288,7 +288,7 @@ Popup {
             Label {
                 id: box2LabelPoint
                 text: "."
-                font.pixelSize: 24
+                font.pixelSize: 30
                 anchors.left:box2Degrees.right
                 anchors.leftMargin:2
             }
@@ -298,7 +298,7 @@ Popup {
                 maximumLength : 5
                 validator: IntValidator {bottom: 0; top: 99999;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box2LabelPoint.right
                 anchors.leftMargin:4
                 background: Rectangle {
@@ -311,7 +311,7 @@ Popup {
             Label {
                 id: box2LabelDegrees
                 text: "°"
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left:box2Decimal.right
                 anchors.leftMargin:2
             }
@@ -322,7 +322,7 @@ Popup {
                     id: box2ButtonEO
                     text:"E"
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     color: Palette.turquoise()
 
                 }
@@ -343,7 +343,7 @@ Popup {
                     maximumLength : 3
                     validator: IntValidator {bottom: 0; top: 180;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box2ButtonEO.right
                     anchors.leftMargin:15
                     background: Rectangle {
@@ -356,7 +356,7 @@ Popup {
                 Label {
                     id: box2LabelPoint2
                     text: "."
-                    font.pixelSize: 24
+                    font.pixelSize: 30
                     anchors.left:box2Degrees2.right
                     anchors.leftMargin:2
                 }
@@ -366,7 +366,7 @@ Popup {
                     maximumLength : 5
                     validator: IntValidator {bottom: 0; top: 99999;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box2LabelPoint2.right
                     anchors.leftMargin:4
                     background: Rectangle {
@@ -379,7 +379,7 @@ Popup {
                 Label {
                     id: box2LabelDegrees2
                     text: "°"
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left:box2Decimal2.right
                     anchors.leftMargin:2
                 }
@@ -404,7 +404,7 @@ Popup {
                 id: box3ButtonNS
                 text:"N"
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 color: Palette.turquoise()
             }
             background: Rectangle {
@@ -424,7 +424,7 @@ Popup {
                 maximumLength : 3
                 validator: IntValidator {bottom: 0; top: 90;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box3ButtonNS.right
                 anchors.leftMargin:15
                 background: Rectangle {
@@ -437,7 +437,7 @@ Popup {
             Label {
                 id: box3LabelDegrees
                 text: "°"
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left:box3Degrees.right
                 anchors.leftMargin:2
             }
@@ -447,7 +447,7 @@ Popup {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 59;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box3LabelDegrees.right
                 anchors.leftMargin:4
                 background: Rectangle {
@@ -460,7 +460,7 @@ Popup {
             Label {
                 id: box3LabelMinutes
                 text: "'"
-                font.pixelSize: 24
+                font.pixelSize: 30
                 anchors.left:box3Minutes.right
                 anchors.leftMargin:2
             }
@@ -470,7 +470,7 @@ Popup {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 59;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box3LabelMinutes.right
                 anchors.leftMargin:10
                 background: Rectangle {
@@ -483,7 +483,7 @@ Popup {
             Label {
                 id: box3LabelPoint
                 text: "."
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left:box3Seconds.right
                 anchors.leftMargin:2
             }
@@ -493,7 +493,7 @@ Popup {
                 maximumLength : 3
                 validator: IntValidator {bottom: 0; top: 999;}
                 font.family: localFont.name
-                font.pixelSize: 16
+                font.pixelSize: 30
                 anchors.left: box3LabelPoint.right
                 anchors.leftMargin:4
                 background: Rectangle {
@@ -506,7 +506,7 @@ Popup {
             Label {
                 id: box3LabelSeconds
                 text: "''"
-                font.pixelSize: 24
+                font.pixelSize: 30
                 anchors.left:box3Decimal.right
                 anchors.leftMargin:2
             }
@@ -516,7 +516,7 @@ Popup {
                     id: box3ButtonEO
                     text:"E"
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     color: Palette.turquoise()
                 }
                 background: Rectangle {
@@ -536,7 +536,7 @@ Popup {
                     maximumLength : 3
                     validator: IntValidator {bottom: 0; top: 180;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box3ButtonEO.right
                     anchors.leftMargin:15
                     background: Rectangle {
@@ -549,7 +549,7 @@ Popup {
                 Label {
                     id: box3LabelDegrees2
                     text: "°"
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left:box3Degrees2.right
                     anchors.leftMargin:2
                 }
@@ -559,7 +559,7 @@ Popup {
                     maximumLength : 2
                     validator: IntValidator {bottom: 0; top: 59;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box3LabelDegrees2.right
                     anchors.leftMargin:4
                     background: Rectangle {
@@ -572,7 +572,7 @@ Popup {
                 Label {
                     id: box3LabelMinutes2
                     text: "'"
-                    font.pixelSize: 24
+                    font.pixelSize: 30
                     anchors.left:box3Minutes2.right
                     anchors.leftMargin:2
                 }
@@ -584,7 +584,7 @@ Popup {
                     maximumLength : 2
                     validator: IntValidator {bottom: 0; top: 59;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box3LabelMinutes2.right
                     anchors.leftMargin:10
                     background: Rectangle {
@@ -597,7 +597,7 @@ Popup {
                 Label {
                     id: box3LabelPoint2
                     text: "."
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left:box3Seconds2.right
                     anchors.leftMargin:2
                 }
@@ -607,7 +607,7 @@ Popup {
                     maximumLength : 3
                     validator: IntValidator {bottom: 0; top: 999;}
                     font.family: localFont.name
-                    font.pixelSize: 16
+                    font.pixelSize: 30
                     anchors.left: box3LabelPoint2.right
                     anchors.leftMargin:4
                     background: Rectangle {
@@ -620,7 +620,7 @@ Popup {
                 Label {
                     id: box3LabelSeconds2
                     text: "''"
-                    font.pixelSize: 24
+                    font.pixelSize: 30
                     anchors.left:box3Decimal2.right
                     anchors.leftMargin:2
                 }
