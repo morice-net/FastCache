@@ -324,5 +324,23 @@ Item {
         return longitude
     }
 
+    function  waypointMarker(name) {
+        for (var i = 0; i < waypointTypes.types.length; i++) {
+            if(waypointTypes.types[i].name === name ){
+                return  waypointTypes.types[i].icon
+            }
+        }
+        return
+    }
+
+    function  waypointNameFr(name) {
+        for (var i = 0; i < waypointTypes.types.length; i++) {
+            if(waypointTypes.types[i].name === name ){
+                return  waypointTypes.types[i].nameFr
+            }
+        }
+        return
+    }
+
 
 }

@@ -257,7 +257,11 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             {
                 m_wptsDescription.append(waypoint.toObject().value("UrlName").toString());
                 m_wptsName.append(waypoint.toObject().value("Name").toString());
-                m_wptsLat.append(waypoint.toObject().value("Latitude").toDouble());
+                if(waypoint.toObject().value("Latitude").isNull()) {
+                    m_wptsLat.append(200) ;
+                } else{
+                    m_wptsLat.append(waypoint.toObject().value("Latitude").toDouble());
+                }
                 m_wptsLon.append(waypoint.toObject().value("Longitude").toDouble());
                 m_wptsComment.append(waypoint.toObject().value("Comment").toString());
             }
