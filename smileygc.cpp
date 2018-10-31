@@ -31,7 +31,7 @@ QString SmileyGc::replaceSmileyTextToImgSrc(const QString &text) const
 
     for(auto e : m_mapSmileyGc.keys())    {
 
-        newString.replace("[" + e + "]" , R"(<img src=)" + m_mapSmileyGc.value(e) + R"(/>)" );
+        newString.replace("[" + e + "]" , R"(<img src=)" + m_mapSmileyGc.value(e) + R"( width="25")" +  R"(/>)" );
     }
     return newString;
 }
