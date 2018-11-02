@@ -7,6 +7,8 @@ import com.mycompany.connecting 1.0
 Item {
     id: imagesPage
 
+    property  var initVisibleImages :logsPage.initVisibleImages()
+
     Flickable {
         id: images
         anchors.fill: parent
@@ -15,41 +17,58 @@ Item {
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        Column{
-            spacing:10
-            width: imagesPage.width
-            leftPadding: 15
+        Loader {
+            id:imagesLoader
+            active: true
+            sourceComponent: imagesComponent
+        }
 
-            Repeater{
-                model:fullCache.imagesName.length
+        Component{
+            id:imagesComponent
 
-                Column{
-                    Text {
-                        text: fullCache.imagesName[index]
-                        font.family: localFont.name
-                        font.bold: true
-                        font.pointSize: 15
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-                    }
+            Column{
+                spacing:10
+                width: imagesPage.width
+                leftPadding: 15
 
-                    Text {
-                        text: fullCache.imagesDescription[index]
-                        font.family: localFont.name
-                        font.pointSize: 15
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-                    }
+                Repeater{
+                    model:fullCache.imagesName.length
 
-                    Image {
-                        source: fullCache.imagesUrl[index]
-                        horizontalAlignment: Image.AlignHCenter
+                    Column{
+
+                        Text {
+                            visible: swipeFastCache.currentIndex != 4  ? fullCache.setListVisibleImages(initVisibleImages)[index] : fullCache.listVisibleImages[index]
+                            text: fullCache.imagesName[index]
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 15
+                            color: Palette.white()
+                            wrapMode: Text.Wrap
+                        }
+
+                        Text {
+                            visible: swipeFastCache.currentIndex != 4  ? fullCache.setListVisibleImages(initVisibleImages)[index] : fullCache.listVisibleImages[index]
+                            text: fullCache.imagesDescription[index]
+                            font.family: localFont.name
+                            font.pointSize: 15
+                            color: Palette.white()
+                            wrapMode: Text.Wrap
+
+                        }
+
+                        Image {
+                            visible: swipeFastCache.currentIndex != 4  ? fullCache.setListVisibleImages(initVisibleImages)[index] : fullCache.listVisibleImages[index]
+                            source: fullCache.imagesUrl[index]
+                            horizontalAlignment: Image.AlignHCenter
+
+                        }
                     }
                 }
             }
         }
     }
 }
+
 
 
 

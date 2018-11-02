@@ -41,7 +41,6 @@ Item {
                 text: fullCache.shortDescription + fullCache.longDescription
             }
 
-
             Rectangle {
                 id: separator1
                 width: parent.width
@@ -59,6 +58,19 @@ Item {
                 font.pointSize: 14
                 text: "INDICE"
                 color: Palette.silver()
+            }
+
+            Image {
+                x: 15
+                source:"qrc:/Image/" + "icon_photo.png"
+                visible:fullCache.cacheImagesIndex[0] === 0 ? false : true
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        imagesCache();
+                        swipeFastCache.setCurrentIndex(4) ;
+                    }
+                }
             }
 
             Text {
@@ -148,6 +160,7 @@ Item {
                     }
                     onClicked: personalNote.text = ""
                 }
+
                 Button {
                     id:buttonSend
                     contentItem: Text {
@@ -188,6 +201,22 @@ Item {
                 radius:10
             }
         }
+    }
+
+    function imagesCache() {
+        var visible =[];
+
+        for (var i = 0; i < fullCache.imagesName.length; i++) {
+            if( i < fullCache.cacheImagesIndex[0]){
+                visible.push(true) ;
+            } else {
+                visible.push(false) ;
+            }
+        }
+        fullCache.setListVisibleImages(visible);
+
+        console.log("Images index:  " + fullCache.cacheImagesIndex)
+        console.log("Visible Images:  " + fullCache.listVisibleImages)
     }
 }
 

@@ -51,10 +51,10 @@ Item {
 
                     }
 
-
                     Item {
                         width: logs.width
                         height: 35
+
                         Text {
                             text: fullCache.logsType[index]
                             leftPadding: 15
@@ -74,6 +74,19 @@ Item {
                             wrapMode: Text.Wrap
                             anchors.right: parent.right
                             anchors.rightMargin: 10
+                        }
+                    }
+
+                    Image {
+                        x:15
+                        source:"qrc:/Image/" + "icon_photo.png"
+                        visible:(fullCache.cacheImagesIndex[index + 1] - fullCache.cacheImagesIndex[index]) === 0 ? false : true
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                imagesLog(index);
+                                swipeFastCache.setCurrentIndex(4) ;
+                            }
                         }
                     }
 
@@ -99,6 +112,35 @@ Item {
                 }
             }
         }
+    }
+
+    function imagesLog(logIndex) {
+        var visible =[];
+
+        for (var i = 0; i < fullCache.imagesName.length; i++) {
+
+            if( i < fullCache.cacheImagesIndex[logIndex]){
+                visible.push(false) ;
+            } else {
+                if( i >= fullCache.cacheImagesIndex[logIndex] && i < fullCache.cacheImagesIndex[logIndex + 1]){
+                    visible.push(true) ;
+                } else {
+                    visible.push(false) ;
+                }
+            }
+        }
+        fullCache.setListVisibleImages(visible);
+
+        console.log("Images index:  " + fullCache.cacheImagesIndex)
+        console.log("Visible Images:  " + fullCache.listVisibleImages)
+    }
+
+    function initVisibleImages() {
+        var visible =[];
+        for (var i = 0; i < fullCache.imagesName.length; i++) {
+            visible.push(true) ;
+        }
+        return visible ;
     }
 }
 

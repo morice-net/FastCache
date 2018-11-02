@@ -35,6 +35,8 @@ FullCache::FullCache(Cache *parent)
     , m_wptsLat(QList<double>())
     , m_wptsLon(QList<double>())
     , m_wptsComment(QList<QString>())
+    , m_cacheImagesIndex(QList<int>())
+    , m_listVisibleImages(QList<bool>())
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -194,15 +196,17 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             m_imagesName.clear();
             m_imagesDescription.clear();
             m_imagesUrl.clear();
+            m_cacheImagesIndex.clear();
 
             QJsonArray  images = v.toObject().value("Images").toArray();
             foreach ( const QJsonValue & image, images)
             {
                 m_imagesName.append(image.toObject().value("Name").toString());
                 m_imagesDescription.append(image.toObject().value("Description").toString());
-                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
-
+                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());                
             }
+            m_cacheImagesIndex.append(m_imagesName.size());
+
             qDebug() << "*** imagesName**\n" <<m_imagesName ;
             qDebug() << "*** imagesDescription**\n" <<m_imagesDescription ;
             qDebug() << "*** imagesUrl**\n" <<m_imagesUrl ;
@@ -213,6 +217,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             m_findersName.clear();
             m_logs.clear()  ;
             m_logsType.clear();
+            m_listVisibleImages.clear();
 
             QJsonArray  geocacheLogs = v.toObject().value("GeocacheLogs").toArray();
             foreach ( const QJsonValue & geocacheLog, geocacheLogs)
@@ -232,10 +237,16 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
                 {
                     m_imagesName.append(logImage.toObject().value("Name").toString());
                     m_imagesDescription.append(logImage.toObject().value("Description").toString());
-                    m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());
+                    m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());                    
                 }
-
+                m_cacheImagesIndex.append(m_imagesName.size());
             }
+
+            for(int i=0; i<m_imagesName.size(); i++)
+            {
+                m_listVisibleImages.append(true);
+            }
+
             emit imagesNameChanged();
             emit imagesDescriptionChanged();
             emit imagesUrlChanged();
@@ -244,6 +255,8 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             emit findersCountChanged();
             emit findersDateChanged();
             emit findersNameChanged();
+            emit cacheImagesIndexChanged();
+            emit listVisibleImagesChanged();
 
             // Waypoints
             m_wptsDescription.clear();
@@ -547,6 +560,29 @@ void FullCache::setWptsComment(const QList<QString> &comments)
     m_wptsComment = comments;
     emit wptsCommentChanged();
 }
+
+QList<int> FullCache::cacheImagesIndex() const
+{
+    return  m_cacheImagesIndex;
+}
+
+void FullCache::setCacheImagesIndex(const QList<int> &ints)
+{
+    m_cacheImagesIndex = ints;
+    emit cacheImagesIndexChanged();
+}
+
+QList<bool> FullCache::listVisibleImages() const
+{
+    return  m_listVisibleImages;
+}
+
+void FullCache::setListVisibleImages(const QList<bool> &visibles)
+{
+    m_listVisibleImages = visibles;
+    emit listVisibleImagesChanged();
+}
+
 
 
 

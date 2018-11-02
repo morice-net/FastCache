@@ -29,16 +29,20 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
     Q_PROPERTY(QList<int > findersCount READ findersCount WRITE setFindersCount NOTIFY findersCountChanged)
     Q_PROPERTY(QList<QString > findersDate READ findersDate WRITE setFindersDate NOTIFY findersDateChanged)
+    Q_PROPERTY(QList<int > cacheImagesIndex READ cacheImagesIndex WRITE setCacheImagesIndex NOTIFY cacheImagesIndexChanged)
+    Q_PROPERTY(QList<bool > listVisibleImages READ listVisibleImages WRITE setListVisibleImages NOTIFY listVisibleImagesChanged)
     Q_PROPERTY(QList<QString > wptsDescription READ wptsDescription WRITE setWptsDescription NOTIFY wptsDescriptionChanged)
     Q_PROPERTY(QList<QString > wptsName READ wptsName WRITE setWptsName NOTIFY wptsNameChanged)
     Q_PROPERTY(QList<double > wptsLat READ wptsLat WRITE setWptsLat NOTIFY wptsLatChanged)
     Q_PROPERTY(QList<double > wptsLon READ wptsLon WRITE setWptsLon NOTIFY wptsLonChanged)
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
 
+
 public:
     explicit FullCache(Cache *parent = nullptr);
 
     Q_INVOKABLE void sendRequest(QString token);
+    Q_INVOKABLE   void setListVisibleImages(const QList<bool> &visibles);
 
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);
@@ -97,7 +101,6 @@ public:
     QList<QString> logs() const;
     void setLogs(const QList<QString> &logs);
 
-
     QList<QString> wptsDescription() const;
     void setWptsDescription(const QList<QString> &descriptions);
 
@@ -113,7 +116,12 @@ public:
     QList<QString> wptsComment() const;
     void setWptsComment(const QList<QString> &comments);
 
-public slots:  
+    QList<int> cacheImagesIndex() const;
+    void setCacheImagesIndex(const QList<int> &ints);
+
+    QList<bool> listVisibleImages() const;
+
+public slots:
     void onReplyFinished(QNetworkReply* reply)  ;
 
 signals:
@@ -141,6 +149,8 @@ signals:
     void wptsLatChanged();
     void wptsLonChanged();
     void wptsCommentChanged();
+    void cacheImagesIndexChanged();
+    void listVisibleImagesChanged();
 
 protected:
     const int MAX_PER_PAGE=40;
@@ -162,6 +172,8 @@ protected:
     QList<double> m_wptsLat;
     QList<double> m_wptsLon;
     QList<QString> m_wptsComment;
+    QList<int> m_cacheImagesIndex;
+    QList<bool> m_listVisibleImages;
 
 private:    
     //  network manager

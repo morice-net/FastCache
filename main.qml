@@ -134,7 +134,6 @@ Item {
         id: fullCache
     }
 
-
     Component.onCompleted: {
         main.viewState = "map"
 
