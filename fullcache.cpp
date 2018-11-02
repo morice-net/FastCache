@@ -201,9 +201,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             QJsonArray  images = v.toObject().value("Images").toArray();
             foreach ( const QJsonValue & image, images)
             {
-                m_imagesName.append(image.toObject().value("Name").toString());
-                m_imagesDescription.append(image.toObject().value("Description").toString());
-                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());                
+                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
+                m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
+                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
             }
             m_cacheImagesIndex.append(m_imagesName.size());
 
@@ -235,9 +235,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
                 QJsonArray  logsImage = geocacheLog.toObject().value("Images").toArray();
                 foreach ( const QJsonValue & logImage, logsImage)
                 {
-                    m_imagesName.append(logImage.toObject().value("Name").toString());
-                    m_imagesDescription.append(logImage.toObject().value("Description").toString());
-                    m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());                    
+                    m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Name").toString()));
+                    m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Description").toString()));
+                    m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());
                 }
                 m_cacheImagesIndex.append(m_imagesName.size());
             }
