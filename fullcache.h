@@ -42,7 +42,6 @@ public:
     explicit FullCache(Cache *parent = nullptr);
 
     Q_INVOKABLE void sendRequest(QString token);
-    Q_INVOKABLE   void setListVisibleImages(const QList<bool> &visibles);
 
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);
@@ -120,6 +119,7 @@ public:
     void setCacheImagesIndex(const QList<int> &ints);
 
     QList<bool> listVisibleImages() const;
+    Q_INVOKABLE   void setListVisibleImages(const QList<bool> &visibles);
 
 public slots:
     void onReplyFinished(QNetworkReply* reply)  ;

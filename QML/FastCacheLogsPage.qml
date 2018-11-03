@@ -48,7 +48,6 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: 10
                         }
-
                     }
 
                     Item {
@@ -133,14 +132,6 @@ Item {
 
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
-    }
-
-    function initVisibleImages() {
-        var visible =[];
-        for (var i = 0; i < fullCache.imagesName.length; i++) {
-            visible.push(true) ;
-        }
-        return visible ;
     }
 }
 

@@ -12,7 +12,7 @@ Rectangle {
     opacity: main.viewState == "fullcache" ? 1 : 0
     visible: opacity > 0
     color: Palette.greenSea()
-    
+
     Text {
         id: loadingText
         visible: fullCache.state == "loading"
@@ -62,13 +62,16 @@ Rectangle {
 
     SwipeView {
         id: swipeFastCache
-        visible: fullCache.state != "loading"
+        visible: fullCache.state !== "loading"
         currentIndex: 2
         anchors.top: fastCacheHeader.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        
+        onCurrentIndexChanged :{
+            if(swipeFastCache.currentIndex !== 4)  imagesTrue() ;
+        }
+
         FastCacheWaypointsPage {
             id: waypointsPage
         }
@@ -92,12 +95,20 @@ Rectangle {
     
     PageIndicator {
         id: indicatorFastCache
-        visible: fullCache.state != "loading"
+        visible: fullCache.state !== "loading"
         
         count: swipeFastCache.count
         currentIndex: swipeFastCache.currentIndex
         
         anchors.bottom: fastCache.bottom
         anchors.horizontalCenter: parent.horizontalCenter
+    }
+
+    function imagesTrue() {
+        var visible =[];
+        for (var i = 0; i < fullCache.imagesName.length; i++) {
+            visible.push(true) ;
+        }
+        fullCache.setListVisibleImages(visible);
     }
 }

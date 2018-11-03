@@ -7,8 +7,6 @@ import com.mycompany.connecting 1.0
 Item {
     id: imagesPage
 
-    property  var initVisibleImages :logsPage.initVisibleImages()
-
     Flickable {
         id: images
         anchors.fill: parent
@@ -37,7 +35,7 @@ Item {
                     Column{
 
                         Text {
-                            visible: swipeFastCache.currentIndex != 4  ? fullCache.setListVisibleImages(initVisibleImages)[index] : fullCache.listVisibleImages[index]
+                            visible: fullCache.listVisibleImages[index]
                             text: fullCache.imagesName[index]
                             font.family: localFont.name
                             textFormat: Qt.RichText
@@ -48,7 +46,7 @@ Item {
                         }
 
                         Text {
-                            visible: swipeFastCache.currentIndex != 4  ? fullCache.setListVisibleImages(initVisibleImages)[index] : fullCache.listVisibleImages[index]
+                            visible: fullCache.listVisibleImages[index]
                             text: fullCache.imagesDescription[index]
                             font.family: localFont.name
                             textFormat: Qt.RichText
@@ -59,7 +57,7 @@ Item {
                         }
 
                         Image {
-                            visible: swipeFastCache.currentIndex != 4  ? fullCache.setListVisibleImages(initVisibleImages)[index] : fullCache.listVisibleImages[index]
+                            visible: fullCache.listVisibleImages[index]
                             source: fullCache.imagesUrl[index]
                             horizontalAlignment: Image.AlignHCenter
 

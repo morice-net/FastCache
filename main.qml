@@ -1,4 +1,4 @@
-import QtQuick 2.6
+import QtQuick 2.11
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.2
 import QtPositioning 5.3
@@ -173,7 +173,6 @@ Item {
                 main.viewState = "map"
             else
                 Qt.quit()
-
             event.accepted = true
         }
     }
@@ -340,6 +339,4 @@ Item {
         }
         return
     }
-
-
 }

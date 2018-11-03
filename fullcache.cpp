@@ -67,7 +67,6 @@ FullCache::FullCache(Cache *parent)
     m_mapLogType.insert("Visite retirée",25 );
     m_mapLogType.insert("Marquer comme absente",16 );
     m_mapLogType.insert("Photo prise par la webcam", 11);
-
 }
 
 void FullCache::sendRequest( QString token)
@@ -246,7 +245,6 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             {
                 m_listVisibleImages.append(true);
             }
-
             emit imagesNameChanged();
             emit imagesDescriptionChanged();
             emit imagesUrlChanged();
@@ -582,6 +580,8 @@ void FullCache::setListVisibleImages(const QList<bool> &visibles)
     m_listVisibleImages = visibles;
     emit listVisibleImagesChanged();
 }
+
+
 
 
 
