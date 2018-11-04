@@ -53,12 +53,17 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                console.log("Filter clicked")
-                cacheFilter.opacity = 1 - cacheFilter.opacity
-            }
+            onClicked: changeFiltersVisibility()
         }
     }
 
     CacheFilter { id: cacheFilter }
+
+    function isFiltersVisible() {
+        return cacheFilter.visible
+    }
+
+    function changeFiltersVisibility() {
+        cacheFilter.opacity = 1 - cacheFilter.opacity
+    }
 }

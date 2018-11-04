@@ -168,12 +168,25 @@ Item {
     }
 
     Keys.onPressed: {
+        event.accepted = true
         if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
-            if (main.viewState == "fullcache" || main.viewState == "list")
+            if (webEngine.visible) {
+                webEngine.visible = false
+            } else if (coordinatesBox.visible) {
+                coordinatesBox.visible = false
+            } else if (geocodeAlert.visible) {
+                geocodeAlert.visible = false
+            } else if (geocode.visible) {
+                geocode.visible = false
+            } else if (fastMenu.isMenuVisible()) {
+                fastMenu.hideMenu()
+            } else if (fastMenuHeader.isFiltersVisible()) {
+                fastMenuHeader.changeFiltersVisibility()
+            } else if (main.viewState == "fullcache" || main.viewState == "list") {
                 main.viewState = "map"
-            else
+            } else {
                 Qt.quit()
-            event.accepted = true
+            }
         }
     }
 
