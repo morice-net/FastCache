@@ -85,6 +85,7 @@ Item {
                             onClicked: {
                                 imagesLog(index);
                                 swipeFastCache.setCurrentIndex(4) ;
+                                fastCache.allVisible = false ;
                             }
                         }
                     }

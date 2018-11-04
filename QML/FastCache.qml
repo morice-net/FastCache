@@ -8,6 +8,9 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: fastCache
+
+    property bool allVisible: true
+
     anchors.fill: parent
     opacity: main.viewState == "fullcache" ? 1 : 0
     visible: opacity > 0
@@ -69,7 +72,10 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         onCurrentIndexChanged :{
-            if(swipeFastCache.currentIndex !== 4)  imagesTrue() ;
+            if(swipeFastCache.currentIndex !== 4  && allVisible === false){
+                imagesTrue() ;
+                allVisible = true ;
+            }
         }
 
         FastCacheWaypointsPage {
