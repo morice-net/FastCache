@@ -1,5 +1,8 @@
 #include "cache.h"
 
+#include <QUrl>
+#include <QDesktopServices>
+
 Cache::Cache(QObject *parent)
     : QObject(parent)
     , m_name("")
@@ -22,6 +25,12 @@ Cache::Cache(QObject *parent)
 
 Cache::~Cache()
 {
+}
+
+void Cache::launchMaps()
+{
+    QString mapsUrl = "https://www.google.com/maps/search/?api=1&basemap=terrain&query=" + QString::number(m_lat) + "," + QString::number(m_lon);
+    QDesktopServices::openUrl(QUrl(mapsUrl));
 }
 
 /** Getters & Setters **/

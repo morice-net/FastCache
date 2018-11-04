@@ -150,14 +150,18 @@ Item {
             anchors.bottomMargin: 20
 
             buttonSelected: main.state == "near"
-            buttonText: "Caches proches"
+            buttonText: main.viewState == "fullcache" ? "Lancer Maps" : "Caches proches"
 
             function buttonClicked() {
-                main.state = "near"
-                hideMenu()
-                main.cachesActive = false
-                nearCachesClicked()
-                fastMap.mapItem.center = currentPosition.position.coordinate
+                if (main.viewState == "fullcache") {
+                    fullCache.launchMaps();
+                } else {
+                    main.state = "near"
+                    hideMenu()
+                    main.cachesActive = false
+                    nearCachesClicked()
+                    fastMap.mapItem.center = currentPosition.position.coordinate
+                }
             }
         }
 

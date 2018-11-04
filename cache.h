@@ -27,6 +27,8 @@ public:
     explicit  Cache(QObject *parent = nullptr);
     ~Cache();
 
+    Q_INVOKABLE void launchMaps();
+
     QString name() const;
     void setName(const QString &name);
 
