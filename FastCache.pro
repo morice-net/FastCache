@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick location
+QT += qml quick location svg
 
 linux:!android {
     QT += webengine

@@ -1,10 +1,12 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.0
-import QtQuick.Controls.Styles 1.2
+import QtQuick.Controls 2.2
+import QtQuick.Controls.Styles 1.4
+import QtQuick.Window 2.3
 import QtPositioning 5.3
 import QtWebView 1.1
 import Qt.labs.settings 1.0
 import QtLocation 5.3
+import QtSensors 5.3
 
 import "QML/JavaScript/Palette.js" as Palette
 import "QML"
@@ -34,6 +36,26 @@ Item {
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
+    // The compass sensor is binded to the device orientation,
+    // so there is need in the correction when the UI is rotated
+    property real orientationAngle: {
+        switch (Screen.orientation) {
+        case Orientation.Portrait:
+            return 0;
+        case Orientation.Landscape:
+            return 270;
+        case Orientation.PortraitInverted:
+            return 180;
+        case Orientation.LandscapeInverted:
+            return 90;
+        }
+    }
+
+    property var oldPosition: Position{}
+    property var newPosition: Position{}
+
+    signal positionUpdated
+
     visible: true
     anchors.fill: parent
     focus: true
@@ -42,6 +64,11 @@ Item {
         id: currentPosition
         updateInterval: 1000
         active: true
+        onPositionChanged: {
+            oldPosition = newPosition
+            newPosition = currentPosition.position
+            main.positionUpdated()
+        }
     }
 
     CachesBBox {
@@ -86,6 +113,10 @@ Item {
     }
 
     LoadingPage { id: loadingPage }
+
+    CompassPage {
+        visible: false
+    }
 
     /////////////////////////
     // Invisible elements  //
@@ -132,6 +163,18 @@ Item {
 
     FullCache {
         id: fullCache
+    }
+
+    Compass { // the compass sensor object
+        id: compass
+        active: false // turn the compass on
+        skipDuplicates: true // skip similar values
+    }
+
+    OrientationSensor {
+        id: orientationReading
+        active: false
+        skipDuplicates: true
     }
 
     Component.onCompleted: {

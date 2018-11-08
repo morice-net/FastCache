@@ -109,6 +109,46 @@ Rectangle {
         onTriggered: selectedCacheItem.opacity = 0
     }
 
+    Location {
+        id: selectedCacheLocation
+        coordinate {
+            latitude: selectedCache.lat
+            longitude: selectedCache.lon
+        }
+    }
+
+    Item {
+        id: littleCompass
+        height: parent.height /2
+        width: height
+        anchors.margins: 5
+        anchors.right: parent.right
+        anchors.top: parent.top
+        Rectangle {
+            width: 4
+            height: parent.height
+            anchors.centerIn: parent
+            color: Palette.greenSea()
+
+            Rectangle{
+                width: 10
+                height: 10
+                radius: 5
+                x: -3
+                y: -5
+                color: Palette.greenSea()
+            }
+
+        }
+
+        function updateRotation() {
+            rotation = newPosition.coordinate.azimuthTo(selectedCacheLocation.coordinate) - oldPosition.coordinate.azimuthTo(newPosition.coordinate)
+        }
+        Component.onCompleted: {
+            main.positionUpdated.connect(updateRotation)
+        }
+    }
+
     Behavior on opacity { NumberAnimation { duration: 250 } }
 
     function show(selectedCacheVar) {
