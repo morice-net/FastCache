@@ -15,8 +15,10 @@ import com.mycompany.connecting 1.0
 Item {
 
     id: main
+    anchors.fill: parent
+    visible: true
+    focus: true
 
-    FastSettings { id: settings }
 
     // State can take "near" "address" "coordinates"....
     property string viewState: "" // "map" or "list" or "fullcache"
@@ -56,9 +58,7 @@ Item {
 
     signal positionUpdated
 
-    visible: true
-    anchors.fill: parent
-    focus: true
+    FastSettings { id: settings }
 
     PositionSource {
         id: currentPosition
@@ -215,12 +215,12 @@ Item {
         if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
             if (webEngine.visible) {
                 webEngine.visible = false
-            } else if (coordinatesBox.visible) {
-                coordinatesBox.visible = false
-            } else if (geocodeAlert.visible) {
-                geocodeAlert.visible = false
-            } else if (geocode.visible) {
-                geocode.visible = false
+            } else if (coordinatesBox.opened) {
+                coordinatesBox.close()
+            } else if (geocodeAlert.opened) {
+                geocodeAlert.close()
+            } else if (geocode.opened) {
+                geocode.close()
             } else if (fastMenu.isMenuVisible()) {
                 fastMenu.hideMenu()
             } else if (fastMenuHeader.isFiltersVisible()) {

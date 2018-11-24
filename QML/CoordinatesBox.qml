@@ -14,6 +14,17 @@ Popup {
 
     x: parent.height * 0.05 + 10
     y: parent.height * 0.05 + 10
+
+    // Exit and focus management
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+    onVisibleChanged: {
+        if (visible)
+            opacity = 1
+        else
+            opacity = 0
+        main.forceActiveFocus()
+    }
+
     background: Rectangle {
         id: coordinatesBoxBackground
         anchors.fill: parent

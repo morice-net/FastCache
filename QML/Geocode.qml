@@ -14,7 +14,19 @@ Popup {
     id: geocode
     x: parent.height * 0.05 + 10
     y: parent.height * 0.05 + 10
-    opacity: 0
+
+    // Exit and focus management
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+    onVisibleChanged: {
+        if (visible)
+            opacity = 1
+        else
+            opacity = 0
+        main.forceActiveFocus()
+    }
+
+    Behavior on opacity { NumberAnimation { duration: 800 } }
+
     background: Rectangle {
         anchors.fill: parent
         implicitWidth: main.width*0.7
@@ -188,16 +200,6 @@ Popup {
         }
     }
 
-    Behavior on opacity { NumberAnimation { duration: 800 } }
-
-
-    onVisibleChanged: {
-        if (visible)
-            opacity = 1
-        else
-            opacity = 0
-    }
-
     Address {
         id: address
         street: ""
@@ -220,6 +222,17 @@ Popup {
     Popup {
         id: geocodeResponse
         x:50
+
+        // Exit and focus management
+        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+        onVisibleChanged: {
+            if (visible)
+                opacity = 1
+            else
+                opacity = 0
+            main.forceActiveFocus()
+        }
+
         background: Rectangle {
             color: Palette.turquoise()
             opacity: 0.3

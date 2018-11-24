@@ -7,6 +7,17 @@ import "JavaScript/Palette.js" as Palette
 
 Popup {
     id: geocodeAlert
+
+    // Exit and focus management
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+    onVisibleChanged: {
+        if (visible)
+            opacity = 1
+        else
+            opacity = 0
+        main.forceActiveFocus()
+    }
+
     background: Rectangle {
         x:20
         y:main.height/3

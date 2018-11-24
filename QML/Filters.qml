@@ -74,9 +74,17 @@ Item {
             x: 100
             y: 100
             width: 300
-            modal: true
-            focus: true
-            closePolicy:  Popup.CloseOnPressOutside
+
+            // Exit and focus management
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            onVisibleChanged: {
+                if (visible)
+                    opacity = 1
+                else
+                    opacity = 0
+                main.forceActiveFocus()
+            }
+
             background: Rectangle {
                 implicitWidth: 110
                 implicitHeight: 25
@@ -200,6 +208,15 @@ Item {
 
         Popup {
             id: keyWordPopup
+            // Exit and focus management
+            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+            onVisibleChanged: {
+                if (visible)
+                    opacity = 1
+                else
+                    opacity = 0
+                main.forceActiveFocus()
+            }
             background: Rectangle {
                 implicitWidth: main.width*0.8
                 border.color: Palette.turquoise()
