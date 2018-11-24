@@ -129,5 +129,6 @@
         <file>Image/icon_photo.png</file>
         <file>QML/CompassPage.qml</file>
         <file>Image/compass.svg</file>
+        <file>QML/SureQuit.qml</file>
     </qresource>
 </RCC>

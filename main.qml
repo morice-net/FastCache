@@ -118,6 +118,10 @@ Item {
         visible: false
     }
 
+    SureQuit {
+        id: sureQuit
+    }
+
     /////////////////////////
     // Invisible elements  //
     /////////////////////////
@@ -228,7 +232,7 @@ Item {
             } else if (main.viewState == "fullcache" || main.viewState == "list") {
                 main.viewState = "map"
             } else {
-                Qt.quit()
+                sureQuit.visible = true
             }
         }
     }
