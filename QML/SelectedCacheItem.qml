@@ -124,13 +124,16 @@ Rectangle {
         anchors.margins: 5
         anchors.right: parent.right
         anchors.top: parent.top
+        clip: false
+
         Rectangle {
+            id: smallCompassNeedle
             width: 4
             height: parent.height
             anchors.centerIn: parent
             color: Palette.greenSea()
 
-            Rectangle{
+            Rectangle {
                 width: 10
                 height: 10
                 radius: 5
@@ -142,7 +145,10 @@ Rectangle {
         }
 
         function updateRotation() {
-            rotation = newPosition.coordinate.azimuthTo(selectedCacheLocation.coordinate) - oldPosition.coordinate.azimuthTo(newPosition.coordinate)
+            console.log("Updating small compass...")
+            if (typeof currentPosition.direction !== 'undefined')
+                littleCompass.rotation = -1. * currentPosition.direction
+            smallCompassNeedle.rotation = currentPosition.position.coordinate.azimuthTo(selectedCacheLocation.coordinate)
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)

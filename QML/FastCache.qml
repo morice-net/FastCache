@@ -66,16 +66,20 @@ Rectangle {
     SwipeView {
         id: swipeFastCache
         visible: fullCache.state !== "loading"
-        currentIndex: 2
+        currentIndex: 3
         anchors.top: fastCacheHeader.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         onCurrentIndexChanged :{
-            if(swipeFastCache.currentIndex !== 4  && allVisible === false){
+            if(swipeFastCache.currentIndex !== 5  && allVisible === false){
                 imagesTrue() ;
                 allVisible = true ;
             }
+        }
+
+        CompassPage {
+            id: compassPage
         }
 
         FastCacheWaypointsPage {

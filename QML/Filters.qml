@@ -329,7 +329,6 @@ Item {
     }
 
     function textSizeButton() {
-        console.log("check text size button")
         if(size1.checked && size2.checked && size3.checked && size4.checked && size5.checked && size6.checked && size7.checked)
         {
             textButtonId.text = "Toutes..."

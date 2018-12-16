@@ -38,24 +38,6 @@ Item {
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
-    // The compass sensor is binded to the device orientation,
-    // so there is need in the correction when the UI is rotated
-    property real orientationAngle: {
-        switch (Screen.orientation) {
-        case Orientation.Portrait:
-            return 0;
-        case Orientation.Landscape:
-            return 270;
-        case Orientation.PortraitInverted:
-            return 180;
-        case Orientation.LandscapeInverted:
-            return 90;
-        }
-    }
-
-    property var oldPosition: Position{}
-    property var newPosition: Position{}
-
     signal positionUpdated
 
     FastSettings { id: settings }
@@ -65,8 +47,6 @@ Item {
         updateInterval: 1000
         active: true
         onPositionChanged: {
-            oldPosition = newPosition
-            newPosition = currentPosition.position
             main.positionUpdated()
         }
     }
@@ -113,10 +93,6 @@ Item {
     }
 
     LoadingPage { id: loadingPage }
-
-    CompassPage {
-        visible: false
-    }
 
     SureQuit {
         id: sureQuit
@@ -167,6 +143,15 @@ Item {
 
     FullCache {
         id: fullCache
+
+    }
+
+    Location {
+        id: fullCacheLocation
+        coordinate {
+            latitude: fullCache.lat
+            longitude: fullCache.lon
+        }
     }
 
     Compass { // the compass sensor object

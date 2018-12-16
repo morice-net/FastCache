@@ -261,7 +261,7 @@ Popup {
         anchors.margins: 10
 
         Button {
-            y:button3.y+button3.height+10
+            y: 10
             contentItem: Text {
                 id: box2ButtonNS
                 text:"N"
@@ -410,7 +410,7 @@ Popup {
         anchors.margins: 10
 
         Button {
-            y:button3.y+button3.height+10
+            y: 10
             contentItem: Text {
                 id: box3ButtonNS
                 text:"N"
