@@ -68,7 +68,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         imagesCache();
-                        swipeFastCache.setCurrentIndex(4) ;
+                        swipeFastCache.setCurrentIndex(5) ;
                         fastCache.allVisible = false ;
                     }
                 }

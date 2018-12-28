@@ -72,7 +72,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         onCurrentIndexChanged :{
-            if(swipeFastCache.currentIndex !== 5  && allVisible === false){
+            if(swipeFastCache.currentIndex !== 6  && allVisible === false){
                 imagesTrue() ;
                 allVisible = true ;
             }
