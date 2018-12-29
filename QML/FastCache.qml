@@ -12,13 +12,13 @@ Rectangle {
     property bool allVisible: true
 
     anchors.fill: parent
-    opacity: main.viewState == "fullcache" ? 1 : 0
+    opacity: main.viewState === "fullcache" ? 1 : 0
     visible: opacity > 0
     color: Palette.greenSea()
 
     Text {
         id: loadingText
-        visible: fullCache.state == "loading"
+        visible: fullCache.state === "loading"
         anchors.fill: parent
         font.family: localFont.name
         font.pointSize: 20
