@@ -3,6 +3,7 @@ import QtLocation 5.3
 import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/helper.js" as Helper
 import com.mycompany.connecting 1.0
 
 Rectangle {
@@ -126,30 +127,32 @@ Rectangle {
         anchors.top: parent.top
         clip: false
 
-        Rectangle {
+        Text {
+            id:distance
+            anchors.margins: 5
+            anchors.top: parent.top
+            anchors.right: parent.right
+            font.family: localFont.name
+            font.pixelSize: selectedCacheItem.height * 0.15
+            color: Palette.black()
+            clip: true
+            text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
+                                                   .distanceTo(QtPositioning.coordinate(selectedCache.lat, selectedCache.lon))))
+        }
+
+        Image {
             id: smallCompassNeedle
-            width: 4
-            height: parent.height
-            anchors.centerIn: parent
-            color: Palette.greenSea()
-
-            Rectangle {
-                width: 10
-                height: 10
-                radius: 5
-                x: -3
-                y: -5
-                color: Palette.greenSea()
-            }
-
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            source: "qrc:/Image/compass_mini.png"
+            width: sourceSize.width*1.8
+            height: sourceSize.height*1.8
         }
 
         function updateRotation() {
             console.log("Updating small compass...")
             if (currentPosition == undefined)
                 return
-            if (currentPosition.direction !== undefined)
-                littleCompass.rotation = -1. * currentPosition.direction
             smallCompassNeedle.rotation = currentPosition.position.coordinate.azimuthTo(selectedCacheLocation.coordinate)
         }
         Component.onCompleted: {

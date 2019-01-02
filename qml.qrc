@@ -128,10 +128,10 @@
         <file>QML/WaypointTypes.qml</file>
         <file>Image/icon_photo.png</file>
         <file>QML/CompassPage.qml</file>
-        <file>Image/compass.svg</file>
         <file>QML/SureQuit.qml</file>
         <file>Image/compass_arrow.png</file>
         <file>Image/compass_rose.png</file>
         <file>Image/compass_underlay.png</file>
+        <file>Image/compass_mini.png</file>
     </qresource>
 </RCC>
