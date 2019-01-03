@@ -8,7 +8,7 @@ Item {
 
     WaypointType {
         id: one
-        icon: "waypoint_flag.png"
+        icon: "Waypoints/waypoint_flag.png"
         name: "Final Location"
         nameFr: "Etape finale"
         Component.onCompleted: {
@@ -18,7 +18,7 @@ Item {
 
     WaypointType {
         id: two
-        icon: "waypoint_waypoint.png"
+        icon: "Waypoints/waypoint_waypoint.png"
         name: "Own"
         nameFr: "Posséder"
         Component.onCompleted: {
@@ -28,7 +28,7 @@ Item {
 
     WaypointType {
         id: three
-        icon: "waypoint_pkg.png"
+        icon: "Waypoints/waypoint_pkg.png"
         name: "Parking Area"
         nameFr: "Parking"
         Component.onCompleted: {
@@ -38,7 +38,7 @@ Item {
 
     WaypointType {
         id: four
-        icon: "waypoint_puzzle.png"
+        icon: "Waypoints/waypoint_puzzle.png"
         name: "Virtual Stage"
         nameFr: "Enigme"
         Component.onCompleted: {
@@ -48,7 +48,7 @@ Item {
 
     WaypointType {
         id: five
-        icon: "waypoint_stage.png"
+        icon: "Waypoints/waypoint_stage.png"
         name: "Physical Stage"
         nameFr: "Etape"
         Component.onCompleted: {
@@ -58,7 +58,7 @@ Item {
 
     WaypointType {
         id: six
-        icon: "waypoint_trailhead.png"
+        icon: "Waypoints/waypoint_trailhead.png"
         name: "Trailhead"
         nameFr: "Départ du sentier"
         Component.onCompleted: {
@@ -68,7 +68,7 @@ Item {
 
     WaypointType {
         id: seven
-        icon: "waypoint_waypoint.png"
+        icon: "Waypoints/waypoint_waypoint.png"
         name: "Reference Point"
         nameFr: "Point de repère"
         Component.onCompleted: {
@@ -78,7 +78,7 @@ Item {
 
     WaypointType {
         id: height
-        icon: "waypoint_waypoint.png"
+        icon: "Waypoints/waypoint_waypoint.png"
         name:"Original Coordinates"
         nameFr: "Coordonnées d'origine"
         Component.onCompleted: {

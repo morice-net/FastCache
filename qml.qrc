@@ -50,12 +50,6 @@
         <file>QML/FastCacheDescriptionPage.qml</file>
         <file>QML/FastCacheLogsPage.qml</file>
         <file>QML/FastCacheImagesPage.qml</file>
-        <file>Image/waypoint_waypoint.png</file>
-        <file>Image/waypoint_trailhead.png</file>
-        <file>Image/waypoint_stage.png</file>
-        <file>Image/waypoint_puzzle.png</file>
-        <file>Image/waypoint_pkg.png</file>
-        <file>Image/waypoint_flag.png</file>
         <file>QML/WaypointTypes.qml</file>
         <file>Image/icon_photo.png</file>
         <file>QML/CompassPage.qml</file>
@@ -133,5 +127,11 @@
         <file>Image/Attributes/attribute_wheelchair.png</file>
         <file>Image/Attributes/attribute_winter.png</file>
         <file>Image/Attributes/attribute_wirelessbeacon.png</file>
+        <file>Image/Waypoints/waypoint_flag.png</file>
+        <file>Image/Waypoints/waypoint_pkg.png</file>
+        <file>Image/Waypoints/waypoint_puzzle.png</file>
+        <file>Image/Waypoints/waypoint_stage.png</file>
+        <file>Image/Waypoints/waypoint_trailhead.png</file>
+        <file>Image/Waypoints/waypoint_waypoint.png</file>
     </qresource>
 </RCC>
