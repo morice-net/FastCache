@@ -54,10 +54,6 @@
         <file>Image/icon_photo.png</file>
         <file>QML/CompassPage.qml</file>
         <file>QML/SureQuit.qml</file>
-        <file>Image/compass_arrow.png</file>
-        <file>Image/compass_rose.png</file>
-        <file>Image/compass_underlay.png</file>
-        <file>Image/compass_mini.png</file>
         <file>Image/Attributes/attribute_abandonedbuilding.png</file>
         <file>Image/Attributes/attribute_available.png</file>
         <file>Image/Attributes/attribute_bicycles.png</file>
@@ -133,5 +129,9 @@
         <file>Image/Waypoints/waypoint_stage.png</file>
         <file>Image/Waypoints/waypoint_trailhead.png</file>
         <file>Image/Waypoints/waypoint_waypoint.png</file>
+        <file>Image/Compass/compass_arrow.png</file>
+        <file>Image/Compass/compass_mini.png</file>
+        <file>Image/Compass/compass_rose.png</file>
+        <file>Image/Compass/compass_underlay.png</file>
     </qresource>
 </RCC>

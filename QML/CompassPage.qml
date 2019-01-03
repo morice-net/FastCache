@@ -64,18 +64,18 @@ Item {
 
         Image {
             id: compassUnderlay
-            source: "qrc:/Image/compass_underlay.png"
+            source: "qrc:/Image/Compass/compass_underlay.png"
             anchors.fill: parent
 
             Image {
                 id: compassRose
                 anchors.centerIn: parent
-                source: "qrc:/Image/compass_rose.png"
+                source: "qrc:/Image/Compass/compass_rose.png"
 
                 Image {
                     id: compassArrow
                     anchors.centerIn: parent
-                    source: "qrc:/Image/compass_arrow.png"
+                    source: "qrc:/Image/Compass/compass_arrow.png"
                 }
             }
         }

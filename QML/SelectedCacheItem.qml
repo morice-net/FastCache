@@ -144,7 +144,7 @@ Rectangle {
             id: smallCompassNeedle
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            source: "qrc:/Image/compass_mini.png"
+            source: "qrc:/Image/Compass/compass_mini.png"
             width: sourceSize.width*1.8
             height: sourceSize.height*1.8
         }
