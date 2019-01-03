@@ -1,11 +1,23 @@
 import QtQuick 2.6
 import QtSensors 5.2 // to use Compass
+import QtPositioning 5.3
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
 
 Item {
     id: compassPage
+
+    property double beginLat
+    property double beginLon
+
+    Location {
+        id: beginLocation
+        coordinate {
+            latitude: beginLat.toFixed(5)
+            longitude: beginLon.toFixed(5)
+        }
+    }
 
     Column {
         spacing: 10
@@ -119,8 +131,10 @@ Item {
     }
 
     function updateRotation() {
-        console.log("Updating BIG compass...")
+        compassRose.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
         compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(fullCacheLocation.coordinate)
+        beginLat = currentPosition.position.coordinate.latitude;
+        beginLon = currentPosition.position.coordinate.longitude;
     }
 
     Component.onCompleted: {
