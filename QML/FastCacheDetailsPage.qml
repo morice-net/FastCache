@@ -289,7 +289,7 @@ Item {
                         source:"qrc:/Image/" + cacheAttributes.attributes[fullCache.attributes[index]-1].icon
                         Image {
 
-                            source:"qrc:/Image/" + "attribute_no.png"
+                            source:"qrc:/Image/Attributes/attribute_no.png"
                             visible: !fullCache.attributesBool[index]
                         }
                     }

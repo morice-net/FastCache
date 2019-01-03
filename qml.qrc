@@ -45,80 +45,11 @@
         <file>QML/CoordinatesBox.qml</file>
         <file>QML/FastCache.qml</file>
         <file>QML/CacheAttributes.qml</file>
-        <file>Image/attribute_abandonedbuilding.png</file>
-        <file>Image/attribute_available.png</file>
-        <file>Image/attribute_bicycles.png</file>
-        <file>Image/attribute_boat.png</file>
-        <file>Image/attribute_campfires.png</file>
-        <file>Image/attribute_camping.png</file>
-        <file>Image/attribute_climbing.png</file>
-        <file>Image/attribute_cow.png</file>
-        <file>Image/attribute_danger.png</file>
-        <file>Image/attribute_dangerousanimals.png</file>
-        <file>Image/attribute_dogs.png</file>
-        <file>Image/attribute_fee.png</file>
-        <file>Image/attribute_firstaid.png</file>
-        <file>Image/attribute_flashlight.png</file>
-        <file>Image/attribute_food.png</file>
-        <file>Image/attribute_frontyard.png</file>
-        <file>Image/attribute_fuel.png</file>
-        <file>Image/attribute_geotour.png</file>
-        <file>Image/attribute_hike_long.png</file>
-        <file>Image/attribute_hike_med.png</file>
-        <file>Image/attribute_hike_short.png</file>
-        <file>Image/attribute_hiking.png</file>
-        <file>Image/attribute_horses.png</file>
-        <file>Image/attribute_hunting.png</file>
-        <file>Image/attribute_jeeps.png</file>
-        <file>Image/attribute_kids.png</file>
-        <file>Image/attribute_landf.png</file>
-        <file>Image/attribute_maintenance.png</file>
-        <file>Image/attribute_mine.png</file>
-        <file>Image/attribute_motorcycles.png</file>
-        <file>Image/attribute_nature_cache.png</file>
-        <file>Image/attribute_night.png</file>
-        <file>Image/attribute_nightcache.png</file>
-        <file>Image/attribute_onehour.png</file>
-        <file>Image/attribute_parking.png</file>
-        <file>Image/attribute_parkngrab.png</file>
-        <file>Image/attribute_partnership.png</file>
-        <file>Image/attribute_phone.png</file>
-        <file>Image/attribute_picnic.png</file>
-        <file>Image/attribute_poisonoak.png</file>
-        <file>Image/attribute_public.png</file>
-        <file>Image/attribute_quads.png</file>
-        <file>Image/attribute_quick_cache.png</file>
-        <file>Image/attribute_rappelling.png</file>
-        <file>Image/attribute_restrooms.png</file>
-        <file>Image/attribute_rv.png</file>
-        <file>Image/attribute_s_tool.png</file>
-        <file>Image/attribute_scenic.png</file>
-        <file>Image/attribute_scuba.png</file>
-        <file>Image/attribute_seasonal.png</file>
-        <file>Image/attribute_skiis.png</file>
-        <file>Image/attribute_snowmobiles.png</file>
-        <file>Image/attribute_snowshoes.png</file>
-        <file>Image/attribute_stealth.png</file>
-        <file>Image/attribute_stroller.png</file>
-        <file>Image/attribute_swimming.png</file>
-        <file>Image/attribute_teamwork.png</file>
-        <file>Image/attribute_thorn.png</file>
-        <file>Image/attribute_ticks.png</file>
-        <file>Image/attribute_tide.png</file>
-        <file>Image/attribute_touristok.png</file>
-        <file>Image/attribute_treeclimbing.png</file>
-        <file>Image/attribute_uv.png</file>
-        <file>Image/attribute_wading.png</file>
-        <file>Image/attribute_water.png</file>
-        <file>Image/attribute_wheelchair.png</file>
-        <file>Image/attribute_winter.png</file>
-        <file>Image/attribute_wirelessbeacon.png</file>
         <file>QML/FastCacheDetailsPage.qml</file>
         <file>QML/FastCacheWaypointsPage.qml</file>
         <file>QML/FastCacheDescriptionPage.qml</file>
         <file>QML/FastCacheLogsPage.qml</file>
         <file>QML/FastCacheImagesPage.qml</file>
-        <file>Image/attribute_no.png</file>
         <file>Image/waypoint_waypoint.png</file>
         <file>Image/waypoint_trailhead.png</file>
         <file>Image/waypoint_stage.png</file>
@@ -133,5 +64,74 @@
         <file>Image/compass_rose.png</file>
         <file>Image/compass_underlay.png</file>
         <file>Image/compass_mini.png</file>
+        <file>Image/Attributes/attribute_abandonedbuilding.png</file>
+        <file>Image/Attributes/attribute_available.png</file>
+        <file>Image/Attributes/attribute_bicycles.png</file>
+        <file>Image/Attributes/attribute_boat.png</file>
+        <file>Image/Attributes/attribute_campfires.png</file>
+        <file>Image/Attributes/attribute_camping.png</file>
+        <file>Image/Attributes/attribute_climbing.png</file>
+        <file>Image/Attributes/attribute_cow.png</file>
+        <file>Image/Attributes/attribute_danger.png</file>
+        <file>Image/Attributes/attribute_dangerousanimals.png</file>
+        <file>Image/Attributes/attribute_dogs.png</file>
+        <file>Image/Attributes/attribute_fee.png</file>
+        <file>Image/Attributes/attribute_firstaid.png</file>
+        <file>Image/Attributes/attribute_flashlight.png</file>
+        <file>Image/Attributes/attribute_food.png</file>
+        <file>Image/Attributes/attribute_frontyard.png</file>
+        <file>Image/Attributes/attribute_fuel.png</file>
+        <file>Image/Attributes/attribute_geotour.png</file>
+        <file>Image/Attributes/attribute_hike_long.png</file>
+        <file>Image/Attributes/attribute_hike_med.png</file>
+        <file>Image/Attributes/attribute_hike_short.png</file>
+        <file>Image/Attributes/attribute_hiking.png</file>
+        <file>Image/Attributes/attribute_horses.png</file>
+        <file>Image/Attributes/attribute_hunting.png</file>
+        <file>Image/Attributes/attribute_jeeps.png</file>
+        <file>Image/Attributes/attribute_kids.png</file>
+        <file>Image/Attributes/attribute_landf.png</file>
+        <file>Image/Attributes/attribute_maintenance.png</file>
+        <file>Image/Attributes/attribute_mine.png</file>
+        <file>Image/Attributes/attribute_motorcycles.png</file>
+        <file>Image/Attributes/attribute_nature_cache.png</file>
+        <file>Image/Attributes/attribute_night.png</file>
+        <file>Image/Attributes/attribute_nightcache.png</file>
+        <file>Image/Attributes/attribute_no.png</file>
+        <file>Image/Attributes/attribute_onehour.png</file>
+        <file>Image/Attributes/attribute_parking.png</file>
+        <file>Image/Attributes/attribute_parkngrab.png</file>
+        <file>Image/Attributes/attribute_partnership.png</file>
+        <file>Image/Attributes/attribute_phone.png</file>
+        <file>Image/Attributes/attribute_picnic.png</file>
+        <file>Image/Attributes/attribute_poisonoak.png</file>
+        <file>Image/Attributes/attribute_public.png</file>
+        <file>Image/Attributes/attribute_quads.png</file>
+        <file>Image/Attributes/attribute_quick_cache.png</file>
+        <file>Image/Attributes/attribute_rappelling.png</file>
+        <file>Image/Attributes/attribute_restrooms.png</file>
+        <file>Image/Attributes/attribute_rv.png</file>
+        <file>Image/Attributes/attribute_s_tool.png</file>
+        <file>Image/Attributes/attribute_scenic.png</file>
+        <file>Image/Attributes/attribute_scuba.png</file>
+        <file>Image/Attributes/attribute_seasonal.png</file>
+        <file>Image/Attributes/attribute_skiis.png</file>
+        <file>Image/Attributes/attribute_snowmobiles.png</file>
+        <file>Image/Attributes/attribute_snowshoes.png</file>
+        <file>Image/Attributes/attribute_stealth.png</file>
+        <file>Image/Attributes/attribute_stroller.png</file>
+        <file>Image/Attributes/attribute_swimming.png</file>
+        <file>Image/Attributes/attribute_teamwork.png</file>
+        <file>Image/Attributes/attribute_thorn.png</file>
+        <file>Image/Attributes/attribute_ticks.png</file>
+        <file>Image/Attributes/attribute_tide.png</file>
+        <file>Image/Attributes/attribute_touristok.png</file>
+        <file>Image/Attributes/attribute_treeclimbing.png</file>
+        <file>Image/Attributes/attribute_uv.png</file>
+        <file>Image/Attributes/attribute_wading.png</file>
+        <file>Image/Attributes/attribute_water.png</file>
+        <file>Image/Attributes/attribute_wheelchair.png</file>
+        <file>Image/Attributes/attribute_winter.png</file>
+        <file>Image/Attributes/attribute_wirelessbeacon.png</file>
     </qresource>
 </RCC>

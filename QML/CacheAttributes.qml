@@ -11,7 +11,7 @@ Item {
         gcId: 67
         textYes: "Partie d\'un GéoTour"
         textNo: "Ne fait pas partie d\'un GéoTour"
-        icon: "attribute_geotour.png"
+        icon: "Attributes/attribute_geotour.png"
         Component.onCompleted: {
             attributes.push(geotour)
         }
@@ -22,7 +22,7 @@ Item {
         gcId: 66
         textYes: "Travail d\'équipe nécessaire"
         textNo: "Pas de travail d\'équipe nécessaire"
-        icon: "attribute_teamwork.png"
+        icon: "Attributes/attribute_teamwork.png"
         Component.onCompleted: {
             attributes.push(teamwork )
         }
@@ -33,7 +33,7 @@ Item {
         gcId: 65
         textYes: "Résidence privée"
         textNo: "Pas une résidence privée"
-        icon: "attribute_frontyard.png"
+        icon: "Attributes/attribute_frontyard.png"
         Component.onCompleted: {
             attributes.push(frontyard)
         }
@@ -44,7 +44,7 @@ Item {
         gcId: 64
         textYes: "Escalade d\'arbre nécessaire"
         textNo: "Pas d\'escalade d\'arbre nécessaire"
-        icon: "attribute_treeclimbing.png"
+        icon: "Attributes/attribute_treeclimbing.png"
         Component.onCompleted: {
             attributes.push(treeclimbing )
         }
@@ -55,7 +55,7 @@ Item {
         gcId: 63
         textYes: "Ami des touristes"
         textNo: "Pas ami avec les touristes"
-        icon: "attribute_touristok.png"
+        icon: "Attributes/attribute_touristok.png"
         Component.onCompleted: {
             attributes.push(touristok)
         }
@@ -66,7 +66,7 @@ Item {
         gcId: 62
         textYes: "Accès saisonnier"
         textNo: "Pas d\'accès saisonnier"
-        icon: "attribute_seasonal.png"
+        icon: "Attributes/attribute_seasonal.png"
         Component.onCompleted: {
             attributes.push(seasonal )
         }
@@ -77,7 +77,7 @@ Item {
         gcId: 61
         textYes: "Cache en partenariat"
         textNo: "Pas de cache en partenariat"
-        icon: "attribute_partnership.png"
+        icon: "Attributes/attribute_partnership.png"
         Component.onCompleted: {
             attributes.push(partnership)
         }
@@ -88,7 +88,7 @@ Item {
         gcId: 60
         textYes: "Balise sans fil"
         textNo: "Pas de balise sans fil"
-        icon: "attribute_wirelessbeacon.png"
+        icon: "Attributes/attribute_wirelessbeacon.png"
         Component.onCompleted: {
             attributes.push(wirelessbeacon )
         }
@@ -99,7 +99,7 @@ Item {
         gcId: 59
         textYes: "Nourriture proche"
         textNo: "Pas de nourriture proche"
-        icon: "attribute_food.png"
+        icon: "Attributes/attribute_food.png"
         Component.onCompleted: {
             attributes.push(food)
         }
@@ -110,7 +110,7 @@ Item {
         gcId: 58
         textYes: "Essence proche"
         textNo: "Pas d\'essence proche"
-        icon: "attribute_fuel.png"
+        icon: "Attributes/attribute_fuel.png"
         Component.onCompleted: {
             attributes.push(fuel )
         }
@@ -121,7 +121,7 @@ Item {
         gcId: 57
         textYes: "Randonnée longue (plus de 10 km)"
         textNo: "Pas de randonnée longue"
-        icon: "attribute_hike_long.png"
+        icon: "Attributes/attribute_hike_long.png"
         Component.onCompleted: {
             attributes.push(hike_long)
         }
@@ -132,7 +132,7 @@ Item {
         gcId: 56
         textYes: "Randonnée moyenne (1 à 10 km)"
         textNo: "Pas de randonnée moyenne"
-        icon: "attribute_hike_med.png"
+        icon: "Attributes/attribute_hike_med.png"
         Component.onCompleted: {
             attributes.push(hike_med )
         }
@@ -143,7 +143,7 @@ Item {
         gcId: 55
         textYes: "Randonnée courte (moins d\'1 km)"
         textNo: "Pas de randonnée courte"
-        icon: "attribute_hike_short.png"
+        icon: "Attributes/attribute_hike_short.png"
         Component.onCompleted: {
             attributes.push(hike_short)
         }
@@ -154,7 +154,7 @@ Item {
         gcId: 54
         textYes: "Bâtiment abandonné"
         textNo: "Bâtiment non abandonné"
-        icon: "attribute_abandonedbuilding.png"
+        icon: "Attributes/attribute_abandonedbuilding.png"
         Component.onCompleted: {
             attributes.push(abandonedbuilding )
         }
@@ -165,7 +165,7 @@ Item {
         gcId: 53
         textYes: "Drive-in"
         textNo: "Pas une drive-in"
-        icon: "attribute_parkngrab.png"
+        icon: "Attributes/attribute_parkngrab.png"
         Component.onCompleted: {
             attributes.push(parkngrab)
         }
@@ -176,7 +176,7 @@ Item {
         gcId: 52
         textYes: "Cache de nuit"
         textNo: "Pas une cache de nuit"
-        icon: "attribute_nightcache.png"
+        icon: "Attributes/attribute_nightcache.png"
         Component.onCompleted: {
             attributes.push(nightcache )
         }
@@ -187,7 +187,7 @@ Item {
         gcId: 51
         textYes: "Outils spéciaux nécessaires"
         textNo: "Outils spéciaux pas nécessaires"
-        icon: "attribute_s_tool.png"
+        icon: "Attributes/attribute_s_tool.png"
         Component.onCompleted: {
             attributes.push(s_tool)
         }
@@ -198,7 +198,7 @@ Item {
         gcId: 50
         textYes: "Skis de fond nécessaires"
         textNo: "Skis de fond pas nécessaires"
-        icon: "attribute_skiis.png"
+        icon: "Attributes/attribute_skiis.png"
         Component.onCompleted: {
             attributes.push(skiis )
         }
@@ -209,7 +209,7 @@ Item {
         gcId: 49
         textYes: "Chaussures de neige nécessaires"
         textNo: "Chaussures de neige pas nécessaires"
-        icon: "attribute_field_snowshoes.png"
+        icon: "Attributes/attribute_field_snowshoes.png"
         Component.onCompleted: {
             attributes.push(snowshoes)
         }
@@ -220,7 +220,7 @@ Item {
         gcId: 48
         textYes: "Lumière UV nécessaire"
         textNo: "Lumière UV pas nécessaire"
-        icon: "attribute_uv.png"
+        icon: "Attributes/attribute_uv.png"
         Component.onCompleted: {
             attributes.push( uv)
         }
@@ -231,7 +231,7 @@ Item {
         gcId: 47
         textYes: "Puzzle de terrain"
         textNo: "Pas de puzzle de terrain"
-        icon: "attribute_field_puzzle.png"
+        icon: "Attributes/attribute_field_puzzle.png"
         Component.onCompleted: {
             attributes.push(puzzle)
         }
@@ -242,7 +242,7 @@ Item {
         gcId: 46
         textYes: "Camions/Camping-cars autorisés"
         textNo: "Camions/Camping-cars interdits"
-        icon: "attribute_rv.png"
+        icon: "Attributes/attribute_rv.png"
         Component.onCompleted: {
             attributes.push(rv)
         }
@@ -253,7 +253,7 @@ Item {
         gcId: 45
         textYes: "Circuit Perdu et trouvé"
         textNo: "Pas un circuit Perdu et trouvé"
-        icon: "attribute_landf.png"
+        icon: "Attributes/attribute_landf.png"
         Component.onCompleted: {
             attributes.push(landf)
         }
@@ -264,7 +264,7 @@ Item {
         gcId: 44
         textYes: "Torche nécessaire"
         textNo: "Torche pas nécessaire"
-        icon: "attribute_flashlight.png"
+        icon: "Attributes/attribute_flashlight.png"
         Component.onCompleted: {
             attributes.push(flashlight)
         }
@@ -275,7 +275,7 @@ Item {
         gcId: 43
         textYes: "Attention au bétail"
         textNo: "Pas de bétail"
-        icon: "attribute_cow.png"
+        icon: "Attributes/attribute_cow.png"
         Component.onCompleted: {
             attributes.push(cow)
         }
@@ -286,7 +286,7 @@ Item {
         gcId: 42
         textYes: "Nécessite une maintenance"
         textNo: "Ne nécessite pas de maintenance"
-        icon: "attribute_firstaid.png"
+        icon: "Attributes/attribute_firstaid.png"
         Component.onCompleted: {
             attributes.push(firstaid)
         }
@@ -297,7 +297,7 @@ Item {
         gcId: 41
         textYes: "Accessible en poussette"
         textNo: "Pas accessible en poussette"
-        icon: "attribute_stroller.png"
+        icon: "Attributes/attribute_stroller.png"
         Component.onCompleted: {
             attributes.push(stroller)
         }
@@ -308,7 +308,7 @@ Item {
         gcId: 40
         textYes: "Discrétion nécessaire"
         textNo: "Discrétion pas nécessaire"
-        icon: "attribute_stealth.png"
+        icon: "Attributes/attribute_stealth.png"
         Component.onCompleted: {
             attributes.push(stealth)
         }
@@ -319,7 +319,7 @@ Item {
         gcId: 39
         textYes: "Épines"
         textNo: "Pas d\'épine"
-        icon: "attribute_.png"
+        icon: "Attributes/attribute_.png"
         Component.onCompleted: {
             attributes.push(thorn)
         }
@@ -330,7 +330,7 @@ Item {
         gcId: 38
         textYes: "Feux de camp autorisés"
         textNo: "Feux de camp interdits"
-        icon: "attribute_campfires.png"
+        icon: "Attributes/attribute_campfires.png"
         Component.onCompleted: {
             attributes.push(campfires)
         }
@@ -341,7 +341,7 @@ Item {
         gcId: 37
         textYes: "Chevaux autorisés"
         textNo: "Chevaux interdits"
-        icon: "attribute_horses.png"
+        icon: "Attributes/attribute_horses.png"
         Component.onCompleted: {
             attributes.push(horses)
         }
@@ -352,7 +352,7 @@ Item {
         gcId: 36
         textYes: "Motos-neige autorisées"
         textNo: "Motos-neige interdites"
-        icon: "attribute_snowmobiles.png"
+        icon: "Attributes/attribute_snowmobiles.png"
         Component.onCompleted: {
             attributes.push(snowmobiles)
         }
@@ -363,7 +363,7 @@ Item {
         gcId:35
         textYes: "Véhicules tout-terrain autorisés"
         textNo: "Véhicules tout-terrain interdits"
-        icon: "attribute_jeeps.png"
+        icon: "Attributes/attribute_jeeps.png"
         Component.onCompleted: {
             attributes.push(jeeps)
         }
@@ -374,7 +374,7 @@ Item {
         gcId: 34
         textYes: "Quads autorisés"
         textNo: "Quads interdits"
-        icon: "attribute_quads .png"
+        icon: "Attributes/attribute_quads .png"
         Component.onCompleted: {
             attributes.push(quads )
         }
@@ -385,7 +385,7 @@ Item {
         gcId: 33
         textYes: "Motos autorisées"
         textNo: "Motos interdites"
-        icon: "attribute_motorcycles.png"
+        icon: "Attributes/attribute_motorcycles.png"
         Component.onCompleted: {
             attributes.push(motorcycles)
         }
@@ -396,7 +396,7 @@ Item {
         gcId: 32
         textYes: "Vélos autorisés"
         textNo: "Vélos interdits"
-        icon: "attribute_bicycles.png"
+        icon: "Attributes/attribute_bicycles.png"
         Component.onCompleted: {
             attributes.push(bicycles)
         }
@@ -407,7 +407,7 @@ Item {
         gcId: 31
         textYes: "Camping possible"
         textNo: "Pas de camping possible"
-        icon: "attribute_camping.png"
+        icon: "Attributes/attribute_camping.png"
         Component.onCompleted: {
             attributes.push(camping)
         }
@@ -418,7 +418,7 @@ Item {
         gcId: 30
         textYes: "Tables de pique-nique proches"
         textNo: "Pas de table de pique-nique proche"
-        icon: "attribute_picnic.png"
+        icon: "Attributes/attribute_picnic.png"
         Component.onCompleted: {
             attributes.push(picnic)
         }
@@ -428,7 +428,7 @@ Item {
         gcId: 29
         textYes: "Téléphone proche"
         textNo: "Pas de téléphone proche"
-        icon: "attribute_phone.png"
+        icon: "Attributes/attribute_phone.png"
         Component.onCompleted: {
             attributes.push(phone)
         }
@@ -439,7 +439,7 @@ Item {
         gcId: 28
         textYes: "Toilettes publiques proches"
         textNo: "Pas de toilette publique proche"
-        icon: "attribute_restrooms.png"
+        icon: "Attributes/attribute_restrooms.png"
         Component.onCompleted: {
             attributes.push(restrooms)
         }
@@ -450,7 +450,7 @@ Item {
         gcId: 27
         textYes: "Eau potable proche"
         textNo: "Pas d\'eau potable proche"
-        icon: "attribute_water.png"
+        icon: "Attributes/attribute_water.png"
         Component.onCompleted: {
             attributes.push(water)
         }
@@ -461,7 +461,7 @@ Item {
         gcId: 26
         textYes: "Transport public"
         textNo: "Pas de transport public"
-        icon: "attribute_public.png"
+        icon: "Attributes/attribute_public.png"
         Component.onCompleted: {
             attributes.push(public1)
         }
@@ -472,7 +472,7 @@ Item {
         gcId: 25
         textYes: "Parking possible"
         textNo: "Pas de parking possible"
-        icon: "attribute_parking.png"
+        icon: "Attributes/attribute_parking.png"
         Component.onCompleted: {
             attributes.push(parking)
         }
@@ -483,7 +483,7 @@ Item {
         gcId: 24
         textYes: "Accessible en fauteuil roulant"
         textNo: "Pas accessible en fauteuil roulant"
-        icon: "attribute_wheelchair.png"
+        icon: "Attributes/attribute_wheelchair.png"
         Component.onCompleted: {
             attributes.push(wheelchair)
         }
@@ -494,7 +494,7 @@ Item {
         gcId: 23
         textYes: "Zone dangereuse"
         textNo: "Pas de zone dangereuse"
-        icon: "attribute_danger.png"
+        icon: "Attributes/attribute_danger.png"
         Component.onCompleted: {
             attributes.push(danger)
         }
@@ -505,7 +505,7 @@ Item {
         gcId: 22
         textYes: "Chasse"
         textNo: "Pas de chasse"
-        icon: "attribute_hunting.png"
+        icon: "Attributes/attribute_hunting.png"
         Component.onCompleted: {
             attributes.push(hunting)
         }
@@ -516,7 +516,7 @@ Item {
         gcId: 21
         textYes: "Chutes de pierres"
         textNo: "Pas de chute de pierres"
-        icon: "attribute_cliff.png"
+        icon: "Attributes/attribute_cliff.png"
         Component.onCompleted: {
             attributes.push(cliff)
         }
@@ -527,7 +527,7 @@ Item {
         gcId: 20
         textYes: "Mines abandonnées"
         textNo: "Pas de mine abandonnée"
-        icon: "attribute_mine.png"
+        icon: "Attributes/attribute_mine.png"
         Component.onCompleted: {
             attributes.push(mine)
         }
@@ -538,7 +538,7 @@ Item {
         gcId: 19
         textYes: "Tiques"
         textNo: "Pas de tique"
-        icon: "attribute_ticks.png"
+        icon: "Attributes/attribute_ticks.png"
         Component.onCompleted: {
             attributes.push(ticks)
         }
@@ -549,7 +549,7 @@ Item {
         gcId: 18
         textYes: "Animaux dangereux"
         textNo: "Pas d\'animaux dangereux"
-        icon: "attribute_dangerousanimals.png"
+        icon: "Attributes/attribute_dangerousanimals.png"
         Component.onCompleted: {
             attributes.push(dangerousanimals)
         }
@@ -560,7 +560,7 @@ Item {
         gcId: 17
         textYes: "Plantes toxiques"
         textNo: "Pas de plantes toxiques"
-        icon: "attribute_poisonoak.png"
+        icon: "Attributes/attribute_poisonoak.png"
         Component.onCompleted: {
             attributes.push(poisonoak)
         }
@@ -571,7 +571,7 @@ Item {
         gcId: 16
         textYes: ""
         textNo: ""
-        icon:"attribute_no.png"
+        icon:"Attributes/attribute_no.png"
         Component.onCompleted: {
             attributes.push(no)
         }
@@ -582,7 +582,7 @@ Item {
         gcId: 15
         textYes: "Disponible durant l\'hiver"
         textNo: "Pas disponible durant l\'hiver"
-        icon: "attribute_winter.png"
+        icon: "Attributes/attribute_winter.png"
         Component.onCompleted: {
             attributes.push(winter)
         }
@@ -593,7 +593,7 @@ Item {
         gcId: 14
         textYes: "Recommandé de nuit"
         textNo: "Non recommandé de nuit"
-        icon: "attribute_night.png"
+        icon: "Attributes/attribute_night.png"
         Component.onCompleted: {
             attributes.push(night)
         }
@@ -604,7 +604,7 @@ Item {
         gcId: 13
         textYes: "Disponible à toute heure"
         textNo: "Pas disponible à toute heure"
-        icon: "attribute_available.png"
+        icon: "Attributes/attribute_available.png"
         Component.onCompleted: {
             attributes.push(available)
         }
@@ -615,7 +615,7 @@ Item {
         gcId: 12
         textYes: "Peut demander à nager"
         textNo: "Ne demande pas à nager"
-        icon: "attribute_swimming.png"
+        icon: "Attributes/attribute_swimming.png"
         Component.onCompleted: {
             attributes.push(swimming)
         }
@@ -626,7 +626,7 @@ Item {
         gcId: 11
         textYes: "Peut demander à barboter"
         textNo: "Ne demande pas à barboter"
-        icon: "attribute_wading.png"
+        icon: "Attributes/attribute_wading.png"
         Component.onCompleted: {
             attributes.push(wading)
         }
@@ -637,7 +637,7 @@ Item {
         gcId: 10
         textYes: "Escalade difficile"
         textNo: "Pas d\'escalade difficile"
-        icon: "attribute_climbing.png"
+        icon: "Attributes/attribute_climbing.png"
         Component.onCompleted: {
             attributes.push(climbing)
         }
@@ -648,7 +648,7 @@ Item {
         gcId: 9
         textYes: "Randonnée importante"
         textNo: "Randonnée peu importante"
-        icon: "attribute_hiking.png"
+        icon: "Attributes/attribute_hiking.png"
         Component.onCompleted: {
             attributes.push(hiking)
         }
@@ -660,7 +660,7 @@ Item {
         gcId: 8
         textYes: "Point de vue"
         textNo: "Pas de point de vue"
-        icon: "attribute_scenic.png"
+        icon: "Attributes/attribute_scenic.png"
         Component.onCompleted: {
             attributes.push(scenic)
         }
@@ -671,7 +671,7 @@ Item {
         gcId: 7
         textYes: "Prend moins d\'une heure"
         textNo: "Prend plus d\'une heure"
-        icon: "attribute_onehour.png"
+        icon: "Attributes/attribute_onehour.png"
         Component.onCompleted: {
             attributes.push(onehour)
         }
@@ -682,7 +682,7 @@ Item {
         gcId: 6
         textYes: "Recommandé pour les enfants"
         textNo: "Non recommandé pour les enfants"
-        icon: "attribute_kids.png"
+        icon: "Attributes/attribute_kids.png"
         Component.onCompleted: {
             attributes.push(kids)
         }
@@ -693,7 +693,7 @@ Item {
         gcId: 5
         textYes: "Matériel de plongée nécessaire"
         textNo: "Matériel de plongée pas nécessaire"
-        icon: "attribute_scuba.png"
+        icon: "Attributes/attribute_scuba.png"
         Component.onCompleted: {
             attributes.push(scuba)
         }
@@ -704,7 +704,7 @@ Item {
         gcId: 4
         textYes: "Bateau nécessaire"
         textNo: "Pas de bateau nécessaire"
-        icon: "attribute_boat.png"
+        icon: "Attributes/attribute_boat.png"
         Component.onCompleted: {
             attributes.push(boat)
         }
@@ -715,7 +715,7 @@ Item {
         gcId: 3
         textYes: "Matériel d\'escalade nécessaire"
         textNo: "Matériel d\'escalade pas nécessaire"
-        icon: "attribute_rappelling.png"
+        icon: "Attributes/attribute_rappelling.png"
         Component.onCompleted: {
             attributes.push(rappelling)
         }
@@ -726,7 +726,7 @@ Item {
         gcId: 2
         textYes: "Parking payant"
         textNo: "Pas de parking payant"
-        icon: "attribute_fee.png"
+        icon: "Attributes/attribute_fee.png"
         Component.onCompleted: {
             attributes.push(fee)
         }
@@ -737,7 +737,7 @@ Item {
         gcId: 1
         textYes: "Chiens autorisés"
         textNo: "Chiens interdits"
-        icon: "attribute_dogs.png"
+        icon: "Attributes/attribute_dogs.png"
         Component.onCompleted: {
             attributes.push(dogs)
         }
