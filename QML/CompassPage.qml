@@ -84,10 +84,14 @@ Item {
                 anchors.centerIn: parent
                 source: "qrc:/Image/Compass/compass_rose.png"
 
+                Behavior on rotation { NumberAnimation { duration: 2000 } }
+
                 Image {
                     id: compassArrow
                     anchors.centerIn: parent
                     source: "qrc:/Image/Compass/compass_arrow.png"
+
+                    Behavior on rotation { NumberAnimation { duration: 2000 } }
                 }
             }
         }
