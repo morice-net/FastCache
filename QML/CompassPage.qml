@@ -22,14 +22,14 @@ Item {
     Column {
         spacing: 10
         anchors.fill: parent
-        anchors.topMargin: parent.height * 0.05
+        anchors.topMargin: parent.height * 0.1
 
         Row {
             width: parent.width
             spacing: 15
             Text {
                 font.family: localFont.name
-                width: fastCache.width * 0.25
+                width: fastCache.width * 0.5 - 10
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 20
                 text: "Distance"
@@ -50,7 +50,7 @@ Item {
             spacing: 15
             Text {
                 font.family: localFont.name
-                width: fastCache.width * 0.25
+                width: fastCache.width * 0.5 - 10
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 18
                 text: "Azimut"
@@ -98,8 +98,8 @@ Item {
     }
 
     Row {
-        y:compassBackground.y + compassBackground.height + 20
-        width: parent.width
+        y: compassBackground.y + compassBackground.height + 30
+        anchors.horizontalCenter: parent.horizontalCenter
         spacing: 10
 
         Text {
