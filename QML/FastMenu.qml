@@ -4,7 +4,6 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.2
 import QtPositioning 5.3
 
-
 import "JavaScript/Palette.js" as Palette
 
 Item {
@@ -192,7 +191,6 @@ Item {
             anchors.top: addressButtonMenu.bottom
             anchors.topMargin: 2
             anchors.bottomMargin: 20
-
             buttonSelected: main.state == "coordinates"
             buttonText: "Coordonnées"
 
@@ -203,9 +201,6 @@ Item {
                 coordinatesBox.open()
             }
         }
-
-
-
 
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
@@ -285,5 +280,20 @@ Item {
         cachesNear.sendRequest(connector.tokenKey)
     }
 
+    // load caches by coordinates, from CoordinatesBox.
+    function cachesByCoordinates() {
+        cachesNear.latPoint = coordinatesBox.resultLat
+        cachesNear.lonPoint = coordinatesBox.resultLon
+        cachesNear.distance = 100000
+        cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
+                                      createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+                                      createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.sendRequest(connector.tokenKey)
+        fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
+    }
+
+    Component.onCompleted: {
+        coordinatesBox.okCoordinatesClicked.connect(cachesByCoordinates)
+    }
 }
 

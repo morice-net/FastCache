@@ -9,8 +9,13 @@ import "JavaScript/Palette.js" as Palette
 Popup {
     id: coordinatesBox
 
-    property double lat:0.0
-    property double lon:0.0
+    // The box gives latitude and longitude in resultLat and resultLon.
+    property double resultLat: 0.0
+    property double resultLon: 0.0
+    property double lat: 0.0
+    property double lon: 0.0
+
+    signal  okCoordinatesClicked
 
     x: parent.height * 0.05 + 10
     y: parent.height * 0.05 + 10
@@ -521,6 +526,7 @@ Popup {
                 anchors.left:box3Decimal.right
                 anchors.leftMargin:2
             }
+
             Button {
                 y:box3ButtonNS.y+box3ButtonNS.height+10
                 contentItem: Text {
@@ -588,8 +594,6 @@ Popup {
                     anchors.leftMargin:2
                 }
 
-
-
                 TextField {
                     id: box3Seconds2
                     maximumLength : 2
@@ -636,7 +640,6 @@ Popup {
                     anchors.leftMargin:2
                 }
 
-
             }
         }
     }
@@ -662,45 +665,32 @@ Popup {
         onClicked: {
             if (gpsFormatCombo.currentIndex == 0)
                 if(box1Lat() !== "" && box1Lon()  !== "") {
-                    coordinatesBox.close()
+                    resultLat =  box1Lat()
+                    resultLon =  box1Lon()
                     main.state = "coordinates"
-                    cachesNear.latPoint = box1Lat()
-                    cachesNear.lonPoint = box1Lon()
-                    cachesNear.distance = 100000
-                    cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
-                                                  createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
-                                                  createFilterKeywordDiscoverOwner() , userInfo.name )
-                    cachesNear.sendRequest(connector.tokenKey)
-                    fastMap.mapItem.center =QtPositioning.coordinate(box1Lat() , box1Lon())
+                    // signal
+                    okCoordinatesClicked()
+                    coordinatesBox.close()
                 }
 
             if (gpsFormatCombo.currentIndex == 1)
                 if(box2Lat() !== "" && box2Lon()  !== "") {
-                    coordinatesBox.close()
+                    resultLat =  box2Lat()
+                    resultLon =  box2Lon()
                     main.state = "coordinates"
-                    cachesNear.latPoint = box2Lat()
-                    cachesNear.lonPoint = box2Lon()
-                    cachesNear.distance = 100000
-                    cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
-                                                  createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
-                                                  createFilterKeywordDiscoverOwner() , userInfo.name )
-                    cachesNear.sendRequest(connector.tokenKey)
-                    fastMap.mapItem.center =QtPositioning.coordinate(box2Lat() , box2Lon())
+                    // signal
+                    okCoordinatesClicked()
+                    coordinatesBox.close()
                 }
 
             if (gpsFormatCombo.currentIndex == 2)
                 if(box3Lat() !== "" && box3Lon() !== "") {
-                    coordinatesBox.close()
+                    resultLat =  box3Lat()
+                    resultLon =  box3Lon()
                     main.state = "coordinates"
-                    cachesNear.latPoint = box3Lat()
-                    cachesNear.lonPoint = box3Lon()
-                    cachesNear.distance = 100000
-                    cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
-                                                  createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
-                                                  createFilterKeywordDiscoverOwner() , userInfo.name )
-                    cachesNear.sendRequest(connector.tokenKey)
-
-                    fastMap.mapItem.center =QtPositioning.coordinate(box3Lat() , box3Lon())
+                    // signal
+                    okCoordinatesClicked()
+                    coordinatesBox.close()
                 }
         }
     }

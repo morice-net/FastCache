@@ -29,6 +29,7 @@ Item {
             horizontalAlignment: centered ? Text.AlignHCenter : Text.AlignLeft
             color: fastSelectableButtonMenu.buttonSelected ? Palette.turquoise() : Palette.white()
         }
+
         MouseArea {
             anchors.fill: parent
             onClicked: {

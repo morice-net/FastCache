@@ -13,12 +13,10 @@ import "QML"
 import com.mycompany.connecting 1.0
 
 Item {
-
     id: main
     anchors.fill: parent
     visible: true
     focus: true
-
 
     // State can take "near" "address" "coordinates"....
     property string viewState: "" // "map" or "list" or "fullcache"
