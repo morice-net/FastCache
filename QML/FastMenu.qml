@@ -169,44 +169,24 @@ Item {
             anchors.top: nearButtonMenu.bottom
             anchors.topMargin: 2
             anchors.bottomMargin: 20
-            visible: main.viewState != "fullcache"
 
             buttonSelected: main.state == "address"
-            buttonText: "Adresse"
+            buttonText: main.viewState == "fullcache" ? "Naviguer" : "Adresse"
 
             function buttonClicked() {
-                main.state = "address"
-                if(fastMap.mapPlugin.supportsGeocoding()){
-                    main.cachesActive = false
-                    hideMenu()
-                    geocode.open()
-                } else {
-                    hideMenu()
-                    geocodeAlert.open()
-                }
-            }
-        }
-
-        FastDoubleButtonMenu {
-            id: mapCompassButtonMenu
-            anchors.top: nearButtonMenu.bottom
-            anchors.topMargin: 2
-            anchors.bottomMargin: 20
-            visible: main.viewState == "fullcache"
-
-            firstButtonSelected: true
-            button1Text: " Boussole"
-            button2Text: "Carte"
-
-            function buttonClicked() {
-                firstButtonSelected = !firstButtonSelected
-                if (firstButtonSelected) {
-                    // Compass visible
+                if(main.viewState == "fullcache"){
                     fastCache.swipeToPage(0)
                     fastCache.z = 0
                 } else {
-                    // Map visible
-                    fastCache.z = -10
+                    main.state = "address"
+                    if(fastMap.mapPlugin.supportsGeocoding()){
+                        main.cachesActive = false
+                        hideMenu()
+                        geocode.open()
+                    } else {
+                        hideMenu()
+                        geocodeAlert.open()
+                    }
                 }
             }
         }
