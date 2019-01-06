@@ -5,18 +5,8 @@ import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
 
-Popup {
+FastPopup {
     id: geocodeAlert
-
-    // Exit and focus management
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-    onVisibleChanged: {
-        if (visible)
-            opacity = 1
-        else
-            opacity = 0
-        main.forceActiveFocus()
-    }
 
     background: Rectangle {
         x:20
@@ -25,7 +15,7 @@ Popup {
         implicitHeight:main.height*0.08
         color:Palette.turquoise()
         border.color: Palette.greenSea()
-        radius: 10
+        radius: 15
     }
 
     ColumnLayout {
@@ -41,8 +31,6 @@ Popup {
             horizontalAlignment: Text.AlignHCenter
         }
     }
-
-    Behavior on opacity { NumberAnimation { duration: 800 } }
 }
 
 

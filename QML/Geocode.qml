@@ -9,23 +9,10 @@ import QtLocation 5.6
 
 import "JavaScript/Palette.js" as Palette
 
-
-Popup {
+FastPopup {
     id: geocode
     x: parent.height * 0.05 + 10
     y: parent.height * 0.05 + 10
-
-    // Exit and focus management
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-    onVisibleChanged: {
-        if (visible)
-            opacity = 1
-        else
-            opacity = 0
-        main.forceActiveFocus()
-    }
-
-    Behavior on opacity { NumberAnimation { duration: 800 } }
 
     background: Rectangle {
         anchors.fill: parent
@@ -35,7 +22,7 @@ Popup {
         border.color: Palette.greenSea()
         border.width: 1
         opacity:0.8
-        radius: 5
+        radius: 15
     }
 
     Item {
@@ -219,24 +206,14 @@ Popup {
         }
     }
 
-    Popup {
+    FastPopup {
         id: geocodeResponse
-        x:50
-
-        // Exit and focus management
-        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-        onVisibleChanged: {
-            if (visible)
-                opacity = 1
-            else
-                opacity = 0
-            main.forceActiveFocus()
-        }
+        x: 50
 
         background: Rectangle {
             color: Palette.turquoise()
             opacity: 0.3
-            radius:10
+            radius: 15
         }
         width: main.width/1.6
         height: popupResponseHeight( )+25

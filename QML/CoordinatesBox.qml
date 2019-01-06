@@ -6,7 +6,7 @@ import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette
 
-Popup {
+FastPopup {
     id: coordinatesBox
 
     // The box gives latitude and longitude in resultLat and resultLon.
@@ -20,16 +20,6 @@ Popup {
     x: parent.height * 0.05 + 10
     y: parent.height * 0.05 + 10
 
-    // Exit and focus management
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-    onVisibleChanged: {
-        if (visible)
-            opacity = 1
-        else
-            opacity = 0
-        main.forceActiveFocus()
-    }
-
     background: Rectangle {
         id: coordinatesBoxBackground
         anchors.fill: parent
@@ -39,7 +29,7 @@ Popup {
         border.color: Palette.greenSea()
         border.width: 1
         opacity:0.8
-        radius: 5
+        radius: 15
     }
 
     ComboBox {

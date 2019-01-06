@@ -69,21 +69,11 @@ Item {
             onClicked: popupSize.open()
         }
 
-        Popup {
+        FastPopup {
             id: popupSize
             x: 100
             y: 100
             width: 300
-
-            // Exit and focus management
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-            onVisibleChanged: {
-                if (visible)
-                    opacity = 1
-                else
-                    opacity = 0
-                main.forceActiveFocus()
-            }
 
             background: Rectangle {
                 implicitWidth: 110
@@ -92,7 +82,7 @@ Item {
                 border.color: Palette.turquoise()
                 color:Palette.turquoise()
                 border.width: 1
-                radius: 10
+                radius: 15
             }
 
             ColumnLayout {
@@ -206,24 +196,16 @@ Item {
             onClicked: keyWordPopup.open()
         }
 
-        Popup {
+        FastPopup {
             id: keyWordPopup
-            // Exit and focus management
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
-            onVisibleChanged: {
-                if (visible)
-                    opacity = 1
-                else
-                    opacity = 0
-                main.forceActiveFocus()
-            }
+
             background: Rectangle {
                 implicitWidth: main.width*0.8
                 border.color: Palette.turquoise()
                 color: Palette.turquoise()
                 border.width: 1
                 opacity:0.9
-                radius: 10
+                radius: 15
             }
 
             ColumnLayout {
