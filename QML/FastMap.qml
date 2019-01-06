@@ -112,6 +112,16 @@ Rectangle {
         }
     }
 
+    CompassMapSwipeButton {
+        id: compassMapSwipeButton
+        buttonText: "Voir la\nboussole"
+        visible: viewState == "fullcache"
+        function buttonClicked()
+        {
+            fastCache.z = 0
+        }
+    }
+
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
 

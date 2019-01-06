@@ -134,6 +134,15 @@ Item {
         }
     }
 
+    CompassMapSwipeButton {
+        id: compassMapSwipeButton
+        buttonText: "Voir la\ncarte"
+        function buttonClicked()
+        {
+            fastCache.z = -10
+        }
+    }
+
     function updateRotation() {
         compassRose.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
         compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(fullCacheLocation.coordinate)

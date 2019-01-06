@@ -175,6 +175,7 @@ Item {
 
             function buttonClicked() {
                 if(main.viewState == "fullcache"){
+                    hideMenu()
                     fastCache.swipeToPage(0)
                     fastCache.z = 0
                 } else {
