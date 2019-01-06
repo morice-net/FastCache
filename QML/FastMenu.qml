@@ -169,6 +169,7 @@ Item {
             anchors.top: nearButtonMenu.bottom
             anchors.topMargin: 2
             anchors.bottomMargin: 20
+            visible: main.viewState != "fullcache"
 
             buttonSelected: main.state == "address"
             buttonText: "Adresse"
@@ -182,6 +183,30 @@ Item {
                 } else {
                     hideMenu()
                     geocodeAlert.open()
+                }
+            }
+        }
+
+        FastDoubleButtonMenu {
+            id: mapCompassButtonMenu
+            anchors.top: nearButtonMenu.bottom
+            anchors.topMargin: 2
+            anchors.bottomMargin: 20
+            visible: main.viewState == "fullcache"
+
+            firstButtonSelected: true
+            button1Text: " Boussole"
+            button2Text: "Carte"
+
+            function buttonClicked() {
+                firstButtonSelected = !firstButtonSelected
+                if (firstButtonSelected) {
+                    // Compass visible
+                    fastCache.swipeToPage(0)
+                    fastCache.z = 0
+                } else {
+                    // Map visible
+                    fastCache.z = -10
                 }
             }
         }

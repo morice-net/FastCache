@@ -121,4 +121,8 @@ Rectangle {
         }
         fullCache.setListVisibleImages(visible);
     }
+
+    function swipeToPage(pageNumber) {
+        swipeFastCache.setCurrentIndex(pageNumber)
+    }
 }
