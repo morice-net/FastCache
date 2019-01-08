@@ -8,17 +8,6 @@ import "JavaScript/Palette.js" as Palette
 Item {
     id: compassPage
 
-    property double beginLat
-    property double beginLon
-
-    Location {
-        id: beginLocation
-        coordinate {
-            latitude: beginLat.toFixed(5)
-            longitude: beginLon.toFixed(5)
-        }
-    }
-
     Column {
         spacing: 10
         anchors.fill: parent
@@ -146,8 +135,8 @@ Item {
     function updateRotation() {
         compassRose.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
         compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(fullCacheLocation.coordinate)
-        beginLat = currentPosition.position.coordinate.latitude;
-        beginLon = currentPosition.position.coordinate.longitude;
+        main.beginLat = currentPosition.position.coordinate.latitude;
+        main.beginLon = currentPosition.position.coordinate.longitude;
     }
 
     Component.onCompleted: {

@@ -36,9 +36,21 @@ Item {
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
 
+    // used for the compass.
+    property double beginLat
+    property double beginLon
+
     signal positionUpdated
 
     FastSettings { id: settings }
+
+    Location {
+        id: beginLocation
+        coordinate {
+            latitude: beginLat.toFixed(5)
+            longitude: beginLon.toFixed(5)
+        }
+    }
 
     PositionSource {
         id: currentPosition

@@ -147,13 +147,18 @@ Rectangle {
             source: "qrc:/Image/Compass/compass_mini.png"
             width: sourceSize.width*1.8
             height: sourceSize.height*1.8
+
+            Behavior on rotation { NumberAnimation { duration: 2000 } }
         }
 
         function updateRotation() {
             console.log("Updating small compass...")
             if (currentPosition == undefined)
                 return
-            smallCompassNeedle.rotation = currentPosition.position.coordinate.azimuthTo(selectedCacheLocation.coordinate)
+            smallCompassNeedle.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
+                    currentPosition.position.coordinate.azimuthTo(selectedCacheLocation.coordinate)
+            main.beginLat = currentPosition.position.coordinate.latitude;
+            main.beginLon = currentPosition.position.coordinate.longitude;
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)
