@@ -12,6 +12,7 @@ Item {
         source: "qrc:/Image/marker.png"
         width: sourceSize.width * 1.8
         height: sourceSize.height * 1.8
+
     }
 
     AnimatedSprite {
@@ -25,6 +26,15 @@ Item {
         height: width
         anchors.centerIn: cacheIconBackground
 
+    }
+
+    Image {
+        source: "qrc:/Image/marker_found.png"
+        fillMode: Image.PreserveAspectFit
+        width: parent.width / 2
+        height: parent.height / 3
+        x: 3 * parent.width / 5
+        y: 3 * parent.height / 5
     }
 
     MouseArea {

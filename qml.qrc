@@ -135,5 +135,6 @@
         <file>Image/Compass/compass_underlay.png</file>
         <file>QML/FastPopup.qml</file>
         <file>QML/CompassMapSwipeButton.qml</file>
+        <file>Image/marker_found.png</file>
     </qresource>
 </RCC>
