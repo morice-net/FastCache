@@ -101,6 +101,10 @@ Rectangle {
         FastCacheImagesPage {
             id: imagesPage
         }
+
+        FastCacheLogPage {
+            id: logPage
+        }
     }
     
     PageIndicator {

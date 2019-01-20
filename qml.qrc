@@ -136,5 +136,6 @@
         <file>QML/FastPopup.qml</file>
         <file>QML/CompassMapSwipeButton.qml</file>
         <file>Image/marker_found.png</file>
+        <file>QML/FastCacheLogPage.qml</file>
     </qresource>
 </RCC>

@@ -198,13 +198,18 @@ Item {
             anchors.topMargin: 2
             anchors.bottomMargin: 20
             buttonSelected: main.state == "coordinates"
-            buttonText: "Coordonnées"
+            buttonText: main.viewState == "fullcache" ? "Log" : "Coordonnées"
 
             function buttonClicked() {
-                main.state = "coordinates"
-                main.cachesActive = false
-                hideMenu()
-                coordinatesBox.open()
+                if(main.viewState == "fullcache"){
+                    hideMenu()
+                    fastCache.swipeToPage(6)
+                } else {
+                    main.state = "coordinates"
+                    main.cachesActive = false
+                    hideMenu()
+                    coordinatesBox.open()
+                }
             }
         }
 

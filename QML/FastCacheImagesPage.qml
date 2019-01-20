@@ -6,6 +6,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: imagesPage
+    clip: true
 
     Flickable {
         id: images
