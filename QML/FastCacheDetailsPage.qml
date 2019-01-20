@@ -265,7 +265,7 @@ Item {
 
         Rectangle {
             id:rect
-            anchors.top:separator.anchors.bottom
+            anchors.top:separator.bottom
             width: parent.width
             height:attIcons.visible ? attIcons.height : attText.height
             color: Palette.greenSea()

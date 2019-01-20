@@ -116,6 +116,10 @@ Rectangle {
         id: compassMapSwipeButton
         buttonText: "Voir la\nboussole"
         visible: viewState == "fullcache"
+        anchors.topMargin: 20 + parent.height * 0.05
+        anchors.rightMargin: 20
+        anchors.top: parent.top
+        anchors.right: parent.right
         function buttonClicked()
         {
             fastCache.z = 0

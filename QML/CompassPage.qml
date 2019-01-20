@@ -126,6 +126,11 @@ Item {
     CompassMapSwipeButton {
         id: compassMapSwipeButton
         buttonText: "Voir la\ncarte"
+
+        anchors.margins: 20
+        anchors.top: parent.top
+        anchors.right: parent.right
+
         function buttonClicked()
         {
             fastCache.z = -10

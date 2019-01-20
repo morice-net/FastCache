@@ -6,9 +6,7 @@ Item {
     id: compassMapSwipeButton
     height: parent.height * 0.12
     width: parent.width * 0.3
-    anchors.margins: 20
-    anchors.top: parent.top
-    anchors.right: parent.right
+
     opacity: 0.75
 
     property string buttonText
