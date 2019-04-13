@@ -1,10 +1,9 @@
 TEMPLATE = app
 
-QT += qml quick location svg
+QT += qml quick location svg sql
 
 linux:!android {
     QT += webengine
-
 }
 
 SOURCES += main.cpp \
@@ -13,7 +12,7 @@ SOURCES += main.cpp \
     tools.cpp \
     cachesretriever.cpp \
     userinfo.cpp \
-    cachesbbox.cpp \    
+    cachesbbox.cpp \
     cache.cpp \
     cachetype.cpp \
     cachesize.cpp \
@@ -22,7 +21,9 @@ SOURCES += main.cpp \
     cacheattribute.cpp \
     sendcachenote.cpp \
     smileygc.cpp \
-    waypointtype.cpp
+    waypointtype.cpp \
+    objectstorage.cpp \
+    sqlitestorage.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,7 +39,7 @@ HEADERS += \
     tools.h \
     cachesretriever.h \
     userinfo.h \
-    cachesbbox.h \    
+    cachesbbox.h \
     cache.h \
     cachetype.h \
     cachesize.h \
@@ -47,7 +48,9 @@ HEADERS += \
     cacheattribute.h \
     sendcachenote.h \
     smileygc.h \
-    waypointtype.h
+    waypointtype.h \
+    objectstorage.h \
+    sqlitestorage.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

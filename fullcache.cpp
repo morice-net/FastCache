@@ -37,10 +37,13 @@ FullCache::FullCache(Cache *parent)
     , m_wptsComment(QList<QString>())
     , m_cacheImagesIndex(QList<int>())
     , m_listVisibleImages(QList<bool>())
-
 {
+    setObjectName("fullcache");
+
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &FullCache::onReplyFinished);
+
+    m_storage = new SQLiteStorage(this);
 
     m_mapLogType.insert("Trouvée",2);
     m_mapLogType.insert("Non trouvée",3);
@@ -71,6 +74,10 @@ FullCache::FullCache(Cache *parent)
 
 void FullCache::sendRequest( QString token)
 {
+    if (readFromStorage()) {
+        // We're done by retrieving the cache from storage
+        return;
+    }
     // Inform QML we are loading
     setState("loading");
 
@@ -95,6 +102,17 @@ void FullCache::sendRequest( QString token)
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     qDebug() <<"cacheJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+}
+
+bool FullCache::readFromStorage()
+{
+    return m_storage->readObject(this, "fullcache", "geocode", m_geocode);
+}
+
+void FullCache::writeToStorage()
+{
+    setRegistered(true);
+    m_storage->insertObject(this);
 }
 
 void FullCache::onReplyFinished(QNetworkReply *reply)

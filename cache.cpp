@@ -20,6 +20,7 @@ Cache::Cache(QObject *parent)
     , m_found(false)
     , m_lat(0)
     , m_lon(0)
+    , m_registered(false)
 {
 }
 
@@ -208,4 +209,5 @@ bool Cache::registered() const
 void Cache::setRegistered(bool registered)
 {
     m_registered = registered;
+    emit registeredChanged();
 }

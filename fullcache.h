@@ -5,6 +5,7 @@
 #include <QObject>
 
 #include "cache.h"
+#include "sqlitestorage.h"
 
 class FullCache : public Cache
 {
@@ -42,6 +43,8 @@ public:
     explicit FullCache(Cache *parent = nullptr);
 
     Q_INVOKABLE void sendRequest(QString token);
+    Q_INVOKABLE void writeToStorage();
+    bool readFromStorage();
 
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);
@@ -175,10 +178,6 @@ private:
     QList<int> m_cacheImagesIndex;
     QList<bool> m_listVisibleImages;
 
-    //  network manager
-
-    QNetworkAccessManager *m_networkManager;
-
     QString m_state;
     QString m_location;
     bool m_favorited;
@@ -189,6 +188,13 @@ private:
     QString m_hints;
     QString m_note;
     QMap<QString, int> m_mapLogType;
+
+    // Network manager
+    QNetworkAccessManager *m_networkManager;
+
+    // Sqlite storage
+    SQLiteStorage *m_storage;
+
 };
 
 #endif // FULLCACHE_H
