@@ -199,3 +199,13 @@ void Cache::setLon(const double &lon)
     m_lon = lon;
     emit lonChanged();
 }
+
+bool Cache::registered() const
+{
+    return m_registered;
+}
+
+void Cache::setRegistered(bool registered)
+{
+    m_registered = registered;
+}
