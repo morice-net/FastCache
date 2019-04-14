@@ -57,6 +57,30 @@ Item {
         }
     }
 
+    // Storage
+    Rectangle {
+        visible: main.viewState === "fullcache"
+        color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
+        radius: 10
+        height: parent.height * 0.05
+        width: height
+        anchors.margins: 5
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        Image {
+            source: fullCache.registered ? "qrc:/Image/heart-on.png" : "qrc:/Image/heart-off.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+            anchors.margins: 5
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: fullCache.writeToStorage()
+        }
+    }
+
     CacheFilter { id: cacheFilter }
 
     function isFiltersVisible() {

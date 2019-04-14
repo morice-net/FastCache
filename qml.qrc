@@ -137,5 +137,7 @@
         <file>QML/CompassMapSwipeButton.qml</file>
         <file>Image/marker_found.png</file>
         <file>QML/FastCacheLogPage.qml</file>
+        <file>Image/heart-off.png</file>
+        <file>Image/heart-on.png</file>
     </qresource>
 </RCC>
