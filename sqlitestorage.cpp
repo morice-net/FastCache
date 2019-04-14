@@ -59,7 +59,7 @@ bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames
     }
     queryCommand += "VALUES (";
     for(int i = 0; i < columnValues.size(); i++) {
-        queryCommand += "\"" + columnValues[i] + "\"";
+        queryCommand += "'" + columnValues[i].replace('\"', '"').replace("'","''") + "'";
         if (i == (columnValues.size() - 1))
             queryCommand += " );";
         else
@@ -68,8 +68,8 @@ bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames
 
     QSqlQuery query;
     query.exec(queryCommand);
-    qDebug() << queryCommand;
-    qDebug() << query.lastError().text();
+    qDebug() << "Query command: " << queryCommand;
+    qDebug() << "Error ? " << query.lastError().text();
     return true;
 }
 

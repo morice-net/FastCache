@@ -20,6 +20,8 @@ bool ObjectStorage::insertObject(QObject* dataRow)
 	QVector<QString> columnNames;
 	QVector<QString> columnTypes;
 	for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
+
+        qDebug() <<  dataRow->metaObject()->property(i).name() << ": " << dataRow->metaObject()->property(i).read(dataRow).toString();
 		columnNames << dataRow->metaObject()->property(i).name();
 		columnTypes << dataRow->metaObject()->property(i).read(dataRow).toString();
 	}
