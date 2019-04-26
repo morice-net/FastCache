@@ -12,6 +12,7 @@ MapQuickItem {
     sourceItem: CacheIcon {
         id: cacheIcon
         type: cacheMarkerId(listCaches()[index].type)
+        found: listCaches()[index].found
 
         MouseArea {
             anchors.fill: parent

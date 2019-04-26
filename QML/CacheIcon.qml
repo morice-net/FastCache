@@ -2,7 +2,8 @@ import QtQuick 2.6
 
 Item {
 
-    property int type: 0
+    property int type: 0    
+    property bool found: false
 
     width: cacheIconBackground.width
     height: cacheIconBackground.height
@@ -29,6 +30,7 @@ Item {
     }
 
     Image {
+        visible: found
         source: "qrc:/Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: parent.width / 2
