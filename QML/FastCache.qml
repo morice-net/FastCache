@@ -39,12 +39,13 @@ Rectangle {
         id:fastCacheHeader
         y: 10
         height: parent.height * 0.02
-        width: parent.width - parent.height * 0.075
-        anchors.right: parent.right
+        property int xGoal: 0
+        x: -100
         spacing: 10
 
         AnimatedSprite {
             id: fastCacheHeaderIcon
+            visible: false
             scale: 1.6
             y: 8
             paused: true
@@ -54,12 +55,29 @@ Rectangle {
         }
 
         Text {
-            width: parent.width - fastCacheHeaderIcon.width - fastCacheHeader.spacing
+            id: fastCacheHeaderName
             font.family: localFont.name
             font.bold: true
             font.pointSize: 18
             text: fullCache.name
             color: Palette.white()
+            onTextChanged: {
+                parent.x = parent.height + fastCacheHeaderIcon.width * 2
+                parent.xGoal = Math.min(+ fastCache.width - width - fastCacheHeaderIcon.width * 4, parent.x)
+                fastCacheHeaderIcon.visible = true
+                headerAnimation.restart()
+            }
+        }
+
+        SequentialAnimation {
+            id: headerAnimation
+            running: true
+            loops: Animation.Infinite
+
+            PauseAnimation { duration: 3000 }
+            NumberAnimation { target: fastCacheHeader; property: "x"; to: fastCacheHeader.xGoal; duration: 5000 }
+            PauseAnimation { duration: 500 }
+            NumberAnimation { target: fastCacheHeader; property: "x"; to: fastCacheHeader.height + fastCacheHeaderIcon.width * 2; duration: 800 }
         }
     }
 
