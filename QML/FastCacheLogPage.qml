@@ -21,7 +21,6 @@ Item {
 
             GroupBox {
                 id:found
-
                 Column {
                     ExclusiveGroup { id: tabPositionGroup }
 
@@ -33,7 +32,7 @@ Item {
                                 text: "Trouvée"
                                 font.family: localFont.name
                                 font.pointSize: 16
-                                color: Palette.silver()
+                                color: Palette.white()
                                 anchors.margins: 0
                             }
                             indicator: Rectangle {
@@ -60,7 +59,7 @@ Item {
                                 text: "Non trouvée"
                                 font.family: localFont.name
                                 font.pointSize: 16
-                                color: Palette.silver()
+                                color: Palette.white()
                             }
                             indicator: Rectangle {
                                 y:10
@@ -86,7 +85,7 @@ Item {
                                 text: "Note"
                                 font.family: localFont.name
                                 font.pointSize: 16
-                                color: Palette.silver()
+                                color: Palette.white()
                             }
                             indicator: Rectangle {
                                 y:10
@@ -112,7 +111,7 @@ Item {
                                 text: "Nécessite une maintenance"
                                 font.family: localFont.name
                                 font.pointSize: 16
-                                color: Palette.silver()
+                                color: Palette.white()
                             }
                             indicator: Rectangle {
                                 y:10
@@ -138,7 +137,7 @@ Item {
                                 text: "Nécessite d'être archivée"
                                 font.family: localFont.name
                                 font.pointSize: 16
-                                color: Palette.silver()
+                                color: Palette.white()
                             }
                             indicator: Rectangle {
                                 y:10
@@ -165,40 +164,45 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 16
                 text: "Date  " + new Date().toLocaleDateString(Qt.LocaleDate)
-                color: Palette.silver()
+                color: Palette.white()
             }
 
             Calendar {
                 id:calendar
                 onClicked:logDate.text="Date  " + date.toLocaleDateString(Qt.LocaleDate)
                 style: CalendarStyle {
+                    background: Rectangle {
+                        implicitHeight: fastCache.height / 2.8
+                        implicitWidth: fastCache.width * 0.7
+                        color: Palette.greenSea()
+                    }
                     gridVisible: false
                     dayDelegate: Rectangle {
                         gradient: Gradient {
                             GradientStop {
                                 position: 0.00
-                                color: styleData.selected ? "#111" : (styleData.visibleMonth && styleData.valid ? "#444" : "#666");
+                                color: styleData.selected ? Palette.greenSea() : (styleData.visibleMonth && styleData.valid ? Palette.backgroundGrey() : Palette.backgroundGrey());
                             }
                             GradientStop {
                                 position: 1.00
-                                color: styleData.selected ? "#444" : (styleData.visibleMonth && styleData.valid ? "#111" : "#666");
+                                color: styleData.selected ? Palette.backgroundGrey() : (styleData.visibleMonth && styleData.valid ? Palette.greenSea() : Palette.backgroundGrey());
                             }
                             GradientStop {
                                 position: 1.00
-                                color: styleData.selected ? "#777" : (styleData.visibleMonth && styleData.valid ? "#111" : "#666");
+                                color: styleData.selected ? Palette.silver() : (styleData.visibleMonth && styleData.valid ? Palette.turquoise() : Palette.backgroundGrey());
                             }
                         }
 
                         Label {
                             text: styleData.date.getDate()
                             anchors.centerIn: parent
-                            color: styleData.valid ? "white" : "grey"
+                            color: styleData.valid ? Palette.white() : Palette.turquoise()
                         }
 
                         Rectangle {
                             width: parent.width
                             height: 1
-                            color: "#555"
+                            color: Palette.turquoise()
                             anchors.bottom: parent.bottom
 
                         }
@@ -206,7 +210,7 @@ Item {
                         Rectangle {
                             width: 1
                             height: parent.height
-                            color: "#555"
+                            color: Palette.turquoise()
                             anchors.right: parent.right
 
                         }
@@ -219,7 +223,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 16
                 text: "Texte du Log"
-                color: Palette.silver()
+                color: Palette.white()
             }
 
             TextArea {
@@ -228,6 +232,12 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 16
                 textColor: Palette.greenSea()
+                backgroundVisible: false
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.white()
+                }
             }
         }
     }
