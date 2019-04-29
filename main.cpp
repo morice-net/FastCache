@@ -18,6 +18,7 @@
 #include "sendcachenote.h"
 #include "smileygc.h"
 #include "waypointtype.h"
+#include "logtype.h"
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +34,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheAttribute>("com.mycompany.connecting", 1, 0, "CacheAttribute");
     qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
     qmlRegisterType<WaypointType>("com.mycompany.connecting", 1, 0, "WaypointType");
+    qmlRegisterType<LogType>("com.mycompany.connecting", 1, 0, "LogType");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID
