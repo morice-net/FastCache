@@ -139,5 +139,10 @@
         <file>QML/FastCacheLogPage.qml</file>
         <file>Image/heart-off.png</file>
         <file>Image/heart-on.png</file>
+        <file>Image/logTypes/marker_archive.png</file>
+        <file>Image/logTypes/marker_found_offline.png</file>
+        <file>Image/logTypes/marker_maintenance.png</file>
+        <file>Image/logTypes/marker_not_found_offline.png</file>
+        <file>Image/logTypes/marker_note.png</file>
     </qresource>
 </RCC>
