@@ -268,23 +268,42 @@ Item {
                 color: Palette.white()
             }
 
-            TextArea {
-                id: message
-                width: logPage.width -20
-                font.family: localFont.name
-                font.pointSize: 16
-                textColor: Palette.greenSea()
-                backgroundVisible: false
+            Row {
+                spacing: 10
 
-                Rectangle {
-                    anchors.fill: parent
-                    color: Palette.white()
+                TextArea {
+                    id: message
+                    width: logPage.width*0.65
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    textColor: Palette.greenSea()
+                }
+
+                Button {
+                    style: ButtonStyle {
+                        label: Text {
+                            text: "Envoyer le log"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: Palette.greenSea()
+                        }
+                        background: Rectangle {
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                            }
+                        }
+                    }
                 }
             }
 
             CheckBox {
                 id :favorited
-
+                x:10
+                checked:false
                 style: CheckBoxStyle {
                     label: Text {
                         text: "Ajouter cette cache à vos favoris"
@@ -293,7 +312,6 @@ Item {
                         color: control.checked ? Palette.white() : Palette.silver()
                     }
                     indicator: Rectangle {
-                        //     y:10
                         implicitWidth: 25
                         implicitHeight: 25
                         radius: 3
@@ -311,3 +329,9 @@ Item {
         }
     }
 }
+
+
+
+
+
+
