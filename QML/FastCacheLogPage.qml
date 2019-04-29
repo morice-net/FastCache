@@ -281,6 +281,33 @@ Item {
                     color: Palette.white()
                 }
             }
+
+            CheckBox {
+                id :favorited
+
+                style: CheckBoxStyle {
+                    label: Text {
+                        text: "Ajouter cette cache à vos favoris"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: control.checked ? Palette.white() : Palette.silver()
+                    }
+                    indicator: Rectangle {
+                        //     y:10
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: control.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+            }
         }
     }
 }
