@@ -27,7 +27,7 @@ void SendCacheLog::cacheLog(QString token , QString cacheCode, int logType , QSt
     parameters.insert("Note", QJsonValue(log));
     parameters.insert("PromoteToLog",QJsonValue(true));
     parameters.insert("EncryptLogText",QJsonValue(false));
-    parameters.insert("FavoriteThisCache",QJsonValue(false));
+    parameters.insert("FavoriteThisCache",QJsonValue(favorite));
 
     QNetworkRequest request;
     request.setUrl(uri);

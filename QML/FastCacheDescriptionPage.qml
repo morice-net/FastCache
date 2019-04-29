@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.2
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
