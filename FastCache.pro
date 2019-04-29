@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     smileygc.cpp \
     waypointtype.cpp \
     objectstorage.cpp \
-    sqlitestorage.cpp
+    sqlitestorage.cpp \
+    sendcachelog.cpp
 
 RESOURCES += qml.qrc
 
@@ -50,7 +51,8 @@ HEADERS += \
     smileygc.h \
     waypointtype.h \
     objectstorage.h \
-    sqlitestorage.h
+    sqlitestorage.h \
+    sendcachelog.h
 
 DISTFILES += \
     android/AndroidManifest.xml \
