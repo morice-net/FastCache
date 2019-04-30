@@ -303,31 +303,74 @@ Item {
                     textColor: Palette.greenSea()
                 }
 
-                Button {
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Envoyer le log"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
+                Column{
+                    spacing:10
+
+                    Button {
+                        id:sendLog
+                        style: ButtonStyle {
+                            label: Text {
+                                text: "Envoyer le log"
+                                font.family: localFont.name
+                                font.pointSize: 16
+                                color: Palette.greenSea()
+                            }
+                            background: Rectangle {
+                                border.width: control.activeFocus ? 2 : 1
+                                border.color: "#888"
+                                radius: 4
+                                gradient: Gradient {
+                                    GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                                    GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                                }
+                            }
+
                         }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                            gradient: Gradient {
-                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                        onClicked:{
+                            console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
+                                        "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
+                            if(message.text !== null && message.text !== '')
+                                SendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
+                                                      "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
+                        }
+                    }
+
+                    Button {
+                        style: ButtonStyle {
+                            label: Text {
+                                text: "Effacer"
+                                font.family: localFont.name
+                                font.pointSize: 16
+                                color: Palette.greenSea()
+                            }
+                            background: Rectangle {
+                                border.width: control.activeFocus ? 2 : 1
+                                border.color: "#888"
+                                radius: 4
                             }
                         }
-
+                        onClicked:{
+                            message.text=""
+                        }
                     }
-                    onClicked:{
-                        console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
-                                    "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
-                        if(message.text !== null && message.text !== '')
-                            SendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
-                                                  "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
+
+                    Button {
+                        style: ButtonStyle {
+                            label: Text {
+                                text: "Ajout de texte"
+                                font.family: localFont.name
+                                font.pointSize: 16
+                                color: Palette.greenSea()
+                            }
+                            background: Rectangle {
+                                border.width: control.activeFocus ? 2 : 1
+                                border.color: "#888"
+                                radius: 4
+                            }
+                        }
+                        onClicked:{
+
+                        }
                     }
                 }
             }
