@@ -8,6 +8,17 @@ import com.mycompany.connecting 1.0
 Item {
     id: logPage
 
+    property real dateInMillis: Math.floor(new Date())
+    property int currentIndex: 0
+
+    onCurrentIndexChanged: {
+        button1.checked = currentIndex == 0
+        button2.checked = currentIndex == 1
+        button3.checked = currentIndex == 2
+        button4.checked = currentIndex == 3
+        button5.checked = currentIndex == 4
+    }
+
     Flickable {
         anchors.topMargin: 10
         anchors.fill: parent
@@ -27,7 +38,9 @@ Item {
                     ExclusiveGroup { id: tabPositionGroup }
 
                     RadioButton {
+                        id:button1
                         checked: true
+                        onClicked: currentIndex = 0
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -55,6 +68,8 @@ Item {
                     }
 
                     RadioButton {
+                        id:button2
+                        onClicked: currentIndex = 1
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -81,6 +96,8 @@ Item {
                     }
 
                     RadioButton {
+                        id:button3
+                        onClicked: currentIndex = 2
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -107,6 +124,8 @@ Item {
                     }
 
                     RadioButton {
+                        id:button4
+                        onClicked: currentIndex = 3
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -133,6 +152,8 @@ Item {
                     }
 
                     RadioButton {
+                        id:button5
+                        onClicked: currentIndex = 4
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -171,7 +192,10 @@ Item {
 
             Calendar {
                 id:calendar
-                onClicked:logDate.text="Date  " + date.toLocaleDateString(Qt.LocaleDate)
+                onClicked:{
+                    logDate.text="Date  " + date.toLocaleDateString(Qt.LocaleDate);
+                    dateInMillis = Math.floor(date)
+                }
                 style: CalendarStyle {
                     gridVisible: false
                     background: Rectangle {
@@ -296,6 +320,14 @@ Item {
                                 GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
                             }
                         }
+
+                    }
+                    onClicked:{
+                        console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
+                                    "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
+
+                        //      SendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
+                        //                           "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
                     }
                 }
             }
@@ -329,6 +361,7 @@ Item {
         }
     }
 }
+
 
 
 

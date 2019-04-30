@@ -151,6 +151,10 @@ Item {
         id: waypointTypes
     }
 
+    LogTypes {
+        id: logTypes
+    }
+
     FullCache {
         id: fullCache
 
@@ -393,5 +397,9 @@ Item {
             }
         }
         return
+    }
+
+    function  logTypeGs(index) {
+        return logTypes.types[index].typeIdGs
     }
 }
