@@ -323,13 +323,11 @@ Item {
 
                     }
                     onClicked:{
-
-                        if(message.text !== null && message.text !== '')
                         console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
                                     "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
-
-                        //      SendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
-                        //                           "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
+                        if(message.text !== null && message.text !== '')
+                            SendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
+                                                  "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
                     }
                 }
             }
