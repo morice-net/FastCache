@@ -145,5 +145,6 @@
         <file>Image/logTypes/marker_not_found_offline.png</file>
         <file>Image/logTypes/marker_note.png</file>
         <file>QML/LogTypes.qml</file>
+        <file>QML/AddTextLog.qml</file>
     </qresource>
 </RCC>

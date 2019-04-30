@@ -19,6 +19,10 @@ Item {
         button5.checked = currentIndex == 4
     }
 
+    AddTextLog{
+        id:addText
+    }
+
     Flickable {
         anchors.topMargin: 10
         anchors.fill: parent
@@ -324,7 +328,6 @@ Item {
                                     GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
                                 }
                             }
-
                         }
                         onClicked:{
                             console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
@@ -369,7 +372,7 @@ Item {
                             }
                         }
                         onClicked:{
-
+                            addText.open()
                         }
                     }
                 }
