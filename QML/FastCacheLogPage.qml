@@ -10,6 +10,7 @@ Item {
 
     property real dateInMillis: Math.floor(new Date())
     property int currentIndex: 0
+    property string textLog: ""
 
     onCurrentIndexChanged: {
         button1.checked = currentIndex == 0
@@ -18,6 +19,8 @@ Item {
         button4.checked = currentIndex == 3
         button5.checked = currentIndex == 4
     }
+
+    onTextLogChanged: message.text = message.text + textLog ;
 
     AddTextLog{
         id:addText
@@ -372,7 +375,8 @@ Item {
                             }
                         }
                         onClicked:{
-                            addText.open()
+                            addText.open();
+                            textLog = "" ;
                         }
                     }
                 }

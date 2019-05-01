@@ -43,9 +43,9 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = new Date().toLocaleDateString(Qt.LocaleDate);
+                    addText.close() ;
                 }
-
             }
         }
 
@@ -67,7 +67,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = new Date().getHours(Qt.LocaleDate) + " h : " + new Date().getMinutes(Qt.LocaleDate);
+                    addText.close() ;
                 }
             }
         }
@@ -90,7 +91,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = userInfo.name ;
+                    addText.close() ;
                 }
             }
         }
@@ -113,7 +115,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = fullCache.owner;
+                    addText.close() ;
                 }
             }
         }
@@ -136,7 +139,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = fullCache.name;
+                    addText.close() ;
                 }
             }
         }
@@ -159,7 +163,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = fullCache.difficulty;
+                    addText.close() ;
                 }
             }
         }
@@ -182,7 +187,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = fullCache.terrain;
+                    addText.close() ;
                 }
             }
         }
@@ -205,7 +211,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-
+                    textLog = main.cacheSize(fullCache.size);
+                    addText.close() ;
                 }
             }
         }
