@@ -7,67 +7,85 @@
 #include <QDebug>
 
 ObjectStorage::ObjectStorage(QObject *parent) :
-	QObject(parent)
+    QObject(parent)
 {
 }
 
 bool ObjectStorage::insertObject(QObject* dataRow)
 {
-	if (!m_tableNames.contains(dataRow->objectName())) {
-		createTableFromObject(dataRow);
-	}
+    if (!m_tableNames.contains(dataRow->objectName())) {
+        createTableFromObject(dataRow);
+    }
 
-	QVector<QString> columnNames;
-	QVector<QString> columnTypes;
-	for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
-
-        qDebug() <<  dataRow->metaObject()->property(i).name() << ": " << dataRow->metaObject()->property(i).read(dataRow).toString();
-		columnNames << dataRow->metaObject()->property(i).name();
-		columnTypes << dataRow->metaObject()->property(i).read(dataRow).toString();
-	}
-	if (createObject(dataRow->objectName(),columnNames,columnTypes)) {
-		m_dataObjects << dataRow;
-		return true;
-	}
-	return false;
+    QVector<QString> columnNames;
+    QVector<QString> columnValues;
+    for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
+        QMetaProperty property = dataRow->metaObject()->property(i);
+        columnNames << property.name();
+        columnNames << serializeValue(property.read(dataRow));
+    }
+    // Create and add in the list the storage created objects
+    if (createObject(dataRow->objectName(),columnNames,columnValues)) {
+        m_dataObjects << dataRow;
+        return true;
+    }
+    return false;
 }
 
 QVector<QObject *> ObjectStorage::dataTableObjects(const QString& tableName) const
 {
-	QVector<QObject*> tableObjects;
-	foreach (QObject* object, m_dataObjects) {
-		if (object->objectName() == tableName) {
-			tableObjects << object;
-		}
-	}
-	return tableObjects;
+    QVector<QObject*> tableObjects;
+    for (QObject* object: m_dataObjects) {
+        if (object->objectName() == tableName) {
+            tableObjects << object;
+        }
+    }
+    return tableObjects;
 }
 
 QVector<QObject *> ObjectStorage::dataObjects() const
 {
-	return m_dataObjects;
+    return m_dataObjects;
 }
 
 QVector<QString> ObjectStorage::tableNames() const
 {
-	return m_tableNames;
+    return m_tableNames;
 }
 
 bool ObjectStorage::createTableFromObject(QObject *dataRow)
 {
-	QString name = dataRow->objectName();
-	QVector<QString> columnNames;
+    QString name = dataRow->objectName();
+    QVector<QString> columnNames;
     QVector<QString> columnTypes;
-	qDebug() << "Table" << name;
-	for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
+    qDebug() << "Table" << name;
+    for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
         columnNames << dataRow->metaObject()->property(i).name();
         columnTypes << stringFromType(dataRow->metaObject()->property(i).type());
-		qDebug() << "\tRow" << dataRow->metaObject()->property(i).name() << dataRow->metaObject()->property(i).type();
-	}
+        qDebug() << "\tRow" << dataRow->metaObject()->property(i).name() << dataRow->metaObject()->property(i).type();
+    }
     if (createTable(name,columnNames,columnTypes)) {
-		m_tableNames << name;
-		return true;
-	}
-	return false;
+        m_tableNames << name;
+        return true;
+    }
+    return false;
+}
+
+QString ObjectStorage::serializeValue(const QVariant &variant) const
+{
+    QString value(variant.toString());
+    if (value.isEmpty()) {
+        // in this case we need to serialize data, probably a list
+        const QString delimiter("|#|");
+        QString serializedValue;
+        for (QVariant var: variant.toList()) {
+            serializedValue += var.toString();
+            serializedValue += delimiter;
+        }
+        serializedValue.chop(3);
+        return serializedValue;
+    } else {
+        return value;
+    }
 }
 

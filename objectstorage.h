@@ -18,6 +18,7 @@ public:
 
     bool insertObject(QObject* dataRow);
     bool createTableFromObject(QObject* dataRow);
+    QString serializeValue(const QVariant &variant) const;
 
 	QVector<QObject *> dataTableObjects(const QString& tableName) const;
 	QVector<QObject *> dataObjects() const;
