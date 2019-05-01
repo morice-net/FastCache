@@ -16,6 +16,7 @@
 #include "fullcache.h"
 #include "cacheattribute.h"
 #include "sendcachenote.h"
+#include "sendcachelog.h"
 #include "smileygc.h"
 #include "waypointtype.h"
 #include "logtype.h"
@@ -33,6 +34,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheSize>("com.mycompany.connecting", 1, 0, "CacheSize");
     qmlRegisterType<CacheAttribute>("com.mycompany.connecting", 1, 0, "CacheAttribute");
     qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
+    qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");
     qmlRegisterType<WaypointType>("com.mycompany.connecting", 1, 0, "WaypointType");
     qmlRegisterType<LogType>("com.mycompany.connecting", 1, 0, "LogType");
 
