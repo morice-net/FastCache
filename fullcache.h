@@ -7,6 +7,10 @@
 #include "cache.h"
 #include "sqlitestorage.h"
 
+static constexpr int MAX_PER_PAGE = 40;
+static constexpr int GEOCACHE_LOG_COUNT = 30;
+static constexpr int TRACKABLE_LOG_COUNT = 30;
+
 class FullCache : public Cache
 {
     Q_OBJECT
@@ -37,7 +41,6 @@ class FullCache : public Cache
     Q_PROPERTY(QList<double > wptsLat READ wptsLat WRITE setWptsLat NOTIFY wptsLatChanged)
     Q_PROPERTY(QList<double > wptsLon READ wptsLon WRITE setWptsLon NOTIFY wptsLonChanged)
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
-
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -156,45 +159,43 @@ signals:
     void listVisibleImagesChanged();
 
 private:
-    const int MAX_PER_PAGE=40;
-    const int GEOCACHE_LOG_COUNT=30;
-    const int TRACKABLE_LOG_COUNT=30;
 
+    // Properties
+    QString m_state;
     QList<int> m_attributes;
     QList<bool> m_attributesBool;
+    QString m_location;
+    bool m_favorited;
+    QString m_longDescription;
+    bool m_longDescriptionIsHtml;
+    QString m_shortDescription;
+    bool m_shortDescriptionIsHtml;
+    QString m_hints;
+    QString m_note;
     QList<QString> m_imagesName;
     QList<QString> m_imagesDescription;
     QList<QString> m_imagesUrl;
-    QList<int> m_findersCount;
     QList<QString> m_findersName;
-    QList<QString> m_findersDate;
-    QList<QString> m_logsType;
     QList<QString> m_logs;
+    QList<QString> m_logsType;
+    QList<int> m_findersCount;
+    QList<QString> m_findersDate;
+    QList<int> m_cacheImagesIndex;
+    QList<bool> m_listVisibleImages;
     QList<QString> m_wptsDescription;
     QList<QString> m_wptsName;
     QList<double> m_wptsLat;
     QList<double> m_wptsLon;
     QList<QString> m_wptsComment;
-    QList<int> m_cacheImagesIndex;
-    QList<bool> m_listVisibleImages;
 
-    QString m_state;
-    QString m_location;
-    bool m_favorited;
-    QString m_longDescription;
-    QString m_shortDescription;
-    bool m_longDescriptionIsHtml;
-    bool m_shortDescriptionIsHtml;
-    QString m_hints;
-    QString m_note;
-    QMap<QString, int> m_mapLogType;
+    // Type of logs falitator
+    const QMap<QString, int> m_mapLogType;
 
     // Network manager
     QNetworkAccessManager *m_networkManager;
 
     // Sqlite storage
     SQLiteStorage *m_storage;
-
 };
 
 #endif // FULLCACHE_H

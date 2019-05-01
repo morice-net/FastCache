@@ -11,14 +11,14 @@
 
 FullCache::FullCache(Cache *parent)
     :  Cache (parent)
+    ,  m_state()
     ,  m_attributes(QList<int>())
     ,  m_attributesBool(QList<bool>())
-    ,  m_state()
     , m_location("")
     , m_favorited(false)
     , m_longDescription("")
-    , m_shortDescription("")
     , m_longDescriptionIsHtml(false)
+    , m_shortDescription("")
     , m_shortDescriptionIsHtml(false)
     , m_hints("")
     , m_note("")
@@ -26,53 +26,52 @@ FullCache::FullCache(Cache *parent)
     , m_imagesDescription(QList<QString>())
     , m_imagesUrl(QList<QString>())
     , m_findersName(QList<QString>())
-    , m_findersDate(QList<QString>())
-    , m_findersCount(QList<int>())
-    , m_logsType(QList<QString>())
     , m_logs(QList<QString>())
+    , m_logsType(QList<QString>())
+    , m_findersCount(QList<int>())
+    , m_findersDate(QList<QString>())
+    , m_cacheImagesIndex(QList<int>())
+    , m_listVisibleImages(QList<bool>())
     , m_wptsDescription(QList<QString>())
     , m_wptsName(QList<QString>())
     , m_wptsLat(QList<double>())
     , m_wptsLon(QList<double>())
     , m_wptsComment(QList<QString>())
-    , m_cacheImagesIndex(QList<int>())
-    , m_listVisibleImages(QList<bool>())
+    , m_mapLogType({{"Trouvée",2},
+                    {"Non trouvée", 3},
+                    {"Note", 4},
+                    {"Publiée", 1003},
+                    {"Activée", 23},
+                    {"Désactivée", 22},
+                    {"Participera", 9},
+                    {"A participé", 10},
+                    {"Récupéré", 13},
+                    {"Déposé", 14},
+                    {"Pris ailleurs", 19},
+                    {"Ajouté à une collection", 69},
+                    {"Ajouté à l\'inventaire", 70},
+                    {"Maintenance effectuée", 46},
+                    {"Nécessite une maintenance", 45},
+                    {"Coordonnées mises à jour", 47},
+                    {"Archivée", 5},
+                    {"Désarchivée", 12},
+                    {"Nécessite d\'être archivée", 7},
+                    {"Découverte", 48},
+                    {"Note du relecteur", 18},
+                    {"Soumettre pour examen", 76},
+                    {"Visite retirée", 25},
+                    {"Marquer comme absente", 16},
+                    {"Photo prise par la webcam", 11}})
+    , m_networkManager(new QNetworkAccessManager(this))
+    , m_storage(new SQLiteStorage(this))
 {
+    // Object name is used for storage, it's also a good practise to name the objects
     setObjectName("fullcache");
 
-    m_networkManager = new QNetworkAccessManager(this);
-    connect( m_networkManager, &QNetworkAccessManager::finished, this, &FullCache::onReplyFinished);
-
-    m_storage = new SQLiteStorage(this);
-
-    m_mapLogType.insert("Trouvée",2);
-    m_mapLogType.insert("Non trouvée",3);
-    m_mapLogType.insert("Note",4);
-    m_mapLogType.insert("Publiée",1003);
-    m_mapLogType.insert("Activée",23 );
-    m_mapLogType.insert("Désactivée",22 );
-    m_mapLogType.insert("Participera",9 );
-    m_mapLogType.insert("A participé",10);
-    m_mapLogType.insert("Récupéré",13 );
-    m_mapLogType.insert("Déposé", 14 );
-    m_mapLogType.insert("Pris ailleurs",19 );
-    m_mapLogType.insert("Ajouté à une collection",69);
-    m_mapLogType.insert("Ajouté à l\'inventaire",70);
-    m_mapLogType.insert("Maintenance effectuée",46  );
-    m_mapLogType.insert("Nécessite une maintenance",45 );
-    m_mapLogType.insert("Coordonnées mises à jour",47 );
-    m_mapLogType.insert("Archivée",5  );
-    m_mapLogType.insert("Désarchivée",12  );
-    m_mapLogType.insert("Nécessite d\'être archivée",7 );
-    m_mapLogType.insert("Découverte",48 );
-    m_mapLogType.insert("Note du relecteur",18);
-    m_mapLogType.insert("Soumettre pour examen",76  );
-    m_mapLogType.insert("Visite retirée",25 );
-    m_mapLogType.insert("Marquer comme absente",16 );
-    m_mapLogType.insert("Photo prise par la webcam", 11);
+    connect(m_networkManager, &QNetworkAccessManager::finished, this, &FullCache::onReplyFinished);
 }
 
-void FullCache::sendRequest( QString token)
+void FullCache::sendRequest(QString token)
 {
     if (readFromStorage()) {
         // We're done by retrieving the cache from storage
@@ -117,7 +116,6 @@ void FullCache::writeToStorage()
 
 void FullCache::onReplyFinished(QNetworkReply *reply)
 {
-
     QJsonDocument dataJsonDoc;
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
@@ -134,48 +132,46 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             return ;
         }
 
-        SmileyGc * smileys;
-        smileys = new SmileyGc;
-
-        foreach ( const QJsonValue & v, caches)
+        for (QJsonValue cacheJson: caches)
         {
-            setArchived(v.toObject().value("Archived").toBool());
-            setDisabled(v.toObject().value("Available").toBool());
+            SmileyGc * smileys = new SmileyGc;
+            setArchived(cacheJson.toObject().value("Archived").toBool());
+            setDisabled(cacheJson.toObject().value("Available").toBool());
 
-            QJsonObject v1 = v.toObject().value("Owner").toObject();
+            QJsonObject v1 = cacheJson.toObject().value("Owner").toObject();
             QString owner = v1.value("UserName").toString();
             setOwner(owner);
 
-            QString date(v.toObject().value("DateCreated").toString());
+            QString date(cacheJson.toObject().value("DateCreated").toString());
             setDate(date);
 
-            QJsonObject v2 = v.toObject().value("CacheType").toObject();
+            QJsonObject v2 = cacheJson.toObject().value("CacheType").toObject();
             int cacheTypeId= v2.value("GeocacheTypeId").toInt();
             setType(cacheTypeId);
 
-            QString code(v.toObject().value("Code").toString());
+            QString code(cacheJson.toObject().value("Code").toString());
             setGeocode(code);
 
-            QJsonObject v3 = v.toObject().value("ContainerType").toObject();
+            QJsonObject v3 = cacheJson.toObject().value("ContainerType").toObject();
             int cacheSizeId= v3.value("ContainerTypeId").toInt();
             setSize(cacheSizeId);
 
-            setDifficulty(v.toObject().value("Difficulty").toDouble());
-            setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
-            setLat(v.toObject().value("Latitude").toDouble());
-            setLon(v.toObject().value("Longitude").toDouble());
+            setDifficulty(cacheJson.toObject().value("Difficulty").toDouble());
+            setFavoritePoints(cacheJson.toObject().value("FavoritePoints").toInt());
+            setLat(cacheJson.toObject().value("Latitude").toDouble());
+            setLon(cacheJson.toObject().value("Longitude").toDouble());
 
-            setName(v.toObject().value("Name").toString());
+            setName(cacheJson.toObject().value("Name").toString());
 
-            setTrackableCount(v.toObject().value("TrackableCount").toInt());
-            setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
-            setTerrain(v.toObject().value("Terrain").toDouble());
+            setTrackableCount(cacheJson.toObject().value("TrackableCount").toInt());
+            setFound(cacheJson.toObject().value("HasbeenFoundbyUser").toBool());
+            setTerrain(cacheJson.toObject().value("Terrain").toDouble());
 
             // Attributes of cache.
             m_attributes.clear();
             m_attributesBool.clear();
 
-            QJsonArray  atts = v.toObject().value("Attributes").toArray();
+            QJsonArray  atts = cacheJson.toObject().value("Attributes").toArray();
             foreach ( const QJsonValue & att, atts)
             {
                 m_attributes.append(att.toObject().value("AttributeTypeID").toInt());
@@ -186,27 +182,27 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             emit attributesChanged();
             emit attributesBoolChanged();
 
-            //State
-            setLocation(v.toObject().value("State").toString());
+            // State
+            setLocation(cacheJson.toObject().value("State").toString());
 
             // Favorited
-            setFavorited(v.toObject().value("HasbeenFavoritedbyUser").toBool());
+            setFavorited(cacheJson.toObject().value("HasbeenFavoritedbyUser").toBool());
 
             // Short description
-            setShortDescriptionIsHtml(v.toObject().value("ShortDescriptionIsHtml").toBool());
-            setShortDescription(v.toObject().value("ShortDescription").toString());
+            setShortDescriptionIsHtml(cacheJson.toObject().value("ShortDescriptionIsHtml").toBool());
+            setShortDescription(cacheJson.toObject().value("ShortDescription").toString());
 
             // Long description
-            setLongDescriptionIsHtml(v.toObject().value("LongDescriptionIsHtml").toBool());
-            setLongDescription(v.toObject().value("LongDescription").toString());
+            setLongDescriptionIsHtml(cacheJson.toObject().value("LongDescriptionIsHtml").toBool());
+            setLongDescription(cacheJson.toObject().value("LongDescription").toString());
 
             // Hints
-            setHints(v.toObject().value("EncodedHints").toString());
+            setHints(cacheJson.toObject().value("EncodedHints").toString());
 
             // Note
             m_note = "";
-            if ( !v.toObject().value("GeocacheNote").toString().isNull()) {
-                setNote(v.toObject().value("GeocacheNote").toString());
+            if (!cacheJson.toObject().value("GeocacheNote").toString().isNull()) {
+                setNote(cacheJson.toObject().value("GeocacheNote").toString());
             }
 
             // Images
@@ -215,8 +211,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             m_imagesUrl.clear();
             m_cacheImagesIndex.clear();
 
-            QJsonArray  images = v.toObject().value("Images").toArray();
-            foreach ( const QJsonValue & image, images)
+            for (QJsonValue image: cacheJson.toObject().value("Images").toArray())
             {
                 m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
                 m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
@@ -236,8 +231,8 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             m_logsType.clear();
             m_listVisibleImages.clear();
 
-            QJsonArray  geocacheLogs = v.toObject().value("GeocacheLogs").toArray();
-            foreach ( const QJsonValue & geocacheLog, geocacheLogs)
+            QJsonArray geocacheLogs = cacheJson.toObject().value("GeocacheLogs").toArray();
+            for (QJsonValue geocacheLog: geocacheLogs)
             {
                 m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog.toObject().value("LogText").toString()));
                 m_findersDate.append(geocacheLog.toObject().value("VisitDateIso").toString());
@@ -249,8 +244,8 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
                 QJsonObject type = geocacheLog.toObject().value("LogType").toObject();
                 m_logsType.append(m_mapLogType.key(type.value("WptLogTypeId").toInt()));
 
-                QJsonArray  logsImage = geocacheLog.toObject().value("Images").toArray();
-                foreach ( const QJsonValue & logImage, logsImage)
+                QJsonArray logsImage = geocacheLog.toObject().value("Images").toArray();
+                for (QJsonValue logImage: logsImage)
                 {
                     m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Name").toString()));
                     m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Description").toString()));
@@ -259,7 +254,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
                 m_cacheImagesIndex.append(m_imagesName.size());
             }
 
-            for(int i=0; i<m_imagesName.size(); i++)
+            for(int i = 0; i < m_imagesName.size(); ++i)
             {
                 m_listVisibleImages.append(true);
             }
@@ -281,8 +276,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             m_wptsLon.clear()  ;
             m_wptsComment.clear();
 
-            QJsonArray  waypoints = v.toObject().value("AdditionalWaypoints").toArray();
-            foreach ( const QJsonValue & waypoint, waypoints)
+            for (QJsonValue waypoint: cacheJson.toObject().value("AdditionalWaypoints").toArray())
             {
                 m_wptsDescription.append(waypoint.toObject().value("UrlName").toString());
                 m_wptsName.append(waypoint.toObject().value("Name").toString());
@@ -299,12 +293,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             emit wptsLatChanged();
             emit wptsLonChanged();
             emit wptsCommentChanged();
-
-            delete smileys ;
         }
-
-    }   else {
-        qDebug() << "*** Cache ERROR ***\n" <<reply->errorString() ;
+    } else {
+        qDebug() << "*** Cache ERROR ***\n" <<reply->errorString();
         return;
     }
 
@@ -598,13 +589,3 @@ void FullCache::setListVisibleImages(const QList<bool> &visibles)
     m_listVisibleImages = visibles;
     emit listVisibleImagesChanged();
 }
-
-
-
-
-
-
-
-
-
-
