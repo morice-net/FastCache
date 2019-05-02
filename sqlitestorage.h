@@ -13,7 +13,7 @@ public:
 
     bool readObject(QObject *object, QString tableName, QString columnNameId, QString valueId);
     bool createObject(QString tableName, QVector<QString> columnNames, QVector<QString> columnValues);
-    bool createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes);
+    bool createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes, const QString &primaryKey);
     QString stringFromType(QVariant::Type type) const;
 
 

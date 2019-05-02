@@ -11,10 +11,10 @@ ObjectStorage::ObjectStorage(QObject *parent) :
 {
 }
 
-bool ObjectStorage::insertObject(QObject* dataRow)
+bool ObjectStorage::insertObject(QObject* dataRow, const QString &primaryKey)
 {
     if (!m_tableNames.contains(dataRow->objectName())) {
-        createTableFromObject(dataRow);
+        createTableFromObject(dataRow, primaryKey);
     }
 
     QVector<QString> columnNames;
@@ -22,7 +22,7 @@ bool ObjectStorage::insertObject(QObject* dataRow)
     for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
         QMetaProperty property = dataRow->metaObject()->property(i);
         columnNames << property.name();
-        columnNames << serializeValue(property.read(dataRow));
+        columnValues << serializeValue(property.read(dataRow));
     }
     // Create and add in the list the storage created objects
     if (createObject(dataRow->objectName(),columnNames,columnValues)) {
@@ -53,7 +53,7 @@ QVector<QString> ObjectStorage::tableNames() const
     return m_tableNames;
 }
 
-bool ObjectStorage::createTableFromObject(QObject *dataRow)
+bool ObjectStorage::createTableFromObject(QObject *dataRow, const QString &primaryKey)
 {
     QString name = dataRow->objectName();
     QVector<QString> columnNames;
@@ -64,7 +64,7 @@ bool ObjectStorage::createTableFromObject(QObject *dataRow)
         columnTypes << stringFromType(dataRow->metaObject()->property(i).type());
         qDebug() << "\tRow" << dataRow->metaObject()->property(i).name() << dataRow->metaObject()->property(i).type();
     }
-    if (createTable(name,columnNames,columnTypes)) {
+    if (createTable(name, columnNames, columnTypes, primaryKey)) {
         m_tableNames << name;
         return true;
     }

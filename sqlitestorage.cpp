@@ -49,7 +49,7 @@ bool SQLiteStorage::readObject(QObject *dataRow, QString tableName, QString colu
 bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames, QVector<QString> columnValues)
 {
     QString queryCommand;
-    queryCommand += "INSERT INTO " + tableName + " ( ";
+    queryCommand += "REPLACE INTO " + tableName + " ( ";
     for(int i = 0; i < columnNames.size(); i++) {
         queryCommand += columnNames[i];
         if (i == (columnNames.size() - 1))
@@ -73,12 +73,12 @@ bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames
     return true;
 }
 
-bool SQLiteStorage::createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes)
+bool SQLiteStorage::createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes, const QString& primaryKey)
 {
     QString queryCommand;
     queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " ( ";
     for(int i = 0; i < columnNames.size(); i++) {
-        queryCommand += columnNames[i] + " " + columnTypes[i];
+        queryCommand += columnNames[i] + " " + columnTypes[i] + ((columnNames[i] == primaryKey) ? " primary key " : "");
         if (i == (columnNames.size() - 1))
             queryCommand += " );";
         else

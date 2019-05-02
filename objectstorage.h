@@ -13,11 +13,11 @@ public:
     explicit ObjectStorage(QObject *parent = 0);
 
     virtual bool createObject(QString tableName, QVector<QString> columnNames, QVector<QString> columnValues) = 0;
-    virtual bool createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes) = 0;
+    virtual bool createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes, const QString &primaryKey) = 0;
     virtual QString stringFromType(QVariant::Type type) const = 0;
 
-    bool insertObject(QObject* dataRow);
-    bool createTableFromObject(QObject* dataRow);
+    bool insertObject(QObject* dataRow, const QString &primaryKey);
+    bool createTableFromObject(QObject* dataRow, const QString &primaryKey);
     QString serializeValue(const QVariant &variant) const;
 
     QVector<QObject *> dataTableObjects(const QString& tableName) const;

@@ -111,7 +111,7 @@ bool FullCache::readFromStorage()
 void FullCache::writeToStorage()
 {
     setRegistered(true);
-    m_storage->insertObject(this);
+    m_storage->insertObject(this, "geocode");
 }
 
 void FullCache::onReplyFinished(QNetworkReply *reply)
