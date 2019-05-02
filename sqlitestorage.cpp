@@ -69,7 +69,12 @@ bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames
     QSqlQuery query;
     query.exec(queryCommand);
     qDebug() << "Query command: " << queryCommand;
-    qDebug() << "Error ? " << query.lastError().text();
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+
     return true;
 }
 
