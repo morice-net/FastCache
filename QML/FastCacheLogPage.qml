@@ -303,85 +303,81 @@ Item {
                 color: Palette.white()
             }
 
-            Row {
-                spacing: 10
+            TextArea {
+                id: message
+                width: logPage.width*0.95
+                font.family: localFont.name
+                font.pointSize: 14
+                textColor: Palette.greenSea()
+            }
 
-                TextArea {
-                    id: message
-                    width: logPage.width*0.65
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    textColor: Palette.greenSea()
+            Row {
+                spacing: 40
+
+                Button {
+                    style: ButtonStyle {
+                        label: Text {
+                            text: "Effacer"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: Palette.greenSea()
+                        }
+                        background: Rectangle {
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
+                        }
+                    }
+                    onClicked:{
+                        message.text=""
+                    }
                 }
 
-                Column{
-                    spacing:10
-
-                    Button {
-                        id:sendLog
-                        style: ButtonStyle {
-                            label: Text {
-                                text: "Envoyer le log"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: Palette.greenSea()
-                            }
-                            background: Rectangle {
-                                border.width: control.activeFocus ? 2 : 1
-                                border.color: "#888"
-                                radius: 4
-                                gradient: Gradient {
-                                    GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                                    GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                                }
-                            }
+                Button {
+                    style: ButtonStyle {
+                        label: Text {
+                            text: "Ajout de texte"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: Palette.greenSea()
                         }
-                        onClicked:{
-                            console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
-                                        "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
-                            if(message.text !== null && message.text !== '')
-                                sendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
-                                                      "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
+                        background: Rectangle {
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
                         }
                     }
+                    onClicked:{
+                        addText.open();
+                        textLog = "" ;
+                    }
+                }
 
-                    Button {
-                        style: ButtonStyle {
-                            label: Text {
-                                text: "Effacer"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: Palette.greenSea()
-                            }
-                            background: Rectangle {
-                                border.width: control.activeFocus ? 2 : 1
-                                border.color: "#888"
-                                radius: 4
-                            }
+                Button {
+                    id:sendLog
+                    style: ButtonStyle {
+                        label: Text {
+                            text: "Envoyer le log"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: Palette.greenSea()
                         }
-                        onClicked:{
-                            message.text=""
+                        background: Rectangle {
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                            }
                         }
                     }
-
-                    Button {
-                        style: ButtonStyle {
-                            label: Text {
-                                text: "Ajout de texte"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: Palette.greenSea()
-                            }
-                            background: Rectangle {
-                                border.width: control.activeFocus ? 2 : 1
-                                border.color: "#888"
-                                radius: 4
-                            }
-                        }
-                        onClicked:{
-                            addText.open();
-                            textLog = "" ;
-                        }
+                    onClicked:{
+                        console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
+                                    "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
+                        if(message.text !== null && message.text !== '')
+                            sendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
+                                                  "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
                     }
                 }
             }
