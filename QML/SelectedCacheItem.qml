@@ -8,15 +8,12 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: selectedCacheItem
-
     color: Palette.white().replace("#","#99")
     radius: parent.width/30
     border.width: 2
-    border.color: main.viewState == "map" ? Palette.greenSea() : Palette.silver()
-
+    border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
     width: main.width - 40
     height: main.height * 0.12
-
     opacity: 0
     visible: opacity > 0
 
@@ -24,7 +21,9 @@ Rectangle {
 
     AnimatedSprite {
         id: selectedCacheIconField
+
         property int type: 0
+
         paused: true
         source: "qrc:/Image/cacheList.png"
         frameCount: 15
@@ -34,6 +33,16 @@ Rectangle {
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
+    }
+
+    Image {
+        visible:selectedCache.found
+        source: "qrc:/Image/marker_found.png"
+        fillMode: Image.PreserveAspectFit
+        width: selectedCacheIconField.width / 2
+        height: selectedCacheIconField.height / 3
+        x: selectedCacheIconField.x + selectedCacheIconField.width/2
+        y: selectedCacheIconField.y + selectedCacheIconField.height/2
     }
 
     Text {

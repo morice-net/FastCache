@@ -8,7 +8,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastList
     anchors.fill: parent
-    opacity: main.viewState == "list" ? 1 : 0
+    opacity: main.viewState === "list" ? 1 : 0
     visible: opacity > 0
     color: Palette.white()
 
@@ -16,9 +16,9 @@ Rectangle {
     ListView {
         id: fastListColumn
         width: parent.width
-        height: main.state == "near" || main.state == "address" || main.state == "coordinates" ? parent.height - fastListHeader.height - fastListBottom.height -10 :
-                                                                                                 parent.height - fastListHeader.height -10
-        y: main.state == "near" || main.state == "address"  || main.state == "coordinates" ? fastListHeader.height + fastListBottom.height +10 : fastListHeader.height + 10
+        height: main.state === "near" || main.state === "address" || main.state === "coordinates" ? parent.height - fastListHeader.height - fastListBottom.height -10 :
+                                                                                                    parent.height - fastListHeader.height -10
+        y: main.state === "near" || main.state === "address"  || main.state === "coordinates" ? fastListHeader.height + fastListBottom.height +10 : fastListHeader.height + 10
         spacing: 5
         model: modelState()
         delegate: SelectedCacheItem {
@@ -52,7 +52,7 @@ Rectangle {
         color: Palette.turquoise()
         radius:10
         anchors.top: fastListHeader.bottom
-        visible:main.state == "near" || main.state == "address" || main.state == "coordinates" ? true : false
+        visible:main.state === "near" || main.state === "address" || main.state === "coordinates" ? true : false
 
         Text {
             verticalAlignment: Text.AlignVCenter
@@ -75,7 +75,7 @@ Rectangle {
     function modelState() {
         if(main.cachesActive){
             return  cachesBBox.caches
-        } else if(main.state == "near" || main.state == "address" || main.state == "coordinates" ){
+        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
             return  cachesNear.caches
         }
     }
