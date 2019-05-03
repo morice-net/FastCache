@@ -7,6 +7,7 @@
 
 SendCacheLog::SendCacheLog(QObject *parent)
     : QObject(parent)
+    ,  m_state()
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -16,6 +17,9 @@ SendCacheLog::SendCacheLog(QObject *parent)
 
 void SendCacheLog::cacheLog(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite)
 {
+    // Inform QML we are loading
+    setState("loading");
+
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//CreateFieldNoteAndPublish?format=json");
 
     QJsonObject parameters;
@@ -47,6 +51,21 @@ void SendCacheLog::onReplyFinished(QNetworkReply *reply)
             return;
         }
     }
+
+    // Inform the QML we are loaded
+    setState("loaded");
+
     return ;
+}
+
+QString SendCacheLog::state() const
+{
+    return m_state;
+}
+
+void SendCacheLog::setState(const QString &state)
+{
+    m_state = state;
+    emit stateChanged();
 }
 

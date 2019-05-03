@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>QML/LoadingPage.qml</file>
         <file>main.qml</file>
         <file>QML/JavaScript/Palette.js</file>
         <file>Image/cache.png</file>

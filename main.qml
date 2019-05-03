@@ -102,8 +102,6 @@ Item {
         }
     }
 
-    LoadingPage { id: loadingPage }
-
     SureQuit {
         id: sureQuit
     }
@@ -160,6 +158,14 @@ Item {
 
     }
 
+    SendCacheNote{
+        id:sendCacheNote
+    }
+
+    SendCacheLog{
+        id:sendCacheLog
+    }
+
     Location {
         id: fullCacheLocation
         coordinate {
@@ -195,9 +201,6 @@ Item {
         } else {
             connector.connect()
         }
-
-        // Mask the loading page
-        loadingPage.opacity = 0;
     }
 
     Component.onDestruction: {
@@ -248,7 +251,7 @@ Item {
                 }
             }
         }
-        if(list.length == cacheTypes.types.length)
+        if(list.length === cacheTypes.types.length)
             return []
         return list
     }
@@ -260,7 +263,7 @@ Item {
                 list.push( cacheSizes.sizes[i].sizeIdGs)
             }
         }
-        if(list.length == cacheSizes.sizes.length - 1)
+        if(list.length === cacheSizes.sizes.length - 1)
             return []
         return list
     }

@@ -8,10 +8,6 @@ Item {
     id: descriptionPage
     height: swipeFastCache.height
 
-    SendCacheNote{
-        id:sendCacheNote
-    }
-
     Flickable {
         id: shortLongDescription
         anchors.topMargin: 29
@@ -98,7 +94,6 @@ Item {
                             hint.text = "****** *** ****** ********** *** ******** **********"
                     }
                 }
-
                 onVisibleChanged: text = "****** *** ****** ********** *** ******** **********"
             }
 
@@ -180,7 +175,9 @@ Item {
                         border.width: 1
                         radius: 5
                     }
-                    onClicked: sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode ,personalNote.text )
+                    onClicked: {
+                        sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode ,personalNote.text);
+                    }
                 }
             }
 
@@ -204,6 +201,34 @@ Item {
         }
     }
 
+    Rectangle {
+        x:10
+        width:main.width*0.9
+        height: main.height*0.9
+        color: Palette.greenSea()
+        border.color: Palette.black()
+        border.width: 1
+        radius:10
+        visible: sendCacheNote.state === "loading"
+
+        Text {
+            anchors.fill: parent
+            font.family: localFont.name
+            font.pointSize: 20
+            text: "Loading....\n\n\n"
+            color: Palette.white()
+
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        BusyIndicator {
+            id: busyIndicator
+            anchors.centerIn: parent
+            running: sendCacheNote.state === "loading"
+        }
+    }
+
     function imagesCache() {
         var visible =[];
 
@@ -215,7 +240,6 @@ Item {
             }
         }
         fullCache.setListVisibleImages(visible);
-
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
     }

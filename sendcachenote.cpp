@@ -7,15 +7,18 @@
 
 SendCacheNote::SendCacheNote(QObject *parent)
     : QObject(parent)
+    ,  m_state()
 
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &SendCacheNote::onReplyFinished);
 }
 
-
 void SendCacheNote::updateCacheNote(QString token ,QString cacheCode, QString note)
-{
+{    
+    // Inform QML we are loading
+    setState("loading");
+
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//UpdateCacheNote?format=json");
 
     QJsonObject parameters;
@@ -34,6 +37,7 @@ void SendCacheNote::updateCacheNote(QString token ,QString cacheCode, QString no
 void SendCacheNote::onReplyFinished(QNetworkReply *reply)
 {
     QJsonDocument dataJsonDoc;
+
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
         qDebug() << "*** CacheNote ***\n" <<dataJsonDoc ;
@@ -42,5 +46,20 @@ void SendCacheNote::onReplyFinished(QNetworkReply *reply)
             return;
         }
     }
+
+    // Inform the QML we are loaded
+    setState("loaded");
+
     return ;
+}
+
+QString SendCacheNote::state() const
+{
+    return m_state;
+}
+
+void SendCacheNote::setState(const QString &state)
+{
+    m_state = state;
+    emit stateChanged();
 }

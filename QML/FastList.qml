@@ -83,11 +83,11 @@ Rectangle {
     function textHeader() {
         if(main.cachesActive){
             return "Liste de caches(" + fastListColumn.count + ")"
-        } else if(main.state == "near" ){
+        } else if(main.state === "near" ){
             return  "Caches proches(" + fastListColumn.count + ")"
-        } else if(main.state == "address" ){
+        } else if(main.state === "address" ){
             return  "Par adresse(" + fastListColumn.count + ")"
-        } else if(main.state == "coordinates" ){
+        } else if(main.state === "coordinates" ){
             return  "Par coordonnées(" + fastListColumn.count + ")"
         }
     }
