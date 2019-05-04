@@ -14,7 +14,6 @@ SendCacheLog::SendCacheLog(QObject *parent)
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &SendCacheLog::onReplyFinished);
 }
 
-
 void SendCacheLog::cacheLog(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite)
 {
     // Inform QML we are loading
@@ -48,16 +47,29 @@ void SendCacheLog::onReplyFinished(QNetworkReply *reply)
         qDebug() << "*** CacheLog ***\n" <<dataJsonDoc ;
 
         if (dataJsonDoc.isNull()) {
+            // Inform the QML that there is a loading error
+            setState("error");
             return;
         }
+        QJsonObject JsonObj = dataJsonDoc.object();
+        QJsonObject statusJson = JsonObj["Status"].toObject();
+
+        int status = statusJson["StatusCode"].toInt();
+        if (status != 0) {
+            // Inform the QML that there is an error
+            setState("error");
+            return ;
+        }
+    } else {
+        qDebug() << "*** CacheLog ERROR ***\n" <<reply->errorString();
+        // Inform the QML that there is an error
+        setState("error");
+        return;
     }
-
-    // Inform the QML we are loaded
-    setState("loaded");
-
+    // Inform the QML that there is no loading error
+    setState("noError");
     return ;
 }
-
 QString SendCacheLog::state() const
 {
     return m_state;

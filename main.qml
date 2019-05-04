@@ -171,6 +171,14 @@ Item {
 
     SendCacheLog{
         id:sendCacheLog
+        onStateChanged: {
+            toast.visible = sendCacheLog.state === "noError" || sendCacheLog.state === "error";
+            if (sendCacheLog.state === "error") {
+                toast.show("Erreur dans l'envoi du log de la cache");
+            } else {
+                toast.show("Le log de la cache à été correctement envoyé ");
+            }
+        }
     }
 
     Location {

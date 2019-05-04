@@ -26,10 +26,6 @@ Item {
         id:addText
     }
 
-    SendCacheLog {
-        id:sendCacheLog
-    }
-
     Flickable {
         anchors.topMargin: 10
         anchors.fill: parent
