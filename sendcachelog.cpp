@@ -8,6 +8,7 @@
 SendCacheLog::SendCacheLog(QObject *parent)
     : QObject(parent)
     ,  m_state()
+    ,  m_count()
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -41,9 +42,12 @@ void SendCacheLog::cacheLog(QString token , QString cacheCode, int logType , QSt
 
 void SendCacheLog::onReplyFinished(QNetworkReply *reply)
 {
-    QJsonDocument dataJsonDoc;
+    QJsonObject logJson;
+    QJsonObject statusJson;
+    QJsonObject finderJson;
+
     if (reply->error() == QNetworkReply::NoError) {
-        dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
+        QJsonDocument dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
         qDebug() << "*** CacheLog ***\n" <<dataJsonDoc ;
 
         if (dataJsonDoc.isNull()) {
@@ -52,7 +56,8 @@ void SendCacheLog::onReplyFinished(QNetworkReply *reply)
             return;
         }
         QJsonObject JsonObj = dataJsonDoc.object();
-        QJsonObject statusJson = JsonObj["Status"].toObject();
+        statusJson = JsonObj["Status"].toObject();
+        logJson = JsonObj["Log"].toObject();
 
         int status = statusJson["StatusCode"].toInt();
         if (status != 0) {
@@ -68,6 +73,9 @@ void SendCacheLog::onReplyFinished(QNetworkReply *reply)
     }
     // Inform the QML that there is no loading error
     setState("noError");
+
+    finderJson = logJson["Finder"].toObject();
+    setFounds(finderJson["FindCount"].toInt());
     return ;
 }
 QString SendCacheLog::state() const
@@ -79,5 +87,16 @@ void SendCacheLog::setState(const QString &state)
 {
     m_state = state;
     emit stateChanged();
+}
+
+int SendCacheLog::founds() const
+{
+    return m_count;
+}
+
+void SendCacheLog::setFounds(const int &count)
+{
+    m_count = count;
+    emit foundsChanged();
 }
 

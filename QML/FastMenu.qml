@@ -37,6 +37,7 @@ Item {
         x: -parent.width
         color: Palette.white()
         clip: true
+        radius:10
 
         Behavior on x { NumberAnimation { duration: 600 } }
 
@@ -65,7 +66,7 @@ Item {
                         color: Palette.black()
                     }
                     Text {
-                        text: userInfo.finds + " caches trouvées (" + userInfo.premium + ")"
+                        text: findCount + " caches trouvées (" + userInfo.premium + ")"
                         font.family: localFont.name
                         font.pixelSize: userInfoMenu.height * 0.2
                         color: Palette.greenSea()

@@ -373,7 +373,7 @@ Item {
                                     "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
                         if(message.text !== null && message.text !== '')
                             sendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
-                                                  "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked )
+                                                  "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked );
                     }
                 }
             }

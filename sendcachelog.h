@@ -9,6 +9,7 @@ class SendCacheLog : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
+    Q_PROPERTY(int founds READ founds WRITE setFounds NOTIFY foundsChanged)
 
 public:
 
@@ -16,6 +17,9 @@ public:
 
     QString state() const;
     void setState(const QString &state);
+
+    int founds() const;
+    void setFounds(const int &count);
 
     Q_INVOKABLE void cacheLog(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite) ;
 
@@ -25,10 +29,12 @@ public slots:
 
 signals:
     void stateChanged();
+    void foundsChanged() ;
 
 private:
 
     QString m_state;
+    int m_count ;
 
     //  network manager
 

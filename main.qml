@@ -40,6 +40,9 @@ Item {
     property double beginLat
     property double beginLon
 
+    // number of caches found
+    property int findCount: userInfo.finds
+
     signal positionUpdated
 
     FastSettings { id: settings }
@@ -178,6 +181,10 @@ Item {
             } else {
                 toast.show("Le log de la cache à été correctement envoyé ");
             }
+        }
+        onFoundsChanged: {
+            findCount = sendCacheLog.founds;
+            fastCache.swipeToPage(3);
         }
     }
 

@@ -223,7 +223,6 @@ Item {
         }
 
         BusyIndicator {
-            id: busyIndicator
             anchors.centerIn: parent
             running: sendCacheNote.state === "loading"
         }
