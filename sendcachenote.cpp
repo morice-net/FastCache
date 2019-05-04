@@ -43,13 +43,27 @@ void SendCacheNote::onReplyFinished(QNetworkReply *reply)
         qDebug() << "*** CacheNote ***\n" <<dataJsonDoc ;
 
         if (dataJsonDoc.isNull()) {
+            // Inform the QML that there is a loading error
+            setState("error");
             return;
         }
+        QJsonObject JsonObj = dataJsonDoc.object();
+        QJsonValue value = JsonObj.value("StatusCode");
+        int status = value.toInt();
+        if (status != 0) {
+            // Inform the QML that there is an error
+            setState("error");
+            return ;
+        }
+
+    } else {
+        qDebug() << "*** Cache ERROR ***\n" <<reply->errorString();
+        // Inform the QML that there is an error
+        setState("error");
+        return;
     }
-
-    // Inform the QML we are loaded
-    setState("loaded");
-
+    // Inform the QML that there is no loading error
+    setState("noError");
     return ;
 }
 

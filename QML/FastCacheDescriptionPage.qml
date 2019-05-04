@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.2
+import QtQuick.Dialogs 1.3
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
@@ -176,29 +177,29 @@ Item {
                         radius: 5
                     }
                     onClicked: {
-                        sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode ,personalNote.text);
+                        sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode , personalNote.text);
                     }
                 }
             }
-
-            Text {
-                id: spaceBottom
-                width: parent.width
-                font.family: localFont.name
-                leftPadding: 15
-                font.pointSize: 14
-                text: "\n\n\n\n\n"
-                color: Palette.white()
-            }
-
-            Rectangle {
-                id: separator3
-                width: parent.width
-                height: 2
-                color: Palette.white()
-                radius:10
-            }
         }
+    }
+
+    Text {
+        id: spaceBottom
+        width: parent.width
+        font.family: localFont.name
+        leftPadding: 15
+        font.pointSize: 14
+        text: "\n\n\n\n\n"
+        color: Palette.white()
+    }
+
+    Rectangle {
+        id: separator3
+        width: parent.width
+        height: 2
+        color: Palette.white()
+        radius:10
     }
 
     Rectangle {

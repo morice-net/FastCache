@@ -155,11 +155,18 @@ Item {
 
     FullCache {
         id: fullCache
-
     }
 
     SendCacheNote{
         id:sendCacheNote
+        onStateChanged: {
+            toast.visible = sendCacheNote.state === "noError" || sendCacheNote.state === "error";
+            if (sendCacheNote.state === "error") {
+                toast.show("Erreur dans l'envoi de la note personnelle");
+            } else {
+                toast.show("La note personnelle à été correctement envoyée ");
+            }
+        }
     }
 
     SendCacheLog{
@@ -184,6 +191,10 @@ Item {
         id: orientationReading
         active: false
         skipDuplicates: true
+    }
+
+    Toast {
+        id: toast
     }
 
     Component.onCompleted: {

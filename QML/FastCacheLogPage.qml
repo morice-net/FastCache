@@ -419,7 +419,7 @@ Item {
         border.color: Palette.black()
         border.width: 1
         radius:10
-        //  visible: sendCacheLog.state === "loading"
+        visible: sendCacheLog.state === "loading"
 
         Text {
             anchors.fill: parent

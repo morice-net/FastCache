@@ -145,5 +145,6 @@
         <file>Image/logTypes/marker_note.png</file>
         <file>QML/LogTypes.qml</file>
         <file>QML/AddTextLog.qml</file>
+        <file>QML/Toast.qml</file>
     </qresource>
 </RCC>
