@@ -16,23 +16,8 @@ Rectangle {
     visible: opacity > 0
     color: Palette.greenSea()
 
-    Text {
-        id: loadingText
-        visible: fullCache.state === "loading"
-        anchors.fill: parent
-        font.family: localFont.name
-        font.pointSize: 20
-        text: "Loading....\n\n\n"
-        color: Palette.white()
-        
-        verticalAlignment: Text.AlignVCenter
-        horizontalAlignment: Text.AlignHCenter
-    }
-    
-    BusyIndicator {
-        id: busyIndicator
-        anchors.centerIn: parent
-        running: fullCache.state === "loading"
+    LoadingPage {
+        id: loadingPage
     }
 
     Row {

@@ -146,5 +146,6 @@
         <file>QML/LogTypes.qml</file>
         <file>QML/AddTextLog.qml</file>
         <file>QML/Toast.qml</file>
+        <file>QML/LoadingPage.qml</file>
     </qresource>
 </RCC>
