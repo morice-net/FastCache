@@ -12,6 +12,7 @@
 CachesRetriever::CachesRetriever(QObject *parent)
     : QObject(parent)
     , m_caches(QList<Cache*>())
+    ,  m_state()
 
 {
     m_networkManager = new QNetworkAccessManager(this);
@@ -32,6 +33,9 @@ void CachesRetriever::sendRequest(QString token)
     m_indexMoreCachesBBox = 0;
 
     // lat, lon on format E6.
+
+    // Inform QML we are loading
+    setState("loading");
 
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
 
@@ -139,6 +143,9 @@ void CachesRetriever::sendRequest(QString token)
 
 void CachesRetriever::sendRequestMore(QString token)
 {
+    // Inform QML we are loading
+    setState("loading");
+
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//GetMoreGeocaches?format=json");
 
     QJsonObject parameters;
@@ -162,69 +169,88 @@ void CachesRetriever::sendRequestMore(QString token)
 void CachesRetriever::onReplyFinished(QNetworkReply *reply)
 {
     QJsonDocument dataJsonDoc;
+    QJsonObject JsonObj;
+    QJsonObject  statusJson;
+
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
         qDebug() << "*** CachesNear ***\n" <<dataJsonDoc ;
 
         if (dataJsonDoc.isNull()) {
+            // Inform the QML that there is a loading error
+            setState("error");
             return;
         }
+        JsonObj = dataJsonDoc.object();
+        statusJson = JsonObj["Status"].toObject();
 
-        QJsonObject JsonObj = dataJsonDoc.object();
-        QJsonValue value = JsonObj.value("Geocaches");
-        QJsonArray caches = value.toArray();
-
-        int lengthCaches = caches.size();
-        if (lengthCaches == 0) {
-            emit cachesChanged() ;
+        int status = statusJson["StatusCode"].toInt();
+        if (status != 0) {
+            // Inform the QML that there is an error
+            setState("error");
             return ;
-        }
-
-        foreach ( const QJsonValue & v, caches)
-        {
-            Cache *cache ;
-            cache = new Cache();
-
-            cache->setArchived(v.toObject().value("Archived").toBool());
-            cache->setDisabled(v.toObject().value("Available").toBool());
-
-            QJsonObject v1 = v.toObject().value("Owner").toObject();
-            QString owner = v1.value("UserName").toString();
-            cache->setOwner(owner);
-
-            QString date(v.toObject().value("DateCreated").toString());
-            cache->setDate(date);
-
-            QJsonObject v2 = v.toObject().value("CacheType").toObject();
-            int cacheTypeId= v2.value("GeocacheTypeId").toInt();
-            cache->setType(cacheTypeId);
-
-            QString code(v.toObject().value("Code").toString());
-            cache->setGeocode(code);
-
-            QJsonObject v3 = v.toObject().value("ContainerType").toObject();
-            int cacheSizeId= v3.value("ContainerTypeId").toInt();
-            cache->setSize(cacheSizeId);
-
-            cache->setDifficulty(v.toObject().value("Difficulty").toDouble());
-            cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
-            cache->setLat(v.toObject().value("Latitude").toDouble());
-            cache->setLon(v.toObject().value("Longitude").toDouble());
-            QString name(v.toObject().value("Name").toString());
-            cache->setName(name);
-            cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
-            cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
-            cache->setTerrain(v.toObject().value("Terrain").toDouble());
-            qDebug() << "*** Caches***\n" <<cache->name() ;
-            m_caches.append(cache);
-        }
-        if (m_moreCachesBBox == true && lengthCaches == MAX_PER_PAGE) {
-            sendRequestMore(m_tokenTemp);
         }
 
     } else {
         qDebug() << "*** CachesNear ERROR ***\n" <<reply->errorString() ;
+
+        // Inform the QML that there is an error
+        setState("error");
         return;
+    }
+
+    // Inform the QML that there is no loading error
+    setState("noError");
+
+    QJsonValue value = JsonObj.value("Geocaches");
+    QJsonArray caches = value.toArray();
+
+    int lengthCaches = caches.size();
+    if (lengthCaches == 0) {
+        emit cachesChanged() ;
+        return ;
+    }
+
+    foreach ( const QJsonValue & v, caches)
+    {
+        Cache *cache ;
+        cache = new Cache();
+
+        cache->setArchived(v.toObject().value("Archived").toBool());
+        cache->setDisabled(v.toObject().value("Available").toBool());
+
+        QJsonObject v1 = v.toObject().value("Owner").toObject();
+        QString owner = v1.value("UserName").toString();
+        cache->setOwner(owner);
+
+        QString date(v.toObject().value("DateCreated").toString());
+        cache->setDate(date);
+
+        QJsonObject v2 = v.toObject().value("CacheType").toObject();
+        int cacheTypeId= v2.value("GeocacheTypeId").toInt();
+        cache->setType(cacheTypeId);
+
+        QString code(v.toObject().value("Code").toString());
+        cache->setGeocode(code);
+
+        QJsonObject v3 = v.toObject().value("ContainerType").toObject();
+        int cacheSizeId= v3.value("ContainerTypeId").toInt();
+        cache->setSize(cacheSizeId);
+
+        cache->setDifficulty(v.toObject().value("Difficulty").toDouble());
+        cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
+        cache->setLat(v.toObject().value("Latitude").toDouble());
+        cache->setLon(v.toObject().value("Longitude").toDouble());
+        QString name(v.toObject().value("Name").toString());
+        cache->setName(name);
+        cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
+        cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
+        cache->setTerrain(v.toObject().value("Terrain").toDouble());
+        qDebug() << "*** Caches***\n" <<cache->name() ;
+        m_caches.append(cache);
+    }
+    if (m_moreCachesBBox == true && lengthCaches == MAX_PER_PAGE) {
+        sendRequestMore(m_tokenTemp);
     }
     emit cachesChanged() ;
     return;
@@ -240,4 +266,15 @@ void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , Q
     m_filterExcludeArchived = archived ;
     m_keyWordDiscoverOwner = keyWordDiscoverOwner;
     m_userName = name ;
+}
+
+QString CachesRetriever::state() const
+{
+    return m_state;
+}
+
+void CachesRetriever::setState(const QString &state)
+{
+    m_state = state;
+    emit stateChanged();
 }

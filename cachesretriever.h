@@ -12,6 +12,7 @@ class CachesRetriever : public QObject
     Q_OBJECT
 
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
+    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
 
 public:
     explicit CachesRetriever(QObject *parent = nullptr);
@@ -21,6 +22,8 @@ public:
     Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
 
     QQmlListProperty<Cache> caches();
+    QString state() const;
+    void setState(const QString &state);
 
 protected:
     virtual bool parameterChecker() = 0;
@@ -28,6 +31,7 @@ protected:
 
 signals:
     void cachesChanged();
+    void stateChanged();
 
 public slots:
     void onReplyFinished(QNetworkReply* reply) ;
@@ -52,6 +56,8 @@ protected:
     bool m_filterExcludeArchived;
 
 private:
+
+    QString m_state;
 
     //  network manager
 
