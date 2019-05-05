@@ -38,30 +38,30 @@ FullCache::FullCache(Cache *parent)
     , m_wptsLon(QList<double>())
     , m_wptsComment(QList<QString>())
     , m_mapLogType({{"Trouvée",2},
-                    {"Non trouvée", 3},
-                    {"Note", 4},
-                    {"Publiée", 1003},
-                    {"Activée", 23},
-                    {"Désactivée", 22},
-                    {"Participera", 9},
-                    {"A participé", 10},
-                    {"Récupéré", 13},
-                    {"Déposé", 14},
-                    {"Pris ailleurs", 19},
-                    {"Ajouté à une collection", 69},
-                    {"Ajouté à l\'inventaire", 70},
-                    {"Maintenance effectuée", 46},
-                    {"Nécessite une maintenance", 45},
-                    {"Coordonnées mises à jour", 47},
-                    {"Archivée", 5},
-                    {"Désarchivée", 12},
-                    {"Nécessite d\'être archivée", 7},
-                    {"Découverte", 48},
-                    {"Note du relecteur", 18},
-                    {"Soumettre pour examen", 76},
-                    {"Visite retirée", 25},
-                    {"Marquer comme absente", 16},
-                    {"Photo prise par la webcam", 11}})
+{"Non trouvée", 3},
+{"Note", 4},
+{"Publiée", 1003},
+{"Activée", 23},
+{"Désactivée", 22},
+{"Participera", 9},
+{"A participé", 10},
+{"Récupéré", 13},
+{"Déposé", 14},
+{"Pris ailleurs", 19},
+{"Ajouté à une collection", 69},
+{"Ajouté à l\'inventaire", 70},
+{"Maintenance effectuée", 46},
+{"Nécessite une maintenance", 45},
+{"Coordonnées mises à jour", 47},
+{"Archivée", 5},
+{"Désarchivée", 12},
+{"Nécessite d\'être archivée", 7},
+{"Découverte", 48},
+{"Note du relecteur", 18},
+{"Soumettre pour examen", 76},
+{"Visite retirée", 25},
+{"Marquer comme absente", 16},
+{"Photo prise par la webcam", 11}})
     , m_networkManager(new QNetworkAccessManager(this))
     , m_storage(new SQLiteStorage(this))
 {
@@ -117,191 +117,206 @@ void FullCache::writeToStorage()
 void FullCache::onReplyFinished(QNetworkReply *reply)
 {
     QJsonDocument dataJsonDoc;
+    QJsonObject JsonObj;
+    QJsonObject  statusJson;
+
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
         qDebug() << "*** Cache ***\n" <<dataJsonDoc ;
         if (dataJsonDoc.isNull()) {
+            // Inform the QML that there is a loading error
+            setState("error");
             return;
         }
-        QJsonObject JsonObj = dataJsonDoc.object();
-        QJsonValue value = JsonObj.value("Geocaches");
-        QJsonArray caches = value.toArray();
+        JsonObj = dataJsonDoc.object();
+        statusJson = JsonObj["Status"].toObject();
 
-        int lengthCaches = caches.size();
-        if (lengthCaches == 0) {
+        int status = statusJson["StatusCode"].toInt();
+        if (status != 0) {
+            // Inform the QML that there is an error
+            setState("error");
             return ;
-        }
-
-        for (QJsonValue cacheJson: caches)
-        {
-            SmileyGc * smileys = new SmileyGc;
-            setArchived(cacheJson.toObject().value("Archived").toBool());
-            setDisabled(cacheJson.toObject().value("Available").toBool());
-
-            QJsonObject v1 = cacheJson.toObject().value("Owner").toObject();
-            QString owner = v1.value("UserName").toString();
-            setOwner(owner);
-
-            QString date(cacheJson.toObject().value("DateCreated").toString());
-            setDate(date);
-
-            QJsonObject v2 = cacheJson.toObject().value("CacheType").toObject();
-            int cacheTypeId= v2.value("GeocacheTypeId").toInt();
-            setType(cacheTypeId);
-
-            QString code(cacheJson.toObject().value("Code").toString());
-            setGeocode(code);
-
-            QJsonObject v3 = cacheJson.toObject().value("ContainerType").toObject();
-            int cacheSizeId= v3.value("ContainerTypeId").toInt();
-            setSize(cacheSizeId);
-
-            setDifficulty(cacheJson.toObject().value("Difficulty").toDouble());
-            setFavoritePoints(cacheJson.toObject().value("FavoritePoints").toInt());
-            setLat(cacheJson.toObject().value("Latitude").toDouble());
-            setLon(cacheJson.toObject().value("Longitude").toDouble());
-
-            setName(cacheJson.toObject().value("Name").toString());
-
-            setTrackableCount(cacheJson.toObject().value("TrackableCount").toInt());
-            setFound(cacheJson.toObject().value("HasbeenFoundbyUser").toBool());
-            setTerrain(cacheJson.toObject().value("Terrain").toDouble());
-
-            // Attributes of cache.
-            m_attributes.clear();
-            m_attributesBool.clear();
-
-            QJsonArray  atts = cacheJson.toObject().value("Attributes").toArray();
-            foreach ( const QJsonValue & att, atts)
-            {
-                m_attributes.append(att.toObject().value("AttributeTypeID").toInt());
-                m_attributesBool.append(att.toObject().value("IsOn").toBool());
-            }
-            qDebug() << "*** attributs**\n" <<m_attributes ;
-            qDebug() << "*** attributsBool**\n" <<m_attributesBool ;
-            emit attributesChanged();
-            emit attributesBoolChanged();
-
-            // State
-            setLocation(cacheJson.toObject().value("State").toString());
-
-            // Favorited
-            setFavorited(cacheJson.toObject().value("HasbeenFavoritedbyUser").toBool());
-
-            // Short description
-            setShortDescriptionIsHtml(cacheJson.toObject().value("ShortDescriptionIsHtml").toBool());
-            setShortDescription(cacheJson.toObject().value("ShortDescription").toString());
-
-            // Long description
-            setLongDescriptionIsHtml(cacheJson.toObject().value("LongDescriptionIsHtml").toBool());
-            setLongDescription(cacheJson.toObject().value("LongDescription").toString());
-
-            // Hints
-            setHints(cacheJson.toObject().value("EncodedHints").toString());
-
-            // Note
-            m_note = "";
-            if (!cacheJson.toObject().value("GeocacheNote").toString().isNull()) {
-                setNote(cacheJson.toObject().value("GeocacheNote").toString());
-            }
-
-            // Images
-            m_imagesName.clear();
-            m_imagesDescription.clear();
-            m_imagesUrl.clear();
-            m_cacheImagesIndex.clear();
-
-            for (QJsonValue image: cacheJson.toObject().value("Images").toArray())
-            {
-                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
-                m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
-                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
-            }
-            m_cacheImagesIndex.append(m_imagesName.size());
-
-            qDebug() << "*** imagesName**\n" <<m_imagesName ;
-            qDebug() << "*** imagesDescription**\n" <<m_imagesDescription ;
-            qDebug() << "*** imagesUrl**\n" <<m_imagesUrl ;
-
-            // Logs
-            m_findersCount.clear();
-            m_findersDate.clear();
-            m_findersName.clear();
-            m_logs.clear()  ;
-            m_logsType.clear();
-            m_listVisibleImages.clear();
-
-            QJsonArray geocacheLogs = cacheJson.toObject().value("GeocacheLogs").toArray();
-            for (QJsonValue geocacheLog: geocacheLogs)
-            {
-                m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog.toObject().value("LogText").toString()));
-                m_findersDate.append(geocacheLog.toObject().value("VisitDateIso").toString());
-
-                QJsonObject finder = geocacheLog.toObject().value("Finder").toObject();
-                m_findersName.append(finder.value("UserName").toString());
-                m_findersCount.append(finder.value("FindCount").toInt());
-
-                QJsonObject type = geocacheLog.toObject().value("LogType").toObject();
-                m_logsType.append(m_mapLogType.key(type.value("WptLogTypeId").toInt()));
-
-                QJsonArray logsImage = geocacheLog.toObject().value("Images").toArray();
-                for (QJsonValue logImage: logsImage)
-                {
-                    m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Name").toString()));
-                    m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Description").toString()));
-                    m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());
-                }
-                m_cacheImagesIndex.append(m_imagesName.size());
-            }
-
-            for(int i = 0; i < m_imagesName.size(); ++i)
-            {
-                m_listVisibleImages.append(true);
-            }
-            emit imagesNameChanged();
-            emit imagesDescriptionChanged();
-            emit imagesUrlChanged();
-            emit logsChanged();
-            emit logsTypeChanged();
-            emit findersCountChanged();
-            emit findersDateChanged();
-            emit findersNameChanged();
-            emit cacheImagesIndexChanged();
-            emit listVisibleImagesChanged();
-
-            // Waypoints
-            m_wptsDescription.clear();
-            m_wptsName.clear();
-            m_wptsLat.clear();
-            m_wptsLon.clear()  ;
-            m_wptsComment.clear();
-
-            for (QJsonValue waypoint: cacheJson.toObject().value("AdditionalWaypoints").toArray())
-            {
-                m_wptsDescription.append(waypoint.toObject().value("UrlName").toString());
-                m_wptsName.append(waypoint.toObject().value("Name").toString());
-                if(waypoint.toObject().value("Latitude").isNull()) {
-                    m_wptsLat.append(200) ;
-                } else{
-                    m_wptsLat.append(waypoint.toObject().value("Latitude").toDouble());
-                }
-                m_wptsLon.append(waypoint.toObject().value("Longitude").toDouble());
-                m_wptsComment.append(waypoint.toObject().value("Comment").toString());
-            }
-            emit wptsDescriptionChanged();
-            emit wptsNameChanged();
-            emit wptsLatChanged();
-            emit wptsLonChanged();
-            emit wptsCommentChanged();
         }
     } else {
         qDebug() << "*** Cache ERROR ***\n" <<reply->errorString();
+        // Inform the QML that there is an error
+        setState("error");
         return;
     }
+    // Inform the QML that there is no loading error
+    setState("noError");
 
-    // Inform the QML we are loaded
-    setState("loaded");
-    return;
+    QJsonValue value = JsonObj.value("Geocaches");
+    QJsonArray caches = value.toArray();
+
+    int lengthCaches = caches.size();
+    if (lengthCaches == 0) {
+        return ;
+    }
+
+    for (QJsonValue cacheJson: caches)
+    {
+        SmileyGc * smileys = new SmileyGc;
+        setArchived(cacheJson.toObject().value("Archived").toBool());
+        setDisabled(cacheJson.toObject().value("Available").toBool());
+
+        QJsonObject v1 = cacheJson.toObject().value("Owner").toObject();
+        QString owner = v1.value("UserName").toString();
+        setOwner(owner);
+
+        QString date(cacheJson.toObject().value("DateCreated").toString());
+        setDate(date);
+
+        QJsonObject v2 = cacheJson.toObject().value("CacheType").toObject();
+        int cacheTypeId= v2.value("GeocacheTypeId").toInt();
+        setType(cacheTypeId);
+
+        QString code(cacheJson.toObject().value("Code").toString());
+        setGeocode(code);
+
+        QJsonObject v3 = cacheJson.toObject().value("ContainerType").toObject();
+        int cacheSizeId= v3.value("ContainerTypeId").toInt();
+        setSize(cacheSizeId);
+
+        setDifficulty(cacheJson.toObject().value("Difficulty").toDouble());
+        setFavoritePoints(cacheJson.toObject().value("FavoritePoints").toInt());
+        setLat(cacheJson.toObject().value("Latitude").toDouble());
+        setLon(cacheJson.toObject().value("Longitude").toDouble());
+
+        setName(cacheJson.toObject().value("Name").toString());
+
+        setTrackableCount(cacheJson.toObject().value("TrackableCount").toInt());
+        setFound(cacheJson.toObject().value("HasbeenFoundbyUser").toBool());
+        setTerrain(cacheJson.toObject().value("Terrain").toDouble());
+
+        // Attributes of cache.
+        m_attributes.clear();
+        m_attributesBool.clear();
+
+        QJsonArray  atts = cacheJson.toObject().value("Attributes").toArray();
+        foreach ( const QJsonValue & att, atts)
+        {
+            m_attributes.append(att.toObject().value("AttributeTypeID").toInt());
+            m_attributesBool.append(att.toObject().value("IsOn").toBool());
+        }
+        qDebug() << "*** attributs**\n" <<m_attributes ;
+        qDebug() << "*** attributsBool**\n" <<m_attributesBool ;
+        emit attributesChanged();
+        emit attributesBoolChanged();
+
+        // State
+        setLocation(cacheJson.toObject().value("State").toString());
+
+        // Favorited
+        setFavorited(cacheJson.toObject().value("HasbeenFavoritedbyUser").toBool());
+
+        // Short description
+        setShortDescriptionIsHtml(cacheJson.toObject().value("ShortDescriptionIsHtml").toBool());
+        setShortDescription(cacheJson.toObject().value("ShortDescription").toString());
+
+        // Long description
+        setLongDescriptionIsHtml(cacheJson.toObject().value("LongDescriptionIsHtml").toBool());
+        setLongDescription(cacheJson.toObject().value("LongDescription").toString());
+
+        // Hints
+        setHints(cacheJson.toObject().value("EncodedHints").toString());
+
+        // Note
+        m_note = "";
+        if (!cacheJson.toObject().value("GeocacheNote").toString().isNull()) {
+            setNote(cacheJson.toObject().value("GeocacheNote").toString());
+        }
+
+        // Images
+        m_imagesName.clear();
+        m_imagesDescription.clear();
+        m_imagesUrl.clear();
+        m_cacheImagesIndex.clear();
+
+        for (QJsonValue image: cacheJson.toObject().value("Images").toArray())
+        {
+            m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
+            m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
+            m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
+        }
+        m_cacheImagesIndex.append(m_imagesName.size());
+
+        qDebug() << "*** imagesName**\n" <<m_imagesName ;
+        qDebug() << "*** imagesDescription**\n" <<m_imagesDescription ;
+        qDebug() << "*** imagesUrl**\n" <<m_imagesUrl ;
+
+        // Logs
+        m_findersCount.clear();
+        m_findersDate.clear();
+        m_findersName.clear();
+        m_logs.clear()  ;
+        m_logsType.clear();
+        m_listVisibleImages.clear();
+
+        QJsonArray geocacheLogs = cacheJson.toObject().value("GeocacheLogs").toArray();
+        for (QJsonValue geocacheLog: geocacheLogs)
+        {
+            m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog.toObject().value("LogText").toString()));
+            m_findersDate.append(geocacheLog.toObject().value("VisitDateIso").toString());
+
+            QJsonObject finder = geocacheLog.toObject().value("Finder").toObject();
+            m_findersName.append(finder.value("UserName").toString());
+            m_findersCount.append(finder.value("FindCount").toInt());
+
+            QJsonObject type = geocacheLog.toObject().value("LogType").toObject();
+            m_logsType.append(m_mapLogType.key(type.value("WptLogTypeId").toInt()));
+
+            QJsonArray logsImage = geocacheLog.toObject().value("Images").toArray();
+            for (QJsonValue logImage: logsImage)
+            {
+                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Name").toString()));
+                m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Description").toString()));
+                m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());
+            }
+            m_cacheImagesIndex.append(m_imagesName.size());
+        }
+
+        for(int i = 0; i < m_imagesName.size(); ++i)
+        {
+            m_listVisibleImages.append(true);
+        }
+        emit imagesNameChanged();
+        emit imagesDescriptionChanged();
+        emit imagesUrlChanged();
+        emit logsChanged();
+        emit logsTypeChanged();
+        emit findersCountChanged();
+        emit findersDateChanged();
+        emit findersNameChanged();
+        emit cacheImagesIndexChanged();
+        emit listVisibleImagesChanged();
+
+        // Waypoints
+        m_wptsDescription.clear();
+        m_wptsName.clear();
+        m_wptsLat.clear();
+        m_wptsLon.clear()  ;
+        m_wptsComment.clear();
+
+        for (QJsonValue waypoint: cacheJson.toObject().value("AdditionalWaypoints").toArray())
+        {
+            m_wptsDescription.append(waypoint.toObject().value("UrlName").toString());
+            m_wptsName.append(waypoint.toObject().value("Name").toString());
+            if(waypoint.toObject().value("Latitude").isNull()) {
+                m_wptsLat.append(200) ;
+            } else{
+                m_wptsLat.append(waypoint.toObject().value("Latitude").toDouble());
+            }
+            m_wptsLon.append(waypoint.toObject().value("Longitude").toDouble());
+            m_wptsComment.append(waypoint.toObject().value("Comment").toString());
+        }
+        emit wptsDescriptionChanged();
+        emit wptsNameChanged();
+        emit wptsLatChanged();
+        emit wptsLonChanged();
+        emit wptsCommentChanged();
+    }
+    return ;
 }
 
 QList<int> FullCache::attributes() const
