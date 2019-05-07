@@ -291,22 +291,6 @@ Item {
                 }
             }
 
-            Text {
-                width: parent.width
-                font.family: localFont.name
-                font.pointSize: 16
-                text: "Texte du Log"
-                color: Palette.white()
-            }
-
-            TextArea {
-                id: message
-                width: logPage.width*0.95
-                font.family: localFont.name
-                font.pointSize: 14
-                textColor: Palette.greenSea()
-            }
-
             Row {
                 spacing: 40
 
@@ -376,6 +360,22 @@ Item {
                                                   "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked );
                     }
                 }
+            }
+
+            Text {
+                width: parent.width
+                font.family: localFont.name
+                font.pointSize: 16
+                text: "Texte du Log"
+                color: Palette.white()
+            }
+
+            TextArea {
+                id: message
+                width: logPage.width*0.95
+                font.family: localFont.name
+                font.pointSize: 14
+                textColor: Palette.greenSea()
             }
 
             CheckBox {
