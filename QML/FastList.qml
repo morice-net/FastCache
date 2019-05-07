@@ -12,7 +12,6 @@ Rectangle {
     visible: opacity > 0
     color: Palette.white()
 
-
     ListView {
         id: fastListColumn
         width: parent.width

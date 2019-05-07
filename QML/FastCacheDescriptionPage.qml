@@ -193,14 +193,6 @@ Item {
         color: Palette.white()
     }
 
-    Rectangle {
-        id: separator3
-        width: parent.width
-        height: 2
-        color: Palette.white()
-        radius:10
-    }
-
     LoadingPage {
         id: loadingPage
     }
