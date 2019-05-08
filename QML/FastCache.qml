@@ -109,7 +109,7 @@ Rectangle {
             id: logPage
         }
     }
-    
+
     PageIndicator {
         id: indicatorFastCache
         visible: fullCache.state !== "loading"
@@ -131,5 +131,23 @@ Rectangle {
 
     function swipeToPage(pageNumber) {
         swipeFastCache.setCurrentIndex(pageNumber)
+    }
+
+    function addPage(page) {
+        swipeFastCache.addItem(page);
+        swipeFastCache.moveItem(6,5);
+        page.visible = true ;
+    }
+
+    function removePage(page) {
+        for (var n = 0; n < indicatorFastCache.count; n++) {
+            if (page === swipeFastCache.itemAt(n)) {
+                swipeFastCache.removeItem(n) ;
+                page.visible = false ;
+                return ;
+            }
+        }
+        page.visible = false ;
+        return ;
     }
 }

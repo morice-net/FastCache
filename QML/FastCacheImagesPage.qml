@@ -31,7 +31,7 @@ Item {
                 leftPadding: 15
 
                 Repeater{
-                    model:fullCache.imagesName.length
+                    model:displayImagesPage()
 
                     Column{
 
@@ -68,7 +68,17 @@ Item {
             }
         }
     }
+
+    function displayImagesPage() {
+        if(fullCache.imagesName.length === 0){
+            fastCache.removePage(imagesPage)
+        }else {
+            fastCache.addPage(imagesPage)
+        }
+        return fullCache.imagesName.length
+    }
 }
+
 
 
 
