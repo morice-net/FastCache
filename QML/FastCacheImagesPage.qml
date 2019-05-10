@@ -72,10 +72,19 @@ Item {
     function displayImagesPage() {
         if(fullCache.imagesName.length === 0){
             fastCache.removePage(imagesPage)
-        }else {
+            return fullCache.imagesName.length
+        } else {
             fastCache.addPage(imagesPage)
+            // reoder pages
+            if(swipeFastCache.count === 7){
+                swipeFastCache.moveItem(6,5);
+                return fullCache.imagesName.length
+            }
+            if(swipeFastCache.count === 8){
+                swipeFastCache.moveItem(7,5);
+                return fullCache.imagesName.length
+            }
         }
-        return fullCache.imagesName.length
     }
 }
 

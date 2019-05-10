@@ -147,5 +147,6 @@
         <file>QML/AddTextLog.qml</file>
         <file>QML/Toast.qml</file>
         <file>QML/LoadingPage.qml</file>
+        <file>QML/FastCacheTBsPage.qml</file>
     </qresource>
 </RCC>

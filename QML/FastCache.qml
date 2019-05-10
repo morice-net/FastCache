@@ -75,7 +75,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         onCurrentIndexChanged :{
-            if(swipeFastCache.currentIndex !== 6  && allVisible === false){
+            if( allVisible === false){
                 imagesTrue() ;
                 allVisible = true ;
             }
@@ -108,6 +108,10 @@ Rectangle {
         FastCacheLogPage {
             id: logPage
         }
+
+        FastCacheTBsPage {
+            id: tbsPage
+        }
     }
 
     PageIndicator {
@@ -135,7 +139,6 @@ Rectangle {
 
     function addPage(page) {
         swipeFastCache.addItem(page);
-        swipeFastCache.moveItem(6,5);
         page.visible = true ;
     }
 
