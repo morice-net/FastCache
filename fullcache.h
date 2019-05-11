@@ -41,6 +41,8 @@ class FullCache : public Cache
     Q_PROPERTY(QList<double > wptsLat READ wptsLat WRITE setWptsLat NOTIFY wptsLatChanged)
     Q_PROPERTY(QList<double > wptsLon READ wptsLon WRITE setWptsLon NOTIFY wptsLonChanged)
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
+    Q_PROPERTY(QList<QString > names READ names WRITE setNames NOTIFY namesChanged)
+    Q_PROPERTY(QList<QString > trackingCodes READ trackingCodes WRITE setTrackingCodes NOTIFY trackingCodesChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -127,6 +129,12 @@ public:
     QList<bool> listVisibleImages() const;
     Q_INVOKABLE   void setListVisibleImages(const QList<bool> &visibles);
 
+    QList<QString > names() const;
+    void setNames(const QList<QString > &names);
+
+    QList<QString > trackingCodes() const;
+    void setTrackingCodes(const QList<QString > &codes);
+
 public slots:
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -157,6 +165,8 @@ signals:
     void wptsCommentChanged();
     void cacheImagesIndexChanged();
     void listVisibleImagesChanged();
+    void namesChanged();
+    void trackingCodesChanged();
 
 private:
 
@@ -187,6 +197,8 @@ private:
     QList<double> m_wptsLat;
     QList<double> m_wptsLon;
     QList<QString> m_wptsComment;
+    QList<QString > m_names;
+    QList<QString > m_trackingCodes;
 
     // Type of logs falitator
     const QMap<QString, int> m_mapLogType;

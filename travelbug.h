@@ -94,7 +94,6 @@ protected:
     QList<QString > m_imagesUrl;
     QList<QString > m_logs;
     QList<QString > m_logsType;
-
 };
 
 #endif // CACHE_H

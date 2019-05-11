@@ -20,6 +20,7 @@
 #include "smileygc.h"
 #include "waypointtype.h"
 #include "logtype.h"
+#include "travelbug.h"
 
 int main(int argc, char *argv[])
 {
@@ -37,6 +38,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");
     qmlRegisterType<WaypointType>("com.mycompany.connecting", 1, 0, "WaypointType");
     qmlRegisterType<LogType>("com.mycompany.connecting", 1, 0, "LogType");
+    qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID

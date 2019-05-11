@@ -1,6 +1,5 @@
 #include "travelbug.h"
 
-
 Travelbug::Travelbug(QObject *parent)
     : QObject(parent)
     ,  m_name("")

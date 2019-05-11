@@ -1,5 +1,6 @@
 #include "fullcache.h"
 #include "smileygc.h"
+#include "travelbug.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -37,7 +38,10 @@ FullCache::FullCache(Cache *parent)
     , m_wptsLat(QList<double>())
     , m_wptsLon(QList<double>())
     , m_wptsComment(QList<QString>())
+    , m_names(QList<QString>())
+    , m_trackingCodes(QList<QString>())
     , m_mapLogType({{"Trouvée",2},
+
 {"Non trouvée", 3},
 {"Note", 4},
 {"Publiée", 1003},
@@ -315,6 +319,18 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         emit wptsLatChanged();
         emit wptsLonChanged();
         emit wptsCommentChanged();
+
+        // Trackables: list of names and codes.
+        m_names.clear();
+        m_trackingCodes.clear();
+
+        for (QJsonValue travel: cacheJson.toObject().value("Trackables").toArray())
+        {
+            m_names.append(travel.toObject().value("Name").toString());
+            m_trackingCodes.append(travel.toObject().value("Code").toString());
+        }
+        emit namesChanged();
+        emit trackingCodesChanged();
     }
     return ;
 }
@@ -603,4 +619,26 @@ void FullCache::setListVisibleImages(const QList<bool> &visibles)
 {
     m_listVisibleImages = visibles;
     emit listVisibleImagesChanged();
+}
+
+QList<QString>FullCache::names() const
+{
+    return  m_names;
+}
+
+void FullCache::setNames(const QList<QString> &names)
+{
+    m_names = names;
+    emit namesChanged();
+}
+
+QList<QString>FullCache::trackingCodes() const
+{
+    return  m_trackingCodes;
+}
+
+void FullCache::setTrackingCodes(const QList<QString> &codes)
+{
+    m_trackingCodes = codes;
+    emit trackingCodesChanged();
 }

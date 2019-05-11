@@ -148,5 +148,6 @@
         <file>QML/Toast.qml</file>
         <file>QML/LoadingPage.qml</file>
         <file>QML/FastCacheTBsPage.qml</file>
+        <file>Image/trackable_travelbug.png</file>
     </qresource>
 </RCC>
