@@ -38,34 +38,33 @@ FullCache::FullCache(Cache *parent)
     , m_wptsLat(QList<double>())
     , m_wptsLon(QList<double>())
     , m_wptsComment(QList<QString>())
-    , m_names(QList<QString>())
-    , m_trackingCodes(QList<QString>())
+    , m_trackableNames(QList<QString>())
+    , m_trackableCodes(QList<QString>())
     , m_mapLogType({{"Trouvée",2},
-
-{"Non trouvée", 3},
-{"Note", 4},
-{"Publiée", 1003},
-{"Activée", 23},
-{"Désactivée", 22},
-{"Participera", 9},
-{"A participé", 10},
-{"Récupéré", 13},
-{"Déposé", 14},
-{"Pris ailleurs", 19},
-{"Ajouté à une collection", 69},
-{"Ajouté à l\'inventaire", 70},
-{"Maintenance effectuée", 46},
-{"Nécessite une maintenance", 45},
-{"Coordonnées mises à jour", 47},
-{"Archivée", 5},
-{"Désarchivée", 12},
-{"Nécessite d\'être archivée", 7},
-{"Découverte", 48},
-{"Note du relecteur", 18},
-{"Soumettre pour examen", 76},
-{"Visite retirée", 25},
-{"Marquer comme absente", 16},
-{"Photo prise par la webcam", 11}})
+                    {"Non trouvée", 3},
+                    {"Note", 4},
+                    {"Publiée", 1003},
+                    {"Activée", 23},
+                    {"Désactivée", 22},
+                    {"Participera", 9},
+                    {"A participé", 10},
+                    {"Récupéré", 13},
+                    {"Déposé", 14},
+                    {"Pris ailleurs", 19},
+                    {"Ajouté à une collection", 69},
+                    {"Ajouté à l\'inventaire", 70},
+                    {"Maintenance effectuée", 46},
+                    {"Nécessite une maintenance", 45},
+                    {"Coordonnées mises à jour", 47},
+                    {"Archivée", 5},
+                    {"Désarchivée", 12},
+                    {"Nécessite d\'être archivée", 7},
+                    {"Découverte", 48},
+                    {"Note du relecteur", 18},
+                    {"Soumettre pour examen", 76},
+                    {"Visite retirée", 25},
+                    {"Marquer comme absente", 16},
+                    {"Photo prise par la webcam", 11}})
     , m_networkManager(new QNetworkAccessManager(this))
     , m_storage(new SQLiteStorage(this))
 {
@@ -321,16 +320,16 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         emit wptsCommentChanged();
 
         // Trackables: list of names and codes.
-        m_names.clear();
-        m_trackingCodes.clear();
+        m_trackableNames.clear();
+        m_trackableCodes.clear();
 
         for (QJsonValue travel: cacheJson.toObject().value("Trackables").toArray())
         {
-            m_names.append(travel.toObject().value("Name").toString());
-            m_trackingCodes.append(travel.toObject().value("Code").toString());
+            m_trackableNames.append(travel.toObject().value("Name").toString());
+            m_trackableCodes.append(travel.toObject().value("Code").toString());
         }
-        emit namesChanged();
-        emit trackingCodesChanged();
+        emit trackableNamesChanged();
+        emit trackableCodesChanged();
     }
     return ;
 }
@@ -621,24 +620,24 @@ void FullCache::setListVisibleImages(const QList<bool> &visibles)
     emit listVisibleImagesChanged();
 }
 
-QList<QString>FullCache::names() const
+QList<QString>FullCache::trackableNames() const
 {
-    return  m_names;
+    return  m_trackableNames;
 }
 
-void FullCache::setNames(const QList<QString> &names)
+void FullCache::setTrackableNames(const QList<QString> &names)
 {
-    m_names = names;
-    emit namesChanged();
+    m_trackableNames = names;
+    emit trackableNamesChanged();
 }
 
-QList<QString>FullCache::trackingCodes() const
+QList<QString>FullCache::trackableCodes() const
 {
-    return  m_trackingCodes;
+    return  m_trackableCodes;
 }
 
-void FullCache::setTrackingCodes(const QList<QString> &codes)
+void FullCache::setTrackableCodes(const QList<QString> &codes)
 {
-    m_trackingCodes = codes;
-    emit trackingCodesChanged();
+    m_trackableCodes = codes;
+    emit trackableCodesChanged();
 }

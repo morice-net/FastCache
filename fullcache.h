@@ -41,8 +41,8 @@ class FullCache : public Cache
     Q_PROPERTY(QList<double > wptsLat READ wptsLat WRITE setWptsLat NOTIFY wptsLatChanged)
     Q_PROPERTY(QList<double > wptsLon READ wptsLon WRITE setWptsLon NOTIFY wptsLonChanged)
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
-    Q_PROPERTY(QList<QString > names READ names WRITE setNames NOTIFY namesChanged)
-    Q_PROPERTY(QList<QString > trackingCodes READ trackingCodes WRITE setTrackingCodes NOTIFY trackingCodesChanged)
+    Q_PROPERTY(QList<QString > trackableNames READ trackableNames WRITE setTrackableNames NOTIFY trackableNamesChanged)
+    Q_PROPERTY(QList<QString > trackableCodes READ trackableCodes WRITE setTrackableCodes NOTIFY trackableCodesChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -85,7 +85,7 @@ public:
     void setNote(const QString &note);
 
     QList<QString> imagesName() const;
-    void setImagesName(const QList<QString> &names);
+    void setImagesName(const QList<QString> &trackableNames);
 
     QList<QString> imagesDescription() const;
     void setImagesDescription(const QList<QString> &descriptions);
@@ -94,7 +94,7 @@ public:
     void setImagesUrl(const QList<QString> &urls);
 
     QList<QString> findersName() const;
-    void setFindersName(const QList<QString> &names);
+    void setFindersName(const QList<QString> &trackableNames);
 
     QList<int> findersCount() const;
     void setFindersCount(const QList<int> &counts);
@@ -129,11 +129,11 @@ public:
     QList<bool> listVisibleImages() const;
     Q_INVOKABLE   void setListVisibleImages(const QList<bool> &visibles);
 
-    QList<QString > names() const;
-    void setNames(const QList<QString > &names);
+    QList<QString > trackableNames() const;
+    void setTrackableNames(const QList<QString > &trackableNames);
 
-    QList<QString > trackingCodes() const;
-    void setTrackingCodes(const QList<QString > &codes);
+    QList<QString > trackableCodes() const;
+    void setTrackableCodes(const QList<QString > &codes);
 
 public slots:
     void onReplyFinished(QNetworkReply* reply)  ;
@@ -165,8 +165,8 @@ signals:
     void wptsCommentChanged();
     void cacheImagesIndexChanged();
     void listVisibleImagesChanged();
-    void namesChanged();
-    void trackingCodesChanged();
+    void trackableNamesChanged();
+    void trackableCodesChanged();
 
 private:
 
@@ -197,8 +197,8 @@ private:
     QList<double> m_wptsLat;
     QList<double> m_wptsLon;
     QList<QString> m_wptsComment;
-    QList<QString > m_names;
-    QList<QString > m_trackingCodes;
+    QList<QString > m_trackableNames;
+    QList<QString > m_trackableCodes;
 
     // Type of logs falitator
     const QMap<QString, int> m_mapLogType;
