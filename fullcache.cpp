@@ -78,7 +78,12 @@ void FullCache::sendRequest(QString token)
 {
     if (readFromStorage()) {
         // We're done by retrieving the cache from storage
+        qDebug() << "\nCache retrieved from database";
         return;
+    }
+    else {
+        qDebug() << "\nCache cannot been retrieved from database, making a query to groundspeak.";
+
     }
     // Inform QML we are loading
     setState("loading");
@@ -108,7 +113,7 @@ void FullCache::sendRequest(QString token)
 
 bool FullCache::readFromStorage()
 {
-    return m_storage->readObject(this, "fullcache", "geocode", m_geocode);
+    return m_storage->readObject(this, "geocode", m_geocode);
 }
 
 void FullCache::writeToStorage()

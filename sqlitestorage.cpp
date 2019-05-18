@@ -21,27 +21,53 @@ SQLiteStorage::SQLiteStorage(QObject *parent) : ObjectStorage(parent)
     }
 }
 
-bool SQLiteStorage::readObject(QObject *dataRow, QString tableName, QString columnNameId, QString valueId)
+bool SQLiteStorage::readAllObjects()
 {
     QSqlQuery query;
     query.exec("SELECT name FROM sqlite_master WHERE type='table'");
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+        return false;
+    }
     int idName = query.record().indexOf("name");
     while (query.next())
     {
-       QString tablename = query.value(idName).toString();
-       qDebug() << tablename;
-       QSqlQuery select;
-       select.exec("SELECT * FROM " + tablename + " WHERE " + columnNameId + "=" + valueId);
-       while (select.next())
-       {
-           if (tablename.toLower() == tableName.toLower()) {
-               for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
-                   dataRow->metaObject()->property(i).write(dataRow, select.value(i));
-               }
-               return true;
-               // CREATE CACHE emit loadAccount(select.value(0).toString(),select.value(1).toString(),select.value(2).toString(),select.value(3).toInt(),select.value(4).toInt(),select.value(5).toInt());
-           }
-       }
+        QString tablename = query.value(idName).toString();
+        qDebug() << tablename;
+        QSqlQuery select;
+        select.exec("SELECT * FROM " + tablename);
+        if (select.lastError().type() == QSqlError::NoError) {
+            qDebug() << "Request success";
+        } else {
+            qDebug() << "Error ? " << select.lastError().text();
+            return false;
+        }
+        while (select.next())
+        {
+            //TODO Create and treat all objects
+        }
+    }
+    return true;
+}
+
+bool SQLiteStorage::readObject(QObject *dataRow, QString columnNameId, QString valueId)
+{
+    QString selectQueryText = "SELECT * FROM " + dataRow->objectName()  + " WHERE " + columnNameId + "='" + valueId+"'";
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+    select.exec(selectQueryText);
+
+    if (select.next()) {
+        for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
+            qDebug() << "===================>" << select.value(i-1).toString() << dataRow->metaObject()->property(i).name();
+            dataRow->metaObject()->property(i).write(dataRow, select.value(i-1));
+
+            std::string signalName( std::string(dataRow->metaObject()->property(i).name()) + "Changed");
+            QMetaObject::invokeMethod(dataRow, signalName.c_str());
+        }
+        return true;
     }
     return false;
 }
