@@ -32,13 +32,21 @@ Item {
                     }
 
                     Text {
-                        text: fullCache.names[index]
+                        text: fullCache.trackableNames[index]
                         font.family: localFont.name
                         textFormat: Qt.RichText
                         font.bold: true
                         font.pointSize: 20
                         color: Palette.white()
                         wrapMode: Text.Wrap
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                travelbug.parseTrackable(fullCache.trackableCodes[index] , fullCache.trackablesJson);
+                                console.log("trackable: " + travelbug.name)
+                            }
+                        }
                     }
                 }
             }

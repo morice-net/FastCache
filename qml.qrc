@@ -149,5 +149,7 @@
         <file>QML/LoadingPage.qml</file>
         <file>QML/FastCacheTBsPage.qml</file>
         <file>Image/trackable_travelbug.png</file>
+        <file>QML/FastTravelbug.qml</file>
+        <file>QML/FastTravelbugDetailsPage.qml</file>
     </qresource>
 </RCC>

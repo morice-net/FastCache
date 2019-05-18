@@ -40,31 +40,32 @@ FullCache::FullCache(Cache *parent)
     , m_wptsComment(QList<QString>())
     , m_trackableNames(QList<QString>())
     , m_trackableCodes(QList<QString>())
+    , m_trackablesJson(QJsonArray())
     , m_mapLogType({{"Trouvée",2},
-                    {"Non trouvée", 3},
-                    {"Note", 4},
-                    {"Publiée", 1003},
-                    {"Activée", 23},
-                    {"Désactivée", 22},
-                    {"Participera", 9},
-                    {"A participé", 10},
-                    {"Récupéré", 13},
-                    {"Déposé", 14},
-                    {"Pris ailleurs", 19},
-                    {"Ajouté à une collection", 69},
-                    {"Ajouté à l\'inventaire", 70},
-                    {"Maintenance effectuée", 46},
-                    {"Nécessite une maintenance", 45},
-                    {"Coordonnées mises à jour", 47},
-                    {"Archivée", 5},
-                    {"Désarchivée", 12},
-                    {"Nécessite d\'être archivée", 7},
-                    {"Découverte", 48},
-                    {"Note du relecteur", 18},
-                    {"Soumettre pour examen", 76},
-                    {"Visite retirée", 25},
-                    {"Marquer comme absente", 16},
-                    {"Photo prise par la webcam", 11}})
+{"Non trouvée", 3},
+{"Note", 4},
+{"Publiée", 1003},
+{"Activée", 23},
+{"Désactivée", 22},
+{"Participera", 9},
+{"A participé", 10},
+{"Récupéré", 13},
+{"Déposé", 14},
+{"Pris ailleurs", 19},
+{"Ajouté à une collection", 69},
+{"Ajouté à l\'inventaire", 70},
+{"Maintenance effectuée", 46},
+{"Nécessite une maintenance", 45},
+{"Coordonnées mises à jour", 47},
+{"Archivée", 5},
+{"Désarchivée", 12},
+{"Nécessite d\'être archivée", 7},
+{"Découverte", 48},
+{"Note du relecteur", 18},
+{"Soumettre pour examen", 76},
+{"Visite retirée", 25},
+{"Marquer comme absente", 16},
+{"Photo prise par la webcam", 11}})
     , m_networkManager(new QNetworkAccessManager(this))
     , m_storage(new SQLiteStorage(this))
 {
@@ -335,6 +336,10 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         }
         emit trackableNamesChanged();
         emit trackableCodesChanged();
+
+        // Trackables managed by travelbug class.
+        m_trackablesJson.empty();
+        setTrackablesJson( cacheJson.toObject().value("Trackables").toArray());
     }
     return ;
 }
@@ -645,4 +650,15 @@ void FullCache::setTrackableCodes(const QList<QString> &codes)
 {
     m_trackableCodes = codes;
     emit trackableCodesChanged();
+}
+
+QJsonArray FullCache::trackablesJson() const
+{
+    return  m_trackablesJson;
+}
+
+void FullCache::setTrackablesJson(const QJsonArray &trackablesJson)
+{
+    m_trackablesJson = trackablesJson;
+    emit trackablesJsonChanged();
 }

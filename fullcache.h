@@ -2,6 +2,8 @@
 #define FULLCACHE_H
 
 #include <QNetworkReply>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <QObject>
 
 #include "cache.h"
@@ -43,6 +45,7 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
     Q_PROPERTY(QList<QString > trackableNames READ trackableNames WRITE setTrackableNames NOTIFY trackableNamesChanged)
     Q_PROPERTY(QList<QString > trackableCodes READ trackableCodes WRITE setTrackableCodes NOTIFY trackableCodesChanged)
+    Q_PROPERTY(QJsonArray trackablesJson READ trackablesJson WRITE setTrackablesJson NOTIFY trackablesJsonChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -135,6 +138,9 @@ public:
     QList<QString > trackableCodes() const;
     void setTrackableCodes(const QList<QString > &codes);
 
+    QJsonArray trackablesJson() const;
+    void setTrackablesJson(const QJsonArray &trackablesJson);
+
 public slots:
     void onReplyFinished(QNetworkReply* reply)  ;
 
@@ -167,6 +173,7 @@ signals:
     void listVisibleImagesChanged();
     void trackableNamesChanged();
     void trackableCodesChanged();
+    void trackablesJsonChanged();
 
 private:
 
@@ -199,6 +206,7 @@ private:
     QList<QString> m_wptsComment;
     QList<QString > m_trackableNames;
     QList<QString > m_trackableCodes;
+    QJsonArray m_trackablesJson;
 
     // Type of logs falitator
     const QMap<QString, int> m_mapLogType;

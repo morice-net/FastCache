@@ -160,6 +160,10 @@ Item {
         id: fullCache
     }
 
+    Travelbug{
+        id: travelbug
+    }
+
     SendCacheNote{
         id:sendCacheNote
         onStateChanged: {

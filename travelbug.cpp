@@ -23,6 +23,17 @@ Travelbug::~Travelbug()
 {
 }
 
+void Travelbug::parseTrackable(QString trackableCode , QJsonArray trackables)
+{
+    for (QJsonValue trackable: trackables)
+    {
+        if(trackable.toObject().value("Code").toString() == trackableCode) {
+            setName(trackable.toObject().value("Name").toString());
+            return ;
+        }
+    }
+}
+
 /** Getters & Setters **/
 
 QString Travelbug::name() const

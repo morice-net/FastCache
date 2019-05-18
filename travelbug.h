@@ -2,6 +2,9 @@
 #define TRAVELBUG_H
 
 #include <QObject>
+#include <QDebug>
+#include <QJsonObject>
+#include <QJsonArray>
 
 class Travelbug : public QObject
 {
@@ -24,6 +27,8 @@ class Travelbug : public QObject
 public:
     explicit  Travelbug(QObject *parent = nullptr);
     ~Travelbug();
+
+    Q_INVOKABLE void parseTrackable(QString trackableCode, QJsonArray trackables);
 
     QString name() const;
     void setName(const QString &name);
