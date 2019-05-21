@@ -1,6 +1,4 @@
 import QtQuick 2.6
-import QtLocation 5.3
-import QtPositioning 5.3
 import QtQuick.Controls 2.2
 
 import "JavaScript/Palette.js" as Palette
@@ -9,14 +7,35 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: fastTravelbug
     anchors.fill: parent
-    opacity: main.viewState === "fullcache" ? 1 : 0
-    visible: opacity > 0
+    visible: main.viewState === "travelbug"
     color: Palette.greenSea()
+
+    Row {
+        id:fastTravelbugHeader
+        x: 200
+        y: 10
+        height: parent.height * 0.02
+        spacing: 10
+
+        Image {
+            source: "qrc:/Image/" + "trackable_travelbug.png"
+            scale: 1.5
+        }
+
+        Text {
+            font.family: localFont.name
+            font.bold: true
+            font.pointSize: 18
+            text: "Objet voyageur"
+            color: Palette.white()
+        }
+    }
 
     SwipeView {
         id: swipeFastTravelbug
-        currentIndex: 0
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
+        currentIndex: 1
+        anchors.top: fastTravelbugHeader.bottom
         anchors.left: parent.left
         anchors.right: parent.right
 

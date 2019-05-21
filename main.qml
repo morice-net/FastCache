@@ -19,7 +19,7 @@ Item {
     focus: true
 
     // State can take "near" "address" "coordinates"....
-    property string viewState: "" // "map" or "list" or "fullcache"
+    property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
     property bool cachesActive: false
 
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
@@ -79,6 +79,8 @@ Item {
     FastList { id: fastList }
 
     FastCache { id: fastCache }
+
+    FastTravelbug { id: fastTravelbug }
 
     FastMenuHeader { id: fastMenuHeader }
 
@@ -263,7 +265,9 @@ Item {
                 fastMenuHeader.changeFiltersVisibility()
             } else if (main.viewState == "fullcache" || main.viewState == "list") {
                 main.viewState = "map"
-            } else {
+            } else if (main.viewState == "travelbug") {
+                main.viewState = "fullcache"
+            }else {
                 sureQuit.visible = true
             }
         }

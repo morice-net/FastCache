@@ -44,7 +44,7 @@ Item {
                             anchors.fill: parent
                             onClicked: {
                                 travelbug.parseTrackable(fullCache.trackableCodes[index] , fullCache.trackablesJson);
-                                console.log("trackable: " + travelbug.name)
+                                main.viewState = "travelbug"
                             }
                         }
                     }

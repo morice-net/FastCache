@@ -8,6 +8,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: detailsPage
+    visible:true
 
     Column {
         spacing: 5
