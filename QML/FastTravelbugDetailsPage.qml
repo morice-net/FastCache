@@ -8,8 +8,6 @@ Item {
     id: detailsPage
     height: swipeFastTravelbug.height
 
-    property string tbLocation: ""
-
     Column {
         spacing: 5
         anchors.fill: parent
