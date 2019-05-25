@@ -11,12 +11,13 @@ class Travelbug : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(int type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(QString trackingCode READ trackingCode WRITE setTrackingCode NOTIFY trackingCodeChanged)
-    Q_PROPERTY(QString owner READ owner WRITE setOwner NOTIFY ownerChanged)
+    Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QString tbCode READ tbCode WRITE setTbCode NOTIFY tbCodeChanged)
+    Q_PROPERTY(QString iconUrl READ iconUrl WRITE setIconUrl NOTIFY iconUrlChanged)
+    Q_PROPERTY(QString originalOwner READ originalOwner WRITE setOriginalOwner NOTIFY originalOwnerChanged)
     Q_PROPERTY(QString located READ located WRITE setLocated NOTIFY locatedChanged)
-    Q_PROPERTY(QString origin READ origin WRITE setOrigin NOTIFY originChanged)
-    Q_PROPERTY(QString released READ released WRITE setReleased NOTIFY releasedChanged)
+    Q_PROPERTY(QString description READ description  WRITE setDescription  NOTIFY descriptionChanged)
+    Q_PROPERTY(QString dateCreated READ dateCreated  WRITE setDateCreated NOTIFY dateCreatedChanged)
     Q_PROPERTY(QString goal READ goal WRITE setGoal NOTIFY goalChanged)
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
     Q_PROPERTY(QList<QString > imagesDescription READ imagesDescription WRITE setImagesDescription NOTIFY imagesDescriptionChanged)
@@ -33,23 +34,26 @@ public:
     QString name() const;
     void setName(const QString &name);
 
-    int  type() const;
-    void setType(const int &type);
+    QString  type() const;
+    void setType(const QString &type);
 
-    QString trackingCode() const;
-    void setTrackingCode(const QString &code);
+    QString tbCode() const;
+    void setTbCode(const QString &code);
 
-    QString owner() const;
-    void setOwner(const QString &owner);
+    QString iconUrl() const;
+    void setIconUrl(const QString &url);
+
+    QString originalOwner() const;
+    void setOriginalOwner(const QString &owner);
 
     QString located() const;
     void setLocated(const QString &location);
 
-    QString origin() const;
-    void setOrigin(const QString &origin);
+    QString description () const;
+    void setDescription (const QString &description);
 
-    QString released() const;
-    void setReleased(const QString &release);
+    QString dateCreated () const;
+    void setDateCreated (const QString &release);
 
     QString goal() const;
     void setGoal(const QString &goal);
@@ -72,11 +76,12 @@ public:
 signals:
     void nameChanged();
     void typeChanged();
-    void trackingCodeChanged();
-    void ownerChanged();
+    void tbCodeChanged();
+    void iconUrlChanged();
+    void originalOwnerChanged();
     void locatedChanged();
-    void originChanged();
-    void releasedChanged();
+    void descriptionChanged();
+    void dateCreatedChanged();
     void goalChanged();
     void imagesNameChanged();
     void imagesDescriptionChanged();
@@ -87,12 +92,13 @@ signals:
 protected:
 
     QString m_name;
-    int m_type;
-    QString m_trackingCode;
-    QString m_owner;
+    QString m_type;
+    QString m_tbCode;
+    QString m_iconUrl;
+    QString m_originalOwner;
     QString m_located;
-    QString m_origin;
-    QString m_released;
+    QString m_description;
+    QString m_dateCreated;
     QString m_goal;
     QList<QString > m_imagesName;
     QList<QString > m_imagesDescription;

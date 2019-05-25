@@ -29,6 +29,7 @@ Item {
                     Image {
                         source: "qrc:/Image/" + "trackable_travelbug.png"
                         horizontalAlignment: Image.AlignHCenter
+                        scale: 1.4
                     }
 
                     Text {

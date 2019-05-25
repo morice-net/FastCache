@@ -3,12 +3,13 @@
 Travelbug::Travelbug(QObject *parent)
     : QObject(parent)
     ,  m_name("")
-    ,  m_type()
-    ,  m_trackingCode("")
-    ,  m_owner("")
+    ,  m_type("")
+    ,  m_tbCode("")
+    ,  m_iconUrl("")
+    ,  m_originalOwner("")
     ,  m_located("")
-    ,  m_origin("")
-    ,  m_released("")
+    ,  m_description("")
+    ,  m_dateCreated("")
     ,  m_goal("")
     , m_imagesName(QList<QString>())
     , m_imagesDescription(QList<QString>())
@@ -29,6 +30,25 @@ void Travelbug::parseTrackable(QString trackableCode , QJsonArray trackables)
     {
         if(trackable.toObject().value("Code").toString() == trackableCode) {
             setName(trackable.toObject().value("Name").toString());
+            setType(trackable.toObject().value("TBTypeName").toString());
+            setTbCode(trackable.toObject().value("Code").toString());
+
+            QJsonValue owner = trackable["OriginalOwner"].toObject();
+            setOriginalOwner(owner.toObject().value("UserName").toString());
+
+            if(trackable.toObject().value("CurrentOwner").isNull() && trackable.toObject().value("CurrentGeocacheCode").isNull())
+                setLocated("Inconnu");
+            if (trackable.toObject().value("CurrentOwner").isNull()) {
+                QJsonValue currentOwner = trackable["CurrentOwner"].toObject();
+                setLocated("En possession de " + currentOwner.toObject().value("UserName").toString());
+            }else {
+                setLocated("Dans la cache " + trackable.toObject().value("CurrentGeocacheCode").toString());
+            }
+
+            setDateCreated(trackable.toObject().value("DateCreated").toString());
+            setIconUrl(trackable.toObject().value("IconUrl").toString());
+            setGoal(trackable.toObject().value("CurrentGoal").toString());
+            setDescription(trackable.toObject().value("Description").toString());
             return ;
         }
     }
@@ -47,37 +67,48 @@ void Travelbug::setName(const QString &name)
     emit nameChanged();
 }
 
-int Travelbug::type() const
+QString Travelbug::type() const
 {
     return m_type;
 }
 
-void Travelbug::setType(const int &type)
+void Travelbug::setType(const QString &type)
 {
     m_type = type;
     emit typeChanged();
 }
 
-QString Travelbug::trackingCode() const
+QString Travelbug::tbCode() const
 {
-    return m_trackingCode;
+    return m_tbCode;
 }
 
-void Travelbug::setTrackingCode(const QString &code)
+void Travelbug::setTbCode(const QString &code)
 {
-    m_trackingCode = code;
-    emit trackingCodeChanged();
+    m_tbCode = code;
+    emit tbCodeChanged();
 }
 
-QString Travelbug::owner() const
+QString Travelbug::iconUrl() const
 {
-    return m_owner;
+    return m_iconUrl;
 }
 
-void Travelbug::setOwner(const QString &owner)
+void Travelbug::setIconUrl(const QString &url)
 {
-    m_owner = owner;
-    emit ownerChanged();
+    m_iconUrl = url;
+    emit iconUrlChanged();
+}
+
+QString Travelbug::originalOwner() const
+{
+    return m_originalOwner;
+}
+
+void Travelbug::setOriginalOwner(const QString &owner)
+{
+    m_originalOwner = owner;
+    emit originalOwnerChanged();
 }
 
 QString Travelbug::located() const
@@ -91,26 +122,26 @@ void Travelbug::setLocated(const QString &location)
     emit locatedChanged();
 }
 
-QString Travelbug::origin() const
+QString Travelbug::description () const
 {
-    return m_origin;
+    return m_description;
 }
 
-void Travelbug::setOrigin(const QString &origin)
+void Travelbug::setDescription(const QString &description)
 {
-    m_origin= origin;
-    emit originChanged();
+    m_description= description;
+    emit descriptionChanged();
 }
 
-QString Travelbug::released() const
+QString Travelbug::dateCreated() const
 {
-    return m_released;
+    return m_dateCreated;
 }
 
-void Travelbug::setReleased(const QString &release)
+void Travelbug::setDateCreated(const QString &date)
 {
-    m_released= release;
-    emit releasedChanged();
+    m_dateCreated= date;
+    emit dateCreatedChanged();
 }
 
 QString Travelbug::goal() const

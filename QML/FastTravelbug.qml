@@ -18,8 +18,8 @@ Rectangle {
         spacing: 10
 
         Image {
-            source: "qrc:/Image/" + "trackable_travelbug.png"
-            scale: 1.5
+            source: travelbug.iconUrl
+            scale: 1.2
         }
 
         Text {
