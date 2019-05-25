@@ -40,7 +40,7 @@ Rectangle {
         anchors.right: parent.right
 
         FastTravelbugDetailsPage {
-            id: detailsPage
+            id: fastTravelbugDetailsPage
         }
     }
 
