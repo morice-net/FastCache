@@ -62,7 +62,19 @@ bool SQLiteStorage::readObject(QObject *dataRow, QString columnNameId, QString v
     if (select.next()) {
         for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
             qDebug() << "===================>" << select.value(i-1).toString() << dataRow->metaObject()->property(i).name();
-            dataRow->metaObject()->property(i).write(dataRow, select.value(i-1));
+            auto variantList = unserializeValue(select.value(i-1).toString());
+            if (variantList.size() == 1) {
+                dataRow->metaObject()->property(i).write(dataRow, variantList.first());
+            } else {
+                if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<int>"))
+                {
+                    QList<int> unserializedList;
+                    for (auto elem: variantList) {
+                        unserializedList.append(elem.toInt());
+                    }
+                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<int>>(unserializedList));
+                }
+            }
 
             std::string signalName( std::string(dataRow->metaObject()->property(i).name()) + "Changed");
             QMetaObject::invokeMethod(dataRow, signalName.c_str());

@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QVariant>
 
+const QString DELIMITER("|#|");
+
 class ObjectStorage : public QObject
 {
     Q_OBJECT
@@ -19,6 +21,7 @@ public:
     bool insertObject(QObject* dataRow, const QString &primaryKey);
     bool createTableFromObject(QObject* dataRow, const QString &primaryKey);
     QString serializeValue(const QVariant &variant) const;
+    QVariantList unserializeValue(const QString &text) const;
 
     QVector<QObject *> dataTableObjects(const QString& tableName) const;
     QVector<QObject *> dataObjects() const;

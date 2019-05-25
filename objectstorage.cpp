@@ -76,7 +76,6 @@ QString ObjectStorage::serializeValue(const QVariant &variant) const
     QString value(variant.toString());
     if (value.isEmpty()) {
         // in this case we need to serialize data, probably a list
-        const QString delimiter("|#|");
         QString serializedValue;
 
         if (variant.canConvert<QVariantList>()) {
@@ -84,7 +83,7 @@ QString ObjectStorage::serializeValue(const QVariant &variant) const
 
             for (const QVariant &v : iterable) {
                 serializedValue += v.toString();
-                serializedValue += delimiter;
+                serializedValue += DELIMITER;
             }
         }
 
@@ -93,5 +92,14 @@ QString ObjectStorage::serializeValue(const QVariant &variant) const
     } else {
         return value;
     }
+}
+
+QVariantList ObjectStorage::unserializeValue(const QString &text) const
+{
+    QVariantList unserialized;
+    for (auto element : text.split(DELIMITER)) {
+        unserialized.append(QVariant::fromValue(element));
+    }
+    return  unserialized;
 }
 
