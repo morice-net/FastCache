@@ -5,138 +5,258 @@ import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 Item {
-    id: detailsPage
+    id: fastTravelbugDetailsPage
     height: swipeFastTravelbug.height
 
-    Column {
-        spacing: 5
+    Flickable {
+        anchors.topMargin: 100
         anchors.fill: parent
-        anchors.topMargin: parent.height * 0.05
-        clip: true
+        flickableDirection: Flickable.VerticalFlick
+        contentHeight: contentItem.childrenRect.height
+        ScrollBar.vertical: ScrollBar {}
 
-        Row {
-            width: parent.width
-            spacing: 15
+        Column {
+            width: detailsPage.width
+            spacing: 5
+            clip: true
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Nom"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: travelbug.name
+                    color: Palette.white()
+                }
+            }
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Type"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: travelbug.type
+                    color: Palette.white()
+                }
+            }
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Code de suivi"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: travelbug.tbCode
+                    color: Palette.white()
+                }
+            }
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Propriétaire"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: travelbug.originalOwner
+                    color: Palette.white()
+                }
+            }
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Se situe"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: travelbug.located
+                    color: Palette.white()
+                }
+            }
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Libéré le"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: formatDate(travelbug.dateCreated)
+                    color: Palette.white()
+                }
+            }
+
+            Rectangle {
+                id: separator1
+                visible:travelbug.goal.length !== 0
+                width: parent.width
+                height: 2
+                color: Palette.white()
+                radius:10
+            }
 
             Text {
-                width: fastTravelbug.width * 0.25
+                id:goal
+                visible:travelbug.goal.length !== 0
+                width: parent.width
+                y:separator1.y + 10
                 font.family: localFont.name
-                horizontalAlignment: Text.AlignRight
+                leftPadding: 15
                 font.pointSize: 14
-                text: "Nom"
+                text: "BUT"
                 color: Palette.silver()
             }
 
             Text {
+                id:goalText
+                visible:travelbug.goal.length !== 0
+                width: parent.width
+                y:goal.y + 30
                 font.family: localFont.name
-                font.pointSize: 14
-                text: travelbug.name
                 color: Palette.white()
+                leftPadding: 15
+                rightPadding: 15
+                textFormat: Text.AutoText
+                wrapMode: Text.Wrap
+                font.pointSize: 14
+                onLinkActivated: Qt.openUrlExternally(link)
+                text: travelbug.goal
             }
-        }
 
-        Row {
-            width: parent.width
-            spacing: 15
+            Rectangle {
+                id: separator2
+                visible:travelbug.description.length !== 0
+                width: parent.width
+                height: 2
+                color: Palette.white()
+                radius:10
+            }
 
             Text {
-                width: fastTravelbug.width * 0.25
+                id:description
+                visible:travelbug.description.length !== 0
+                width: parent.width
+                y:separator2.y + 10
                 font.family: localFont.name
-                horizontalAlignment: Text.AlignRight
+                leftPadding: 15
                 font.pointSize: 14
-                text: "Type"
+                text: "DESCRIPTION"
                 color: Palette.silver()
             }
 
             Text {
+                id:descriptionText
+                visible:travelbug.description.length !== 0
+                width: parent.width
+                y:description.y + 30
                 font.family: localFont.name
-                font.pointSize: 14
-                text: travelbug.type
                 color: Palette.white()
-            }
-        }
-
-        Row {
-            width: parent.width
-            spacing: 15
-
-            Text {
-                width: fastTravelbug.width * 0.25
-                font.family: localFont.name
-                horizontalAlignment: Text.AlignRight
+                leftPadding: 15
+                rightPadding: 15
+                textFormat: Text.AutoText
+                wrapMode: Text.Wrap
                 font.pointSize: 14
-                text: "Code de suivi"
-                color: Palette.silver()
+                onLinkActivated: Qt.openUrlExternally(link)
+                text: travelbug.description
             }
 
-            Text {
-                font.family: localFont.name
-                font.pointSize: 14
-                text: travelbug.tbCode
-                color: Palette.white()
-            }
-        }
+            // images
+            Repeater{
+                id: imageRepeater
+                model:travelbug.imagesUrl.length
 
-        Row {
-            width: parent.width
-            spacing: 15
+                Column{
+                    anchors.horizontalCenter: fastTravelbugDetailsPage.horizontalCenter
+                    Text {
+                        x:10
+                        visible: travelbug.imagesName[index] !== ""
+                        text: travelbug.imagesName[index]
+                        font.family: localFont.name
+                        textFormat: Qt.RichText
+                        font.bold: true
+                        font.pointSize: 15
+                        color: Palette.white()
+                        wrapMode: Text.Wrap
+                    }
 
-            Text {
-                width: fastTravelbug.width * 0.25
-                font.family: localFont.name
-                horizontalAlignment: Text.AlignRight
-                font.pointSize: 14
-                text: "Propriétaire"
-                color: Palette.silver()
-            }
+                    Text {
+                        x:10
+                        visible: travelbug.imagesDescription[index] !== ""
+                        text: travelbug.imagesDescription[index]
+                        font.family: localFont.name
+                        textFormat: Qt.RichText
+                        font.pointSize: 15
+                        color: Palette.white()
+                        wrapMode: Text.Wrap
 
-            Text {
-                font.family: localFont.name
-                font.pointSize: 14
-                text: travelbug.originalOwner
-                color: Palette.white()
-            }
-        }
+                    }
 
-        Row {
-            width: parent.width
-            spacing: 15
-
-            Text {
-                width: fastTravelbug.width * 0.25
-                font.family: localFont.name
-                horizontalAlignment: Text.AlignRight
-                font.pointSize: 14
-                text: "Se situe"
-                color: Palette.silver()
-            }
-
-            Text {
-                font.family: localFont.name
-                font.pointSize: 14
-                text: travelbug.located
-                color: Palette.white()
-            }
-        }
-
-        Row {
-            width: parent.width
-            spacing: 15
-
-            Text {
-                width: fastTravelbug.width * 0.25
-                font.family: localFont.name
-                horizontalAlignment: Text.AlignRight
-                font.pointSize: 14
-                text: "Libéré le"
-                color: Palette.silver()
-            }
-
-            Text {
-                font.family: localFont.name
-                font.pointSize: 14
-                text: formatDate(travelbug.dateCreated)
-                color: Palette.white()
+                    Image {
+                        x:10
+                        source: travelbug.imagesUrl[index]
+                        horizontalAlignment: Image.AlignHCenter
+                    }
+                }
             }
         }
     }

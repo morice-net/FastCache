@@ -1,4 +1,5 @@
 #include "travelbug.h"
+#include "smileygc.h"
 
 Travelbug::Travelbug(QObject *parent)
     : QObject(parent)
@@ -26,6 +27,8 @@ Travelbug::~Travelbug()
 
 void Travelbug::parseTrackable(QString trackableCode , QJsonArray trackables)
 {
+    SmileyGc * smileys = new SmileyGc;
+
     for (QJsonValue trackable: trackables)
     {
         if(trackable.toObject().value("Code").toString() == trackableCode) {
@@ -49,6 +52,21 @@ void Travelbug::parseTrackable(QString trackableCode , QJsonArray trackables)
             setIconUrl(trackable.toObject().value("IconUrl").toString());
             setGoal(trackable.toObject().value("CurrentGoal").toString());
             setDescription(trackable.toObject().value("Description").toString());
+
+            //images
+            m_imagesName.clear();
+            m_imagesDescription.clear();
+            m_imagesUrl.clear();
+
+            for (QJsonValue image: trackable.toObject().value("Images").toArray())
+            {
+                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
+                m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
+                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
+            }
+            emit imagesNameChanged();
+            emit imagesDescriptionChanged();
+            emit imagesUrlChanged();
             return ;
         }
     }

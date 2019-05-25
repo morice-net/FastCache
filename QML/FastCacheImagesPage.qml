@@ -75,7 +75,7 @@ Item {
             return fullCache.imagesName.length
         } else {
             fastCache.addPage(imagesPage)
-            // reoder pages
+            // reorder pages
             if(swipeFastCache.count === 7){
                 swipeFastCache.moveItem(6,5);
                 return fullCache.imagesName.length
