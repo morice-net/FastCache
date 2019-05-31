@@ -4,6 +4,8 @@
 #include <QMetaObject>
 #include <QMetaProperty>
 #include <QVariant>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include <QDebug>
 
 ObjectStorage::ObjectStorage(QObject *parent) :
@@ -22,7 +24,14 @@ bool ObjectStorage::insertObject(QObject* dataRow, const QString &primaryKey)
     for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
         QMetaProperty property = dataRow->metaObject()->property(i);
         columnNames << property.name();
-        columnValues << serializeValue(property.read(dataRow));
+        qDebug() << property.typeName();
+        if (property.typeName() == QStringLiteral("QJsonArray")) {
+            QJsonDocument doc(property.read(dataRow).toJsonArray());
+            qDebug() << "JSON:" << doc.toJson();
+            columnValues << serializeValue(QVariant(doc.toJson()));
+        } else {
+            columnValues << serializeValue(property.read(dataRow));
+        }
     }
     // Create and add in the list the storage created objects
     if (createObject(dataRow->objectName(),columnNames,columnValues)) {
@@ -75,9 +84,9 @@ QString ObjectStorage::serializeValue(const QVariant &variant) const
 {
     QString value(variant.toString());
     if (value.isEmpty()) {
-        // in this case we need to serialize data, probably a list
         QString serializedValue;
 
+        // in this case we need to serialize data, probably a list
         if (variant.canConvert<QVariantList>()) {
             QSequentialIterable iterable = variant.value<QSequentialIterable>();
 
