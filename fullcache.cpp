@@ -338,10 +338,9 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         emit trackableCodesChanged();
 
         // Trackables managed by travelbug class.
-        m_trackablesJson.empty();
         setTrackablesJson( cacheJson.toObject().value("Trackables").toArray());
     }
-    return ;
+    emit registeredChanged();
 }
 
 QList<int> FullCache::attributes() const
