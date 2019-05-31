@@ -66,14 +66,32 @@ bool SQLiteStorage::readObject(QObject *dataRow, QString columnNameId, QString v
             if (variantList.size() == 1) {
                 dataRow->metaObject()->property(i).write(dataRow, variantList.first());
             } else {
-                if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<int>"))
-                {
+                if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<int>")) {
                     QList<int> unserializedList;
                     for (auto elem: variantList) {
                         unserializedList.append(elem.toInt());
                     }
                     dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<int>>(unserializedList));
+                } else if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<bool>")) {
+                    QList<bool> unserializedList;
+                    for (auto elem: variantList) {
+                        unserializedList.append(elem.toBool());
+                    }
+                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<bool>>(unserializedList));
+                } else if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<QString>")) {
+                    QList<QString> unserializedList;
+                    for (auto elem: variantList) {
+                        unserializedList.append(elem.toString());
+                    }
+                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<QString>>(unserializedList));
+                } else if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<double>")) {
+                    QList<double> unserializedList;
+                    for (auto elem: variantList) {
+                        unserializedList.append(elem.toDouble());
+                    }
+                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<double>>(unserializedList));
                 }
+
             }
 
             std::string signalName( std::string(dataRow->metaObject()->property(i).name()) + "Changed");
