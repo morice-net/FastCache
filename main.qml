@@ -218,6 +218,11 @@ Item {
         id: toast
     }
 
+    Timer {
+        id: lastReload
+        interval: 4000
+    }
+
     Component.onCompleted: {
         main.viewState = "map"
 
@@ -236,16 +241,7 @@ Item {
     }
 
     Component.onDestruction: {
-        settings.tokenKey = connector.tokenKey
-        console.log(" ---> TYPES       ###########")
-        console.log(cacheTypes.types[0].typeId)
-        console.log(cacheTypes.types[0].pattern)
-        console.log(cacheTypes.types[0].markerId)
-        console.log(cacheTypes.types[0].typeIdGs)
-        console.log(" ---> SIZES       ###########")
-        console.log(cacheSizes.sizes[6].sizeId)
-        console.log(cacheSizes.sizes[6].sizeIdGs)
-
+        recordAppSettings()
     }
 
     Keys.onPressed: {
@@ -339,11 +335,6 @@ Item {
         connector.connect()
     }
 
-    Timer {
-        id: lastReload
-        interval: 4000
-    }
-
     function reloadCaches(){
         if (lastReload.running){
             return;
@@ -380,7 +371,6 @@ Item {
         }
         return
     }
-
 
     function  cacheSize(sizeGs) {
         for (var i = 0; i < cacheSizes.sizes.length; i++) {
@@ -438,5 +428,19 @@ Item {
 
     function  logTypeGs(index) {
         return logTypes.types[index].typeIdGs
+    }
+
+    function recordAppSettings() {
+        settings.tokenKey = connector.tokenKey
+        console.log(" ---> TYPES       ###########")
+        console.log(cacheTypes.types[0].typeId)
+        console.log(cacheTypes.types[0].pattern)
+        console.log(cacheTypes.types[0].markerId)
+        console.log(cacheTypes.types[0].typeIdGs)
+        console.log(" ---> SIZES       ###########")
+        console.log(cacheSizes.sizes[6].sizeId)
+        console.log(cacheSizes.sizes[6].sizeIdGs)
+
+        fastMenuHeader.recordInSettings()
     }
 }

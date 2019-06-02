@@ -95,7 +95,8 @@ Item {
                 CheckBox { id: size7 ; text: "Autre" ;  checked: settings.other ; onCheckedChanged: textSizeButton() }
             }
 
-            Component.onDestruction: {
+
+            function recordStateInSettings() {
                 settings.micro = size1.checkState
                 settings.small =size2.checkState
                 settings.regular = size3.checkState
@@ -119,7 +120,8 @@ Item {
             second.value: settings.difficultyMax
             first.onValueChanged: main.listDifficultyTerrain[0] = minValueSlider()
             second.onValueChanged: main.listDifficultyTerrain[1] = maxValueSlider()
-            Component.onDestruction: {
+
+            function recordDifficultyinSettings() {
                 settings.difficultyMin = minValueSlider()
                 settings.difficultyMax = maxValueSlider()
             }
@@ -139,7 +141,8 @@ Item {
             second.value: settings.terrainMax
             first.onValueChanged: main.listDifficultyTerrain[2] = minValueSlider()
             second.onValueChanged: main.listDifficultyTerrain[3] = maxValueSlider()
-            Component.onDestruction: {
+
+            function recordFieldInSettings() {
                 settings.terrainMin = minValueSlider()
                 settings.terrainMax = maxValueSlider()
             }
@@ -150,7 +153,8 @@ Item {
             text: "Exclure les caches trouvées et mes.."
             checked: settings.excludeCachesFound
             onCheckedChanged: main.excludeFound = found.checkState
-            Component.onDestruction: {
+
+            function recordFoundInSettings() {
                 settings.excludeCachesFound = found.checkState
             }
         }
@@ -160,7 +164,8 @@ Item {
             text: "Exclure les caches désactivées"
             checked: settings.excludeCachesArchived
             onCheckedChanged: main.excludeArchived = archived.checkState
-            Component.onDestruction: {
+
+            function recordArchivedInSettings() {
                 settings.excludeCachesArchived = archived.checkState
             }
         }
@@ -230,7 +235,10 @@ Item {
                         border.color: mot.focus ? Palette.black() :Palette.turquoise()
                     }
                     onTextChanged: keyWordButton()
-                    Component.onDestruction: settings.keyWord = mot.text
+
+                    function recordMotInSettings() {
+                        settings.keyWord = mot.text
+                    }
 
                 }
 
@@ -254,7 +262,10 @@ Item {
                         border.color: decouvreur.focus ? Palette.black() :Palette.turquoise()
                     }
                     onTextChanged: keyWordButton()
-                    Component.onDestruction: settings.discover = decouvreur.text
+
+                    function recordDiscoverInSettings() {
+                        settings.discover = decouvreur.text
+                    }
                 }
 
                 Label {
@@ -276,7 +287,10 @@ Item {
                         border.color: proprietaire.focus ? Palette.black() :Palette.turquoise()
                     }
                     onTextChanged: keyWordButton()
-                    Component.onDestruction: settings.owner = proprietaire.text
+
+                    function recordOwnerInSettings() {
+                        settings.owner = proprietaire.text
+                    }
 
                 }
                 Button {
@@ -372,7 +386,7 @@ Item {
         textButtonId.text = textArray
     }
 
-    function keyWordButton(){
+    function keyWordButton() {
         var index = 0
 
         main.listKeywordDiscoverOwner[0] = mot.text
@@ -390,5 +404,16 @@ Item {
         } else {
             keywordButtonId.text = "Nombre de filtres:   " + index
         }
+    }
+
+    function recordFiltersInSettings() {
+        popupSize.recordStateInSettings()
+        difficultySlider.recordDifficultyinSettings()
+        fieldSlider.recordFieldInSettings()
+        found.recordFoundInSettings()
+        archived.recordArchivedInSettings()
+        mot.recordMotInSettings()
+        decouvreur.recordDiscoverInSettings()
+        proprietaire.recordOwnerInSettings()
     }
 }

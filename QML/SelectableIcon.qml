@@ -10,8 +10,12 @@ CheckBox {
     property bool type
 
     checked: type
-    onClicked:{ main.listTypes[index] = control.checked
-        updateFilterType() }
+
+    onClicked: {
+        main.listTypes[index] = control.checked
+        updateFilterType()
+    }
+
     indicator: Rectangle {
         opacity: 0.8
         implicitWidth: main.width / 8

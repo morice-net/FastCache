@@ -75,7 +75,7 @@ Item {
             }
 
             Filters {
-                id: typeFilter
+                id: filters
                 Behavior on width { NumberAnimation { duration: 300 } }
                 Behavior on height { NumberAnimation { duration: 300 } }
 
@@ -90,4 +90,9 @@ Item {
         anchors.bottom: parent.top
     }
 
+    onVisibleChanged: recordCacheFiltersInSettings()
+
+    function recordCacheFiltersInSettings() {
+        filters.recordFiltersInSettings()
+    }
 }
