@@ -4,6 +4,7 @@ Item {
 
     property int type: 0    
     property bool found: false
+    property bool registered: false
 
     width: cacheIconBackground.width
     height: cacheIconBackground.height
@@ -37,6 +38,16 @@ Item {
         height: parent.height / 3
         x: 3 * parent.width / 5
         y: 3 * parent.height / 5
+    }
+
+    Image {
+        visible: registered
+        source: "qrc:/Image/heart-green.png"
+        fillMode: Image.PreserveAspectFit
+        width: parent.width / 2
+        height: parent.height / 3
+        x: -1 * parent.width / 5
+        y: 0
     }
 
     MouseArea {

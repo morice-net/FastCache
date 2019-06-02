@@ -151,5 +151,6 @@
         <file>Image/trackable_travelbug.png</file>
         <file>QML/FastTravelbug.qml</file>
         <file>QML/FastTravelbugDetailsPage.qml</file>
+        <file>Image/heart-green.png</file>
     </qresource>
 </RCC>
