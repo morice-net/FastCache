@@ -67,7 +67,6 @@ FullCache::FullCache(Cache *parent)
 {"Marquer comme absente", 16},
 {"Photo prise par la webcam", 11}})
     , m_networkManager(new QNetworkAccessManager(this))
-    , m_storage(new SQLiteStorage(this))
 {
     // Object name is used for storage, it's also a good practise to name the objects
     setObjectName("fullcache");

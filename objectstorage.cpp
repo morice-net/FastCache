@@ -13,9 +13,12 @@ ObjectStorage::ObjectStorage(QObject *parent) :
 {
 }
 
-bool ObjectStorage::insertObject(QObject* dataRow, const QString &primaryKey)
+bool ObjectStorage::insertObject(QObject* dataRow, const QString &primaryKey, QString table)
 {
-    if (!m_tableNames.contains(dataRow->objectName())) {
+    if (table.isEmpty()) {
+        table = dataRow->objectName();
+    }
+    if (!m_tableNames.contains(table)) {
         createTableFromObject(dataRow, primaryKey);
     }
 
@@ -34,7 +37,7 @@ bool ObjectStorage::insertObject(QObject* dataRow, const QString &primaryKey)
         }
     }
     // Create and add in the list the storage created objects
-    if (createObject(dataRow->objectName(),columnNames,columnValues)) {
+    if (createObject(table,columnNames,columnValues)) {
         m_dataObjects << dataRow;
         return true;
     }

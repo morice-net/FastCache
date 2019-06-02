@@ -7,7 +7,6 @@
 #include <QObject>
 
 #include "cache.h"
-#include "sqlitestorage.h"
 
 static constexpr int MAX_PER_PAGE = 40;
 static constexpr int GEOCACHE_LOG_COUNT = 30;
@@ -213,9 +212,6 @@ private:
 
     // Network manager
     QNetworkAccessManager *m_networkManager;
-
-    // Sqlite storage
-    SQLiteStorage *m_storage;
 };
 
 #endif // FULLCACHE_H

@@ -52,47 +52,53 @@ bool SQLiteStorage::readAllObjects()
     return true;
 }
 
-bool SQLiteStorage::readObject(QObject *dataRow, QString columnNameId, QString valueId)
+bool SQLiteStorage::readObject(QObject *dataRow, const QString &columnNameId, const QString &valueId, QString table)
 {
-    QString selectQueryText = "SELECT * FROM " + dataRow->objectName()  + " WHERE " + columnNameId + "='" + valueId+"'";
+    if (table.isEmpty()) {
+        table = dataRow->objectName();
+    }
+    QString selectQueryText = "SELECT * FROM " + table + " WHERE " + columnNameId + "='" + valueId+"'";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
     select.exec(selectQueryText);
 
     if (select.next()) {
         for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
-            qDebug() << "===================>" << select.value(i-1).toString() << dataRow->metaObject()->property(i).name();
             auto variantList = unserializeValue(select.value(i-1).toString());
+            QVariant value;
             if (variantList.size() == 1) {
-                dataRow->metaObject()->property(i).write(dataRow, variantList.first());
+                // Case of single value
+                value = variantList.first();
             } else {
-                if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<int>")) {
+                // Case of lists
+                const char *typeName = dataRow->metaObject()->property(i).typeName();
+                if (typeName == QStringLiteral("QList<int>")) {
                     QList<int> unserializedList;
                     for (auto elem: variantList) {
                         unserializedList.append(elem.toInt());
                     }
-                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<int>>(unserializedList));
-                } else if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<bool>")) {
+                    value = QVariant::fromValue<QList<int>>(unserializedList);
+                } else if (typeName == QStringLiteral("QList<bool>")) {
                     QList<bool> unserializedList;
                     for (auto elem: variantList) {
                         unserializedList.append(elem.toBool());
                     }
-                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<bool>>(unserializedList));
-                } else if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<QString>")) {
+                    value = QVariant::fromValue<QList<bool>>(unserializedList);
+                } else if (typeName == QStringLiteral("QList<QString>")) {
                     QList<QString> unserializedList;
                     for (auto elem: variantList) {
                         unserializedList.append(elem.toString());
                     }
-                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<QString>>(unserializedList));
-                } else if (dataRow->metaObject()->property(i).typeName() == QStringLiteral("QList<double>")) {
+                    value = QVariant::fromValue<QList<QString>>(unserializedList);
+                } else if (typeName == QStringLiteral("QList<double>")) {
                     QList<double> unserializedList;
                     for (auto elem: variantList) {
                         unserializedList.append(elem.toDouble());
                     }
-                    dataRow->metaObject()->property(i).write(dataRow, QVariant::fromValue<QList<double>>(unserializedList));
+                    value = QVariant::fromValue<QList<double>>(unserializedList);
                 }
-
             }
+            dataRow->metaObject()->property(i).write(dataRow, value);
 
             std::string signalName( std::string(dataRow->metaObject()->property(i).name()) + "Changed");
             QMetaObject::invokeMethod(dataRow, signalName.c_str());
@@ -102,7 +108,7 @@ bool SQLiteStorage::readObject(QObject *dataRow, QString columnNameId, QString v
     return false;
 }
 
-bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames, QVector<QString> columnValues)
+bool SQLiteStorage::createObject(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnValues)
 {
     QString queryCommand;
     queryCommand += "REPLACE INTO " + tableName + " ( ";
@@ -115,7 +121,7 @@ bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames
     }
     queryCommand += "VALUES (";
     for(int i = 0; i < columnValues.size(); i++) {
-        queryCommand += "'" + columnValues[i].replace('\"', '"').replace("'","''") + "'";
+        queryCommand += "'" + QString(columnValues[i]).replace('\"', '"').replace("'","''") + "'";
         if (i == (columnValues.size() - 1))
             queryCommand += " );";
         else
@@ -134,7 +140,7 @@ bool SQLiteStorage::createObject(QString tableName, QVector<QString> columnNames
     return true;
 }
 
-bool SQLiteStorage::createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes, const QString& primaryKey)
+bool SQLiteStorage::createTable(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnTypes, const QString& primaryKey)
 {
     QString queryCommand;
     queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " ( ";
@@ -150,7 +156,7 @@ bool SQLiteStorage::createTable(QString tableName, QVector<QString> columnNames,
     return query.exec(queryCommand);
 }
 
-QString SQLiteStorage::stringFromType(QVariant::Type type) const
+QString SQLiteStorage::stringFromType(const QVariant::Type &type) const
 {
     if (type == QVariant::Int)
         return "INTEGER";

@@ -21,11 +21,17 @@ Cache::Cache(QObject *parent)
     , m_lat(0)
     , m_lon(0)
     , m_registered(false)
+    , m_storage(new SQLiteStorage(this))
 {
 }
 
 Cache::~Cache()
 {
+}
+
+bool Cache::checkRegistered()
+{
+    return m_storage->readObject(this, QString("geocode"), m_geocode, "fullcache");
 }
 
 void Cache::launchMaps()

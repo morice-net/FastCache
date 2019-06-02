@@ -215,6 +215,9 @@ void CachesRetriever::onReplyFinished(QNetworkReply *reply)
     {
         Cache *cache ;
         cache = new Cache();
+        QString code(v.toObject().value("Code").toString());
+        cache->setGeocode(code);
+        cache->setRegistered(cache->checkRegistered());
 
         cache->setArchived(v.toObject().value("Archived").toBool());
         cache->setDisabled(v.toObject().value("Available").toBool());
@@ -230,8 +233,7 @@ void CachesRetriever::onReplyFinished(QNetworkReply *reply)
         int cacheTypeId= v2.value("GeocacheTypeId").toInt();
         cache->setType(cacheTypeId);
 
-        QString code(v.toObject().value("Code").toString());
-        cache->setGeocode(code);
+
 
         QJsonObject v3 = v.toObject().value("ContainerType").toObject();
         int cacheSizeId= v3.value("ContainerTypeId").toInt();

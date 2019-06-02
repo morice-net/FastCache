@@ -9,18 +9,18 @@ class SQLiteStorage : public ObjectStorage
 {
     Q_OBJECT
 public:
-    explicit SQLiteStorage(QObject * parent = 0);
+    explicit SQLiteStorage(QObject * parent = nullptr);
 
     bool readAllObjects();
-    bool readObject(QObject *object, QString columnNameId, QString valueId);
-    bool createObject(QString tableName, QVector<QString> columnNames, QVector<QString> columnValues);
-    bool createTable(QString tableName, QVector<QString> columnNames, QVector<QString> columnTypes, const QString &primaryKey);
-    QString stringFromType(QVariant::Type type) const;
-
+    bool readObject(QObject *object, const QString &columnNameId, const QString &valueId, QString table = "");
+    bool createObject(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnValues) override;
+    bool createTable(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnTypes, const QString &primaryKey) override;
+    QString stringFromType(const QVariant::Type &type) const override;
 
 private:
     QSqlDatabase m_database;
 
+    void extractList();
 };
 
 #endif // SQLITESTORAGE_H

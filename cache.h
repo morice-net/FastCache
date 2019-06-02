@@ -2,6 +2,7 @@
 #define CACHE_H
 
 #include <QObject>
+#include "sqlitestorage.h"
 
 class Cache : public QObject
 {
@@ -28,6 +29,7 @@ public:
     explicit  Cache(QObject *parent = nullptr);
     ~Cache();
 
+    bool checkRegistered();
     Q_INVOKABLE void launchMaps();
 
     QString name() const;
@@ -113,6 +115,9 @@ protected:
     double m_lat;
     double m_lon;
     bool m_registered;
+
+    // Sqlite storage
+    SQLiteStorage *m_storage;
 };
 
 #endif // CACHE_H
