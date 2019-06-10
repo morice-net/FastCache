@@ -100,8 +100,9 @@ Item {
         visible: false
 
         onLoadingChanged: {
-            if (tools.beginsWith(loadRequest.url, "http://oauth.callback/") ) {
-                connector.oauthVerifierAndToken(loadRequest.url)
+            console.log("The load request URL is: " + loadRequest.url);
+            if (tools.beginsWith(loadRequest.url, connector.redirectUri + "?")) {
+                connector.oauthToken(loadRequest.url)
                 webEngine.visible = false
             }
         }
