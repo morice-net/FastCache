@@ -3,8 +3,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-UserInfo::UserInfo(QObject *parent)
-    : QObject (parent)
+
+UserInfo::UserInfo(Requestor *parent)
+    : Requestor (parent)
     , m_name("")
     , m_finds(0)
     , m_avatarUrl("")
@@ -12,8 +13,6 @@ UserInfo::UserInfo(QObject *parent)
     , m_status(UserInfoStatus::Erreur)
 
 {
-    m_networkManager = new QNetworkAccessManager(this);
-    connect( m_networkManager, &QNetworkAccessManager::finished, this, &UserInfo::onReplyFinished);
 }
 
 UserInfo::~UserInfo()
@@ -25,9 +24,6 @@ UserInfo::~UserInfo()
 void UserInfo::sendRequest(QString token)
 {
     m_status = UserInfoStatus::Connection;
-
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//GetYourUserProfile?format=json");
-
     QJsonObject parameters;
     QJsonObject ProfileOptions;
     QJsonObject DeviceInfo;
@@ -56,30 +52,11 @@ void UserInfo::sendRequest(QString token)
 
     parameters.insert("DeviceInfo", DeviceInfo);
 
-    QNetworkRequest request;
-    request.setUrl(uri);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+    Requestor::sendRequest("GetYourUserProfile", parameters);
 }
 
-
-void UserInfo::onReplyFinished(QNetworkReply *reply)
+void UserInfo::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    QJsonDocument dataJsonDoc;
-    if (reply->error() == QNetworkReply::NoError) {
-        dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
-    } else {
-        m_status = UserInfoStatus::Erreur;
-        return;
-    }
-
-    if (dataJsonDoc.isNull()) {
-        m_status = UserInfoStatus::Erreur;
-        return;
-    }
-
     QJsonObject JsonObj = dataJsonDoc.object();
     QJsonObject obj1 = JsonObj["Profile"].toObject();
     QJsonObject obj2 = obj1["User"].toObject();

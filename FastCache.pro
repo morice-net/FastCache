@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     objectstorage.cpp \
     sqlitestorage.cpp \
     sendcachelog.cpp \
-    logtype.cpp
+    logtype.cpp \
+    requestor.cpp
 
 RESOURCES += qml.qrc
 
@@ -56,7 +57,8 @@ HEADERS += \
     objectstorage.h \
     sqlitestorage.h \
     sendcachelog.h \
-    logtype.h
+    logtype.h \
+    requestor.h
 
 DISTFILES += \
     android/AndroidManifest.xml \
