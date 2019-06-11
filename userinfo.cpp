@@ -24,35 +24,7 @@ UserInfo::~UserInfo()
 void UserInfo::sendRequest(QString token)
 {
     m_status = UserInfoStatus::Connection;
-    QJsonObject parameters;
-    QJsonObject ProfileOptions;
-    QJsonObject DeviceInfo;
-
-    parameters.insert("AccessToken", QJsonValue(token));
-
-    ProfileOptions.insert("ChallengesData", QJsonValue(false));
-    ProfileOptions.insert("FavoritePointsData", QJsonValue(false));
-    ProfileOptions.insert("GeocacheData", QJsonValue(false));
-    ProfileOptions.insert("PublicProfileData", QJsonValue(false));
-    ProfileOptions.insert("SouvenirData", QJsonValue(false));
-    ProfileOptions.insert("TrackableData", QJsonValue(false));
-
-    parameters.insert("ProfileOptions", ProfileOptions);
-
-    DeviceInfo.insert("ApplicationCurrentMemoryUsage", QJsonValue(0));
-    DeviceInfo.insert("ApplicationPeakMemoryUsage", QJsonValue(0));
-    DeviceInfo.insert("ApplicationSoftwareVersion", QJsonValue("Unknown"));
-    DeviceInfo.insert("DeviceManufacturer", QJsonValue("Unknown"));
-    DeviceInfo.insert("DeviceName", QJsonValue("Unknown"));
-    DeviceInfo.insert("DeviceOperatingSystem", QJsonValue("Unknown"));
-    DeviceInfo.insert("DeviceTotalMemoryInMB", QJsonValue(0));
-    DeviceInfo.insert("DeviceUniqueId", QJsonValue("Unknown"));
-    DeviceInfo.insert("MobileHardwareVersion", QJsonValue("Unknown"));
-    DeviceInfo.insert("WebBrowserVersion", QJsonValue("Unknown"));
-
-    parameters.insert("DeviceInfo", DeviceInfo);
-
-    Requestor::sendRequest("GetYourUserProfile", parameters);
+    Requestor::sendGetRequest("users?referenceCode=me" , token);
 }
 
 void UserInfo::parseJson(const QJsonDocument &dataJsonDoc)

@@ -7,15 +7,28 @@ Requestor::Requestor(QObject *parent)
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
 }
 
-void Requestor::sendRequest(const QString &requestName, const QJsonObject &parameters)
+void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &parameters, QString token)
 {
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc/" + requestName + "?format=json");
+    QUrl uri("https://api.groundspeak.com/v1/" + requestName);
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    QString headerData = "bearer " + token;
+    request.setRawHeader("Authorization", headerData.toLocal8Bit());
     qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
 
     m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+}
+
+void Requestor::sendGetRequest(const QString &requestName , QString token)
+{
+    QUrl uri("https://api.groundspeak.com/v1/" + requestName);
+    QNetworkRequest request;
+    request.setUrl(uri);
+    QString headerData = "bearer " + token;
+    request.setRawHeader("Authorization", headerData.toLocal8Bit());
+
+    m_networkManager->get(request);
 }
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
