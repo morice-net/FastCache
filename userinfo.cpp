@@ -3,7 +3,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-
 UserInfo::UserInfo(Requestor *parent)
     : Requestor (parent)
     , m_name("")
@@ -24,24 +23,33 @@ UserInfo::~UserInfo()
 void UserInfo::sendRequest(QString token)
 {
     m_status = UserInfoStatus::Connection;
-    Requestor::sendGetRequest("users?referenceCode=me" , token);
+    Requestor::sendGetRequest("users/me?fields=username,findCount,avatarUrl,membershipLevelId" , token);
 }
 
 void UserInfo::parseJson(const QJsonDocument &dataJsonDoc)
-{
-    QJsonObject JsonObj = dataJsonDoc.object();
-    QJsonObject obj1 = JsonObj["Profile"].toObject();
-    QJsonObject obj2 = obj1["User"].toObject();
-    QJsonObject obj3 = obj2["MemberType"].toObject();
+{    
+    QJsonObject userInfoJson = dataJsonDoc.object();
+    qDebug() << "userInfoJson:" << userInfoJson ;
+    m_name = userInfoJson["username"].toString();
+    m_finds = userInfoJson["findCount"].toInt();
+    m_avatarUrl = userInfoJson["avatarUrl"].toString();
 
-    if (obj2.isEmpty()) {
-        return;
+    switch(userInfoJson["membershipLevelId"].toInt()){
+    case 0:
+        m_premium = "Inconnu";
+        break;
+    case 1:
+        m_premium = "Basic";
+        break;
+    case 2:
+        m_premium = "Charter";
+        break;
+    case 3:
+        m_premium = "Premium";
+        break;
+    default:
+        break;
     }
-
-    m_name = obj2["UserName"].toString();
-    m_finds = obj2["FindCount"].toInt();
-    m_avatarUrl = obj2["AvatarUrl"].toString();
-    m_premium = obj3["MemberTypeName"].toString();
     m_status = UserInfoStatus::Ok;
 
     qDebug() << "name:" << m_name;

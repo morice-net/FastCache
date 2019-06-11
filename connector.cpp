@@ -58,6 +58,9 @@ void Connector::replyFinished(QNetworkReply *reply)
         setRefreshToken( JsonObj["refresh_token"].toString());
         qDebug() << "TokenKey:" << m_tokenKey;
         qDebug() << "RefreshToken:" << m_refreshToken;
+        if (!m_refreshToken.isEmpty()){
+            emit loginProcedureDone();
+        }
         // In case of second step send the second POST request
         if (refreshNeeded) {
             oauthRefreshToken();
