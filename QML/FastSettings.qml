@@ -12,7 +12,7 @@ Settings {
 
     // tokens
     property string tokenKey: ""
-    property string tokenSecret: ""
+    property string refreshToken: ""
 
     // filter by type
     property bool traditional : false

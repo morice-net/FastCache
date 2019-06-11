@@ -102,7 +102,7 @@ Item {
         onLoadingChanged: {
             console.log("The load request URL is: " + loadRequest.url);
             if (tools.beginsWith(loadRequest.url, connector.redirectUri + "?")) {
-                connector.oauthToken(loadRequest.url)
+                connector.oauthRefreshToken(loadRequest.url)
                 webEngine.visible = false
             }
         }
@@ -231,6 +231,7 @@ Item {
 
         // retrieve settings (todo: remove and put alias in settings instead)
         connector.tokenKey = settings.tokenKey
+        connector.refreshToken = settings.refreshToken
 
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {
@@ -433,6 +434,7 @@ Item {
 
     function recordAppSettings() {
         settings.tokenKey = connector.tokenKey
+        settings.refreshToken = connector.refreshToken
         console.log(" ---> TYPES       ###########")
         console.log(cacheTypes.types[0].typeId)
         console.log(cacheTypes.types[0].pattern)
