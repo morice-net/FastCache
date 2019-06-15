@@ -101,11 +101,9 @@ Rectangle {
 
     SelectedCacheItem {
         id: selectedCacheItem
-
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.margins: 20
-
         onOpacityChanged: {
             if (opacity == 1)
                 hide()

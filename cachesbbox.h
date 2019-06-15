@@ -1,11 +1,12 @@
 #ifndef CACHESBBOX_H
 #define CACHESBBOX_H
 
-#include "cachesretriever.h"
+#include "requestor.h"
+#include <QQmlListProperty>
 
 class Cache;
 
-class CachesBBox : public CachesRetriever
+class CachesBBox : public Requestor
 {    
     Q_OBJECT
 
@@ -13,10 +14,22 @@ class CachesBBox : public CachesRetriever
     Q_PROPERTY(double lonBottomRight READ lonBottomRight WRITE setLonBottomRight NOTIFY lonBottomRightChanged)
     Q_PROPERTY(double latTopLeft READ latTopLeft WRITE setLatTopLeft NOTIFY latTopLeftChanged)
     Q_PROPERTY(double lonTopLeft READ lonTopLeft WRITE setLonTopLeft NOTIFY lonTopLeftChanged)
+    Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
+    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
 
 public:
-    explicit  CachesBBox(QObject *parent = nullptr);
+    explicit  CachesBBox(Requestor *parent = nullptr);
     ~CachesBBox() override;
+
+    Q_INVOKABLE void sendRequest(QString token) override;
+    Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
+
+    QQmlListProperty<Cache> caches();
+
+    QString state() const;
+    void setState(const QString &state);
+
+    void parseJson(const QJsonDocument &dataJsonDoc) override;
 
     double latBottomRight() const;
     void setLatBottomRight(double latBottomRight);
@@ -35,12 +48,27 @@ signals:
     void lonBottomRightChanged();
     void latTopLeftChanged();
     void lonTopLeftChanged();
+    void cachesChanged();
+    void stateChanged();
 
 protected:
-    bool parameterChecker() override;
-    void addSpecificParameters(QJsonObject &parameters) override;
+    const int MAX_PER_PAGE=40;
+    const int GEOCACHE_LOG_COUNT=30;
+    const int TRACKABLE_LOG_COUNT=30;
+
+    int m_indexMoreCachesBBox;
+    bool m_moreCachesBBox;
+    QString m_userName;
+    QList<Cache*> m_caches;
+    QList<int> m_filterTypes;
+    QList<int> m_filterSizes;
+    QList<double> m_filterDifficultyTerrain;
+    QList<QString> m_keyWordDiscoverOwner;
+    bool m_filterExcludeFound;
+    bool m_filterExcludeArchived;
 
 private:
+    QString m_state;
     double m_latBottomRight;
     double m_lonBottomRight;
     double m_latTopLeft;

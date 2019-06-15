@@ -4,12 +4,11 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QJsonArray>
-#include <QList>
 
-
-CachesBBox::CachesBBox(QObject *parent)
-    : CachesRetriever (parent)
+CachesBBox::CachesBBox(Requestor *parent)
+    : Requestor (parent)
+    , m_caches(QList<Cache*>())
+    , m_state()
     , m_latBottomRight(0)
     , m_lonBottomRight(0)
     , m_latTopLeft(0)
@@ -23,28 +22,53 @@ CachesBBox::~CachesBBox()
 {
 }
 
-bool CachesBBox::parameterChecker()
+/** Data retriever using the requestor **/
+
+void CachesBBox::sendRequest(QString token)
+
 {
-    if(m_latBottomRight == 0.0 && m_lonBottomRight == 0.0 && m_latTopLeft ==  0.0 && m_lonTopLeft == 0.0) {
-        return false;
-    }
-    return true;
+    //Build url
+    QString requestName = "geocaches/search?";
+
+    //BBox
+    requestName.append("q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
+                       + QString::number(m_latBottomRight) + "," + QString::number(m_lonBottomRight) + "]]&lite=true");
+
+
+
+    qDebug() << "bbox:" << requestName ;
+
+    Requestor::sendGetRequest(requestName , token);
+
 }
 
-void CachesBBox::addSpecificParameters(QJsonObject& parameters)
+void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    // createViewport.
-    QJsonObject viewport;
-    QJsonObject bottomRight;
-    QJsonObject topLeft;
-    bottomRight.insert("Latitude", QJsonValue(m_latBottomRight));
-    bottomRight.insert("Longitude", QJsonValue(m_lonBottomRight));
-    topLeft.insert("Latitude", QJsonValue(m_latTopLeft));
-    topLeft.insert("Longitude", QJsonValue(m_lonTopLeft));
-    viewport.insert("BottomRight", QJsonValue(bottomRight));
-    viewport.insert("TopLeft", QJsonValue(topLeft));
-    parameters.insert("Viewport", QJsonValue(viewport));
+    QJsonObject cachesBBoxJson = dataJsonDoc.object();
+    qDebug() << "cachesBBoxJson:" << cachesBBoxJson ;
+
+    // request success
+    emit requestReady();
 }
+
+void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
+                                    QList<QString> keyWordDiscoverOwner ,QString name)
+{
+    m_filterTypes = types ;
+    m_filterSizes = sizes ;
+    m_filterDifficultyTerrain = difficultyTerrain ;
+    m_filterExcludeFound = found ;
+    m_filterExcludeArchived = archived ;
+    m_keyWordDiscoverOwner = keyWordDiscoverOwner;
+    m_userName = name ;
+}
+
+QQmlListProperty<Cache> CachesBBox::caches()
+{
+    return QQmlListProperty<Cache>(this, m_caches);
+}
+
+/** Getters & Setters **/
 
 double CachesBBox::lonTopLeft() const
 {
@@ -89,4 +113,17 @@ void CachesBBox::setLatBottomRight(double latBottomRight)
     m_latBottomRight = latBottomRight;
     emit latBottomRightChanged();
 }
+
+QString CachesBBox::state() const
+{
+    return m_state;
+}
+
+void CachesBBox ::setState(const QString &state)
+{
+    m_state = state;
+    emit stateChanged();
+}
+
+
 

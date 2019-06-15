@@ -9,7 +9,7 @@ Requestor::Requestor(QObject *parent)
 
 void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &parameters, QString token)
 {
-    QUrl uri("https://api.groundspeak.com/v1/" + requestName);
+    QUrl uri("https://api.groundspeak.com/v1.0/" + requestName);
     QNetworkRequest request;
     request.setUrl(uri);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
@@ -25,9 +25,9 @@ void Requestor::sendGetRequest(const QString &requestName , QString token)
     QUrl uri("https://api.groundspeak.com/v1/" + requestName);
     QNetworkRequest request;
     request.setUrl(uri);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QString headerData = "bearer " + token;
     request.setRawHeader("Authorization", headerData.toLocal8Bit());
-
     m_networkManager->get(request);
 }
 
