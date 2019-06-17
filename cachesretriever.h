@@ -1,13 +1,14 @@
 #ifndef CACHESRETRIEVER_H
 #define CACHESRETRIEVER_H
 
+#include "requestor.h"
+
 #include <QNetworkReply>
 #include <QQmlListProperty>
-#include <QObject>
 
 class Cache;
 
-class CachesRetriever : public QObject
+class CachesRetriever : public Requestor
 {
     Q_OBJECT
 
@@ -15,19 +16,20 @@ class CachesRetriever : public QObject
     Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
 
 public:
-    explicit CachesRetriever(QObject *parent = nullptr);
+    explicit  CachesRetriever(Requestor *parent = nullptr);
+    ~CachesRetriever() override;
 
-    Q_INVOKABLE void sendRequest(QString token) ;
-    Q_INVOKABLE void sendRequestMore(QString token);
+    Q_INVOKABLE void sendRequest(QString token) override ;
+    Q_INVOKABLE void sendRequestMore(QString token) ;
     Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
 
     QQmlListProperty<Cache> caches();
     QString state() const;
     void setState(const QString &state);
+    void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 protected:
-    virtual bool parameterChecker() = 0;
-    virtual void addSpecificParameters(QJsonObject& parameters) = 0;
+    virtual void addGetRequestParameters(QString& parameters) = 0;
 
 signals:
     void cachesChanged();
@@ -58,10 +60,6 @@ protected:
 private:
 
     QString m_state;
-
-    //  network manager
-
-    QNetworkAccessManager *m_networkManager;
 
 };
 

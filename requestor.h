@@ -8,6 +8,7 @@
 class Requestor : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Requestor(QObject *parent = nullptr);
     virtual void sendPostRequest(const QString &requestName, const QJsonObject &parameters , QString token);

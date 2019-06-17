@@ -4,10 +4,10 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
-CachesBBox::CachesBBox(Requestor *parent)
-    : Requestor (parent)
-    , m_caches(QList<Cache*>())
+CachesBBox::CachesBBox(CachesRetriever *parent)
+    : CachesRetriever ( parent)
     , m_state()
     , m_latBottomRight(0)
     , m_lonBottomRight(0)
@@ -34,17 +34,13 @@ void CachesBBox::sendRequest(QString token)
     requestName.append("q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
                        + QString::number(m_latBottomRight) + "," + QString::number(m_lonBottomRight) + "]]&lite=true");
 
-
-
     qDebug() << "bbox:" << requestName ;
-
     Requestor::sendGetRequest(requestName , token);
-
 }
 
 void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    QJsonObject cachesBBoxJson = dataJsonDoc.object();
+    QJsonArray cachesBBoxJson = dataJsonDoc.array();
     qDebug() << "cachesBBoxJson:" << cachesBBoxJson ;
 
     // request success
@@ -63,9 +59,13 @@ void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<
     m_userName = name ;
 }
 
-QQmlListProperty<Cache> CachesBBox::caches()
+void CachesBBox::addGetRequestParameters(QString &parameters)
 {
-    return QQmlListProperty<Cache>(this, m_caches);
+    // createBBox.
+    parameters.append("q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
+                      + QString::number(m_latBottomRight) + "," + QString::number(m_lonBottomRight) + "]]");
+
+    qDebug() << "BBox:" << parameters ;
 }
 
 /** Getters & Setters **/

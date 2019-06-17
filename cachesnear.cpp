@@ -7,13 +7,11 @@
 #include <QJsonArray>
 #include <QList>
 
-
-CachesNear::CachesNear(QObject *parent)
+CachesNear::CachesNear(CachesRetriever *parent)
     : CachesRetriever(parent)
     , m_latPoint(0)
     , m_lonPoint(0)
     , m_distance(0)
-
 {
     m_moreCachesBBox = false;
 }
@@ -22,25 +20,14 @@ CachesNear::~CachesNear()
 {
 }
 
-bool CachesNear::parameterChecker()
+void CachesNear::sendRequest(QString token)
 {
-    if(m_latPoint == 0.0 && m_lonPoint == 0.0 && m_distance ==  0.0 ) {
-        return false;
-    }
-    return true;
 
 }
 
-void CachesNear::addSpecificParameters(QJsonObject &parameters)
+void CachesNear::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    // createCenterPoint.
-    QJsonObject pointRadius;
-    QJsonObject point;
-    point.insert("Latitude", QJsonValue(m_latPoint));
-    point.insert("Longitude", QJsonValue(m_lonPoint));
-    pointRadius.insert("DistanceInMeters", QJsonValue(m_distance));
-    pointRadius.insert("Point", QJsonValue(point));
-    parameters.insert("PointRadius", QJsonValue(pointRadius));
+
 }
 
 double CachesNear::lonPoint() const
@@ -74,6 +61,11 @@ void CachesNear::setDistance(double distance)
 {
     m_distance = distance;
     emit distanceChanged();
+}
+
+void CachesNear::addGetRequestParameters(QString &parameters)
+{
+    // create Center, Radius.
 }
 
 

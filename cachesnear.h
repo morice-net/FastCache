@@ -14,8 +14,12 @@ class CachesNear : public CachesRetriever
     Q_PROPERTY(double distance READ distance WRITE setDistance NOTIFY distanceChanged)
 
 public:
-    explicit  CachesNear(QObject *parent = nullptr) ;
+    explicit  CachesNear(CachesRetriever *parent = nullptr) ;
     ~CachesNear() override;
+
+    Q_INVOKABLE void sendRequest(QString token) override;
+    void parseJson(const QJsonDocument &dataJsonDoc) override;
+
 
     double latPoint() const;
     void setLatPoint(double latPoint);
@@ -26,15 +30,13 @@ public:
     double distance() const;
     void setDistance(double distance);
 
+protected:
+    void addGetRequestParameters(QString &parameters) override;
 
 signals:
     void latPointChanged();
     void lonPointChanged();
     void distanceChanged();
-
-protected:
-    bool parameterChecker() override;
-    void addSpecificParameters(QJsonObject &parameters) override;
 
 private:
     double m_latPoint;

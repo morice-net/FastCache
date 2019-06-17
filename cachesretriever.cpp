@@ -8,15 +8,15 @@
 #include <QJsonArray>
 #include <QList>
 
-
-CachesRetriever::CachesRetriever(QObject *parent)
-    : QObject(parent)
+CachesRetriever::CachesRetriever(Requestor *parent)
+    : Requestor (parent)
     , m_caches(QList<Cache*>())
     ,  m_state()
+{    
+}
 
+CachesRetriever::~CachesRetriever()
 {
-    m_networkManager = new QNetworkAccessManager(this);
-    connect( m_networkManager, &QNetworkAccessManager::finished, this, &CachesRetriever::onReplyFinished);
 }
 
 QQmlListProperty<Cache> CachesRetriever::caches()
@@ -26,144 +26,79 @@ QQmlListProperty<Cache> CachesRetriever::caches()
 
 void CachesRetriever::sendRequest(QString token)
 {
-    if(!parameterChecker())
-        return;
-
     m_caches.clear();
     m_indexMoreCachesBBox = 0;
 
-    // lat, lon on format E6.
+    //Build url
+    QString requestName = "geocaches/search?";
 
     // Inform QML we are loading
     setState("loading");
 
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
-
-    QJsonObject parameters;
-    QJsonObject geocacheType;
-    QJsonObject geocacheSize;
-    QJsonObject geocacheDifficulty;
-    QJsonObject geocacheTerrain;
-
-
-    QJsonObject excludeFounds;
-    QJsonObject excludeMine;
-    QJsonObject geocacheExclusion;
-
-    QJsonObject geocacheName;
-    QJsonObject foundByUser;
-    QJsonObject hiddenByUsers;
-
-
-
-    QJsonArray geocacheTypeIds;
-    QJsonArray geocacheSizeIds;
-    QJsonArray userNames;
-
     m_tokenTemp=token;
-
-    parameters.insert("AccessToken", QJsonValue(token));
-    parameters.insert("IsLite", QJsonValue(true));
-    parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
-    parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
-    parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
 
     // filter by type.
     if(!m_filterTypes.isEmpty()){
         foreach ( int type, m_filterTypes)
         {
-            geocacheTypeIds.append(type);
         }
-        geocacheType.insert("GeocacheTypeIds", QJsonValue(geocacheTypeIds));
-        parameters.insert("GeocacheType",QJsonValue(geocacheType));
     }
 
     // filter by size.
     if(!m_filterSizes.isEmpty()){
         foreach ( int size, m_filterSizes)
         {
-            geocacheSizeIds.append(size);
         }
-        geocacheSize.insert("GeocacheContainerSizeIds", QJsonValue(geocacheSizeIds));
-        parameters.insert("GeocacheContainerSize",QJsonValue(geocacheSize));
     }
 
     // filter by difficulty, terrain.
     if(m_filterDifficultyTerrain[0] != 1.0 || m_filterDifficultyTerrain[1] != 5.0){
-        geocacheDifficulty.insert("MinDifficulty", QJsonValue(m_filterDifficultyTerrain[0]));
-        geocacheDifficulty.insert("MaxDifficulty", QJsonValue(m_filterDifficultyTerrain[1]));
-        parameters.insert("Difficulty", QJsonValue(geocacheDifficulty));
+
     }
     if(m_filterDifficultyTerrain[2] != 1.0 || m_filterDifficultyTerrain[3] != 5.0){
-        geocacheTerrain.insert("MinTerrain", QJsonValue(m_filterDifficultyTerrain[2]));
-        geocacheTerrain.insert("MaxTerrain", QJsonValue(m_filterDifficultyTerrain[3]));
-        parameters.insert("Terrain", QJsonValue(geocacheTerrain));
+
     }
 
     // filter by keyword,discover and owner.
     if(!m_keyWordDiscoverOwner[0].isEmpty() ){
-        geocacheName.insert("GeocacheName", QJsonValue(m_keyWordDiscoverOwner[0]));
-        parameters.insert("GeocacheName", QJsonValue(geocacheName));
+
     }
     if(!m_keyWordDiscoverOwner[1].isEmpty() ){
-        foundByUser.insert("UserName", QJsonValue(m_keyWordDiscoverOwner[1]));
-        parameters.insert("FoundByUser", QJsonValue(foundByUser));
+
     }
     if(!m_keyWordDiscoverOwner[2].isEmpty() ){
-        QJsonArray array = { QString(m_keyWordDiscoverOwner[2]) };
-        hiddenByUsers.insert("UserNames", QJsonValue(array));
-        parameters.insert("HiddenByUsers", QJsonValue(hiddenByUsers));
+
     }
 
     // Exclude caches found and mine.
     if(m_filterExcludeFound == true){
-        userNames.append(m_userName);
-        excludeFounds.insert("UserNames", QJsonValue(userNames));
-        excludeMine.insert("UserNames", QJsonValue(userNames));
-        parameters.insert("NotFoundByUsers",QJsonValue(excludeFounds));
-        parameters.insert("NotHiddenByUsers",QJsonValue(excludeMine));
+
     }
 
     // Exclude caches archived and available.
     if(m_filterExcludeArchived == true){
-        geocacheExclusion.insert("Archived", QJsonValue(m_filterExcludeArchived));
-        geocacheExclusion.insert("Available", QJsonValue(m_filterExcludeArchived));
-        parameters.insert("GeocacheExclusions",QJsonValue(geocacheExclusion));
+
     }
 
     // Adding specific parameters
-    addSpecificParameters(parameters);
-
-    QNetworkRequest request;
-    request.setUrl(uri);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+    addGetRequestParameters(requestName);
+    Requestor::sendGetRequest(requestName , token);
 }
 
 void CachesRetriever::sendRequestMore(QString token)
 {
     // Inform QML we are loading
     setState("loading");
-
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//GetMoreGeocaches?format=json");
-
-    QJsonObject parameters;
-
     m_indexMoreCachesBBox = m_indexMoreCachesBBox + MAX_PER_PAGE;
+}
 
-    parameters.insert("AccessToken", QJsonValue(token));
-    parameters.insert("IsLite", QJsonValue(true));
-    parameters.insert("StartIndex",m_indexMoreCachesBBox);
-    parameters.insert("MaxPerPage", QJsonValue(MAX_PER_PAGE));
-    parameters.insert("GeocacheLogCount", QJsonValue(GEOCACHE_LOG_COUNT));
-    parameters.insert("TrackableLogCount", QJsonValue(TRACKABLE_LOG_COUNT));
+void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
+{
+    QJsonArray cachesJson = dataJsonDoc.array();
+    qDebug() << "caches:" << cachesJson ;
 
-    QNetworkRequest request;
-    request.setUrl(uri);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesJson(More):" << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+    // request success
+    emit requestReady();
 }
 
 void CachesRetriever::onReplyFinished(QNetworkReply *reply)
