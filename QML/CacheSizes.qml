@@ -9,7 +9,7 @@ Item {
     CacheSize {
         id: eighthSize
         frenchPattern: "Inconnue"
-        sizeIdGs: 9
+        sizeIdGs: 1
         Component.onCompleted: {
             sizes.push(eighthSize)
         }
@@ -18,7 +18,7 @@ Item {
     CacheSize {
         id: seventhSize
         frenchPattern: "Autre"
-        sizeIdGs: 7
+        sizeIdGs: 6
         Component.onCompleted: {
             sizes.push(seventhSize)
         }

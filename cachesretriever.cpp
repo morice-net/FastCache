@@ -27,6 +27,7 @@ QQmlListProperty<Cache> CachesRetriever::caches()
 
 void CachesRetriever::sendRequest(QString token)
 {
+    m_tokenTemp=token;
     if(m_indexMoreCaches == 0) {
         m_caches.clear();
         emit cachesChanged() ;
@@ -49,8 +50,6 @@ void CachesRetriever::sendRequest(QString token)
 
     // Inform QML we are loading
     setState("loading");
-
-    m_tokenTemp=token;
 
     // filter by type.
     if(!m_filterTypes.isEmpty()){
@@ -113,7 +112,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         return;
     }
     QJsonArray caches = dataJsonDoc.array();
-    qDebug() << "caches:" << caches ;
+    qDebug() << "cachesArray:" << caches ;
 
     // Inform the QML that there is no loading error
     setState("noError");
@@ -128,8 +127,9 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     {
         Cache *cache ;
         cache = new Cache();
+
         cache->setGeocode(v["referenceCode"].toString());
-        //    cache->setRegistered(cache->checkRegistered());
+        cache->setRegistered(cache->checkRegistered());
 
         if(v["status"].toString() == "Unpublished"){
             cache->setArchived(false);
@@ -154,24 +154,22 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         QJsonObject v1 = v["geocacheType"].toObject();
         cache->setType(v1["id"].toInt());
 
-        QJsonObject v2 = v["geocacheSize"].toObject();
-        cache->setSize(v2["id"].toInt());
+        v1 = v["geocacheSize"].toObject();
+        cache->setSize(v1["id"].toInt());
 
         cache->setDifficulty(v["difficulty"].toDouble());
         cache->setFavoritePoints(v["favoritePoints"].toInt());
 
-        QJsonObject v3 = v["postedCoordinates"].toObject();
-        cache->setLat(v3["Latitude"].toDouble());
-        cache->setLon(v3["Longitude"].toDouble());
-
+        v1 = v["postedCoordinates"].toObject();
+        cache->setLat(v1["latitude"].toDouble());
+        cache->setLon(v1["longitude"].toDouble());
 
         QString name(v["name"].toString());
         cache->setName(name);
         cache->setTrackableCount(v["trackableCount"].toInt());
 
-
-        QJsonObject v4 = v["userData"].toObject();
-        if(v4["foundDate"].isNull()){
+        v1 = v["userData"].toObject();
+        if(v1["foundDate"].isNull()){
             cache->setFound(false);
         } else {
             cache->setFound(true);
@@ -179,6 +177,8 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         cache->setTerrain(v["terrain"].toDouble());
         m_caches.append(cache);
     }
+    emit cachesChanged() ;
+
     // request success
     emit requestReady();
 
@@ -187,9 +187,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         sendRequest(m_tokenTemp);
     } else {
         m_indexMoreCaches = 0 ;
-        m_caches.clear();
     }
-    emit cachesChanged() ;
     return;
 }
 
