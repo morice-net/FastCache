@@ -27,17 +27,19 @@ public:
     void setState(const QString &state);
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
+    virtual void moreCaches() = 0;
+
 protected:
     virtual void addGetRequestParameters(QString& parameters) = 0;
 
 signals:
-    void cachesChanged();
     void stateChanged();
+    void cachesChanged();
 
 protected:
-    const int MAX_PER_PAGE=40;
-    const int GEOCACHE_LOG_COUNT=30;
-    const int TRACKABLE_LOG_COUNT=30;
+    const int MAX_PER_PAGE = 40;
+    const int GEOCACHE_LOG_COUNT = 30;
+    const int TRACKABLE_LOG_COUNT = 30;
     int m_indexMoreCaches;
 
     QString m_tokenTemp ;
@@ -53,9 +55,7 @@ protected:
     bool m_filterExcludeArchived;
 
 private:
-
     QString m_state;
-
 };
 
 #endif // CACHESRETRIEVER_H

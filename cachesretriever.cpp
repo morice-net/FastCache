@@ -13,7 +13,7 @@ CachesRetriever::CachesRetriever(Requestor *parent)
     , m_indexMoreCaches(0)
     , m_caches(QList<Cache*>())
     , m_state()
-{    
+{
 }
 
 CachesRetriever::~CachesRetriever()
@@ -30,7 +30,6 @@ void CachesRetriever::sendRequest(QString token)
     m_tokenTemp=token;
     if(m_indexMoreCaches == 0) {
         m_caches.clear();
-        emit cachesChanged() ;
     }
 
     //Build url
@@ -47,9 +46,6 @@ void CachesRetriever::sendRequest(QString token)
 
     // Adding specific parameters(BBox or Center radius)
     addGetRequestParameters(requestName);
-
-    // Inform QML we are loading
-    setState("loading");
 
     // filter by type.
     if(!m_filterTypes.isEmpty()){
@@ -101,11 +97,14 @@ void CachesRetriever::sendRequest(QString token)
     }
     qDebug() << "URL:" << requestName ;
 
+    // Inform QML we are loading
+    setState("loading");
+
     Requestor::sendGetRequest(requestName , token);
 }
 
 void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
-{    
+{
     if (dataJsonDoc.isNull()) {
         // Inform the QML that there is a loading error
         setState("error");
@@ -119,7 +118,6 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
     int lengthCaches = caches.size();
     if (lengthCaches == 0) {
-        emit cachesChanged() ;
         return ;
     }
 
@@ -177,18 +175,14 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         cache->setTerrain(v["terrain"].toDouble());
         m_caches.append(cache);
     }
-    emit cachesChanged() ;
 
     // request success
     emit requestReady();
 
-    if ( lengthCaches == MAX_PER_PAGE) {
-        m_indexMoreCaches = m_indexMoreCaches + MAX_PER_PAGE;
-        sendRequest(m_tokenTemp);
-    } else {
+    if (lengthCaches == MAX_PER_PAGE) {
+        moreCaches();
+    } else if(lengthCaches != MAX_PER_PAGE)
         m_indexMoreCaches = 0 ;
-    }
-    return;
 }
 
 void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,

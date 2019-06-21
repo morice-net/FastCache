@@ -6,12 +6,11 @@
 
 CachesBBox::CachesBBox(CachesRetriever *parent)
     : CachesRetriever ( parent)
-    , m_state()
     , m_latBottomRight(0)
     , m_lonBottomRight(0)
     , m_latTopLeft(0)
     , m_lonTopLeft(0)
-{   
+{
 }
 
 CachesBBox::~CachesBBox()
@@ -26,6 +25,13 @@ void CachesBBox::sendRequest(QString token)
 void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
 {    
     CachesRetriever::parseJson(dataJsonDoc);
+    emit cachesChanged();
+}
+
+void CachesBBox::moreCaches()
+{
+    m_indexMoreCaches = m_indexMoreCaches + MAX_PER_PAGE;
+    sendRequest(m_tokenTemp);
 }
 
 void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
@@ -93,16 +99,7 @@ void CachesBBox::setLatBottomRight(double latBottomRight)
     emit latBottomRightChanged();
 }
 
-QString CachesBBox::state() const
-{
-    return m_state;
-}
 
-void CachesBBox ::setState(const QString &state)
-{
-    m_state = state;
-    emit stateChanged();
-}
 
 
 

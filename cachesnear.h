@@ -19,6 +19,7 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token) override;
     void parseJson(const QJsonDocument &dataJsonDoc) override;
+    void moreCaches() override;
 
 
     double latPoint() const;
@@ -37,6 +38,7 @@ signals:
     void latPointChanged();
     void lonPointChanged();
     void distanceChanged();
+    void cachesChanged();
 
 private:
     double m_latPoint;
