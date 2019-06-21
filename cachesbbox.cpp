@@ -3,8 +3,6 @@
 #include "cachesbbox.h"
 
 #include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 
 CachesBBox::CachesBBox(CachesRetriever *parent)
     : CachesRetriever ( parent)
@@ -13,38 +11,21 @@ CachesBBox::CachesBBox(CachesRetriever *parent)
     , m_lonBottomRight(0)
     , m_latTopLeft(0)
     , m_lonTopLeft(0)
-
-{
-    m_moreCachesBBox = true;
+{   
 }
 
 CachesBBox::~CachesBBox()
 {
 }
 
-/** Data retriever using the requestor **/
-
 void CachesBBox::sendRequest(QString token)
-
 {
-    //Build url
-    QString requestName = "geocaches/search?";
-
-    //BBox
-    requestName.append("q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
-                       + QString::number(m_latBottomRight) + "," + QString::number(m_lonBottomRight) + "]]&lite=true");
-
-    qDebug() << "bbox:" << requestName ;
-    Requestor::sendGetRequest(requestName , token);
+    CachesRetriever::sendRequest(token);
 }
 
 void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
-{
-    QJsonArray cachesBBoxJson = dataJsonDoc.array();
-    qDebug() << "cachesBBoxJson:" << cachesBBoxJson ;
-
-    // request success
-    emit requestReady();
+{    
+    CachesRetriever::parseJson(dataJsonDoc);
 }
 
 void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
@@ -62,10 +43,8 @@ void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<
 void CachesBBox::addGetRequestParameters(QString &parameters)
 {
     // createBBox.
-    parameters.append("q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
+    parameters.append("&q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
                       + QString::number(m_latBottomRight) + "," + QString::number(m_lonBottomRight) + "]]");
-
-    qDebug() << "BBox:" << parameters ;
 }
 
 /** Getters & Setters **/

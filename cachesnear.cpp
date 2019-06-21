@@ -3,17 +3,13 @@
 #include "connector.h"
 
 #include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QList>
 
 CachesNear::CachesNear(CachesRetriever *parent)
     : CachesRetriever(parent)
     , m_latPoint(0)
     , m_lonPoint(0)
     , m_distance(0)
-{
-    m_moreCachesBBox = false;
+{    
 }
 
 CachesNear::~CachesNear()
@@ -22,13 +18,21 @@ CachesNear::~CachesNear()
 
 void CachesNear::sendRequest(QString token)
 {
-
+    CachesRetriever::sendRequest(token);
 }
 
 void CachesNear::parseJson(const QJsonDocument &dataJsonDoc)
 {
-
+    CachesRetriever::parseJson(dataJsonDoc);
 }
+
+void CachesNear::addGetRequestParameters(QString &parameters)
+{
+    // create Center, Radius.
+    parameters.append("&q=location:[" + QString::number(m_latPoint) + "," + QString::number(m_lonPoint) + "]%2Bradius:"+QString::number(m_distance)+"km");
+}
+
+/** Getters & Setters **/
 
 double CachesNear::lonPoint() const
 {
@@ -63,10 +67,7 @@ void CachesNear::setDistance(double distance)
     emit distanceChanged();
 }
 
-void CachesNear::addGetRequestParameters(QString &parameters)
-{
-    // create Center, Radius.
-}
+
 
 
 

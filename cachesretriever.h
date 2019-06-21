@@ -20,7 +20,6 @@ public:
     ~CachesRetriever() override;
 
     Q_INVOKABLE void sendRequest(QString token) override ;
-    Q_INVOKABLE void sendRequestMore(QString token) ;
     Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
 
     QQmlListProperty<Cache> caches();
@@ -35,15 +34,11 @@ signals:
     void cachesChanged();
     void stateChanged();
 
-public slots:
-    void onReplyFinished(QNetworkReply* reply) ;
-
 protected:
     const int MAX_PER_PAGE=40;
     const int GEOCACHE_LOG_COUNT=30;
     const int TRACKABLE_LOG_COUNT=30;
-    int m_indexMoreCachesBBox;
-    bool m_moreCachesBBox;
+    int m_indexMoreCaches;
 
     QString m_tokenTemp ;
     QString m_userName;

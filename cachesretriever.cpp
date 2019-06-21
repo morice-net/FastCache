@@ -10,8 +10,9 @@
 
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
+    , m_indexMoreCaches(0)
     , m_caches(QList<Cache*>())
-    ,  m_state()
+    , m_state()
 {    
 }
 
@@ -26,11 +27,25 @@ QQmlListProperty<Cache> CachesRetriever::caches()
 
 void CachesRetriever::sendRequest(QString token)
 {
-    m_caches.clear();
-    m_indexMoreCachesBBox = 0;
+    if(m_indexMoreCaches == 0) {
+        m_caches.clear();
+        emit cachesChanged() ;
+    }
 
     //Build url
     QString requestName = "geocaches/search?";
+    requestName.append("lite=true");
+
+    //Pagination
+    requestName.append("&skip=" + QString::number(m_indexMoreCaches) + "&take=" + QString::number(MAX_PER_PAGE));
+
+    // Fields
+
+    requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
+                       "geocacheSize,location,status,userData");
+
+    // Adding specific parameters(BBox or Center radius)
+    addGetRequestParameters(requestName);
 
     // Inform QML we are loading
     setState("loading");
@@ -39,106 +54,69 @@ void CachesRetriever::sendRequest(QString token)
 
     // filter by type.
     if(!m_filterTypes.isEmpty()){
-        foreach ( int type, m_filterTypes)
+        requestName.append("%2Btype:");
+        for ( int type: m_filterTypes)
         {
+            requestName.append(QString::number(type) + ",");
         }
+        requestName.remove(requestName.size()-1, 1);
     }
 
     // filter by size.
     if(!m_filterSizes.isEmpty()){
-        foreach ( int size, m_filterSizes)
+        requestName.append("%2Bsize:");
+        for ( int size: m_filterSizes)
         {
+            requestName.append(QString::number(size) + ",");
         }
+        requestName.remove(requestName.size()-1, 1);
     }
 
     // filter by difficulty, terrain.
     if(m_filterDifficultyTerrain[0] != 1.0 || m_filterDifficultyTerrain[1] != 5.0){
-
+        requestName.append( "%2Bdiff:" + QString::number(m_filterDifficultyTerrain[0]) + "-" + QString::number(m_filterDifficultyTerrain[1]));
     }
     if(m_filterDifficultyTerrain[2] != 1.0 || m_filterDifficultyTerrain[3] != 5.0){
-
+        requestName.append( "%2Bterr:" + QString::number(m_filterDifficultyTerrain[2]) + "-" + QString::number(m_filterDifficultyTerrain[3]));
     }
 
     // filter by keyword,discover and owner.
     if(!m_keyWordDiscoverOwner[0].isEmpty() ){
-
+        requestName.append("%2Bname:" + m_keyWordDiscoverOwner[0] );
     }
     if(!m_keyWordDiscoverOwner[1].isEmpty() ){
-
+        requestName.append("%2Bfby:" + m_keyWordDiscoverOwner[1] );
     }
     if(!m_keyWordDiscoverOwner[2].isEmpty() ){
-
+        requestName.append("%2Bhby:" + m_keyWordDiscoverOwner[2] );
     }
 
     // Exclude caches found and mine.
     if(m_filterExcludeFound == true){
-
+        requestName.append("%2Bfby:not(" + m_userName + ")");
     }
 
     // Exclude caches archived and available.
     if(m_filterExcludeArchived == true){
-
+        requestName.append("%2Bia:true");
     }
+    qDebug() << "URL:" << requestName ;
 
-    // Adding specific parameters
-    addGetRequestParameters(requestName);
     Requestor::sendGetRequest(requestName , token);
 }
 
-void CachesRetriever::sendRequestMore(QString token)
-{
-    // Inform QML we are loading
-    setState("loading");
-    m_indexMoreCachesBBox = m_indexMoreCachesBBox + MAX_PER_PAGE;
-}
-
 void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
-{
-    QJsonArray cachesJson = dataJsonDoc.array();
-    qDebug() << "caches:" << cachesJson ;
-
-    // request success
-    emit requestReady();
-}
-
-void CachesRetriever::onReplyFinished(QNetworkReply *reply)
-{
-    QJsonDocument dataJsonDoc;
-    QJsonObject JsonObj;
-    QJsonObject  statusJson;
-
-    if (reply->error() == QNetworkReply::NoError) {
-        dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
-        qDebug() << "*** CachesNear ***\n" <<dataJsonDoc ;
-
-        if (dataJsonDoc.isNull()) {
-            // Inform the QML that there is a loading error
-            setState("error");
-            return;
-        }
-        JsonObj = dataJsonDoc.object();
-        statusJson = JsonObj["Status"].toObject();
-
-        int status = statusJson["StatusCode"].toInt();
-        if (status != 0) {
-            // Inform the QML that there is an error
-            setState("error");
-            return ;
-        }
-
-    } else {
-        qDebug() << "*** CachesNear ERROR ***\n" <<reply->errorString() ;
-
-        // Inform the QML that there is an error
+{    
+    if (dataJsonDoc.isNull()) {
+        // Inform the QML that there is a loading error
         setState("error");
         return;
     }
+    QJsonArray caches = dataJsonDoc.array();
+    qDebug() << "caches:" << caches ;
 
     // Inform the QML that there is no loading error
     setState("noError");
-
-    QJsonValue value = JsonObj.value("Geocaches");
-    QJsonArray caches = value.toArray();
 
     int lengthCaches = caches.size();
     if (lengthCaches == 0) {
@@ -150,44 +128,66 @@ void CachesRetriever::onReplyFinished(QNetworkReply *reply)
     {
         Cache *cache ;
         cache = new Cache();
-        QString code(v.toObject().value("Code").toString());
-        cache->setGeocode(code);
-        cache->setRegistered(cache->checkRegistered());
+        cache->setGeocode(v["referenceCode"].toString());
+        //    cache->setRegistered(cache->checkRegistered());
 
-        cache->setArchived(v.toObject().value("Archived").toBool());
-        cache->setDisabled(v.toObject().value("Available").toBool());
+        if(v["status"].toString() == "Unpublished"){
+            cache->setArchived(false);
+            cache->setDisabled(false);
+        } else if(v["status"].toString() == "Active"){
+            cache->setArchived(false);
+            cache->setDisabled(false);
+        } else if(v["status"].toString() == "Disabled"){
+            cache->setArchived(false);
+            cache->setDisabled(true);
+        } else if(v["status"].toString() == "Locked"){
+            cache->setArchived(false);
+            cache->setDisabled(false);
+        } else if(v["status"].toString() == "Archived"){
+            cache->setArchived(true);
+            cache->setDisabled(false);
+        }
 
-        QJsonObject v1 = v.toObject().value("Owner").toObject();
-        QString owner = v1.value("UserName").toString();
-        cache->setOwner(owner);
+        cache->setOwner(v["ownerAlias"].toString());
+        cache->setDate(v["placedDate"].toString());
 
-        QString date(v.toObject().value("DateCreated").toString());
-        cache->setDate(date);
+        QJsonObject v1 = v["geocacheType"].toObject();
+        cache->setType(v1["id"].toInt());
 
-        QJsonObject v2 = v.toObject().value("CacheType").toObject();
-        int cacheTypeId= v2.value("GeocacheTypeId").toInt();
-        cache->setType(cacheTypeId);
+        QJsonObject v2 = v["geocacheSize"].toObject();
+        cache->setSize(v2["id"].toInt());
+
+        cache->setDifficulty(v["difficulty"].toDouble());
+        cache->setFavoritePoints(v["favoritePoints"].toInt());
+
+        QJsonObject v3 = v["postedCoordinates"].toObject();
+        cache->setLat(v3["Latitude"].toDouble());
+        cache->setLon(v3["Longitude"].toDouble());
 
 
-
-        QJsonObject v3 = v.toObject().value("ContainerType").toObject();
-        int cacheSizeId= v3.value("ContainerTypeId").toInt();
-        cache->setSize(cacheSizeId);
-
-        cache->setDifficulty(v.toObject().value("Difficulty").toDouble());
-        cache->setFavoritePoints(v.toObject().value("FavoritePoints").toInt());
-        cache->setLat(v.toObject().value("Latitude").toDouble());
-        cache->setLon(v.toObject().value("Longitude").toDouble());
-        QString name(v.toObject().value("Name").toString());
+        QString name(v["name"].toString());
         cache->setName(name);
-        cache->setTrackableCount(v.toObject().value("TrackableCount").toInt());
-        cache->setFound(v.toObject().value("HasbeenFoundbyUser").toBool());
-        cache->setTerrain(v.toObject().value("Terrain").toDouble());
-        qDebug() << "*** Caches***\n" <<cache->name() ;
+        cache->setTrackableCount(v["trackableCount"].toInt());
+
+
+        QJsonObject v4 = v["userData"].toObject();
+        if(v4["foundDate"].isNull()){
+            cache->setFound(false);
+        } else {
+            cache->setFound(true);
+        }
+        cache->setTerrain(v["terrain"].toDouble());
         m_caches.append(cache);
     }
-    if (m_moreCachesBBox == true && lengthCaches == MAX_PER_PAGE) {
-        sendRequestMore(m_tokenTemp);
+    // request success
+    emit requestReady();
+
+    if ( lengthCaches == MAX_PER_PAGE) {
+        m_indexMoreCaches = m_indexMoreCaches + MAX_PER_PAGE;
+        sendRequest(m_tokenTemp);
+    } else {
+        m_indexMoreCaches = 0 ;
+        m_caches.clear();
     }
     emit cachesChanged() ;
     return;

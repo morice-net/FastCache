@@ -285,7 +285,7 @@ Item {
         var coord = currentPosition.position.coordinate
         cachesNear.latPoint = coord.latitude
         cachesNear.lonPoint = coord.longitude
-        cachesNear.distance = 100000
+        cachesNear.distance = 100
 
         cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                       createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
@@ -296,7 +296,7 @@ Item {
     function cachesByCoordinates() {
         cachesNear.latPoint = coordinatesBox.resultLat
         cachesNear.lonPoint = coordinatesBox.resultLon
-        cachesNear.distance = 100000
+        cachesNear.distance = 100
         cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
                                       createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
                                       createFilterKeywordDiscoverOwner() , userInfo.name )

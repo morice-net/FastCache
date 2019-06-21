@@ -66,7 +66,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                cachesNear.sendRequestMore(connector.tokenKey)
+                cachesNear.sendRequest(connector.tokenKey)
             }
         }
     }
