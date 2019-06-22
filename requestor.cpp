@@ -2,6 +2,7 @@
 
 Requestor::Requestor(QObject *parent)
     : QObject(parent)
+    , m_state()
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
@@ -33,9 +34,55 @@ void Requestor::sendGetRequest(const QString &requestName , QString token)
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
 {
-    if (reply->error() == QNetworkReply::NoError) {
+    QVariant   statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+
+    switch(statusCode.toInt()){
+    case 200:
+        setState("OK");
         parseJson(QJsonDocument::fromJson(reply->readAll()));
-    } else {
-        qDebug() << reply->errorString();
+        break;
+    case 201:
+        setState("Created");
+        break;
+    case 204:
+        setState("No Content");
+        break;
+    case 400:
+        setState("Bad Request");
+        break;
+    case 401:
+        setState("Unauthorized");
+        break;
+    case 403:
+        setState("Forbidden");
+        break;
+    case 404:
+        setState("Not Found");
+        break;
+    case 409:
+        setState("Conflict");
+        break;
+    case 422:
+        setState("Unprocessable Entity");
+        break;
+    case 429:
+        setState("Too Many Requests");
+        break;
+    case 500:
+        setState("Internal Server Error");
+        break;
+    default:
+        break;
     }
+}
+
+QString Requestor::state() const
+{
+    return m_state;
+}
+
+void Requestor::setState(const QString &state)
+{
+    m_state = state;
+    emit stateChanged();
 }

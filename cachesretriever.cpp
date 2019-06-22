@@ -12,7 +12,6 @@ CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
     , m_indexMoreCaches(0)
     , m_caches(QList<Cache*>())
-    , m_state()
 {
 }
 
@@ -197,16 +196,7 @@ void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , Q
     m_userName = name ;
 }
 
-QString CachesRetriever::state() const
-{
-    return m_state;
-}
 
-void CachesRetriever::setState(const QString &state)
-{
-    m_state = state;
-    emit stateChanged();
-}
 
 
 
