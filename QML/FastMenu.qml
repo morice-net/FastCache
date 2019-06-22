@@ -149,8 +149,8 @@ Item {
             anchors.topMargin: 62
             anchors.bottomMargin: 20
 
-            buttonSelected: main.state == "near"
-            buttonText: main.viewState == "fullcache" ? "Lancer Maps" : "Caches proches"
+            buttonSelected: main.state === "near"
+            buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
 
             function buttonClicked() {
                 if (main.viewState == "fullcache") {
@@ -289,6 +289,7 @@ Item {
 
         cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                       createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.indexMoreCaches(0)
         cachesNear.sendRequest(connector.tokenKey)
     }
 
@@ -300,6 +301,7 @@ Item {
         cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
                                       createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
                                       createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.indexMoreCaches(0)
         cachesNear.sendRequest(connector.tokenKey)
         fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
     }

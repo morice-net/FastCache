@@ -44,7 +44,6 @@ signals:
     void lonBottomRightChanged();
     void latTopLeftChanged();
     void lonTopLeftChanged();
-    void cachesChanged();
 
 private:
     double m_latBottomRight;

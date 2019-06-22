@@ -18,6 +18,7 @@ public:
     ~CachesNear() override;
 
     Q_INVOKABLE void sendRequest(QString token) override;
+    Q_INVOKABLE void indexMoreCaches(int index) ;
     void parseJson(const QJsonDocument &dataJsonDoc) override;
     void moreCaches() override;
 
@@ -38,7 +39,6 @@ signals:
     void latPointChanged();
     void lonPointChanged();
     void distanceChanged();
-    void cachesChanged();
 
 private:
     double m_latPoint;

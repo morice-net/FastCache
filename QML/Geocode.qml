@@ -253,6 +253,7 @@ FastPopup {
                         cachesNear.distance = 100
                         cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                                       createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+                        cachesNear.indexMoreCaches(0)
                         cachesNear.sendRequest(connector.tokenKey)
 
                         fastMap.mapItem.center =QtPositioning.coordinate(listModel.get(index).valLat , listModel.get(index).valLon)

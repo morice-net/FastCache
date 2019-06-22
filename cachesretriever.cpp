@@ -207,3 +207,6 @@ void CachesRetriever::setState(const QString &state)
     m_state = state;
     emit stateChanged();
 }
+
+
+
