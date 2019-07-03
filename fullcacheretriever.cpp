@@ -38,6 +38,11 @@ void FullCacheRetriever::sendRequest(QString token)
     qDebug() << "error:" << state() ;
 }
 
+void FullCacheRetriever::updateFullCache(FullCache *fullCache)
+{
+    m_fullCache = fullCache;
+}
+
 void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 {
     if (dataJsonDoc.isNull()) {
@@ -52,11 +57,8 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     // Inform the QML that there is no loading error
     setState("noError");
 
-    FullCache fillCache ;
-
-
-    fillCache.setDifficulty(cacheJson["difficulty"].toDouble());
-    qDebug() << "cacheOject:" << fillCache.difficulty() ;
+    m_fullCache->setDifficulty(cacheJson["difficulty"].toDouble());
+    qDebug() << "cacheOject:" << m_fullCache->difficulty() ;
 
     // request success
     emit requestReady();
