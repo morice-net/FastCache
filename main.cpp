@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+
 #if !defined Q_OS_ANDROID
 #include <QtWebEngine/qtwebengineglobal.h>
 #endif
@@ -21,6 +22,7 @@
 #include "waypointtype.h"
 #include "logtype.h"
 #include "travelbug.h"
+#include "fullcacheretriever.h"
 
 int main(int argc, char *argv[])
 {
@@ -39,6 +41,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<WaypointType>("com.mycompany.connecting", 1, 0, "WaypointType");
     qmlRegisterType<LogType>("com.mycompany.connecting", 1, 0, "LogType");
     qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");
+    qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID
@@ -50,6 +53,7 @@ int main(int argc, char *argv[])
     view.setWidth(450);
     view.setHeight(840);
     view.show();
+
     QObject::connect((QObject*)view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
 
     return app.exec();

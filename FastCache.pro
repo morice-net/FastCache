@@ -8,6 +8,7 @@ linux:!android {
 
 SOURCES += main.cpp \
     connector.cpp \
+    fullcacheretriever.cpp \
     parameter.cpp \
     tools.cpp \
     cachesretriever.cpp \
@@ -39,6 +40,7 @@ include(deployment.pri)
 
 HEADERS += \
     connector.h \
+    fullcacheretriever.h \
     parameter.h \
     tools.h \
     cachesretriever.h \

@@ -160,7 +160,11 @@ Item {
     }
 
     FullCache {
-        id: fullCache
+        id:fullCache
+    }
+
+    FullCacheRetriever{
+        id: fullCacheRetriever
     }
 
     Travelbug{

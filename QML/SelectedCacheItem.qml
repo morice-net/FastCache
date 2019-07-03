@@ -108,7 +108,7 @@ Rectangle {
 
         onClicked: {
             fullCache.geocode = selectedCache.geocode
-            fullCache.sendRequest(connector.tokenKey)
+            fullCacheRetriever.sendRequest(connector.tokenKey)
             main.viewState = "fullcache"
         }
     }
