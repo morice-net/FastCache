@@ -174,12 +174,13 @@ signals:
     void trackableCodesChanged();
     void trackablesJsonChanged();
 
-private:
-
-    // Properties
-    QString m_state;
+public:
     QList<int> m_attributes;
     QList<bool> m_attributesBool;
+    QString m_note;
+
+private:
+    // Properties
     QString m_location;
     bool m_favorited;
     QString m_longDescription;
@@ -187,7 +188,6 @@ private:
     QString m_shortDescription;
     bool m_shortDescriptionIsHtml;
     QString m_hints;
-    QString m_note;
     QList<QString> m_imagesName;
     QList<QString> m_imagesDescription;
     QList<QString> m_imagesUrl;
@@ -206,6 +206,7 @@ private:
     QList<QString > m_trackableNames;
     QList<QString > m_trackableCodes;
     QJsonArray m_trackablesJson;
+    QString m_state;
 
     // Type of logs falitator
     const QMap<QString, int> m_mapLogType;

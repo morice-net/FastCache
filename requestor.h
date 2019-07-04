@@ -28,6 +28,10 @@ public slots:
     void onReplyFinished(QNetworkReply* reply);
 
 protected:
+    const int MAX_PER_PAGE = 40;
+    const int GEOCACHE_LOG_COUNT = 30;
+    const int TRACKABLE_LOG_COUNT = 30;
+
     //  network manager
     QNetworkAccessManager *m_networkManager;
 

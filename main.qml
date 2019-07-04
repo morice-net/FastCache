@@ -165,7 +165,6 @@ Item {
 
     FullCacheRetriever{
         id: fullCacheRetriever
-
         Component.onCompleted: updateFullCache(fullCache)
     }
 

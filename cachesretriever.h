@@ -33,9 +33,6 @@ signals:
     void cachesChanged();
 
 protected:
-    const int MAX_PER_PAGE = 40;
-    const int GEOCACHE_LOG_COUNT = 30;
-    const int TRACKABLE_LOG_COUNT = 30;
     int m_indexMoreCaches;
 
     QString m_tokenTemp ;
