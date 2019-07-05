@@ -178,6 +178,27 @@ public:
     QList<int> m_attributes;
     QList<bool> m_attributesBool;
     QString m_note;
+    QList<QString> m_imagesName;
+    QList<QString> m_imagesDescription;
+    QList<QString> m_imagesUrl;
+    QList<int> m_cacheImagesIndex;
+    QList<QString> m_findersName;
+    QList<QString> m_logs;
+    QList<QString> m_logsType;
+    QList<int> m_findersCount;
+    QList<bool> m_listVisibleImages;
+    QList<QString> m_wptsDescription;
+    QList<QString> m_wptsName;
+    QList<double> m_wptsLat;
+    QList<double> m_wptsLon;
+    QList<QString> m_wptsComment;
+    QList<QString > m_trackableNames;
+    QList<QString > m_trackableCodes;
+    QJsonArray m_trackablesJson;
+    QList<QString> m_findersDate;
+
+    // Type of logs falitator
+    const QMap<QString, int> m_mapLogType;
 
 private:
     // Properties
@@ -188,28 +209,7 @@ private:
     QString m_shortDescription;
     bool m_shortDescriptionIsHtml;
     QString m_hints;
-    QList<QString> m_imagesName;
-    QList<QString> m_imagesDescription;
-    QList<QString> m_imagesUrl;
-    QList<QString> m_findersName;
-    QList<QString> m_logs;
-    QList<QString> m_logsType;
-    QList<int> m_findersCount;
-    QList<QString> m_findersDate;
-    QList<int> m_cacheImagesIndex;
-    QList<bool> m_listVisibleImages;
-    QList<QString> m_wptsDescription;
-    QList<QString> m_wptsName;
-    QList<double> m_wptsLat;
-    QList<double> m_wptsLon;
-    QList<QString> m_wptsComment;
-    QList<QString > m_trackableNames;
-    QList<QString > m_trackableCodes;
-    QJsonArray m_trackablesJson;
     QString m_state;
-
-    // Type of logs falitator
-    const QMap<QString, int> m_mapLogType;
 
     // Network manager
     QNetworkAccessManager *m_networkManager;

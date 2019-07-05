@@ -27,10 +27,13 @@ void FullCacheRetriever::sendRequest(QString token)
 
     // Fields
     requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
-                       "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml");
+                       "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml,additionalWaypoints");
     // Expand
-    requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOG_COUNT) + ",trackables:" + QString::number(TRACKABLE_LOG_COUNT)
-                       + ",geocachelog.images,userwaypoints,images");
+    requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOG_COUNT) +
+                       ",trackables:" + QString::number(TRACKABLE_LOG_COUNT) +
+                       ",geocachelog.images:" + QString::number(GEOCACHE_LOG_IMAGES) +
+                       ",userwaypoints:" + QString::number(USER_WAYPOINTS) +
+                       ",images:") + QString::number(IMAGES);
 
     qDebug() << "URL:" << requestName ;
 
@@ -147,6 +150,114 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setHints(cacheJson["hints"].toString());
 
     // Images
+    m_fullCache->m_imagesName.clear();
+    m_fullCache->m_imagesDescription.clear();
+    m_fullCache->m_imagesUrl.clear();
+    m_fullCache->m_cacheImagesIndex.clear();
+
+    QJsonArray  images = cacheJson.value("images").toArray();
+    foreach (const QJsonValue &image , images)
+    {
+        m_fullCache->m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
+        m_fullCache->m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
+        m_fullCache->m_imagesUrl.append(image["thumbnailUrl"].toString());
+    }
+    m_fullCache->m_cacheImagesIndex.append(m_fullCache->m_imagesName.size());
+
+    qDebug() << "*** imagesName**\n" <<m_fullCache->m_imagesName ;
+    qDebug() << "*** imagesDescription**\n" <<m_fullCache->m_imagesDescription ;
+    qDebug() << "*** imagesUrl**\n" <<m_fullCache->m_imagesUrl ;
+
+    // Logs
+    m_fullCache->m_findersCount.clear();
+    m_fullCache->m_findersDate.clear();
+    m_fullCache->m_findersName.clear();
+    m_fullCache->m_logs.clear()  ;
+    m_fullCache->m_logsType.clear();
+    m_fullCache->m_listVisibleImages.clear();
+
+    QJsonArray geocacheLogs = cacheJson["geocacheLogs"].toArray();
+    for (QJsonValue geocacheLog: geocacheLogs)
+    {
+        m_fullCache->m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog.toObject().value("text").toString()));
+        m_fullCache->m_findersDate.append(geocacheLog.toObject().value("loggedDate").toString());
+
+        QJsonObject finder = geocacheLog.toObject()["owner"].toObject();
+        m_fullCache->m_findersName.append(finder["username"].toString());
+        m_fullCache->m_findersCount.append(finder["findCount"].toInt());
+
+        QJsonObject type = geocacheLog["geocacheLogType"].toObject();
+        m_fullCache->m_logsType.append(m_fullCache->m_mapLogType.key(type["id"].toInt()));
+
+        QJsonArray logsImage = geocacheLog["images"].toArray();
+        for (QJsonValue logImage: logsImage)
+        {
+            m_fullCache->m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage["description"].toString()));
+            m_fullCache->m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("description").toString()));
+            m_fullCache->m_imagesUrl.append(logImage.toObject().value("thumbnailUrl").toString());
+        }
+        m_fullCache->m_cacheImagesIndex.append(m_fullCache->m_imagesName.size());
+    }
+
+    for(int i = 0; i < m_fullCache->m_imagesName.size(); ++i)
+    {
+        m_fullCache->m_listVisibleImages.append(true);
+    }
+    emit m_fullCache->imagesNameChanged();
+    emit m_fullCache->imagesDescriptionChanged();
+    emit m_fullCache->imagesUrlChanged();
+    emit m_fullCache->logsChanged();
+    emit m_fullCache->logsTypeChanged();
+    emit m_fullCache->findersCountChanged();
+    emit m_fullCache->findersDateChanged();
+    emit m_fullCache->findersNameChanged();
+    emit m_fullCache->cacheImagesIndexChanged();
+    emit m_fullCache->listVisibleImagesChanged();
+
+    // Waypoints
+    m_fullCache->m_wptsDescription.clear();
+    m_fullCache->m_wptsName.clear();
+    m_fullCache->m_wptsLat.clear();
+    m_fullCache->m_wptsLon.clear()  ;
+    m_fullCache-> m_wptsComment.clear();
+
+    for (QJsonValue waypoint: cacheJson["additionalWaypoints"].toArray())
+    {
+        m_fullCache->m_wptsDescription.append(waypoint["description"].toString());
+        m_fullCache->m_wptsName.append(waypoint["name"].toString());
+
+        v1 = waypoint["coordinates"].toObject();
+        if(v1["Latitude"].isNull()) {
+            m_fullCache->m_wptsLat.append(200) ;
+        } else{
+            m_fullCache->m_wptsLat.append(v1["Latitude"].toDouble());
+        }
+        m_fullCache->m_wptsLon.append(v1["Longitude"].toDouble());
+        m_fullCache->m_wptsComment.append(waypoint["typeName"].toString());
+    }
+    emit m_fullCache->wptsDescriptionChanged();
+    emit m_fullCache->wptsNameChanged();
+    emit m_fullCache->wptsLatChanged();
+    emit m_fullCache->wptsLonChanged();
+    emit m_fullCache->wptsCommentChanged();
+
+    // Trackables: list of names and codes.
+    m_fullCache-> m_trackableNames.clear();
+    m_fullCache->m_trackableCodes.clear();
+
+    for (QJsonValue travel: cacheJson["Trackables"].toArray())
+    {
+        m_fullCache->m_trackableNames.append(travel.toObject().value("Name").toString());
+        m_fullCache->m_trackableCodes.append(travel.toObject().value("Code").toString());
+    }
+    emit m_fullCache->trackableNamesChanged();
+    emit m_fullCache->trackableCodesChanged();
+
+    // Trackables managed by travelbug class.
+    m_fullCache->setTrackablesJson( cacheJson["Trackables"].toArray());
+
+    emit m_fullCache->registeredChanged();
+
 
     // request success
     emit requestReady();
