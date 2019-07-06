@@ -204,7 +204,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: formatDate(fullCache.date)
+                text: new Date(fullCache.date).toLocaleDateString(Qt.locale("fr_FR"))
                 color: Palette.white()
             }
         }
@@ -325,11 +325,6 @@ Item {
                 }
             }
         }
-    }
-
-    function formatDate(date) {
-        var   substring = date.substring(date.indexOf("(") + 1 , date.indexOf(")"))
-        return new Date(parseFloat(substring)).toLocaleDateString(Qt.locale("fr_FR"))
     }
 }
 

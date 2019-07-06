@@ -29,11 +29,11 @@ public slots:
 
 protected:
     const int MAX_PER_PAGE = 40;
-    const int GEOCACHE_LOG_COUNT = 1;
-    const int TRACKABLE_LOG_COUNT = 1;
+    const int GEOCACHE_LOG_COUNT = 25;
+    const int TRACKABLE_LOG_COUNT = 25;
     const int GEOCACHE_LOG_IMAGES = 10;
     const int IMAGES = 20;
-    const int USER_WAYPOINTS = 5;
+    const int USER_WAYPOINTS = 15;
 
     //  network manager
     QNetworkAccessManager *m_networkManager;

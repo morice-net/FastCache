@@ -113,6 +113,28 @@ Item {
                     font.family: localFont.name
                     horizontalAlignment: Text.AlignRight
                     font.pointSize: 14
+                    text: "Propriétaire"
+                    color: Palette.silver()
+                }
+
+                Text {
+                    font.family: localFont.name
+                    font.pointSize: 14
+                    text: travelbug.originCountry
+                    color: Palette.white()
+                }
+            }
+
+
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
                     text: "Se situe"
                     color: Palette.silver()
                 }

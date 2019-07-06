@@ -28,7 +28,6 @@ class FullCache : public Cache
     Q_PROPERTY(QString hints READ hints WRITE setHints NOTIFY hintsChanged)
     Q_PROPERTY(QString note READ note WRITE setNote NOTIFY noteChanged)
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
-    Q_PROPERTY(QList<QString > imagesDescription READ imagesDescription WRITE setImagesDescription NOTIFY imagesDescriptionChanged)
     Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
     Q_PROPERTY(QList<QString > findersName READ findersName WRITE setFindersName NOTIFY findersNameChanged)
     Q_PROPERTY(QList<QString > logs READ logs WRITE setLogs NOTIFY logsChanged)
@@ -88,9 +87,6 @@ public:
 
     QList<QString> imagesName() const;
     void setImagesName(const QList<QString> &trackableNames);
-
-    QList<QString> imagesDescription() const;
-    void setImagesDescription(const QList<QString> &descriptions);
 
     QList<QString> imagesUrl() const;
     void setImagesUrl(const QList<QString> &urls);
@@ -156,7 +152,6 @@ signals:
     void hintsChanged();
     void noteChanged();
     void imagesNameChanged();
-    void imagesDescriptionChanged();
     void imagesUrlChanged();
     void findersNameChanged();
     void logsChanged();
@@ -179,7 +174,6 @@ public:
     QList<bool> m_attributesBool;
     QString m_note;
     QList<QString> m_imagesName;
-    QList<QString> m_imagesDescription;
     QList<QString> m_imagesUrl;
     QList<int> m_cacheImagesIndex;
     QList<QString> m_findersName;

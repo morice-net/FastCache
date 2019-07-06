@@ -46,17 +46,6 @@ Item {
                             wrapMode: Text.Wrap
                         }
 
-                        Text {
-                            visible: fullCache.listVisibleImages[index]
-                            text: fullCache.imagesDescription[index]
-                            font.family: localFont.name
-                            textFormat: Qt.RichText
-                            font.pointSize: 15
-                            color: Palette.white()
-                            wrapMode: Text.Wrap
-
-                        }
-
                         Image {
                             visible: fullCache.listVisibleImages[index]
                             source: fullCache.imagesUrl[index]

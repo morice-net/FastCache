@@ -151,7 +151,6 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
     // Images
     m_fullCache->m_imagesName.clear();
-    m_fullCache->m_imagesDescription.clear();
     m_fullCache->m_imagesUrl.clear();
     m_fullCache->m_cacheImagesIndex.clear();
 
@@ -159,13 +158,11 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     foreach (const QJsonValue &image , images)
     {
         m_fullCache->m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
-        m_fullCache->m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
-        m_fullCache->m_imagesUrl.append(image["thumbnailUrl"].toString());
+        m_fullCache->m_imagesUrl.append(image["url"].toString());
     }
     m_fullCache->m_cacheImagesIndex.append(m_fullCache->m_imagesName.size());
 
     qDebug() << "*** imagesName**\n" <<m_fullCache->m_imagesName ;
-    qDebug() << "*** imagesDescription**\n" <<m_fullCache->m_imagesDescription ;
     qDebug() << "*** imagesUrl**\n" <<m_fullCache->m_imagesUrl ;
 
     // Logs
@@ -179,8 +176,8 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QJsonArray geocacheLogs = cacheJson["geocacheLogs"].toArray();
     for (QJsonValue geocacheLog: geocacheLogs)
     {
-        m_fullCache->m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog.toObject().value("text").toString()));
-        m_fullCache->m_findersDate.append(geocacheLog.toObject().value("loggedDate").toString());
+        m_fullCache->m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog["text"].toString()));
+        m_fullCache->m_findersDate.append(geocacheLog["loggedDate"].toString());
 
         QJsonObject finder = geocacheLog.toObject()["owner"].toObject();
         m_fullCache->m_findersName.append(finder["username"].toString());
@@ -193,8 +190,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         for (QJsonValue logImage: logsImage)
         {
             m_fullCache->m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage["description"].toString()));
-            m_fullCache->m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("description").toString()));
-            m_fullCache->m_imagesUrl.append(logImage.toObject().value("thumbnailUrl").toString());
+            m_fullCache->m_imagesUrl.append(logImage["url"].toString());
         }
         m_fullCache->m_cacheImagesIndex.append(m_fullCache->m_imagesName.size());
     }
@@ -204,7 +200,6 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->m_listVisibleImages.append(true);
     }
     emit m_fullCache->imagesNameChanged();
-    emit m_fullCache->imagesDescriptionChanged();
     emit m_fullCache->imagesUrlChanged();
     emit m_fullCache->logsChanged();
     emit m_fullCache->logsTypeChanged();
@@ -223,17 +218,17 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
     for (QJsonValue waypoint: cacheJson["additionalWaypoints"].toArray())
     {
-        m_fullCache->m_wptsDescription.append(waypoint["description"].toString());
-        m_fullCache->m_wptsName.append(waypoint["name"].toString());
+        m_fullCache->m_wptsDescription.append(waypoint["name"].toString());
+        m_fullCache->m_wptsName.append(waypoint["typeName"].toString());
 
         v1 = waypoint["coordinates"].toObject();
-        if(v1["Latitude"].isNull()) {
+        if(v1["latitude"].isNull()) {
             m_fullCache->m_wptsLat.append(200) ;
         } else{
-            m_fullCache->m_wptsLat.append(v1["Latitude"].toDouble());
+            m_fullCache->m_wptsLat.append(v1["latitude"].toDouble());
         }
-        m_fullCache->m_wptsLon.append(v1["Longitude"].toDouble());
-        m_fullCache->m_wptsComment.append(waypoint["typeName"].toString());
+        m_fullCache->m_wptsLon.append(v1["longitude"].toDouble());
+        m_fullCache->m_wptsComment.append(waypoint["description"].toString());
     }
     emit m_fullCache->wptsDescriptionChanged();
     emit m_fullCache->wptsNameChanged();
@@ -245,19 +240,18 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache-> m_trackableNames.clear();
     m_fullCache->m_trackableCodes.clear();
 
-    for (QJsonValue travel: cacheJson["Trackables"].toArray())
+    for (QJsonValue travel: cacheJson["trackables"].toArray())
     {
-        m_fullCache->m_trackableNames.append(travel.toObject().value("Name").toString());
-        m_fullCache->m_trackableCodes.append(travel.toObject().value("Code").toString());
+        m_fullCache->m_trackableNames.append(travel["name"].toString());
+        m_fullCache->m_trackableCodes.append(travel["referenceCode"].toString());
     }
     emit m_fullCache->trackableNamesChanged();
     emit m_fullCache->trackableCodesChanged();
 
     // Trackables managed by travelbug class.
-    m_fullCache->setTrackablesJson( cacheJson["Trackables"].toArray());
+    m_fullCache->setTrackablesJson( cacheJson["trackables"].toArray());
 
     emit m_fullCache->registeredChanged();
-
 
     // request success
     emit requestReady();

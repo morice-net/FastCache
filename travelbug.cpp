@@ -10,15 +10,15 @@ Travelbug::Travelbug(QObject *parent)
     ,  m_originalOwner("")
     ,  m_located("")
     ,  m_description("")
-    ,  m_dateCreated("")
+    ,  m_originCountry("")
     ,  m_goal("")
+    ,  m_dateCreated("")
     , m_imagesName(QList<QString>())
-    , m_imagesDescription(QList<QString>())
     , m_imagesUrl(QList<QString>())
     , m_logs(QList<QString>())
     , m_logsType(QList<QString>())
-{
 
+{
 }
 
 Travelbug::~Travelbug()
@@ -31,41 +31,41 @@ void Travelbug::parseTrackable(QString trackableCode , QJsonArray trackables)
 
     for (QJsonValue trackable: trackables)
     {
-        if(trackable.toObject().value("Code").toString() == trackableCode) {
-            setName(trackable.toObject().value("Name").toString());
-            setType(trackable.toObject().value("TBTypeName").toString());
-            setTbCode(trackable.toObject().value("Code").toString());
+        if(trackable["referenceCode"].toString() == trackableCode) {
+            setName(trackable["name"].toString());
+            setTbCode(trackable["referenceCode"].toString());
 
-            QJsonValue owner = trackable["OriginalOwner"].toObject();
-            setOriginalOwner(owner.toObject().value("UserName").toString());
+            QJsonObject  tbType = trackable["trackableType"].toObject();
+            setType(tbType["name"].toString());
 
-            if(trackable.toObject().value("CurrentOwner").isNull() && trackable.toObject().value("CurrentGeocacheCode").isNull())
+            QJsonObject owner = trackable["owner"].toObject();
+            setOriginalOwner(owner["username"].toString());
+
+            if(trackable["isMissing"].toBool())
                 setLocated("Inconnu");
-            if (trackable.toObject().value("CurrentOwner").isNull()) {
-                QJsonValue currentOwner = trackable["CurrentOwner"].toObject();
-                setLocated("En possession de " + currentOwner.toObject().value("UserName").toString());
-            }else {
-                setLocated("Dans la cache " + trackable.toObject().value("CurrentGeocacheCode").toString());
+            else if (trackable["inHolderCollection"].toBool()) {
+                QJsonObject currentOwner = trackable["holder"].toObject();
+                setLocated("En possession de " + currentOwner["username"].toString());
+            } else if(!trackable["inHolderCollection"].toBool()){
+                setLocated("Dans la cache " + trackable["currentGeocacheCode"].toString());
             }
 
-            setDateCreated(trackable.toObject().value("DateCreated").toString());
-            setIconUrl(trackable.toObject().value("IconUrl").toString());
-            setGoal(trackable.toObject().value("CurrentGoal").toString());
-            setDescription(trackable.toObject().value("Description").toString());
+            setDateCreated(trackable["releasedDate"].toString());
+            setIconUrl(trackable["iconUrl"].toString());
+            setGoal(trackable["goal"].toString());
+            setOriginCountry(trackable["originCountry"].toString());
+            setDescription(trackable["description"].toString());
 
             //images
             m_imagesName.clear();
-            m_imagesDescription.clear();
             m_imagesUrl.clear();
 
-            for (QJsonValue image: trackable.toObject().value("Images").toArray())
+            for (QJsonValue image: trackable["images"].toArray())
             {
-                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
-                m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
-                m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
+                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
+                m_imagesUrl.append(image["url"].toString());
             }
             emit imagesNameChanged();
-            emit imagesDescriptionChanged();
             emit imagesUrlChanged();
             return ;
         }
@@ -173,6 +173,17 @@ void Travelbug::setGoal(const QString &goal)
     emit goalChanged();
 }
 
+QString Travelbug::originCountry() const
+{
+    return m_originCountry;
+}
+
+void Travelbug::setOriginCountry(const QString &country)
+{
+    m_originCountry= country;
+    emit originCountryChanged();
+}
+
 QList<QString> Travelbug::imagesName() const
 {
     return  m_imagesName;
@@ -182,17 +193,6 @@ void Travelbug::setImagesName(const QList<QString> &names)
 {
     m_imagesName = names;
     emit imagesNameChanged();
-}
-
-QList<QString> Travelbug::imagesDescription() const
-{
-    return  m_imagesDescription;
-}
-
-void Travelbug::setImagesDescription(const QList<QString> &descriptions)
-{
-    m_imagesDescription = descriptions;
-    emit imagesDescriptionChanged();
 }
 
 QList<QString>Travelbug::imagesUrl() const
@@ -210,6 +210,8 @@ QList<QString>Travelbug::logs() const
 {
     return  m_logs;
 }
+
+
 
 void Travelbug::setLogs(const QList<QString> &logs)
 {

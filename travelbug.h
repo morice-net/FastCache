@@ -16,11 +16,11 @@ class Travelbug : public QObject
     Q_PROPERTY(QString iconUrl READ iconUrl WRITE setIconUrl NOTIFY iconUrlChanged)
     Q_PROPERTY(QString originalOwner READ originalOwner WRITE setOriginalOwner NOTIFY originalOwnerChanged)
     Q_PROPERTY(QString located READ located WRITE setLocated NOTIFY locatedChanged)
+    Q_PROPERTY(QString originCountry READ originCountry  WRITE setOriginCountry  NOTIFY originCountryChanged)
     Q_PROPERTY(QString description READ description  WRITE setDescription  NOTIFY descriptionChanged)
     Q_PROPERTY(QString dateCreated READ dateCreated  WRITE setDateCreated NOTIFY dateCreatedChanged)
     Q_PROPERTY(QString goal READ goal WRITE setGoal NOTIFY goalChanged)
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
-    Q_PROPERTY(QList<QString > imagesDescription READ imagesDescription WRITE setImagesDescription NOTIFY imagesDescriptionChanged)
     Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
     Q_PROPERTY(QList<QString > logs READ logs WRITE setLogs NOTIFY logsChanged)
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
@@ -36,6 +36,9 @@ public:
 
     QString  type() const;
     void setType(const QString &type);
+
+    QString  originCountry() const;
+    void setOriginCountry(const QString &country);
 
     QString tbCode() const;
     void setTbCode(const QString &code);
@@ -64,9 +67,6 @@ public:
     QList<QString > imagesUrl() const;
     void setImagesUrl(const QList<QString > &urls);
 
-    QList<QString > imagesDescription() const;
-    void setImagesDescription(const QList<QString > &descriptions);
-
     QList<QString > logs() const;
     void setLogs(const QList<QString > &logs);
 
@@ -82,9 +82,9 @@ signals:
     void locatedChanged();
     void descriptionChanged();
     void dateCreatedChanged();
+    void originCountryChanged();
     void goalChanged();
     void imagesNameChanged();
-    void imagesDescriptionChanged();
     void imagesUrlChanged();
     void logsChanged();
     void logsTypeChanged();
@@ -98,10 +98,10 @@ protected:
     QString m_originalOwner;
     QString m_located;
     QString m_description;
+    QString m_originCountry;
     QString m_dateCreated;
     QString m_goal;
     QList<QString > m_imagesName;
-    QList<QString > m_imagesDescription;
     QList<QString > m_imagesUrl;
     QList<QString > m_logs;
     QList<QString > m_logsType;

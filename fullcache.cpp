@@ -24,7 +24,6 @@ FullCache::FullCache(Cache *parent)
     , m_hints("")
     , m_note("")
     , m_imagesName(QList<QString>())
-    , m_imagesDescription(QList<QString>())
     , m_imagesUrl(QList<QString>())
     , m_findersName(QList<QString>())
     , m_logs(QList<QString>())
@@ -237,20 +236,17 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
 
         // Images
         m_imagesName.clear();
-        m_imagesDescription.clear();
         m_imagesUrl.clear();
         m_cacheImagesIndex.clear();
 
         for (QJsonValue image: cacheJson.toObject().value("Images").toArray())
         {
             m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Name").toString()));
-            m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(image.toObject().value("Description").toString()));
             m_imagesUrl.append(image.toObject().value("MobileUrl").toString());
         }
         m_cacheImagesIndex.append(m_imagesName.size());
 
         qDebug() << "*** imagesName**\n" <<m_imagesName ;
-        qDebug() << "*** imagesDescription**\n" <<m_imagesDescription ;
         qDebug() << "*** imagesUrl**\n" <<m_imagesUrl ;
 
         // Logs
@@ -278,7 +274,6 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             for (QJsonValue logImage: logsImage)
             {
                 m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Name").toString()));
-                m_imagesDescription.append(smileys->replaceSmileyTextToImgSrc(logImage.toObject().value("Description").toString()));
                 m_imagesUrl.append(logImage.toObject().value("MobileUrl").toString());
             }
             m_cacheImagesIndex.append(m_imagesName.size());
@@ -289,7 +284,6 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
             m_listVisibleImages.append(true);
         }
         emit imagesNameChanged();
-        emit imagesDescriptionChanged();
         emit imagesUrlChanged();
         emit logsChanged();
         emit logsTypeChanged();
@@ -472,17 +466,6 @@ void FullCache::setImagesName(const QList<QString> &names)
 {
     m_imagesName = names;
     emit imagesNameChanged();
-}
-
-QList<QString> FullCache::imagesDescription() const
-{
-    return  m_imagesDescription;
-}
-
-void FullCache::setImagesDescription(const QList<QString> &descriptions)
-{
-    m_imagesDescription = descriptions;
-    emit imagesDescriptionChanged();
 }
 
 QList<QString> FullCache::imagesUrl() const
