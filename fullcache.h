@@ -16,7 +16,6 @@ class FullCache : public Cache
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(QList<int> attributes READ attributes WRITE setAttributes NOTIFY attributesChanged)
     Q_PROPERTY(QList<bool> attributesBool READ attributesBool WRITE setAttributesBool NOTIFY attributesBoolChanged)
     Q_PROPERTY(QString location READ location WRITE setLocation NOTIFY locationChanged)
@@ -57,9 +56,6 @@ public:
 
     QList<bool> attributesBool() const;
     void setAttributesBool(const  QList<bool> &attributesBool);
-
-    QString state() const;
-    void setState(const QString &state);
 
     QString location() const;
     void setLocation(const QString &location);
@@ -139,8 +135,7 @@ public:
 public slots:
     void onReplyFinished(QNetworkReply* reply)  ;
 
-signals:
-    void stateChanged();
+signals:   
     void attributesChanged();
     void attributesBoolChanged();
     void locationChanged();
@@ -203,7 +198,6 @@ private:
     QString m_shortDescription;
     bool m_shortDescriptionIsHtml;
     QString m_hints;
-    QString m_state;
 
     // Network manager
     QNetworkAccessManager *m_networkManager;

@@ -113,7 +113,7 @@ Item {
                     font.family: localFont.name
                     horizontalAlignment: Text.AlignRight
                     font.pointSize: 14
-                    text: "Propriétaire"
+                    text: "Pays d'origine"
                     color: Palette.silver()
                 }
 

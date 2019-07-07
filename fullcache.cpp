@@ -12,7 +12,6 @@
 
 FullCache::FullCache(Cache *parent)
     :  Cache (parent)
-    ,  m_state()
     ,  m_attributes(QList<int>())
     ,  m_attributesBool(QList<bool>())
     , m_location("")
@@ -85,7 +84,6 @@ void FullCache::sendRequest(QString token)
 
     }
     // Inform QML we are loading
-    setState("loading");
 
     QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//SearchForGeocaches?format=json");
 
@@ -132,7 +130,7 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         qDebug() << "*** Cache ***\n" <<dataJsonDoc ;
         if (dataJsonDoc.isNull()) {
             // Inform the QML that there is a loading error
-            setState("error");
+            // setState("error");
             return;
         }
         JsonObj = dataJsonDoc.object();
@@ -141,17 +139,17 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         int status = statusJson["StatusCode"].toInt();
         if (status != 0) {
             // Inform the QML that there is an error
-            setState("error");
+            //     setState("error");
             return ;
         }
     } else {
         qDebug() << "*** Cache ERROR ***\n" <<reply->errorString();
         // Inform the QML that there is an error
-        setState("error");
+        //    setState("error");
         return;
     }
     // Inform the QML that there is no loading error
-    setState("noError");
+    //  setState("noError");
 
     QJsonValue value = JsonObj.value("Geocaches");
     QJsonArray caches = value.toArray();
@@ -356,17 +354,6 @@ void FullCache::setAttributesBool(const QList<bool> &attributesBool)
 {
     m_attributesBool = attributesBool;
     emit attributesBoolChanged();
-}
-
-QString FullCache::state() const
-{
-    return m_state;
-}
-
-void FullCache::setState(const QString &state)
-{
-    m_state = state;
-    emit stateChanged();
 }
 
 QString FullCache::location() const

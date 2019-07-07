@@ -68,7 +68,7 @@ Rectangle {
 
     SwipeView {
         id: swipeFastCache
-        visible: fullCache.state !== "loading"
+        visible: fullCacheRetriever.state !== "loading"
         currentIndex: 3
         anchors.top: fastCacheHeader.bottom
         anchors.bottom: parent.bottom
@@ -116,7 +116,7 @@ Rectangle {
 
     PageIndicator {
         id: indicatorFastCache
-        visible: fullCache.state !== "loading"
+        visible: fullCacheRetriever.state !== "loading"
         
         count: swipeFastCache.count
         currentIndex: swipeFastCache.currentIndex

@@ -15,7 +15,7 @@ Item {
         border.color: Palette.black()
         border.width: 1
         radius:10
-        visible: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCache.state === "loading"
+        visible: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
 
         Text {
             anchors.fill: parent
@@ -30,7 +30,7 @@ Item {
 
         BusyIndicator {
             anchors.centerIn: parent
-            running: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCache.state === "loading"
+            running: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
         }
     }
 }
