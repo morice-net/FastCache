@@ -13,10 +13,16 @@ class Requestor : public QObject
 
 public:
     explicit Requestor(QObject *parent = nullptr);
+
     virtual void sendPostRequest(const QString &requestName, const QJsonObject &parameters , QString token);
     virtual void sendGetRequest(const QString &requestName , QString token);
-    virtual Q_INVOKABLE void sendRequest(QString token) = 0;
+    virtual void sendPutRequest(const QString &requestName ,const QByteArray &data, QString token);
+    virtual void sendDeleteRequest(const QString &requestName, QString token);
+
     virtual void parseJson(const QJsonDocument &dataJsonDoc) = 0;
+
+    virtual Q_INVOKABLE void sendRequest(QString token) ;
+
     QString state() const;
     void setState(const QString &state);
 

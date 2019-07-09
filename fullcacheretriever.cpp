@@ -111,13 +111,11 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     // Favorited
     m_fullCache->setFavorited(v1["isFavorited"].toBool());
 
-    m_fullCache->setTerrain(cacheJson["terrain"].toDouble());
-
     // Note
-    m_fullCache->m_note = "";
-    if (!cacheJson["note"].toString().isEmpty()) {
-        m_fullCache->setNote(cacheJson["note"].toString());
-    }
+    m_fullCache->setNote("");
+    m_fullCache->setNote(v1["note"].toString());
+
+    m_fullCache->setTerrain(cacheJson["terrain"].toDouble());
 
     // Attributes of cache.
     m_fullCache->m_attributes.clear();

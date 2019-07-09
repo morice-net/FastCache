@@ -7,6 +7,7 @@ import com.mycompany.connecting 1.0
 Item {
     id: fastTravelbugDetailsPage
     height: swipeFastTravelbug.height
+    visible:true
 
     Flickable {
         anchors.topMargin: 100

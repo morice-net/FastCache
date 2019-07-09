@@ -176,7 +176,7 @@ Item {
                         radius: 5
                     }
                     onClicked: {
-                        sendCacheNote.updateCacheNote(connector.tokenKey , fullCache.geocode , personalNote.text);
+                        sendCacheNote.sendRequest(connector.tokenKey , fullCache.geocode , personalNote.text);
                     }
                 }
             }

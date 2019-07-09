@@ -1,35 +1,26 @@
 #ifndef SENDCACHENOTE_H
 #define SENDCACHENOTE_H
 
+#include "requestor.h"
+
 #include <QNetworkReply>
 #include <QObject>
 
-
-class SendCacheNote : public QObject
+class SendCacheNote : public Requestor
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
+public:
+    explicit  SendCacheNote(Requestor *parent = nullptr);
+    ~SendCacheNote() override;
 
-public:    
+    Q_INVOKABLE void sendRequest(QString token, QString cacheCode, QString note);
 
-    explicit SendCacheNote(QObject *parent = nullptr);
-
-    QString state() const;
-    void setState(const QString &state);
-
-    Q_INVOKABLE void updateCacheNote(QString token , QString cacheCode, QString note) ;
-
-
-public slots:
-    void onReplyFinished(QNetworkReply* reply) ;
-
-signals:
-    void stateChanged();
+    void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
-
-    QString m_state;
+    QString m_geocode ;
+    QString m_note;
 
     //  network manager
 
