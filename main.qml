@@ -175,11 +175,14 @@ Item {
     SendCacheNote{
         id:sendCacheNote
         onStateChanged: {
-            toast.visible = sendCacheNote.state === "noError" || sendCacheNote.state === "error";
-            if (sendCacheNote.state === "error") {
-                toast.show("Erreur dans l'envoi de la note personnelle");
-            } else {
-                toast.show("La note personnelle à été correctement envoyée ");
+            toast.visible = sendCacheNote.state !== "loading" ;
+            if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
+                toast.show("Erreur de connexion  " + "(" + state + ")");
+            if (sendCacheNote.state === "OK")
+                //   toast.show("La note personnelle à été correctement envoyée");
+                toast.show("Erreur de connexion  " + "(" + state + ")");
+            else {
+                toast.show("La note personnelle à été détruite ")
             }
         }
     }
