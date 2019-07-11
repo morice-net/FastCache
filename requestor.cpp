@@ -69,6 +69,7 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
         break;
     case 201:
         setState("Created");
+        parseJson(QJsonDocument::fromJson(reply->readAll()));
         break;
     case 204:
         setState("No Content");

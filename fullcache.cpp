@@ -128,11 +128,6 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
         qDebug() << "*** Cache ***\n" <<dataJsonDoc ;
-        if (dataJsonDoc.isNull()) {
-            // Inform the QML that there is a loading error
-            // setState("error");
-            return;
-        }
         JsonObj = dataJsonDoc.object();
         statusJson = JsonObj["Status"].toObject();
 
@@ -144,8 +139,6 @@ void FullCache::onReplyFinished(QNetworkReply *reply)
         }
     } else {
         qDebug() << "*** Cache ERROR ***\n" <<reply->errorString();
-        // Inform the QML that there is an error
-        //    setState("error");
         return;
     }
     // Inform the QML that there is no loading error

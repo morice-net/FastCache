@@ -5,88 +5,50 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-SendCacheLog::SendCacheLog(QObject *parent)
-    : QObject(parent)
-    ,  m_state()
+SendCacheLog::SendCacheLog(Requestor *parent)
+    : Requestor (parent)
     ,  m_count()
-
-{
-    m_networkManager = new QNetworkAccessManager(this);
-    connect( m_networkManager, &QNetworkAccessManager::finished, this, &SendCacheLog::onReplyFinished);
+{   
 }
 
-void SendCacheLog::cacheLog(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite)
+SendCacheLog::~SendCacheLog()
 {
+}
+
+void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , QString date , QString text , bool favorite)
+{
+    //Build url
+    QString requestName = "geocachelogs?fields=referenceCode,owner";
+
+    //Add parameters
+    QJsonObject log;
+
+    log.insert("geocacheCode", QJsonValue(cacheCode));
+    log.insert("loggedDate", QJsonValue(date));
+    log.insert("text", QJsonValue(text));
+    log.insert("isEncoded",QJsonValue(false));
+    log.insert("usedFavoritePoint",QJsonValue(favorite));
+
+    QJsonObject type;
+    type.insert("id",logType);
+    log.insert("geocacheLogType", type);
+
     // Inform QML we are loading
     setState("loading");
-
-    QUrl uri("https://api.groundspeak.com/LiveV6/geocaching.svc//CreateFieldNoteAndPublish?format=json");
-
-    QJsonObject parameters;
-
-    parameters.insert("AccessToken", QJsonValue(token));
-    parameters.insert("CacheCode", QJsonValue(cacheCode));
-    parameters.insert("WptLogTypeId", QJsonValue(logType));
-    parameters.insert("UTCDateLogged", QJsonValue(date));
-    parameters.insert("Note", QJsonValue(log));
-    parameters.insert("PromoteToLog",QJsonValue(true));
-    parameters.insert("EncryptLogText",QJsonValue(false));
-    parameters.insert("FavoriteThisCache",QJsonValue(favorite));
-
-    QNetworkRequest request;
-    request.setUrl(uri);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    qDebug() <<"cachesJson:" <<QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+    Requestor::sendPostRequest(requestName,log,token);
 }
 
-void SendCacheLog::onReplyFinished(QNetworkReply *reply)
+void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
 {
     QJsonObject logJson;
-    QJsonObject statusJson;
     QJsonObject finderJson;
 
-    if (reply->error() == QNetworkReply::NoError) {
-        QJsonDocument dataJsonDoc = QJsonDocument::fromJson(reply->readAll());
-        qDebug() << "*** CacheLog ***\n" <<dataJsonDoc ;
+    logJson = dataJsonDoc.object();
+    finderJson = logJson["owner"].toObject();
+    setFounds(finderJson["findCount"].toInt());
 
-        if (dataJsonDoc.isNull()) {
-            // Inform the QML that there is a loading error
-            setState("error");
-            return;
-        }
-        QJsonObject JsonObj = dataJsonDoc.object();
-        statusJson = JsonObj["Status"].toObject();
-        logJson = JsonObj["Log"].toObject();
-
-        int status = statusJson["StatusCode"].toInt();
-        if (status != 0) {
-            // Inform the QML that there is an error
-            setState("error");
-            return ;
-        }
-    } else {
-        qDebug() << "*** CacheLog ERROR ***\n" <<reply->errorString();
-        // Inform the QML that there is an error
-        setState("error");
-        return;
-    }
-    // Inform the QML that there is no loading error
-    setState("noError");
-
-    finderJson = logJson["Finder"].toObject();
-    setFounds(finderJson["FindCount"].toInt());
+    qDebug() << "*** logResponse**\n" << logJson;
     return ;
-}
-QString SendCacheLog::state() const
-{
-    return m_state;
-}
-
-void SendCacheLog::setState(const QString &state)
-{
-    m_state = state;
-    emit stateChanged();
 }
 
 int SendCacheLog::founds() const

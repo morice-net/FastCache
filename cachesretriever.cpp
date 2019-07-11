@@ -103,17 +103,9 @@ void CachesRetriever::sendRequest(QString token)
 }
 
 void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
-{
-    if (dataJsonDoc.isNull()) {
-        // Inform the QML that there is a loading error
-        setState("error");
-        return;
-    }
+{    
     QJsonArray caches = dataJsonDoc.array();
     qDebug() << "cachesArray:" << caches ;
-
-    // Inform the QML that there is no loading error
-    setState("noError");
 
     int lengthCaches = caches.size();
     if (lengthCaches == 0) {

@@ -50,17 +50,8 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 
 void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    if (dataJsonDoc.isNull()) {
-        // Inform the QML that there is a loading error
-        setState("error");
-        return;
-    }
-
     QJsonObject cacheJson = dataJsonDoc.object();
     qDebug() << "cacheOject:" << cacheJson;
-
-    // Inform the QML that there is no loading error
-    setState("noError");
 
     SmileyGc * smileys = new SmileyGc;
 

@@ -41,13 +41,5 @@ void SendCacheNote::sendRequest(QString token ,QString cacheCode, QString note)
 
 void SendCacheNote::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    if (dataJsonDoc.isNull()) {
-        // Inform the QML that there is a loading error
-        setState("error");
-        return;
-    }
-
-    // Inform the QML that there is no loading error
-    setState("noError");
 }
 

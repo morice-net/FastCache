@@ -8,7 +8,7 @@ import com.mycompany.connecting 1.0
 Item {
     id: logPage
 
-    property real dateInMillis: Math.floor(new Date())
+    property string dateIso: new Date().toISOString()
     property int currentIndex: 0
     property string textLog: ""
 
@@ -201,7 +201,7 @@ Item {
                 id:calendar
                 onClicked:{
                     logDate.text="Date  " + date.toLocaleDateString(Qt.LocaleDate);
-                    dateInMillis = Math.floor(date)
+                    dateIso = date.toISOString()
                 }
                 style: CalendarStyle {
                     gridVisible: false
@@ -354,10 +354,10 @@ Item {
                     }
                     onClicked:{
                         console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
-                                    "/Date(" + (dateInMillis - 0700).toString() + ")/" + " " +  message.text + " "  + favorited.checked);
+                                    dateIso   + " " +  message.text + " "  + favorited.checked);
                         if(message.text !== null && message.text !== '')
-                            sendCacheLog.cacheLog(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
-                                                  "/Date(" + (dateInMillis - 0700).toString() + ")/" , message.text , favorited.checked );
+                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
+                                                     dateIso  , message.text , favorited.checked );
                     }
                 }
             }
