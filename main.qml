@@ -179,10 +179,9 @@ Item {
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
                 toast.show("Erreur de connexion  " + "(" + state + ")");
             if (sendCacheNote.state === "OK")
-                //   toast.show("La note personnelle à été correctement envoyée");
-                toast.show("Erreur de connexion  " + "(" + state + ")");
+                toast.show("La note personnelle à été correctement envoyée");
             else {
-                toast.show("La note personnelle à été détruite ")
+                toast.show("La note personnelle à été supprimée ")
             }
         }
     }
