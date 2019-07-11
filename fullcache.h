@@ -1,16 +1,9 @@
 #ifndef FULLCACHE_H
 #define FULLCACHE_H
 
-#include <QNetworkReply>
-#include <QJsonObject>
 #include <QJsonArray>
-#include <QObject>
 
 #include "cache.h"
-
-static constexpr int MAX_PER_PAGE = 40;
-static constexpr int GEOCACHE_LOG_COUNT = 30;
-static constexpr int TRACKABLE_LOG_COUNT = 30;
 
 class FullCache : public Cache
 {
@@ -46,10 +39,6 @@ class FullCache : public Cache
 
 public:
     explicit FullCache(Cache *parent = nullptr);
-
-    Q_INVOKABLE void sendRequest(QString token);
-    Q_INVOKABLE void writeToStorage();
-    bool readFromStorage();
 
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);
@@ -132,9 +121,6 @@ public:
     QJsonArray trackablesJson() const;
     void setTrackablesJson(const QJsonArray &trackablesJson);
 
-public slots:
-    void onReplyFinished(QNetworkReply* reply)  ;
-
 signals:   
     void attributesChanged();
     void attributesBoolChanged();
@@ -198,9 +184,5 @@ private:
     QString m_shortDescription;
     bool m_shortDescriptionIsHtml;
     QString m_hints;
-
-    // Network manager
-    QNetworkAccessManager *m_networkManager;
 };
-
 #endif // FULLCACHE_H
