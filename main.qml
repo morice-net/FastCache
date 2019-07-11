@@ -175,7 +175,7 @@ Item {
     SendCacheNote{
         id:sendCacheNote
         onStateChanged: {
-            toast.visible = sendCacheNote.state !== "loading" ;
+            toast.visible = sendCacheNote.state !== "loading";
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
                 toast.show("Erreur de connexion  " + "(" + state + ")");
             if (sendCacheNote.state === "OK")
@@ -189,9 +189,9 @@ Item {
     SendCacheLog{
         id:sendCacheLog
         onStateChanged: {
-            toast.visible = sendCacheLog.state === "noError" || sendCacheLog.state === "error";
-            if (sendCacheLog.state === "error") {
-                toast.show("Erreur dans l'envoi du log de la cache");
+            toast.visible = sendCacheLog.state !== "loading";
+            if (sendCacheLog.state !== "Created") {
+                toast.show("Erreur de connexion  " + "(" + state + ")");
             } else {
                 toast.show("Le log de la cache à été correctement envoyé ");
             }
