@@ -8,12 +8,10 @@ Item {
     id:loadingPage
 
     Rectangle {
-        x:10
-        width:main.width*0.9
-        height: main.height*0.9
+        x:0
+        width:main.width
+        height: main.height
         color: Palette.greenSea()
-        border.color: Palette.black()
-        border.width: 1
         radius:10
         visible: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
 
