@@ -24,7 +24,6 @@ SOURCES += main.cpp \
     sendcachenote.cpp \
     smileygc.cpp \
     waypointtype.cpp \
-    objectstorage.cpp \
     sqlitestorage.cpp \
     sendcachelog.cpp \
     logtype.cpp \
@@ -56,7 +55,6 @@ HEADERS += \
     sendcachenote.h \
     smileygc.h \
     waypointtype.h \
-    objectstorage.h \
     sqlitestorage.h \
     sendcachelog.h \
     logtype.h \

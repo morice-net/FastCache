@@ -1,14 +1,12 @@
 #include "sqlitestorage.h"
 
 #include <QCoreApplication>
-#include <QMetaObject>
-#include <QMetaProperty>
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QSqlError>
 #include <QDebug>
 
-SQLiteStorage::SQLiteStorage(QObject *parent) : ObjectStorage(parent)
+SQLiteStorage::SQLiteStorage(QObject *parent) : QObject(parent)
 {
     QString path = "./FastCacheDatabase.db";
     m_database = QSqlDatabase::addDatabase("QSQLITE");
@@ -21,112 +19,31 @@ SQLiteStorage::SQLiteStorage(QObject *parent) : ObjectStorage(parent)
     }
 }
 
-bool SQLiteStorage::readAllObjects()
+bool SQLiteStorage::readAllObjectsFromTable(const QString &tableName)
 {
-    QSqlQuery query;
-    query.exec("SELECT name FROM sqlite_master WHERE type='table'");
-    if (query.lastError().type() == QSqlError::NoError) {
-        qDebug() << "Request success";
-    } else {
-        qDebug() << "Error ? " << query.lastError().text();
-        return false;
-    }
-    int idName = query.record().indexOf("name");
-    while (query.next())
-    {
-        QString tablename = query.value(idName).toString();
-        qDebug() << tablename;
-        QSqlQuery select;
-        select.exec("SELECT * FROM " + tablename);
-        if (select.lastError().type() == QSqlError::NoError) {
-            qDebug() << "Request success";
-        } else {
-            qDebug() << "Error ? " << select.lastError().text();
-            return false;
-        }
-        while (select.next())
-        {
-            //TODO Create and treat all objects
-        }
-    }
+    Q_UNUSED(tableName)
     return true;
 }
 
-bool SQLiteStorage::readObject(QObject *dataRow, const QString &columnNameId, const QString &valueId, QString table)
+ bool SQLiteStorage::readObject(const QString &tableName, const QString &id, QJsonDocument &json)
 {
-    if (table.isEmpty()) {
-        table = dataRow->objectName();
-    }
-    QString selectQueryText = "SELECT * FROM " + table + " WHERE " + columnNameId + "='" + valueId+"'";
+    QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id+"'";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
     select.exec(selectQueryText);
 
     if (select.next()) {
-        for (int i = 1; i < dataRow->metaObject()->propertyCount(); ++i) {
-            auto variantList = unserializeValue(select.value(i-1).toString());
-            QVariant value;
-            if (variantList.size() == 1) {
-                // Case of single value
-                value = variantList.first();
-            } else {
-                // Case of lists
-                const char *typeName = dataRow->metaObject()->property(i).typeName();
-                if (typeName == QStringLiteral("QList<int>")) {
-                    QList<int> unserializedList;
-                    for (auto elem: variantList) {
-                        unserializedList.append(elem.toInt());
-                    }
-                    value = QVariant::fromValue<QList<int>>(unserializedList);
-                } else if (typeName == QStringLiteral("QList<bool>")) {
-                    QList<bool> unserializedList;
-                    for (auto elem: variantList) {
-                        unserializedList.append(elem.toBool());
-                    }
-                    value = QVariant::fromValue<QList<bool>>(unserializedList);
-                } else if (typeName == QStringLiteral("QList<QString>")) {
-                    QList<QString> unserializedList;
-                    for (auto elem: variantList) {
-                        unserializedList.append(elem.toString());
-                    }
-                    value = QVariant::fromValue<QList<QString>>(unserializedList);
-                } else if (typeName == QStringLiteral("QList<double>")) {
-                    QList<double> unserializedList;
-                    for (auto elem: variantList) {
-                        unserializedList.append(elem.toDouble());
-                    }
-                    value = QVariant::fromValue<QList<double>>(unserializedList);
-                }
-            }
-            dataRow->metaObject()->property(i).write(dataRow, value);
-
-            std::string signalName( std::string(dataRow->metaObject()->property(i).name()) + "Changed");
-            QMetaObject::invokeMethod(dataRow, signalName.c_str());
-        }
+        json = QJsonDocument::fromVariant(select.value(0));
         return true;
     }
     return false;
 }
 
-bool SQLiteStorage::createObject(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnValues)
+bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJsonDocument &json)
 {
     QString queryCommand;
-    queryCommand += "REPLACE INTO " + tableName + " ( ";
-    for(int i = 0; i < columnNames.size(); i++) {
-        queryCommand += columnNames[i];
-        if (i == (columnNames.size() - 1))
-            queryCommand += " ) ";
-        else
-            queryCommand += ", ";
-    }
-    queryCommand += "VALUES (";
-    for(int i = 0; i < columnValues.size(); i++) {
-        queryCommand += "'" + QString(columnValues[i]).replace('\"', '"').replace("'","''") + "'";
-        if (i == (columnValues.size() - 1))
-            queryCommand += " );";
-        else
-            queryCommand += ", ";
-    }
+    QString stringJson(json.toJson(QJsonDocument::Compact));
+    queryCommand += "REPLACE INTO " + tableName + " (id, json) VALUES ('" + id + "', '" + stringJson.replace('\"', '"').replace("'","''") + "')";
 
     QSqlQuery query;
     query.exec(queryCommand);
@@ -140,28 +57,12 @@ bool SQLiteStorage::createObject(const QString &tableName, const QVector<QString
     return true;
 }
 
-bool SQLiteStorage::createTable(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnTypes, const QString& primaryKey)
+bool SQLiteStorage::createTable(const QString &tableName)
 {
     QString queryCommand;
-    queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " ( ";
-    for(int i = 0; i < columnNames.size(); i++) {
-        queryCommand += columnNames[i] + " " + columnTypes[i] + ((columnNames[i] == primaryKey) ? " primary key " : "");
-        if (i == (columnNames.size() - 1))
-            queryCommand += " );";
-        else
-            queryCommand += ", ";
-    }
+    queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " (id string primary key, json string)";
 
     QSqlQuery query;
     return query.exec(queryCommand);
 }
 
-QString SQLiteStorage::stringFromType(const QVariant::Type &type) const
-{
-    if (type == QVariant::Int)
-        return "INTEGER";
-    else if (type == QVariant::String)
-        return "TEXT";
-    else
-        return "TEXT";
-}

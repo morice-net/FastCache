@@ -1,26 +1,24 @@
 #ifndef SQLITESTORAGE_H
 #define SQLITESTORAGE_H
 
-#include "objectstorage.h"
-
+#include <QObject>
 #include <QSqlDatabase>
+#include <QJsonDocument>
 
-class SQLiteStorage : public ObjectStorage
+class SQLiteStorage: public QObject
 {
     Q_OBJECT
 public:
     explicit SQLiteStorage(QObject * parent = nullptr);
+    virtual ~SQLiteStorage();
 
-    bool readAllObjects();
-    bool readObject(QObject *object, const QString &columnNameId, const QString &valueId, QString table = "");
-    bool createObject(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnValues) override;
-    bool createTable(const QString &tableName, const QVector<QString> &columnNames, const QVector<QString> &columnTypes, const QString &primaryKey) override;
-    QString stringFromType(const QVariant::Type &type) const override;
+    bool readAllObjectsFromTable(const QString &tableName);
+    bool readObject(const QString &tableName, const QString &id, QJsonDocument &json);
+    bool updateObject(const QString &tableName, const QString &id, QJsonDocument &json);
+    bool createTable(const QString &tableName);
 
 private:
     QSqlDatabase m_database;
-
-    void extractList();
 };
 
 #endif // SQLITESTORAGE_H
