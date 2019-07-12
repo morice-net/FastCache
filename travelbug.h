@@ -2,6 +2,7 @@
 #define TRAVELBUG_H
 
 #include "requestor.h"
+#include <QMap>
 
 #include <QObject>
 #include <QDebug>
@@ -24,8 +25,10 @@ class Travelbug : public Requestor
     Q_PROPERTY(QString goal READ goal WRITE setGoal NOTIFY goalChanged)
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
     Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
-    Q_PROPERTY(QList<QString > logs READ logs WRITE setLogs NOTIFY logsChanged)
+    Q_PROPERTY(QList<QString > logsText READ logsText WRITE setLogsText NOTIFY logsTextChanged)
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
+    Q_PROPERTY(QList<QString > logsOwnersName READ logsOwnersName WRITE setLogsOwnersName NOTIFY logsOwnersNameChanged)
+    Q_PROPERTY(QList<QString > logsDate READ logsDate WRITE setLogsDate NOTIFY logsDateChanged)
 
 public:
     explicit  Travelbug(Requestor *parent = nullptr);
@@ -71,11 +74,17 @@ public:
     QList<QString > imagesUrl() const;
     void setImagesUrl(const QList<QString > &urls);
 
-    QList<QString > logs() const;
-    void setLogs(const QList<QString > &logs);
+    QList<QString > logsText() const;
+    void setLogsText(const QList<QString > &logsText);
 
     QList<QString > logsType() const;
     void setLogsType(const QList<QString > &types);
+
+    QList<QString > logsOwnersName() const;
+    void setLogsOwnersName(const QList<QString > &names);
+
+    QList<QString > logsDate() const;
+    void setLogsDate(const QList<QString > &dates);
 
 signals:
     void nameChanged();
@@ -90,8 +99,10 @@ signals:
     void goalChanged();
     void imagesNameChanged();
     void imagesUrlChanged();
-    void logsChanged();
+    void logsTextChanged();
     void logsTypeChanged();
+    void logsOwnersNameChanged();
+    void logsDateChanged();
 
 protected:
 
@@ -107,8 +118,13 @@ protected:
     QString m_goal;
     QList<QString > m_imagesName;
     QList<QString > m_imagesUrl;
-    QList<QString > m_logs;
+    QList<QString > m_logsText;
     QList<QString > m_logsType;
+    QList<QString > m_logsOwnersName;
+    QList<QString > m_logsDate;
+
+    // Type of logs falitator
+    const QMap<QString, int> m_mapLogType;
 };
 
 #endif // CACHE_H

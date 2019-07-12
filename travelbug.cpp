@@ -15,8 +15,35 @@ Travelbug::Travelbug(Requestor *parent)
     ,  m_goal("")
     , m_imagesName(QList<QString>())
     , m_imagesUrl(QList<QString>())
-    , m_logs(QList<QString>())
+    , m_logsText(QList<QString>())
     , m_logsType(QList<QString>())
+    , m_logsOwnersName(QList<QString>())
+    , m_logsDate(QList<QString>())
+    , m_mapLogType({{"Trouvée",2},
+{"Non trouvée", 3},
+{"Note", 4},
+{"Publiée", 1003},
+{"Activée", 23},
+{"Désactivée", 22},
+{"Participera", 9},
+{"A participé", 10},
+{"Récupéré", 13},
+{"Déposé", 14},
+{"Pris ailleurs", 19},
+{"Ajouté à une collection", 69},
+{"Ajouté à l\'inventaire", 70},
+{"Maintenance effectuée", 46},
+{"Nécessite une maintenance", 45},
+{"Coordonnées mises à jour", 47},
+{"Archivée", 5},
+{"Désarchivée", 12},
+{"Nécessite d\'être archivée", 7},
+{"Découverte", 48},
+{"Note du relecteur", 18},
+{"Soumettre pour examen", 76},
+{"Visite retirée", 25},
+{"Marquer comme absente", 16},
+{"Photo prise par la webcam", 11}})
 {
 }
 
@@ -86,6 +113,33 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     }
     emit imagesNameChanged();
     emit imagesUrlChanged();
+
+    // Logs
+    m_logsText.clear()  ;
+    m_logsType.clear();
+    m_logsDate.clear()  ;
+    m_logsOwnersName.clear();
+
+
+    QJsonArray tbLogs = tbJson["trackableLogs"].toArray();
+    qDebug() << "tbLogs:" << tbLogs;
+
+    for (QJsonValue tbLog: tbLogs)
+    {
+        m_logsText.append(smileys->replaceSmileyTextToImgSrc(tbLog["text"].toString()));
+        m_logsDate.append(tbLog["loggedDate"].toString());
+
+        QJsonObject finder = tbLog.toObject()["owner"].toObject();
+        m_logsOwnersName.append(finder["username"].toString());
+
+        QJsonObject type = tbLog["trackableLogType"].toObject();
+        m_logsType.append(m_mapLogType.key(type["id"].toInt()));
+    }
+
+    emit logsTextChanged();
+    emit logsTypeChanged();
+    emit logsOwnersNameChanged();
+    emit logsTypeChanged();
 
     // request success
     emit requestReady();
@@ -226,15 +280,15 @@ void Travelbug::setImagesUrl(const QList<QString> &urls)
     emit imagesUrlChanged();
 }
 
-QList<QString>Travelbug::logs() const
+QList<QString>Travelbug::logsText() const
 {
-    return  m_logs;
+    return  m_logsText;
 }
 
-void Travelbug::setLogs(const QList<QString> &logs)
+void Travelbug::setLogsText(const QList<QString> &logsText)
 {
-    m_logs = logs;
-    emit logsChanged();
+    m_logsText = logsText;
+    emit logsTextChanged();
 }
 
 QList<QString>Travelbug::logsType() const
@@ -246,4 +300,26 @@ void Travelbug::setLogsType(const QList<QString> &types)
 {
     m_logsType = types;
     emit logsTypeChanged();
+}
+
+QList<QString>Travelbug::logsOwnersName() const
+{
+    return  m_logsOwnersName;
+}
+
+void Travelbug::setLogsOwnersName(const QList<QString> &names)
+{
+    m_logsOwnersName = names;
+    emit logsOwnersNameChanged();
+}
+
+QList<QString>Travelbug::logsDate() const
+{
+    return  m_logsDate;
+}
+
+void Travelbug::setLogsDate(const QList<QString> &dates)
+{
+    m_logsDate = dates;
+    emit logsOwnersNameChanged();
 }
