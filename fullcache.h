@@ -1,7 +1,6 @@
 #ifndef FULLCACHE_H
 #define FULLCACHE_H
 
-#include <QJsonArray>
 #include <QMap>
 
 #include "cache.h"
@@ -36,7 +35,6 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
     Q_PROPERTY(QList<QString > trackableNames READ trackableNames WRITE setTrackableNames NOTIFY trackableNamesChanged)
     Q_PROPERTY(QList<QString > trackableCodes READ trackableCodes WRITE setTrackableCodes NOTIFY trackableCodesChanged)
-    Q_PROPERTY(QJsonArray trackablesJson READ trackablesJson WRITE setTrackablesJson NOTIFY trackablesJsonChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -119,9 +117,6 @@ public:
     QList<QString > trackableCodes() const;
     void setTrackableCodes(const QList<QString > &codes);
 
-    QJsonArray trackablesJson() const;
-    void setTrackablesJson(const QJsonArray &trackablesJson);
-
 signals:   
     void attributesChanged();
     void attributesBoolChanged();
@@ -149,7 +144,6 @@ signals:
     void listVisibleImagesChanged();
     void trackableNamesChanged();
     void trackableCodesChanged();
-    void trackablesJsonChanged();
 
 public:
     QList<int> m_attributes;
@@ -170,7 +164,6 @@ public:
     QList<QString> m_wptsComment;
     QList<QString > m_trackableNames;
     QList<QString > m_trackableCodes;
-    QJsonArray m_trackablesJson;
     QList<QString> m_findersDate;
 
     // Type of logs falitator

@@ -1,12 +1,14 @@
 #ifndef TRAVELBUG_H
 #define TRAVELBUG_H
 
+#include "requestor.h"
+
 #include <QObject>
 #include <QDebug>
 #include <QJsonObject>
 #include <QJsonArray>
 
-class Travelbug : public QObject
+class Travelbug : public Requestor
 {
     Q_OBJECT
 
@@ -26,10 +28,12 @@ class Travelbug : public QObject
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
 
 public:
-    explicit  Travelbug(QObject *parent = nullptr);
-    ~Travelbug();
+    explicit  Travelbug(Requestor *parent = nullptr);
+    ~Travelbug() override;
 
-    Q_INVOKABLE void parseTrackable(QString trackableCode, QJsonArray trackables);
+    Q_INVOKABLE void sendRequest(QString token, QString trackableCode );
+
+    void parseJson(const QJsonDocument &dataJsonDoc) override;
 
     QString name() const;
     void setName(const QString &name);

@@ -1,8 +1,8 @@
 #include "travelbug.h"
 #include "smileygc.h"
 
-Travelbug::Travelbug(QObject *parent)
-    : QObject(parent)
+Travelbug::Travelbug(Requestor *parent)
+    :  Requestor(parent)
     ,  m_name("")
     ,  m_type("")
     ,  m_tbCode("")
@@ -11,13 +11,12 @@ Travelbug::Travelbug(QObject *parent)
     ,  m_located("")
     ,  m_description("")
     ,  m_originCountry("")
-    ,  m_goal("")
     ,  m_dateCreated("")
+    ,  m_goal("")
     , m_imagesName(QList<QString>())
     , m_imagesUrl(QList<QString>())
     , m_logs(QList<QString>())
     , m_logsType(QList<QString>())
-
 {
 }
 
@@ -25,51 +24,72 @@ Travelbug::~Travelbug()
 {
 }
 
-void Travelbug::parseTrackable(QString trackableCode , QJsonArray trackables)
+void Travelbug::sendRequest(QString token ,QString trackableCode)
 {
+    //Build url
+    QString requestName = "trackables/";
+    requestName.append(trackableCode);
+
+    // Fields
+    requestName.append("?fields=referenceCode,name,iconUrl,goal,description,releasedDate,originCountry,ownerCode,holderCode,inHolderCollection,"
+                       "currentGeocacheCode,currentGeocacheName,isMissing,trackingNumber,trackableType,owner,holder" );
+    // Expand
+    requestName.append("&expand=trackablelogs:" + QString::number(TRACKABLE_LOGS_COUNT) + ",images:" + QString::number(IMAGES));
+
+    qDebug() << "URL:" << requestName ;
+
+    // Inform QML we are loading
+    setState("loading");
+
+    Requestor::sendGetRequest(requestName , token);
+}
+
+void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
+{
+    QJsonObject tbJson = dataJsonDoc.object();
+    qDebug() << "tbJson:" << tbJson;
+
     SmileyGc * smileys = new SmileyGc;
 
-    for (QJsonValue trackable: trackables)
-    {
-        if(trackable["referenceCode"].toString() == trackableCode) {
-            setName(trackable["name"].toString());
-            setTbCode(trackable["referenceCode"].toString());
+    setName(tbJson["name"].toString());
+    setTbCode(tbJson["referenceCode"].toString());
 
-            QJsonObject  tbType = trackable["trackableType"].toObject();
-            setType(tbType["name"].toString());
+    QJsonObject  tbType = tbJson["trackableType"].toObject();
+    setType(tbType["name"].toString());
 
-            QJsonObject owner = trackable["owner"].toObject();
-            setOriginalOwner(owner["username"].toString());
+    QJsonObject owner = tbJson["owner"].toObject();
+    setOriginalOwner(owner["username"].toString());
 
-            if(trackable["isMissing"].toBool())
-                setLocated("Inconnu");
-            else if (trackable["inHolderCollection"].toBool()) {
-                QJsonObject currentOwner = trackable["holder"].toObject();
-                setLocated("En possession de " + currentOwner["username"].toString());
-            } else if(!trackable["inHolderCollection"].toBool()){
-                setLocated("Dans la cache " + trackable["currentGeocacheCode"].toString());
-            }
-
-            setDateCreated(trackable["releasedDate"].toString());
-            setIconUrl(trackable["iconUrl"].toString());
-            setGoal(trackable["goal"].toString());
-            setOriginCountry(trackable["originCountry"].toString());
-            setDescription(trackable["description"].toString());
-
-            //images
-            m_imagesName.clear();
-            m_imagesUrl.clear();
-
-            for (QJsonValue image: trackable["images"].toArray())
-            {
-                m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
-                m_imagesUrl.append(image["url"].toString());
-            }
-            emit imagesNameChanged();
-            emit imagesUrlChanged();
-            return ;
-        }
+    if(tbJson["isMissing"].toBool())
+        setLocated("Inconnu");
+    else if (tbJson["inHolderCollection"].toBool()) {
+        QJsonObject currentOwner = tbJson["holder"].toObject();
+        setLocated("En possession de " + currentOwner["username"].toString());
+    } else if(!tbJson["inHolderCollection"].toBool()){
+        setLocated("Dans la cache " + tbJson["currentGeocacheCode"].toString());
     }
+
+    setDateCreated(tbJson["releasedDate"].toString());
+    setIconUrl(tbJson["iconUrl"].toString());
+    setGoal(tbJson["goal"].toString());
+    setOriginCountry(tbJson["originCountry"].toString());
+    setDescription(tbJson["description"].toString());
+
+    //images
+    m_imagesName.clear();
+    m_imagesUrl.clear();
+
+    for (QJsonValue image: tbJson["images"].toArray())
+    {
+        m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
+        m_imagesUrl.append(image["url"].toString());
+    }
+    emit imagesNameChanged();
+    emit imagesUrlChanged();
+
+    // request success
+    emit requestReady();
+    return ;
 }
 
 /** Getters & Setters **/
@@ -210,8 +230,6 @@ QList<QString>Travelbug::logs() const
 {
     return  m_logs;
 }
-
-
 
 void Travelbug::setLogs(const QList<QString> &logs)
 {

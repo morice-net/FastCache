@@ -35,10 +35,11 @@ public slots:
 
 protected:
     const int MAX_PER_PAGE = 40;
-    const int GEOCACHE_LOG_COUNT = 25;
-    const int TRACKABLE_LOG_COUNT = 25;
-    const int GEOCACHE_LOG_IMAGES = 10;
-    const int IMAGES = 20;
+    const int GEOCACHE_LOGS_COUNT = 20;
+    const int GEOCACHE_LOG_IMAGES_COUNT = 10;
+    const int TRACKABLE_LOGS_COUNT = 20;
+    const int TRACKABLE_LOG_IMAGES_COUNT = 5;
+    const int IMAGES = 10;
     const int USER_WAYPOINTS = 15;
 
     //  network manager

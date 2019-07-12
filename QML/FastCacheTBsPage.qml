@@ -44,7 +44,7 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                travelbug.parseTrackable(fullCache.trackableCodes[index] , fullCache.trackablesJson);
+                                travelbug.sendRequest(connector.tokenKey , fullCache.trackableCodes[index]);
                                 main.viewState = "travelbug"
                             }
                         }

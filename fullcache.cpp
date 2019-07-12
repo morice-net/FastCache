@@ -28,7 +28,6 @@ FullCache::FullCache(Cache *parent)
     , m_wptsComment(QList<QString>())
     , m_trackableNames(QList<QString>())
     , m_trackableCodes(QList<QString>())
-    , m_trackablesJson(QJsonArray())
     , m_mapLogType({{"Trouvée",2},
 {"Non trouvée", 3},
 {"Note", 4},
@@ -344,13 +343,4 @@ void FullCache::setTrackableCodes(const QList<QString> &codes)
     emit trackableCodesChanged();
 }
 
-QJsonArray FullCache::trackablesJson() const
-{
-    return  m_trackablesJson;
-}
 
-void FullCache::setTrackablesJson(const QJsonArray &trackablesJson)
-{
-    m_trackablesJson = trackablesJson;
-    emit trackablesJsonChanged();
-}

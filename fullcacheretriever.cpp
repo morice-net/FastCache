@@ -29,9 +29,9 @@ void FullCacheRetriever::sendRequest(QString token)
     requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
                        "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml,additionalWaypoints");
     // Expand
-    requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOG_COUNT) +
-                       ",trackables:" + QString::number(TRACKABLE_LOG_COUNT) +
-                       ",geocachelog.images:" + QString::number(GEOCACHE_LOG_IMAGES) +
+    requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOGS_COUNT) +
+                       ",trackables:" + QString::number(TRACKABLE_LOGS_COUNT) +
+                       ",geocachelog.images:" + QString::number(GEOCACHE_LOG_IMAGES_COUNT) +
                        ",userwaypoints:" + QString::number(USER_WAYPOINTS) +
                        ",images:") + QString::number(IMAGES);
 
@@ -236,9 +236,6 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
     emit m_fullCache->trackableNamesChanged();
     emit m_fullCache->trackableCodesChanged();
-
-    // Trackables managed by travelbug class.
-    m_fullCache->setTrackablesJson( cacheJson["trackables"].toArray());
 
     emit m_fullCache->registeredChanged();
 
