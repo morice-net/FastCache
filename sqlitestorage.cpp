@@ -19,13 +19,17 @@ SQLiteStorage::SQLiteStorage(QObject *parent) : QObject(parent)
     }
 }
 
+SQLiteStorage::~SQLiteStorage()
+{
+}
+
 bool SQLiteStorage::readAllObjectsFromTable(const QString &tableName)
 {
     Q_UNUSED(tableName)
     return true;
 }
 
- bool SQLiteStorage::readObject(const QString &tableName, const QString &id, QJsonDocument &json)
+bool SQLiteStorage::readObject(const QString &tableName, const QString &id, QJsonDocument &json)
 {
     QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id+"'";
     qDebug() << "Query:" << selectQueryText;

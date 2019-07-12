@@ -2,6 +2,7 @@
 #define FULLCACHE_H
 
 #include <QJsonArray>
+#include <QMap>
 
 #include "cache.h"
 

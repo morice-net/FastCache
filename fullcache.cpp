@@ -1,7 +1,5 @@
 #include "fullcache.h"
 
-#include <QMap>
-
 FullCache::FullCache(Cache *parent)
     :  Cache (parent)
     ,  m_attributes(QList<int>())
