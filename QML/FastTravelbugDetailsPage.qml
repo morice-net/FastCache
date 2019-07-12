@@ -17,7 +17,7 @@ Item {
         ScrollBar.vertical: ScrollBar {}
 
         Column {
-            width: detailsPage.width
+            width: fastTravelbugDetailsPage.width
             spacing: 5
             clip: true
 
@@ -164,7 +164,7 @@ Item {
                 Text {
                     font.family: localFont.name
                     font.pointSize: 14
-                    text: formatDate(travelbug.dateCreated)
+                    text: new Date(travelbug.dateCreated).toLocaleDateString(Qt.locale("fr_FR"))
                     color: Palette.white()
                 }
             }
@@ -282,10 +282,5 @@ Item {
                 }
             }
         }
-    }
-
-    function formatDate(date) {
-        var   substring = date.substring(date.indexOf("(") + 1 , date.indexOf(")"))
-        return new Date(parseFloat(substring)).toLocaleDateString(Qt.locale("fr_FR"))
     }
 }
