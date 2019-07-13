@@ -26,7 +26,7 @@ Travelbug::Travelbug(Requestor *parent)
 {"Transfert", 15},
 {"Marquer comme absente", 16},
 {"Pris ailleurs", 19},
-{"Découverte", 48},
+{"Découvert", 48},
 {"Ajouté à une collection", 69},
 {"Ajouté à l\'inventaire", 70},
 {"Visité", 75}})

@@ -179,7 +179,6 @@ Item {
         }
     }
 
-
     SendCacheNote{
         id:sendCacheNote
         onStateChanged: {
@@ -187,9 +186,9 @@ Item {
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
                 toast.show("Erreur de connexion  " + "(" + state + ")");
             if (sendCacheNote.state === "OK")
-                toast.show("La note personnelle à été correctement envoyée");
+                toast.show("La note personnelle a été correctement envoyée");
             else {
-                toast.show("La note personnelle à été supprimée ")
+                toast.show("La note personnelle a été supprimée ")
             }
         }
     }
@@ -201,13 +200,26 @@ Item {
             if (sendCacheLog.state !== "Created") {
                 toast.show("Erreur de connexion  " + "(" + state + ")");
             } else {
-                toast.show("Le log de la cache à été correctement envoyé ");
+                toast.show("Le log de la cache a été correctement envoyé ");
             }
         }
         onFoundsChanged: {
             findCount = sendCacheLog.founds;
             fastCache.swipeToPage(3);
         }
+    }
+
+    SendTravelbugLog{
+        id:sendTravelbugLog
+        onStateChanged: {
+            toast.visible = sendTravelbugLog.state !== "loading";
+            if (sendTravelbugLog.state !== "Created") {
+                toast.show("Erreur de connexion  " + "(" + state + ")");
+            } else {
+                toast.show("Le log du travelbug a été correctement envoyé ");
+            }
+        }
+
     }
 
     Location {

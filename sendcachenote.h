@@ -21,10 +21,6 @@ public:
 private:
     QString m_geocode ;
     QString m_note;
-
-    //  network manager
-
-    QNetworkAccessManager *m_networkManager;
 };
 
 #endif // SENDCACHENOTE_H

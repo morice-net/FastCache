@@ -18,6 +18,7 @@
 #include "cacheattribute.h"
 #include "sendcachenote.h"
 #include "sendcachelog.h"
+#include "sendtravelbuglog.h"
 #include "smileygc.h"
 #include "waypointtype.h"
 #include "logtype.h"
@@ -38,6 +39,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheAttribute>("com.mycompany.connecting", 1, 0, "CacheAttribute");
     qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
     qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");
+    qmlRegisterType<SendTravelbugLog>("com.mycompany.connecting", 1, 0, "SendTravelbugLog");
     qmlRegisterType<WaypointType>("com.mycompany.connecting", 1, 0, "WaypointType");
     qmlRegisterType<LogType>("com.mycompany.connecting", 1, 0, "LogType");
     qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");

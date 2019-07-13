@@ -30,30 +30,23 @@ FullCache::FullCache(Cache *parent)
     , m_trackableCodes(QList<QString>())
     , m_mapLogType({{"Trouvée",2},
 {"Non trouvée", 3},
-{"Note", 4},
-{"Publiée", 1003},
-{"Activée", 23},
-{"Désactivée", 22},
+{"Note", 4},                   
+{"Archivée", 5},
+{"Archivée en permanence", 6},
+{"Nécessite d\'être archivée", 7},
 {"Participera", 9},
 {"A participé", 10},
-{"Récupéré", 13},
-{"Déposé", 14},
-{"Pris ailleurs", 19},
-{"Ajouté à une collection", 69},
-{"Ajouté à l\'inventaire", 70},
-{"Maintenance effectuée", 46},
-{"Nécessite une maintenance", 45},
-{"Coordonnées mises à jour", 47},
-{"Archivée", 5},
+{"Photo prise par la webcam", 11},
 {"Désarchivée", 12},
-{"Nécessite d\'être archivée", 7},
-{"Découverte", 48},
-{"Note du relecteur", 18},
-{"Soumettre pour examen", 76},
+{"Désactivée", 22},
+{"Activée", 23},
+{"Publier une annonce", 24},
 {"Visite retirée", 25},
-{"Marquer comme absente", 16},
-{"Photo prise par la webcam", 11}})
-
+{"Nécessite une maintenance", 45},
+{"Maintenance effectuée", 46},
+{"Coordonnées mises à jour", 47},
+{"Note du reviewer", 68},
+{"Annonce", 74},})
 {
 }
 

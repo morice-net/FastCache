@@ -10,6 +10,7 @@ SOURCES += main.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
     parameter.cpp \
+    sendtravelbuglog.cpp \
     tools.cpp \
     cachesretriever.cpp \
     travelbug.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     connector.h \
     fullcacheretriever.h \
     parameter.h \
+    sendtravelbuglog.h \
     tools.h \
     cachesretriever.h \
     travelbug.h \

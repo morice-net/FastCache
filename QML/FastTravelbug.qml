@@ -45,6 +45,10 @@ Rectangle {
         FastTravelbugLogsPage{
             id: fastTravelbugLogsPage
         }
+
+        FastTravelbugLogPage{
+            id: fastTravelbugLogPage
+        }
     }
 
     PageIndicator {

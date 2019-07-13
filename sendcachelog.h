@@ -29,10 +29,6 @@ signals:
 
 private:
     int m_count ;
-
-    //  network manager
-
-    QNetworkAccessManager *m_networkManager;
 };
 
 #endif // SENDCACHELOG_H
