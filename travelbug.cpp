@@ -18,32 +18,18 @@ Travelbug::Travelbug(Requestor *parent)
     , m_logsText(QList<QString>())
     , m_logsType(QList<QString>())
     , m_logsOwnersName(QList<QString>())
+    , m_logsOwnersCount(QList<int>())
     , m_logsDate(QList<QString>())
-    , m_mapLogType({{"Trouvée",2},
-{"Non trouvée", 3},
-{"Note", 4},
-{"Publiée", 1003},
-{"Activée", 23},
-{"Désactivée", 22},
-{"Participera", 9},
-{"A participé", 10},
+    , m_mapLogType({{"Note", 4},
 {"Récupéré", 13},
 {"Déposé", 14},
+{"Transfert", 15},
+{"Marquer comme absente", 16},
 {"Pris ailleurs", 19},
+{"Découverte", 48},
 {"Ajouté à une collection", 69},
 {"Ajouté à l\'inventaire", 70},
-{"Maintenance effectuée", 46},
-{"Nécessite une maintenance", 45},
-{"Coordonnées mises à jour", 47},
-{"Archivée", 5},
-{"Désarchivée", 12},
-{"Nécessite d\'être archivée", 7},
-{"Découverte", 48},
-{"Note du relecteur", 18},
-{"Soumettre pour examen", 76},
-{"Visite retirée", 25},
-{"Marquer comme absente", 16},
-{"Photo prise par la webcam", 11}})
+{"Visité", 75}})
 {
 }
 
@@ -131,6 +117,7 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
 
         QJsonObject finder = tbLog.toObject()["owner"].toObject();
         m_logsOwnersName.append(finder["username"].toString());
+        m_logsOwnersCount.append(finder["findCount"].toInt());
 
         QJsonObject type = tbLog["trackableLogType"].toObject();
         m_logsType.append(m_mapLogType.key(type["id"].toInt()));
@@ -311,6 +298,17 @@ void Travelbug::setLogsOwnersName(const QList<QString> &names)
 {
     m_logsOwnersName = names;
     emit logsOwnersNameChanged();
+}
+
+QList<int>Travelbug::logsOwnersCount() const
+{
+    return  m_logsOwnersCount;
+}
+
+void Travelbug::setLogsOwnersCount(const QList<int> &counts)
+{
+    m_logsOwnersCount = counts;
+    emit logsOwnersCountChanged();
 }
 
 QList<QString>Travelbug::logsDate() const

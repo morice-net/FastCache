@@ -152,5 +152,6 @@
         <file>QML/FastTravelbug.qml</file>
         <file>QML/FastTravelbugDetailsPage.qml</file>
         <file>Image/heart-green.png</file>
+        <file>QML/FastTravelbugLogsPage.qml</file>
     </qresource>
 </RCC>
