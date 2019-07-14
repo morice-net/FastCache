@@ -9,15 +9,15 @@ Item {
     id: logPage
 
     property string dateIso: new Date().toISOString()
-    property int currentIndex: 0
+    property int typeLog: 2
     property string textLog: ""
 
-    onCurrentIndexChanged: {
-        button1.checked = currentIndex == 0
-        button2.checked = currentIndex == 1
-        button3.checked = currentIndex == 2
-        button4.checked = currentIndex == 3
-        button5.checked = currentIndex == 4
+    onTypeLogChanged: {
+        button1.checked = typeLog == 2  // type de log : Trouvée
+        button2.checked = typeLog == 3  // type de log : Non trouvée
+        button3.checked = typeLog == 4  // type de log : Note
+        button4.checked = typeLog == 45  // type de log : Nécessite une maintenace
+        button5.checked = typeLog == 7  // type de log : Nécessite d'être archivée
     }
 
     onTextLogChanged: message.text = message.text + textLog ;
@@ -47,7 +47,7 @@ Item {
                     RadioButton {
                         id:button1
                         checked: true
-                        onClicked: currentIndex = 0
+                        onClicked: typeLog = 2
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -76,7 +76,7 @@ Item {
 
                     RadioButton {
                         id:button2
-                        onClicked: currentIndex = 1
+                        onClicked: typeLog = 3
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -104,7 +104,7 @@ Item {
 
                     RadioButton {
                         id:button3
-                        onClicked: currentIndex = 2
+                        onClicked: typeLog = 4
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -132,7 +132,7 @@ Item {
 
                     RadioButton {
                         id:button4
-                        onClicked: currentIndex = 3
+                        onClicked: typeLog = 45
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -160,7 +160,7 @@ Item {
 
                     RadioButton {
                         id:button5
-                        onClicked: currentIndex = 4
+                        onClicked: typeLog = 7
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
                             label: Text {
@@ -353,11 +353,10 @@ Item {
                         }
                     }
                     onClicked:{
-                        console.log(connector.tokenKey + " " + fullCache.geocode + " " + main.logTypeGs(currentIndex) + " " +
-                                    dateIso   + " " +  message.text + " "  + favorited.checked);
+                        console.log(connector.tokenKey + " " + fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
+                                    + favorited.checked);
                         if(message.text !== null && message.text !== '')
-                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , main.logTypeGs(currentIndex) ,
-                                                     dateIso  , message.text , favorited.checked );
+                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
                     }
                 }
             }

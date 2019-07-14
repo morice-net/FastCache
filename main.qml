@@ -455,10 +455,6 @@ Item {
         return
     }
 
-    function  logTypeGs(index) {
-        return logTypes.types[index].typeIdGs
-    }
-
     function recordAppSettings() {
         settings.tokenKey = connector.tokenKey
         settings.refreshToken = connector.refreshToken
