@@ -72,7 +72,7 @@ Item {
                     font.family: localFont.name
                     horizontalAlignment: Text.AlignRight
                     font.pointSize: 14
-                    text: "Code de suivi"
+                    text: "Code"
                     color: Palette.silver()
                 }
 

@@ -14,7 +14,7 @@ SendTravelbugLog::~SendTravelbugLog()
 {
 }
 
-void SendTravelbugLog::sendRequest(QString token , QString tbCode, int logType , QString date , QString text)
+void SendTravelbugLog::sendRequest(QString token , QString tbCode, QString trackingCode , int logType , QString date , QString text)
 {
     //Build url
     QString requestName = "trackablelogs?fields=referenceCode";
@@ -23,6 +23,7 @@ void SendTravelbugLog::sendRequest(QString token , QString tbCode, int logType ,
     QJsonObject log;
 
     log.insert("trackableCode", QJsonValue(tbCode));
+    log.insert("trackingNumber", QJsonValue(trackingCode));
     log.insert("loggedDate", QJsonValue(date));
     log.insert("text", QJsonValue(text));
     log.insert("isRot13Encoded",QJsonValue(false));

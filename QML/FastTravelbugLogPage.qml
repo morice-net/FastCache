@@ -324,12 +324,23 @@ Item {
                         }
                     }
                     onClicked:{
-                        console.log(connector.tokenKey + " " + travelbug.tbCode + " " + typeLog + " " +
+                        console.log(connector.tokenKey + " " + travelbug.tbCode + " " + trackingCode.text + " " + typeLog + " " +
                                     dateIso   + " " +  message.text);
-                        if(message.text !== null && message.text !== '')
-                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , typeLog , dateIso  , message.text);
+                        if(typeLog !== 4 && trackingCode.text !== "")
+                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
+                        else if(typeLog === 4 && message.text !==""){
+                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
+                        }
                     }
                 }
+            }
+
+            TextField {
+                id: trackingCode
+                placeholderText: qsTr("Code de suivi")
+                font.family: localFont.name
+                font.pointSize: 14
+                textColor: Palette.greenSea()
             }
 
             Text {
