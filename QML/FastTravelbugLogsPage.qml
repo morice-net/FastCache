@@ -55,7 +55,7 @@ Item {
                         height: 35
 
                         Text {
-                            text: travelbug.logsType[index]
+                            text: travelbug.logsOwnersCount[index]
                             leftPadding: 15
                             font.family: localFont.name
                             font.pointSize: 13
@@ -65,7 +65,7 @@ Item {
                         }
 
                         Text {
-                            text: "Nombre de caches:  " + travelbug.logsOwnersCount[index]
+                            text: travelbug.logsGeocacheCode[index]
                             leftPadding: 15
                             font.family: localFont.name
                             font.pointSize: 13
@@ -74,6 +74,33 @@ Item {
                             anchors.right: parent.right
                             anchors.rightMargin: 10
                         }
+                    }
+
+                    Item {
+                        width: logs.width
+                        height: 35
+
+                        Text {
+                            text: travelbug.logsGeocacheName[index]
+                            leftPadding: 15
+                            font.family: localFont.name
+                            font.pointSize: 13
+                            color: Palette.silver()
+                            wrapMode: Text.Wrap
+                            textFormat: Qt.RichText
+                            anchors.right: parent.right
+                            anchors.rightMargin: 10
+                        }
+                    }
+
+                    Text {
+                        text: travelbug.logsType[index]
+                        leftPadding: 15
+                        font.family: localFont.name
+                        font.pointSize: 13
+                        color: Palette.silver()
+                        wrapMode: Text.Wrap
+                        anchors.left: parent.left
                     }
 
                     Text {

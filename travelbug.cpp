@@ -20,6 +20,8 @@ Travelbug::Travelbug(Requestor *parent)
     , m_logsOwnersName(QList<QString>())
     , m_logsOwnersCount(QList<int>())
     , m_logsDate(QList<QString>())
+    , m_logsGeocacheCode(QList<QString>())
+    , m_logsGeocacheName(QList<QString>())
     , m_mapLogType({{"Note", 4},
 {"Récupéré", 13},
 {"Déposé", 14},
@@ -105,6 +107,9 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     m_logsType.clear();
     m_logsDate.clear()  ;
     m_logsOwnersName.clear();
+    m_logsOwnersCount.clear();
+    m_logsGeocacheName.clear();
+    m_logsGeocacheCode.clear();
 
     QJsonArray tbLogs = tbJson["trackableLogs"].toArray();
     qDebug() << "tbLogs:" << tbLogs;
@@ -113,6 +118,8 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     {
         m_logsText.append(smileys->replaceSmileyTextToImgSrc(tbLog["text"].toString()));
         m_logsDate.append(tbLog["loggedDate"].toString());
+        m_logsGeocacheCode.append(tbLog["geocacheCode"].toString());
+        m_logsGeocacheName.append(tbLog["geocacheName"].toString());
 
         QJsonObject finder = tbLog.toObject()["owner"].toObject();
         m_logsOwnersName.append(finder["username"].toString());
@@ -121,11 +128,13 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
         QJsonObject type = tbLog["trackableLogType"].toObject();
         m_logsType.append(m_mapLogType.key(type["id"].toInt()));
     }
-
     emit logsTextChanged();
     emit logsTypeChanged();
+    emit logsDateChanged();
     emit logsOwnersNameChanged();
-    emit logsTypeChanged();
+    emit logsOwnersCountChanged();
+    emit logsGeocacheCodeChanged();
+    emit logsGeocacheNameChanged();
 
     // request success
     emit requestReady();
@@ -308,6 +317,28 @@ void Travelbug::setLogsOwnersCount(const QList<int> &counts)
 {
     m_logsOwnersCount = counts;
     emit logsOwnersCountChanged();
+}
+
+QList<QString>Travelbug::logsGeocacheCode() const
+{
+    return  m_logsGeocacheCode;
+}
+
+void Travelbug::setLogsGeocacheCode(const QList<QString> &code)
+{
+    m_logsGeocacheCode = code;
+    emit logsGeocacheCodeChanged();
+}
+
+QList<QString>Travelbug::logsGeocacheName() const
+{
+    return  m_logsGeocacheName;
+}
+
+void Travelbug::setLogsGeocacheName(const QList<QString> &name)
+{
+    m_logsGeocacheName = name;
+    emit logsGeocacheNameChanged();
 }
 
 QList<QString>Travelbug::logsDate() const

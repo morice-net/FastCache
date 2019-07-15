@@ -29,6 +29,8 @@ class Travelbug : public Requestor
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
     Q_PROPERTY(QList<QString > logsOwnersName READ logsOwnersName WRITE setLogsOwnersName NOTIFY logsOwnersNameChanged)
     Q_PROPERTY(QList<int > logsOwnersCount READ logsOwnersCount WRITE setLogsOwnersCount NOTIFY logsOwnersCountChanged)
+    Q_PROPERTY(QList<QString > logsGeocacheCode READ logsGeocacheCode WRITE setLogsGeocacheCode NOTIFY logsGeocacheCodeChanged)
+    Q_PROPERTY(QList<QString > logsGeocacheName READ logsGeocacheName WRITE setLogsGeocacheName NOTIFY logsGeocacheNameChanged)
     Q_PROPERTY(QList<QString > logsDate READ logsDate WRITE setLogsDate NOTIFY logsDateChanged)
 
 public:
@@ -87,6 +89,12 @@ public:
     QList<int > logsOwnersCount() const;
     void setLogsOwnersCount(const QList<int > &counts);
 
+    QList<QString > logsGeocacheCode() const;
+    void setLogsGeocacheCode(const QList<QString> &code);
+
+    QList<QString > logsGeocacheName() const;
+    void setLogsGeocacheName(const QList<QString > &name);
+
     QList<QString > logsDate() const;
     void setLogsDate(const QList<QString > &dates);
 
@@ -107,10 +115,11 @@ signals:
     void logsTypeChanged();
     void logsOwnersNameChanged();
     void logsOwnersCountChanged();
+    void logsGeocacheCodeChanged();
+    void logsGeocacheNameChanged();
     void logsDateChanged();
 
 protected:
-
     QString m_name;
     QString m_type;
     QString m_tbCode;
@@ -127,6 +136,8 @@ protected:
     QList<QString > m_logsType;
     QList<QString > m_logsOwnersName;
     QList<int> m_logsOwnersCount;
+    QList<QString> m_logsGeocacheCode;
+    QList<QString> m_logsGeocacheName;
     QList<QString > m_logsDate;
 
     // Type of logs falitator
