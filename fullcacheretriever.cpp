@@ -109,19 +109,23 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setTerrain(cacheJson["terrain"].toDouble());
 
     // Attributes of cache.
-    m_fullCache->m_attributes.clear();
-    m_fullCache->m_attributesBool.clear();
-
     QJsonArray  atts = cacheJson.value("attributes").toArray();
+
+    QList<int> listAttributs ;
+    QList<bool> listAttributsBool ;
+    listAttributs .clear();
+    listAttributsBool.clear();
+
     foreach ( const QJsonValue & att, atts)
+
     {
-        m_fullCache->m_attributes.append(att["id"].toInt());
-        m_fullCache->m_attributesBool.append(att["isOn"].toBool());
+        listAttributs.append(att["id"].toInt());
+        listAttributsBool.append(att["isOn"].toBool());
     }
-    qDebug() << "*** attributs**\n" <<m_fullCache->m_attributes ;
-    qDebug() << "*** attributsBool**\n" <<m_fullCache->m_attributesBool ;
-    emit m_fullCache->attributesChanged();
-    emit m_fullCache->attributesBoolChanged();
+    qDebug() << "*** attributs**\n" <<listAttributs ;
+    qDebug() << "*** attributsBool**\n" <<listAttributsBool ;
+    m_fullCache->setAttributes(listAttributs);
+    m_fullCache->setAttributesBool(listAttributsBool);
 
     // State
     v1 = cacheJson["location"].toObject();
@@ -139,103 +143,121 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setHints(cacheJson["hints"].toString());
 
     // Images
-    m_fullCache->m_imagesName.clear();
-    m_fullCache->m_imagesUrl.clear();
-    m_fullCache->m_cacheImagesIndex.clear();
-
     QJsonArray  images = cacheJson.value("images").toArray();
+
+    QList<QString> listImagesName ;
+    QList<QString> listImagesUrl ;
+    QList<int> listImagesIndex ;
+    listImagesName .clear();
+    listImagesUrl.clear();
+    listImagesIndex.clear();
+
     foreach (const QJsonValue &image , images)
     {
-        m_fullCache->m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
-        m_fullCache->m_imagesUrl.append(image["url"].toString());
+        listImagesName .append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
+        listImagesUrl.append(image["url"].toString());
     }
-    m_fullCache->m_cacheImagesIndex.append(m_fullCache->m_imagesName.size());
+    listImagesIndex.append(listImagesName .size());
 
-    qDebug() << "*** imagesName**\n" <<m_fullCache->m_imagesName ;
-    qDebug() << "*** imagesUrl**\n" <<m_fullCache->m_imagesUrl ;
+    qDebug() << "*** imagesName**\n" <<listImagesName ;
+    qDebug() << "*** imagesUrl**\n" <<listImagesUrl ;
 
     // Logs
-    m_fullCache->m_findersCount.clear();
-    m_fullCache->m_findersDate.clear();
-    m_fullCache->m_findersName.clear();
-    m_fullCache->m_logs.clear()  ;
-    m_fullCache->m_logsType.clear();
-    m_fullCache->m_listVisibleImages.clear();
+    QList<int> listFindersCount ;
+    QList<QString> listFindersDate ;
+    QList<QString> listFindersName ;
+    QList<QString> listLogs ;
+    QList<QString> listLogsType ;
+    QList<bool> listVisibleImages;
+
+    listFindersCount.clear();
+    listFindersDate.clear();
+    listFindersName.clear();
+    listLogs.clear();
+    listLogsType.clear();
+    listVisibleImages.clear();
 
     QJsonArray geocacheLogs = cacheJson["geocacheLogs"].toArray();
     for (QJsonValue geocacheLog: geocacheLogs)
     {
-        m_fullCache->m_logs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog["text"].toString()));
-        m_fullCache->m_findersDate.append(geocacheLog["loggedDate"].toString());
+        listLogs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog["text"].toString()));
+        listFindersDate.append(geocacheLog["loggedDate"].toString());
 
         QJsonObject finder = geocacheLog.toObject()["owner"].toObject();
-        m_fullCache->m_findersName.append(finder["username"].toString());
-        m_fullCache->m_findersCount.append(finder["findCount"].toInt());
+        listFindersName.append(finder["username"].toString());
+        listFindersCount.append(finder["findCount"].toInt());
 
         QJsonObject type = geocacheLog["geocacheLogType"].toObject();
-        m_fullCache->m_logsType.append(m_fullCache->m_mapLogType.key(type["id"].toInt()));
+        listLogsType.append(m_fullCache->m_mapLogType.key(type["id"].toInt()));
 
         QJsonArray logsImage = geocacheLog["images"].toArray();
         for (QJsonValue logImage: logsImage)
         {
-            m_fullCache->m_imagesName.append(smileys->replaceSmileyTextToImgSrc(logImage["description"].toString()));
-            m_fullCache->m_imagesUrl.append(logImage["url"].toString());
+            listImagesName.append(smileys->replaceSmileyTextToImgSrc(logImage["description"].toString()));
+            listImagesUrl.append(logImage["url"].toString());
         }
-        m_fullCache->m_cacheImagesIndex.append(m_fullCache->m_imagesName.size());
+        listImagesIndex.append(listImagesName.size());
     }
 
-    for(int i = 0; i < m_fullCache->m_imagesName.size(); ++i)
+    for(int i = 0; i < listImagesName.size(); ++i)
     {
-        m_fullCache->m_listVisibleImages.append(true);
+        listVisibleImages.append(true);
     }
-    emit m_fullCache->imagesNameChanged();
-    emit m_fullCache->imagesUrlChanged();
-    emit m_fullCache->logsChanged();
-    emit m_fullCache->logsTypeChanged();
-    emit m_fullCache->findersCountChanged();
-    emit m_fullCache->findersDateChanged();
-    emit m_fullCache->findersNameChanged();
-    emit m_fullCache->cacheImagesIndexChanged();
-    emit m_fullCache->listVisibleImagesChanged();
+    m_fullCache->setImagesName(listImagesName);
+    m_fullCache->setImagesUrl(listImagesUrl);
+    m_fullCache->setLogs(listLogs);
+    m_fullCache->setLogsType(listLogsType);
+    m_fullCache->setFindersCount(listFindersCount);
+    m_fullCache->setFindersDate(listFindersDate);
+    m_fullCache->setFindersName(listFindersName);
+    m_fullCache->setCacheImagesIndex(listImagesIndex);
+    m_fullCache->setListVisibleImages(listVisibleImages);
 
     // Waypoints
-    m_fullCache->m_wptsDescription.clear();
-    m_fullCache->m_wptsName.clear();
-    m_fullCache->m_wptsLat.clear();
-    m_fullCache->m_wptsLon.clear()  ;
-    m_fullCache-> m_wptsComment.clear();
+    QList<QString> listWptsDescription ;
+    QList<QString> listWptsName ;
+    QList<double> listWptsLat ;
+    QList<double> listWptsLon ;
+    QList<QString> listWptsComment ;
 
+    listWptsDescription.clear();
+    listWptsName.clear();
+    listWptsLat.clear();
+    listWptsLon.clear();
+    listWptsComment.clear();
     for (QJsonValue waypoint: cacheJson["additionalWaypoints"].toArray())
     {
-        m_fullCache->m_wptsDescription.append(waypoint["name"].toString());
-        m_fullCache->m_wptsName.append(waypoint["typeName"].toString());
+        listWptsDescription.append(waypoint["name"].toString());
+        listWptsName.append(waypoint["typeName"].toString());
 
         v1 = waypoint["coordinates"].toObject();
         if(v1["latitude"].isNull()) {
-            m_fullCache->m_wptsLat.append(200) ;
+            listWptsLat.append(200) ;
         } else{
-            m_fullCache->m_wptsLat.append(v1["latitude"].toDouble());
+            listWptsLat.append(v1["latitude"].toDouble());
         }
-        m_fullCache->m_wptsLon.append(v1["longitude"].toDouble());
-        m_fullCache->m_wptsComment.append(waypoint["description"].toString());
+        listWptsLon.append(v1["longitude"].toDouble());
+        listWptsComment.append(waypoint["description"].toString());
     }
-    emit m_fullCache->wptsDescriptionChanged();
-    emit m_fullCache->wptsNameChanged();
-    emit m_fullCache->wptsLatChanged();
-    emit m_fullCache->wptsLonChanged();
-    emit m_fullCache->wptsCommentChanged();
+    m_fullCache->setWptsDescription(listWptsDescription);
+    m_fullCache->setWptsName(listWptsName);
+    m_fullCache->setWptsLat(listWptsLat);
+    m_fullCache->setWptsLon(listWptsLon);
+    m_fullCache->setWptsComment(listWptsComment);
 
     // Trackables: list of names and codes.
-    m_fullCache-> m_trackableNames.clear();
-    m_fullCache->m_trackableCodes.clear();
+    QList<QString> listTrackableNames ;
+    QList<QString> listTrackableCodes ;
 
+    listTrackableNames.clear();
+    listTrackableCodes.clear();
     for (QJsonValue travel: cacheJson["trackables"].toArray())
     {
-        m_fullCache->m_trackableNames.append(travel["name"].toString());
-        m_fullCache->m_trackableCodes.append(travel["referenceCode"].toString());
+        listTrackableNames.append(travel["name"].toString());
+        listTrackableCodes.append(travel["referenceCode"].toString());
     }
-    emit m_fullCache->trackableNamesChanged();
-    emit m_fullCache->trackableCodesChanged();
+    m_fullCache->setTrackableNames(listTrackableNames);
+    m_fullCache->setTrackableCodes(listTrackableCodes);
 
     emit m_fullCache->registeredChanged();
 

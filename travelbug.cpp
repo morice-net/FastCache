@@ -106,7 +106,6 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     m_logsDate.clear()  ;
     m_logsOwnersName.clear();
 
-
     QJsonArray tbLogs = tbJson["trackableLogs"].toArray();
     qDebug() << "tbLogs:" << tbLogs;
 

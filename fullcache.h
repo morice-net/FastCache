@@ -146,6 +146,10 @@ signals:
     void trackableCodesChanged();
 
 public:
+    // Type of logs falitator
+    const QMap<QString, int> m_mapLogType;
+
+private:   
     QList<int> m_attributes;
     QList<bool> m_attributesBool;
     QString m_note;
@@ -165,12 +169,6 @@ public:
     QList<QString > m_trackableNames;
     QList<QString > m_trackableCodes;
     QList<QString> m_findersDate;
-
-    // Type of logs falitator
-    const QMap<QString, int> m_mapLogType;
-
-private:
-    // Properties
     QString m_location;
     bool m_favorited;
     QString m_longDescription;
