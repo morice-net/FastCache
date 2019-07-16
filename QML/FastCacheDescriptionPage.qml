@@ -193,10 +193,6 @@ Item {
         color: Palette.white()
     }
 
-    LoadingPage {
-        id: loadingPage
-    }
-
     function imagesCache() {
         var visible =[];
 

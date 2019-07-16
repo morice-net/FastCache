@@ -404,11 +404,7 @@ Item {
                 }
             }
         }
-    }
-
-    LoadingPage {
-        id: loadingPage
-    }
+    }    
 }
 
 
