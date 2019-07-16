@@ -21,7 +21,6 @@ Cache::Cache(QObject *parent)
     , m_lat(0)
     , m_lon(0)
     , m_registered(false)
-    , m_storage(new SQLiteStorage(this))
 {
 }
 

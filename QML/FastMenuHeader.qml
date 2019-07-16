@@ -77,7 +77,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: fullCache.writeToStorage()
+            onClicked: fullCacheRetriever.writeToStorage(sqliteStorage)
         }
     }
 

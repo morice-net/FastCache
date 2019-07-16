@@ -3,6 +3,7 @@
 
 #include "requestor.h"
 #include "fullcache.h"
+#include "sqlitestorage.h"
 
 #include <QNetworkReply>
 
@@ -17,11 +18,13 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token) override ;
     Q_INVOKABLE void updateFullCache(FullCache *fullCache);
+    Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
     FullCache *m_fullCache;
+    QJsonDocument m_dataJson;
 };
 
 #endif // FULLCACHERETRIEVER_H

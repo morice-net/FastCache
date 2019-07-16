@@ -251,6 +251,10 @@ Item {
         interval: 4000
     }
 
+    SQLiteStorage {
+        id: sqliteStorage
+    }
+
     Component.onCompleted: {
         main.viewState = "map"
 
