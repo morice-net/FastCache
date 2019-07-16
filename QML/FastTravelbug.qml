@@ -10,6 +10,10 @@ Rectangle {
     visible: main.viewState === "travelbug"
     color: Palette.greenSea()
 
+    LoadingPage {
+        id: loadingPage
+    }
+
     Row {
         id:fastTravelbugHeader
         x: 200
@@ -33,6 +37,7 @@ Rectangle {
 
     SwipeView {
         id: swipeFastTravelbug
+        visible: travelbug.state !== "loading"
         anchors.fill: parent
         currentIndex: 1
         anchors.top: fastTravelbugHeader.bottom
@@ -54,6 +59,7 @@ Rectangle {
     PageIndicator {
         id: indicatorFastTravelbug
         count: swipeFastTravelbug.count
+        visible: travelbug.state !== "loading"
         currentIndex: swipeFastTravelBug.currentIndex
         anchors.bottom: fastTravelbug.bottom
         anchors.horizontalCenter: parent.horizontalCenter

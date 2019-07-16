@@ -13,10 +13,10 @@ Item {
     property string textLog: ""
 
     onTypeLogChanged: {
-        button1.checked = typeLog == 13   // type de log :travelbug récupére
-        button2.checked = typeLog == 19   // type de log: travelbug pris ailleurs
-        button3.checked = typeLog == 4   // type de log: note
-        button4.checked = typeLog == 48  // type de log: travelbug découvert
+        button1.checked = typeLog == 13   // type of log: Retrieve It from a Cache
+        button2.checked = typeLog == 19   // type of log: Grab It (Not from a Cache)
+        button3.checked = typeLog == 4   // type of log: Write Note
+        button4.checked = typeLog == 48  // type of log: Discovered It
     }
 
     onTextLogChanged: message.text = message.text + textLog ;
@@ -339,8 +339,10 @@ Item {
                 id: trackingCode
                 placeholderText: qsTr("Code de suivi")
                 font.family: localFont.name
-                font.pointSize: 14
-                textColor: Palette.greenSea()
+                font.pointSize: 16
+                style: TextFieldStyle {
+                    textColor: Palette.greenSea()
+                }
             }
 
             Text {
@@ -359,9 +361,5 @@ Item {
                 textColor: Palette.greenSea()
             }
         }
-    }
-
-    LoadingPage {
-        id: loadingPage
     }
 }

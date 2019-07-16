@@ -199,7 +199,7 @@ Item {
                 color: Palette.white()
                 leftPadding: 15
                 rightPadding: 15
-                textFormat: Text.AutoText
+                textFormat: Qt.RichText
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
@@ -236,11 +236,32 @@ Item {
                 color: Palette.white()
                 leftPadding: 15
                 rightPadding: 15
-                textFormat: Text.AutoText
+                textFormat: Qt.RichText
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: travelbug.description
+            }
+
+            Rectangle {
+                id: separator3
+                visible:travelbug.imagesName.length !== 0
+                width: parent.width
+                height: 2
+                color: Palette.white()
+                radius:10
+            }
+
+            Text {
+                id:images
+                visible:travelbug.imagesName.length !== 0
+                width: parent.width
+                y:separator3.y + 10
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 14
+                text: "IMAGES"
+                color: Palette.silver()
             }
 
             // images
@@ -260,18 +281,6 @@ Item {
                         font.pointSize: 15
                         color: Palette.white()
                         wrapMode: Text.Wrap
-                    }
-
-                    Text {
-                        x:10
-                        visible: travelbug.imagesDescription[index] !== ""
-                        text: travelbug.imagesDescription[index]
-                        font.family: localFont.name
-                        textFormat: Qt.RichText
-                        font.pointSize: 15
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-
                     }
 
                     Image {

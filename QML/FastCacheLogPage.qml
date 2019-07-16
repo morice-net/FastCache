@@ -13,11 +13,11 @@ Item {
     property string textLog: ""
 
     onTypeLogChanged: {
-        button1.checked = typeLog == 2  // type de log : Trouvée
-        button2.checked = typeLog == 3  // type de log : Non trouvée
-        button3.checked = typeLog == 4  // type de log : Note
-        button4.checked = typeLog == 45  // type de log : Nécessite une maintenace
-        button5.checked = typeLog == 7  // type de log : Nécessite d'être archivée
+        button1.checked = typeLog == 2  // type of log : Found It
+        button2.checked = typeLog == 3  // type of log : Didn't find it
+        button3.checked = typeLog == 4  // type of log : Write note
+        button4.checked = typeLog == 45 // type of log : Needs Maintenance
+        button5.checked = typeLog == 7  // type of log : Needs Archived
     }
 
     onTextLogChanged: message.text = message.text + textLog ;
