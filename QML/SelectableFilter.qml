@@ -2,7 +2,7 @@ import QtQuick 2.6
 
 import "JavaScript/Palette.js" as Palette
 
- Item {
+Item {
     id: selectableFilter
     width: parent.width
     height: 50
@@ -19,8 +19,7 @@ import "JavaScript/Palette.js" as Palette
             font.pointSize: 18
             color: Palette.black()
             width: parent.width
-            text: selectableFilter.filterText            
-
+            text: selectableFilter.filterText
         }
     }
 }

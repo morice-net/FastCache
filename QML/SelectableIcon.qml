@@ -46,6 +46,7 @@ CheckBox {
     }
 
     function updateFilterType()  {
+        main.forceActiveFocus()
         if(index==0)
             settings.traditional = main.listTypes[0]
         else if (index==1)
