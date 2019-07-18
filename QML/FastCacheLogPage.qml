@@ -403,8 +403,66 @@ Item {
                     }
                 }
             }
+
+            Rectangle {
+                id: separator1
+                visible: getTravelbugUser.tbsCode.length !== 0
+                width: parent.width
+                height: 2
+                color: Palette.white()
+                radius:10
+            }
+
+            Text {
+                id: note
+                visible: getTravelbugUser.tbsCode.length !== 0
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 14
+                text: "INVENTAIRE"
+                color: Palette.silver()
+            }
+
+            Repeater{
+                model: getTravelbugUser.tbsCode.length
+
+                Column{
+
+                    Image {
+                        source: "qrc:/Image/" + "trackable_travelbug.png"
+                        horizontalAlignment: Image.AlignHCenter
+                        scale: 1.4
+                    }
+
+                    Text {
+                        text: getTravelbugUser.trackingNumbers[index]
+                        font.family: localFont.name
+                        font.bold: true
+                        font.pointSize: 14
+                        color: Palette.white()
+                    }
+
+                    Text {
+                        text: getTravelbugUser.tbsName[index]
+                        font.family: localFont.name
+                        textFormat: Qt.RichText
+                        font.bold: true
+                        font.pointSize: 14
+                        color: Palette.white()
+                        wrapMode: Text.Wrap
+                    }
+
+                    Rectangle {
+                        width: separator1.width
+                        height: 1
+                        color: Palette.white()
+                        radius:10
+                    }
+                }
+            }
         }
-    }    
+    }
 }
 
 

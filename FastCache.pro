@@ -9,6 +9,7 @@ linux:!android {
 SOURCES += main.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
+    gettravelbuguser.cpp \
     parameter.cpp \
     sendtravelbuglog.cpp \
     tools.cpp \
@@ -41,6 +42,7 @@ include(deployment.pri)
 HEADERS += \
     connector.h \
     fullcacheretriever.h \
+    gettravelbuguser.h \
     parameter.h \
     sendtravelbuglog.h \
     tools.h \

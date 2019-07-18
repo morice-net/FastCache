@@ -25,6 +25,7 @@
 #include "travelbug.h"
 #include "fullcacheretriever.h"
 #include "sqlitestorage.h"
+#include "gettravelbuguser.h"
 
 int main(int argc, char *argv[])
 {
@@ -46,6 +47,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");
     qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");
+    qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID

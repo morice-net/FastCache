@@ -219,7 +219,10 @@ Item {
                 toast.show("Le log du travelbug a été correctement envoyé ");
             }
         }
+    }
 
+    GetTravelbugUser{
+        id:getTravelbugUser
     }
 
     Location {
@@ -257,7 +260,6 @@ Item {
 
     Component.onCompleted: {
         main.viewState = "map"
-
         fastMap.mapItem.updateCachesOnMap(cachesBBox)
 
         // retrieve settings (todo: remove and put alias in settings instead)
@@ -268,6 +270,8 @@ Item {
         if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
             userInfo.sendRequest(connector.tokenKey)
+            // list of travels bug of user.
+            getTravelbugUser.sendRequest(connector.tokenKey)
         } else {
             connector.connect()
         }
