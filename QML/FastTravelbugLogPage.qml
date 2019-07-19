@@ -107,6 +107,7 @@ Item {
 
                     RadioButton {
                         id:button3
+                        visible:true
                         checked: true
                         onClicked: typeLog = 4
                         exclusiveGroup: tabPositionGroup
@@ -166,7 +167,7 @@ Item {
 
                     RadioButton {
                         id:button5
-                        visible: travelbug.tbStatus === 2 //travelbug in possession of owner of the trackable
+                        visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) //travelbug in possession of (owner,holder) of the trackable
                         onClicked: typeLog = 75
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
@@ -195,7 +196,7 @@ Item {
 
                     RadioButton {
                         id:button6
-                        visible: travelbug.tbStatus === 2 //travelbug in possession of owner of the trackable
+                        visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) //travelbug in possession of (owner,holder) of the trackable
                         onClicked: typeLog = 14
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {

@@ -20,7 +20,7 @@ Item {
             width: logsPage.width
 
             Repeater{
-                model:travelbug.logsText.length
+                model:displayTbLogsPage()
 
                 Column{
 
@@ -124,6 +124,19 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    function displayTbLogsPage() {
+        if(travelbug.logsText.length === 0){
+            fastTravelbug.removePage(logsPage)
+            return travelbug.logsText.length
+        } else {
+            fastTravelbug.addPage(logsPage)
+
+            // reorder pages
+            swipeFastTravelbug.moveItem(2,1);
+            return travelbug.logsText.length
         }
     }
 }

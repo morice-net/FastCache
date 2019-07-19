@@ -64,4 +64,26 @@ Rectangle {
         anchors.bottom: fastTravelbug.bottom
         anchors.horizontalCenter: parent.horizontalCenter
     }
+
+
+    function swipeToPage(pageNumber) {
+        swipeFastTravelbug.setCurrentIndex(pageNumber)
+    }
+
+    function addPage(page) {
+        swipeFastTravelbug.addItem(page);
+        page.visible = true ;
+    }
+
+    function removePage(page) {
+        for (var n = 0; n < indicatorFastTravelbug.count; n++) {
+            if (page === swipeFastTravelbug.itemAt(n)) {
+                swipeFastTravelbug.removeItem(n) ;
+                page.visible = false ;
+                return ;
+            }
+        }
+        page.visible = false ;
+        return ;
+    }
 }
