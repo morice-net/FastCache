@@ -404,15 +404,6 @@ Item {
                 }
             }
 
-            Rectangle {
-                id: separator1
-                visible: getTravelbugUser.tbsCode.length !== 0
-                width: parent.width
-                height: 2
-                color: Palette.white()
-                radius:10
-            }
-
             Text {
                 id: note
                 visible: getTravelbugUser.tbsCode.length !== 0
@@ -424,40 +415,48 @@ Item {
                 color: Palette.silver()
             }
 
-            Repeater{
-                model: getTravelbugUser.tbsCode.length
+            Column{
+                spacing:10
+                width: logPage.width
 
-                Column{
+                Repeater{
+                    model: getTravelbugUser.tbsCode.length
 
-                    Image {
-                        source: "qrc:/Image/" + "trackable_travelbug.png"
-                        horizontalAlignment: Image.AlignHCenter
-                        scale: 1.4
-                    }
+                    Column{
 
-                    Text {
-                        text: getTravelbugUser.trackingNumbers[index]
-                        font.family: localFont.name
-                        font.bold: true
-                        font.pointSize: 14
-                        color: Palette.white()
-                    }
 
-                    Text {
-                        text: getTravelbugUser.tbsName[index]
-                        font.family: localFont.name
-                        textFormat: Qt.RichText
-                        font.bold: true
-                        font.pointSize: 14
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-                    }
 
-                    Rectangle {
-                        width: separator1.width
-                        height: 1
-                        color: Palette.white()
-                        radius:10
+                        Image {
+                            source: "qrc:/Image/" + "trackable_travelbug.png"
+                            horizontalAlignment: Image.AlignHCenter
+                            scale: 1.4
+                        }
+
+                        Text {
+                            text: getTravelbugUser.trackingNumbers[index]
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 14
+                            color: Palette.white()
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    travelbug.sendRequest(connector.tokenKey , getTravelbugUser.tbsCode[index]);
+                                    main.viewState = "travelbug"
+                                }
+                            }
+                        }
+
+                        Text {
+                            text: getTravelbugUser.tbsName[index]
+                            font.family: localFont.name
+                            textFormat: Qt.RichText
+                            font.bold: true
+                            font.pointSize: 14
+                            color: Palette.white()
+                            wrapMode: Text.Wrap
+                        }
                     }
                 }
             }

@@ -10,7 +10,7 @@ Item {
     visible:true
 
     Flickable {
-        anchors.topMargin: 100
+        anchors.topMargin: 60
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height

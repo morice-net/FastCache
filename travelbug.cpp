@@ -22,6 +22,8 @@ Travelbug::Travelbug(Requestor *parent)
     , m_logsDate(QList<QString>())
     , m_logsGeocacheCode(QList<QString>())
     , m_logsGeocacheName(QList<QString>())
+    , m_tbStatus(0)
+    , m_trackingNumber("")
     , m_mapLogType({{"Note", 4},
 {"Récupéré", 13},
 {"Déposé", 14},
@@ -75,13 +77,24 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     QJsonObject owner = tbJson["owner"].toObject();
     setOriginalOwner(owner["username"].toString());
 
-    if(tbJson["isMissing"].toBool())
+    // status of travelbug
+    if(tbJson["isMissing"].toBool()){
         setLocated("Inconnu");
-    else if (tbJson["inHolderCollection"].toBool()) {
+        setTbStatus(0); //travelbug missing
+    }
+    else if (!tbJson["holder"].isNull()) {
         QJsonObject currentOwner = tbJson["holder"].toObject();
         setLocated("En possession de " + currentOwner["username"].toString());
-    } else if(!tbJson["inHolderCollection"].toBool()){
+        if(currentOwner["username"].toString() == owner["username"].toString()){
+            setTbStatus(2);  //travelbug in possession of owner of the trackable
+            setTrackingNumber(tbJson["trackingNumber"].toString());
+        } else {
+            setTbStatus(3); //travelbug in possession of holder of the trackable
+        }
+    }
+    else if(tbJson["holder"].isNull()){
         setLocated("Dans la cache " + tbJson["currentGeocacheCode"].toString());
+        setTbStatus(1);  // travelbug in cache
     }
 
     setDateCreated(tbJson["releasedDate"].toString());
@@ -349,5 +362,27 @@ QList<QString>Travelbug::logsDate() const
 void Travelbug::setLogsDate(const QList<QString> &dates)
 {
     m_logsDate = dates;
-    emit logsOwnersNameChanged();
+    emit logsDateChanged();
+}
+
+int Travelbug::tbStatus() const
+{
+    return  m_tbStatus;
+}
+
+void Travelbug::setTbStatus(const int &status)
+{
+    m_tbStatus = status;
+    emit tbStatusChanged();
+}
+
+QString Travelbug::trackingNumber() const
+{
+    return  m_trackingNumber;
+}
+
+void Travelbug::setTrackingNumber(const QString &number)
+{
+    m_trackingNumber = number;
+    emit trackingNumberChanged();
 }

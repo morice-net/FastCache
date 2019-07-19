@@ -9,7 +9,7 @@ Item {
     id: logPage
 
     property string dateIso: new Date().toISOString()
-    property int typeLog: 13
+    property int typeLog: 4
     property string textLog: ""
 
     onTypeLogChanged: {
@@ -17,6 +17,8 @@ Item {
         button2.checked = typeLog == 19   // type of log: Grab It (Not from a Cache)
         button3.checked = typeLog == 4   // type of log: Write Note
         button4.checked = typeLog == 48  // type of log: Discovered It
+        button5.checked = typeLog == 75  // type of log: Visited
+        button6.checked = typeLog == 14  // type of log: Dropped Off
     }
 
     onTextLogChanged: message.text = message.text + textLog ;
@@ -45,6 +47,7 @@ Item {
 
                     RadioButton {
                         id:button1
+                        visible: travelbug.tbStatus === 1 //travelbug in cache
                         checked: true
                         onClicked: typeLog = 13
                         exclusiveGroup: tabPositionGroup
@@ -75,6 +78,7 @@ Item {
 
                     RadioButton {
                         id:button2
+                        visible: travelbug.tbStatus === 1 //travelbug in cache
                         onClicked: typeLog = 19
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
@@ -103,6 +107,7 @@ Item {
 
                     RadioButton {
                         id:button3
+                        checked: true
                         onClicked: typeLog = 4
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
@@ -131,6 +136,7 @@ Item {
 
                     RadioButton {
                         id:button4
+                        visible: travelbug.tbStatus === 1 //travelbug in cache
                         onClicked: typeLog = 48
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
@@ -156,6 +162,66 @@ Item {
                             }
                         }
                     }
+
+
+                    RadioButton {
+                        id:button5
+                        visible: travelbug.tbStatus === 2 //travelbug in possession of owner of the trackable
+                        onClicked: typeLog = 75
+                        exclusiveGroup: tabPositionGroup
+                        style: RadioButtonStyle {
+                            label: Text {
+                                text: "Visité"
+                                font.family: localFont.name
+                                font.pointSize: 16
+                                color: control.checked ? Palette.white() : Palette.silver()
+                            }
+                            indicator: Rectangle {
+                                y:10
+                                implicitWidth: 25
+                                implicitHeight: 25
+                                radius: 10
+                                border.width: 1
+                                Rectangle {
+                                    anchors.fill: parent
+                                    visible: control.checked
+                                    color: Palette.greenSea()
+                                    radius: 10
+                                    anchors.margins: 4
+                                }
+                            }
+                        }
+                    }
+
+                    RadioButton {
+                        id:button6
+                        visible: travelbug.tbStatus === 2 //travelbug in possession of owner of the trackable
+                        onClicked: typeLog = 14
+                        exclusiveGroup: tabPositionGroup
+                        style: RadioButtonStyle {
+                            label: Text {
+                                text: "Déposé"
+                                font.family: localFont.name
+                                font.pointSize: 16
+                                color: control.checked ? Palette.white() : Palette.silver()
+                            }
+                            indicator: Rectangle {
+                                y:10
+                                implicitWidth: 25
+                                implicitHeight: 25
+                                radius: 10
+                                border.width: 1
+                                Rectangle {
+                                    anchors.fill: parent
+                                    visible: control.checked
+                                    color: Palette.greenSea()
+                                    radius: 10
+                                    anchors.margins: 4
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -324,12 +390,15 @@ Item {
                         }
                     }
                     onClicked:{
-                        console.log(connector.tokenKey + " " + travelbug.tbCode + " " + trackingCode.text + " " + typeLog + " " +
-                                    dateIso   + " " +  message.text);
-                        if(typeLog !== 4 && trackingCode.text !== "")
+                        if((typeLog !== 4 && travelbug.tbStatus === 1) || (typeLog !== 4 && travelbug.tbStatus === 3)){
                             sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
+                        }
+                        else if(typeLog !== 4 &&travelbug.tbStatus === 2 ){
+                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , travelbug.trackingNumber , typeLog , dateIso  , message.text);
+                        }
+
                         else if(typeLog === 4 && message.text !==""){
-                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
+                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
                         }
                     }
                 }
@@ -337,6 +406,7 @@ Item {
 
             TextField {
                 id: trackingCode
+                visible:((typeLog !== 4 && travelbug.tbStatus === 1) || (typeLog !== 4 && travelbug.tbStatus === 3))
                 placeholderText: qsTr("Code de suivi")
                 font.family: localFont.name
                 font.pointSize: 16

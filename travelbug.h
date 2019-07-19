@@ -32,6 +32,8 @@ class Travelbug : public Requestor
     Q_PROPERTY(QList<QString > logsGeocacheCode READ logsGeocacheCode WRITE setLogsGeocacheCode NOTIFY logsGeocacheCodeChanged)
     Q_PROPERTY(QList<QString > logsGeocacheName READ logsGeocacheName WRITE setLogsGeocacheName NOTIFY logsGeocacheNameChanged)
     Q_PROPERTY(QList<QString > logsDate READ logsDate WRITE setLogsDate NOTIFY logsDateChanged)
+    Q_PROPERTY(int tbStatus READ tbStatus WRITE setTbStatus NOTIFY tbStatusChanged)
+    Q_PROPERTY(QString trackingNumber READ trackingNumber WRITE setTrackingNumber NOTIFY trackingNumberChanged)
 
 public:
     explicit  Travelbug(Requestor *parent = nullptr);
@@ -98,6 +100,12 @@ public:
     QList<QString > logsDate() const;
     void setLogsDate(const QList<QString > &dates);
 
+    int tbStatus() const;
+    void setTbStatus(const int &status);
+
+    QString  trackingNumber() const;
+    void setTrackingNumber(const QString  &number);
+
 signals:
     void nameChanged();
     void typeChanged();
@@ -118,6 +126,8 @@ signals:
     void logsGeocacheCodeChanged();
     void logsGeocacheNameChanged();
     void logsDateChanged();
+    void tbStatusChanged();
+    void trackingNumberChanged();
 
 protected:
     QString m_name;
@@ -139,6 +149,8 @@ protected:
     QList<QString> m_logsGeocacheCode;
     QList<QString> m_logsGeocacheName;
     QList<QString > m_logsDate;
+    int m_tbStatus;
+    QString m_trackingNumber;
 
     // Type of logs falitator
     const QMap<QString, int> m_mapLogType;
