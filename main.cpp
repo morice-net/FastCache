@@ -26,6 +26,7 @@
 #include "fullcacheretriever.h"
 #include "sqlitestorage.h"
 #include "gettravelbuguser.h"
+#include "senduserwaypoint.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");
     qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
+    qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
 
     QGuiApplication app(argc, argv);
 #if !defined Q_OS_ANDROID
