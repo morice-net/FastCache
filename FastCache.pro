@@ -12,6 +12,7 @@ SOURCES += main.cpp \
     gettravelbuguser.cpp \
     parameter.cpp \
     sendtravelbuglog.cpp \
+    senduserwaypoint.cpp \
     tools.cpp \
     cachesretriever.cpp \
     travelbug.cpp \
@@ -45,6 +46,7 @@ HEADERS += \
     gettravelbuguser.h \
     parameter.h \
     sendtravelbuglog.h \
+    senduserwaypoint.h \
     tools.h \
     cachesretriever.h \
     travelbug.h \
