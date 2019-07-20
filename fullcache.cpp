@@ -28,9 +28,13 @@ FullCache::FullCache(Cache *parent)
     , m_shortDescription("")
     , m_shortDescriptionIsHtml(false)
     , m_hints("")
+    , m_userWptsDescription(QList<QString>())
+    , m_userWptsCorrectedCoordinates(QList<bool>())
+    , m_userWptsLat(QList<double>())
+    , m_userWptsLon(QList<double>())
     , m_mapLogType({{"Trouvée",2},
 {"Non trouvée", 3},
-{"Note", 4},                   
+{"Note", 4},
 {"Archivée", 5},
 {"Archivée en permanence", 6},
 {"Nécessite d\'être archivée", 7},
@@ -334,6 +338,47 @@ void FullCache::setTrackableCodes(const QList<QString> &codes)
 {
     m_trackableCodes = codes;
     emit trackableCodesChanged();
+}
+
+QList<QString>FullCache::userWptsDescription() const
+{
+    return  m_userWptsDescription;
+}
+
+void FullCache::setUserWptsDescription(const QList<QString> &descriptions)
+{
+    m_userWptsDescription = descriptions;
+    emit userWptsDescriptionChanged();
+}
+
+QList<bool>FullCache::userWptsCorrectedCoordinates() const
+{
+    return  m_userWptsCorrectedCoordinates;
+}
+
+void FullCache::setUserWptsCorrectedCoordinates(const QList<bool> &correcteds){
+    m_userWptsCorrectedCoordinates = correcteds;
+    emit userWptsCorrectedCoordinatesChanged();
+}
+
+QList<double>FullCache::userWptsLat() const
+{
+    return  m_userWptsLat;
+}
+
+void FullCache::setUserWptsLat(const QList<double> &lats){
+    m_userWptsLat = lats;
+    emit userWptsLatChanged();
+}
+
+QList<double>FullCache::userWptsLon() const
+{
+    return  m_userWptsLon;
+}
+
+void FullCache::setUserWptsLon(const QList<double> &lons){
+    m_userWptsLon = lons;
+    emit userWptsLonChanged();
 }
 
 

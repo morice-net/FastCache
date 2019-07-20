@@ -33,7 +33,7 @@ void FullCacheRetriever::sendRequest(QString token)
                        ",trackables:" + QString::number(TRACKABLE_LOGS_COUNT) +
                        ",geocachelog.images:" + QString::number(GEOCACHE_LOG_IMAGES_COUNT) +
                        ",userwaypoints:" + QString::number(USER_WAYPOINTS) +
-                       ",images:") + QString::number(IMAGES);
+                       ",images:" + QString::number(IMAGES));
 
     qDebug() << "URL:" << requestName ;
 
@@ -251,6 +251,35 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setWptsLat(listWptsLat);
     m_fullCache->setWptsLon(listWptsLon);
     m_fullCache->setWptsComment(listWptsComment);
+
+    // UserWaypoints
+    QList<QString> listUserWptsDescription ;
+    QList<bool> listUserWptsCorrectedCoordinates ;
+    QList<double> listUserWptsLat ;
+    QList<double> listUserWptsLon ;
+
+    listUserWptsDescription.clear();
+    listUserWptsCorrectedCoordinates.clear();
+    listUserWptsLat.clear();
+    listUserWptsLon.clear();
+
+    for (QJsonValue userWaypoint: cacheJson["userWaypoints"].toArray())
+    {
+        listUserWptsDescription.append(userWaypoint["description"].toString());
+        listUserWptsCorrectedCoordinates.append(userWaypoint["isCorrectedCoordinates"].toBool());
+
+        v1 = userWaypoint["coordinates"].toObject();
+        if(v1["latitude"].isNull()) {
+            listUserWptsLat.append(200) ;
+        } else{
+            listUserWptsLat.append(v1["latitude"].toDouble());
+        }
+        listUserWptsLon.append(v1["longitude"].toDouble());
+    }
+    m_fullCache->setUserWptsDescription(listUserWptsDescription);
+    m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
+    m_fullCache->setUserWptsLat(listUserWptsLat);
+    m_fullCache->setUserWptsLon(listUserWptsLon);
 
     // Trackables: list of names and codes.
     QList<QString> listTrackableNames ;

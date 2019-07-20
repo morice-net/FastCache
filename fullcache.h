@@ -35,6 +35,10 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
     Q_PROPERTY(QList<QString > trackableNames READ trackableNames WRITE setTrackableNames NOTIFY trackableNamesChanged)
     Q_PROPERTY(QList<QString > trackableCodes READ trackableCodes WRITE setTrackableCodes NOTIFY trackableCodesChanged)
+    Q_PROPERTY(QList<QString > userWptsDescription READ userWptsDescription WRITE setUserWptsDescription NOTIFY userWptsDescriptionChanged)
+    Q_PROPERTY(QList<bool > userWptsCorrectedCoordinates READ userWptsCorrectedCoordinates  WRITE setUserWptsCorrectedCoordinates NOTIFY userWptsCorrectedCoordinatesChanged)
+    Q_PROPERTY(QList<double > userWptsLat READ userWptsLat WRITE setUserWptsLat NOTIFY userWptsLatChanged)
+    Q_PROPERTY(QList<double > userWptsLon READ userWptsLon WRITE setUserWptsLon NOTIFY userWptsLonChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -117,6 +121,21 @@ public:
     QList<QString > trackableCodes() const;
     void setTrackableCodes(const QList<QString > &codes);
 
+    QList<QString > userWptsDescription() const;
+    void setUserWptsDescription(const QList<QString > &descriptions);
+
+    QList<bool >  userWptsCorrectedCoordinates() const;
+    void setUserWptsCorrectedCoordinates(const QList<bool > &correcteds);
+
+    QList<double >  userWptsLat() const;
+    void setUserWptsLat(const QList<double > &lats);
+
+    QList<double >  userWptsLon() const;
+    void setUserWptsLon(const QList<double > &lons);
+
+
+
+
 signals:   
     void attributesChanged();
     void attributesBoolChanged();
@@ -144,6 +163,10 @@ signals:
     void listVisibleImagesChanged();
     void trackableNamesChanged();
     void trackableCodesChanged();
+    void userWptsDescriptionChanged();
+    void userWptsCorrectedCoordinatesChanged();
+    void userWptsLatChanged();
+    void userWptsLonChanged();
 
 public:
     // Type of logs falitator
@@ -176,5 +199,9 @@ private:
     QString m_shortDescription;
     bool m_shortDescriptionIsHtml;
     QString m_hints;
+    QList<QString > m_userWptsDescription;
+    QList<bool > m_userWptsCorrectedCoordinates;
+    QList<double > m_userWptsLat;
+    QList<double > m_userWptsLon;
 };
 #endif // FULLCACHE_H
