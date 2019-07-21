@@ -39,8 +39,13 @@ Item {
                     border.width: 1
                     radius: 5
                 }
-             //     onClicked:
 
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        userWaypoint.open();
+                    }
+                }
             }
 
             Repeater{

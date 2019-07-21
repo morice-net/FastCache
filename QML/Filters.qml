@@ -381,7 +381,7 @@ Item {
             main.listSizes[6] = true
         }
 
-        if(textArray == "")
+        if(textArray === "")
             textArray = "Aucune"
         textButtonId.text = textArray
     }

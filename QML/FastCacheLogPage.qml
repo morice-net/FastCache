@@ -424,8 +424,6 @@ Item {
 
                     Column{
 
-
-
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
                             horizontalAlignment: Image.AlignHCenter

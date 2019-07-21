@@ -91,6 +91,7 @@ Item {
     GeocodeAlert { id: geocodeAlert }
 
     CoordinatesBox { id: coordinatesBox }
+    UserWaypoint { id: userWaypoint }
 
     // Used for loggin
     WebView {
