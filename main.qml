@@ -91,6 +91,7 @@ Item {
     GeocodeAlert { id: geocodeAlert }
 
     CoordinatesBox { id: coordinatesBox }
+
     UserWaypoint { id: userWaypoint }
 
     // Used for loggin
@@ -175,7 +176,7 @@ Item {
             if(travelbug.state!== "loading" && travelbug.state!=="OK")
             {
                 toast.visible;
-                toast.show("Erreur de connexion  " + "(" + state + ")");
+                toast.show("Erreur  " + "(" + state + ")");
             }
         }
     }
@@ -185,7 +186,7 @@ Item {
         onStateChanged: {
             toast.visible = sendCacheNote.state !== "loading";
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
-                toast.show("Erreur de connexion  " + "(" + state + ")");
+                toast.show("Erreur  " + "(" + state + ")");
             if (sendCacheNote.state === "OK")
                 toast.show("La note personnelle a été correctement envoyée");
             else {
@@ -199,7 +200,7 @@ Item {
         onStateChanged: {
             toast.visible = sendCacheLog.state !== "loading";
             if (sendCacheLog.state !== "Created") {
-                toast.show("Erreur de connexion  " + "(" + state + ")");
+                toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
             }
@@ -215,9 +216,21 @@ Item {
         onStateChanged: {
             toast.visible = sendTravelbugLog.state !== "loading";
             if (sendTravelbugLog.state !== "Created") {
-                toast.show("Erreur de connexion  " + "(" + state + ")");
+                toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("Le log du travelbug a été correctement envoyé ");
+            }
+        }
+    }
+
+    SendUserWaypoint{
+        id: sendUserWaypoint
+        onStateChanged: {
+            toast.visible = sendUserWaypoint.state !== "loading";
+            if (sendUserWaypoint.state !== "Created") {
+                toast.show("Erreur  " + "(" + state + ")");
+            } else {
+                toast.show("L'étape personnelle a été crée ");
             }
         }
     }

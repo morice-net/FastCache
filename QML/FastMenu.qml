@@ -295,15 +295,17 @@ Item {
 
     // load caches by coordinates, from CoordinatesBox.
     function cachesByCoordinates() {
-        cachesNear.latPoint = coordinatesBox.resultLat
-        cachesNear.lonPoint = coordinatesBox.resultLon
-        cachesNear.distance = 100
-        cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
-                                      createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
-                                      createFilterKeywordDiscoverOwner() , userInfo.name )
-        cachesNear.indexMoreCaches(0)
-        cachesNear.sendRequest(connector.tokenKey)
-        fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
+        if(main.viewState !== "fullcache"){
+            cachesNear.latPoint = coordinatesBox.resultLat
+            cachesNear.lonPoint = coordinatesBox.resultLon
+            cachesNear.distance = 100
+            cachesNear.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),
+                                          createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+                                          createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesNear.indexMoreCaches(0)
+            cachesNear.sendRequest(connector.tokenKey)
+            fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
+        }
     }
 
     Component.onCompleted: {

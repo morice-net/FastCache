@@ -48,7 +48,7 @@ Item {
                     RadioButton {
                         id:button1
                         visible: travelbug.tbStatus === 1 //travelbug in cache
-                        checked: true
+                        checked: false
                         onClicked: typeLog = 13
                         exclusiveGroup: tabPositionGroup
                         style: RadioButtonStyle {
