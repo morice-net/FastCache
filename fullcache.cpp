@@ -32,6 +32,7 @@ FullCache::FullCache(Cache *parent)
     , m_userWptsCorrectedCoordinates(QList<bool>())
     , m_userWptsLat(QList<double>())
     , m_userWptsLon(QList<double>())
+    , m_userWptsCode(QList<QString>())
     , m_mapLogType({{"Trouvée",2},
 {"Non trouvée", 3},
 {"Note", 4},
@@ -379,6 +380,16 @@ QList<double>FullCache::userWptsLon() const
 void FullCache::setUserWptsLon(const QList<double> &lons){
     m_userWptsLon = lons;
     emit userWptsLonChanged();
+}
+
+QList<QString>FullCache::userWptsCode() const
+{
+    return  m_userWptsCode;
+}
+
+void FullCache::setUserWptsCode(const QList<QString> &codes){
+    m_userWptsCode = codes;
+    emit userWptsCodeChanged();
 }
 
 

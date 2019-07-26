@@ -39,6 +39,7 @@ class FullCache : public Cache
     Q_PROPERTY(QList<bool > userWptsCorrectedCoordinates READ userWptsCorrectedCoordinates  WRITE setUserWptsCorrectedCoordinates NOTIFY userWptsCorrectedCoordinatesChanged)
     Q_PROPERTY(QList<double > userWptsLat READ userWptsLat WRITE setUserWptsLat NOTIFY userWptsLatChanged)
     Q_PROPERTY(QList<double > userWptsLon READ userWptsLon WRITE setUserWptsLon NOTIFY userWptsLonChanged)
+    Q_PROPERTY(QList<QString > userWptsCode READ userWptsCode WRITE setUserWptsCode NOTIFY userWptsCodeChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -133,8 +134,8 @@ public:
     QList<double >  userWptsLon() const;
     void setUserWptsLon(const QList<double > &lons);
 
-
-
+    QList<QString >  userWptsCode() const;
+    void setUserWptsCode(const QList<QString > &codes);
 
 signals:   
     void attributesChanged();
@@ -167,6 +168,7 @@ signals:
     void userWptsCorrectedCoordinatesChanged();
     void userWptsLatChanged();
     void userWptsLonChanged();
+    void userWptsCodeChanged();
 
 public:
     // Type of logs falitator
@@ -203,5 +205,6 @@ private:
     QList<bool > m_userWptsCorrectedCoordinates;
     QList<double > m_userWptsLat;
     QList<double > m_userWptsLon;
+    QList<QString > m_userWptsCode;
 };
 #endif // FULLCACHE_H

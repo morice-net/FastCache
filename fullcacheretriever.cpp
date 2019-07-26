@@ -257,16 +257,19 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QList<bool> listUserWptsCorrectedCoordinates ;
     QList<double> listUserWptsLat ;
     QList<double> listUserWptsLon ;
+    QList<QString> listUserWptsCode ;
 
     listUserWptsDescription.clear();
     listUserWptsCorrectedCoordinates.clear();
     listUserWptsLat.clear();
     listUserWptsLon.clear();
+    listUserWptsCode.clear(); ;
 
     for (QJsonValue userWaypoint: cacheJson["userWaypoints"].toArray())
     {
         listUserWptsDescription.append(userWaypoint["description"].toString());
         listUserWptsCorrectedCoordinates.append(userWaypoint["isCorrectedCoordinates"].toBool());
+        listUserWptsCode.append(userWaypoint["referenceCode"].toString());
 
         v1 = userWaypoint["coordinates"].toObject();
         if(v1["latitude"].isNull()) {
@@ -278,6 +281,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
     m_fullCache->setUserWptsDescription(listUserWptsDescription);
     m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
+    m_fullCache->setUserWptsCode(listUserWptsCode);
     m_fullCache->setUserWptsLat(listUserWptsLat);
     m_fullCache->setUserWptsLon(listUserWptsLon);
 

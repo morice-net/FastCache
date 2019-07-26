@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.2
+//import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
@@ -110,7 +111,76 @@ Item {
 
                     Rectangle {
                         height: 1
-                        width: parent.width
+                        width: waypointsPage.width
+                        color: Palette.silver()
+                    }
+                }
+            }
+
+            Text {
+                visible: fullCache.userWptsCode.length !== 0
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 16
+                text: "ETAPES PERSONNELLES"
+                color: Palette.silver()
+            }
+
+            Repeater{
+                model:fullCache.userWptsCode.length
+
+                Column{
+                    spacing: 10
+
+                    Text {
+                        text: fullCache.userWptsCode[index]
+                        leftPadding: 15
+                        font.family: localFont.name
+                        font.bold: true
+                        font.pointSize: 13
+                        color: Palette.white()
+                    }
+
+                    Text {
+                        visible: fullCache.userWptsLat[index] >180  ? false : true
+                        text: main.formatLat(fullCache.userWptsLat[index]) + " " + main.formatLon(fullCache.userWptsLon[index])
+                        leftPadding: 15
+                        font.family: localFont.name
+                        font.pointSize: 13
+                        color: Palette.silver()
+                        wrapMode: Text.Wrap
+                        anchors.leftMargin: 10
+                    }
+
+                    Text {
+                        width: waypointsPage.width
+                        visible: fullCache.userWptsDescription[index] === "" ? false : true
+                        font.family: localFont.name
+                        font.pointSize: 15
+                        horizontalAlignment: TextEdit.AlignJustify
+                        color: Palette.white()
+                        textFormat: Qt.RichText
+                        wrapMode: Text.Wrap
+                        leftPadding: 15
+                        rightPadding: 15
+                        onLinkActivated: Qt.openUrlExternally(link)
+                        text: fullCache.userWptsDescription[index]
+                    }
+
+                    Label {
+                        visible: fullCache.userWptsCorrectedCoordinates[index]
+                        text: "Les coordonnées de la cache sont modifiées "
+                        font.family: localFont.name
+                        font.pointSize: 13
+                        color: Palette.white()
+                        horizontalAlignment: Qt.AlignHCenter
+                        verticalAlignment: Qt.AlignVCenter
+                    }
+
+                    Rectangle {
+                        height: 1
+                        width: waypointsPage.width
                         color: Palette.silver()
                     }
                 }
