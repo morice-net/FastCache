@@ -199,6 +199,7 @@ FastPopup {
                 }
                 onClicked:{
                     sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , corrected.checked , description.text)
+                    userWaypoint.visible = false
                 }
             }
         }

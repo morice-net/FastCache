@@ -36,6 +36,17 @@ void SendUserWaypoint::sendRequest(QString token , QString geocacheCode , double
     Requestor::sendPostRequest(requestName,userWaypoint,token);
 }
 
+void SendUserWaypoint::sendRequest(QString token , QString uwCode)
+{
+    //Build url
+    QString requestName = "userwaypoints/";
+    requestName.append(uwCode);
+
+    // Inform QML we are loading
+    setState("loading");
+    Requestor::sendDeleteRequest(requestName,token);
+}
+
 void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
 {
     QJsonObject userWaypoint;

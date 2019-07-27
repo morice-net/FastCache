@@ -48,6 +48,8 @@ class FullCache : public Cache
 public:
     explicit FullCache(Cache *parent = nullptr);
 
+    Q_INVOKABLE void removeUserWpt(int index);
+
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);
 

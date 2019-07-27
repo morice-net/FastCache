@@ -58,6 +58,21 @@ FullCache::FullCache(Cache *parent)
 {
 }
 
+void FullCache::removeUserWpt(int index)
+{
+    m_userWptsLat.removeAt(index);
+    m_userWptsLon.removeAt(index);
+    m_userWptsCode.removeAt(index);
+    m_userWptsDescription.removeAt(index);
+    m_userWptsCorrectedCoordinates.removeAt(index);
+
+    emit userWptsLatChanged();
+    emit userWptsLonChanged();
+    emit userWptsCodeChanged();
+    emit userWptsDescriptionChanged();
+    emit userWptsCorrectedCoordinatesChanged();
+}
+
 QList<int> FullCache::attributes() const
 {
     return  m_attributes;

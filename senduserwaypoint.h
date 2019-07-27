@@ -15,6 +15,7 @@ public:
     ~SendUserWaypoint() override;
 
     Q_INVOKABLE void sendRequest(QString token , QString geocacheCode , double lat, double lon ,bool isCorrectedCoordinates , QString description) ;
+    Q_INVOKABLE void sendRequest(QString token , QString uwCode) ;
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 };

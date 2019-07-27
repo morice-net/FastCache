@@ -227,10 +227,12 @@ Item {
         id: sendUserWaypoint
         onStateChanged: {
             toast.visible = sendUserWaypoint.state !== "loading";
-            if (sendUserWaypoint.state !== "Created") {
+            if (sendUserWaypoint.state !== "Created" && sendUserWaypoint.state !== "No Content") {
                 toast.show("Erreur  " + "(" + state + ")");
-            } else {
+            } else if (sendUserWaypoint.state === "Created"){
                 toast.show("L'étape personnelle a été crée ");
+            } else if (sendUserWaypoint.state === "No Content"){
+                toast.show("L'étape personnelle a été supprimée ");
             }
         }
     }

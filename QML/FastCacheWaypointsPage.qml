@@ -167,6 +167,49 @@ Item {
                         text: fullCache.userWptsDescription[index]
                     }
 
+                    Row {
+                        x:waypointsPage.width/3
+                        spacing: 40
+
+                        Button {
+                            id: uwDelete
+                            contentItem : Text {
+                                text: "Supprimer"
+                                font.family: localFont.name
+                                font.pointSize: 12
+                                color: Palette.greenSea()
+                            }
+                            background: Rectangle {
+                                border.width: uwDelete.activeFocus ? 2 : 1
+                                border.color: Palette.silver()
+                                radius: 4
+                            }
+                            onClicked:{
+                                sendUserWaypoint.sendRequest(connector.tokenKey, fullCache.userWptsCode[index])
+                                fullCache.removeUserWpt(index)
+                            }
+                        }
+
+                        Button {
+                            id: uwUpdate
+                            contentItem : Text {
+                                text: "Modifier"
+                                font.family: localFont.name
+                                font.pointSize: 12
+                                color: Palette.greenSea()
+                            }
+                            background: Rectangle {
+                                border.width: uwUpdate.activeFocus ? 2 : 1
+                                border.color: Palette.silver()
+                                radius: 4
+                            }
+
+                            onClicked:{
+
+                            }
+                        }
+                    }
+
                     Rectangle {
                         height: 1
                         width: waypointsPage.width
