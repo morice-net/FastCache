@@ -63,7 +63,7 @@ FastPopup {
             font.family: localFont.name
             font.pointSize: 17
             color: Palette.greenSea()
-            validator: DoubleValidator {bottom: 0; top: 360.0;}
+            validator: DoubleValidator {bottom: 0.0; top: 360.0}
             background: Rectangle {
                 anchors.fill: parent
                 opacity: 0.9
@@ -80,7 +80,7 @@ FastPopup {
             font.family: localFont.name
             font.pointSize: 17
             color: Palette.greenSea()
-            validator: DoubleValidator {bottom: 0}
+            validator: DoubleValidator {bottom: 0.0}
             background: Rectangle {
                 anchors.fill: parent
                 opacity: 0.9
@@ -143,6 +143,7 @@ FastPopup {
             spacing: 30
 
             Button {
+                visible: corrected.checked === false
                 contentItem: Text {
                     text:"Effacer"
                     font.family: localFont.name
@@ -162,6 +163,7 @@ FastPopup {
             }
 
             Button {
+                visible: corrected.checked === false
                 contentItem: Text {
                     text:"Ajout de texte"
                     font.family: localFont.name
@@ -203,6 +205,7 @@ FastPopup {
 
         Text {
             width: parent.width
+            visible:corrected.checked === false
             font.family: localFont.name
             font.pointSize: 17
             text: "Description de l'étape"
@@ -211,6 +214,7 @@ FastPopup {
 
         TextArea {
             id: description
+            visible:corrected.checked === false
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.turquoise()

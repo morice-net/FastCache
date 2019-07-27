@@ -92,18 +92,18 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setFavoritePoints(cacheJson["favoritePoints"].toInt());
 
     // coordinates
+    v1 = cacheJson["postedCoordinates"].toObject();
+    m_fullCache->setLat(v1["latitude"].toDouble());
+    m_fullCache->setLon(v1["longitude"].toDouble());
     v1 = cacheJson["userData"].toObject();
     if(v1["correctedCoordinates"].isNull()){
-        v1 = cacheJson["postedCoordinates"].toObject();
-        m_fullCache->setLat(v1["latitude"].toDouble());
-        m_fullCache->setLon(v1["longitude"].toDouble());
+        m_fullCache->setIsCorrectedCoordinates(false);
     }  else {
         QJsonObject  v2 = v1["correctedCoordinates"].toObject();
-        m_fullCache->setLat(v2["latitude"].toDouble());
-        m_fullCache->setLon(v2["longitude"].toDouble());
+        m_fullCache->setIsCorrectedCoordinates(true);
+        m_fullCache->setCorrectedLat(v2["latitude"].toDouble());
+        m_fullCache->setCorrectedLon(v2["longitude"].toDouble());
     }
-
-
     m_fullCache->setName(cacheJson["name"].toString());
     m_fullCache->setTrackableCount(cacheJson["trackableCount"].toInt());
 

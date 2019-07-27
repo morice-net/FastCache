@@ -167,16 +167,6 @@ Item {
                         text: fullCache.userWptsDescription[index]
                     }
 
-                    Label {
-                        visible: fullCache.userWptsCorrectedCoordinates[index]
-                        text: "Les coordonnées de la cache sont modifiées "
-                        font.family: localFont.name
-                        font.pointSize: 13
-                        color: Palette.white()
-                        horizontalAlignment: Qt.AlignHCenter
-                        verticalAlignment: Qt.AlignVCenter
-                    }
-
                     Rectangle {
                         height: 1
                         width: waypointsPage.width

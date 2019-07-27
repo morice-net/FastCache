@@ -236,13 +236,14 @@ Item {
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 14
-                text: "Coordonnées"
+                text:  fullCache.isCorrectedCoordinates ? "Coord.modif" : "Coordonnées"
                 color: Palette.silver()
             }
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: main.formatLat(fullCache.lat) + "   " + main.formatLon(fullCache.lon)
+                text: fullCache.isCorrectedCoordinates ? main.formatLat(fullCache.correctedLat) + "   " + main.formatLon(fullCache.correctedLon) :
+                                                         main.formatLat(fullCache.lat) + "   " + main.formatLon(fullCache.lon)
                 color: Palette.white()
             }
         }

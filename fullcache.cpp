@@ -33,6 +33,9 @@ FullCache::FullCache(Cache *parent)
     , m_userWptsLat(QList<double>())
     , m_userWptsLon(QList<double>())
     , m_userWptsCode(QList<QString>())
+    , m_isCorrectedCoordinates(false)
+    , m_correctedLat(0.0)
+    , m_correctedLon(0.0)
     , m_mapLogType({{"Trouvée",2},
 {"Non trouvée", 3},
 {"Note", 4},
@@ -392,4 +395,37 @@ void FullCache::setUserWptsCode(const QList<QString> &codes){
     emit userWptsCodeChanged();
 }
 
+
+bool FullCache::isCorrectedCoordinates() const
+{
+    return m_isCorrectedCoordinates;
+}
+
+void FullCache::setIsCorrectedCoordinates(const bool &corrected)
+{
+    m_isCorrectedCoordinates = corrected ;
+    emit isCorrectedCoordinatesChanged();
+}
+
+double FullCache::correctedLat() const
+{
+    return m_correctedLat;
+}
+
+void FullCache::setCorrectedLat(const double &lat)
+{
+    m_correctedLat = lat ;
+    emit correctedLatChanged();
+}
+
+double FullCache::correctedLon() const
+{
+    return m_correctedLon;
+}
+
+void FullCache::setCorrectedLon(const double &lon)
+{
+    m_correctedLon = lon ;
+    emit correctedLonChanged();
+}
 
