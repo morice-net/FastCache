@@ -105,6 +105,11 @@ Item {
                 settings.virtualSize = size6.checkState
                 settings.other = size7.checkState
             }
+
+            function closeIfMenu() {
+                if (fastMenu.isMenuVisible())
+                    visible = false
+            }
         }
 
         SelectableFilter {
@@ -320,6 +325,11 @@ Item {
                         main.listKeywordDiscoverOwner[2] = proprietaire.text
                     }
                 }
+            }
+
+            function closeIfMenu() {
+                if (fastMenu.isMenuVisible())
+                    visible = false
             }
         }
     }

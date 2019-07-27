@@ -785,5 +785,10 @@ FastPopup {
         console.log("Longitude:   " + lon)
         return lon
     }
+
+    function closeIfMenu() {
+        if (fastMenu.isMenuVisible())
+            visible = false
+    }
 }
 

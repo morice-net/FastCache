@@ -296,6 +296,11 @@ FastPopup {
                 }
             }
         }
+
+        function closeIfMenu() {
+            if (fastMenu.isMenuVisible())
+                visible = false
+        }
     }
 
     function popupResponseHeight( )  {
@@ -330,5 +335,10 @@ FastPopup {
             geocodeResponse.open()
             geocode.close()
         }
+    }
+
+    function closeIfMenu() {
+        if (fastMenu.isMenuVisible())
+            visible = false
     }
 }

@@ -18,20 +18,19 @@ FastPopup {
     onUserWptLatChanged: lat.text = "Latitude  " + userWptLat.toFixed(5)
     onUserWptLonChanged: lon.text = "Longitude  " + userWptLon.toFixed(5)
 
-    AddTextLog{
+    AddTextLog {
         id:addText
     }
-    x: 20
-    y: 20
+
     background: Rectangle {
         anchors.fill: parent
-        implicitWidth: main.width*0.9
-        implicitHeight:main.height*0.8
+        implicitWidth: main.width
+        implicitHeight:main.height
         color: Palette.turquoise()
         radius: 10
     }
 
-    Column{
+    Column {
         x: 20
         y:20
         spacing: 30
@@ -241,6 +240,11 @@ FastPopup {
         } else {
             return coordinatesBox.resultLon
         }
+    }
+
+    function closeIfMenu() {
+        if (fastMenu.isMenuVisible())
+            visible = false
     }
 }
 

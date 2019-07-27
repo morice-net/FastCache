@@ -31,6 +31,11 @@ FastPopup {
             horizontalAlignment: Text.AlignHCenter
         }
     }
+
+    function closeIfMenu() {
+        if (fastMenu.isMenuVisible())
+            visible = false
+    }
 }
 
 

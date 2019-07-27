@@ -4,15 +4,25 @@ import QtQuick.Controls 2.2
 Popup {
 
     opacity: 0
-    Behavior on opacity { NumberAnimation { duration: 1000 ; easing.type: Easing.OutCurve } }
+    Behavior on opacity { NumberAnimation { duration: 800 ; easing.type: Easing.OutCurve } }
+
+    Timer {
+        id: popupTimer
+        interval: 500
+        repeat: true
+        onTriggered: closeIfMenu()
+    }
 
     // Exit and focus management
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
     onVisibleChanged: {
-        if (visible)
+        if (visible) {
             opacity = 1
-        else
+            popupTimer.running = true
+        } else {
             opacity = 0
+            popupTimer.running = false
+        }
         main.forceActiveFocus()
     }
 }
