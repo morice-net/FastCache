@@ -149,15 +149,22 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         cache->setDifficulty(v["difficulty"].toDouble());
         cache->setFavoritePoints(v["favoritePoints"].toInt());
 
-        v1 = v["postedCoordinates"].toObject();
-        cache->setLat(v1["latitude"].toDouble());
-        cache->setLon(v1["longitude"].toDouble());
-
         QString name(v["name"].toString());
         cache->setName(name);
         cache->setTrackableCount(v["trackableCount"].toInt());
 
+        // coordinates
         v1 = v["userData"].toObject();
+        if(v1["correctedCoordinates"].isNull()){
+            v1 = v["postedCoordinates"].toObject();
+            cache->setLat(v1["latitude"].toDouble());
+            cache->setLon(v1["longitude"].toDouble());
+        }  else {
+            QJsonObject  v2 = v1["correctedCoordinates"].toObject();
+            cache->setLat(v2["latitude"].toDouble());
+            cache->setLon(v2["longitude"].toDouble());
+        }
+
         if(v1["foundDate"].isNull()){
             cache->setFound(false);
         } else {
