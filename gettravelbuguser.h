@@ -1,4 +1,4 @@
-#ifndef GETTRAVELBUGUSER_H
+﻿#ifndef GETTRAVELBUGUSER_H
 #define GETTRAVELBUGUSER_H
 
 #include "requestor.h"
@@ -32,7 +32,7 @@ public:
     QList<QString> trackingNumbers() const;
     void setTrackingNumbers(const QList<QString> &trackings);
 
-    Q_INVOKABLE void sendRequest(QString token) override;
+    Q_INVOKABLE void sendRequest(QString token);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 

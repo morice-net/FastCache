@@ -41,5 +41,6 @@ void SendCacheNote::sendRequest(QString token ,QString cacheCode, QString note)
 
 void SendCacheNote::parseJson(const QJsonDocument &dataJsonDoc)
 {
+    Q_UNUSED(dataJsonDoc)
 }
 

@@ -19,21 +19,11 @@ Travelbug::Travelbug(Requestor *parent)
     , m_logsType(QList<QString>())
     , m_logsOwnersName(QList<QString>())
     , m_logsOwnersCount(QList<int>())
-    , m_logsDate(QList<QString>())
     , m_logsGeocacheCode(QList<QString>())
     , m_logsGeocacheName(QList<QString>())
+    , m_logsDate(QList<QString>())
     , m_tbStatus(0)
     , m_trackingNumber("")
-    , m_mapLogType({{"Note", 4},
-{"Récupéré", 13},
-{"Déposé", 14},
-{"Transfert", 15},
-{"Marquer comme absente", 16},
-{"Pris ailleurs", 19},
-{"Découvert", 48},
-{"Ajouté à une collection", 69},
-{"Ajouté à l\'inventaire", 70},
-{"Visité", 75}})
 {
 }
 
@@ -139,7 +129,7 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
         m_logsOwnersCount.append(finder["findCount"].toInt());
 
         QJsonObject type = tbLog["trackableLogType"].toObject();
-        m_logsType.append(m_mapLogType.key(type["id"].toInt()));
+        m_logsType.append(LOG_TYPE_MAP.key(type["id"].toInt()));
     }
     emit logsTextChanged();
     emit logsTypeChanged();

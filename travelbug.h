@@ -19,8 +19,8 @@ class Travelbug : public Requestor
     Q_PROPERTY(QString iconUrl READ iconUrl WRITE setIconUrl NOTIFY iconUrlChanged)
     Q_PROPERTY(QString originalOwner READ originalOwner WRITE setOriginalOwner NOTIFY originalOwnerChanged)
     Q_PROPERTY(QString located READ located WRITE setLocated NOTIFY locatedChanged)
-    Q_PROPERTY(QString originCountry READ originCountry  WRITE setOriginCountry  NOTIFY originCountryChanged)
     Q_PROPERTY(QString description READ description  WRITE setDescription  NOTIFY descriptionChanged)
+    Q_PROPERTY(QString originCountry READ originCountry  WRITE setOriginCountry  NOTIFY originCountryChanged)
     Q_PROPERTY(QString dateCreated READ dateCreated  WRITE setDateCreated NOTIFY dateCreatedChanged)
     Q_PROPERTY(QString goal READ goal WRITE setGoal NOTIFY goalChanged)
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
@@ -106,6 +106,17 @@ public:
     QString  trackingNumber() const;
     void setTrackingNumber(const QString  &number);
 
+    // Type of logs facilitator
+    const QMap<QString, int> LOG_TYPE_MAP = {{"Note", 4},
+                                             {"Récupéré", 13},
+                                             {"Déposé", 14},
+                                             {"Transfert", 15},
+                                             {"Marquer comme absente", 16},
+                                             {"Pris ailleurs", 19},
+                                             {"Découvert", 48},
+                                             {"Ajouté à une collection", 69},
+                                             {"Ajouté à l\'inventaire", 70},
+                                             {"Visité", 75}};
 signals:
     void nameChanged();
     void typeChanged();
@@ -151,9 +162,6 @@ protected:
     QList<QString > m_logsDate;
     int m_tbStatus;
     QString m_trackingNumber;
-
-    // Type of logs falitator
-    const QMap<QString, int> m_mapLogType;
 };
 
 #endif // CACHE_H

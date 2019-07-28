@@ -16,7 +16,7 @@ public:
     explicit  FullCacheRetriever(Requestor *parent = nullptr);
     ~FullCacheRetriever() override;
 
-    Q_INVOKABLE void sendRequest(QString token) override ;
+    Q_INVOKABLE void sendRequest(QString token);
     Q_INVOKABLE void updateFullCache(FullCache *fullCache);
     Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
 

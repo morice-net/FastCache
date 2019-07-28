@@ -36,25 +36,6 @@ FullCache::FullCache(Cache *parent)
     , m_isCorrectedCoordinates(false)
     , m_correctedLat(0.0)
     , m_correctedLon(0.0)
-    , m_mapLogType({{"Trouvée",2},
-{"Non trouvée", 3},
-{"Note", 4},
-{"Archivée", 5},
-{"Archivée en permanence", 6},
-{"Nécessite d\'être archivée", 7},
-{"Participera", 9},
-{"A participé", 10},
-{"Photo prise par la webcam", 11},
-{"Désarchivée", 12},
-{"Désactivée", 22},
-{"Activée", 23},
-{"Publier une annonce", 24},
-{"Visite retirée", 25},
-{"Nécessite une maintenance", 45},
-{"Maintenance effectuée", 46},
-{"Coordonnées mises à jour", 47},
-{"Note du reviewer", 68},
-{"Annonce", 74},})
 {
 }
 

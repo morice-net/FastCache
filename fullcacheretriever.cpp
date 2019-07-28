@@ -203,7 +203,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         listFindersCount.append(finder["findCount"].toInt());
 
         QJsonObject type = geocacheLog["geocacheLogType"].toObject();
-        listLogsType.append(m_fullCache->m_mapLogType.key(type["id"].toInt()));
+        listLogsType.append(m_fullCache->LOG_TYPE_MAP.key(type["id"].toInt()));
 
         QJsonArray logsImage = geocacheLog["images"].toArray();
         for (QJsonValue logImage: logsImage)

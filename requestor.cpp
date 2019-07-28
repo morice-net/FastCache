@@ -8,10 +8,6 @@ Requestor::Requestor(QObject *parent)
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
 }
 
-void Requestor::sendRequest(QString token)
-{
-}
-
 void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &parameters, QString token)
 {
     QUrl uri("https://api.groundspeak.com/v1.0/" + requestName);

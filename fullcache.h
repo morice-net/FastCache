@@ -189,8 +189,26 @@ signals:
     void correctedLonChanged();
 
 public:
-    // Type of logs falitator
-    const QMap<QString, int> m_mapLogType;
+    // Type of logs facilitator
+    const QMap<QString, int> LOG_TYPE_MAP = {{"Trouvée",2},
+                                             {"Non trouvée", 3},
+                                             {"Note", 4},
+                                             {"Archivée", 5},
+                                             {"Archivée en permanence", 6},
+                                             {"Nécessite d\'être archivée", 7},
+                                             {"Participera", 9},
+                                             {"A participé", 10},
+                                             {"Photo prise par la webcam", 11},
+                                             {"Désarchivée", 12},
+                                             {"Désactivée", 22},
+                                             {"Activée", 23},
+                                             {"Publier une annonce", 24},
+                                             {"Visite retirée", 25},
+                                             {"Nécessite une maintenance", 45},
+                                             {"Maintenance effectuée", 46},
+                                             {"Coordonnées mises à jour", 47},
+                                             {"Note du reviewer", 68},
+                                             {"Annonce", 74},};
 
 private:   
     QList<int> m_attributes;
