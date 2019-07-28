@@ -21,7 +21,7 @@ public:
 
     virtual void parseJson(const QJsonDocument &dataJsonDoc) = 0;
 
-    virtual Q_INVOKABLE void sendRequest(QString token) ;
+    virtual Q_INVOKABLE void sendRequest(QString token);
 
     QString state() const;
     void setState(const QString &state);

@@ -2,6 +2,7 @@
 #define USERINFO_H
 
 #include "requestor.h"
+#include"gettravelbuguser.h"
 
 class UserInfo : public Requestor
 {
@@ -23,7 +24,7 @@ public:
     explicit  UserInfo(Requestor *parent = nullptr);
     ~UserInfo() override;
 
-    Q_INVOKABLE void sendRequest(QString token) override;
+    Q_INVOKABLE void sendRequest(QString token, GetTravelbugUser* tbGetter);
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
     QString name() const;
@@ -53,5 +54,8 @@ private:
     QString m_avatarUrl;
     QString m_premium;
     UserInfoStatus m_status;
+
+    QString m_token;
+    GetTravelbugUser* m_tbGetter;
 };
 #endif // USERINFO_H

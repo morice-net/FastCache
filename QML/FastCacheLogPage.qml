@@ -433,7 +433,7 @@ Item {
                             scale: 1.4
                         }
 
-                        Column{
+                        Column {
 
                             Text {
                                 text: getTravelbugUser.trackingNumbers[index]

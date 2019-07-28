@@ -20,10 +20,13 @@ UserInfo::~UserInfo()
 
 /** Data retriever using the requestor **/
 
-void UserInfo::sendRequest(QString token)
+void UserInfo::sendRequest(QString token, GetTravelbugUser* tbGetter)
 {
     m_status = UserInfoStatus::Connection;
     Requestor::sendGetRequest("users/me?fields=username,findCount,avatarUrl,membershipLevelId" , token);
+
+    m_token = token;
+    m_tbGetter = tbGetter;
 }
 
 void UserInfo::parseJson(const QJsonDocument &dataJsonDoc)
@@ -65,6 +68,9 @@ void UserInfo::parseJson(const QJsonDocument &dataJsonDoc)
 
     // request success
     emit requestReady();
+
+    // now we have user info, we need to find the user tb list
+    m_tbGetter->sendRequest(m_token);
 }
 
 /** Getters & Setters **/

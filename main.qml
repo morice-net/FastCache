@@ -129,7 +129,7 @@ Item {
             webEngine.url = url;
             webEngine.visible = true;
         }
-        onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey)
+        onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
     }
 
     UserInfo {
@@ -285,9 +285,7 @@ Item {
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {
             console.log("FastSettings: tokenKey=" + connector.tokenKey)
-            userInfo.sendRequest(connector.tokenKey)
-            // list of travels bug of user.
-            getTravelbugUser.sendRequest(connector.tokenKey)
+            userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
         } else {
             connector.connect()
         }
