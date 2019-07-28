@@ -44,7 +44,6 @@ class FullCache : public Cache
     Q_PROPERTY(double correctedLat READ correctedLat WRITE setCorrectedLat NOTIFY correctedLatChanged)
     Q_PROPERTY(double correctedLon READ correctedLon WRITE setCorrectedLon NOTIFY correctedLonChanged)
 
-
 public:
     explicit FullCache(Cache *parent = nullptr);
 

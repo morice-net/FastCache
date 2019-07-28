@@ -232,6 +232,7 @@ Item {
             } else if (sendUserWaypoint.state === "Created"){
                 toast.show("L'étape personnelle a été crée ");
             } else if (sendUserWaypoint.state === "No Content"){
+                fullCache.removeUserWpt(fastCache.userWptIndex);
                 toast.show("L'étape personnelle a été supprimée ");
             }
         }

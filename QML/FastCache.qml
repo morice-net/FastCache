@@ -10,6 +10,7 @@ Rectangle {
     id: fastCache
 
     property bool allVisible: true
+    property int userWptIndex: 0
 
     anchors.fill: parent
     opacity: main.viewState === "fullcache" ? 1 : 0

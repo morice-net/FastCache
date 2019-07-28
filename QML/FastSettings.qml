@@ -40,12 +40,12 @@ Settings {
     property bool other: true
 
     // filter by difficulty
-    property real difficultyMin: 1
-    property real difficultyMax: 5
+    property real difficultyMin: 1.0
+    property real difficultyMax: 5.0
 
     // filter byterrain
-    property real terrainMin: 1
-    property real terrainMax: 5
+    property real terrainMin: 1.0
+    property real terrainMax: 5.0
 
     // Exclude caches found.
     property bool excludeCachesFound: true

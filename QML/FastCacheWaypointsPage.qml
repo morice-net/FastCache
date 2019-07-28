@@ -186,7 +186,7 @@ Item {
                             }
                             onClicked:{
                                 sendUserWaypoint.sendRequest(connector.tokenKey, fullCache.userWptsCode[index])
-                                fullCache.removeUserWpt(index)
+                                userWptIndex = index
                             }
                         }
 
