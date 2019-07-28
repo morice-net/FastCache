@@ -21,33 +21,46 @@ Item {
             width: tbsPage.width
             leftPadding: 20
 
-            Repeater{
+            Repeater {
                 model:displayTbsPage()
 
-                Column{
+                Column {
+                    width: tbsPage.width
+                    height: tbsPage.height * 0.1
 
-                    Image {
-                        source: "qrc:/Image/" + "trackable_travelbug.png"
-                        horizontalAlignment: Image.AlignHCenter
-                        scale: 1.4
-                    }
+                    Row {
+                        height: tbsPage.height * 0.08
 
-                    Text {
-                        text: fullCache.trackableNames[index]
-                        font.family: localFont.name
-                        textFormat: Qt.RichText
-                        font.bold: true
-                        font.pointSize: 20
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
+                        Image {
+                            source: "qrc:/Image/" + "trackable_travelbug.png"
+                            horizontalAlignment: Image.AlignHCenter
+                            scale: 1.4
+                        }
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                travelbug.sendRequest(connector.tokenKey , fullCache.trackableCodes[index]);
-                                main.viewState = "travelbug"
+                        Text {
+                            text: fullCache.trackableNames[index]
+                            font.family: localFont.name
+                            textFormat: Qt.RichText
+                            font.bold: true
+                            font.pointSize: 20
+                            color: Palette.white()
+                            wrapMode: Text.Wrap
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    travelbug.sendRequest(connector.tokenKey , fullCache.trackableCodes[index]);
+                                    main.viewState = "travelbug"
+                                }
                             }
                         }
+
+                    }
+                    Rectangle {
+                        height: 1
+                        width: parent.width*0.6
+                        color: Palette.silver()
+                        anchors.horizontalCenter: parent.horizontalCenter
                     }
                 }
             }
@@ -55,7 +68,7 @@ Item {
     }
 
     function displayTbsPage() {
-        if(fullCache.tackableCount === 0){
+        if (fullCache.tackableCount === 0) {
             fastCache.removePage(tbsPage)
         } else {
             fastCache.addPage(tbsPage)

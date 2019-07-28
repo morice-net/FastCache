@@ -422,38 +422,44 @@ Item {
                 Repeater{
                     model: getTravelbugUser.tbsCode.length
 
-                    Column{
+                    Row {
+                        height: logPage.height*0.12
 
                         Image {
+                            y: 10
+                            x: 10
                             source: "qrc:/Image/" + "trackable_travelbug.png"
                             horizontalAlignment: Image.AlignHCenter
                             scale: 1.4
                         }
 
-                        Text {
-                            text: getTravelbugUser.trackingNumbers[index]
-                            font.family: localFont.name
-                            font.bold: true
-                            font.pointSize: 14
-                            color: Palette.white()
+                        Column{
 
-                            MouseArea {
-                                anchors.fill: parent
-                                onClicked: {
-                                    travelbug.sendRequest(connector.tokenKey , getTravelbugUser.tbsCode[index]);
-                                    main.viewState = "travelbug"
+                            Text {
+                                text: getTravelbugUser.trackingNumbers[index]
+                                font.family: localFont.name
+                                font.bold: true
+                                font.pointSize: 14
+                                color: Palette.white()
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        travelbug.sendRequest(connector.tokenKey , getTravelbugUser.tbsCode[index]);
+                                        main.viewState = "travelbug"
+                                    }
                                 }
                             }
-                        }
 
-                        Text {
-                            text: getTravelbugUser.tbsName[index]
-                            font.family: localFont.name
-                            textFormat: Qt.RichText
-                            font.bold: true
-                            font.pointSize: 14
-                            color: Palette.white()
-                            wrapMode: Text.Wrap
+                            Text {
+                                text: getTravelbugUser.tbsName[index]
+                                font.family: localFont.name
+                                textFormat: Qt.RichText
+                                font.bold: true
+                                font.pointSize: 14
+                                color: Palette.white()
+                                wrapMode: Text.Wrap
+                            }
                         }
                     }
                 }
