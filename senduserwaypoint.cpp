@@ -14,26 +14,53 @@ SendUserWaypoint::~SendUserWaypoint()
 {
 }
 
-void SendUserWaypoint::sendRequest(QString token , QString geocacheCode , double lat, double lon ,bool isCorrectedCoordinates , QString description)
+void SendUserWaypoint::sendRequest(QString token , QString code , double lat, double lon , bool isCorrectedCoordinates , QString description , bool add)
 {
-    //Build url
-    QString requestName = "userwaypoints?fields=referenceCode,description,isCorrectedCoordinates,coordinates";
+    // Add(true) user waypoint
+    if(add) {
+        //Build url
+        QString requestName = "userwaypoints?fields=referenceCode,description,isCorrectedCoordinates,coordinates";
 
-    //Add parameters
-    QJsonObject userWaypoint;
+        //Add parameters
+        QJsonObject userWaypoint;
 
-    userWaypoint.insert("geocacheCode", QJsonValue(geocacheCode));
-    userWaypoint.insert("isCorrectedCoordinates", QJsonValue(isCorrectedCoordinates));
-    userWaypoint.insert("description", QJsonValue(description));
+        userWaypoint.insert("geocacheCode", QJsonValue(code));
+        userWaypoint.insert("isCorrectedCoordinates", QJsonValue(isCorrectedCoordinates));
+        userWaypoint.insert("description", QJsonValue(description));
 
-    QJsonObject coordinates;
-    coordinates.insert("latitude", lat);
-    coordinates.insert("longitude", lon);
-    userWaypoint.insert("coordinates", coordinates);
+        QJsonObject coordinates;
+        coordinates.insert("latitude", lat);
+        coordinates.insert("longitude", lon);
+        userWaypoint.insert("coordinates", coordinates);
 
-    // Inform QML we are loading
-    setState("loading");
-    Requestor::sendPostRequest(requestName,userWaypoint,token);
+        // Inform QML we are loading
+        setState("loading");
+        Requestor::sendPostRequest(requestName,userWaypoint,token);
+
+        // Update(false) user waypoint
+    } else {
+        //Build url
+        QString requestName = "userwaypoints/";
+        requestName.append(code);
+        requestName.append("?fields=referenceCode,description,isCorrectedCoordinates,coordinates");
+
+        //Add parameters
+        QJsonObject coord;
+        coord.insert("latitude", QJsonValue::fromVariant(lat));
+        coord.insert("longitude", QJsonValue::fromVariant(lon));
+        QJsonObject jsonUserWpt;
+        jsonUserWpt.insert("description", QJsonValue::fromVariant(description));
+        jsonUserWpt.insert("isCorrectedCoordinates", QJsonValue::fromVariant(isCorrectedCoordinates));
+        jsonUserWpt.insert("coordinates" , coord );
+
+        // Qbyte array
+        QJsonDocument Doc(jsonUserWpt);
+        QByteArray log = Doc.toJson();
+
+        // Inform QML we are loading
+        setState("loading");
+        Requestor::sendPutRequest(requestName , log ,token);
+    }
 }
 
 void SendUserWaypoint::sendRequest(QString token , QString uwCode)
@@ -46,6 +73,8 @@ void SendUserWaypoint::sendRequest(QString token , QString uwCode)
     setState("loading");
     Requestor::sendDeleteRequest(requestName,token);
 }
+
+
 
 void SendUserWaypoint::updateFullCache(FullCache *fullCache)
 {

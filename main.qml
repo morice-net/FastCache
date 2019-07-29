@@ -78,9 +78,7 @@ Item {
 
     FastList { id: fastList }
 
-    FastCache {
-        id: fastCache
-    }
+    FastCache { id: fastCache }
 
     FastTravelbug { id: fastTravelbug }
 

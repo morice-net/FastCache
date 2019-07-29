@@ -197,7 +197,7 @@ FastPopup {
                     radius: 5
                 }
                 onClicked:{
-                    sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , corrected.checked , description.text)
+                    sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , corrected.checked , description.text , true)
                     userWaypoint.visible = false
                 }
             }

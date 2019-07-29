@@ -205,7 +205,7 @@ Item {
                             }
 
                             onClicked:{
-
+                                userWaypoint.open();
                             }
                         }
                     }
