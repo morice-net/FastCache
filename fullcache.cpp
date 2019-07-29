@@ -54,6 +54,21 @@ void FullCache::removeUserWpt(int index)
     emit userWptsCorrectedCoordinatesChanged();
 }
 
+void FullCache::addUserWpt(QString description , bool corrected , double lat , double lon , QString code)
+{
+    m_userWptsLat.append(lat);
+    m_userWptsLon.append(lon);
+    m_userWptsCode.append(code);
+    m_userWptsDescription.append(description);
+    m_userWptsCorrectedCoordinates.append(corrected);
+
+    emit userWptsLatChanged();
+    emit userWptsLonChanged();
+    emit userWptsCodeChanged();
+    emit userWptsDescriptionChanged();
+    emit userWptsCorrectedCoordinatesChanged();
+}
+
 QList<int> FullCache::attributes() const
 {
     return  m_attributes;

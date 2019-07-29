@@ -24,9 +24,9 @@ Item {
                 id:buttonAddWpt
                 x:parent.width/3.5
                 contentItem: Text {
-                    text:"Ajouter une étape"
+                    text:"Ajouter une étape personnelle"
                     font.family: localFont.name
-                    font.pixelSize: 50
+                    font.pixelSize: 25
                     color: Palette.white()
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
