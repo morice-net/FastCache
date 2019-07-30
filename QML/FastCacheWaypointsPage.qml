@@ -118,6 +118,67 @@ Item {
             }
 
             Text {
+                visible: fullCache.isCorrectedCoordinates
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 15
+                font.pointSize: 15
+                text: "Coordonnées de la cache modifiées \n" + main.formatLat(fullCache.correctedLat) + "   " + main.formatLon(fullCache.correctedLon)
+                color: Palette.silver()
+            }
+
+            Row {
+                x:waypointsPage.width/3
+                spacing: 40
+
+                Button {
+                    id: correctedDelete
+                    visible: fullCache.isCorrectedCoordinates
+                    contentItem : Text {
+                        text: "Annuler"
+                        font.family: localFont.name
+                        font.pointSize: 12
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: correctedDelete.activeFocus ? 2 : 1
+                        border.color: Palette.silver()
+                        radius: 4
+                    }
+                    onClicked:{
+
+                    }
+                }
+
+                Button {
+                    id: correctedUpdate
+                    visible: fullCache.isCorrectedCoordinates
+                    contentItem : Text {
+                        text: "Modifier"
+                        font.family: localFont.name
+                        font.pointSize: 12
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: correctedUpdate.activeFocus ? 2 : 1
+                        border.color: Palette.silver()
+                        radius: 4
+                    }
+
+                    onClicked:{
+                        userWaypoint.open();
+                    }
+                }
+            }
+
+            Rectangle {
+                visible: fullCache.isCorrectedCoordinates
+                height: 2
+                width: waypointsPage.width
+                color: Palette.silver()
+            }
+
+            Text {
                 visible: fullCache.userWptsCode.length !== 0
                 width: parent.width
                 font.family: localFont.name
@@ -144,10 +205,10 @@ Item {
 
                     Text {
                         visible: fullCache.userWptsLat[index] >180  ? false : true
-                        text: main.formatLat(fullCache.userWptsLat[index]) + " " + main.formatLon(fullCache.userWptsLon[index])
+                        text: main.formatLat(fullCache.userWptsLat[index]) + "   " + main.formatLon(fullCache.userWptsLon[index])
                         leftPadding: 15
                         font.family: localFont.name
-                        font.pointSize: 13
+                        font.pointSize: 15
                         color: Palette.silver()
                         wrapMode: Text.Wrap
                         anchors.leftMargin: 10

@@ -36,13 +36,13 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > trackableNames READ trackableNames WRITE setTrackableNames NOTIFY trackableNamesChanged)
     Q_PROPERTY(QList<QString > trackableCodes READ trackableCodes WRITE setTrackableCodes NOTIFY trackableCodesChanged)
     Q_PROPERTY(QList<QString > userWptsDescription READ userWptsDescription WRITE setUserWptsDescription NOTIFY userWptsDescriptionChanged)
-    Q_PROPERTY(QList<bool > userWptsCorrectedCoordinates READ userWptsCorrectedCoordinates  WRITE setUserWptsCorrectedCoordinates NOTIFY userWptsCorrectedCoordinatesChanged)
     Q_PROPERTY(QList<double > userWptsLat READ userWptsLat WRITE setUserWptsLat NOTIFY userWptsLatChanged)
     Q_PROPERTY(QList<double > userWptsLon READ userWptsLon WRITE setUserWptsLon NOTIFY userWptsLonChanged)
     Q_PROPERTY(QList<QString > userWptsCode READ userWptsCode WRITE setUserWptsCode NOTIFY userWptsCodeChanged)
     Q_PROPERTY(bool isCorrectedCoordinates READ isCorrectedCoordinates WRITE setIsCorrectedCoordinates NOTIFY isCorrectedCoordinatesChanged)
     Q_PROPERTY(double correctedLat READ correctedLat WRITE setCorrectedLat NOTIFY correctedLatChanged)
     Q_PROPERTY(double correctedLon READ correctedLon WRITE setCorrectedLon NOTIFY correctedLonChanged)
+    Q_PROPERTY(QString correctedCode READ correctedCode WRITE setCorrectedCode NOTIFY correctedCodeChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -130,9 +130,6 @@ public:
     QList<QString > userWptsDescription() const;
     void setUserWptsDescription(const QList<QString > &descriptions);
 
-    QList<bool >  userWptsCorrectedCoordinates() const;
-    void setUserWptsCorrectedCoordinates(const QList<bool > &correcteds);
-
     QList<double >  userWptsLat() const;
     void setUserWptsLat(const QList<double > &lats);
 
@@ -150,6 +147,9 @@ public:
 
     double correctedLon() const;
     void setCorrectedLon(const double &lon);
+
+    QString correctedCode() const;
+    void setCorrectedCode(const QString &code);
 
 signals:   
     void attributesChanged();
@@ -179,13 +179,13 @@ signals:
     void trackableNamesChanged();
     void trackableCodesChanged();
     void userWptsDescriptionChanged();
-    void userWptsCorrectedCoordinatesChanged();
     void userWptsLatChanged();
     void userWptsLonChanged();
     void userWptsCodeChanged();
     void isCorrectedCoordinatesChanged();
     void correctedLatChanged();
     void correctedLonChanged();
+    void correctedCodeChanged();
 
 public:
     // Type of logs facilitator
@@ -237,12 +237,12 @@ private:
     bool m_shortDescriptionIsHtml;
     QString m_hints;
     QList<QString > m_userWptsDescription;
-    QList<bool > m_userWptsCorrectedCoordinates;
     QList<double > m_userWptsLat;
     QList<double > m_userWptsLon;
     QList<QString > m_userWptsCode;
     bool m_isCorrectedCoordinates;
     double m_correctedLat;
     double m_correctedLon;
+    QString m_correctedCode;
 };
 #endif // FULLCACHE_H

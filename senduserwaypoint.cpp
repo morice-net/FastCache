@@ -17,7 +17,7 @@ SendUserWaypoint::~SendUserWaypoint()
 void SendUserWaypoint::sendRequest(QString token , QString code , double lat, double lon , bool isCorrectedCoordinates , QString description , bool add)
 {
     if(add) {
-        //Build url , add user waypoint
+        //Build url , add user waypoint or modifie coordinates
         QString requestName = "userwaypoints?fields=referenceCode,description,isCorrectedCoordinates,coordinates";
 
         //Add parameters
@@ -73,8 +73,6 @@ void SendUserWaypoint::sendRequest(QString token , QString uwCode)
     Requestor::sendDeleteRequest(requestName,token);
 }
 
-
-
 void SendUserWaypoint::updateFullCache(FullCache *fullCache)
 {
     m_fullCache = fullCache;
@@ -88,14 +86,13 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
 
     QList<QString> listUserWptsCode ;
     QList<QString> listUserWptsDescription ;
-    QList<bool> listUserWptsCorrectedCoordinates ;
     QList<double> listUserWptsLat ;
     QList<double> listUserWptsLon;
 
     QJsonObject coord = userWaypoint["coordinates"].toObject();
 
-    //Add userWaypoint
-    if(state() == "Created"){
+    if(state() == "Created" && userWaypoint["isCorrectedCoordinates"].toBool() == false){
+        //Add userWaypoint
         listUserWptsCode = m_fullCache->userWptsCode();
         listUserWptsCode.insert(0 , userWaypoint["referenceCode"].toString());
         m_fullCache->setUserWptsCode(listUserWptsCode);
@@ -104,10 +101,6 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
         listUserWptsDescription.insert(0 , userWaypoint["description"].toString());
         m_fullCache->setUserWptsDescription(listUserWptsDescription);
 
-        listUserWptsCorrectedCoordinates = m_fullCache->userWptsCorrectedCoordinates();
-        listUserWptsCorrectedCoordinates.insert(0 , userWaypoint["isCorrectedCoordinates"].toBool());
-        m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
-
         listUserWptsLat = m_fullCache->userWptsLat();
         listUserWptsLat.insert(0 , coord["latitude"].toDouble());
         m_fullCache->setUserWptsLat(listUserWptsLat);
@@ -115,12 +108,16 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
         listUserWptsLon = m_fullCache->userWptsLon();
         listUserWptsLon.insert(0 , coord["longitude"].toDouble());
         m_fullCache->setUserWptsLon(listUserWptsLon);
-        emit requestReady();
-        return ;
-    }
 
-    //Update userWaypoint
-    if(state() == "OK"){
+    } else if(state() == "Created" && userWaypoint["isCorrectedCoordinates"].toBool() == true){
+        // Add a change to the coordinates
+        m_fullCache->setIsCorrectedCoordinates(true);
+        m_fullCache->setCorrectedCode(userWaypoint["referenceCode"].toString());
+        m_fullCache->setCorrectedLat(coord["latitude"].toDouble());
+        m_fullCache->setCorrectedLon(coord["longitude"].toDouble());
+
+    }  else if(state() == "OK" && userWaypoint["isCorrectedCoordinates"].toBool() == false){
+        //Update userWaypoint
         for(int index=0 ; index<m_fullCache->userWptsCode().length() ; index++)
         {
             if(m_fullCache->userWptsCode()[index] == userWaypoint["referenceCode"].toString()){
@@ -129,10 +126,6 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
                 listUserWptsDescription[index] = userWaypoint["description"].toString();
                 m_fullCache->setUserWptsDescription(listUserWptsDescription);
 
-                listUserWptsCorrectedCoordinates = m_fullCache->userWptsCorrectedCoordinates();
-                listUserWptsCorrectedCoordinates[index] = userWaypoint["isCorrectedCoordinates"].toBool();
-                m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
-
                 listUserWptsLat = m_fullCache->userWptsLat();
                 listUserWptsLat[index] = coord["latitude"].toDouble();
                 m_fullCache->setUserWptsLat(listUserWptsLat);
@@ -140,11 +133,10 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
                 listUserWptsLon = m_fullCache->userWptsLon();
                 listUserWptsLon[index] = coord["longitude"].toDouble();
                 m_fullCache->setUserWptsLon(listUserWptsLon);
-
-                emit requestReady();
-                return ;
             }
         }
+        emit requestReady();
+        return ;
     }
 }
 

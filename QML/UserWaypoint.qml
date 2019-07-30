@@ -107,6 +107,7 @@ FastPopup {
 
         CheckBox {
             id: corrected
+            visible: fullCache.isCorrectedCoordinates === false
             text: qsTr("Utiliser comme coordonnées de la cache")
             font.pointSize: 15
             checked: false
@@ -142,7 +143,7 @@ FastPopup {
             spacing: 30
 
             Button {
-                visible: corrected.checked === false
+                visible: visibleItem()
                 contentItem: Text {
                     text:"Effacer"
                     font.family: localFont.name
@@ -162,7 +163,7 @@ FastPopup {
             }
 
             Button {
-                visible: corrected.checked === false
+                visible: visibleItem()
                 contentItem: Text {
                     text:"Ajout de texte"
                     font.family: localFont.name
@@ -198,8 +199,9 @@ FastPopup {
                 }
                 onClicked:{
                     if(fastCache.userWptAdd === true){
-                        sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , corrected.checked , description.text
-                                                     , true);
+                        // Add userWaypoint or modifie coordinates
+                        sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , correctCoordinates() ,
+                                                     description.text , true);
                         userWaypoint.visible = false
                     } else {
                         sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked , description.text
@@ -212,7 +214,7 @@ FastPopup {
 
         Text {
             width: parent.width
-            visible:corrected.checked === false
+            visible: visibleItem()
             font.family: localFont.name
             font.pointSize: 17
             text: "Description de l'étape"
@@ -221,7 +223,7 @@ FastPopup {
 
         TextArea {
             id: description
-            visible:corrected.checked === false
+            visible: visibleItem()
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.turquoise()
@@ -252,6 +254,18 @@ FastPopup {
     function closeIfMenu() {
         if (fastMenu.isMenuVisible())
             visible = false
+    }
+
+    function correctCoordinates() {
+        if (corrected.visible === false)
+            return false
+        return corrected.checked
+    }
+
+    function visibleItem() {
+        if (corrected.visible === false)
+            return true
+        return !corrected.checked
     }
 }
 

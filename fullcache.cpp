@@ -29,13 +29,13 @@ FullCache::FullCache(Cache *parent)
     , m_shortDescriptionIsHtml(false)
     , m_hints("")
     , m_userWptsDescription(QList<QString>())
-    , m_userWptsCorrectedCoordinates(QList<bool>())
     , m_userWptsLat(QList<double>())
     , m_userWptsLon(QList<double>())
     , m_userWptsCode(QList<QString>())
     , m_isCorrectedCoordinates(false)
     , m_correctedLat(0.0)
     , m_correctedLon(0.0)
+    , m_correctedCode("")
 {
 }
 
@@ -45,13 +45,11 @@ void FullCache::removeUserWpt(int index)
     m_userWptsLon.removeAt(index);
     m_userWptsCode.removeAt(index);
     m_userWptsDescription.removeAt(index);
-    m_userWptsCorrectedCoordinates.removeAt(index);
 
     emit userWptsLatChanged();
     emit userWptsLonChanged();
     emit userWptsCodeChanged();
     emit userWptsDescriptionChanged();
-    emit userWptsCorrectedCoordinatesChanged();
 }
 
 QList<int> FullCache::attributes() const
@@ -351,16 +349,6 @@ void FullCache::setUserWptsDescription(const QList<QString> &descriptions)
     emit userWptsDescriptionChanged();
 }
 
-QList<bool>FullCache::userWptsCorrectedCoordinates() const
-{
-    return  m_userWptsCorrectedCoordinates;
-}
-
-void FullCache::setUserWptsCorrectedCoordinates(const QList<bool> &correcteds){
-    m_userWptsCorrectedCoordinates = correcteds;
-    emit userWptsCorrectedCoordinatesChanged();
-}
-
 QList<double>FullCache::userWptsLat() const
 {
     return  m_userWptsLat;
@@ -423,5 +411,16 @@ void FullCache::setCorrectedLon(const double &lon)
 {
     m_correctedLon = lon ;
     emit correctedLonChanged();
+}
+
+QString FullCache::correctedCode() const
+{
+    return m_correctedCode;
+}
+
+void FullCache::setCorrectedCode(const QString &code)
+{
+    m_correctedCode = code ;
+    emit correctedCodeChanged();
 }
 
