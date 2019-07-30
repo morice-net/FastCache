@@ -16,6 +16,9 @@ Rectangle {
     property bool userWptAdd: true
     property string userWptCode: ""
 
+    // Delete userWaypoint or delete modification of coordinates
+    property bool deleteUserWpt: true
+
     anchors.fill: parent
     opacity: main.viewState === "fullcache" ? 1 : 0
     visible: opacity > 0

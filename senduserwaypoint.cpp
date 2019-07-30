@@ -62,12 +62,20 @@ void SendUserWaypoint::sendRequest(QString token , QString code , double lat, do
     }
 }
 
-void SendUserWaypoint::sendRequest(QString token , QString uwCode)
+void SendUserWaypoint::sendRequest(QString token , QString code)
 {
-    //Build url
-    QString requestName = "userwaypoints/";
-    requestName.append(uwCode);
+    QString requestName;
 
+    if(code.startsWith("UW")) {
+        //Build url,delete userWaypoint
+        requestName = "userwaypoints/";
+        requestName.append(code);
+    } else if(code.startsWith("GC")){
+        //Build url,delete modification of coordinates
+        requestName = "geocaches/";
+        requestName.append(code);
+        requestName.append("/correctedcoordinates");
+    }
     // Inform QML we are loading
     setState("loading");
     Requestor::sendDeleteRequest(requestName,token);

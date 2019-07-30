@@ -146,7 +146,9 @@ Item {
                         radius: 4
                     }
                     onClicked:{
-
+                        //Delete modifications of coordinates
+                        fastCache.deleteUserWpt = false
+                        sendUserWaypoint.sendRequest(connector.tokenKey, fullCache.geocode)
                     }
                 }
 
@@ -247,6 +249,8 @@ Item {
                                 radius: 4
                             }
                             onClicked:{
+                                //Delete userWaypoint
+                                fastCache.deleteUserWpt = true
                                 sendUserWaypoint.sendRequest(connector.tokenKey, fullCache.userWptsCode[index])
                                 userWptIndex = index
                             }

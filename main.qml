@@ -231,8 +231,12 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             } else if (sendUserWaypoint.state === "Created"){
                 toast.show("L'étape personnelle a été crée ");
-            } else if (sendUserWaypoint.state === "No Content"){
+            } else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === true){
                 fullCache.removeUserWpt(fastCache.userWptIndex);
+                toast.show("L'étape personnelle a été supprimée");
+            }
+            else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === false){
+                fullCache.removeCorrectedcoordinates();
                 toast.show("L'étape personnelle a été supprimée");
             } else if (sendUserWaypoint.state === "OK"){
                 toast.show("L'étape personnelle a été modifiée");

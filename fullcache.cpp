@@ -52,6 +52,11 @@ void FullCache::removeUserWpt(int index)
     emit userWptsDescriptionChanged();
 }
 
+void FullCache::removeCorrectedcoordinates()
+{
+    setIsCorrectedCoordinates(false);
+}
+
 QList<int> FullCache::attributes() const
 {
     return  m_attributes;
