@@ -12,6 +12,10 @@ Rectangle {
     property bool allVisible: true
     property int userWptIndex: 0
 
+    // Add(true) or update(false) userWaypoint
+    property bool userWptAdd: true
+    property string userWptCode: ""
+
     anchors.fill: parent
     opacity: main.viewState === "fullcache" ? 1 : 0
     visible: opacity > 0

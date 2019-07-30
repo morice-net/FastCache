@@ -227,13 +227,15 @@ Item {
         id: sendUserWaypoint
         onStateChanged: {
             toast.visible = sendUserWaypoint.state !== "loading";
-            if (sendUserWaypoint.state !== "Created" && sendUserWaypoint.state !== "No Content") {
+            if (sendUserWaypoint.state !== "Created" && sendUserWaypoint.state !== "No Content" && sendUserWaypoint.state !== "OK") {
                 toast.show("Erreur  " + "(" + state + ")");
             } else if (sendUserWaypoint.state === "Created"){
                 toast.show("L'étape personnelle a été crée ");
             } else if (sendUserWaypoint.state === "No Content"){
                 fullCache.removeUserWpt(fastCache.userWptIndex);
-                toast.show("L'étape personnelle a été supprimée ");
+                toast.show("L'étape personnelle a été supprimée");
+            } else if (sendUserWaypoint.state === "OK"){
+                toast.show("L'étape personnelle a été modifiée");
             }
         }
         Component.onCompleted: updateFullCache(fullCache)

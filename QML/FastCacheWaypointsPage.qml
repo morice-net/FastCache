@@ -43,6 +43,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        userWptAdd = true;
                         userWaypoint.open();
                     }
                 }
@@ -205,6 +206,8 @@ Item {
                             }
 
                             onClicked:{
+                                userWptAdd = false;
+                                userWptCode = fullCache.userWptsCode[index]
                                 userWaypoint.open();
                             }
                         }

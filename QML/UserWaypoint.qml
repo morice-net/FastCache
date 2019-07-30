@@ -197,8 +197,15 @@ FastPopup {
                     radius: 5
                 }
                 onClicked:{
-                    sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , corrected.checked , description.text , true)
-                    userWaypoint.visible = false
+                    if(fastCache.userWptAdd === true){
+                        sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , corrected.checked , description.text
+                                                     , true);
+                        userWaypoint.visible = false
+                    } else {
+                        sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked , description.text
+                                                     , false);
+                        userWaypoint.visible = false
+                    }
                 }
             }
         }

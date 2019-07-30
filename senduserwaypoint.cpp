@@ -16,9 +16,8 @@ SendUserWaypoint::~SendUserWaypoint()
 
 void SendUserWaypoint::sendRequest(QString token , QString code , double lat, double lon , bool isCorrectedCoordinates , QString description , bool add)
 {
-    // Add(true) user waypoint
     if(add) {
-        //Build url
+        //Build url , add user waypoint
         QString requestName = "userwaypoints?fields=referenceCode,description,isCorrectedCoordinates,coordinates";
 
         //Add parameters
@@ -36,10 +35,8 @@ void SendUserWaypoint::sendRequest(QString token , QString code , double lat, do
         // Inform QML we are loading
         setState("loading");
         Requestor::sendPostRequest(requestName,userWaypoint,token);
-
-        // Update(false) user waypoint
     } else {
-        //Build url
+        //Build url,update user waypoint
         QString requestName = "userwaypoints/";
         requestName.append(code);
         requestName.append("?fields=referenceCode,description,isCorrectedCoordinates,coordinates");
@@ -49,9 +46,11 @@ void SendUserWaypoint::sendRequest(QString token , QString code , double lat, do
         coord.insert("latitude", QJsonValue::fromVariant(lat));
         coord.insert("longitude", QJsonValue::fromVariant(lon));
         QJsonObject jsonUserWpt;
+        jsonUserWpt.insert("referenceCode", QJsonValue::fromVariant(code));
         jsonUserWpt.insert("description", QJsonValue::fromVariant(description));
         jsonUserWpt.insert("isCorrectedCoordinates", QJsonValue::fromVariant(isCorrectedCoordinates));
         jsonUserWpt.insert("coordinates" , coord );
+        jsonUserWpt.insert("geocacheCode", QJsonValue::fromVariant(m_fullCache->geocode()));
 
         // Qbyte array
         QJsonDocument Doc(jsonUserWpt);
@@ -88,34 +87,68 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** UserWaypoint**\n" << userWaypoint;
 
     QList<QString> listUserWptsCode ;
-    listUserWptsCode = m_fullCache->userWptsCode();
-    listUserWptsCode.insert(0 , userWaypoint["referenceCode"].toString());
-    m_fullCache->setUserWptsCode(listUserWptsCode);
-
     QList<QString> listUserWptsDescription ;
-    listUserWptsDescription = m_fullCache->userWptsDescription();
-    listUserWptsDescription.insert(0 , userWaypoint["description"].toString());
-    m_fullCache->setUserWptsDescription(listUserWptsDescription);
-
     QList<bool> listUserWptsCorrectedCoordinates ;
-    listUserWptsCorrectedCoordinates = m_fullCache->userWptsCorrectedCoordinates();
-    listUserWptsCorrectedCoordinates.insert(0 , userWaypoint["isCorrectedCoordinates"].toBool());
-    m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
+    QList<double> listUserWptsLat ;
+    QList<double> listUserWptsLon;
 
     QJsonObject coord = userWaypoint["coordinates"].toObject();
-    QList<double> listUserWptsLat ;
-    listUserWptsLat = m_fullCache->userWptsLat();
-    listUserWptsLat.insert(0 , coord["latitude"].toDouble());
-    m_fullCache->setUserWptsLat(listUserWptsLat);
 
-    QList<double> listUserWptsLon;
-    listUserWptsLon = m_fullCache->userWptsLon();
-    listUserWptsLon.insert(0 , coord["longitude"].toDouble());
-    m_fullCache->setUserWptsLon(listUserWptsLon);
+    //Add userWaypoint
+    if(state() == "Created"){
+        listUserWptsCode = m_fullCache->userWptsCode();
+        listUserWptsCode.insert(0 , userWaypoint["referenceCode"].toString());
+        m_fullCache->setUserWptsCode(listUserWptsCode);
 
-    emit requestReady();
-    return ;
+        listUserWptsDescription = m_fullCache->userWptsDescription();
+        listUserWptsDescription.insert(0 , userWaypoint["description"].toString());
+        m_fullCache->setUserWptsDescription(listUserWptsDescription);
+
+        listUserWptsCorrectedCoordinates = m_fullCache->userWptsCorrectedCoordinates();
+        listUserWptsCorrectedCoordinates.insert(0 , userWaypoint["isCorrectedCoordinates"].toBool());
+        m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
+
+        listUserWptsLat = m_fullCache->userWptsLat();
+        listUserWptsLat.insert(0 , coord["latitude"].toDouble());
+        m_fullCache->setUserWptsLat(listUserWptsLat);
+
+        listUserWptsLon = m_fullCache->userWptsLon();
+        listUserWptsLon.insert(0 , coord["longitude"].toDouble());
+        m_fullCache->setUserWptsLon(listUserWptsLon);
+        emit requestReady();
+        return ;
+    }
+
+    //Update userWaypoint
+    if(state() == "OK"){
+        for(int index=0 ; index<m_fullCache->userWptsCode().length() ; index++)
+        {
+            if(m_fullCache->userWptsCode()[index] == userWaypoint["referenceCode"].toString()){
+
+                listUserWptsDescription = m_fullCache->userWptsDescription();
+                listUserWptsDescription[index] = userWaypoint["description"].toString();
+                m_fullCache->setUserWptsDescription(listUserWptsDescription);
+
+                listUserWptsCorrectedCoordinates = m_fullCache->userWptsCorrectedCoordinates();
+                listUserWptsCorrectedCoordinates[index] = userWaypoint["isCorrectedCoordinates"].toBool();
+                m_fullCache->setUserWptsCorrectedCoordinates(listUserWptsCorrectedCoordinates);
+
+                listUserWptsLat = m_fullCache->userWptsLat();
+                listUserWptsLat[index] = coord["latitude"].toDouble();
+                m_fullCache->setUserWptsLat(listUserWptsLat);
+
+                listUserWptsLon = m_fullCache->userWptsLon();
+                listUserWptsLon[index] = coord["longitude"].toDouble();
+                m_fullCache->setUserWptsLon(listUserWptsLon);
+
+                emit requestReady();
+                return ;
+            }
+        }
+    }
 }
+
+
 
 
 
