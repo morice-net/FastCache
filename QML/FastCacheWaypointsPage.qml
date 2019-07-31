@@ -22,11 +22,11 @@ Item {
 
             Button {
                 id:buttonAddWpt
-                x:parent.width/3.5
+                x:parent.width/5
                 contentItem: Text {
                     text:"Ajouter une étape personnelle"
                     font.family: localFont.name
-                    font.pixelSize: 25
+                    font.pixelSize: 35
                     color: Palette.white()
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
