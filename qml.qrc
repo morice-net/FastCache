@@ -155,5 +155,6 @@
         <file>QML/FastTravelbugLogsPage.qml</file>
         <file>QML/FastTravelbugLogPage.qml</file>
         <file>QML/UserWaypoint.qml</file>
+        <file>QML/FastCalendar.qml</file>
     </qresource>
 </RCC>
