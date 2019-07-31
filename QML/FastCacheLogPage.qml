@@ -195,10 +195,18 @@ Item {
                 font.pointSize: 16
                 text: "Date  " + new Date().toLocaleDateString(Qt.LocaleDate)
                 color: Palette.white()
+
+                MouseArea {
+                    anchors.fill: logDate
+                    onClicked: {
+                        calendar.visible = !calendar.visible
+                    }
+                }
             }
 
             FastCalendar {
                 id:calendar
+                visible: false
             }
 
             Row {
