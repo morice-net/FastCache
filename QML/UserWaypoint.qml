@@ -107,7 +107,7 @@ FastPopup {
 
         CheckBox {
             id: corrected
-            visible: fullCache.isCorrectedCoordinates === false
+            visible: (fastCache.userWptAdd === true && fullCache.isCorrectedCoordinates == false)
             text: qsTr("Utiliser comme coordonnées de la cache")
             font.pointSize: 15
             checked: false
@@ -143,7 +143,7 @@ FastPopup {
             spacing: 30
 
             Button {
-                visible: visibleItem()
+                visible: visibleDescription()
                 contentItem: Text {
                     text:"Effacer"
                     font.family: localFont.name
@@ -163,7 +163,7 @@ FastPopup {
             }
 
             Button {
-                visible: visibleItem()
+                visible: visibleDescription()
                 contentItem: Text {
                     text:"Ajout de texte"
                     font.family: localFont.name
@@ -199,13 +199,18 @@ FastPopup {
                 }
                 onClicked:{
                     if(fastCache.userWptAdd === true){
-                        // Add userWaypoint or modifie coordinates
+                        // Add userWaypoint or create modification of coordinates
                         sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , correctCoordinates() ,
                                                      description.text , true);
                         userWaypoint.visible = false
-                    } else {
-                        sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked , description.text
-                                                     , false);
+                    } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === false){
+                        // Modifie userWaypoint
+                        sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked ,
+                                                     description.text , false);
+                        userWaypoint.visible = false
+                    } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true){
+                        // Modifie corrected coordinates
+                        sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , true , "" , false);
                         userWaypoint.visible = false
                     }
                 }
@@ -214,7 +219,7 @@ FastPopup {
 
         Text {
             width: parent.width
-            visible: visibleItem()
+            visible: visibleDescription()
             font.family: localFont.name
             font.pointSize: 17
             text: "Description de l'étape"
@@ -223,7 +228,7 @@ FastPopup {
 
         TextArea {
             id: description
-            visible: visibleItem()
+            visible: visibleDescription()
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.turquoise()
@@ -262,10 +267,14 @@ FastPopup {
         return corrected.checked
     }
 
-    function visibleItem() {
-        if (corrected.visible === false)
+    function visibleDescription() {
+        if (corrected.visible === false && fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true )
+            return false
+        if(corrected.visible === false){
             return true
-        return !corrected.checked
+        } else {
+            return !corrected.checked
+        }
     }
 }
 

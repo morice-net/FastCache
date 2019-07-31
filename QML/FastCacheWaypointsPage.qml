@@ -168,6 +168,8 @@ Item {
                     }
 
                     onClicked:{
+                        userWptAdd = false;
+                        userCorrectedCoordinates = true;
                         userWaypoint.open();
                     }
                 }
@@ -272,6 +274,7 @@ Item {
 
                             onClicked:{
                                 userWptAdd = false;
+                                userCorrectedCoordinates = false
                                 userWptCode = fullCache.userWptsCode[index]
                                 userWaypoint.open();
                             }

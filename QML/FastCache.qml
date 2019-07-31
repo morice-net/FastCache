@@ -14,7 +14,11 @@ Rectangle {
 
     // Add(true) or update(false) userWaypoint
     property bool userWptAdd: true
+
     property string userWptCode: ""
+
+    // modification of coordinates
+    property bool userCorrectedCoordinates: false
 
     // Delete userWaypoint or delete modification of coordinates
     property bool deleteUserWpt: true

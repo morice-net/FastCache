@@ -35,7 +35,7 @@ void SendUserWaypoint::sendRequest(QString token , QString code , double lat, do
         // Inform QML we are loading
         setState("loading");
         Requestor::sendPostRequest(requestName,userWaypoint,token);
-    } else {
+    } else  if(add == false && isCorrectedCoordinates == false){
         //Build url,update user waypoint
         QString requestName = "userwaypoints/";
         requestName.append(code);
@@ -59,6 +59,25 @@ void SendUserWaypoint::sendRequest(QString token , QString code , double lat, do
         // Inform QML we are loading
         setState("loading");
         Requestor::sendPutRequest(requestName , log ,token);
+    } else  if(add == false && isCorrectedCoordinates == true){
+        //Build url,update modification of coordinates
+        QString requestName = "geocaches/";
+        requestName.append(code);
+        requestName.append("/correctedcoordinates");
+        requestName.append("?fields=referenceCode,isCorrectedCoordinates,coordinates");
+
+        //Add parameters
+        QJsonObject jsonCorrected;
+        jsonCorrected.insert("latitude", QJsonValue::fromVariant(lat));
+        jsonCorrected.insert("longitude", QJsonValue::fromVariant(lon));
+
+        // Qbyte array
+        QJsonDocument Doc(jsonCorrected);
+        QByteArray coordinates = Doc.toJson();
+
+        // Inform QML we are loading
+        setState("loading");
+        Requestor::sendPutRequest(requestName , coordinates ,token);
     }
 }
 
@@ -143,9 +162,15 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
                 m_fullCache->setUserWptsLon(listUserWptsLon);
             }
         }
-        emit requestReady();
-        return ;
+
+    } else if(state() == "OK" && userWaypoint["isCorrectedCoordinates"].toBool() == true){
+        // Update a change to the coordinates
+        m_fullCache->setCorrectedLat(coord["latitude"].toDouble());
+        m_fullCache->setCorrectedLon(coord["longitude"].toDouble());
+
     }
+    emit requestReady();
+    return ;
 }
 
 
