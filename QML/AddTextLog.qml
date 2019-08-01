@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
@@ -13,7 +13,7 @@ FastPopup {
         implicitWidth: main.width*0.4
         implicitHeight:main.height*0.33
         color: Palette.turquoise()
-        border.color: Palette.black()
+        border.color: Palette.backgroundGrey()
         border.width: 1
         opacity:0.9
         radius: 15
@@ -37,7 +37,7 @@ FastPopup {
                 font.pointSize: 16
                 font.family: localFont.name
                 text: "Date"
-                color: Palette.white()
+                color: Palette.turquoise()
             }
 
             MouseArea {

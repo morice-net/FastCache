@@ -70,7 +70,7 @@ Item {
                         }
                     }
 
-                    FastRadioButton {
+                    RadioButton {
                         id:button2
                         text: "Non trouvée"
                         onClicked: typeLog = 3
@@ -97,7 +97,7 @@ Item {
                         }
                     }
 
-                    FastRadioButton {
+                    RadioButton {
                         id:button3
                         text: "Note"
                         onClicked: typeLog = 4
@@ -124,7 +124,7 @@ Item {
                         }
                     }
 
-                    FastRadioButton {
+                    RadioButton {
                         id:button4
                         text: "Nécessite une maintenance"
                         onClicked: typeLog = 45
@@ -151,7 +151,7 @@ Item {
                         }
                     }
 
-                    FastRadioButton {
+                    RadioButton {
                         id:button5
                         text: "Nécessite d'être archivée"
                         onClicked: typeLog = 7
