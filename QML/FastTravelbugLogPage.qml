@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
@@ -29,196 +29,190 @@ Item {
 
     Flickable {
         anchors.topMargin: 10
-        anchors.fill: parent
+        anchors.fill: logPage
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
 
         Column{
             spacing: 10
             x:10
-            y:20
+            y:40
 
             GroupBox {
-                id: found
-                flat: true
-                width: parent.width
+                width: parent.width*0.7
+
                 Column {
-                    ExclusiveGroup { id: tabPositionGroup }
 
                     RadioButton {
                         id:button1
+                        text: "Récupéré"
                         visible: travelbug.tbStatus === 1 //travelbug in cache
                         checked: false
                         onClicked: typeLog = 13
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Récupéré"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                                anchors.margins: 0
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button1.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button1.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button1.indicator.width + button1.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button1.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
                     RadioButton {
                         id:button2
+                        text: "Pris ailleurs"
                         visible: travelbug.tbStatus === 1 //travelbug in cache
+                        checked: false
                         onClicked: typeLog = 19
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Pris ailleurs"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button2.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button2.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button2.indicator.width + button2.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button2.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
                     RadioButton {
                         id:button3
+                        text: "Note"
                         visible:true
                         checked: true
                         onClicked: typeLog = 4
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Note"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button3.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button3.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button3.indicator.width + button3.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button3.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
                     RadioButton {
                         id:button4
+                        text: "Découvert"
                         visible: travelbug.tbStatus === 1 //travelbug in cache
+                        checked: false
                         onClicked: typeLog = 48
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Découvert"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button4.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button4.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button4.indicator.width + button4.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button4.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
-
                     RadioButton {
                         id:button5
+                        text: "Visité"
                         visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) //travelbug in possession of (owner,holder) of the trackable
                         onClicked: typeLog = 75
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Visité"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        checked: false
+                        contentItem: Text {
+                            text: button5.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button5.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button5.indicator.width + button5.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button5.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
                     RadioButton {
                         id:button6
+                        text: "Déposé"
                         visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) //travelbug in possession of (owner,holder) of the trackable
+                        checked: false
                         onClicked: typeLog = 14
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Déposé"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button6.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button6.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button6.indicator.width + button6.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button6.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
@@ -242,26 +236,23 @@ Item {
             }
 
             FastCalendar {
-                id:calendar
+                id: calendar
                 visible: false
             }
 
             Row {
                 spacing: 40
-
                 Button {
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Effacer"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
-                        }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                        }
+                    contentItem: Text {
+                        text: "Effacer"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
                     }
                     onClicked: {
                         message.text=""
@@ -269,18 +260,16 @@ Item {
                 }
 
                 Button {
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Ajout de texte"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
-                        }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                        }
+                    contentItem: Text {
+                        text: "Ajout de texte"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
                     }
                     onClicked:{
                         addText.open();
@@ -290,21 +279,19 @@ Item {
 
                 Button {
                     id:sendLog
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Envoyer le log"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
-                        }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                            gradient: Gradient {
-                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                            }
+                    contentItem: Text {
+                        text: "Envoyer le log"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: control.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: sendLog.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: sendLog.pressed ? "#aaa" : "#ccc" }
                         }
                     }
                     onClicked:{
@@ -328,8 +315,11 @@ Item {
                 placeholderText: qsTr("Code de suivi")
                 font.family: localFont.name
                 font.pointSize: 16
-                style: TextFieldStyle {
-                    textColor: Palette.greenSea()
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitHeight: 40
+                    color: Palette.white()
+                    border.color: Palette.greenSea()
                 }
             }
 
@@ -346,7 +336,10 @@ Item {
                 width: logPage.width*0.95
                 font.family: localFont.name
                 font.pointSize: 14
-                textColor: Palette.greenSea()
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitHeight: 100
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
@@ -38,150 +38,142 @@ Item {
             y:20
 
             GroupBox {
-                id: found
-                flat: true
-                width: parent.width
+                width: parent.width*0.7
+
                 Column {
-                    ExclusiveGroup { id: tabPositionGroup }
 
                     RadioButton {
                         id:button1
+                        text: "Trouvée"
                         checked: true
                         onClicked: typeLog = 2
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Trouvée"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                                anchors.margins: 0
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button1.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button1.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button1.indicator.width + button1.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button1.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
-                    RadioButton {
+                    FastRadioButton {
                         id:button2
+                        text: "Non trouvée"
                         onClicked: typeLog = 3
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Non trouvée"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button2.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button2.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button2.indicator.width + button2.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button2.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
-                    RadioButton {
+                    FastRadioButton {
                         id:button3
+                        text: "Note"
                         onClicked: typeLog = 4
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Note"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button3.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button3.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button3.indicator.width + button3.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button3.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
-                    RadioButton {
+                    FastRadioButton {
                         id:button4
+                        text: "Nécessite une maintenance"
                         onClicked: typeLog = 45
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Nécessite une maintenance"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button4.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button4.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button4.indicator.width + button4.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button4.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
 
-                    RadioButton {
+                    FastRadioButton {
                         id:button5
+                        text: "Nécessite d'être archivée"
                         onClicked: typeLog = 7
-                        exclusiveGroup: tabPositionGroup
-                        style: RadioButtonStyle {
-                            label: Text {
-                                text: "Nécessite d'être archivée"
-                                font.family: localFont.name
-                                font.pointSize: 16
-                                color: control.checked ? Palette.white() : Palette.silver()
-                            }
-                            indicator: Rectangle {
-                                y:10
-                                implicitWidth: 25
-                                implicitHeight: 25
+                        contentItem: Text {
+                            text: button5.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button5.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button5.indicator.width + button5.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button5.checked
+                                color: Palette.greenSea()
                                 radius: 10
-                                border.width: 1
-                                Rectangle {
-                                    anchors.fill: parent
-                                    visible: control.checked
-                                    color: Palette.greenSea()
-                                    radius: 10
-                                    anchors.margins: 4
-                                }
+                                anchors.margins: 4
                             }
                         }
                     }
@@ -213,18 +205,17 @@ Item {
                 spacing: 40
 
                 Button {
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Effacer"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
-                        }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                        }
+                    id: buttonDelete
+                    contentItem: Text {
+                        text: "Effacer"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: buttonDelete.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
                     }
                     onClicked:{
                         message.text=""
@@ -232,18 +223,17 @@ Item {
                 }
 
                 Button {
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Ajout de texte"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
-                        }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                        }
+                    id: buttonAdd
+                    contentItem: Text {
+                        text: "Ajout de texte"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: buttonAdd.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
                     }
                     onClicked:{
                         addText.open();
@@ -252,22 +242,20 @@ Item {
                 }
 
                 Button {
-                    id:sendLog
-                    style: ButtonStyle {
-                        label: Text {
-                            text: "Envoyer le log"
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: Palette.greenSea()
-                        }
-                        background: Rectangle {
-                            border.width: control.activeFocus ? 2 : 1
-                            border.color: "#888"
-                            radius: 4
-                            gradient: Gradient {
-                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                            }
+                    id:buttonSendLog
+                    contentItem: Text {
+                        text: "Envoyer le log"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.greenSea()
+                    }
+                    background: Rectangle {
+                        border.width: buttonSendLog.activeFocus ? 2 : 1
+                        border.color: "#888"
+                        radius: 4
+                        gradient: Gradient {
+                            GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }
+                            GradientStop { position: 1 ; color: buttonSendLog.pressed ? "#aaa" : "#ccc" }
                         }
                     }
                     onClicked:{
@@ -292,32 +280,36 @@ Item {
                 width: logPage.width*0.95
                 font.family: localFont.name
                 font.pointSize: 14
-                textColor: Palette.greenSea()
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitHeight: 100
+                }
             }
 
             CheckBox {
                 id :favorited
                 x:10
                 checked:false
-                style: CheckBoxStyle {
-                    label: Text {
-                        text: "Ajouter cette cache à vos favoris"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: control.checked ? Palette.white() : Palette.silver()
-                    }
-                    indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                contentItem: Text {
+                    text: "Ajouter cette cache à vos favoris"
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    color: favorited.checked ? Palette.white() : Palette.silver()
+                    verticalAlignment: Text.AlignVCenter
+                    leftPadding: favorited.indicator.width + favorited.spacing
+                }
+                indicator: Rectangle {
+                    implicitWidth: 25
+                    implicitHeight: 25
+                    radius: 3
+                    border.width: 1
+                    y: parent.height / 2 - height / 2
+                    Rectangle {
+                        anchors.fill: parent
+                        visible: favorited.checked
+                        color: Palette.greenSea()
                         radius: 3
-                        border.width: 1
-                        Rectangle {
-                            anchors.fill: parent
-                            visible: control.checked
-                            color: Palette.greenSea()
-                            radius: 3
-                            anchors.margins: 4
-                        }
+                        anchors.margins: 4
                     }
                 }
             }
