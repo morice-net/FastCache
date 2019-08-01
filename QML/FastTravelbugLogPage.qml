@@ -32,6 +32,7 @@ Item {
         anchors.fill: logPage
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
+        ScrollBar.vertical: ScrollBar {}
 
         Column{
             spacing: 10

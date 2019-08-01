@@ -31,6 +31,7 @@ Item {
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
+        ScrollBar.vertical: ScrollBar {}
 
         Column{
             spacing: 10
@@ -319,7 +320,7 @@ Item {
                 visible: getTravelbugUser.tbsCode.length !== 0
                 width: parent.width
                 font.family: localFont.name
-                leftPadding: 15
+                leftPadding: 10
                 font.pointSize: 14
                 text: "INVENTAIRE"
                 color: Palette.silver()
@@ -333,17 +334,16 @@ Item {
                     model: getTravelbugUser.tbsCode.length
 
                     Row {
-                        height: logPage.height*0.12
+                        height: logPage.height*0.2
 
                         Image {
-                            y: 10
-                            x: 10
                             source: "qrc:/Image/" + "trackable_travelbug.png"
                             horizontalAlignment: Image.AlignHCenter
                             scale: 1.4
                         }
 
                         Column {
+                            spacing: 10
 
                             Text {
                                 text: getTravelbugUser.trackingNumbers[index]
@@ -370,6 +370,37 @@ Item {
                                 color: Palette.white()
                                 wrapMode: Text.Wrap
                             }
+
+                            ComboBox {
+                                id: tbCombo
+                                model: ["Ne rien faire", "Visité", "Déposé"]
+                                delegate: ItemDelegate {
+                                    width: tbCombo.width
+                                    contentItem: Text {
+                                        text: modelData
+                                        color: Palette.turquoise()
+                                        font.family: localFont.name
+                                        font.pointSize: 15
+                                        verticalAlignment: Text.AlignVCenter
+                                    }
+                                    highlighted: tbCombo.highlightedIndex === index
+                                }
+                                contentItem: Text {
+                                    leftPadding: 10
+                                    text: tbCombo.displayText
+                                    font.family: localFont.name
+                                    font.pointSize: 15
+                                    color: Palette.turquoise()
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                                background: Rectangle {
+                                    implicitWidth: 200
+                                    implicitHeight: 40
+                                    border.color: Palette.silver()
+                                    border.width: 1
+                                    radius: 5
+                                }
+                            }
                         }
                     }
                 }
@@ -377,6 +408,8 @@ Item {
         }
     }
 }
+
+
 
 
 
