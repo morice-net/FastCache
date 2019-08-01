@@ -26,7 +26,7 @@ FastPopup {
         implicitWidth: main.width*0.7
         implicitHeight:main.height*0.25
         color: Palette.turquoise()
-        border.color: Palette.greenSea()
+        border.color: Palette.silver()
         border.width: 1
         opacity:0.8
         radius: 15
@@ -41,10 +41,26 @@ FastPopup {
             contentItem: Text {
                 text: modelData
                 color: Palette.turquoise()
-                font: gpsFormatCombo.font
+                font.family: localFont.name
+                font.pointSize: 15
                 verticalAlignment: Text.AlignVCenter
             }
             highlighted: gpsFormatCombo.highlightedIndex === index
+        }
+        contentItem: Text {
+            leftPadding: 10
+            text: gpsFormatCombo.displayText
+            font.family: localFont.name
+            font.pointSize: 15
+            color: Palette.turquoise()
+            verticalAlignment: Text.AlignVCenter
+        }
+        background: Rectangle {
+            implicitWidth: 200
+            implicitHeight: 50
+            border.color: Palette.silver()
+            border.width: 1
+            radius: 5
         }
 
         onCurrentIndexChanged: {
@@ -59,7 +75,6 @@ FastPopup {
                 box1.visible = true
             }
         }
-
     }
 
     // first box coordinates.
@@ -652,6 +667,15 @@ FastPopup {
         text: qsTr("Ok")
         x: 0.5 * coordinatesBox.width
         y: parent.height - height - 10
+        contentItem: Text {
+            text: goButton.text
+            font: goButton.font
+            opacity: enabled ? 1.0 : 0.3
+            color: Palette.greenSea()
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+        }
         background: Rectangle {
             anchors.fill: parent
             opacity: 0.9
@@ -702,6 +726,15 @@ FastPopup {
         x: 0.65 * coordinatesBox.width
         y: parent.height - height - 10
         text: qsTr("Effacer")
+        contentItem: Text {
+            text: clearButton.text
+            font: clearButton.font
+            opacity: enabled ? 1.0 : 0.3
+            color: Palette.greenSea()
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+        }
         background: Rectangle {
             anchors.fill: parent
             opacity: 0.9
