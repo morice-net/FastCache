@@ -62,7 +62,7 @@ FastPopup {
             font.family: localFont.name
             font.pointSize: 17
             color: Palette.greenSea()
-            validator: DoubleValidator {bottom: 0.0; top: 360.0}
+            validator: DoubleValidator {bottom: 0.0; top: 360.0 ;  decimals: 3}
             background: Rectangle {
                 anchors.fill: parent
                 opacity: 0.9
@@ -79,7 +79,7 @@ FastPopup {
             font.family: localFont.name
             font.pointSize: 17
             color: Palette.greenSea()
-            validator: DoubleValidator {bottom: 0.0}
+            validator: DoubleValidator {bottom: 0.0 ;  decimals: 3}
             background: Rectangle {
                 anchors.fill: parent
                 opacity: 0.9
@@ -107,7 +107,7 @@ FastPopup {
 
         CheckBox {
             id: corrected
-            visible: (fastCache.userWptAdd === true && fullCache.isCorrectedCoordinates == false)
+            visible: (fastCache.userWptAdd === true && fullCache.isCorrectedCoordinates === false)
             text: qsTr("Utiliser comme coordonnées de la cache")
             font.pointSize: 15
             checked: false
@@ -242,7 +242,8 @@ FastPopup {
 
     function  wptLat() {
         if(bearing.text.length !==0 && distance.text.length !== 0){
-            return QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon).atDistanceAndAzimuth(distance.text , bearing.text).latitude
+            return QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon).
+            atDistanceAndAzimuth(parseFloat(distance.text) , parseFloat(bearing.text)).latitude
         } else {
             return coordinatesBox.resultLat
         }
@@ -250,7 +251,8 @@ FastPopup {
 
     function  wptLon() {
         if(bearing.text.length !==0 && distance.text.length !== 0){
-            return QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon).atDistanceAndAzimuth(distance.text , bearing.text).longitude
+            return QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
+            .atDistanceAndAzimuth(parseFloat(distance.text) , parseFloat(bearing.text)).longitude
         } else {
             return coordinatesBox.resultLon
         }
