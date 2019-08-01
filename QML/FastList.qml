@@ -1,7 +1,7 @@
 import QtQuick 2.6
 import QtLocation 5.3
 import QtPositioning 5.3
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
 

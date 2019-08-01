@@ -1,5 +1,5 @@
 ﻿import QtQuick 2.6
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.1
 import Qt.labs.settings 1.0
@@ -51,7 +51,6 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
-
             contentItem: Text {
                 id: textButtonId
                 color: Palette.greenSea()
@@ -74,7 +73,6 @@ Item {
             x: 100
             y: 100
             width: 300
-
             background: Rectangle {
                 implicitWidth: 110
                 implicitHeight: 25
