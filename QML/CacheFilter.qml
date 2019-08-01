@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
@@ -26,7 +26,6 @@ Item {
         radius: parent.width/20
         border.width: 2
         border.color: Palette.greenSea()
-
         width: parent.width
         height: filterColumn.height
         anchors.top: filterHeadArrow.bottom
