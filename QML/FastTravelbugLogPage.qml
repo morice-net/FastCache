@@ -28,7 +28,7 @@ Item {
     }
 
     Flickable {
-        anchors.topMargin: 10
+        anchors.topMargin: 25
         anchors.fill: logPage
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
@@ -223,7 +223,7 @@ Item {
                 id: logDate
                 width: parent.width
                 font.family: localFont.name
-                font.pointSize: 16
+                font.pointSize: 18
                 text: "Date  " + new Date().toLocaleDateString(Qt.LocaleDate)
                 color: Palette.white()
 
