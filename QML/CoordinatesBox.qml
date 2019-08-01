@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.2
 import QtPositioning 5.3
@@ -36,6 +36,16 @@ FastPopup {
         id: gpsFormatCombo
         width: coordinatesBoxBackground.width - 20
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
+        delegate: ItemDelegate {
+            width: gpsFormatCombo.width
+            contentItem: Text {
+                text: modelData
+                color: Palette.turquoise()
+                font: gpsFormatCombo.font
+                verticalAlignment: Text.AlignVCenter
+            }
+            highlighted: gpsFormatCombo.highlightedIndex === index
+        }
 
         onCurrentIndexChanged: {
             box1.visible = false
@@ -65,7 +75,6 @@ FastPopup {
             contentItem: Text {
                 id: box1ButtonNS
                 text:"N"
-
                 font.family: localFont.name
                 font.pixelSize: 30
                 color: Palette.turquoise()
