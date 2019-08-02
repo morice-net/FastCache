@@ -56,6 +56,7 @@ RangeSlider {
         font.pointSize: 15
         font.italic: true
         text: " Min:"+minValueSlider()
+        color: Palette.greenSea()
 
     }
 
@@ -65,6 +66,7 @@ RangeSlider {
         font.pointSize: 15
         font.italic: true
         text: "Max:"+ maxValueSlider()
+        color: Palette.greenSea()
     }
 
     function minValueSlider() {

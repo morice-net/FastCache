@@ -17,7 +17,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: localFont.name
             font.pointSize: 18
-            color: Palette.black()
+            color: Palette.greenSea()
             width: parent.width
             text: selectableFilter.filterText
         }

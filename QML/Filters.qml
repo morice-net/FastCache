@@ -47,7 +47,7 @@ Item {
         Button {
             x:10
             width: parent.width
-            height: parent.height * 0.06
+            height: parent.height * 0.08
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
@@ -77,22 +77,218 @@ Item {
                 implicitWidth: 110
                 implicitHeight: 25
                 opacity: 0.8
-                border.color: Palette.turquoise()
-                color:Palette.turquoise()
+                border.color: Palette.silver()
+                color:Palette.greenSea()
                 border.width: 1
                 radius: 15
             }
 
             ColumnLayout {
-                CheckBox { id: size1 ; text:"Micro" ; checked: settings.micro ; onCheckedChanged: textSizeButton() }
-                CheckBox { id: size2 ; text: "Petite" ;  checked: settings.small ; onCheckedChanged: textSizeButton() }
-                CheckBox { id: size3 ; text: "Normale" ;  checked: settings.regular ; onCheckedChanged: textSizeButton() }
-                CheckBox { id: size4 ; text: "Grande" ; checked: settings.large ; onCheckedChanged: textSizeButton() }
-                CheckBox { id: size5 ; text: "Non renseignée" ; checked: settings.notChosen ; onCheckedChanged: textSizeButton() }
-                CheckBox { id: size6 ; text: "Virtuelle" ; checked: settings.virtualSize; onCheckedChanged: textSizeButton() }
-                CheckBox { id: size7 ; text: "Autre" ;  checked: settings.other ; onCheckedChanged: textSizeButton() }
-            }
 
+                CheckBox {
+                    id : size1
+                    x:10
+                    checked: settings.micro
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Micro"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size1.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size1.indicator.width + size1.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size1.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+
+                CheckBox {
+                    id : size2
+                    x:10
+                    checked: settings.small
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Petite"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size2.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size2.indicator.width + size2.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size2.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+
+                CheckBox {
+                    id : size3
+                    x:10
+                    checked: settings.regular
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Normale"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size3.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size3.indicator.width + size3.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size3.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+
+                CheckBox {
+                    id : size4
+                    x:10
+                    checked: settings.large
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Grande"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size4.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size4.indicator.width + size4.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size4.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+
+                CheckBox {
+                    id : size5
+                    x:10
+                    checked: settings.notChosen
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Non renseignée"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size5.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size5.indicator.width + size5.spacing
+
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size5.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+
+                CheckBox {
+                    id : size6
+                    x:10
+                    checked: settings.virtualSize
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Virtuelle"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size6.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size6.indicator.width + size6.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size6.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+
+                CheckBox {
+                    id : size7
+                    x:10
+                    checked: settings.other
+                    onCheckedChanged: textSizeButton()
+                    contentItem: Text {
+                        text: "Autre"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: size7.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: size7.indicator.width + size7.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: size7.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
+                }
+            }
 
             function recordStateInSettings() {
                 settings.micro = size1.checkState
@@ -133,7 +329,6 @@ Item {
         SelectableFilter {
             id: fieldFilterSelectable
             filterText: "Terrain"
-
         }
 
         MultiPointSlider {
@@ -153,9 +348,30 @@ Item {
 
         CheckBox {
             id :found
-            text: "Exclure les caches trouvées et mes.."
             checked: settings.excludeCachesFound
             onCheckedChanged: main.excludeFound = found.checkState
+            contentItem: Text {
+                text: "Exclure les caches trouvées et mes.."
+                font.family: localFont.name
+                font.pointSize: 16
+                color: Palette.greenSea()
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: found .indicator.width + found .spacing
+            }
+            indicator: Rectangle {
+                implicitWidth: 25
+                implicitHeight: 25
+                radius: 3
+                border.width: 1
+                y: parent.height / 2 - height / 2
+                Rectangle {
+                    anchors.fill: parent
+                    visible: found .checked
+                    color: Palette.greenSea()
+                    radius: 3
+                    anchors.margins: 4
+                }
+            }
 
             function recordFoundInSettings() {
                 settings.excludeCachesFound = found.checkState
@@ -164,15 +380,36 @@ Item {
 
         CheckBox {
             id :archived
-            text: "Exclure les caches désactivées"
             checked: settings.excludeCachesArchived
             onCheckedChanged: main.excludeArchived = archived.checkState
+            contentItem: Text {
+                text: "Exclure les caches désactivées"
+                font.family: localFont.name
+                font.pointSize: 16
+                color: Palette.greenSea()
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: archived  .indicator.width + archived  .spacing
+            }
+
+            indicator: Rectangle {
+                implicitWidth: 25
+                implicitHeight: 25
+                radius: 3
+                border.width: 1
+                y: parent.height / 2 - height / 2
+                Rectangle {
+                    anchors.fill: parent
+                    visible: archived .checked
+                    color: Palette.greenSea()
+                    radius: 3
+                    anchors.margins: 4
+                }
+            }
 
             function recordArchivedInSettings() {
                 settings.excludeCachesArchived = archived.checkState
             }
         }
-
 
         SelectableFilter {
             id: keywordFilterSelectable
@@ -182,7 +419,7 @@ Item {
         Button {
             x:10
             width: parent.width*0.7
-            height: parent.height * 0.06
+            height: parent.height * 0.08
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
@@ -206,7 +443,6 @@ Item {
 
         FastPopup {
             id: keyWordPopup
-
             background: Rectangle {
                 implicitWidth: main.width*0.8
                 border.color: Palette.turquoise()
@@ -232,10 +468,12 @@ Item {
                     anchors.verticalCenter:label1.verticalCenter
                     anchors.leftMargin:10
                     text:  qsTr(settings.keyWord)
+                    color: Palette.greenSea()
                     background: Rectangle {
+                        implicitHeight: 40
                         implicitWidth: main.width/2.2
                         radius:10
-                        border.color: mot.focus ? Palette.black() :Palette.turquoise()
+                        border.color: mot.focus ? Palette.silver() :Palette.greenSea()
                     }
                     onTextChanged: keyWordButton()
 
@@ -259,10 +497,12 @@ Item {
                     anchors.verticalCenter:label2.verticalCenter
                     anchors.leftMargin:10
                     text: qsTr(settings.discover)
+                    color: Palette.greenSea()
                     background: Rectangle {
+                        implicitHeight: 40
                         implicitWidth: main.width/2.2
                         radius:10
-                        border.color: decouvreur.focus ? Palette.black() :Palette.turquoise()
+                        border.color: decouvreur.focus ? Palette.silver() :Palette.greenSea()
                     }
                     onTextChanged: keyWordButton()
 
@@ -284,18 +524,20 @@ Item {
                     anchors.verticalCenter:label3.verticalCenter
                     anchors.leftMargin:10
                     text: qsTr(settings.owner)
+                    color: Palette.greenSea()
                     background: Rectangle {
+                        implicitHeight: 40
                         implicitWidth: main.width/2.2
                         radius:10
-                        border.color: proprietaire.focus ? Palette.black() :Palette.turquoise()
+                        border.color: proprietaire.focus ? Palette.silver() :Palette.greenSea()
                     }
                     onTextChanged: keyWordButton()
 
                     function recordOwnerInSettings() {
                         settings.owner = proprietaire.text
                     }
-
                 }
+
                 Button {
                     anchors.horizontalCenter: parent.horizontalCenter
                     font.family: localFont.name
@@ -307,6 +549,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                     }
                     background: Rectangle {
+                        implicitHeight: 50
                         anchors.fill: parent
                         anchors.margins: 5
                         opacity: 0.9

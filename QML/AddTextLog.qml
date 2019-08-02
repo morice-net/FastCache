@@ -13,7 +13,7 @@ FastPopup {
         implicitWidth: main.width*0.4
         implicitHeight:main.height*0.33
         color: Palette.turquoise()
-        border.color: Palette.backgroundGrey()
+        border.color: Palette.silver()
         border.width: 1
         opacity:0.9
         radius: 15
