@@ -10,7 +10,7 @@ Item {
     Flickable {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: 60
+        anchors.topMargin: 70
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}

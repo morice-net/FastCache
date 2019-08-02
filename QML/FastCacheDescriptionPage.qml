@@ -10,7 +10,7 @@ Item {
 
     Flickable {
         id: shortLongDescription
-        anchors.topMargin: 29
+        anchors.topMargin: 30
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height

@@ -27,7 +27,7 @@ Item {
     }
 
     Flickable {
-        anchors.topMargin: 25
+        anchors.topMargin: 30
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
@@ -215,7 +215,7 @@ Item {
                     }
                     background: Rectangle {
                         border.width: buttonDelete.activeFocus ? 2 : 1
-                        border.color: "#888"
+                        border.color: Palette.silver()
                         radius: 4
                     }
                     onClicked:{
@@ -233,7 +233,7 @@ Item {
                     }
                     background: Rectangle {
                         border.width: buttonAdd.activeFocus ? 2 : 1
-                        border.color: "#888"
+                        border.color: Palette.silver()
                         radius: 4
                     }
                     onClicked:{
@@ -252,7 +252,7 @@ Item {
                     }
                     background: Rectangle {
                         border.width: buttonSendLog.activeFocus ? 2 : 1
-                        border.color: "#888"
+                        border.color: Palette.silver()
                         radius: 4
                         gradient: Gradient {
                             GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }

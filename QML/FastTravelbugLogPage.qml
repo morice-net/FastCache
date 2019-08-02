@@ -28,7 +28,7 @@ Item {
     }
 
     Flickable {
-        anchors.topMargin: 25
+        anchors.topMargin: 50
         anchors.fill: logPage
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height

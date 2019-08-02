@@ -18,8 +18,8 @@ FastPopup {
         anchors.fill: parent
         implicitWidth: main.width*0.7
         implicitHeight:main.height*0.33
-        color: Palette.turquoise()
-        border.color: Palette.greenSea()
+        color: Palette.greenSea()
+        border.color: Palette.silver()
         border.width: 1
         opacity:0.8
         radius: 15
@@ -52,10 +52,11 @@ FastPopup {
             TextField {
                 id: street
                 Layout.fillWidth: true
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: parent.width - label2.width
                     radius:5
-                    border.color: street.focus ? Palette.white() :Palette.turquoise()
+                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
                 }
                 font.family: localFont.name
             }
@@ -70,10 +71,11 @@ FastPopup {
             TextField {
                 id: city
                 Layout.fillWidth: true
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: parent.width - label2.width
                     radius:5
-                    border.color: street.focus ? Palette.white() :Palette.turquoise()
+                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
                 }
                 font.family: localFont.name
             }
@@ -88,10 +90,11 @@ FastPopup {
             TextField {
                 id: stateName
                 Layout.fillWidth: true
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: parent.width - label2.width
                     radius:5
-                    border.color: street.focus ? Palette.white() :Palette.turquoise()
+                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
                 }
             }
 
@@ -105,10 +108,11 @@ FastPopup {
             TextField {
                 id: country
                 Layout.fillWidth: true
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: parent.width - label2.width
                     radius:5
-                    border.color: street.focus ? Palette.white() :Palette.turquoise()
+                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
                 }
                 font.family: localFont.name
             }
@@ -123,10 +127,11 @@ FastPopup {
             TextField {
                 id: postalCode
                 Layout.fillWidth: true
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: parent.width - label2.width
                     radius:5
-                    border.color: street.focus ? Palette.white() :Palette.turquoise()
+                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
                 }
                 font.family: localFont.name
             }
@@ -146,6 +151,12 @@ FastPopup {
                         border.color: Palette.greenSea()
                         border.width: 1
                         radius: 5
+                    }
+                    contentItem: Text {
+                        text: goButton.text
+                        color: goButton.down ? Palette.turquoise() : Palette.greenSea()
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
                     }
                     font.family: localFont.name
                     onClicked: {
@@ -168,6 +179,12 @@ FastPopup {
                         border.color: Palette.greenSea()
                         border.width: 1
                         radius: 5
+                    }
+                    contentItem: Text {
+                        text: clearButton.text
+                        color: clearButton.down ? Palette.turquoise() : Palette.greenSea()
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
                     }
                     font.family: localFont.name
                     onClicked: {
@@ -209,14 +226,13 @@ FastPopup {
     FastPopup {
         id: geocodeResponse
         x: 50
-
         background: Rectangle {
-            color: Palette.turquoise()
-            opacity: 0.3
+            color: Palette.white()
+            opacity: 0
             radius: 15
         }
         width: main.width/1.6
-        height: popupResponseHeight( )+25
+        height: popupResponseHeight()+25
 
         ListView {
             id: geocodelist
@@ -237,7 +253,7 @@ FastPopup {
             Rectangle {
                 id: item
                 width: parent.width
-                height: main.height/5.5
+                height: main.height/5
                 color: Palette.white()
                 border.width: 1
                 border.color: Palette.greenSea()
