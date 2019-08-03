@@ -114,6 +114,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box1ButtonNS.right
                 anchors.leftMargin:15
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
                     radius: 5
@@ -137,6 +138,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box1LabelDegrees.right
                 anchors.leftMargin:4
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
                     radius: 5
@@ -160,6 +162,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box1LabelPoint.right
                 anchors.leftMargin:4
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/8
                     radius: 5
@@ -205,6 +208,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box1ButtonEO.right
                     anchors.leftMargin:15
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius: 5
@@ -228,6 +232,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box1LabelDegrees2.right
                     anchors.leftMargin:4
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius: 5
@@ -251,6 +256,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box1LabelPoint2.right
                     anchors.leftMargin:4
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/8
                         radius: 5
@@ -308,6 +314,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box2ButtonNS.right
                 anchors.leftMargin:15
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
                     radius: 5
@@ -331,6 +338,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box2LabelPoint.right
                 anchors.leftMargin:4
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/7
                     radius: 5
@@ -376,6 +384,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box2ButtonEO.right
                     anchors.leftMargin:15
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius: 5
@@ -399,6 +408,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box2LabelPoint2.right
                     anchors.leftMargin:4
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/7
                         radius: 5
@@ -457,6 +467,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box3ButtonNS.right
                 anchors.leftMargin:15
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
                     radius: 5
@@ -480,6 +491,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box3LabelDegrees.right
                 anchors.leftMargin:4
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
                     radius: 5
@@ -503,6 +515,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box3LabelMinutes.right
                 anchors.leftMargin:10
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
                     radius: 5
@@ -526,6 +539,7 @@ FastPopup {
                 font.pixelSize: 30
                 anchors.left: box3LabelPoint.right
                 anchors.leftMargin:4
+                color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/8
                     radius: 5
@@ -570,6 +584,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box3ButtonEO.right
                     anchors.leftMargin:15
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius: 5
@@ -593,6 +608,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box3LabelDegrees2.right
                     anchors.leftMargin:4
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius: 5
@@ -616,6 +632,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box3LabelMinutes2.right
                     anchors.leftMargin:10
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/10
                         radius: 5
@@ -639,6 +656,7 @@ FastPopup {
                     font.pixelSize: 30
                     anchors.left: box3LabelPoint2.right
                     anchors.leftMargin:4
+                    color: Palette.greenSea()
                     background: Rectangle {
                         implicitWidth: main.width/8
                         radius: 5
