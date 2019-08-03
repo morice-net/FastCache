@@ -15,7 +15,6 @@ FastPopup {
         color: Palette.turquoise()
         border.color: Palette.silver()
         border.width: 1
-        opacity:0.9
         radius: 15
     }
 
@@ -37,7 +36,7 @@ FastPopup {
                 font.pointSize: 16
                 font.family: localFont.name
                 text: "Date"
-                color: Palette.turquoise()
+                color: Palette.white()
             }
 
             MouseArea {
