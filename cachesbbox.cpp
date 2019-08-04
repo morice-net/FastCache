@@ -35,7 +35,7 @@ void CachesBBox::moreCaches()
 }
 
 void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
-                                    QList<QString> keyWordDiscoverOwner ,QString name)
+                                    QList<QString> keyWordDiscoverOwner , QString name)
 {
     m_filterTypes = types ;
     m_filterSizes = sizes ;
