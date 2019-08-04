@@ -183,10 +183,28 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_indexMoreCaches = 0 ;
 }
 
-void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
+void CachesRetriever::updateFilterCaches(QList<bool> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
                                          QList<QString> keyWordDiscoverOwner ,QString name)
 {
-    m_filterTypes = types ;
+    QList<int> listFilterTypes;
+    listFilterTypes.clear();
+    for (int i = 0; i < types.length(); i++) {
+        if(types[i] == false  && i != 6){
+            listFilterTypes.append(CACHE_TYPE_INDEX_MAP.values(QString::number(i)));
+        } else if(types[i] == false  && i == 6){
+            listFilterTypes.append(6 );
+            listFilterTypes.append(4738 );
+            listFilterTypes.append(1304);
+            listFilterTypes.append(3653 );
+        }
+    }
+
+    if(listFilterTypes.length() == types.length() + 3)
+        listFilterTypes.clear();
+
+    m_filterTypes = listFilterTypes ;
+    qDebug() << "*** Types**\n" <<listFilterTypes ;
+
     m_filterSizes = sizes ;
     m_filterDifficultyTerrain = difficultyTerrain ;
     m_filterExcludeFound = found ;
@@ -194,7 +212,6 @@ void CachesRetriever::updateFilterCaches(QList<int> types , QList<int> sizes , Q
     m_keyWordDiscoverOwner = keyWordDiscoverOwner;
     m_userName = name ;
 }
-
 
 
 

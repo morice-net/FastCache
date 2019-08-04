@@ -210,7 +210,7 @@ public:
                                              {"Note du reviewer", 68},
                                              {"Annonce", 74},};
 
-private:   
+private:
     QList<int> m_attributes;
     QList<bool> m_attributesBool;
     QString m_note;

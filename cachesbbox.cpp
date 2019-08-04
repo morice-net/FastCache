@@ -34,18 +34,6 @@ void CachesBBox::moreCaches()
     sendRequest(m_tokenTemp);
 }
 
-void CachesBBox::updateFilterCaches(QList<int> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
-                                    QList<QString> keyWordDiscoverOwner , QString name)
-{
-    m_filterTypes = types ;
-    m_filterSizes = sizes ;
-    m_filterDifficultyTerrain = difficultyTerrain ;
-    m_filterExcludeFound = found ;
-    m_filterExcludeArchived = archived ;
-    m_keyWordDiscoverOwner = keyWordDiscoverOwner;
-    m_userName = name ;
-}
-
 void CachesBBox::addGetRequestParameters(QString &parameters)
 {
     // createBBox.

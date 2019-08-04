@@ -19,7 +19,6 @@ public:
     ~CachesBBox() override;
 
     Q_INVOKABLE void sendRequest(QString token);
-    Q_INVOKABLE void updateFilterCaches(QList <int> types , QList <int> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
     void moreCaches() override;

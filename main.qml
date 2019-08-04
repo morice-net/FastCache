@@ -135,7 +135,7 @@ Item {
     UserInfo {
         id: userInfo
         onRequestReady:{
-            cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+            cachesBBox.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                           createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
             reloadCaches()
         }
@@ -328,23 +328,6 @@ Item {
         }
     }
 
-    function createFilterTypesGs(){
-        var  list = []
-        for (var i = 0; i < listTypes.length; i++) {
-            if(listTypes[i] === false ){
-                list.push( cacheTypes.types[i].typeIdGs)
-                if(cacheTypes.types[i].markerId === 6){
-                    list.push(4738 )
-                    list.push(1304)
-                    list.push(3653 )
-                }
-            }
-        }
-        if(list.length === cacheTypes.types.length)
-            return []
-        return list
-    }
-
     function createFilterSizesGs(){
         var  list = [] ;
         for (var i = 0; i < listSizes.length; i++) {
@@ -408,7 +391,7 @@ Item {
         cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
         cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
 
-        cachesBBox.updateFilterCaches(createFilterTypesGs(),createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
+        cachesBBox.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
                                       createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner(),userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
     }
