@@ -97,5 +97,6 @@ Rectangle {
             fastListColumn.y = fastListHeader.height + fastListBottom.height +10
             return  "Par coordonnées(" + fastListColumn.count + ")"
         }
+        return ""
     }
 }

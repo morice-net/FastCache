@@ -464,9 +464,6 @@ Item {
 
                 TextField {
                     id:mot
-                    anchors.left: label1.right
-                    anchors.verticalCenter:label1.verticalCenter
-                    anchors.leftMargin:10
                     text:  qsTr(settings.keyWord)
                     color: Palette.greenSea()
                     background: Rectangle {
@@ -493,9 +490,6 @@ Item {
 
                 TextField {
                     id:decouvreur
-                    anchors.left: label2.right
-                    anchors.verticalCenter:label2.verticalCenter
-                    anchors.leftMargin:10
                     text: qsTr(settings.discover)
                     color: Palette.greenSea()
                     background: Rectangle {
@@ -512,17 +506,14 @@ Item {
                 }
 
                 Label {
-                    id:label3
+                    id: label3
                     text: "Proprietaire:"
-                    color:Palette.white()
+                    color: Palette.white()
                     font.family: localFont.name
                 }
 
                 TextField {
-                    id:proprietaire
-                    anchors.left: label3.right
-                    anchors.verticalCenter:label3.verticalCenter
-                    anchors.leftMargin:10
+                    id: proprietaire
                     text: qsTr(settings.owner)
                     color: Palette.greenSea()
                     background: Rectangle {
@@ -539,7 +530,6 @@ Item {
                 }
 
                 Button {
-                    anchors.horizontalCenter: parent.horizontalCenter
                     font.family: localFont.name
                     font.pixelSize: height * 0.45
                     contentItem: Text {

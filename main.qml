@@ -399,7 +399,7 @@ Item {
                 return  cacheSizes.sizes[i].frenchPattern
             }
         }
-        return
+        return ""
     }
 
     function  formatLat( lat) {
