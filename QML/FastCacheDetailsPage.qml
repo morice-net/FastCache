@@ -68,7 +68,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: main.cacheSize(fullCache.size)
+                text: fullCache.size
                 color: Palette.white()
             }
         }

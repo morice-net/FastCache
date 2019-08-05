@@ -11,7 +11,8 @@ class Cache : public QObject
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString geocode READ geocode WRITE setGeocode NOTIFY geocodeChanged)
-    Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
+    Q_PROPERTY(QString size READ size WRITE setSize NOTIFY sizeChanged)
+    Q_PROPERTY(int sizeIndex READ sizeIndex WRITE setSizeIndex NOTIFY sizeIndexChanged)
     Q_PROPERTY(double difficulty READ difficulty WRITE setDifficulty NOTIFY difficultyChanged)
     Q_PROPERTY(double terrain READ terrain WRITE setTerrain NOTIFY terrainChanged)
     Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
@@ -40,8 +41,11 @@ public:
     QString  geocode() const;
     void setGeocode(const QString &geocode);
 
-    int size() const ;
-    void    setSize(const int &size);
+    QString size() const ;
+    void  setSize(const QString &size);
+
+    int  sizeIndex() const ;
+    void setSizeIndex(const int &sizeIndex);
 
     double difficulty() const;
     void setDifficulty(const double &difficulty);
@@ -89,6 +93,7 @@ signals:
     void nameChanged();
     void geocodeChanged();
     void sizeChanged();
+    void sizeIndexChanged();
     void difficultyChanged();
     void terrainChanged();
     void typeChanged();
@@ -107,7 +112,8 @@ signals:
 protected:
     QString m_name;
     QString m_geocode;
-    int m_size;
+    QString m_size;
+    int m_sizeIndex;
     double m_difficulty;
     double m_terrain;
     QString m_type;

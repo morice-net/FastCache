@@ -267,8 +267,8 @@ FastPopup {
                         cachesNear.latPoint = listModel.get(index).valLat
                         cachesNear.lonPoint = listModel.get(index).valLon
                         cachesNear.distance = 100
-                        cachesNear.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                                      createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+                        cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
+                                                      createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
                         cachesNear.indexMoreCaches(0)
                         cachesNear.sendRequest(connector.tokenKey)
 

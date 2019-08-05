@@ -7,7 +7,8 @@ Cache::Cache(QObject *parent)
     : QObject(parent)
     , m_name("")
     , m_geocode("")
-    , m_size(0)
+    , m_size("")
+    , m_sizeIndex(0)
     , m_difficulty(0)
     , m_terrain(0)
     , m_type("")
@@ -64,15 +65,26 @@ void Cache::setGeocode(const QString &geocode)
     emit geocodeChanged();
 }
 
-int Cache::size() const
+QString Cache::size() const
 {
     return m_size;
 }
 
-void Cache::setSize(const int &size)
+void Cache::setSize(const QString &size)
 {
     m_size = size;
     emit sizeChanged();
+}
+
+int Cache::sizeIndex() const
+{
+    return m_sizeIndex;
+}
+
+void Cache::setSizeIndex(const int &sizeIndex)
+{
+    m_sizeIndex = sizeIndex;
+    emit sizeIndexChanged();
 }
 
 double Cache::difficulty() const

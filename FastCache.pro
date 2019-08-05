@@ -19,7 +19,6 @@ SOURCES += main.cpp \
     userinfo.cpp \
     cachesbbox.cpp \
     cache.cpp \
-    cachesize.cpp \
     cachesnear.cpp \
     fullcache.cpp \
     cacheattribute.cpp \
@@ -52,7 +51,6 @@ HEADERS += \
     userinfo.h \
     cachesbbox.h \
     cache.h \
-    cachesize.h \
     cachesnear.h \
     fullcache.h \
     cacheattribute.h \

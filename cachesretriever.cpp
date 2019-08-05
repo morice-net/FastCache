@@ -145,7 +145,8 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         cache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(v1["id"].toInt()).toInt());
 
         v1 = v["geocacheSize"].toObject();
-        cache->setSize(v1["id"].toInt());
+        cache->setSize(CACHE_SIZE_MAP.key(v1["id"].toInt()));
+        cache->setSizeIndex(CACHE_SIZE_INDEX_MAP.key(v1["id"].toInt()).toInt());
 
         cache->setDifficulty(v["difficulty"].toDouble());
         cache->setFavoritePoints(v["favoritePoints"].toInt());
@@ -184,7 +185,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_indexMoreCaches = 0 ;
 }
 
-void CachesRetriever::updateFilterCaches(QList<bool> types , QList<int> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
+void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
                                          QList<QString> keyWordDiscoverOwner ,QString name)
 {
     QList<int> listFilterTypes;
@@ -199,14 +200,23 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<int> sizes , 
             listFilterTypes.append(3653 );
         }
     }
-
     if(listFilterTypes.length() == types.length() + 3)
         listFilterTypes.clear();
-
     m_filterTypes = listFilterTypes ;
     qDebug() << "*** Types**\n" <<listFilterTypes ;
 
-    m_filterSizes = sizes ;
+    QList<int> listFilterSizes;
+    listFilterSizes.clear();
+    for (int i = 0; i < sizes.length(); i++) {
+        if(sizes[i] == true ){
+            listFilterSizes.append(CACHE_SIZE_INDEX_MAP.values(QString::number(i)));
+        }
+    }
+    if(listFilterSizes.length() == sizes.length())
+        listFilterSizes.clear();
+    m_filterSizes = listFilterSizes ;
+    qDebug() << "*** Sizes**\n" <<listFilterSizes ;
+
     m_filterDifficultyTerrain = difficultyTerrain ;
     m_filterExcludeFound = found ;
     m_filterExcludeArchived = archived ;

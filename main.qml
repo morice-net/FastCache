@@ -136,18 +136,14 @@ Item {
     UserInfo {
         id: userInfo
         onRequestReady:{
-            cachesBBox.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                          createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
+                                          createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
             reloadCaches()
         }
     }
 
     CacheAttributes {
         id: cacheAttributes
-    }
-
-    CacheSizes {
-        id: cacheSizes
     }
 
     WaypointTypes {
@@ -325,18 +321,6 @@ Item {
         }
     }
 
-    function createFilterSizesGs(){
-        var  list = [] ;
-        for (var i = 0; i < listSizes.length; i++) {
-            if(listSizes[i] === true ){
-                list.push( cacheSizes.sizes[i].sizeIdGs)
-            }
-        }
-        if(list.length === cacheSizes.sizes.length - 1)
-            return []
-        return list
-    }
-
     function createFilterDifficultyTerrainGs(){
         var  list = []
         list.push(listDifficultyTerrain[0])
@@ -388,18 +372,9 @@ Item {
         cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
         cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
 
-        cachesBBox.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                      createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner(),userInfo.name )
+        cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
+                                      createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
-    }
-
-    function  cacheSize(sizeGs) {
-        for (var i = 0; i < cacheSizes.sizes.length; i++) {
-            if(cacheSizes.sizes[i].sizeIdGs === sizeGs ){
-                return  cacheSizes.sizes[i].frenchPattern
-            }
-        }
-        return ""
     }
 
     function  formatLat( lat) {
@@ -450,10 +425,6 @@ Item {
     function recordAppSettings() {
         settings.tokenKey = connector.tokenKey
         settings.refreshToken = connector.refreshToken
-        console.log(" ---> SIZES       ###########")
-        console.log(cacheSizes.sizes[6].sizeId)
-        console.log(cacheSizes.sizes[6].sizeIdGs)
-
         fastMenuHeader.recordInSettings()
     }
 }

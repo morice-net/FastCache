@@ -288,8 +288,8 @@ Item {
         cachesNear.lonPoint = coord.longitude
         cachesNear.distance = 100
 
-        cachesNear.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),createFilterExcludeCachesFound(),
-                                      createFilterExcludeCachesArchived(),createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
+                                      createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
         cachesNear.indexMoreCaches(0)
         cachesNear.sendRequest(connector.tokenKey)
     }
@@ -300,8 +300,8 @@ Item {
             cachesNear.latPoint = coordinatesBox.resultLat
             cachesNear.lonPoint = coordinatesBox.resultLon
             cachesNear.distance = 100
-            cachesNear.updateFilterCaches(listTypes , createFilterSizesGs(),createFilterDifficultyTerrainGs(),
-                                          createFilterExcludeCachesFound(),createFilterExcludeCachesArchived(),
+            cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() ,
+                                          createFilterExcludeCachesFound() , createFilterExcludeCachesArchived() ,
                                           createFilterKeywordDiscoverOwner() , userInfo.name )
             cachesNear.indexMoreCaches(0)
             cachesNear.sendRequest(connector.tokenKey)

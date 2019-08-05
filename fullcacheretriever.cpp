@@ -87,7 +87,8 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(v1["id"].toInt()).toInt());
 
     v1 = cacheJson["geocacheSize"].toObject();
-    m_fullCache->setSize(v1["id"].toInt());
+    m_fullCache->setSize(CACHE_SIZE_MAP.key(v1["id"].toInt()));
+    m_fullCache->setSizeIndex(CACHE_SIZE_INDEX_MAP.key(v1["id"].toInt()).toInt());
 
     m_fullCache->setDifficulty(cacheJson["difficulty"].toDouble());
     m_fullCache->setFavoritePoints(cacheJson["favoritePoints"].toInt());

@@ -179,18 +179,8 @@ Rectangle {
     function show(selectedCacheVar) {
         if (!selectedCacheVar)
             return;
-
         selectedCache = selectedCacheVar
-
-        // Size rounding
-        selectedCacheSizeField.text = "Taille: ??? "
-        for (var i = 0; i < cacheSizes.sizes.length; i++) {
-            if(cacheSizes.sizes[i].sizeIdGs === selectedCacheVar.size ){
-                selectedCacheSizeField.text = "Taille: " + cacheSizes.sizes[i].frenchPattern
-                break;
-            }
-        }
-
+        selectedCacheSizeField.text = "Taille: " + selectedCacheVar.size
         selectedCacheIconField.type = selectedCacheVar.typeIndex
         if (hideTimer.running)
             hideTimer.restart()

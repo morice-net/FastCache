@@ -210,7 +210,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = main.cacheSize(fullCache.size);
+                    textLog = fullCache.size;
                     addText.close() ;
                 }
             }

@@ -74,6 +74,23 @@ public:
                                                      {"6", 4738},
                                                      {"7", 7005}, };
 
+    // Size of caches facilitator
+    const QMap<QString, int> CACHE_SIZE_MAP = {{"Inconnue"  , 1},
+                                               {"Micro" , 2},
+                                               {"Petite" , 8},
+                                               {"Normale" , 3},
+                                               {"Grande" , 4},
+                                               {"Virtuelle" , 5},
+                                               {"Non renseignée" , 6}, };
+
+    // Size of caches
+    const QMap<QString, int> CACHE_SIZE_INDEX_MAP = {{"6"  , 1},
+                                                     {"0" , 2},
+                                                     {"1" , 8},
+                                                     {"2" , 3},
+                                                     {"3" , 4},
+                                                     {"5" , 5},
+                                                     {"4" , 6}, };
 
 protected:
     const int MAX_PER_PAGE = 40;
