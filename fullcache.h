@@ -210,6 +210,27 @@ public:
                                              {"Note du reviewer", 68},
                                              {"Annonce", 74},};
 
+    // Type of logs (icons)
+    const QMap<QString, int> LOG_TYPE_ICON_MAP = {{"logTypes/marker_found_offline.png",2},
+                                                  {"logTypes/marker_not_found_offline.png", 3},
+                                                  {"logTypes/marker_note.png", 4},
+                                                  {"", 5},
+                                                  {"", 6},
+                                                  {"logTypes/marker_archive.png", 7},
+                                                  {"", 9},
+                                                  {"", 10},
+                                                  {"", 11},
+                                                  {"", 12},
+                                                  {"", 22},
+                                                  {"", 23},
+                                                  {"", 24},
+                                                  {"", 25},
+                                                  {"logTypes/marker_maintenance.png", 45},
+                                                  {"", 46},
+                                                  {"", 47},
+                                                  {"", 68},
+                                                  {"", 74},};
+
 private:
     QList<int> m_attributes;
     QList<bool> m_attributesBool;

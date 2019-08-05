@@ -27,7 +27,6 @@ SOURCES += main.cpp \
     waypointtype.cpp \
     sqlitestorage.cpp \
     sendcachelog.cpp \
-    logtype.cpp \
     requestor.cpp
 
 RESOURCES += qml.qrc
@@ -59,7 +58,6 @@ HEADERS += \
     waypointtype.h \
     sqlitestorage.h \
     sendcachelog.h \
-    logtype.h \
     requestor.h
 
 DISTFILES += \

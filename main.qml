@@ -150,10 +150,6 @@ Item {
         id: waypointTypes
     }
 
-    LogTypes {
-        id: logTypes
-    }
-
     FullCache {
         id: fullCache
     }
