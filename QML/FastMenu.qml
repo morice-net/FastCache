@@ -53,6 +53,7 @@ Item {
                 x: 10
                 y: 10
                 spacing: 10
+                visible: userInfo.name.length > 0
                 Image {
                     height: userInfoMenu.height - 20
                     width: height
@@ -70,6 +71,50 @@ Item {
                         font.family: localFont.name
                         font.pixelSize: userInfoMenu.height * 0.2
                         color: Palette.greenSea()
+                    }
+                }
+            }
+
+            Item {
+                id: connectButtonMenu
+                height: parent.height
+                width: parent.width
+                visible: userInfo.name.length === 0
+
+                Rectangle {
+                    id: connectButtonMenuRectangle
+                    radius: 20
+                    anchors.fill: parent
+                    anchors.margins: 20
+                    color: Palette.turquoise()
+
+                    SequentialAnimation on opacity {
+                        id: buttonAnimation
+                        running: false
+                        loops: 3
+                        NumberAnimation { to: 0; duration: 200 }
+                        NumberAnimation { to: 1; duration: 200 }
+                    }
+
+                    Text {
+                        id: connectButtonName
+                        anchors.fill: parent
+                        font.family: localFont.name
+                        font.pointSize: 24
+                        text: "Se connecter"
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        color: Palette.white()
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            buttonAnimation.start()
+                            if (connectButtonName.text == "Se connecter")
+                                main.reconnectAccount()
+                            else
+                                main.disconnectAccount()
+                        }
                     }
                 }
             }
@@ -217,50 +262,6 @@ Item {
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
-
-        Item {
-            id: connectButtonMenu
-            height: parent.height * 0.12
-            width: parent.width
-            y: parent.height - height - 20
-
-            Rectangle {
-                id: connectButtonMenuRectangle
-                radius: 20
-                anchors.fill: parent
-                anchors.margins: 20
-                color: Palette.turquoise()
-
-                SequentialAnimation on opacity {
-                    id: buttonAnimation
-                    running: false
-                    loops: 3
-                    NumberAnimation { to: 0; duration: 200 }
-                    NumberAnimation { to: 1; duration: 200 }
-                }
-
-                Text {
-                    id: connectButtonName
-                    anchors.fill: parent
-                    font.family: localFont.name
-                    font.pointSize: 24
-                    text: userInfo.name.length > 0 ? "Se déconnecter" : "Se connecter"
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    color: Palette.white()
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        buttonAnimation.start()
-                        if (connectButtonName.text == "Se connecter")
-                            main.reconnectAccount()
-                        else
-                            main.disconnectAccount()
-                    }
-                }
-            }
-        }
     }
 
     function isMenuVisible() {
