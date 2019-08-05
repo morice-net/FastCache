@@ -150,19 +150,17 @@ Rectangle {
     }
 
     function addPage(page) {
-        swipeFastCache.addItem(page);
-        page.visible = true ;
+        swipeFastCache.addItem(page)
+        page.visible = true
     }
 
     function removePage(page) {
         for (var n = 0; n < indicatorFastCache.count; n++) {
             if (page === swipeFastCache.itemAt(n)) {
-                swipeFastCache.removeItem(n) ;
-                page.visible = false ;
-                return ;
+                swipeFastCache.removeItem(n)
+                page.visible = false
+                return
             }
         }
-        page.visible = false ;
-        return ;
     }
 }

@@ -251,7 +251,6 @@ Item {
                         color: Palette.greenSea()
                     }
                     background: Rectangle {
-                        border.width: control.activeFocus ? 2 : 1
                         border.color: "#888"
                         radius: 4
                     }
@@ -268,7 +267,6 @@ Item {
                         color: Palette.greenSea()
                     }
                     background: Rectangle {
-                        border.width: control.activeFocus ? 2 : 1
                         border.color: "#888"
                         radius: 4
                     }
@@ -287,7 +285,6 @@ Item {
                         color: Palette.greenSea()
                     }
                     background: Rectangle {
-                        border.width: control.activeFocus ? 2 : 1
                         border.color: "#888"
                         radius: 4
                         gradient: Gradient {

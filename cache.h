@@ -20,7 +20,7 @@ class Cache : public QObject
     Q_PROPERTY(bool archived READ archived WRITE setArchived NOTIFY archivedChanged)
     Q_PROPERTY(bool disabled READ disabled WRITE setDisabled NOTIFY disabledChanged)
     Q_PROPERTY(int favoritePoints READ favoritePoints WRITE setFavoritePoints NOTIFY favoritePointsChanged)
-    Q_PROPERTY(int tackableCount READ trackableCount WRITE setTrackableCount NOTIFY trackableCountChanged)
+    Q_PROPERTY(int trackableCount READ trackableCount WRITE setTrackableCount NOTIFY trackableCountChanged)
     Q_PROPERTY(QString owner READ owner WRITE setOwner NOTIFY ownerChanged)
     Q_PROPERTY(bool found READ found WRITE setFound NOTIFY foundChanged)
     Q_PROPERTY(double lat READ lat WRITE setLat NOTIFY latChanged)

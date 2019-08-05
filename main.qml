@@ -101,10 +101,11 @@ Item {
         anchors.fill: parent
         visible: false
 
-        onLoadingChanged: {
-            console.log("The load request URL is: " + loadRequest.url);
-            if (tools.beginsWith(loadRequest.url, connector.redirectUri + "?")) {
-                connector.oauthRefreshToken(loadRequest.url)
+        onUrlChanged: {
+            console.log("[URL] The load request URL is: " + url);
+            console.log("[URL] redirectUri: ", connector.redirectUri)
+            if (tools.beginsWith(url, connector.redirectUri + "?")) {
+                connector.oauthRefreshToken(url)
                 webEngine.visible = false
             }
         }

@@ -31,7 +31,7 @@ void Connector::connect()
     addGetParam("client_id", m_consumerKey , false);
     addGetParam("response_type", "code", false);
     addGetParam("scope", "*", false);
-    addGetParam("redirect_uri", m_redirectUri,false );
+    addGetParam("redirect_uri", m_redirectUri, false);
 
     m_requestString = "https://www.geocaching.com/oauth/Authorize.aspx?" + joinParams();
 

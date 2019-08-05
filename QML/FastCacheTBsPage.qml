@@ -22,7 +22,7 @@ Item {
             leftPadding: 20
 
             Repeater {
-                model:displayTbsPage()
+                model: displayTbsPage()
 
                 Column {
                     width: tbsPage.width
@@ -68,12 +68,12 @@ Item {
     }
 
     function displayTbsPage() {
-        if (fullCache.tackableCount === 0) {
+        if (fullCache.trackableCount === 0) {
             fastCache.removePage(tbsPage)
         } else {
             fastCache.addPage(tbsPage)
         }
-        return fullCache.tackableCount
+        return fullCache.trackableCount
     }
 }
 
