@@ -49,7 +49,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: main.cacheType(fullCache.type)
+                text: fullCache.type
                 color: Palette.white()
             }
         }

@@ -48,7 +48,7 @@ Rectangle {
             paused: true
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
-            currentFrame: main.cacheMarkerId(fullCache.type) % 15
+            currentFrame: fullCache.typeIndex % 15
         }
 
         Text {

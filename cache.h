@@ -14,7 +14,8 @@ class Cache : public QObject
     Q_PROPERTY(int size READ size WRITE setSize NOTIFY sizeChanged)
     Q_PROPERTY(double difficulty READ difficulty WRITE setDifficulty NOTIFY difficultyChanged)
     Q_PROPERTY(double terrain READ terrain WRITE setTerrain NOTIFY terrainChanged)
-    Q_PROPERTY(int type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(int typeIndex READ typeIndex WRITE setTypeIndex NOTIFY typeIndexChanged)
     Q_PROPERTY(QString date READ date WRITE setDate NOTIFY dateChanged)
     Q_PROPERTY(bool archived READ archived WRITE setArchived NOTIFY archivedChanged)
     Q_PROPERTY(bool disabled READ disabled WRITE setDisabled NOTIFY disabledChanged)
@@ -48,8 +49,11 @@ public:
     double terrain() const;
     void  setTerrain(const double &terrain);
 
-    int  type() const;
-    void setType(const int &type);
+    QString  type() const;
+    void setType(const QString &type);
+
+    int  typeIndex() const;
+    void setTypeIndex(const int &typeIndex);
 
     QString date() const ;
     void setDate(const QString &date);
@@ -88,6 +92,7 @@ signals:
     void difficultyChanged();
     void terrainChanged();
     void typeChanged();
+    void typeIndexChanged();
     void dateChanged();
     void archivedChanged();
     void disabledChanged();
@@ -105,7 +110,8 @@ protected:
     int m_size;
     double m_difficulty;
     double m_terrain;
-    int m_type;
+    QString m_type;
+    int m_typeIndex;
     QString m_date;
     bool m_archived;
     bool m_disabled;

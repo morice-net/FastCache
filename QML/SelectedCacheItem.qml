@@ -191,7 +191,7 @@ Rectangle {
             }
         }
 
-        selectedCacheIconField.type = cacheMarkerId(selectedCacheVar.type)
+        selectedCacheIconField.type = selectedCacheVar.typeIndex
         if (hideTimer.running)
             hideTimer.restart()
 

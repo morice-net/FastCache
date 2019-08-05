@@ -10,7 +10,8 @@ Cache::Cache(QObject *parent)
     , m_size(0)
     , m_difficulty(0)
     , m_terrain(0)
-    , m_type(0)
+    , m_type("")
+    , m_typeIndex(0)
     , m_date("")
     , m_archived(true)
     , m_disabled(true)
@@ -96,15 +97,26 @@ void Cache::setTerrain(const double &terrain)
     emit terrainChanged();
 }
 
-int Cache::type() const
+QString Cache::type() const
 {
     return m_type;
 }
 
-void Cache::setType(const int &type)
+void Cache::setType(const QString &type)
 {
     m_type = type;
     emit typeChanged();
+}
+
+int Cache::typeIndex() const
+{
+    return m_typeIndex;
+}
+
+void Cache::setTypeIndex(const int &typeIndex)
+{
+    m_typeIndex = typeIndex;
+    emit typeIndexChanged();
 }
 
 QString Cache::date() const

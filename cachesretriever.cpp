@@ -141,7 +141,8 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         cache->setDate(v["placedDate"].toString());
 
         QJsonObject v1 = v["geocacheType"].toObject();
-        cache->setType(v1["id"].toInt());
+        cache->setType(CACHE_TYPE_MAP.key(v1["id"].toInt()));
+        cache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(v1["id"].toInt()).toInt());
 
         v1 = v["geocacheSize"].toObject();
         cache->setSize(v1["id"].toInt());

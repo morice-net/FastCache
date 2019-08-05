@@ -83,7 +83,8 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setDate(cacheJson["placedDate"].toString());
 
     QJsonObject v1 = cacheJson["geocacheType"].toObject();
-    m_fullCache->setType(v1["id"].toInt());
+    m_fullCache->setType(CACHE_TYPE_MAP.key(v1["id"].toInt()));
+    m_fullCache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(v1["id"].toInt()).toInt());
 
     v1 = cacheJson["geocacheSize"].toObject();
     m_fullCache->setSize(v1["id"].toInt());

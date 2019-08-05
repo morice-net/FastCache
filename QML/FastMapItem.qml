@@ -11,7 +11,7 @@ MapQuickItem {
     anchorPoint.y: cacheIcon.height
     sourceItem: CacheIcon {
         id: cacheIcon
-        type: cacheMarkerId(listCaches()[index].type)
+        type: listCaches()[index].typeIndex
         found: listCaches()[index].found
         registered: listCaches()[index].registered
 

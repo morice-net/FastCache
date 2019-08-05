@@ -145,10 +145,6 @@ Item {
         id: cacheAttributes
     }
 
-    CacheTypes {
-        id: cacheTypes
-    }
-
     CacheSizes {
         id: cacheSizes
     }
@@ -396,24 +392,6 @@ Item {
         cachesBBox.sendRequest(connector.tokenKey)
     }
 
-    function  cacheMarkerId(typeGs) {
-        for (var i = 0; i < cacheTypes.types.length; i++) {
-            if(cacheTypes.types[i].typeIdGs === typeGs ){
-                return  cacheTypes.types[i].markerId
-            }
-        }
-        return
-    }
-
-    function  cacheType(typeGs) {
-        for (var i = 0; i < cacheTypes.types.length; i++) {
-            if(cacheTypes.types[i].typeIdGs === typeGs ){
-                return  cacheTypes.types[i].frenchPattern
-            }
-        }
-        return
-    }
-
     function  cacheSize(sizeGs) {
         for (var i = 0; i < cacheSizes.sizes.length; i++) {
             if(cacheSizes.sizes[i].sizeIdGs === sizeGs ){
@@ -471,11 +449,6 @@ Item {
     function recordAppSettings() {
         settings.tokenKey = connector.tokenKey
         settings.refreshToken = connector.refreshToken
-        console.log(" ---> TYPES       ###########")
-        console.log(cacheTypes.types[0].typeId)
-        console.log(cacheTypes.types[0].pattern)
-        console.log(cacheTypes.types[0].markerId)
-        console.log(cacheTypes.types[0].typeIdGs)
         console.log(" ---> SIZES       ###########")
         console.log(cacheSizes.sizes[6].sizeId)
         console.log(cacheSizes.sizes[6].sizeIdGs)
