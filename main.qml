@@ -107,7 +107,7 @@ Item {
             console.log("[URL] The load request URL is: " + url);
             console.log("[URL] redirectUri: ", connector.redirectUri)
             if (tools.beginsWith(url, connector.redirectUri + "?")) {
-                connector.oauthToken()
+                connector.oauthRefreshToken(url)
                 webEngine.visible = false
             }
         }
