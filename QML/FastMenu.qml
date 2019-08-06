@@ -74,6 +74,13 @@ Item {
                     }
                 }
             }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    console.log("Open user info popup")
+                    userInfoPopup.open()
+                }
+            }
 
             Item {
                 id: connectButtonMenu
@@ -110,10 +117,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             buttonAnimation.start()
-                            if (connectButtonName.text == "Se connecter")
-                                main.reconnectAccount()
-                            else
-                                main.disconnectAccount()
+                            main.reconnectAccount()
                         }
                     }
                 }

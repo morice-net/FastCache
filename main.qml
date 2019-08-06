@@ -88,6 +88,8 @@ Item {
 
     Geocode { id: geocode }
 
+    UserInfoPopup { id: userInfoPopup }
+
     GeocodeAlert { id: geocodeAlert }
 
     CoordinatesBox { id: coordinatesBox }
