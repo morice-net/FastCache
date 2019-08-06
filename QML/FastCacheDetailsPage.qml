@@ -288,7 +288,7 @@ Item {
 
                     Image {
                         scale:1.3
-                        source:"qrc:/Image/" + cacheAttributes.attributes[fullCache.attributes[index]-1].icon
+                        source:"qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
                         Image {
 
                             source:"qrc:/Image/Attributes/attribute_no.png"
@@ -298,7 +298,7 @@ Item {
                 }
             }
 
-            // attributes of caches(icons).
+            // attributes of caches(text).
 
             Column {
                 id:attText
@@ -310,8 +310,8 @@ Item {
                     model:fullCache.attributes.length
 
                     Text {
-                        text:fullCache.attributesBool[index] ? cacheAttributes.attributes[fullCache.attributes[index]-1].textYes
-                                                             : cacheAttributes.attributes[fullCache.attributes[index]-1].textNo
+                        text:fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
+                                                             : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
                         font.family: localFont.name
                         font.pointSize: 14
                         color: Palette.white()

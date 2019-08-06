@@ -153,5 +153,6 @@
         <file>QML/UserWaypoint.qml</file>
         <file>QML/FastCalendar.qml</file>
         <file>QML/UserInfoPopup.qml</file>
+        <file>Image/Attributes/attribute_cliff.png</file>
     </qresource>
 </RCC>

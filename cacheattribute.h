@@ -7,39 +7,33 @@ class CacheAttribute : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int gcId READ gcId WRITE setGcId NOTIFY gcIdChanged)
-    Q_PROPERTY(QString textYes READ textYes WRITE setTextYes NOTIFY textYesChanged)
-    Q_PROPERTY(QString textNo READ textNo WRITE setTextNo NOTIFY textNoChanged)
-    Q_PROPERTY(QString icon READ icon WRITE setIcon NOTIFY iconChanged)
+    Q_PROPERTY(QList<QString> listTextYes READ listTextYes  NOTIFY listTextYesChanged)
+    Q_PROPERTY(QList<QString> listTextNo READ listTextNo  NOTIFY listTextNoChanged)
+    Q_PROPERTY(QList<QString> listIcon READ listIcon  NOTIFY listIconChanged)
 
 public:
     explicit  CacheAttribute(QObject *parent = nullptr);
     ~CacheAttribute();
 
-    int gcId() const;
-    void  setGcId(int &m_gcId);
-
-    QString  textYes() const;
-    void  setTextYes(QString &m_textYes);
-
-    QString  textNo() const;
-    void  setTextNo(QString &m_textNo);
-
-    QString  icon() const;
-    void  setIcon(QString &m_icon);
-
-
-signals:
-    void gcIdChanged();
-    void textYesChanged();
-    void textNoChanged();
-    void iconChanged();
+    QList<QString>  listTextYes() const;
+    QList<QString>  listTextNo() const;
+    QList<QString>  listIcon() const;
 
 private:
-    int m_gcId;
-    QString m_textYes;
-    QString m_textNo;
-    QString m_icon;
+    QList<QString> createListAttributes();
+    QList<QString>  listAttributesYes(QList<QString> listAttributes) ;
+    QList<QString>  listAttributesNo(QList<QString> listAttributes) ;
+    QList<QString>  listAttributesIcon(QList<QString> listAttributes) ;
+
+signals:
+    void listTextYesChanged();
+    void listTextNoChanged();
+    void listIconChanged();
+
+private:
+    QList<QString> m_listTextYes;
+    QList<QString> m_listTextNo;
+    QList<QString> m_listIcon;
 };
 
 #endif // CACHEATTRIBUTE_H
