@@ -15,6 +15,7 @@ class Connector : public QObject
     Q_PROPERTY(QString redirectUri READ redirectUri WRITE setRedirectUri NOTIFY redirectUriChanged)
     Q_PROPERTY(QString tokenKey READ tokenKey WRITE setTokenKey NOTIFY tokenKeyChanged)
     Q_PROPERTY(QString refreshToken READ refreshToken WRITE setRefreshToken NOTIFY refreshTokenChanged)
+    Q_PROPERTY(QDateTime expiresAt READ expiresAt WRITE setExpiresAt NOTIFY expiresAtChanged)
 
 public:
     explicit Connector(QObject *parent = nullptr);
@@ -40,6 +41,9 @@ public:
     QString refreshToken() const;
     void setRefreshToken(const QString &refreshToken);
 
+    QDateTime expiresAt() const;
+    void setExpiresAt(const QDateTime &expiresAt);
+
 signals:
     void logOn(const QString& url);
     void loginProcedureDone();
@@ -49,6 +53,7 @@ signals:
     void redirectUriChanged();
     void tokenKeyChanged();
     void refreshTokenChanged();
+    void expiresAtChanged();
 
 public slots:
     void replyFinished(QNetworkReply* reply);
@@ -64,6 +69,7 @@ private:
     QString m_redirectUri;
     QString m_tokenKey;
     QString m_refreshToken;
+    QDateTime m_expiresAt;
 
     /// Privates members
     QString m_requestString;

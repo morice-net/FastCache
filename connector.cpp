@@ -56,9 +56,10 @@ void Connector::replyFinished(QNetworkReply *reply)
         }
         setTokenKey( JsonObj["access_token"].toString());
         setRefreshToken( JsonObj["refresh_token"].toString());
+        setExpiresAt(QDateTime::currentDateTime().addSecs(JsonObj["expires_in"].toInt()));
         qDebug() << "TokenKey:" << m_tokenKey;
         qDebug() << "RefreshToken:" << m_refreshToken;
-        qDebug() << "Expires In:" << JsonObj["expires_in"].toInt() << " seconds";
+        qDebug() << "Expires At:" << m_expiresAt.toString();
         if (!m_refreshToken.isEmpty()){
             emit loginProcedureDone();
         }
@@ -138,6 +139,17 @@ void Connector::sslErrorsSlot(QNetworkReply *reply, const QList<QSslError> &erro
     Q_UNUSED(errors)
     qDebug() <<"SSL Error:" << reply->errorString();
     reply->ignoreSslErrors();
+}
+
+QDateTime Connector::expiresAt() const
+{
+    return m_expiresAt;
+}
+
+void Connector::setExpiresAt(const QDateTime &expiresAt)
+{
+    m_expiresAt = expiresAt;
+    emit expiresAtChanged();
 }
 
 QString Connector::refreshToken() const
