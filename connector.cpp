@@ -49,30 +49,31 @@ void Connector::replyFinished(QNetworkReply *reply)
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(replyValue);
         JsonObj = dataJsonDoc.object();
-        bool refreshNeeded = false;
+        bool oauthNeeded = false;
         // Check if this the second step
         if (m_refreshToken.isEmpty()){
-            refreshNeeded = true;
+            oauthNeeded = true;
         }
         setTokenKey( JsonObj["access_token"].toString());
         setRefreshToken( JsonObj["refresh_token"].toString());
         qDebug() << "TokenKey:" << m_tokenKey;
         qDebug() << "RefreshToken:" << m_refreshToken;
+        qDebug() << "Expires In:" << JsonObj["expires_in"].toInt() << " seconds";
         if (!m_refreshToken.isEmpty()){
             emit loginProcedureDone();
         }
         // In case of second step send the second POST request
-        if (refreshNeeded) {
-            oauthRefreshToken();
+        if (oauthNeeded) {
+            oauthToken();
         }
     } else {
         qDebug() << "Connection in error:" << reply->errorString();
     }
 }
 
-void Connector::oauthRefreshToken(QString url)
+void Connector::oauthToken()
 {
-    QString codeParameter(url.split("code=").last());
+    QString codeParameter(m_redirectUri.split("code=").last());
     QNetworkRequest requestUrl;
     requestUrl.setUrl(QUrl("https://oauth.geocaching.com/token"));
     requestUrl.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
