@@ -47,7 +47,6 @@
         <file>QML/FastCacheDescriptionPage.qml</file>
         <file>QML/FastCacheLogsPage.qml</file>
         <file>QML/FastCacheImagesPage.qml</file>
-        <file>QML/WaypointTypes.qml</file>
         <file>Image/icon_photo.png</file>
         <file>QML/CompassPage.qml</file>
         <file>QML/SureQuit.qml</file>

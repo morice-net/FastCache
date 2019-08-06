@@ -30,6 +30,7 @@ class FullCache : public Cache
     Q_PROPERTY(QList<bool > listVisibleImages READ listVisibleImages WRITE setListVisibleImages NOTIFY listVisibleImagesChanged)
     Q_PROPERTY(QList<QString > wptsDescription READ wptsDescription WRITE setWptsDescription NOTIFY wptsDescriptionChanged)
     Q_PROPERTY(QList<QString > wptsName READ wptsName WRITE setWptsName NOTIFY wptsNameChanged)
+    Q_PROPERTY(QList<QString > wptsIcon READ wptsIcon WRITE setWptsIcon NOTIFY wptsIconChanged)
     Q_PROPERTY(QList<double > wptsLat READ wptsLat WRITE setWptsLat NOTIFY wptsLatChanged)
     Q_PROPERTY(QList<double > wptsLon READ wptsLon WRITE setWptsLon NOTIFY wptsLonChanged)
     Q_PROPERTY(QList<QString > wptsComment READ wptsComment WRITE setWptsComment NOTIFY wptsCommentChanged)
@@ -107,6 +108,9 @@ public:
     QList<QString> wptsName() const;
     void setWptsName(const QList<QString> &names);
 
+    QList<QString> wptsIcon() const;
+    void setWptsIcon(const QList<QString> &icons);
+
     QList<double> wptsLat() const;
     void setWptsLat(const QList<double> &lats);
 
@@ -172,6 +176,7 @@ signals:
     void findersDateChanged();
     void wptsDescriptionChanged();
     void wptsNameChanged();
+    void wptsIconChanged();
     void wptsLatChanged();
     void wptsLonChanged();
     void wptsCommentChanged();
@@ -262,6 +267,7 @@ private:
     QList<bool> m_listVisibleImages;
     QList<QString> m_wptsDescription;
     QList<QString> m_wptsName;
+    QList<QString> m_wptsIcon;
     QList<double> m_wptsLat;
     QList<double> m_wptsLon;
     QList<QString> m_wptsComment;

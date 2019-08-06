@@ -15,6 +15,7 @@ FullCache::FullCache(Cache *parent)
     , m_listVisibleImages(QList<bool>())
     , m_wptsDescription(QList<QString>())
     , m_wptsName(QList<QString>())
+    , m_wptsIcon(QList<QString>())
     , m_wptsLat(QList<double>())
     , m_wptsLon(QList<double>())
     , m_wptsComment(QList<QString>())
@@ -264,6 +265,17 @@ void FullCache::setWptsName(const QList<QString> &names)
 {
     m_wptsName = names;
     emit wptsNameChanged();
+}
+
+QList<QString> FullCache::wptsIcon() const
+{
+    return  m_wptsIcon;
+}
+
+void FullCache::setWptsIcon(const QList<QString> &icons)
+{
+    m_wptsIcon = icons;
+    emit wptsIconChanged();
 }
 
 QList<double> FullCache::wptsLat() const

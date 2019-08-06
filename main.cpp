@@ -18,7 +18,6 @@
 #include "sendcachelog.h"
 #include "sendtravelbuglog.h"
 #include "smileygc.h"
-#include "waypointtype.h"
 #include "travelbug.h"
 #include "fullcacheretriever.h"
 #include "sqlitestorage.h"
@@ -38,7 +37,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
     qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");
     qmlRegisterType<SendTravelbugLog>("com.mycompany.connecting", 1, 0, "SendTravelbugLog");
-    qmlRegisterType<WaypointType>("com.mycompany.connecting", 1, 0, "WaypointType");
     qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");
     qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");

@@ -59,12 +59,12 @@ Item {
                         x:15
 
                         Image{
-                            source: "qrc:/Image/" +  main.waypointMarker(fullCache.wptsName[index])
+                            source: "qrc:/Image/" + fullCache.wptsIcon[index]
                             scale: 2
                         }
 
                         Text {
-                            text: main.waypointNameFr(fullCache.wptsName[index])
+                            text: fullCache.wptsName[index]
                             leftPadding: 15
                             font.family: localFont.name
                             font.bold: true

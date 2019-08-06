@@ -233,19 +233,22 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     // Waypoints
     QList<QString> listWptsDescription ;
     QList<QString> listWptsName ;
+    QList<QString> listWptsIcon ;
     QList<double> listWptsLat ;
     QList<double> listWptsLon ;
     QList<QString> listWptsComment ;
 
     listWptsDescription.clear();
     listWptsName.clear();
+    listWptsIcon.clear();
     listWptsLat.clear();
     listWptsLon.clear();
     listWptsComment.clear();
     for (QJsonValue waypoint: cacheJson["additionalWaypoints"].toArray())
     {
         listWptsDescription.append(waypoint["name"].toString());
-        listWptsName.append(waypoint["typeName"].toString());
+        listWptsName.append(m_fullCache->WPT_TYPE_MAP.key(waypoint["typeId"].toInt()));
+        listWptsIcon.append(m_fullCache->WPT_TYPE_ICON_MAP.key(waypoint["typeId"].toInt()));
 
         v1 = waypoint["coordinates"].toObject();
         if(v1["latitude"].isNull()) {
@@ -258,6 +261,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
     m_fullCache->setWptsDescription(listWptsDescription);
     m_fullCache->setWptsName(listWptsName);
+    m_fullCache->setWptsIcon(listWptsIcon);
     m_fullCache->setWptsLat(listWptsLat);
     m_fullCache->setWptsLon(listWptsLon);
     m_fullCache->setWptsComment(listWptsComment);

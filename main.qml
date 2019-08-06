@@ -146,10 +146,6 @@ Item {
         id: cacheAttributes
     }
 
-    WaypointTypes {
-        id: waypointTypes
-    }
-
     FullCache {
         id: fullCache
     }
@@ -384,7 +380,6 @@ Item {
         min = (Math.abs(lat) - degrees) * 60
         latitude += degrees + "°" + min.toFixed(3) + "'"
         return latitude
-
     }
 
     function  formatLon( lon) {
@@ -398,24 +393,6 @@ Item {
         min = (Math.abs(lon) - degrees) * 60
         longitude += degrees + "°" + min.toFixed(3) + "'"
         return longitude
-    }
-
-    function  waypointMarker(name) {
-        for (var i = 0; i < waypointTypes.types.length; i++) {
-            if(waypointTypes.types[i].name === name ){
-                return  waypointTypes.types[i].icon
-            }
-        }
-        return
-    }
-
-    function  waypointNameFr(name) {
-        for (var i = 0; i < waypointTypes.types.length; i++) {
-            if(waypointTypes.types[i].name === name ){
-                return  waypointTypes.types[i].nameFr
-            }
-        }
-        return
     }
 
     function recordAppSettings() {
