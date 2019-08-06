@@ -27,6 +27,13 @@ Connector::~Connector()
 
 void Connector::connect()
 {
+    // In case a simple refresh token is necessary
+    if (m_expiresAt > QDateTime::currentDateTime())
+    {
+        oauthRefreshToken();
+        return;
+    }
+
     // Building parameters of the request(oauth2)
     addGetParam("client_id", m_consumerKey , false);
     addGetParam("response_type", "code", false);

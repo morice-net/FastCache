@@ -10,6 +10,7 @@ Settings {
     // tokens
     property string tokenKey: ""
     property string refreshToken: ""
+    property var expiresAt: new Date()
 
     // filter by type
     property bool traditional : false

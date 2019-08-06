@@ -133,6 +133,7 @@ Item {
             webEngine.visible = true;
         }
         onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
+        onExpiresAtChanged: settings.expiresAt = expiresAt
     }
 
     UserInfo {
@@ -269,6 +270,12 @@ Item {
         id: sqliteStorage
     }
 
+    Timer {
+        id: refeshTokenTimer // every 15 min
+        interval: 90000; running: true; repeat: true
+        onTriggered: connector.connect()
+    }
+
     Component.onCompleted: {
         main.viewState = "map"
         fastMap.mapItem.updateCachesOnMap(cachesBBox)
@@ -276,6 +283,8 @@ Item {
         // retrieve settings (todo: remove and put alias in settings instead)
         connector.tokenKey = settings.tokenKey
         connector.refreshToken = settings.refreshToken
+        connector.expiresAt = settings.expiresAt
+        console.log("Settings expiresAt: " + settings.expiresAt + " - Connector expiresAt: " + connector.expiresAt)
 
         // token key not set means connection to GC needed
         if (connector.tokenKey != "") {
@@ -402,4 +411,5 @@ Item {
         settings.refreshToken = connector.refreshToken
         fastMenuHeader.recordInSettings()
     }
+
 }
