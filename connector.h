@@ -22,7 +22,7 @@ public:
     ~Connector();
 
     Q_INVOKABLE void connect();
-    Q_INVOKABLE void oauthRefreshToken(QString url);
+    Q_INVOKABLE void oauthAuthorizeCode(QString url);
     Q_INVOKABLE void oauthRefreshToken();
 
     /// Getters & Setters - for property QML binding

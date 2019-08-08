@@ -78,6 +78,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     console.log("Open user info popup")
+                    hideMenu()
                     userInfoPopup.open()
                 }
             }

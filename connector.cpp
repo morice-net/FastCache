@@ -58,15 +58,17 @@ void Connector::replyFinished(QNetworkReply *reply)
         JsonObj = dataJsonDoc.object();
         bool refreshNeeded = false;
         // Check if this the second step
-        if (m_refreshToken.isEmpty()){
+        if (m_refreshToken.isEmpty()) {
             refreshNeeded = true;
         }
         setTokenKey( JsonObj["access_token"].toString());
         setRefreshToken( JsonObj["refresh_token"].toString());
-        setExpiresAt(QDateTime::currentDateTime().addSecs(JsonObj["expires_in"].toInt()));
         qDebug() << "TokenKey:" << m_tokenKey;
         qDebug() << "RefreshToken:" << m_refreshToken;
-        qDebug() << "Expires At:" << m_expiresAt.toString();
+        if(m_expiresAt < QDateTime::currentDateTime()) {
+            setExpiresAt(QDateTime::currentDateTime().addYears(1));
+            qDebug() << "Expires At:" << m_expiresAt.toString();
+        }
         if (!m_refreshToken.isEmpty()){
             emit loginProcedureDone();
         }
@@ -76,10 +78,12 @@ void Connector::replyFinished(QNetworkReply *reply)
         }
     } else {
         qDebug() << "Connection in error:" << reply->errorString();
+        m_expiresAt = QDateTime(QDate::currentDate(), QTime(0, 0));
+        connect();
     }
 }
 
-void Connector::oauthRefreshToken(QString url)
+void Connector::oauthAuthorizeCode(QString url)
 {
     QString codeParameter(url.split("code=").last());
     QNetworkRequest requestUrl;
@@ -94,7 +98,7 @@ void Connector::oauthRefreshToken(QString url)
     postData.append("redirect_uri=" +QUrl::toPercentEncoding( redirectUri()) + "&");
     postData.append("code=" + codeParameter );
 
-    qDebug() << "POST DATA =====>>>>>> " << postData;
+    qDebug() << "POST DATA with the code =====>>>>>> " << postData;
 
     // Sending post request
     m_networkManager->post(requestUrl,postData);

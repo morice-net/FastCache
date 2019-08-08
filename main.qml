@@ -107,7 +107,7 @@ Item {
             console.log("[URL] The load request URL is: " + url);
             console.log("[URL] redirectUri: ", connector.redirectUri)
             if (tools.beginsWith(url, connector.redirectUri + "?")) {
-                connector.oauthRefreshToken(url)
+                connector.oauthAuthorizeCode(url)
                 webEngine.visible = false
             }
         }
@@ -234,7 +234,7 @@ Item {
     }
 
     GetTravelbugUser{
-        id:getTravelbugUser
+        id: getTravelbugUser
     }
 
     Location {
@@ -271,8 +271,8 @@ Item {
     }
 
     Timer {
-        id: refeshTokenTimer // every 15 min
-        interval: 90000; running: true; repeat: true
+        id: refeshTokenTimer // every 45 min
+        interval: 2700000; running: true; repeat: true
         onTriggered: connector.connect()
     }
 
@@ -280,19 +280,15 @@ Item {
         main.viewState = "map"
         fastMap.mapItem.updateCachesOnMap(cachesBBox)
 
-        // retrieve settings (todo: remove and put alias in settings instead)
+        // retrieve settings
         connector.tokenKey = settings.tokenKey
         connector.refreshToken = settings.refreshToken
         connector.expiresAt = settings.expiresAt
-        console.log("Settings expiresAt: " + settings.expiresAt + " - Connector expiresAt: " + connector.expiresAt)
+        console.log("Token expiresAt: " + settings.expiresAt)
 
-        // token key not set means connection to GC needed
-        if (connector.tokenKey != "") {
-            console.log("FastSettings: tokenKey=" + connector.tokenKey)
-            userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
-        } else {
-            connector.connect()
-        }
+        // token key is directly managed in the connect function that decides for long (with agree process)
+        // or short procedure called refresh should be called
+        connector.connect()
     }
 
     Component.onDestruction: {

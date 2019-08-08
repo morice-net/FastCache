@@ -326,11 +326,11 @@ Item {
                 color: Palette.silver()
             }
 
-            Column{
-                spacing:10
+            Column {
+                spacing: 10
                 width: logPage.width
 
-                Repeater{
+                Repeater {
                     model: getTravelbugUser.tbsCode.length
 
                     Row {
@@ -338,7 +338,6 @@ Item {
 
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
-                            horizontalAlignment: Image.AlignHCenter
                             scale: 1.4
                         }
 
