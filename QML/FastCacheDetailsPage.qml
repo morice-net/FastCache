@@ -267,11 +267,12 @@ Item {
 
         Rectangle {
             id:rect
-            anchors.top:separator.bottom
+            anchors.top:separator.bottom + 40
             width: parent.width
             height:attIcons.visible ? attIcons.height : attText.height
             color: Palette.greenSea()
             visible: true
+
 
             // attributes of caches(icons).
 
@@ -300,34 +301,41 @@ Item {
 
             // attributes of caches(text).
 
-            Column {
-                id:attText
-                x:10
-                width: parent.width
-                visible:!attIcons.visible
+            Flickable {
+                clip: true
+                anchors.fill: parent
+                flickableDirection: Flickable.VerticalFlick
+                contentHeight: attText.height + 100
+                ScrollBar.vertical: ScrollBar {}
 
-                Repeater {
-                    model:fullCache.attributes.length
+                Column {
+                    id:attText
+                    x:10
+                    width: parent.width
+                    visible:!attIcons.visible
 
-                    Text {
-                        text:fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
-                                                             : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
-                        font.family: localFont.name
-                        font.pointSize: 14
-                        color: Palette.white()
+                    Repeater {
+                        model:fullCache.attributes.length
+
+                        Text {
+                            text:fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
+                                                                 : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
+                            font.family: localFont.name
+                            font.pointSize: 14
+                            color: Palette.white()
+                        }
                     }
                 }
-            }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    attIcons.visible = ! attIcons.visible ;
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        attIcons.visible = ! attIcons.visible ;
+                    }
                 }
             }
         }
     }
 }
-
 
 
