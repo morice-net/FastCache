@@ -27,24 +27,32 @@ Connector::~Connector()
 
 void Connector::connect()
 {
+    if(m_expiresAt == 0)
+    {
+        // Building parameters of the request(oauth2)
+        addGetParam("client_id", m_consumerKey , false);
+        addGetParam("response_type", "code", false);
+        addGetParam("scope", "*", false);
+        addGetParam("redirect_uri", m_redirectUri, false);
+
+        m_requestString = "https://www.geocaching.com/oauth/Authorize.aspx?" + joinParams();
+
+        // Building getRequest
+        qDebug() << "GET Request string" << m_requestString;
+        emit logOn(m_requestString);
+        return;
+    }
+
     // In case a simple refresh token is necessary
-    if (m_expiresAt > QDateTime::currentDateTime())
+    if (m_expiresAt <= QDateTime::currentDateTime().toSecsSinceEpoch())
     {
         oauthRefreshToken();
         return;
     }
 
-    // Building parameters of the request(oauth2)
-    addGetParam("client_id", m_consumerKey , false);
-    addGetParam("response_type", "code", false);
-    addGetParam("scope", "*", false);
-    addGetParam("redirect_uri", m_redirectUri, false);
-
-    m_requestString = "https://www.geocaching.com/oauth/Authorize.aspx?" + joinParams();
-
-    // Building getRequest
-    qDebug() << "GET Request string" << m_requestString;
-    emit logOn(m_requestString);
+    // nothing
+    emit loginProcedureDone();
+    return ;
 }
 
 void Connector::replyFinished(QNetworkReply *reply)
@@ -56,29 +64,20 @@ void Connector::replyFinished(QNetworkReply *reply)
     if (reply->error() == QNetworkReply::NoError) {
         dataJsonDoc = QJsonDocument::fromJson(replyValue);
         JsonObj = dataJsonDoc.object();
-        bool refreshNeeded = false;
+
         // Check if this the second step
-        if (m_refreshToken.isEmpty()) {
-            refreshNeeded = true;
-        }
         setTokenKey( JsonObj["access_token"].toString());
         setRefreshToken( JsonObj["refresh_token"].toString());
+        setExpiresAt(QDateTime::currentDateTime().toSecsSinceEpoch() + JsonObj["expires_in"].toInt());
         qDebug() << "TokenKey:" << m_tokenKey;
         qDebug() << "RefreshToken:" << m_refreshToken;
-        if(m_expiresAt < QDateTime::currentDateTime()) {
-            setExpiresAt(QDateTime::currentDateTime().addYears(1));
-            qDebug() << "Expires At:" << m_expiresAt.toString();
-        }
-        if (!m_refreshToken.isEmpty()){
-            emit loginProcedureDone();
-        }
-        // In case of second step send the second POST request
-        if (refreshNeeded) {
-            oauthRefreshToken();
-        }
+        qDebug() << "Expires At:" <<QDateTime::fromSecsSinceEpoch(m_expiresAt);
+
+        emit loginProcedureDone();
+
     } else {
         qDebug() << "Connection in error:" << reply->errorString();
-        m_expiresAt = QDateTime(QDate::currentDate(), QTime(0, 0));
+        setExpiresAt(0);
         connect();
     }
 }
@@ -152,12 +151,12 @@ void Connector::sslErrorsSlot(QNetworkReply *reply, const QList<QSslError> &erro
     reply->ignoreSslErrors();
 }
 
-QDateTime Connector::expiresAt() const
+qint64 Connector::expiresAt() const
 {
     return m_expiresAt;
 }
 
-void Connector::setExpiresAt(const QDateTime &expiresAt)
+void Connector::setExpiresAt(const qint64 &expiresAt)
 {
     m_expiresAt = expiresAt;
     emit expiresAtChanged();

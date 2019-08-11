@@ -59,6 +59,7 @@ Item {
                     width: height
                     source: userInfo.avatarUrl
                 }
+
                 Column {
                     Text {
                         text: userInfo.name

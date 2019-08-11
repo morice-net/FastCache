@@ -271,9 +271,13 @@ Item {
     }
 
     Timer {
-        id: refeshTokenTimer // every 45 min
-        interval: 2700000; running: true; repeat: true
-        onTriggered: connector.connect()
+        id: refeshTokenTimer // every 5 min
+        interval: 300000; running: true; repeat: true
+        onTriggered:
+        {
+            if(connector.expiresAt <= Date.parse(new Date()) / 1000)
+                connector.connect()
+        }
     }
 
     Component.onCompleted: {
@@ -284,7 +288,7 @@ Item {
         connector.tokenKey = settings.tokenKey
         connector.refreshToken = settings.refreshToken
         connector.expiresAt = settings.expiresAt
-        console.log("Token expiresAt: " + settings.expiresAt)
+        console.log("Token expiresAt: " + new Date(settings.expiresAt*1000))
 
         // token key is directly managed in the connect function that decides for long (with agree process)
         // or short procedure called refresh should be called
@@ -347,6 +351,7 @@ Item {
 
     function disconnectAccount() {
         connector.tokenKey = ""
+        connector.expiresAt = 0
         userInfo.name = ""
         userInfo.finds = 0
         userInfo.avatarUrl = ""
@@ -354,6 +359,7 @@ Item {
     }
 
     function reconnectAccount() {
+        connector.expiresAt = 0
         connector.connect()
     }
 
