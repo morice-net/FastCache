@@ -202,16 +202,16 @@ FastPopup {
                         // Add userWaypoint or create modification of coordinates
                         sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , correctCoordinates() ,
                                                      description.text , true);
-                        userWaypoint.visible = false
+                        userWaypoint.visible = false;
                     } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === false){
                         // Modifie userWaypoint
                         sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked ,
                                                      description.text , false);
-                        userWaypoint.visible = false
+                        userWaypoint.visible = false;
                     } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true){
                         // Modifie corrected coordinates
                         sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , true , "" , false);
-                        userWaypoint.visible = false
+                        userWaypoint.visible = false;
                     }
                 }
             }

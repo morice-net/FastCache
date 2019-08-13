@@ -165,9 +165,9 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
 
     } else if(state() == "OK" && userWaypoint["isCorrectedCoordinates"].toBool() == true){
         // Update a change to the coordinates
+        m_fullCache->setIsCorrectedCoordinates(true);
         m_fullCache->setCorrectedLat(coord["latitude"].toDouble());
         m_fullCache->setCorrectedLon(coord["longitude"].toDouble());
-
     }
     emit requestReady();
     return ;

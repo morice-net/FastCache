@@ -151,6 +151,7 @@ Item {
 
     FullCache {
         id: fullCache
+        onIsCorrectedCoordinatesChanged: correctedCoordinatesCacheMap()
     }
 
     FullCacheRetriever{
@@ -414,4 +415,20 @@ Item {
         fastMenuHeader.recordInSettings()
     }
 
+    function correctedCoordinatesCacheMap() {
+        for (var i = 0; i < cachesNear.caches.length; i++) {
+            if(cachesNear.caches[i].geocode === fullCache.geocode){
+                if(fullCache.isCorrectedCoordinates){
+                    cachesNear.caches[i].lat = fullCache.correctedLat;
+                    cachesNear.caches[i].lon = fullCache.correctedLon;
+                } else {
+                    cachesNear.caches[i].lat = fullCache.lat;
+                    cachesNear.caches[i].lon = fullCache.lon;
+                }
+                fastMap.mapItem.updateCachesOnMap(cachesNear);
+                return
+            }
+        }
+    }
 }
+
