@@ -132,9 +132,7 @@ Rectangle {
 
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
-
     function clearMap() {
         map.clearMapItems()
     }
-
 }

@@ -69,7 +69,7 @@ Item {
         onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesBBox)
     }
 
-    CachesNear{
+    CachesNear {
         id: cachesNear
         onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesNear)
     }
@@ -151,15 +151,18 @@ Item {
 
     FullCache {
         id: fullCache
-        onIsCorrectedCoordinatesChanged: correctedCoordinatesCacheMap()
+        onIsCorrectedCoordinatesChanged: {
+            correctedCoordinatesCacheNearMap();
+            correctedCoordinatesCacheBBoxMap();
+        }
     }
 
-    FullCacheRetriever{
+    FullCacheRetriever {
         id: fullCacheRetriever
         Component.onCompleted: updateFullCache(fullCache)
     }
 
-    Travelbug{
+    Travelbug {
         id: travelbug
         onStateChanged: {
             if(travelbug.state!== "loading" && travelbug.state!=="OK")
@@ -170,7 +173,7 @@ Item {
         }
     }
 
-    SendCacheNote{
+    SendCacheNote {
         id:sendCacheNote
         onStateChanged: {
             toast.visible = sendCacheNote.state !== "loading";
@@ -184,7 +187,7 @@ Item {
         }
     }
 
-    SendCacheLog{
+    SendCacheLog {
         id:sendCacheLog
         onStateChanged: {
             toast.visible = sendCacheLog.state !== "loading";
@@ -200,7 +203,7 @@ Item {
         }
     }
 
-    SendTravelbugLog{
+    SendTravelbugLog {
         id:sendTravelbugLog
         onStateChanged: {
             toast.visible = sendTravelbugLog.state !== "loading";
@@ -212,7 +215,7 @@ Item {
         }
     }
 
-    SendUserWaypoint{
+    SendUserWaypoint {
         id: sendUserWaypoint
         onStateChanged: {
             toast.visible = sendUserWaypoint.state !== "loading";
@@ -234,7 +237,7 @@ Item {
         Component.onCompleted: updateFullCache(fullCache)
     }
 
-    GetTravelbugUser{
+    GetTravelbugUser {
         id: getTravelbugUser
     }
 
@@ -415,7 +418,7 @@ Item {
         fastMenuHeader.recordInSettings()
     }
 
-    function correctedCoordinatesCacheMap() {
+    function correctedCoordinatesCacheNearMap() {
         for (var i = 0; i < cachesNear.caches.length; i++) {
             if(cachesNear.caches[i].geocode === fullCache.geocode){
                 if(fullCache.isCorrectedCoordinates){
@@ -426,7 +429,23 @@ Item {
                     cachesNear.caches[i].lon = fullCache.lon;
                 }
                 fastMap.mapItem.updateCacheOnMap(cachesNear, i);
-                return
+                return;
+            }
+        }
+    }
+
+    function correctedCoordinatesCacheBBoxMap() {
+        for (var i = 0; i < cachesBBox.caches.length; i++) {
+            if(cachesBBox.caches[i].geocode === fullCache.geocode){
+                if(fullCache.isCorrectedCoordinates){
+                    cachesBBox.caches[i].lat = fullCache.correctedLat;
+                    cachesBBox.caches[i].lon = fullCache.correctedLon;
+                } else {
+                    cachesBBox.caches[i].lat = fullCache.lat;
+                    cachesBBox.caches[i].lon = fullCache.lon;
+                }
+                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
+                return;
             }
         }
     }
