@@ -86,6 +86,12 @@ Rectangle {
             lastCachesLength = caches.caches.length
         }
 
+        function updateCacheOnMap(caches , indexList) {
+            var itemMap = Qt.createQmlObject('FastMapItem {}', map)
+            itemMap.index = indexList
+            addMapItem(itemMap)
+        }
+
         Component.onCompleted:{
             map.center = currentPosition.position.coordinate
         }

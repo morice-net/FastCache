@@ -425,7 +425,7 @@ Item {
                     cachesNear.caches[i].lat = fullCache.lat;
                     cachesNear.caches[i].lon = fullCache.lon;
                 }
-                fastMap.mapItem.updateCachesOnMap(cachesNear);
+                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
                 return
             }
         }
