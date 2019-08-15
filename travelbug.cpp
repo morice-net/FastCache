@@ -1,5 +1,6 @@
 #include "travelbug.h"
 #include "smileygc.h"
+#include "constants.h"
 
 Travelbug::Travelbug(Requestor *parent)
     :  Requestor(parent)

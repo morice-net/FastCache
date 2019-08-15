@@ -56,7 +56,8 @@ HEADERS += \
     smileygc.h \
     sqlitestorage.h \
     sendcachelog.h \
-    requestor.h
+    requestor.h \
+    constants.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

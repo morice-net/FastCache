@@ -1,6 +1,7 @@
 #include "fullcacheretriever.h"
 #include "fullcache.h"
 #include "smileygc.h"
+#include "constants.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>

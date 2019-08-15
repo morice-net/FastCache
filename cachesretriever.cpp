@@ -1,5 +1,6 @@
 #include "cachesretriever.h"
 #include "cache.h"
+#include "constants.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
