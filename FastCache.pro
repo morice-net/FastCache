@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     smileygc.cpp \
     sqlitestorage.cpp \
     sendcachelog.cpp \
-    requestor.cpp
+    requestor.cpp \
+    allrequest.cpp
 
 RESOURCES += qml.qrc
 
@@ -57,7 +58,8 @@ HEADERS += \
     sqlitestorage.h \
     sendcachelog.h \
     requestor.h \
-    constants.h
+    constants.h \
+    allrequest.h
 
 DISTFILES += \
     android/AndroidManifest.xml \

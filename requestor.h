@@ -5,6 +5,8 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 
+#include "allrequest.h"
+
 class Requestor : public QObject
 {
     Q_OBJECT
@@ -37,6 +39,7 @@ protected:
 
 private:
     QString m_state;
+    QList<AllRequest> m_requests;
 };
 
 #endif // REQUESTOR_H

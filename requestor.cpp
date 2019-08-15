@@ -17,8 +17,13 @@ void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &p
     QString headerData = "bearer " + token;
     request.setRawHeader("Authorization", headerData.toLocal8Bit());
     qDebug() << QJsonDocument(parameters).toJson(QJsonDocument::Indented);
-
-    m_networkManager->post(request, QJsonDocument(parameters).toJson(QJsonDocument::Compact));
+    // Store the request
+    m_requests.append(AllRequest{AllRequest::Post, request, QJsonDocument(parameters).toJson(QJsonDocument::Compact)});
+    // In case we are not already processing a request, trigger it
+    if (m_requests.size() == 1)
+    {
+        m_requests.first().process(m_networkManager);
+    }
 }
 
 void Requestor::sendGetRequest(const QString &requestName , QString token)
@@ -29,7 +34,13 @@ void Requestor::sendGetRequest(const QString &requestName , QString token)
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QString headerData = "bearer " + token;
     request.setRawHeader("Authorization", headerData.toLocal8Bit());
-    m_networkManager->get(request);
+    // Store the request
+    m_requests.append(AllRequest{AllRequest::Get, request});
+    // In case we are not already processing a request, trigger it
+    if (m_requests.size() == 1)
+    {
+        m_requests.first().process(m_networkManager);
+    }
 }
 
 void Requestor::sendPutRequest(const QString &requestName , const QByteArray &data , QString token)
@@ -40,7 +51,13 @@ void Requestor::sendPutRequest(const QString &requestName , const QByteArray &da
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QString headerData = "bearer " + token;
     request.setRawHeader("Authorization", headerData.toLocal8Bit());
-    m_networkManager->put(request,data);
+    // Store the request
+    m_requests.append(AllRequest{AllRequest::Put, request, data});
+    // In case we are not already processing a request, trigger it
+    if (m_requests.size() == 1)
+    {
+        m_requests.first().process(m_networkManager);
+    }
 }
 
 void Requestor::sendDeleteRequest(const QString &requestName ,  QString token)
@@ -51,13 +68,24 @@ void Requestor::sendDeleteRequest(const QString &requestName ,  QString token)
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
     QString headerData = "bearer " + token;
     request.setRawHeader("Authorization", headerData.toLocal8Bit());
-    m_networkManager->deleteResource(request);
+    // Store the request
+    m_requests.append(AllRequest{AllRequest::Delete, request});
+    // In case we are not already processing a request, trigger it
+    if (m_requests.size() == 1)
+    {
+        m_requests.first().process(m_networkManager);
+    }
 }
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
 {
     QVariant   statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-
+    if (!m_requests.isEmpty())
+    {
+        // the current request is processed we can remove it from the list
+        // we take it here because maybe if it fails we want to process it again or read the data to know what happened
+        m_requests.takeFirst();
+    }
     switch(statusCode.toInt()){
     case 200:
         setState("OK");
@@ -96,6 +124,10 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
         break;
     default:
         break;
+    }
+    // If we have some other request waiting we can trigger the next one
+    if (m_requests.size() > 0) {
+        m_requests.first().process(m_networkManager);
     }
 }
 
