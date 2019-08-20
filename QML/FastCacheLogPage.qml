@@ -12,6 +12,9 @@ Item {
     property int typeLog: 2
     property string textLog: ""
 
+    // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso
+    property var listTbSend: []
+
     onTypeLogChanged: {
         button1.checked = typeLog == 2  // type of log : Found It
         button2.checked = typeLog == 3  // type of log : Didn't find it
@@ -331,7 +334,11 @@ Item {
                 width: logPage.width
 
                 Repeater {
+                    id:tbList
+                    property int repeaterIndex
+
                     model: getTravelbugUser.tbsCode.length
+                    onItemAdded: listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," + dateIso)
 
                     Row {
                         height: logPage.height*0.2
@@ -372,6 +379,7 @@ Item {
 
                             ComboBox {
                                 id: tbCombo
+                                visible:false
                                 model: ["Ne rien faire", "Visité", "Déposé"]
                                 delegate: ItemDelegate {
                                     width: tbCombo.width
@@ -382,7 +390,6 @@ Item {
                                         font.pointSize: 15
                                         verticalAlignment: Text.AlignVCenter
                                     }
-                                    highlighted: tbCombo.highlightedIndex === index
                                 }
                                 contentItem: Text {
                                     leftPadding: 10
@@ -399,12 +406,44 @@ Item {
                                     border.width: 1
                                     radius: 5
                                 }
+                                onActivated:  {
+                                    tbLog.text = tbCombo.currentText;
+                                    tbCombo.visible = false;
+                                    listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
+                                            getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," + dateIso;
+                                }
+                            }
+
+                            Text {
+                                id: tbLog
+                                text: "Ne rien faire"
+                                font.family: localFont.name
+                                font.bold: true
+                                font.pointSize: 14
+                                color: Palette.silver()
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        tbList.repeaterIndex = index;
+                                        tbCombo.visible = true;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
+
+    function tbLogType(comboIndex) {
+        if(comboIndex === 0)
+            return 0;  // Nothing
+        else if(comboIndex === 1)
+            return 75;  // Visited
+        else if(comboIndex === 2)
+            return 14  // Dropped Off
     }
 }
 
