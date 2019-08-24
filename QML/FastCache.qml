@@ -23,6 +23,9 @@ Rectangle {
     // Delete userWaypoint or delete modification of coordinates
     property bool deleteUserWpt: true
 
+    // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso
+    property var listTbSend: []
+
     anchors.fill: parent
     opacity: main.viewState === "fullcache" ? 1 : 0
     visible: opacity > 0

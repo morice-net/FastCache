@@ -14,14 +14,14 @@ SendTravelbugLog::~SendTravelbugLog()
 {
 }
 
-void SendTravelbugLog::sendRequest(QString token , QString tbCode, QString trackingCode , int logType , QString date , QString text)
+void SendTravelbugLog::sendRequest(QString token ,QString geocode , QString tbCode, QString trackingCode , int logType , QString date , QString text)
 {
     //Build url
     QString requestName = "trackablelogs?fields=referenceCode";
 
     //Add parameters
     QJsonObject log;
-
+    log.insert("geocacheCode", QJsonValue(geocode));
     log.insert("trackableCode", QJsonValue(tbCode));
     log.insert("trackingNumber", QJsonValue(trackingCode));
     log.insert("loggedDate", QJsonValue(date));

@@ -195,6 +195,13 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
+
+                // Send list of travelbugs
+                for (var i = 0; i < fastCache.listTbSend.length; i++) {
+                    if(fastCache.listTbSend[i].split(',')[2] !== 0)
+                        sendTravelbugLog.sendRequest(connector.tokenKey , fullCache.geocode , fastCache.listTbSend[i].split(',')[0] ,
+                                                     fastCache.listTbSend[i].split(',')[1] ,fastCache.listTbSend[i].split(',')[2] ,
+                                                     fastCache.listTbSend[i].split(',')[3]  , "test");                }
             }
         }
         onFoundsChanged: {

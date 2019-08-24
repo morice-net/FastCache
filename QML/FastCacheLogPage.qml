@@ -12,9 +12,6 @@ Item {
     property int typeLog: 2
     property string textLog: ""
 
-    // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso
-    property var listTbSend: []
-
     onTypeLogChanged: {
         button1.checked = typeLog == 2  // type of log : Found It
         button2.checked = typeLog == 3  // type of log : Didn't find it
@@ -338,7 +335,7 @@ Item {
                     property int repeaterIndex
 
                     model: getTravelbugUser.tbsCode.length
-                    onItemAdded: listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," + dateIso)
+                    onItemAdded: fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," + dateIso)
 
                     Row {
                         height: logPage.height*0.2
@@ -409,7 +406,7 @@ Item {
                                 onActivated:  {
                                     tbLog.text = tbCombo.currentText;
                                     tbCombo.visible = false;
-                                    listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
+                                    fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
                                             getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," + dateIso;
                                 }
                             }

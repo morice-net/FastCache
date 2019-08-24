@@ -163,7 +163,7 @@ Item {
                     RadioButton {
                         id:button5
                         text: "Visité"
-                        visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) //travelbug in possession of (owner,holder) of the trackable
+                        visible: false
                         onClicked: typeLog = 75
                         checked: false
                         contentItem: Text {
@@ -192,7 +192,7 @@ Item {
                     RadioButton {
                         id:button6
                         text: "Déposé"
-                        visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) //travelbug in possession of (owner,holder) of the trackable
+                        visible: false
                         checked: false
                         onClicked: typeLog = 14
                         contentItem: Text {
@@ -293,15 +293,10 @@ Item {
                         }
                     }
                     onClicked:{
-                        if((typeLog !== 4 && travelbug.tbStatus === 1) || (typeLog !== 4 && travelbug.tbStatus === 3)){
-                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
-                        }
-                        else if(typeLog !== 4 &&travelbug.tbStatus === 2 ){
-                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , travelbug.trackingNumber , typeLog , dateIso  , message.text);
-                        }
-
-                        else if(typeLog === 4 && message.text !==""){
-                            sendTravelbugLog.sendRequest(connector.tokenKey , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
+                        if(typeLog !== 4 && travelbug.tbStatus === 1) {
+                            sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
+                        } else if(typeLog === 4 && message.text !==""){
+                            sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
                         }
                     }
                 }
