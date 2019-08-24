@@ -272,7 +272,7 @@ Item {
                 width: parent.width
                 font.family: localFont.name
                 font.pointSize: 16
-                text: "Texte du Log"
+                text: "Texte du Log de la cache"
                 color: Palette.white()
             }
 
@@ -338,7 +338,7 @@ Item {
                     onItemAdded: fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," + dateIso)
 
                     Row {
-                        height: logPage.height*0.2
+                        height: logPage.height*0.5
 
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
@@ -406,6 +406,11 @@ Item {
                                 onActivated:  {
                                     tbLog.text = tbCombo.currentText;
                                     tbCombo.visible = false;
+                                    tbLog.visible = true;
+                                    if(tbLog.text === "Ne rien faire") {
+                                        title.visible = false;
+                                        messageTbLog.visible = false;
+                                    }
                                     fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
                                             getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," + dateIso;
                                 }
@@ -423,8 +428,33 @@ Item {
                                     anchors.fill: parent
                                     onClicked: {
                                         tbList.repeaterIndex = index;
+                                        tbLog.visible = false
                                         tbCombo.visible = true;
+                                        title.visible = true;
+                                        messageTbLog.visible = true;
                                     }
+                                }
+                            }
+
+                            Text {
+                                id: title
+                                width: parent.width
+                                visible: false
+                                font.family: localFont.name
+                                font.pointSize: 16
+                                text: "Texte du Log du travelbug"
+                                color: Palette.white()
+                            }
+
+                            TextArea {
+                                id: messageTbLog
+                                visible: false
+                                width: logPage.width*0.85
+                                font.family: localFont.name
+                                font.pointSize: 14
+                                color: Palette.greenSea()
+                                background: Rectangle {
+                                    implicitHeight: 100
                                 }
                             }
                         }
