@@ -335,7 +335,8 @@ Item {
                     property int repeaterIndex
 
                     model: getTravelbugUser.tbsCode.length
-                    onItemAdded: fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," + dateIso)
+                    onItemAdded: fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," +
+                                                           "0," + dateIso + "," +  "")
 
                     Row {
                         height: logPage.height*0.5
@@ -407,12 +408,17 @@ Item {
                                     tbLog.text = tbCombo.currentText;
                                     tbCombo.visible = false;
                                     tbLog.visible = true;
+                                    title.visible = false;
+                                    messageTbLog.visible = false;
                                     if(tbLog.text === "Ne rien faire") {
-                                        title.visible = false;
-                                        messageTbLog.visible = false;
+                                        fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] +
+                                                "," +getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
+                                                dateIso + "," + "";
+                                    } else{
+                                        fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
+                                                getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
+                                                dateIso + "," + messageTbLog.text;
                                     }
-                                    fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
-                                            getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," + dateIso;
                                 }
                             }
 

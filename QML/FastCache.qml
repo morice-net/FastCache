@@ -23,7 +23,7 @@ Rectangle {
     // Delete userWaypoint or delete modification of coordinates
     property bool deleteUserWpt: true
 
-    // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso
+    // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso,logText
     property var listTbSend: []
 
     anchors.fill: parent
