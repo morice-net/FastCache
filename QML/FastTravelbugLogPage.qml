@@ -293,7 +293,7 @@ Item {
                         }
                     }
                     onClicked:{
-                        if(typeLog !== 4 && travelbug.tbStatus === 1) {
+                        if(typeLog !== 4 && travelbug.tbStatus === 1 && message.text !=="") {
                             sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
                         } else if(typeLog === 4 && message.text !==""){
                             sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , "" , typeLog , dateIso  , message.text);

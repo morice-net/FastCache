@@ -206,7 +206,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         listFindersCount.append(finder["findCount"].toInt());
 
         QJsonObject type = geocacheLog["geocacheLogType"].toObject();
-        listLogsType.append(m_fullCache->LOG_TYPE_MAP.key(type["id"].toInt()));
+        listLogsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
 
         QJsonArray logsImage = geocacheLog["images"].toArray();
         for (QJsonValue logImage: logsImage)
@@ -248,8 +248,8 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     for (QJsonValue waypoint: cacheJson["additionalWaypoints"].toArray())
     {
         listWptsDescription.append(waypoint["name"].toString());
-        listWptsName.append(m_fullCache->WPT_TYPE_MAP.key(waypoint["typeId"].toInt()));
-        listWptsIcon.append(m_fullCache->WPT_TYPE_ICON_MAP.key(waypoint["typeId"].toInt()));
+        listWptsName.append(WPT_TYPE_MAP.key(waypoint["typeId"].toInt()));
+        listWptsIcon.append(WPT_TYPE_ICON_MAP.key(waypoint["typeId"].toInt()));
 
         v1 = waypoint["coordinates"].toObject();
         if(v1["latitude"].isNull()) {

@@ -2,7 +2,6 @@
 #define TRAVELBUG_H
 
 #include "requestor.h"
-#include <QMap>
 
 #include <QObject>
 #include <QDebug>
@@ -106,17 +105,7 @@ public:
     QString  trackingNumber() const;
     void setTrackingNumber(const QString  &number);
 
-    // Type of logs facilitator
-    const QMap<QString, int> LOG_TYPE_MAP = {{"Note", 4},
-                                             {"Récupéré", 13},
-                                             {"Déposé", 14},
-                                             {"Transfert", 15},
-                                             {"Marquer comme absente", 16},
-                                             {"Pris ailleurs", 19},
-                                             {"Découvert", 48},
-                                             {"Ajouté à une collection", 69},
-                                             {"Ajouté à l\'inventaire", 70},
-                                             {"Visité", 75}};
+
 signals:
     void nameChanged();
     void typeChanged();

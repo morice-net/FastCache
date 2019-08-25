@@ -1,8 +1,6 @@
 #ifndef FULLCACHE_H
 #define FULLCACHE_H
 
-#include <QMap>
-
 #include "cache.h"
 
 class FullCache : public Cache
@@ -192,66 +190,6 @@ signals:
     void correctedLatChanged();
     void correctedLonChanged();
     void correctedCodeChanged();
-
-public:
-    // Type of logs facilitator
-    const QMap<QString, int> LOG_TYPE_MAP = {{"Trouvée" , 2},
-                                             {"Non trouvée" , 3},
-                                             {"Note" , 4},
-                                             {"Archivée" , 5},
-                                             {"Archivée en permanence" , 6},
-                                             {"Nécessite d\'être archivée" , 7},
-                                             {"Participera" , 9},
-                                             {"A participé" , 10},
-                                             {"Photo prise par la webcam" , 11},
-                                             {"Désarchivée" , 12},
-                                             {"Désactivée" , 22},
-                                             {"Activée" , 23},
-                                             {"Publier une annonce" , 24},
-                                             {"Visite retirée" , 25},
-                                             {"Nécessite une maintenance" , 45},
-                                             {"Maintenance effectuée" , 46},
-                                             {"Coordonnées mises à jour" , 47},
-                                             {"Note du reviewer" , 68},
-                                             {"Annonce" , 74},};
-
-    // Type of logs (icons)
-    const QMap<QString, int> LOG_TYPE_ICON_MAP = {{"logTypes/marker_found_offline.png" , 2},
-                                                  {"logTypes/marker_not_found_offline.png" , 3},
-                                                  {"logTypes/marker_note.png" , 4},
-                                                  {"" , 5},
-                                                  {"" , 6},
-                                                  {"logTypes/marker_archive.png" , 7},
-                                                  {"" , 9},
-                                                  {"", 10},
-                                                  {"" , 11},
-                                                  {"" , 12},
-                                                  {"" , 22},
-                                                  {"" , 23},
-                                                  {"" , 24},
-                                                  {"" , 25},
-                                                  {"logTypes/marker_maintenance.png" , 45},
-                                                  {"" , 46},
-                                                  {"" , 47},
-                                                  {"" , 68},
-                                                  {"" , 74},};
-
-    // Type of waypoints facilitator
-    const QMap<QString, int> WPT_TYPE_MAP = {{"Parking" , 217},
-                                             {"Enigme" , 218},
-                                             {"Etape" , 219},
-                                             {"Etape finale" , 220},
-                                             {"Départ du sentier" , 221},
-                                             {"Point de repère" , 452},};
-
-    // Type of logs (icons)
-    const QMap<QString, int> WPT_TYPE_ICON_MAP = {{"Waypoints/waypoint_pkg.png", 217},
-                                                  {"Waypoints/waypoint_puzzle.png", 218},
-                                                  {"Waypoints/waypoint_stage.png", 219},
-                                                  {"Waypoints/waypoint_flag.png", 220},
-                                                  {"Waypoints/waypoint_trailhead.png", 221},
-                                                  {"Waypoints/waypoint_waypoint.png", 452},};
-
 
 private:
     QList<int> m_attributes;

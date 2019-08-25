@@ -130,7 +130,7 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
         m_logsOwnersCount.append(finder["findCount"].toInt());
 
         QJsonObject type = tbLog["trackableLogType"].toObject();
-        m_logsType.append(LOG_TYPE_MAP.key(type["id"].toInt()));
+        m_logsType.append(LOG_TYPE_TB_MAP.key(type["id"].toInt()));
     }
     emit logsTextChanged();
     emit logsTypeChanged();
