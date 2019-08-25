@@ -330,6 +330,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 14
                 color: Palette.greenSea()
+                wrapMode: Text.Wrap
                 background: Rectangle {
                     implicitHeight: 100
                 }
