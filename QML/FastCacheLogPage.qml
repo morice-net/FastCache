@@ -336,8 +336,10 @@ Item {
                     property int repeaterIndex
 
                     model: getTravelbugUser.tbsCode.length
-                    onItemAdded: fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," +
-                                                           "0," + dateIso + "," +  "")
+                    onItemAdded:{ fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," +
+                                                            "0," + dateIso + "," +  "");
+
+                    }
 
                     Row {
                         height: logPage.height*0.5

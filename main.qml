@@ -198,10 +198,11 @@ Item {
 
                 // Send list of travelbugs
                 for (var i = 0; i < fastCache.listTbSend.length; i++) {
-                    if(fastCache.listTbSend[i].split(',')[2] !== 0)
+                    if(fastCache.listTbSend[i].split(',')[2] !== "0"){
                         sendTravelbugLog.sendRequest(connector.tokenKey , fullCache.geocode , fastCache.listTbSend[i].split(',')[0] ,
-                                                     fastCache.listTbSend[i].split(',')[1] ,fastCache.listTbSend[i].split(',')[2] ,
+                                                     fastCache.listTbSend[i].split(',')[1] , fastCache.listTbSend[i].split(',')[2] ,
                                                      fastCache.listTbSend[i].split(',')[3]  , fastCache.listTbSend[i].split(',')[4]);
+                    }
                 }
             }
         }
