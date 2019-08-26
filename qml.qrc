@@ -155,5 +155,6 @@
         <file>QML/UserInfoPopup.qml</file>
         <file>Image/Attributes/attribute_cliff.png</file>
         <file>Image/Attributes/attribute_puzzle.png</file>
+        <file>Image/Compass/compassIcon.png</file>
     </qresource>
 </RCC>

@@ -95,6 +95,12 @@ Item {
                         anchors.leftMargin: 10
                     }
 
+                    Image {
+                        visible: fullCache.wptsLat[index] >180  ? false : true
+                        source: "qrc:/Image/Compass/compassIcon.png"
+                        scale: 0.8
+                    }
+
                     Text {
                         width: waypointsPage.width
                         font.family: localFont.name
@@ -125,6 +131,12 @@ Item {
                 font.pointSize: 15
                 text: "Coordonnées de la cache modifiées \n" + main.formatLat(fullCache.correctedLat) + "   " + main.formatLon(fullCache.correctedLon)
                 color: Palette.silver()
+            }
+
+            Image {
+                visible: fullCache.isCorrectedCoordinates
+                source: "qrc:/Image/Compass/compassIcon.png"
+                scale: 0.8
             }
 
             Row {
@@ -216,6 +228,12 @@ Item {
                         color: Palette.silver()
                         wrapMode: Text.Wrap
                         anchors.leftMargin: 10
+                    }
+
+                    Image {
+                        visible: fullCache.userWptsLat[index] >180  ? false : true
+                        source: "qrc:/Image/Compass/compassIcon.png"
+                        scale: 0.8
                     }
 
                     Text {
