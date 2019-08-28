@@ -9,6 +9,11 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: fastCache
 
+    // used by compassPage
+    property string wptName: ""
+    property double goalLat: fullCache.lat
+    property double goalLon: fullCache.lon
+
     property bool allVisible: true
     property int userWptIndex: 0
 
@@ -103,19 +108,19 @@ Rectangle {
         FastCacheWaypointsPage {
             id: waypointsPage
         }
-        
+
         FastCacheDescriptionPage {
             id: descriptionPage
         }
-        
+
         FastCacheDetailsPage {
             id: detailsPage
         }
-        
+
         FastCacheLogsPage {
             id: logsPage
         }
-        
+
         FastCacheImagesPage {
             id: imagesPage
         }
@@ -132,10 +137,10 @@ Rectangle {
     PageIndicator {
         id: indicatorFastCache
         visible: fullCacheRetriever.state !== "loading"
-        
+
         count: swipeFastCache.count
         currentIndex: swipeFastCache.currentIndex
-        
+
         anchors.bottom: fastCache.bottom
         anchors.horizontalCenter: parent.horizontalCenter
     }
@@ -165,5 +170,11 @@ Rectangle {
                 return
             }
         }
+    }
+
+    function compassPageInit(title , lat , lon) {
+        wptName = title;
+        goalLat = lat;
+        goalLon = lon;
     }
 }

@@ -156,5 +156,6 @@
         <file>Image/Attributes/attribute_cliff.png</file>
         <file>Image/Attributes/attribute_puzzle.png</file>
         <file>Image/Compass/compassIcon.png</file>
+        <file>Image/mapsIcon.png</file>
     </qresource>
 </RCC>

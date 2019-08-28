@@ -250,14 +250,6 @@ Item {
         id: getTravelbugUser
     }
 
-    Location {
-        id: fullCacheLocation
-        coordinate {
-            latitude: fullCache.lat
-            longitude: fullCache.lon
-        }
-    }
-
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on

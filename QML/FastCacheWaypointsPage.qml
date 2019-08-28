@@ -95,10 +95,35 @@ Item {
                         anchors.leftMargin: 10
                     }
 
-                    Image {
-                        visible: fullCache.wptsLat[index] >180  ? false : true
-                        source: "qrc:/Image/Compass/compassIcon.png"
-                        scale: 0.8
+                    Row {
+
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: fullCache.wptsLat[index] >180  ? false : true
+                            source: "qrc:/Image/Compass/compassIcon.png"
+                            scale: 0.8
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    compassPageInit(fullCache.wptsName[index] , fullCache.wptsLat[index] , fullCache.wptsLon[index]);
+                                    swipeToPage(0);
+                                }
+                            }
+                        }
+
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: fullCache.wptsLat[index] >180  ? false : true
+                            source: "qrc:/Image/mapsIcon.png"
+                            scale: 0.7
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: fullCache.launchMaps()
+                            }
+                        }
+
                     }
 
                     Text {
@@ -133,10 +158,34 @@ Item {
                 color: Palette.silver()
             }
 
-            Image {
-                visible: fullCache.isCorrectedCoordinates
-                source: "qrc:/Image/Compass/compassIcon.png"
-                scale: 0.8
+            Row {
+
+                Image {
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: fullCache.isCorrectedCoordinates
+                    source: "qrc:/Image/Compass/compassIcon.png"
+                    scale: 0.8
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            compassPageInit("Correction de coordonnées" , fullCache.correctedLat , fullCache.correctedLon);
+                            swipeToPage(0);
+                        }
+                    }
+                }
+
+                Image {
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible: fullCache.isCorrectedCoordinates
+                    source: "qrc:/Image/mapsIcon.png"
+                    scale: 0.7
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: fullCache.launchMaps()
+                    }
+                }
             }
 
             Row {
@@ -230,10 +279,34 @@ Item {
                         anchors.leftMargin: 10
                     }
 
-                    Image {
-                        visible: fullCache.userWptsLat[index] >180  ? false : true
-                        source: "qrc:/Image/Compass/compassIcon.png"
-                        scale: 0.8
+                    Row {
+
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: fullCache.userWptsLat[index] >180  ? false : true
+                            source: "qrc:/Image/Compass/compassIcon.png"
+                            scale: 0.8
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    compassPageInit("Etape personnelle" , fullCache.userWptsLat[index] , fullCache.userWptsLon[index]);
+                                    swipeToPage(0);
+                                }
+                            }
+                        }
+
+                        Image {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: fullCache.userWptsLat[index] >180  ? false : true
+                            source: "qrc:/Image/mapsIcon.png"
+                            scale: 0.7
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: fullCache.launchMaps()
+                            }
+                        }
                     }
 
                     Text {

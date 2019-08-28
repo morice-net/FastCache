@@ -8,6 +8,14 @@ import "JavaScript/Palette.js" as Palette
 Item {
     id: compassPage
 
+    Location {
+        id: goalLocation
+        coordinate {
+            latitude: fastCache.goalLat
+            longitude: fastCache.goalLon
+        }
+    }
+
     Column {
         spacing: 10
         anchors.fill: parent
@@ -16,6 +24,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 font.family: localFont.name
                 width: fastCache.width * 0.5 - 10
@@ -29,7 +38,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 20
                 text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
-                                                       .distanceTo(fullCacheLocation.coordinate)))
+                                                       .distanceTo(goalLocation.coordinate)))
                 color: Palette.white()
             }
         }
@@ -37,6 +46,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 font.family: localFont.name
                 width: fastCache.width * 0.5 - 10
@@ -49,7 +59,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 18
-                text: currentPosition.position.coordinate.azimuthTo(fullCacheLocation.coordinate).toFixed(0)+"°"
+                text: currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate).toFixed(0)+"°"
                 color: Palette.white()
             }
         }
@@ -86,8 +96,58 @@ Item {
         }
     }
 
+    Text {
+        id: title
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: compassBackground.y + compassBackground.height
+        visible: fastCache.wptName.length !== 0
+        font.family: localFont.name
+        width: fastCache.width * 0.5 - 10
+        horizontalAlignment: Text.AlignRight
+        font.pointSize: 20
+        text: fastCache.wptName
+        color: Palette.silver()
+    }
+
     Row {
-        y: compassBackground.y + compassBackground.height + 30
+        y: compassBackground.y + compassBackground.height + 55
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 10
+
+        Text {
+            font.family: localFont.name
+            width: fastCache.width * 0.1
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 16
+            text: "Lat "
+            color: Palette.silver()
+        }
+
+        Text {
+            font.family: localFont.name
+            font.pointSize: 16
+            text: main.formatLat(goalLocation.coordinate.latitude)
+            color: Palette.white()
+        }
+
+        Text {
+            font.family: localFont.name
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 16
+            text: "Lon "
+            color: Palette.silver()
+        }
+
+        Text {
+            font.family: localFont.name
+            font.pointSize: 16
+            text: main.formatLon(goalLocation.coordinate.longitude)
+            color: Palette.white()
+        }
+    }
+
+    Row {
+        y: compassBackground.y + compassBackground.height + 120
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 10
 
@@ -139,7 +199,7 @@ Item {
 
     function updateRotation() {
         compassRose.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
-        compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(fullCacheLocation.coordinate)
+        compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate)
         main.beginLat = currentPosition.position.coordinate.latitude;
         main.beginLon = currentPosition.position.coordinate.longitude;
     }
