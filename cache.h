@@ -33,7 +33,7 @@ public:
     ~Cache();
 
     bool checkRegistered();
-    Q_INVOKABLE void launchMaps();
+    Q_INVOKABLE void launchMaps(double lat , double lon);
 
     QString name() const;
     void setName(const QString &name);

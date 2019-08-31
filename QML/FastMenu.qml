@@ -205,7 +205,7 @@ Item {
 
             function buttonClicked() {
                 if (main.viewState == "fullcache") {
-                    fullCache.launchMaps();
+                    fullCache.launchMaps(fullCache.lat , fullCache.lon);
                 } else {
                     main.state = "near"
                     hideMenu()

@@ -35,9 +35,9 @@ bool Cache::checkRegistered()
     return false; //m_storage->readObject(this, QString("geocode"), m_geocode, "fullcache");
 }
 
-void Cache::launchMaps()
+void Cache::launchMaps(double lat , double lon)
 {
-    QString mapsUrl = "https://www.google.com/maps/search/?api=1&basemap=terrain&query=" + QString::number(m_lat) + "," + QString::number(m_lon);
+    QString mapsUrl = "https://www.google.com/maps/search/?api=1&basemap=terrain&query=" + QString::number(lat) + "," + QString::number(lon);
     QDesktopServices::openUrl(QUrl(mapsUrl));
 }
 

@@ -120,7 +120,7 @@ Item {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: fullCache.launchMaps()
+                                onClicked: fullCache.launchMaps(fullCache.wptsLat[index] , fullCache.wptsLon[index] )
                             }
                         }
 
@@ -183,7 +183,7 @@ Item {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: fullCache.launchMaps()
+                        onClicked: fullCache.launchMaps(fullCache.correctedLat , fullCache.correctedLon )
                     }
                 }
             }
@@ -304,7 +304,7 @@ Item {
 
                             MouseArea {
                                 anchors.fill: parent
-                                onClicked: fullCache.launchMaps()
+                                onClicked: fullCache.launchMaps(fullCache.userWptsLat[index] , fullCache.userWptsLon[index])
                             }
                         }
                     }
