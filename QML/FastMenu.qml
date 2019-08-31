@@ -228,6 +228,7 @@ Item {
             function buttonClicked() {
                 if(main.viewState == "fullcache"){
                     hideMenu()
+                    fastCache.compassPageInit("Cache   " + fullCache.geocode , fullCache.lat , fullCache.lon)
                     fastCache.swipeToPage(0)
                     fastCache.z = 0
                 } else {

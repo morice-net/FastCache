@@ -10,7 +10,7 @@ Rectangle {
     id: fastCache
 
     // used by compassPage
-    property string wptName: ""
+    property string wptName: "Cache   " + fullCache.geocode
     property double goalLat: fullCache.lat
     property double goalLon: fullCache.lon
 
