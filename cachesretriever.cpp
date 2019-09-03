@@ -168,6 +168,8 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
             cache->setLon(v2["longitude"].toDouble());
         }
 
+        //found
+        v1 = v["userData"].toObject();
         if(v1["foundDate"].isNull()){
             cache->setFound(false);
         } else {

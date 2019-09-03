@@ -2,7 +2,7 @@ import QtQuick 2.6
 
 Item {
 
-    property int type: 0    
+    property int type: 0
     property bool found: false
     property bool registered: false
 
