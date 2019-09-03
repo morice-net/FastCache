@@ -204,7 +204,7 @@ Item {
             buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
 
             function buttonClicked() {
-                if (main.viewState == "fullcache") {
+                if (main.viewState === "fullcache") {
                     fullCache.launchMaps(fullCache.lat , fullCache.lon);
                 } else {
                     main.state = "near"
@@ -222,11 +222,11 @@ Item {
             anchors.topMargin: 2
             anchors.bottomMargin: 20
 
-            buttonSelected: main.state == "address"
-            buttonText: main.viewState == "fullcache" ? "Naviguer" : "Adresse"
+            buttonSelected: main.state === "address"
+            buttonText: main.viewState === "fullcache" ? "Naviguer" : "Adresse"
 
             function buttonClicked() {
-                if(main.viewState == "fullcache"){
+                if(main.viewState === "fullcache"){
                     hideMenu()
                     fastCache.compassPageInit("Cache   " + fullCache.geocode , fullCache.lat , fullCache.lon)
                     fastCache.swipeToPage(0)
@@ -250,11 +250,11 @@ Item {
             anchors.top: addressButtonMenu.bottom
             anchors.topMargin: 2
             anchors.bottomMargin: 20
-            buttonSelected: main.state == "coordinates"
-            buttonText: main.viewState == "fullcache" ? "Log" : "Coordonnées"
+            buttonSelected: main.state === "coordinates"
+            buttonText: main.viewState === "fullcache" ? "Log" : "Coordonnées"
 
             function buttonClicked() {
-                if(main.viewState == "fullcache"){
+                if(main.viewState === "fullcache"){
                     hideMenu()
                     if(fullCache.imagesName.length !== 0) {
                         fastCache.swipeToPage(6)
