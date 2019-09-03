@@ -256,7 +256,11 @@ Item {
             function buttonClicked() {
                 if(main.viewState == "fullcache"){
                     hideMenu()
-                    fastCache.swipeToPage(6)
+                    if(fullCache.imagesName.length !== 0) {
+                        fastCache.swipeToPage(6)
+                    } else {
+                        fastCache.swipeToPage(5)
+                    }
                 } else {
                     main.state = "coordinates"
                     main.cachesActive = false
