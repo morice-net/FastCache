@@ -3,6 +3,7 @@
 Requestor::Requestor(QObject *parent)
     : QObject(parent)
     , m_state()
+    , m_requestsLength(0)
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
@@ -85,6 +86,7 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
         // the current request is processed we can remove it from the list
         // we take it here because maybe if it fails we want to process it again or read the data to know what happened
         m_requests.takeFirst();
+        emit requestsLengthChanged();
     }
     switch(statusCode.toInt()){
     case 200:
@@ -141,3 +143,16 @@ void Requestor::setState(const QString &state)
     m_state = state;
     emit stateChanged();
 }
+
+int Requestor::requestsLength() const
+{
+    return m_requestsLength;
+}
+
+void Requestor::setRequestsLength(const int &requestsLength)
+{
+    m_requestsLength = requestsLength;
+    emit requestsLengthChanged();
+}
+
+

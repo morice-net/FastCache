@@ -12,6 +12,7 @@ class Requestor : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
+    Q_PROPERTY(int requestsLength READ requestsLength WRITE setRequestsLength NOTIFY requestsLengthChanged)
 
 public:
     explicit Requestor(QObject *parent = nullptr);
@@ -26,9 +27,13 @@ public:
     QString state() const;
     void setState(const QString &state);
 
+    int requestsLength() const;
+    void setRequestsLength(const int &requestsLength);
+
 signals:
     void requestReady();
     void stateChanged();
+    void requestsLengthChanged();
 
 public slots:
     void onReplyFinished(QNetworkReply* reply);
@@ -40,6 +45,7 @@ protected:
 private:
     QString m_state;
     QList<AllRequest> m_requests;
+    int m_requestsLength;
 };
 
 #endif // REQUESTOR_H

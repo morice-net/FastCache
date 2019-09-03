@@ -179,8 +179,9 @@ Item {
             toast.visible = sendCacheNote.state !== "loading";
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
                 toast.show("Erreur  " + "(" + state + ")");
-            if (sendCacheNote.state === "OK")
+            if (sendCacheNote.state === "OK"){
                 toast.show("La note personnelle a été correctement envoyée");
+            }
             else {
                 toast.show("La note personnelle a été supprimée ")
             }
@@ -214,6 +215,10 @@ Item {
 
     SendTravelbugLog {
         id:sendTravelbugLog
+        onRequestsLengthChanged: {
+            if(fullCacheRetriever.requestsLength === 0)
+                getTravelbugUser.sendRequest(connector.tokenKey);
+        }
         onStateChanged: {
             toast.visible = sendTravelbugLog.state !== "loading";
             if (sendTravelbugLog.state !== "Created") {
