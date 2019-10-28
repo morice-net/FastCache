@@ -31,7 +31,7 @@ bool SQLiteStorage::readAllObjectsFromTable(const QString &tableName)
 
 bool SQLiteStorage::readObject(const QString &tableName, const QString &id, QJsonDocument &json)
 {
-    QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id+"'";
+    QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id + "'";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
     select.exec(selectQueryText);

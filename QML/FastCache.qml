@@ -11,8 +11,8 @@ Rectangle {
 
     // used by compassPage
     property string wptName: "Cache   " + fullCache.geocode
-    property double goalLat: fullCache.lat
-    property double goalLon: fullCache.lon
+    property double goalLat: fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
+    property double goalLon: fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
 
     property bool allVisible: true
     property int userWptIndex: 0

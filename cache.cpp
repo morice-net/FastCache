@@ -32,7 +32,8 @@ Cache::~Cache()
 
 bool Cache::checkRegistered()
 {
-    return false; //m_storage->readObject(this, QString("geocode"), m_geocode, "fullcache");
+    return false;
+    //m_storage->readObject(this, QString("geocode"), m_geocode, "fullcache");
 }
 
 void Cache::launchMaps(double lat , double lon)
