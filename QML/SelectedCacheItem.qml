@@ -45,6 +45,16 @@ Rectangle {
         y: selectedCacheIconField.y + selectedCacheIconField.height/2
     }
 
+    Image {
+        visible:selectedCache.registered
+        source: "qrc:/Image/marker_save.png"
+        fillMode: Image.PreserveAspectFit
+        width: selectedCacheIconField.width / 1.2
+        height: selectedCacheIconField.height / 2.2
+        x: -0.1*selectedCacheIconField.x
+        y: selectedCacheIconField.y
+    }
+
     Text {
         id: selectedCacheNameField
         anchors.margins: 10

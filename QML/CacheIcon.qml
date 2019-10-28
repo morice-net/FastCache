@@ -42,12 +42,12 @@ Item {
 
     Image {
         visible: registered
-        source: "qrc:/Image/heart-green.png"
+        source: "qrc:/Image/marker_save.png"
         fillMode: Image.PreserveAspectFit
-        width: parent.width / 2
-        height: parent.height / 3
-        x: -1 * parent.width / 5
-        y: 0
+        width: parent.width / 1.2
+        height: parent.height / 2.2
+        x: -1*parent.height / 8
+        y: parent.height / 8
     }
 
     MouseArea {

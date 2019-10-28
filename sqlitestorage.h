@@ -12,6 +12,7 @@ public:
     explicit SQLiteStorage(QObject * parent = nullptr);
     virtual ~SQLiteStorage();
 
+    bool isCacheInTable(const QString &tableName , const QString &id);
     bool readAllObjectsFromTable(const QString &tableName);
     bool readObject(const QString &tableName, const QString &id, QJsonDocument &json);
     bool updateObject(const QString &tableName, const QString &id, QJsonDocument &json);

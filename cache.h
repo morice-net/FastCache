@@ -1,6 +1,8 @@
 #ifndef CACHE_H
 #define CACHE_H
 
+#include "sqlitestorage.h"
+
 #include <QMap>
 
 #include <QObject>
@@ -33,6 +35,8 @@ public:
     ~Cache();
 
     bool checkRegistered();
+
+    Q_INVOKABLE void updateSqliteStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void launchMaps(double lat , double lon);
 
     QString name() const;
@@ -128,6 +132,9 @@ protected:
     double m_lat;
     double m_lon;
     bool m_registered;
+
+private:
+    SQLiteStorage *m_sqliteStorage;
 };
 
 #endif // CACHE_H

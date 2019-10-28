@@ -157,5 +157,6 @@
         <file>Image/Attributes/attribute_puzzle.png</file>
         <file>Image/Compass/compassIcon.png</file>
         <file>Image/mapsIcon.png</file>
+        <file>Image/marker_save.png</file>
     </qresource>
 </RCC>

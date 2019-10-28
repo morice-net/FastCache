@@ -278,6 +278,7 @@ Item {
 
     SQLiteStorage {
         id: sqliteStorage
+        Component.onCompleted: updateSqliteStorage(sqliteStorage)
     }
 
     Timer {

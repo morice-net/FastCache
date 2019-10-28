@@ -23,6 +23,19 @@ SQLiteStorage::~SQLiteStorage()
 {
 }
 
+bool SQLiteStorage::isCacheInTable(const QString &tableName , const QString &id)
+{
+    QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id + "'";
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+    select.exec(selectQueryText);
+
+    if (select.next()) {
+        return true;
+    }
+    return false;
+}
+
 bool SQLiteStorage::readAllObjectsFromTable(const QString &tableName)
 {
     Q_UNUSED(tableName)

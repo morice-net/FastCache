@@ -30,10 +30,14 @@ Cache::~Cache()
 {
 }
 
+void Cache::updateSqliteStorage(SQLiteStorage *sqliteStorage)
+{
+    m_sqliteStorage = sqliteStorage;
+}
+
 bool Cache::checkRegistered()
 {
-    return false;
-    //m_storage->readObject(this, QString("geocode"), m_geocode, "fullcache");
+    return   m_sqliteStorage->isCacheInTable("fullcache", m_geocode);
 }
 
 void Cache::launchMaps(double lat , double lon)
