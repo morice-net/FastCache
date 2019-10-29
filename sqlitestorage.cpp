@@ -74,6 +74,21 @@ bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJ
     return true;
 }
 
+void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
+{
+    QString queryCommand;
+    queryCommand += "DELETE FROM " + tableName + " WHERE " + "id='" + id + "'";
+
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+}
+
 bool SQLiteStorage::createTable(const QString &tableName)
 {
     QString queryCommand;

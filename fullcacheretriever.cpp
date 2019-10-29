@@ -55,6 +55,11 @@ void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
     sqliteStorage->updateObject("fullcache", m_fullCache->geocode(), m_dataJson);
 }
 
+void FullCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage){
+
+    sqliteStorage->deleteObject("fullcache", m_fullCache->geocode());
+}
+
 void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 {
     m_dataJson = dataJsonDoc;

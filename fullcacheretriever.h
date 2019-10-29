@@ -19,6 +19,7 @@ public:
     Q_INVOKABLE void sendRequest(QString token);
     Q_INVOKABLE void updateFullCache(FullCache *fullCache);
     Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
+    Q_INVOKABLE void deleteToStorage(SQLiteStorage *sqliteStorage);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 

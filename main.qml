@@ -155,6 +155,10 @@ Item {
             correctedCoordinatesCacheNearMap();
             correctedCoordinatesCacheBBoxMap();
         }
+        onRegisteredChanged: {
+            registeredCacheNearMap();
+            registeredCacheBBoxMap();
+        }
     }
 
     FullCacheRetriever {
@@ -451,6 +455,26 @@ Item {
                     cachesBBox.caches[i].lat = fullCache.lat;
                     cachesBBox.caches[i].lon = fullCache.lon;
                 }
+                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
+                return;
+            }
+        }
+    }
+
+    function registeredCacheNearMap() {
+        for (var i = 0; i < cachesNear.caches.length; i++) {
+            if(cachesNear.caches[i].geocode === fullCache.geocode){
+                cachesNear.caches[i].registered = fullCache.registered;
+                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
+                return;
+            }
+        }
+    }
+
+    function registeredCacheBBoxMap() {
+        for (var i = 0; i < cachesBBox.caches.length; i++) {
+            if(cachesBBox.caches[i].geocode === fullCache.geocode){
+                cachesBBox.caches[i].registered = fullCache.registered;
                 fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
                 return;
             }
