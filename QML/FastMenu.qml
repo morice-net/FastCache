@@ -197,7 +197,7 @@ Item {
         FastSelectableButtonMenu {
             id: nearButtonMenu
             anchors.top: bboxButtonMenu.bottom
-            anchors.topMargin: 62
+            anchors.topMargin: 40
             anchors.bottomMargin: 20
 
             buttonSelected: main.state === "near"
@@ -273,6 +273,18 @@ Item {
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the bottom of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
+
+        FastSelectableButtonMenu {
+            id: saveButtonMenu
+            anchors.top: coordinatesButtonMenu.bottom
+            anchors.topMargin: 40
+            anchors.bottomMargin: 20
+            buttonText:  "Enregistrées"
+
+            function buttonClicked() {
+
+            }
+        }
     }
 
     function isMenuVisible() {
