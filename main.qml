@@ -159,6 +159,10 @@ Item {
             registeredCacheNearMap();
             registeredCacheBBoxMap();
         }
+        onFoundChanged: {
+            foundCacheNearMap();
+            foundCacheBBoxMap();
+        }
     }
 
     FullCacheRetriever {
@@ -475,6 +479,26 @@ Item {
         for (var i = 0; i < cachesBBox.caches.length; i++) {
             if(cachesBBox.caches[i].geocode === fullCache.geocode){
                 cachesBBox.caches[i].registered = fullCache.registered;
+                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
+                return;
+            }
+        }
+    }
+
+    function foundCacheNearMap() {
+        for (var i = 0; i < cachesNear.caches.length; i++) {
+            if(cachesNear.caches[i].geocode === fullCache.geocode){
+                cachesNear.caches[i].found = fullCache.found;
+                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
+                return;
+            }
+        }
+    }
+
+    function foundCacheBBoxMap() {
+        for (var i = 0; i < cachesBBox.caches.length; i++) {
+            if(cachesBBox.caches[i].geocode === fullCache.geocode){
+                cachesBBox.caches[i].found = fullCache.found;
                 fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
                 return;
             }
