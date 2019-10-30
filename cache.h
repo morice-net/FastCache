@@ -28,7 +28,7 @@ class Cache : public QObject
     Q_PROPERTY(bool found READ found WRITE setFound NOTIFY foundChanged)
     Q_PROPERTY(double lat READ lat WRITE setLat NOTIFY latChanged)
     Q_PROPERTY(double lon READ lon WRITE setLon NOTIFY lonChanged)
-    Q_PROPERTY(double registered READ registered WRITE setRegistered NOTIFY registeredChanged)
+    Q_PROPERTY(bool registered READ registered WRITE setRegistered NOTIFY registeredChanged)
 
 public:
     explicit  Cache(QObject *parent = nullptr);

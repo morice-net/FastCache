@@ -85,6 +85,8 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setDisabled(false);
     }
 
+    m_fullCache->setRegistered(m_fullCache->checkRegistered());
+
     m_fullCache->setOwner(cacheJson["ownerAlias"].toString());
     m_fullCache->setDate(cacheJson["placedDate"].toString());
 
