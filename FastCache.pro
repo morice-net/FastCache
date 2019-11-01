@@ -7,6 +7,7 @@ linux:!android {
 }
 
 SOURCES += main.cpp \
+    cachesrecorded.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
     gettravelbuguser.cpp \
@@ -38,6 +39,7 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
+    cachesrecorded.h \
     connector.h \
     fullcacheretriever.h \
     gettravelbuguser.h \

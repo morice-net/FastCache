@@ -282,6 +282,15 @@ Item {
             buttonText:  "Caches Enregistrées"
 
             function buttonClicked() {
+                main.cachesActive = false
+
+                var geocodes = sqliteStorage.readAllIdsFromTable("fullcache");
+                for (var i = 0; i < geocodes.length ; i++) {
+                    cachesRecorded.parseRecordedJson(sqliteStorage.readObject("fullcache" , geocodes[i]));
+                }
+
+                hideMenu();
+                main.state = "recorded"
             }
         }
     }

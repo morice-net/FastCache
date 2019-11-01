@@ -11,6 +11,7 @@
 #include "userinfo.h"
 #include "cachesbbox.h"
 #include "cachesnear.h"
+#include "cachesrecorded.h"
 #include "cache.h"
 #include "fullcache.h"
 #include "cacheattribute.h"
@@ -33,6 +34,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<FullCache>("com.mycompany.connecting", 1, 0, "FullCache");
     qmlRegisterType<CachesBBox>("com.mycompany.connecting", 1, 0, "CachesBBox");
     qmlRegisterType<CachesNear>("com.mycompany.connecting", 1, 0, "CachesNear");
+    qmlRegisterType<CachesRecorded>("com.mycompany.connecting", 1, 0, "CachesRecorded");
     qmlRegisterType<CacheAttribute>("com.mycompany.connecting", 1, 0, "CacheAttribute");
     qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
     qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");

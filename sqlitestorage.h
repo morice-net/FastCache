@@ -19,6 +19,7 @@ public:
     bool createTable(const QString &tableName);
 
     Q_INVOKABLE   QJsonDocument readObject(const QString &tableName, const QString &id);
+    Q_INVOKABLE  QList<QString> readAllIdsFromTable(const QString &tableName);
 
 private:
     QSqlDatabase m_database;

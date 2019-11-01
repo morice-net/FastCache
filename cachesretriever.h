@@ -20,7 +20,6 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token);
     Q_INVOKABLE void updateFilterCaches(QList <bool> types , QList <bool> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
-    Q_INVOKABLE void parseRecordedJson(const QJsonDocument &dataJsonDoc);
 
     QQmlListProperty<Cache> caches();
     void parseJson(const QJsonDocument &dataJsonDoc) override;

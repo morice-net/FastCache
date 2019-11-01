@@ -18,7 +18,7 @@ Item {
     visible: true
     focus: true
 
-    // State can take "near" "address" "coordinates"....
+    // State can take "near" "address" "coordinates" "recorded"....
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
     property bool cachesActive: false
 
@@ -72,6 +72,10 @@ Item {
     CachesNear {
         id: cachesNear
         onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesNear)
+    }
+
+    CachesRecorded {
+        id: cachesRecorded
     }
 
     FastMap { id: fastMap }

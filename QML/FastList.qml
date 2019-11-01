@@ -15,9 +15,9 @@ Rectangle {
     ListView {
         id: fastListColumn
         width: parent.width
-        height: main.state === "near" || main.state === "address" || main.state === "coordinates" ? parent.height - fastListHeader.height - fastListBottom.height -10 :
-                                                                                                    parent.height - fastListHeader.height -10
-        y: main.state === "near" || main.state === "address"  || main.state === "coordinates" ? fastListHeader.height + fastListBottom.height +10 : fastListHeader.height + 10
+        height: main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
+                ? parent.height - fastListHeader.height - fastListBottom.height -10 :parent.height - fastListHeader.height -10
+        y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded"
         spacing: 5
         model: modelState()
         delegate: SelectedCacheItem {
@@ -51,7 +51,7 @@ Rectangle {
         color: Palette.turquoise()
         radius:10
         anchors.top: fastListHeader.bottom
-        visible:main.state === "near" || main.state === "address" || main.state === "coordinates" ? true : false
+        visible:main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ? true : false
 
         Text {
             verticalAlignment: Text.AlignVCenter
@@ -76,6 +76,8 @@ Rectangle {
             return  cachesBBox.caches
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
             return  cachesNear.caches
+        } else if(main.state === "recorded" ){
+            return  cachesRecorded.caches
         }
     }
 
@@ -96,6 +98,10 @@ Rectangle {
             fastListBottom.visible = true ;
             fastListColumn.y = fastListHeader.height + fastListBottom.height +10
             return  "Par coordonnées(" + fastListColumn.count + ")"
+        } else if(main.state === "recorded"){
+            fastListBottom.visible = false ;
+            fastListColumn.y = fastListHeader.height + 10
+            return  "Enregistrées...(" + fastListColumn.count + ")"
         }
         return ""
     }
