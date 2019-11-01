@@ -279,10 +279,9 @@ Item {
             anchors.top: coordinatesButtonMenu.bottom
             anchors.topMargin: 40
             anchors.bottomMargin: 20
-            buttonText:  "Enregistrées"
+            buttonText:  "Caches Enregistrées"
 
             function buttonClicked() {
-
             }
         }
     }

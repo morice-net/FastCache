@@ -21,7 +21,7 @@ public:
     Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void deleteToStorage(SQLiteStorage *sqliteStorage);
 
-    void parseJson(const QJsonDocument &dataJsonDoc) override;
+    Q_INVOKABLE  void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
     FullCache *m_fullCache;

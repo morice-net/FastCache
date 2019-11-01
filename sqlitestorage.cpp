@@ -42,18 +42,21 @@ bool SQLiteStorage::readAllObjectsFromTable(const QString &tableName)
     return true;
 }
 
-bool SQLiteStorage::readObject(const QString &tableName, const QString &id, QJsonDocument &json)
+QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString &id)
 {
     QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id + "'";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
     select.exec(selectQueryText);
 
+    QJsonDocument json = QJsonDocument();
     if (select.next()) {
-        json = QJsonDocument::fromVariant(select.value(0));
-        return true;
+        QString jsonString = select.value(0).toString();
+        QByteArray jsonByteArray = jsonString.toUtf8();
+        QJsonDocument json = QJsonDocument::fromJson(jsonByteArray);
+        return json;
     }
-    return false;
+    return json;
 }
 
 bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJsonDocument &json)
