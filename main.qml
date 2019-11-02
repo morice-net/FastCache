@@ -76,6 +76,7 @@ Item {
 
     CachesRecorded {
         id: cachesRecorded
+        onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesRecorded)
     }
 
     FastMap { id: fastMap }

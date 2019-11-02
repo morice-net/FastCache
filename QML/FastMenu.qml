@@ -282,14 +282,37 @@ Item {
             buttonText:  "Caches Enregistrées"
 
             function buttonClicked() {
+                // Display list of recorded caches and prepare Center Map.
                 main.cachesActive = false
                 cachesRecorded.emptyList();
+                hideMenu();
+                main.state = "recorded";
+
                 var geocodes = sqliteStorage.readAllIdsFromTable("fullcache");
                 for (var i = 0; i < geocodes.length ; i++) {
                     cachesRecorded.parseRecordedJson(sqliteStorage.readObject("fullcache" , geocodes[i]));
                 }
-                hideMenu();
-                main.state = "recorded"
+                // Center
+                var listLat = [];
+                var listLon = [];
+                for (var j = 0; j < geocodes.length ; j++) {
+                    listLat.push(cachesRecorded.caches[j].lat);
+                    listLon.push(cachesRecorded.caches[j].lon);
+                }
+                var maxLat = listLat.reduce(function(a,b) {
+                    return Math.max(a, b);
+                });
+                var minLat = listLat.reduce(function(a,b) {
+                    return Math.min(a, b);
+                });
+                var maxLon = listLon.reduce(function(a,b) {
+                    return Math.max(a, b);
+                });
+                var minLon = listLon.reduce(function(a,b) {
+                    return Math.min(a, b);
+                });
+
+                fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );
             }
         }
     }

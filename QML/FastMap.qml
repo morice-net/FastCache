@@ -7,7 +7,7 @@ import "JavaScript/Palette.js" as Palette
 Rectangle {
     id: fastMap
     anchors.fill: parent
-    opacity: (main.viewState == "map" || main.viewState == "fullcache") ? 1 : 0
+    opacity: (main.viewState === "map" || main.viewState === "fullcache") ? 1 : 0
 
     property alias mapItem: map
     property alias mapPlugin:mapPlugin

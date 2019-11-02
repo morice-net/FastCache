@@ -79,6 +79,7 @@ void CachesRecorded::parseRecordedJson(const QJsonDocument &dataJsonDoc)
     }
     cache->setTerrain(cacheJson["terrain"].toDouble());
     m_caches.append(cache);
+    emit cachesChanged();
 }
 
 void CachesRecorded::emptyList()
