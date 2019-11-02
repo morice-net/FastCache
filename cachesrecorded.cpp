@@ -81,6 +81,11 @@ void CachesRecorded::parseRecordedJson(const QJsonDocument &dataJsonDoc)
     m_caches.append(cache);
 }
 
+void CachesRecorded::emptyList()
+{
+    m_caches.clear();
+}
+
 void CachesRecorded::moreCaches()
 {
 }

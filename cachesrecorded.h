@@ -15,6 +15,7 @@ public:
     ~CachesRecorded() override;
 
     Q_INVOKABLE void parseRecordedJson(const QJsonDocument &dataJsonDoc);
+    Q_INVOKABLE void emptyList();
 
     void moreCaches() override;
 
