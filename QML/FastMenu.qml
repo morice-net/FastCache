@@ -311,7 +311,7 @@ Item {
                 var minLon = listLon.reduce(function(a,b) {
                     return Math.min(a, b);
                 });
-
+            //    fastMap.scale.updateScale( QtPositioning.coordinate(maxLat , minLon ) , QtPositioning.coordinate(minLat , maxLon ));
                 fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );
             }
         }

@@ -92,6 +92,12 @@ Rectangle {
             addMapItem(itemMap)
         }
 
+        function removeCacheOnMap(caches , indexList) {
+            var itemMap = Qt.createQmlObject('FastMapItem {}', map)
+            itemMap.index = indexList
+            removeMapItem(itemMap)
+        }
+
         Component.onCompleted:{
             map.center = currentPosition.position.coordinate
         }

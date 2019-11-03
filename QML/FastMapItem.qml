@@ -23,10 +23,10 @@ MapQuickItem {
 
     function listCaches() {
         if(main.cachesActive)
-            return cachesBBox.caches
+            return cachesBBox.caches;
         if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
-            return cachesNear.caches
+            return cachesNear.caches;
         if(main.state === "recorded" )
-            return cachesRecorded.caches
+            return cachesRecorded.caches;
     }
 }
