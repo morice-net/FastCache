@@ -284,14 +284,12 @@ Item {
             function buttonClicked() {
                 // Display list of recorded caches and prepare Center Map.
                 main.cachesActive = false
-                cachesRecorded.emptyList();
                 hideMenu();
                 main.state = "recorded";
 
-                var geocodes = sqliteStorage.readAllIdsFromTable("fullcache");
-                for (var i = 0; i < geocodes.length ; i++) {
-                    cachesRecorded.parseRecordedJson(sqliteStorage.readObject("fullcache" , geocodes[i]));
-                }
+                var geocodes = sqliteStorage.readAllIdsFromTable("fullcache")
+                updateRecordedList( geocodes);
+
                 // Center
                 var listLat = [];
                 var listLon = [];
@@ -311,7 +309,6 @@ Item {
                 var minLon = listLon.reduce(function(a,b) {
                     return Math.min(a, b);
                 });
-            //    fastMap.scale.updateScale( QtPositioning.coordinate(maxLat , minLon ) , QtPositioning.coordinate(minLat , maxLon ));
                 fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );
             }
         }

@@ -80,6 +80,10 @@ Item {
             onClicked: {
                 fullCache.registered = !fullCache.registered
                 fullCache.registered ? fullCacheRetriever.writeToStorage(sqliteStorage) : fullCacheRetriever.deleteToStorage(sqliteStorage)
+
+                if(main.state === "recorded"){
+                    updateRecordedList(sqliteStorage.readAllIdsFromTable("fullcache"));
+                }
             }
         }
     }

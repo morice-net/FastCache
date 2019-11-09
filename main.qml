@@ -164,7 +164,6 @@ Item {
         onRegisteredChanged: {
             registeredCacheNearMap();
             registeredCacheBBoxMap();
-            registeredCacheRecordedMap()
         }
         onFoundChanged: {
             foundCacheNearMap();
@@ -510,20 +509,6 @@ Item {
         }
     }
 
-    function registeredCacheRecordedMap() {
-        for (var i = 0; i < cachesRecorded.caches.length; i++) {
-            if(cachesRecorded.caches[i].geocode === fullCache.geocode){
-                cachesRecorded.caches[i].registered = fullCache.registered;
-                if(fullCache.registered){
-                    fastMap.mapItem.updateCacheOnMap(cachesRecorded, i);
-                } else {
-                    fastMap.mapItem.removeCacheOnMap(cachesRecorded, i);
-                }
-                return;
-            }
-        }
-    }
-
     function foundCacheNearMap() {
         for (var i = 0; i < cachesNear.caches.length; i++) {
             if(cachesNear.caches[i].geocode === fullCache.geocode){
@@ -551,6 +536,14 @@ Item {
                 fastMap.mapItem.updateCacheOnMap(cachesRecorded, i);
                 return;
             }
+        }
+    }
+
+    // update recorded caches list
+    function updateRecordedList(geocodes) {
+        cachesRecorded.emptyList();
+        for (var i = 0; i < geocodes.length ; i++) {
+            cachesRecorded.parseRecordedJson(sqliteStorage.readObject("fullcache" , geocodes[i]));
         }
     }
 }
