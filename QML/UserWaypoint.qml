@@ -70,7 +70,6 @@ FastPopup {
                 border.width: 1
                 radius: 5
             }
-
         }
 
         TextField {

@@ -158,5 +158,6 @@
         <file>Image/Compass/compassIcon.png</file>
         <file>Image/mapsIcon.png</file>
         <file>Image/marker_save.png</file>
+        <file>QML/CachesRecordedLists.qml</file>
     </qresource>
 </RCC>

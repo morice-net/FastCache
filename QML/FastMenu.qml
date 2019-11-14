@@ -286,7 +286,6 @@ Item {
                 main.cachesActive = false
                 hideMenu();
                 main.state = "recorded";
-
                 var geocodes = sqliteStorage.readAllIdsFromTable("fullcache")
                 updateRecordedList( geocodes);
 
