@@ -106,10 +106,28 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
     }
 }
 
-bool SQLiteStorage::createTable(const QString &tableName)
+bool SQLiteStorage::createTableCaches(const QString &tableName)
 {
     QString queryCommand;
     queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " (id string primary key, json string)";
+
+    QSqlQuery query;
+    return query.exec(queryCommand);
+}
+
+bool SQLiteStorage::createTableLists(const QString &tableName)
+{
+    QString queryCommand;
+    queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " (id int primary key, title string)";
+
+    QSqlQuery query;
+    return query.exec(queryCommand);
+}
+
+bool SQLiteStorage::createTableCachesLists(const QString &tableName)
+{
+    QString queryCommand;
+    queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + " (id int primary key, geocode string)";
 
     QSqlQuery query;
     return query.exec(queryCommand);

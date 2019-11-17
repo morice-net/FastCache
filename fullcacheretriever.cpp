@@ -51,7 +51,9 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
-    sqliteStorage->createTable("fullcache");
+    sqliteStorage->createTableCaches("fullcache");
+    sqliteStorage->createTableLists("lists");
+    sqliteStorage->createTableCachesLists("caches_lists");
     sqliteStorage->updateObject("fullcache", m_fullCache->geocode(), m_dataJson);
 }
 
@@ -283,7 +285,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listUserWptsDescription.clear();
     listUserWptsLat.clear();
     listUserWptsLon.clear();
-    listUserWptsCode.clear(); ;
+    listUserWptsCode.clear();
 
     for (QJsonValue userWaypoint: cacheJson["userWaypoints"].toArray())
     {
