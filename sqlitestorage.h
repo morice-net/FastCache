@@ -16,11 +16,7 @@ public:
     bool readAllObjectsFromTable(const QString &tableName);
     bool updateObject(const QString &tableName, const QString &id, QJsonDocument &json);
     void deleteObject(const QString &tableName, const QString &id);
-    bool createTableCaches(const QString &tableName);
-    bool createTableLists(const QString &tableName);
-    bool createTableCachesLists(const QString &tableName);
-
-
+    bool createTable(const QString &tableName, const QString &columns);
 
     Q_INVOKABLE   QJsonDocument readObject(const QString &tableName, const QString &id);
     Q_INVOKABLE  QList<QString> readAllIdsFromTable(const QString &tableName);
