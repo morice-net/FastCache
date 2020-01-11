@@ -53,7 +53,7 @@ void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
     sqliteStorage->createTable("fullcache", "(id string primary key, json string)");
     sqliteStorage->createTable("lists", "(id int primary key, title string)");
-    sqliteStorage->createTable("caches_lists", "(id int primary key, geocode string)");
+    sqliteStorage->createTable("cacheslists", "(id int primary key, geocode string)");
     sqliteStorage->updateObject("fullcache", m_fullCache->geocode(), m_dataJson);
 }
 
