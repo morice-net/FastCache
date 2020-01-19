@@ -60,7 +60,7 @@ Rectangle {
         id: indicatorFastTravelbug
         count: swipeFastTravelbug.count
         visible: travelbug.state !== "loading"
-        currentIndex: swipeFastTravelBug.currentIndex
+        currentIndex: swipeFastTravelbug.currentIndex
         anchors.bottom: fastTravelbug.bottom
         anchors.horizontalCenter: parent.horizontalCenter
     }

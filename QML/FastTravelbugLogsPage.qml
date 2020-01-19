@@ -15,14 +15,14 @@ Item {
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        Column{
+        Column {
             spacing:10
             width: logsPage.width
 
-            Repeater{
+            Repeater {
                 model:displayTbLogsPage()
 
-                Column{
+                Column {
 
                     Item {
                         width: logs.width

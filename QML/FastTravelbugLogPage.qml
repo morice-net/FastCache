@@ -31,19 +31,18 @@ Item {
         anchors.topMargin: 50
         anchors.fill: logPage
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: contentItem.childrenRect.height
+        contentHeight: childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
         Column{
             spacing: 10
-            x:10
-            y:40
+            x: 10
+            y: 40
 
             GroupBox {
                 width: parent.width*0.7
 
                 Column {
-
                     RadioButton {
                         id:button1
                         text: "Récupéré"

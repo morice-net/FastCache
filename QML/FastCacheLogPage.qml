@@ -30,7 +30,7 @@ Item {
         anchors.topMargin: 30
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: contentItem.childrenRect.height
+        contentHeight: childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
         Column{

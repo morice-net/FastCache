@@ -20,21 +20,10 @@ FastPopup {
     x: parent.height * 0.05 + 10
     y: parent.height * 0.05 + 10
 
-    background: Rectangle {
-        id: coordinatesBoxBackground
-        anchors.fill: parent
-        implicitWidth: main.width*0.7
-        implicitHeight:main.height*0.25
-        color: Palette.turquoise()
-        border.color: Palette.silver()
-        border.width: 1
-        opacity:0.8
-        radius: 15
-    }
-
     ComboBox {
         id: gpsFormatCombo
-        width: coordinatesBoxBackground.width - 20
+        y: 80
+        width: parent.width - 20
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
         delegate: ItemDelegate {
             width: gpsFormatCombo.width
@@ -81,7 +70,7 @@ FastPopup {
     Item {
         id: box1
         visible: true
-        width: coordinatesBoxBackground.width - 20
+        width: parent.width - 20
         anchors.top: gpsFormatCombo.bottom
         anchors.margins: 10
         anchors.topMargin: 30
@@ -281,7 +270,7 @@ FastPopup {
     Item {
         id: box2
         visible: false
-        width: coordinatesBoxBackground.width - 20
+        width: parent.width - 20
         anchors.top: gpsFormatCombo.bottom
         anchors.margins: 10
 
@@ -434,7 +423,7 @@ FastPopup {
     Item {
         id: box3
         visible: false
-        width: coordinatesBoxBackground.width - 20
+        width: parent.width - 20
         anchors.top: gpsFormatCombo.bottom
         anchors.margins: 10
 

@@ -8,16 +8,6 @@ import "JavaScript/Palette.js" as Palette
 FastPopup {
     id: geocodeAlert
 
-    background: Rectangle {
-        x:20
-        y:main.height/3
-        implicitWidth: main.width*0.8
-        implicitHeight:main.height*0.08
-        color:Palette.turquoise()
-        border.color: Palette.greenSea()
-        radius: 15
-    }
-
     ColumnLayout {
         x:27
         y: main.height/3

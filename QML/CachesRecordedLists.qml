@@ -7,8 +7,6 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: cachesRecordedLists
-    x: 20
-    y: 100
     width: parent.width * 0.9
     background: Rectangle {
         implicitWidth: 110

@@ -46,6 +46,10 @@ int main(int argc, char *argv[])
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
 
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("morice");
+    app.setOrganizationDomain("ipsquad.net");
+    app.setApplicationName("FastCache");
+
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();
 #endif

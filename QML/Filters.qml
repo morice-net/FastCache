@@ -70,17 +70,15 @@ Item {
 
         FastPopup {
             id: popupSize
-            x: 100
-            y: 100
             width: 300
-            background: Rectangle {
-                implicitWidth: 110
-                implicitHeight: 25
-                opacity: 0.8
-                border.color: Palette.silver()
-                color:Palette.greenSea()
-                border.width: 1
-                radius: 15
+            backgroundColor: Palette.greenSea()
+            backgroundWidth: 110
+            backgroundHeight: 25
+            backgroundRadius: 15
+            backgroundOpacity: 0.7
+            backgroundBorder {
+                width: 1
+                color: Palette.silver()
             }
 
             ColumnLayout {
@@ -443,14 +441,6 @@ Item {
 
         FastPopup {
             id: keyWordPopup
-            background: Rectangle {
-                implicitWidth: main.width*0.8
-                border.color: Palette.turquoise()
-                color: Palette.turquoise()
-                border.width: 1
-                opacity:0.9
-                radius: 15
-            }
 
             ColumnLayout {
                 id: column

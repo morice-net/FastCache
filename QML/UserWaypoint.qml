@@ -22,14 +22,6 @@ FastPopup {
         id:addText
     }
 
-    background: Rectangle {
-        anchors.fill: parent
-        implicitWidth: main.width
-        implicitHeight:main.height
-        color: Palette.turquoise()
-        radius: 10
-    }
-
     Column {
         x: 20
         y:20

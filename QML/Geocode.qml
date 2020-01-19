@@ -11,19 +11,6 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: geocode
-    x: parent.height * 0.05 + 10
-    y: parent.height * 0.05 + 10
-
-    background: Rectangle {
-        anchors.fill: parent
-        implicitWidth: main.width*0.7
-        implicitHeight:main.height*0.33
-        color: Palette.greenSea()
-        border.color: Palette.silver()
-        border.width: 1
-        opacity:0.8
-        radius: 15
-    }
 
     Item {
         id: item2
@@ -33,14 +20,16 @@ FastPopup {
 
         GridLayout {
             id: gridLayout3
-            anchors.rightMargin: 0
-            anchors.bottomMargin: 0
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
-            rowSpacing: 10
+            anchors.rightMargin: 10
+            anchors.bottomMargin: 10
+            anchors.leftMargin: 10
+            anchors.topMargin: 10
+            rowSpacing: 15
             rows: 1
             columns: 2
-            anchors.fill: parent
+
+            y: 80
+            width: parent.width
 
             Label {
                 id: label2
@@ -225,14 +214,6 @@ FastPopup {
 
     FastPopup {
         id: geocodeResponse
-        x: 50
-        background: Rectangle {
-            color: Palette.white()
-            opacity: 0
-            radius: 15
-        }
-        width: main.width/1.6
-        height: popupResponseHeight()+25
 
         ListView {
             id: geocodelist

@@ -6,17 +6,6 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: addText
-    x: parent.height * 0.05 + 10
-    y: parent.height * 0.3
-    background: Rectangle {
-        anchors.fill: parent
-        implicitWidth: main.width*0.4
-        implicitHeight:main.height*0.33
-        color: Palette.turquoise()
-        border.color: Palette.silver()
-        border.width: 1
-        radius: 15
-    }
 
     Column {
         id: item

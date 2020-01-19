@@ -7,14 +7,6 @@ import com.mycompany.connecting 1.0
 FastPopup {
     id: userInfoPopup
 
-    background: Rectangle {
-        anchors.fill: parent
-        implicitWidth: main.width
-        implicitHeight:main.height
-        color: Palette.white()
-        radius: 10
-    }
-
     /// User Info ///
     Item {
         id: userInfoTopPopup
