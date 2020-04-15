@@ -110,52 +110,26 @@ FastPopup {
             }
         }
 
-        Row {
-            spacing: 10
-            x: parent.width / 2
-
-            Button {
-                id:buttonCreate
-                x:10
-                visible: newList.checked
-                contentItem: Text {
-                    text:"Créer"
-                    font.family: localFont.name
-                    font.pixelSize: 25
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
-                onClicked: {  }
+        Button {
+            id:buttonDel
+            visible: newList.checked
+            contentItem: Text {
+                text:"Effacer"
+                font.family: localFont.name
+                font.pixelSize: 25
+                color: Palette.white()
             }
-
-            Button {
-                id:buttonDel
-                visible: newList.checked
-                contentItem: Text {
-                    text:"Annuler"
-                    font.family: localFont.name
-                    font.pixelSize: 25
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
-                onClicked: {
-                    createNewList.text = "" ;
-                    newList.checked = false;
-                }
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                color: Palette.greenSea()
+                border.color: Palette.white()
+                border.width: 1
+                radius: 5
+            }
+            onClicked: {
+                createNewList.text = "" ;
+                newList.checked = false;
             }
         }
 
@@ -166,6 +140,26 @@ FastPopup {
             height: 2
             color: Palette.white()
             radius:10
+        }
+
+        Button {
+            id:buttonCreate
+            x:10
+            contentItem: Text {
+                text:"Ok"
+                font.family: localFont.name
+                font.pixelSize: 25
+                color: Palette.white()
+            }
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                color: Palette.greenSea()
+                border.color: Palette.white()
+                border.width: 1
+                radius: 5
+            }
+            onClicked: {  }
         }
     }
 
