@@ -87,7 +87,23 @@ bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJ
     } else {
         qDebug() << "Error ? " << query.lastError().text();
     }
+    return true;
+}
 
+bool SQLiteStorage::updateString(const QString &tableName, const int &id,  QString text)
+{
+    QString queryCommand;
+    QString::number(id);
+    queryCommand += "REPLACE INTO " + tableName + " (id, text) VALUES ('" + QString::number(id) + "', '" + text + "')";
+
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
     return true;
 }
 

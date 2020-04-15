@@ -15,6 +15,7 @@ public:
     bool isCacheInTable(const QString &tableName , const QString &id);
     bool readAllObjectsFromTable(const QString &tableName);
     bool updateObject(const QString &tableName, const QString &id, QJsonDocument &json);
+    bool updateString(const QString &tableName, const int &id, QString string);
     void deleteObject(const QString &tableName, const QString &id);
     bool createTable(const QString &tableName, const QString &columns);
 
