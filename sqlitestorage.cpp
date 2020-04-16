@@ -13,7 +13,6 @@ SQLiteStorage::SQLiteStorage(QObject *parent) : QObject(parent)
     m_database.setDatabaseName(path);
     if (! m_database.open()) {
         qDebug() << m_database.lastError().text();
-
         qDebug() << QCoreApplication::libraryPaths();
         QCoreApplication::exit(-1);
     }
@@ -36,10 +35,23 @@ bool SQLiteStorage::isCacheInTable(const QString &tableName , const QString &id)
     return false;
 }
 
-bool SQLiteStorage::readAllObjectsFromTable(const QString &tableName)
+QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString &geocode)
 {
-    Q_UNUSED(tableName)
-    return true;
+    QString selectQueryText = "SELECT id FROM " + tableName + " WHERE " + "text='" + geocode + "'";
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return  QList<int>();
+    }
+    qDebug() << "Request success";
+    QList<int> list = QList<int>();
+    while(select.next()) {
+        list.append(select.value(0).toInt());
+    }
+    return list;
 }
 
 QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
@@ -47,8 +59,33 @@ QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
     QString selectQueryText = "SELECT id FROM " + tableName ;
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
-    select.exec(selectQueryText);
 
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return  QList<QString>();
+    }
+    qDebug() << "Request success";
+    QList<QString> list = QList<QString>();
+    while(select.next()) {
+        list.append(select.value(0).toString());
+    }
+    return list;
+}
+
+QList<QString> SQLiteStorage::readAllStringsFromTable(const QString &tableName)
+{
+    QString selectQueryText = "SELECT text FROM " + tableName ;
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return  QList<QString>();
+    }
+
+    qDebug() << "Request success";
     QList<QString> list = QList<QString>();
     while(select.next()) {
         list.append(select.value(0).toString());
@@ -61,8 +98,14 @@ QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString 
     QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id + "'";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
-    select.exec(selectQueryText);
 
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return  QJsonDocument();
+    }
+
+    qDebug() << "Request success";
     QJsonDocument json = QJsonDocument();
     if (select.next()) {
         QString jsonString = select.value(0).toString();
@@ -151,9 +194,16 @@ bool SQLiteStorage::createTable(const QString &tableName, const QString &columns
 {
     QString queryCommand;
     queryCommand += "CREATE TABLE IF NOT EXISTS " + tableName + columns;
-
+    qDebug() << "Query command: " << queryCommand;
     QSqlQuery query;
-    return query.exec(queryCommand);
+
+    if(!query.exec(queryCommand))
+    {
+        qDebug() << "Error ? " << query.lastError().text();
+        return false ;
+    }
+    qDebug() << "Request success";
+    return true;
 }
 
 

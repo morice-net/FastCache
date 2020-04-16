@@ -31,29 +31,32 @@ FastPopup {
             text: "Choisir les listes.."
         }
 
-        CheckBox {
-            id : recorded
-            x:10
-            contentItem: Text {
-                text: "Enregistrées()"
-                font.family: localFont.name
-                font.pointSize: 16
-                color: recorded.checked ? Palette.white() : Palette.silver()
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: recorded.indicator.width + recorded.spacing
-            }
-            indicator: Rectangle {
-                implicitWidth: 25
-                implicitHeight: 25
-                radius: 3
-                border.width: 1
-                y: parent.height / 2 - height / 2
-                Rectangle {
-                    anchors.fill: parent
-                    visible: recorded.checked
-                    color: Palette.greenSea()
+        Repeater {
+            model: sqliteStorage.count("lists")
+
+            CheckBox {
+                x:10
+                contentItem: Text {
+                    text: sqliteStorage.readAllStringsFromTable("lists")[index]
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    color: checked ? Palette.white() : Palette.silver()
+                    verticalAlignment: Text.AlignVCenter
+                    leftPadding: indicator.width + spacing
+                }
+                indicator: Rectangle {
+                    implicitWidth: 25
+                    implicitHeight: 25
                     radius: 3
-                    anchors.margins: 4
+                    border.width: 1
+                    y: parent.height / 2 - height / 2
+                    Rectangle {
+                        anchors.fill: parent
+                        visible: checked
+                        color: Palette.greenSea()
+                        radius: 3
+                        anchors.margins: 4
+                    }
                 }
             }
         }
