@@ -122,6 +122,31 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
     }
 }
 
+int SQLiteStorage::count(const QString &tableName)
+{
+    QString queryCommand;
+    queryCommand += "SELECT COUNT(*) FROM" + tableName;
+
+    QSqlQuery query;
+    if(!query.exec(queryCommand))
+    {
+        qDebug() << "Error ? " << query.lastError().text();
+        return 0 ;
+    }
+    int nbr = 0;
+    if(query.next() == true)
+    {
+        nbr = query.value(0).toInt();
+        qDebug() << "Nombre d'elements dans la table : " << QString::number(nbr);
+        return nbr;
+    }
+    else
+    {
+        qDebug() << "On n'a pas reussi a compter le nombre d'éléments dans la table!!";
+        return 0;
+    }
+}
+
 bool SQLiteStorage::createTable(const QString &tableName, const QString &columns)
 {
     QString queryCommand;
