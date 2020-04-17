@@ -7,6 +7,10 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: cachesRecordedLists
+
+    property var cacheInLists : sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+    property var countLists : sqliteStorage.count("lists")
+
     width: parent.width * 0.9
     background: Rectangle {
         implicitWidth: 110
@@ -32,10 +36,31 @@ FastPopup {
         }
 
         Repeater {
-            model: sqliteStorage.count("lists")
+            model: countLists
 
             CheckBox {
                 x:10
+                checked:cacheInLists.indexOf(index + 1) > -1
+                onCheckedChanged: {
+                    if (checked && cacheInLists.length === 0) {
+                        fullCacheRetriever.writeToStorage(sqliteStorage)
+                        sqliteStorage.updateString("cacheslists" , index+1 , fullCache.geocode)
+                        fullCache.registered
+                        cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+                    } else if (checked && cacheInLists.length !== 0) {
+                        sqliteStorage.updateString("cacheslists" , index+1 , fullCache.geocode)
+                        cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+                    } else if (!checked && cacheInLists.length === 0) {
+                        sqliteStorage.deleteString("cacheslists" , index+1);
+                    } else if (!checked && cacheInLists.length !== 0) {
+                        sqliteStorage.deleteString("cacheslists" , index+1);
+                        if(cacheInLists.length === 1) {
+                            fullCacheRetriever.deleteToStorage(sqliteStorage)
+                                    !fullCache.registered
+                        }
+                        cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+                    }
+                }
                 contentItem: Text {
                     text: sqliteStorage.readAllStringsFromTable("lists")[index]
                     font.family: localFont.name
@@ -132,7 +157,6 @@ FastPopup {
             }
             onClicked: {
                 createNewList.text = "" ;
-                newList.checked = false;
             }
         }
 
@@ -162,7 +186,19 @@ FastPopup {
                 border.width: 1
                 radius: 5
             }
-            onClicked: {  }
+            onClicked: {
+                if (!newList.checked ) {
+                    closeIfMenu()
+                    cachesRecordedLists.close()
+                } else if (newList.length === 0) {
+                    closeIfMenu()
+                    cachesRecordedLists.close()
+                }
+                sqliteStorage.updateString("lists" , countLists + 1 , newList.text )
+                countLists = countLists + 1
+                closeIfMenu()
+                cachesRecordedLists.close()
+            }
         }
     }
 

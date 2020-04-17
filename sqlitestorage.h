@@ -14,7 +14,6 @@ public:
 
     bool isCacheInTable(const QString &tableName , const QString &id);
     bool updateObject(const QString &tableName, const QString &id, QJsonDocument &json);
-    bool updateString(const QString &tableName, const int &id, QString string);
     void deleteObject(const QString &tableName, const QString &id);
     bool createTable(const QString &tableName, const QString &columns);
 
@@ -23,6 +22,8 @@ public:
     Q_INVOKABLE   int count(const QString &tableName);
     Q_INVOKABLE   QList<QString> readAllStringsFromTable(const QString &tableName);
     Q_INVOKABLE   QList<int> cacheInLists(const QString &tableName , const QString &geocode);
+    Q_INVOKABLE   void deleteString(const QString &tableName , const QString &text);
+    Q_INVOKABLE bool updateString(const QString &tableName, const int &id, const QString &string);
 
 private:
     QSqlDatabase m_database;

@@ -51,6 +51,7 @@ QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString 
     while(select.next()) {
         list.append(select.value(0).toInt());
     }
+    qDebug() << "List ? " << list;
     return list;
 }
 
@@ -133,7 +134,7 @@ bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJ
     return true;
 }
 
-bool SQLiteStorage::updateString(const QString &tableName, const int &id,  QString text)
+bool SQLiteStorage::updateString(const QString &tableName, const int &id,  const QString &text)
 {
     QString queryCommand;
     QString::number(id);
@@ -154,6 +155,21 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
 {
     QString queryCommand;
     queryCommand += "DELETE FROM " + tableName + " WHERE " + "id='" + id + "'";
+
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+}
+
+void SQLiteStorage::deleteString(const QString &tableName, const QString &text)
+{
+    QString queryCommand;
+    queryCommand += "DELETE FROM " + tableName + " WHERE " + "text='" + text + "'";
 
     QSqlQuery query;
     query.exec(queryCommand);

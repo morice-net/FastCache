@@ -78,10 +78,7 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                fullCache.registered = !fullCache.registered
-                fullCache.registered ? fullCacheRetriever.writeToStorage(sqliteStorage) : fullCacheRetriever.deleteToStorage(sqliteStorage)
                 cachesRecordedLists.open()
-
                 if(main.state === "recorded"){
                     updateRecordedList(sqliteStorage.readAllIdsFromTable("fullcache"));
                 }
