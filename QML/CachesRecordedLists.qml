@@ -10,6 +10,7 @@ FastPopup {
 
     property var cacheInLists : sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
     property var countLists : sqliteStorage.count("lists")
+    property var listIds : sqliteStorage.readAllIdsFromLists("lists")
 
     width: parent.width * 0.9
     background: Rectangle {
@@ -40,23 +41,23 @@ FastPopup {
 
             CheckBox {
                 x:10
-                checked:cacheInLists.indexOf(index + 1) > -1
+                checked:cacheInLists.indexOf(index+1) > -1
                 onCheckedChanged: {
                     if (checked && cacheInLists.length === 0) {
                         fullCacheRetriever.writeToStorage(sqliteStorage)
-                        sqliteStorage.updateString("cacheslists" , index+1 , fullCache.geocode)
-                        fullCache.registered
+                        sqliteStorage.updateString("cacheslists" , listIds[index] , fullCache.geocode)
+                        fullCache.registered = true
                         cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
                     } else if (checked && cacheInLists.length !== 0) {
-                        sqliteStorage.updateString("cacheslists" , index+1 , fullCache.geocode)
+                        sqliteStorage.updateString("cacheslists" , listIds[index] , fullCache.geocode)
                         cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
                     } else if (!checked && cacheInLists.length === 0) {
-                        sqliteStorage.deleteString("cacheslists" , index+1);
+                        sqliteStorage.deleteString("cacheslists" , listIds[index] ,  fullCache.geocode);
                     } else if (!checked && cacheInLists.length !== 0) {
-                        sqliteStorage.deleteString("cacheslists" , index+1);
+                        sqliteStorage.deleteString("cacheslists" , listIds[index] , fullCache.geocode);
                         if(cacheInLists.length === 1) {
                             fullCacheRetriever.deleteToStorage(sqliteStorage)
-                                    !fullCache.registered
+                            fullCache.registered = false
                         }
                         cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
                     }
@@ -138,25 +139,56 @@ FastPopup {
             }
         }
 
-        Button {
-            id:buttonDel
-            visible: newList.checked
-            contentItem: Text {
-                text:"Effacer"
-                font.family: localFont.name
-                font.pixelSize: 25
-                color: Palette.white()
+        Row {
+            spacing: 10
+
+            Button {
+                id:buttonDel
+                visible: newList.checked
+                contentItem: Text {
+                    text:"Effacer"
+                    font.family: localFont.name
+                    font.pixelSize: 25
+                    color: Palette.white()
+                }
+                background: Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.greenSea()
+                    border.color: Palette.white()
+                    border.width: 1
+                    radius: 5
+                }
+                onClicked: {
+                    createNewList.text = "" ;
+                }
             }
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                color: Palette.greenSea()
-                border.color: Palette.white()
-                border.width: 1
-                radius: 5
-            }
-            onClicked: {
-                createNewList.text = "" ;
+
+            Button {
+                id:buttonCreate
+                visible: newList.checked
+                contentItem: Text {
+                    text:"Créer la liste"
+                    font.family: localFont.name
+                    font.pixelSize: 25
+                    color: Palette.white()
+                }
+                background: Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.greenSea()
+                    border.color: Palette.white()
+                    border.width: 1
+                    radius: 5
+                }
+                onClicked: {
+                    if (createNewList.length !== 0) {
+                        sqliteStorage.updateString("lists" , -1 , createNewList.text )
+                        listIds.push(listIds[countLists - 1] + 1)
+                        countLists = countLists + 1
+                        newList.checked = false
+                    }
+                }
             }
         }
 
@@ -170,7 +202,6 @@ FastPopup {
         }
 
         Button {
-            id:buttonCreate
             x:10
             contentItem: Text {
                 text:"Ok"
@@ -187,16 +218,6 @@ FastPopup {
                 radius: 5
             }
             onClicked: {
-                if (!newList.checked ) {
-                    closeIfMenu()
-                    cachesRecordedLists.close()
-                } else if (newList.length === 0) {
-                    closeIfMenu()
-                    cachesRecordedLists.close()
-                }
-                sqliteStorage.updateString("lists" , countLists + 1 , newList.text )
-                countLists = countLists + 1
-                closeIfMenu()
                 cachesRecordedLists.close()
             }
         }

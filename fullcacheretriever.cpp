@@ -51,15 +51,11 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
-    sqliteStorage->createTable("fullcache", "(id string primary key, json string)");
-    sqliteStorage->createTable("lists", "(id int primary key  , text string)");
-    sqliteStorage->createTable("cacheslists", "(id int primary key, text string)");
     sqliteStorage->updateObject("fullcache", m_fullCache->geocode(), m_dataJson);
-    sqliteStorage->updateString("lists", 1 , "Enregistrées");
 }
 
-void FullCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage){
-
+void FullCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage)
+{
     sqliteStorage->deleteObject("fullcache", m_fullCache->geocode());
 }
 

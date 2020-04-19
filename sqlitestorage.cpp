@@ -35,9 +35,9 @@ bool SQLiteStorage::isCacheInTable(const QString &tableName , const QString &id)
     return false;
 }
 
-QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString &geocode)
+QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString &text)
 {
-    QString selectQueryText = "SELECT id FROM " + tableName + " WHERE " + "text='" + geocode + "'";
+    QString selectQueryText = "SELECT id FROM " + tableName + " WHERE " + "text='" + text + "'" + " ORDER BY id";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
 
@@ -71,6 +71,27 @@ QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
     while(select.next()) {
         list.append(select.value(0).toString());
     }
+    qDebug() << "List ? " << list;
+    return list;
+}
+
+QList<int> SQLiteStorage::readAllIdsFromLists(const QString &tableName)
+{
+    QString selectQueryText = "SELECT id FROM " + tableName + " ORDER BY id" ;
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return  QList<int>();
+    }
+    qDebug() << "Request success";
+    QList<int> list = QList<int>();
+    while(select.next()) {
+        list.append(select.value(0).toInt());
+    }
+    qDebug() << "List ? " << list;
     return list;
 }
 
@@ -91,6 +112,7 @@ QList<QString> SQLiteStorage::readAllStringsFromTable(const QString &tableName)
     while(select.next()) {
         list.append(select.value(0).toString());
     }
+    qDebug() << "List: "<< list;
     return list;
 }
 
@@ -137,8 +159,12 @@ bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJ
 bool SQLiteStorage::updateString(const QString &tableName, const int &id,  const QString &text)
 {
     QString queryCommand;
-    QString::number(id);
-    queryCommand += "REPLACE INTO " + tableName + " (id, text) VALUES ('" + QString::number(id) + "', '" + text + "')";
+    // Auto increment
+    if(id == -1){
+        queryCommand += " INSERT INTO " + tableName + " (id, text) VALUES (" + " NULL , '" + text + "')";
+    } else{
+        queryCommand += " INSERT INTO " + tableName + " (id, text) VALUES ('" + QString::number(id) + "', '" + text + "')";
+    }
 
     QSqlQuery query;
     query.exec(queryCommand);
@@ -166,10 +192,10 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
     }
 }
 
-void SQLiteStorage::deleteString(const QString &tableName, const QString &text)
+void SQLiteStorage::deleteString(const QString &tableName , const int &id , const QString &text)
 {
     QString queryCommand;
-    queryCommand += "DELETE FROM " + tableName + " WHERE " + "text='" + text + "'";
+    queryCommand += "DELETE FROM " + tableName + " WHERE " + "text='" + text + "'" + " OR " + "id='" + QString::number(id) + "'" ;
 
     QSqlQuery query;
     query.exec(queryCommand);

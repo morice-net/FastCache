@@ -293,6 +293,14 @@ Item {
 
     SQLiteStorage {
         id: sqliteStorage
+
+        Component.onCompleted: {
+            // Build database
+            sqliteStorage.createTable("fullcache", "(id string primary key, json string)");
+            sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
+            sqliteStorage.createTable("cacheslists", "(id  integer , text string)");
+            sqliteStorage.updateString("lists", 1 , "Enregistrées");
+        }
     }
 
     Timer {
