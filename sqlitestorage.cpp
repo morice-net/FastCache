@@ -161,9 +161,9 @@ bool SQLiteStorage::updateString(const QString &tableName, const int &id,  const
     QString queryCommand;
     // Auto increment
     if(id == -1){
-        queryCommand += " INSERT INTO " + tableName + " (id, text) VALUES (" + " NULL , '" + text + "')";
+        queryCommand += " REPLACE INTO " + tableName + " (id, text) VALUES (" + " NULL , '" + text + "')";
     } else{
-        queryCommand += " INSERT INTO " + tableName + " (id, text) VALUES ('" + QString::number(id) + "', '" + text + "')";
+        queryCommand += " REPLACE INTO " + tableName + " (id, text) VALUES ('" + QString::number(id) + "', '" + text + "')";
     }
 
     QSqlQuery query;
@@ -195,7 +195,7 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
 void SQLiteStorage::deleteString(const QString &tableName , const int &id , const QString &text)
 {
     QString queryCommand;
-    queryCommand += "DELETE FROM " + tableName + " WHERE " + "text='" + text + "'" + " OR " + "id='" + QString::number(id) + "'" ;
+    queryCommand += "DELETE FROM " + tableName + " WHERE " + "text='" + text + "'" + " AND " + "id='" + QString::number(id) + "'" ;
 
     QSqlQuery query;
     query.exec(queryCommand);

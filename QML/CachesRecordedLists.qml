@@ -7,11 +7,6 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: cachesRecordedLists
-
-    property var cacheInLists : sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
-    property var countLists : sqliteStorage.count("lists")
-    property var listIds : sqliteStorage.readAllIdsFromLists("lists")
-
     width: parent.width * 0.9
     background: Rectangle {
         implicitWidth: 110
@@ -41,25 +36,25 @@ FastPopup {
 
             CheckBox {
                 x:10
-                checked:cacheInLists.indexOf(index+1) > -1
+                checked:listWithGeocode.indexOf(index+1) > -1
                 onCheckedChanged: {
-                    if (checked && cacheInLists.length === 0) {
+                    if (checked && listWithGeocode.length === 0) {
                         fullCacheRetriever.writeToStorage(sqliteStorage)
                         sqliteStorage.updateString("cacheslists" , listIds[index] , fullCache.geocode)
                         fullCache.registered = true
-                        cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
-                    } else if (checked && cacheInLists.length !== 0) {
+                        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+                    } else if (checked && listWithGeocode.length !== 0) {
                         sqliteStorage.updateString("cacheslists" , listIds[index] , fullCache.geocode)
-                        cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
-                    } else if (!checked && cacheInLists.length === 0) {
+                        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+                    } else if (!checked && listWithGeocode.length === 0) {
                         sqliteStorage.deleteString("cacheslists" , listIds[index] ,  fullCache.geocode);
-                    } else if (!checked && cacheInLists.length !== 0) {
+                    } else if (!checked && listWithGeocode.length !== 0) {
                         sqliteStorage.deleteString("cacheslists" , listIds[index] , fullCache.geocode);
-                        if(cacheInLists.length === 1) {
+                        if(listWithGeocode.length === 1) {
                             fullCacheRetriever.deleteToStorage(sqliteStorage)
                             fullCache.registered = false
                         }
-                        cacheInLists = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+                        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
                     }
                 }
                 contentItem: Text {

@@ -45,6 +45,11 @@ Item {
 
     signal positionUpdated
 
+    // Used in CachesRecordedLists
+    property var listWithGeocode :[]
+    property int countLists : 0
+    property var listIds : []
+
     FastSettings { id: settings }
 
     Location {
@@ -300,6 +305,11 @@ Item {
             sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
             sqliteStorage.createTable("cacheslists", "(id  integer , text string)");
             sqliteStorage.updateString("lists", 1 , "Enregistrées");
+
+            // initialize property var
+            listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
+            listIds = sqliteStorage.readAllIdsFromLists("lists")
+            countLists = listIds.length
         }
     }
 
