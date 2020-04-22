@@ -35,9 +35,9 @@ bool SQLiteStorage::isCacheInTable(const QString &tableName , const QString &id)
     return false;
 }
 
-QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString &text)
+QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString &code)
 {
-    QString selectQueryText = "SELECT id FROM " + tableName + " WHERE " + "text='" + text + "'" + " ORDER BY id";
+    QString selectQueryText = "SELECT list FROM " + tableName + " WHERE " + "code='" + code + "'" + " ORDER BY list";
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
 
@@ -156,7 +156,7 @@ bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJ
     return true;
 }
 
-bool SQLiteStorage::updateString(const QString &tableName, const int &id,  const QString &text)
+bool SQLiteStorage::updateLists(const QString &tableName, const int &id,  const QString &text)
 {
     QString queryCommand;
     // Auto increment
@@ -165,6 +165,22 @@ bool SQLiteStorage::updateString(const QString &tableName, const int &id,  const
     } else{
         queryCommand += " REPLACE INTO " + tableName + " (id, text) VALUES ('" + QString::number(id) + "', '" + text + "')";
     }
+
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+    return true;
+}
+
+bool SQLiteStorage::updateCachesLists(const QString &tableName, const int &list, const QString &code)
+{
+    QString queryCommand;
+    queryCommand += " INSERT OR IGNORE INTO " + tableName + " (id, list, code) VALUES (" + " NULL , '" + QString::number(list) + "', '" + code + "') ";
 
     QSqlQuery query;
     query.exec(queryCommand);
@@ -192,10 +208,10 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
     }
 }
 
-void SQLiteStorage::deleteString(const QString &tableName , const int &id , const QString &text)
+void SQLiteStorage::deleteCacheInList(const QString &tableName , const int &list , const QString &code)
 {
     QString queryCommand;
-    queryCommand += "DELETE FROM " + tableName + " WHERE " + "text='" + text + "'" + " AND " + "id='" + QString::number(id) + "'" ;
+    queryCommand += "DELETE FROM " + tableName + " WHERE code='" + code + "'" + " AND id='" + QString::number(list) + "'"  ;
 
     QSqlQuery query;
     query.exec(queryCommand);

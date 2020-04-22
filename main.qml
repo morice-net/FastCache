@@ -303,11 +303,10 @@ Item {
             // Build database
             sqliteStorage.createTable("fullcache", "(id string primary key, json string)");
             sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
-            sqliteStorage.createTable("cacheslists", "(id  integer , text string)");
-            sqliteStorage.updateString("lists", 1 , "Enregistrées");
+            sqliteStorage.createTable("cacheslists", "(id integer primary key default 1 , list integer , code string , UNIQUE(list, code))");
+            sqliteStorage.updateLists("lists", 1 , "Enregistrées");
 
             // initialize property var
-            listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
             listIds = sqliteStorage.readAllIdsFromLists("lists")
             countLists = listIds.length
         }

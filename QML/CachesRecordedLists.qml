@@ -36,20 +36,20 @@ FastPopup {
 
             CheckBox {
                 x:10
-                checked:listWithGeocode.indexOf(index+1) > -1
+                checked:updateListWithGeocode(fullCache.geocode).indexOf(index+1) > -1
                 onCheckedChanged: {
                     if (checked && listWithGeocode.length === 0) {
                         fullCacheRetriever.writeToStorage(sqliteStorage)
-                        sqliteStorage.updateString("cacheslists" , listIds[index] , fullCache.geocode)
+                        sqliteStorage.updateCachesLists("cacheslists" , listIds[index] , fullCache.geocode)
                         fullCache.registered = true
                         listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
                     } else if (checked && listWithGeocode.length !== 0) {
-                        sqliteStorage.updateString("cacheslists" , listIds[index] , fullCache.geocode)
+                        sqliteStorage.updateCachesLists("cacheslists" , listIds[index] , fullCache.geocode)
                         listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
                     } else if (!checked && listWithGeocode.length === 0) {
-                        sqliteStorage.deleteString("cacheslists" , listIds[index] ,  fullCache.geocode);
+                        sqliteStorage.deleteCacheInList("cacheslists" , listIds[index] ,  fullCache.geocode);
                     } else if (!checked && listWithGeocode.length !== 0) {
-                        sqliteStorage.deleteString("cacheslists" , listIds[index] , fullCache.geocode);
+                        sqliteStorage.deleteCacheInList("cacheslists" , listIds[index] , fullCache.geocode);
                         if(listWithGeocode.length === 1) {
                             fullCacheRetriever.deleteToStorage(sqliteStorage)
                             fullCache.registered = false
@@ -178,7 +178,7 @@ FastPopup {
                 }
                 onClicked: {
                     if (createNewList.length !== 0) {
-                        sqliteStorage.updateString("lists" , -1 , createNewList.text )
+                        sqliteStorage.updateLists("lists" , -1 , createNewList.text )
                         listIds.push(listIds[countLists - 1] + 1)
                         countLists = countLists + 1
                         newList.checked = false
@@ -221,6 +221,11 @@ FastPopup {
     function closeIfMenu() {
         if (fastMenu.isMenuVisible())
             visible = false
+    }
+
+    function updateListWithGeocode(geocode) {
+        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", geocode)
+        return listWithGeocode
     }
 }
 

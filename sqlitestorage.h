@@ -15,14 +15,15 @@ public:
     bool isCacheInTable(const QString &tableName, const QString &id);
     void deleteObject(const QString &tableName, const QString &id);
 
-    Q_INVOKABLE   QJsonDocument readObject(const QString &tableName, const QString &id);
-    Q_INVOKABLE  QList<QString> readAllIdsFromTable(const QString &tableName);
-    Q_INVOKABLE  QList<int> readAllIdsFromLists(const QString &tableName);
-    Q_INVOKABLE   int count(const QString &tableName);
-    Q_INVOKABLE   QList<QString> readAllStringsFromTable(const QString &tableName);
-    Q_INVOKABLE   QList<int> cacheInLists(const QString &tableName, const QString &string);
-    Q_INVOKABLE   void deleteString(const QString &tableName, const int &id , const QString &text);
-    Q_INVOKABLE bool updateString(const QString &tableName, const int &id, const QString &string);
+    Q_INVOKABLE QJsonDocument readObject(const QString &tableName, const QString &id);
+    Q_INVOKABLE QList<QString> readAllIdsFromTable(const QString &tableName);
+    Q_INVOKABLE QList<int> readAllIdsFromLists(const QString &tableName);
+    Q_INVOKABLE int count(const QString &tableName);
+    Q_INVOKABLE QList<QString> readAllStringsFromTable(const QString &tableName);
+    Q_INVOKABLE QList<int> cacheInLists(const QString &tableName, const QString &code);
+    Q_INVOKABLE void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
+    Q_INVOKABLE bool updateLists(const QString &tableName, const int &id, const QString &string);
+    Q_INVOKABLE bool updateCachesLists(const QString &tableName, const int &list, const QString &code);
     Q_INVOKABLE bool updateObject(const QString &tableName, const QString &id, QJsonDocument &json);
     Q_INVOKABLE bool createTable(const QString &tableName, const QString &columns);
 
