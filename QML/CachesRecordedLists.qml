@@ -7,6 +7,9 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: cachesRecordedLists
+
+    property var listChecked: []
+
     width: parent.width * 0.9
     background: Rectangle {
         implicitWidth: 110
@@ -32,30 +35,13 @@ FastPopup {
         }
 
         Repeater {
-            model: countLists
+            model: sqliteStorage.countLists
 
             CheckBox {
                 x:10
-                checked:updateListWithGeocode(fullCache.geocode).indexOf(index+1) > -1
-                onCheckedChanged: {
-                    if (checked && listWithGeocode.length === 0) {
-                        fullCacheRetriever.writeToStorage(sqliteStorage)
-                        sqliteStorage.updateCachesLists("cacheslists" , listIds[index] , fullCache.geocode)
-                        fullCache.registered = true
-                        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
-                    } else if (checked && listWithGeocode.length !== 0) {
-                        sqliteStorage.updateCachesLists("cacheslists" , listIds[index] , fullCache.geocode)
-                        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
-                    } else if (!checked && listWithGeocode.length === 0) {
-                        sqliteStorage.deleteCacheInList("cacheslists" , listIds[index] ,  fullCache.geocode);
-                    } else if (!checked && listWithGeocode.length !== 0) {
-                        sqliteStorage.deleteCacheInList("cacheslists" , listIds[index] , fullCache.geocode);
-                        if(listWithGeocode.length === 1) {
-                            fullCacheRetriever.deleteToStorage(sqliteStorage)
-                            fullCache.registered = false
-                        }
-                        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", fullCache.geocode)
-                    }
+                checked:listCheckedBool(fullCache.geocode)[index]
+                onClicked: {
+                    listChecked[index] = !listChecked[index]
                 }
                 contentItem: Text {
                     text: sqliteStorage.readAllStringsFromTable("lists")[index]
@@ -179,8 +165,6 @@ FastPopup {
                 onClicked: {
                     if (createNewList.length !== 0) {
                         sqliteStorage.updateLists("lists" , -1 , createNewList.text )
-                        listIds.push(listIds[countLists - 1] + 1)
-                        countLists = countLists + 1
                         newList.checked = false
                     }
                 }
@@ -213,6 +197,16 @@ FastPopup {
                 radius: 5
             }
             onClicked: {
+                if(listChecked.indexOf(true) === -1)
+                {
+                    fullCacheRetriever.deleteToStorage(sqliteStorage)
+                    fullCache.registered = false
+                } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
+                    fullCacheRetriever.writeToStorage(sqliteStorage)
+                    fullCache.registered = true
+                }
+                sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
+                closeIfMenu()
                 cachesRecordedLists.close()
             }
         }
@@ -223,9 +217,9 @@ FastPopup {
             visible = false
     }
 
-    function updateListWithGeocode(geocode) {
-        listWithGeocode = sqliteStorage.cacheInLists("cacheslists", geocode)
-        return listWithGeocode
+    function listCheckedBool(geocode) {
+        listChecked = sqliteStorage.cacheInLists("cacheslists", geocode)
+        return listChecked
     }
 }
 

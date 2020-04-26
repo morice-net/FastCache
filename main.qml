@@ -45,11 +45,6 @@ Item {
 
     signal positionUpdated
 
-    // Used in CachesRecordedLists
-    property var listWithGeocode :[]
-    property int countLists : 0
-    property var listIds : []
-
     FastSettings { id: settings }
 
     Location {
@@ -298,17 +293,12 @@ Item {
 
     SQLiteStorage {
         id: sqliteStorage
-
         Component.onCompleted: {
             // Build database
             sqliteStorage.createTable("fullcache", "(id string primary key, json string)");
             sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
             sqliteStorage.createTable("cacheslists", "(id integer primary key default 1 , list integer , code string , UNIQUE(list, code))");
             sqliteStorage.updateLists("lists", 1 , "Enregistrées");
-
-            // initialize property var
-            listIds = sqliteStorage.readAllIdsFromLists("lists")
-            countLists = listIds.length
         }
     }
 

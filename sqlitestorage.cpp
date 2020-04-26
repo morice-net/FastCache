@@ -8,9 +8,14 @@
 
 SQLiteStorage::SQLiteStorage(QObject *parent) : QObject(parent)
 {
+    m_listWithGeocode = QList<bool>();
+    m_listsIds = QList<int>();
+    m_countLists = 0 ;
+
     QString path = "./FastCacheDatabase.db";
     m_database = QSqlDatabase::addDatabase("QSQLITE");
     m_database.setDatabaseName(path);
+
     if (! m_database.open()) {
         qDebug() << m_database.lastError().text();
         qDebug() << QCoreApplication::libraryPaths();
@@ -35,7 +40,7 @@ bool SQLiteStorage::isCacheInTable(const QString &tableName , const QString &id)
     return false;
 }
 
-QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString &code)
+QList<bool> SQLiteStorage::cacheInLists(const QString &tableName , const QString &code)
 {
     QString selectQueryText = "SELECT list FROM " + tableName + " WHERE " + "code='" + code + "'" + " ORDER BY list";
     qDebug() << "Query:" << selectQueryText;
@@ -44,15 +49,27 @@ QList<int> SQLiteStorage::cacheInLists(const QString &tableName , const QString 
     if(!select.exec(selectQueryText))
     {
         qDebug() << "Error ? " << select.lastError().text();
-        return  QList<int>();
+        return QList<bool>();
     }
     qDebug() << "Request success";
     QList<int> list = QList<int>();
+    QList<bool> listBool = QList<bool>();
+
     while(select.next()) {
         list.append(select.value(0).toInt());
     }
-    qDebug() << "List ? " << list;
-    return list;
+
+    foreach ( const int & a, listsIds())
+    {
+        if(list.indexOf(a) == -1){
+            listBool.append(false);
+        } else {
+            listBool.append(true);
+        }
+        qDebug() << " cache in lists " << listBool;
+    }
+    setListWithGeocode(listBool);
+    return listBool;
 }
 
 QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
@@ -71,7 +88,7 @@ QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
     while(select.next()) {
         list.append(select.value(0).toString());
     }
-    qDebug() << "List ? " << list;
+    qDebug() << " lists in table " << list;
     return list;
 }
 
@@ -91,7 +108,7 @@ QList<int> SQLiteStorage::readAllIdsFromLists(const QString &tableName)
     while(select.next()) {
         list.append(select.value(0).toInt());
     }
-    qDebug() << "List ? " << list;
+    qDebug() << "ids from lists " << list;
     return list;
 }
 
@@ -171,13 +188,16 @@ bool SQLiteStorage::updateLists(const QString &tableName, const int &id,  const 
     qDebug() << "Query command: " << queryCommand;
     if (query.lastError().type() == QSqlError::NoError) {
         qDebug() << "Request success";
+        setListsIds( readAllIdsFromLists("lists"));
+        setCountLists(listsIds().length());
     } else {
         qDebug() << "Error ? " << query.lastError().text();
+        return  false;
     }
     return true;
 }
 
-bool SQLiteStorage::updateCachesLists(const QString &tableName, const int &list, const QString &code)
+bool SQLiteStorage::updateCacheInLists(const QString &tableName, const int &list, const QString &code)
 {
     QString queryCommand;
     queryCommand += " INSERT OR IGNORE INTO " + tableName + " (id, list, code) VALUES (" + " NULL , '" + QString::number(list) + "', '" + code + "') ";
@@ -189,8 +209,22 @@ bool SQLiteStorage::updateCachesLists(const QString &tableName, const int &list,
         qDebug() << "Request success";
     } else {
         qDebug() << "Error ? " << query.lastError().text();
+        return  false;
     }
     return true;
+}
+
+void SQLiteStorage::updateListWithGeocode(const QString &tableName , const QList<bool> &list , const QString &code)
+{
+    for(int index=0 ; index<list.length() ; index++)
+    {
+        if(list[index] == true) {
+            updateCacheInLists(tableName, m_listsIds[index] , code);
+        } else {
+            deleteCacheInList(tableName , m_listsIds[index] , code);
+        }
+    }
+    setListWithGeocode(list);
 }
 
 void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
@@ -263,6 +297,40 @@ bool SQLiteStorage::createTable(const QString &tableName, const QString &columns
     qDebug() << "Request success";
     return true;
 }
+
+QList<bool> SQLiteStorage::listWithGeocode() const
+{
+    return m_listWithGeocode;
+}
+
+void SQLiteStorage::setListWithGeocode(const QList<bool> &list)
+{
+    m_listWithGeocode = list;
+    emit listWithGeocodeChanged();
+}
+
+QList<int> SQLiteStorage::listsIds() const
+{
+    return m_listsIds;
+}
+
+void SQLiteStorage::setListsIds(const QList<int> &list)
+{
+    m_listsIds = list;
+    emit listsIdsChanged();
+}
+
+int SQLiteStorage::countLists() const
+{
+    return m_countLists;
+}
+
+void SQLiteStorage::setCountLists(const int &count)
+{
+    m_countLists = count;
+    emit countListsChanged();
+}
+
 
 
 
