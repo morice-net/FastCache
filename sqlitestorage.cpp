@@ -11,6 +11,7 @@ SQLiteStorage::SQLiteStorage(QObject *parent) : QObject(parent)
     m_listWithGeocode = QList<bool>();
     m_listsIds = QList<int>();
     m_countLists = 0 ;
+    m_countCachesInLists = QList<int>();
 
     QString path = "./FastCacheDatabase.db";
     m_database = QSqlDatabase::addDatabase("QSQLITE");
@@ -66,10 +67,46 @@ QList<bool> SQLiteStorage::cacheInLists(const QString &tableName , const QString
         } else {
             listBool.append(true);
         }
-        qDebug() << " cache in lists " << listBool;
     }
+    qDebug() << " cache in lists " << listBool;
     setListWithGeocode(listBool);
     return listBool;
+}
+
+QList<int> SQLiteStorage::numberCachesInLists(const QString &tableName)
+{
+    QString selectQueryText = "SELECT list , COUNT(list) FROM " + tableName + " GROUP BY list ORDER BY list";
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return QList<int>();
+    }
+    qDebug() << "Request success";
+    QList<int> list = QList<int>();
+    QList<int> listCount = QList<int>();
+    QList<int> listResult = QList<int>();
+
+    while(select.next()) {
+        list.append(select.value(0).toInt());
+        listCount.append(select.value(1).toInt());
+    }
+
+    int j = 0;
+    for ( int i = 0; i < listsIds().length();i++)
+    {
+        if(list.indexOf(listsIds()[i]) == -1){
+            listResult.append(0);
+        } else {
+            listResult.append(listCount[j]);
+            j = j+1;
+        }
+    }
+    qDebug() << " Number of caches in lists " << listResult;
+    setCountCachesInLists(listResult);
+    return listResult;
 }
 
 QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
@@ -245,7 +282,7 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
 void SQLiteStorage::deleteCacheInList(const QString &tableName , const int &list , const QString &code)
 {
     QString queryCommand;
-    queryCommand += "DELETE FROM " + tableName + " WHERE code='" + code + "'" + " AND id='" + QString::number(list) + "'"  ;
+    queryCommand += "DELETE FROM " + tableName + " WHERE code='" + code + "'" + " AND list='" + QString::number(list) + "'"  ;
 
     QSqlQuery query;
     query.exec(queryCommand);
@@ -329,6 +366,17 @@ void SQLiteStorage::setCountLists(const int &count)
 {
     m_countLists = count;
     emit countListsChanged();
+}
+
+QList<int> SQLiteStorage::countCachesInLists() const
+{
+    return m_countCachesInLists;
+}
+
+void SQLiteStorage::setCountCachesInLists(const QList<int> &count)
+{
+    m_countCachesInLists = count;
+    emit countCachesInListsChanged();
 }
 
 

@@ -12,6 +12,7 @@ class SQLiteStorage: public QObject
     Q_PROPERTY(QList<bool> listWithGeocode READ listWithGeocode WRITE setListWithGeocode NOTIFY listWithGeocodeChanged)
     Q_PROPERTY(QList<int> listsIds READ listsIds WRITE setListsIds NOTIFY listsIdsChanged)
     Q_PROPERTY(int countLists READ countLists WRITE setCountLists NOTIFY countListsChanged)
+    Q_PROPERTY(QList<int> countCachesInLists READ countCachesInLists WRITE setCountCachesInLists NOTIFY countCachesInListsChanged)
 
 public:
     explicit SQLiteStorage(QObject * parent = nullptr);
@@ -32,6 +33,7 @@ public:
     Q_INVOKABLE bool createTable(const QString &tableName, const QString &columns);
     Q_INVOKABLE QList<bool> cacheInLists(const QString &tableName, const QString &code);
     Q_INVOKABLE void updateListWithGeocode(const QString &tableName , const QList<bool> &list , const QString &code);
+    Q_INVOKABLE QList<int> numberCachesInLists(const QString &tableName);
 
     QList<bool> listWithGeocode() const;
     void setListWithGeocode(const QList<bool> &list);
@@ -42,16 +44,21 @@ public:
     int countLists() const;
     void setCountLists(const int &count);
 
+    QList<int> countCachesInLists() const;
+    void setCountCachesInLists(const QList<int> &count);
+
 signals:
     void listWithGeocodeChanged();
     void listsIdsChanged();
     void countListsChanged();
+    void countCachesInListsChanged();
 
 private:
     QSqlDatabase m_database;
     QList<bool> m_listWithGeocode;
     QList<int> m_listsIds;
     int m_countLists;
+    QList<int> m_countCachesInLists;
 };
 
 #endif // SQLITESTORAGE_H

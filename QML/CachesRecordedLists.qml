@@ -44,7 +44,7 @@ FastPopup {
                     listChecked[index] = !listChecked[index]
                 }
                 contentItem: Text {
-                    text: sqliteStorage.readAllStringsFromTable("lists")[index]
+                    text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     font.family: localFont.name
                     font.pointSize: 16
                     color: checked ? Palette.white() : Palette.silver()
@@ -206,6 +206,7 @@ FastPopup {
                     fullCache.registered = true
                 }
                 sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
+                sqliteStorage.numberCachesInLists("cacheslists")
                 closeIfMenu()
                 cachesRecordedLists.close()
             }
