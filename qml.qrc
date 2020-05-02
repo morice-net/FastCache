@@ -159,5 +159,9 @@
         <file>Image/mapsIcon.png</file>
         <file>Image/marker_save.png</file>
         <file>QML/CachesRecordedLists.qml</file>
+        <file>QML/JavaScript/ListBox.qml</file>
+        <file>QML/ListBox.qml</file>
+        <file>Image/icon_delete.png</file>
+        <file>Image/icon_edit.png</file>
     </qresource>
 </RCC>

@@ -37,33 +37,25 @@ FastPopup {
         Repeater {
             model: sqliteStorage.countLists
 
-            CheckBox {
+            ListBox {
                 x:10
                 checked:listCheckedBool(fullCache.geocode)[index]
-                onClicked: {
+                onListBoxClicked: {
                     listChecked[index] = !listChecked[index]
                 }
                 contentItem: Text {
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     font.family: localFont.name
                     font.pointSize: 16
-                    color: checked ? Palette.white() : Palette.silver()
                     verticalAlignment: Text.AlignVCenter
-                    leftPadding: indicator.width + spacing
+                    leftPadding: indicator.width + 25
+                    color: checked ? Palette.white() : Palette.silver()
                 }
-                indicator: Rectangle {
-                    implicitWidth: 25
-                    implicitHeight: 25
-                    radius: 3
-                    border.width: 1
-                    y: parent.height / 2 - height / 2
-                    Rectangle {
-                        anchors.fill: parent
-                        visible: checked
-                        color: Palette.greenSea()
-                        radius: 3
-                        anchors.margins: 4
-                    }
+                onDeleteListClicked: {
+                    console.log("Delete:  " + index)
+                }
+                onEditListClicked: {
+                    console.log("Edit:  " + index)
                 }
             }
         }
@@ -89,8 +81,8 @@ FastPopup {
                 leftPadding: newList.indicator.width + newList.spacing
             }
             indicator: Rectangle {
-                implicitWidth: 25
-                implicitHeight: 25
+                implicitWidth: 30
+                implicitHeight: 30
                 radius: 3
                 border.width: 1
                 y: parent.height / 2 - height / 2
