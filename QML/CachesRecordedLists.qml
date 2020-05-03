@@ -40,6 +40,8 @@ FastPopup {
             ListBox {
                 x:10
                 checked:listCheckedBool(fullCache.geocode)[index]
+                visibleEditList: index !== 0
+                visibleDeleteList: index !== 0
                 onListBoxClicked: {
                     listChecked[index] = !listChecked[index]
                 }

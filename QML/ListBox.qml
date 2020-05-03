@@ -10,6 +10,8 @@ Item {
     property alias checked: box.checked
     property alias contentItem: box.contentItem
     property alias indicator: box.indicator
+    property alias visibleEditList: editList.visible
+    property alias visibleDeleteList: deleteList.visible
 
     signal listBoxClicked()
     signal deleteListClicked()
