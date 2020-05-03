@@ -160,6 +160,7 @@ FastPopup {
                     if (createNewList.length !== 0) {
                         sqliteStorage.updateLists("lists" , -1 , createNewList.text )
                         newList.checked = false
+                        sqliteStorage.countCachesInLists.push(0)
                     }
                 }
             }
