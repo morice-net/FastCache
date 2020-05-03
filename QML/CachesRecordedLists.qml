@@ -9,6 +9,7 @@ FastPopup {
     id: cachesRecordedLists
 
     property var listChecked: []
+    property int listIndex: 0
 
     width: parent.width * 0.9
     background: Rectangle {
@@ -57,7 +58,9 @@ FastPopup {
                     console.log("Delete:  " + index)
                 }
                 onEditListClicked: {
-                    console.log("Edit:  " + index)
+                    renameList.visible = true
+                    separator3.visible = true
+                    listIndex = index
                 }
             }
         }
@@ -175,6 +178,32 @@ FastPopup {
             radius:10
         }
 
+        TextField {
+            id: renameList
+            visible: false
+            placeholderText: qsTr(sqliteStorage.readAllStringsFromTable("lists")[listIndex])
+            font.family: localFont.name
+            font.pointSize: 16
+            color: Palette.greenSea()
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                border.color: Palette.turquoise()
+                border.width: 1
+                radius: 5
+            }
+        }
+
+        Rectangle {
+            id: separator3
+            visible: false
+            x:0
+            width: cachesRecordedLists.width*0.9
+            height: 2
+            color: Palette.white()
+            radius:10
+        }
+
         Button {
             x:10
             contentItem: Text {
@@ -192,6 +221,14 @@ FastPopup {
                 radius: 5
             }
             onClicked: {
+                // Rename list
+                if(renameList.visible === true  && renameList.text.length !== 0)
+                {
+                    sqliteStorage.updateLists("lists", sqliteStorage.listsIds[listIndex], renameList.text)
+                    renameList.visible = false
+                    separator3.visible = false
+                }
+                // Close cachesRecordedLists
                 if(listChecked.indexOf(true) === -1)
                 {
                     fullCacheRetriever.deleteToStorage(sqliteStorage)
