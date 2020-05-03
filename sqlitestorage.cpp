@@ -279,10 +279,42 @@ void SQLiteStorage::deleteObject(const QString &tableName, const QString &id)
     }
 }
 
+void SQLiteStorage::deleteList(const QString &tableName, const QString &id)
+{
+    QString queryCommand;
+    queryCommand += "DELETE FROM " + tableName + " WHERE " + "id='" + id + "'";
+
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+        setListsIds( readAllIdsFromLists("lists"));
+        setCountLists(listsIds().length());
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+}
+
 void SQLiteStorage::deleteCacheInList(const QString &tableName , const int &list , const QString &code)
 {
     QString queryCommand;
     queryCommand += "DELETE FROM " + tableName + " WHERE code='" + code + "'" + " AND list='" + QString::number(list) + "'"  ;
+
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+}
+
+void SQLiteStorage::deleteCachesInList(const QString &tableName , const int &list)
+{
+    QString queryCommand;
+    queryCommand += "DELETE FROM " + tableName + " WHERE list='" + QString::number(list) + "'"  ;
 
     QSqlQuery query;
     query.exec(queryCommand);

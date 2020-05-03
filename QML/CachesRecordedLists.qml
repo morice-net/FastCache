@@ -35,6 +35,70 @@ FastPopup {
             text: "Choisir les listes.."
         }
 
+        Row {
+            spacing: 10
+
+            Button {
+                id:buttonDelete
+                visible: false
+                contentItem: Text {
+                    text:"Etes vous sur?"
+                    font.family: localFont.name
+                    font.pixelSize: 25
+                    color: Palette.white()
+                }
+                background: Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.greenSea()
+                    border.color: Palette.white()
+                    border.width: 1
+                    radius: 5
+                }
+                onClicked: {
+                    sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
+                    sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
+                    buttonDelete.visible = false
+                    buttonNo.visible = false
+                    separator1.visible = false
+                }
+            }
+
+            Button {
+                id:buttonNo
+                visible: false
+                contentItem: Text {
+                    text:"Annuler"
+                    font.family: localFont.name
+                    font.pixelSize: 25
+                    color: Palette.white()
+                }
+                background: Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.greenSea()
+                    border.color: Palette.white()
+                    border.width: 1
+                    radius: 5
+                }
+                onClicked: {
+                    buttonDelete.visible = false
+                    buttonNo.visible = false
+                    separator1.visible = false
+                }
+            }
+        }
+
+        Rectangle {
+            id: separator1
+            visible: false
+            x:0
+            width: cachesRecordedLists.width*0.9
+            height: 2
+            color: Palette.white()
+            radius:10
+        }
+
         Repeater {
             model: sqliteStorage.countLists
 
@@ -55,18 +119,21 @@ FastPopup {
                     color: checked ? Palette.white() : Palette.silver()
                 }
                 onDeleteListClicked: {
-                    console.log("Delete:  " + index)
+                    buttonDelete.visible = true
+                    buttonNo.visible = true
+                    separator1.visible = true
+                    listIndex = index
                 }
                 onEditListClicked: {
                     renameList.visible = true
-                    separator3.visible = true
+                    separator4.visible = true
                     listIndex = index
                 }
             }
         }
 
         Rectangle {
-            id: separator1
+            id: separator2
             x:0
             width: cachesRecordedLists.width*0.9
             height: 2
@@ -170,7 +237,7 @@ FastPopup {
         }
 
         Rectangle {
-            id: separator2
+            id: separator3
             x:0
             width: cachesRecordedLists.width*0.9
             height: 2
@@ -195,7 +262,7 @@ FastPopup {
         }
 
         Rectangle {
-            id: separator3
+            id: separator4
             visible: false
             x:0
             width: cachesRecordedLists.width*0.9
