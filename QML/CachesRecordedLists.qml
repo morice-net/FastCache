@@ -26,15 +26,64 @@ FastPopup {
         spacing: 10
 
         Text {
+            id: title
             y: 10
             font.family: localFont.name
             font.pointSize: 24
             verticalAlignment: Text.AlignLeft
             horizontalAlignment: Text.AlignLeft
             color: Palette.white()
-            text: "Choisir les listes.."
+            text: "Gérer les listes.."
         }
 
+        // rename list
+        TextField {
+            id: renameList
+            visible: false
+            placeholderText: qsTr("Nouvelle liste")
+            font.family: localFont.name
+            font.pointSize: 16
+            color: Palette.greenSea()
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                border.color: Palette.turquoise()
+                border.width: 1
+                radius: 5
+            }
+        }
+
+        Button {
+            id:buttonRename
+            visible: false
+            contentItem: Text {
+                text:"Renommer la liste"
+                font.family: localFont.name
+                font.pointSize: 16
+                color: Palette.white()
+            }
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                color: Palette.greenSea()
+                border.color: Palette.white()
+                border.width: 1
+                radius: 5
+            }
+            onClicked: {
+                if(renameList.text.length !== 0)
+                {
+                    sqliteStorage.updateLists("lists", sqliteStorage.listsIds[listIndex], renameList.text)
+                    sqliteStorage.numberCachesInLists("cacheslists")
+                }
+                title.text = "Gérer les listes.."
+                displayList.visible = true
+                renameList.visible = false
+                buttonRename.visible = false
+            }
+        }
+
+        // delete list
         Row {
             spacing: 10
 
@@ -44,7 +93,7 @@ FastPopup {
                 contentItem: Text {
                     text:"Etes vous sur?"
                     font.family: localFont.name
-                    font.pixelSize: 25
+                    font.pointSize: 16
                     color: Palette.white()
                 }
                 background: Rectangle {
@@ -58,9 +107,20 @@ FastPopup {
                 onClicked: {
                     sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
                     sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
+                    sqliteStorage.updateListWithGeocode("cacheslists" ,listCheckedBool(fullCache.geocode) , fullCache.geocode)
+                    sqliteStorage.numberCachesInLists("cacheslists")
+                    if(listChecked.indexOf(true) === -1)
+                    {
+                        fullCacheRetriever.deleteToStorage(sqliteStorage)
+                        fullCache.registered = false
+                    } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
+                        fullCacheRetriever.writeToStorage(sqliteStorage)
+                        fullCache.registered = true
+                    }
+                    title.text = "Gérer les listes.."
+                    displayList.visible = true
                     buttonDelete.visible = false
                     buttonNo.visible = false
-                    separator1.visible = false
                 }
             }
 
@@ -70,7 +130,7 @@ FastPopup {
                 contentItem: Text {
                     text:"Annuler"
                     font.family: localFont.name
-                    font.pixelSize: 25
+                    font.pointSize: 16
                     color: Palette.white()
                 }
                 background: Rectangle {
@@ -82,232 +142,208 @@ FastPopup {
                     radius: 5
                 }
                 onClicked: {
+                    title.text = "Gérer les listes.."
+                    displayList.visible = true
                     buttonDelete.visible = false
                     buttonNo.visible = false
-                    separator1.visible = false
                 }
             }
         }
 
-        Rectangle {
-            id: separator1
-            visible: false
-            x:0
-            width: cachesRecordedLists.width*0.9
-            height: 2
-            color: Palette.white()
-            radius:10
-        }
+        Item {
+            id:displayList
+            y: title.height + 20
+            visible: true
 
-        Repeater {
-            model: sqliteStorage.countLists
+            Column {
+                spacing: 10
 
-            ListBox {
-                x:10
-                checked:listCheckedBool(fullCache.geocode)[index]
-                visibleEditList: index !== 0
-                visibleDeleteList: index !== 0
-                onListBoxClicked: {
-                    listChecked[index] = !listChecked[index]
-                }
-                contentItem: Text {
-                    text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    verticalAlignment: Text.AlignVCenter
-                    leftPadding: indicator.width + 25
-                    color: checked ? Palette.white() : Palette.silver()
-                }
-                onDeleteListClicked: {
-                    buttonDelete.visible = true
-                    buttonNo.visible = true
-                    separator1.visible = true
-                    listIndex = index
-                }
-                onEditListClicked: {
-                    renameList.visible = true
-                    separator4.visible = true
-                    listIndex = index
-                }
-            }
-        }
+                // repeater
+                Repeater {
+                    model: sqliteStorage.countLists
 
-        Rectangle {
-            id: separator2
-            x:0
-            width: cachesRecordedLists.width*0.9
-            height: 2
-            color: Palette.white()
-            radius:10
-        }
-
-        CheckBox {
-            id : newList
-            x:10
-            contentItem: Text {
-                text: "Nouvelle liste"
-                font.family: localFont.name
-                font.pointSize: 16
-                color: newList.checked ? Palette.white() : Palette.silver()
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: newList.indicator.width + newList.spacing
-            }
-            indicator: Rectangle {
-                implicitWidth: 30
-                implicitHeight: 30
-                radius: 3
-                border.width: 1
-                y: parent.height / 2 - height / 2
-                Rectangle {
-                    anchors.fill: parent
-                    visible: newList.checked
-                    color: Palette.greenSea()
-                    radius: 3
-                    anchors.margins: 4
-                }
-            }
-        }
-
-        TextField {
-            id: createNewList
-            visible: newList.checked
-            placeholderText: qsTr("nouvelle liste")
-            font.family: localFont.name
-            font.pointSize: 16
-            color: Palette.greenSea()
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                border.color: Palette.turquoise()
-                border.width: 1
-                radius: 5
-            }
-        }
-
-        Row {
-            spacing: 10
-
-            Button {
-                id:buttonDel
-                visible: newList.checked
-                contentItem: Text {
-                    text:"Effacer"
-                    font.family: localFont.name
-                    font.pixelSize: 25
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
-                onClicked: {
-                    createNewList.text = "" ;
-                }
-            }
-
-            Button {
-                id:buttonCreate
-                visible: newList.checked
-                contentItem: Text {
-                    text:"Créer la liste"
-                    font.family: localFont.name
-                    font.pixelSize: 25
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
-                onClicked: {
-                    if (createNewList.length !== 0) {
-                        sqliteStorage.updateLists("lists" , -1 , createNewList.text )
-                        newList.checked = false
-                        sqliteStorage.countCachesInLists.push(0)
+                    ListBox {
+                        x:10
+                        checked:listCheckedBool(fullCache.geocode)[index]
+                        visibleEditList: index !== 0
+                        visibleDeleteList: index !== 0
+                        onListBoxClicked: {
+                            listChecked[index] = !listChecked[index]
+                            if(listChecked.indexOf(true) === -1)
+                            {
+                                fullCacheRetriever.deleteToStorage(sqliteStorage)
+                                fullCache.registered = false
+                            } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
+                                fullCacheRetriever.writeToStorage(sqliteStorage)
+                                fullCache.registered = true
+                            }
+                            sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
+                            sqliteStorage.numberCachesInLists("cacheslists")
+                        }
+                        contentItem: Text {
+                            text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            verticalAlignment: Text.AlignVCenter
+                            leftPadding: indicator.width + 25
+                            color: checked ? Palette.white() : Palette.silver()
+                        }
+                        onDeleteListClicked: {
+                            title.text = "Supprimer la liste"
+                            displayList.visible = false
+                            buttonDelete.visible = true
+                            buttonNo.visible = true
+                            listIndex = index
+                        }
+                        onEditListClicked: {
+                            title.text = "Renommer la liste"
+                            displayList.visible = false
+                            renameList.visible = true
+                            buttonRename.visible = true
+                            listIndex = index
+                        }
                     }
                 }
-            }
-        }
 
-        Rectangle {
-            id: separator3
-            x:0
-            width: cachesRecordedLists.width*0.9
-            height: 2
-            color: Palette.white()
-            radius:10
-        }
-
-        TextField {
-            id: renameList
-            visible: false
-            placeholderText: qsTr(sqliteStorage.readAllStringsFromTable("lists")[listIndex])
-            font.family: localFont.name
-            font.pointSize: 16
-            color: Palette.greenSea()
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                border.color: Palette.turquoise()
-                border.width: 1
-                radius: 5
-            }
-        }
-
-        Rectangle {
-            id: separator4
-            visible: false
-            x:0
-            width: cachesRecordedLists.width*0.9
-            height: 2
-            color: Palette.white()
-            radius:10
-        }
-
-        Button {
-            x:10
-            contentItem: Text {
-                text:"Ok"
-                font.family: localFont.name
-                font.pixelSize: 25
-                color: Palette.white()
-            }
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                color: Palette.greenSea()
-                border.color: Palette.white()
-                border.width: 1
-                radius: 5
-            }
-            onClicked: {
-                // Rename list
-                if(renameList.visible === true  && renameList.text.length !== 0)
-                {
-                    sqliteStorage.updateLists("lists", sqliteStorage.listsIds[listIndex], renameList.text)
-                    renameList.visible = false
-                    separator3.visible = false
+                Rectangle {
+                    x:0
+                    width: cachesRecordedLists.width*0.9
+                    height: 2
+                    color: Palette.white()
+                    radius:10
                 }
-                // Close cachesRecordedLists
-                if(listChecked.indexOf(true) === -1)
-                {
-                    fullCacheRetriever.deleteToStorage(sqliteStorage)
-                    fullCache.registered = false
-                } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
-                    fullCacheRetriever.writeToStorage(sqliteStorage)
-                    fullCache.registered = true
+
+                // new list
+                CheckBox {
+                    id : newList
+                    visible: true
+                    x:10
+                    contentItem: Text {
+                        text: "Nouvelle liste"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: newList.checked ? Palette.white() : Palette.silver()
+                        verticalAlignment: Text.AlignVCenter
+                        leftPadding: newList.indicator.width + newList.spacing
+                    }
+                    indicator: Rectangle {
+                        implicitWidth: 30
+                        implicitHeight: 30
+                        radius: 3
+                        border.width: 1
+                        y: parent.height / 2 - height / 2
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: newList.checked
+                            color: Palette.greenSea()
+                            radius: 3
+                            anchors.margins: 4
+                        }
+                    }
                 }
-                sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
-                sqliteStorage.numberCachesInLists("cacheslists")
-                closeIfMenu()
-                cachesRecordedLists.close()
+
+                TextField {
+                    id: createNewList
+                    visible: newList.checked
+                    placeholderText: qsTr("nouvelle liste")
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    color: Palette.greenSea()
+                    background: Rectangle {
+                        anchors.fill: parent
+                        opacity: 0.9
+                        border.color: Palette.turquoise()
+                        border.width: 1
+                        radius: 5
+                    }
+                }
+
+                Row {
+                    spacing: 10
+
+                    Button {
+                        id:buttonDel
+                        visible: newList.checked
+                        contentItem: Text {
+                            text:"Effacer"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: Palette.white()
+                        }
+                        background: Rectangle {
+                            anchors.fill: parent
+                            opacity: 0.9
+                            color: Palette.greenSea()
+                            border.color: Palette.white()
+                            border.width: 1
+                            radius: 5
+                        }
+                        onClicked: {
+                            createNewList.text = "" ;
+                        }
+                    }
+
+                    // create list
+                    Button {
+                        id:buttonCreate
+                        visible: newList.checked
+                        contentItem: Text {
+                            text:"Créer la liste"
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: Palette.white()
+                        }
+                        background: Rectangle {
+                            anchors.fill: parent
+                            opacity: 0.9
+                            color: Palette.greenSea()
+                            border.color: Palette.white()
+                            border.width: 1
+                            radius: 5
+                        }
+                        onClicked: {
+                            if (createNewList.length !== 0) {
+                                sqliteStorage.updateLists("lists" , -1 , createNewList.text )
+                                newList.checked = false
+                                sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
+                                sqliteStorage.numberCachesInLists("cacheslists")
+
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    x:0
+                    width: cachesRecordedLists.width*0.9
+                    height: 2
+                    color: Palette.white()
+                    radius:10
+                }
+
+                // button Ok
+                Button {
+                    x:10
+                    contentItem: Text {
+                        text:"Ok"
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: Palette.white()
+                    }
+                    background: Rectangle {
+                        anchors.fill: parent
+                        opacity: 0.9
+                        color: Palette.greenSea()
+                        border.color: Palette.white()
+                        border.width: 1
+                        radius: 5
+                    }
+                    onClicked: {
+                        // Close cachesRecordedLists
+                        closeIfMenu()
+                        cachesRecordedLists.close()
+                    }
+                }
             }
         }
     }
