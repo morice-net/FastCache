@@ -36,6 +36,7 @@ public:
     Q_INVOKABLE QList<int> numberCachesInLists(const QString &tableName);
     Q_INVOKABLE void deleteCachesInList(const QString &tableName , const int &list);
     Q_INVOKABLE void deleteList(const QString &tableName, const QString &id);
+    Q_INVOKABLE void updateFullCachesTable(const QString &tableNameLists , const QString &tableNameFullCache);
 
     QList<bool> listWithGeocode() const;
     void setListWithGeocode(const QList<bool> &list);

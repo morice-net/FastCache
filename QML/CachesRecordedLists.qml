@@ -85,7 +85,7 @@ FastPopup {
 
         // delete list
         Row {
-            spacing: 10
+            spacing: 25
 
             Button {
                 id:buttonDelete
@@ -107,14 +107,12 @@ FastPopup {
                 onClicked: {
                     sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
                     sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
-                    sqliteStorage.updateListWithGeocode("cacheslists" ,listCheckedBool(fullCache.geocode) , fullCache.geocode)
                     sqliteStorage.numberCachesInLists("cacheslists")
+                    sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache")
                     if(listChecked.indexOf(true) === -1)
                     {
-                        fullCacheRetriever.deleteToStorage(sqliteStorage)
                         fullCache.registered = false
-                    } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
-                        fullCacheRetriever.writeToStorage(sqliteStorage)
+                    } else {
                         fullCache.registered = true
                     }
                     title.text = "Gérer les listes.."
@@ -305,9 +303,7 @@ FastPopup {
                             if (createNewList.length !== 0) {
                                 sqliteStorage.updateLists("lists" , -1 , createNewList.text )
                                 newList.checked = false
-                                sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
                                 sqliteStorage.numberCachesInLists("cacheslists")
-
                             }
                         }
                     }
