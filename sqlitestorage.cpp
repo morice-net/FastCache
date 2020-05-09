@@ -299,17 +299,10 @@ void SQLiteStorage::updateFullCachesTable(const QString &tableNameLists , const 
         return ;
     }
     qDebug() << "Request success";
-    QList<QString> listCodesFullCache = QList<QString>();
-    qDebug() << "list Codes full caches:  "<<listCodesFullCache;
 
     while(select.next()) {
-        listCodesFullCache.append(select.value(0).toString());
-    }
-    qDebug() << "list Codes full caches:  "<<listCodesFullCache;
-
-    // eventually delete element of table "fullcache"
-    foreach ( const QString & codeFullCache, listCodesFullCache)
-    {
+        QString codeFullCache = select.value(0).toString();
+        // eventually delete element of table "fullcache"
         if(listCodes.indexOf(codeFullCache) == -1){
             deleteObject("fullcache", codeFullCache);
         }
