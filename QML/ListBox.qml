@@ -40,12 +40,30 @@ Item {
     }
 
     Image {
+        id: editList
+        source: "qrc:/Image/" + "icon_edit.png"
+        anchors.right: deleteList.left
+        anchors.bottom: box.bottom
+        anchors.top: box.top
+        anchors.rightMargin: 40
+        fillMode: Image.PreserveAspectFit
+        width: height
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: editListClicked()
+        }
+    }
+
+    Image {
         id: deleteList
         source: "qrc:/Image/" + "icon_delete.png"
         anchors.right: parent.right
         anchors.bottom: box.bottom
-        anchors.rightMargin: 5
-        scale: 1.1
+        anchors.top: box.top
+        anchors.rightMargin: 15
+        fillMode: Image.PreserveAspectFit
+        width: height
 
         MouseArea {
             anchors.fill: parent
@@ -53,19 +71,6 @@ Item {
         }
     }
 
-    Image {
-        id: editList
-        source: "qrc:/Image/" + "icon_edit.png"
-        anchors.right: deleteList.left
-        anchors.bottom: box.bottom
-        anchors.rightMargin: 40
-        scale: 1.1
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: editListClicked()
-        }
-    }
 }
 
 

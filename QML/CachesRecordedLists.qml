@@ -26,13 +26,13 @@ FastPopup {
     Column {
         id: renameDeleteColumn
         width:cachesRecordedLists.width
-        spacing: 10
+        spacing: 20
 
         Text {
             id: title
             y: 10
             font.family: localFont.name
-            font.pointSize: 24
+            font.pointSize: 28
             verticalAlignment: Text.AlignLeft
             horizontalAlignment: Text.AlignLeft
             color: Palette.white()
@@ -45,7 +45,7 @@ FastPopup {
             visible: false
             placeholderText: qsTr("Nouvelle liste")
             font.family: localFont.name
-            font.pointSize: 16
+            font.pointSize: 20
             color: Palette.greenSea()
             background: Rectangle {
                 anchors.fill: parent
@@ -56,23 +56,11 @@ FastPopup {
             }
         }
 
-        Button {
+        FastTextButton {
             id:buttonRename
             visible: false
-            contentItem: Text {
-                text:"Renommer la liste"
-                font.family: localFont.name
-                font.pointSize: 16
-                color: Palette.white()
-            }
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                color: Palette.greenSea()
-                border.color: Palette.white()
-                border.width: 1
-                radius: 5
-            }
+            buttonText: "Renommer la liste"
+
             onClicked: {
                 if(renameList.text.length !== 0)
                 {
@@ -91,23 +79,11 @@ FastPopup {
         Row {
             spacing: 25
 
-            Button {
+            FastTextButton {
                 id:buttonDelete
                 visible: false
-                contentItem: Text {
-                    text:"Etes vous sur?"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
+                buttonText: "Etes vous sur ?"
+
                 onClicked: {
                     sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
                     sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
@@ -127,23 +103,11 @@ FastPopup {
                 }
             }
 
-            Button {
+            FastTextButton {
                 id:buttonNo
                 visible: false
-                contentItem: Text {
-                    text:"Annuler"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
+                buttonText: "Annuler"
+
                 onClicked: {
                     title.text = "Gérer les listes.."
                     displayListColumn.visible = true
@@ -197,7 +161,7 @@ FastPopup {
                     contentItem: Text {
                         text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                         font.family: localFont.name
-                        font.pointSize: 16
+                        font.pointSize: 20
                         verticalAlignment: Text.AlignVCenter
                         leftPadding: indicator.width + 25
                         color: checked ? Palette.white() : Palette.silver()
@@ -232,7 +196,6 @@ FastPopup {
         spacing: 10
 
         Rectangle {
-            x:0
             width: cachesRecordedLists.width*0.9
             height: 2
             color: Palette.white()
@@ -247,7 +210,7 @@ FastPopup {
             contentItem: Text {
                 text: "Nouvelle liste"
                 font.family: localFont.name
-                font.pointSize: 16
+                font.pointSize: 20
                 color: newList.checked ? Palette.white() : Palette.silver()
                 verticalAlignment: Text.AlignVCenter
                 leftPadding: newList.indicator.width + newList.spacing
@@ -271,9 +234,9 @@ FastPopup {
         TextField {
             id: createNewList
             visible: newList.checked
-            placeholderText: qsTr("nouvelle liste")
+            placeholderText: qsTr("Nouvelle liste")
             font.family: localFont.name
-            font.pointSize: 16
+            font.pointSize: 20
             color: Palette.greenSea()
             background: Rectangle {
                 anchors.fill: parent
@@ -287,46 +250,22 @@ FastPopup {
         Row {
             spacing: 10
 
-            Button {
+            FastTextButton {
                 id:buttonDel
                 visible: newList.checked
-                contentItem: Text {
-                    text:"Effacer"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
+                buttonText: "Effacer"
+
                 onClicked: {
                     createNewList.text = "" ;
                 }
             }
 
             // create list
-            Button {
+            FastTextButton {
                 id:buttonCreate
                 visible: newList.checked
-                contentItem: Text {
-                    text:"Créer la liste"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.white()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
+                buttonText: "Créer la liste"
+
                 onClicked: {
                     if (createNewList.length !== 0) {
                         sqliteStorage.updateLists("lists" , -1 , createNewList.text )
@@ -346,22 +285,10 @@ FastPopup {
         }
 
         // button Ok
-        Button {
+        FastTextButton {
             x:10
-            contentItem: Text {
-                text:"Ok"
-                font.family: localFont.name
-                font.pointSize: 16
-                color: Palette.white()
-            }
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                color: Palette.greenSea()
-                border.color: Palette.white()
-                border.width: 1
-                radius: 5
-            }
+            buttonText:"OK"
+
             onClicked: {
                 // Close cachesRecordedLists
                 closeIfMenu()
