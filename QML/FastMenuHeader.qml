@@ -59,6 +59,7 @@ Item {
 
     // Storage
     Rectangle {
+        id: storageHeartButton
         visible: main.viewState === "fullcache" && fullCacheRetriever.state !== "loading"
         color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
         radius: 10
@@ -78,6 +79,8 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                cachesRecordedLists.x = main.width - cachesRecordedLists.width - storageHeartButton.width
+                cachesRecordedLists.y = storageHeartButton.height
                 cachesRecordedLists.open()
                 if(main.state === "recorded"){
                     updateRecordedList(sqliteStorage.readAllIdsFromTable("fullcache"));
@@ -86,7 +89,9 @@ Item {
         }
     }
 
-    CachesRecordedLists { id: cachesRecordedLists }
+    CachesRecordedLists {
+        id: cachesRecordedLists
+    }
 
     CacheFilter { id: cacheFilter }
 

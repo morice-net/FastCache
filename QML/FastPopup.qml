@@ -11,10 +11,11 @@ Popup {
     property alias backgroundRadius: backgroundRectangle.radius
     property alias backgroundBorder: backgroundRectangle.border
     property alias backgroundOpacity: backgroundRectangle.opacity
+    property alias closeButtonVisible: closeButton.visible
 
     width: childrenRect.width
     height: childrenRect.height
-    anchors.centerIn: parent
+    //anchors.centerIn: parent
 
     opacity: 0
     Behavior on opacity { NumberAnimation { duration: 800 ; easing.type: Easing.OutCurve } }
@@ -35,6 +36,7 @@ Popup {
     }
 
     Text {
+        id: closeButton
         text: "X"
         anchors.right: parent.right
         anchors.top: parent.top
@@ -49,7 +51,7 @@ Popup {
     }
 
     // Exit and focus management
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     onVisibleChanged: {
         if (visible) {
             opacity = 1

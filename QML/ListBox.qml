@@ -6,22 +6,24 @@ import QtQuick.Layouts 1.2
 import "JavaScript/Palette.js" as Palette
 
 Item {
+    property bool checkable: true
+    property bool editable: false
 
     property alias checked: box.checked
     property alias contentItem: box.contentItem
     property alias indicator: box.indicator
-    property alias visibleEditList: editList.visible
-    property alias visibleDeleteList: deleteList.visible
+    property alias text: listBoxText.text
 
     signal listBoxClicked()
     signal deleteListClicked()
     signal editListClicked()
 
-    width: parent.width
-    height: box.height
+    width: childrenRect.width
+    height: childrenRect.height
 
     CheckBox {
         id: box
+        visible: checkable
         onClicked: listBoxClicked()
         indicator: Rectangle {
             implicitWidth: 30
@@ -39,8 +41,19 @@ Item {
         }
     }
 
+    Text {
+        id: listBoxText
+        text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
+        font.family: localFont.name
+        font.pointSize: 20
+        verticalAlignment: Text.AlignVCenter
+        leftPadding: indicator.width + 25
+        color: checked ? Palette.white() : Palette.silver()
+    }
+
     Image {
         id: editList
+        visible: editable
         source: "qrc:/Image/" + "icon_edit.png"
         anchors.right: deleteList.left
         anchors.bottom: box.bottom
@@ -57,6 +70,7 @@ Item {
 
     Image {
         id: deleteList
+        visible: editable
         source: "qrc:/Image/" + "icon_delete.png"
         anchors.right: parent.right
         anchors.bottom: box.bottom
