@@ -11,7 +11,8 @@ FastPopup {
     property var listChecked: []
     property int listIndex: 0
 
-    width: parent.width * 0.9
+    width: parent.width
+    height: parent.height
 
     //first zone
     Column {
@@ -113,20 +114,17 @@ FastPopup {
         }
     }
 
-    // second zone
-    Flickable {
-        id:displayListColumn
-        y: renameDeleteColumn.height
-        visible: true
+    ScrollView {
+        id: displayListColumn
         clip: true
-        width: cachesRecordedLists.width*0.9
-        height: cachesRecordedLists.height/2
-        contentHeight: repeaterColumn.height + 80
-        flickableDirection: Flickable.VerticalFlick
+        anchors.top: renameDeleteColumn.bottom
+        anchors.margins: 10
+        width: repeaterColumn.width
+        height: Math.min(repeaterColumn.height, 4 * main.height / 5)
+        contentWidth: -1
 
         Column {
             id: repeaterColumn
-            y: renameDeleteColumn.height
             spacing: 10
             width:cachesRecordedLists.width*0.9
 
@@ -137,7 +135,7 @@ FastPopup {
                 ListBox {
                     x:10
                     checkable: false
-                    editable: true
+                    editable: index !== 0
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     width: parent.width * 0.9
                     onDeleteListClicked: {
@@ -165,7 +163,8 @@ FastPopup {
     Column {
         id: newListColumn
         width:cachesRecordedLists.width
-        y:displayListColumn.height + renameDeleteColumn.height + 10
+        anchors.top: displayListColumn.bottom
+        anchors.margins: 10
         visible: true
         spacing: 10
 
@@ -174,61 +173,51 @@ FastPopup {
             height: 2
             color: Palette.white()
             radius:10
+            anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        // new list
-        CheckBox {
-            id : newList
-            visible: true
-            x:10
-            contentItem: Text {
-                text: "Nouvelle liste"
-                font.family: localFont.name
-                font.pointSize: 20
-                color: newList.checked ? Palette.white() : Palette.silver()
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: newList.indicator.width + newList.spacing
-            }
-            indicator: Rectangle {
-                implicitWidth: 30
-                implicitHeight: 30
-                radius: 3
-                border.width: 1
-                y: parent.height / 2 - height / 2
-                Rectangle {
-                    anchors.fill: parent
-                    visible: newList.checked
-                    color: Palette.greenSea()
-                    radius: 3
-                    anchors.margins: 4
+        Row {
+            width: parent.width * 0.9
+            height: childrenRect.height
+            spacing: 10
+            // new list
+            FastTextButton {
+                id : newList
+                buttonText: "Nouvelle liste"
+                onClicked: {
+                    buttonDel.visible = true
+                    createNewList.visible = true
+                    buttonCreate.visible = true
                 }
             }
-        }
 
-        TextField {
-            id: createNewList
-            visible: newList.checked
-            placeholderText: qsTr("Nouvelle liste")
-            font.family: localFont.name
-            font.pointSize: 20
-            color: Palette.greenSea()
-            width: parent.width * 0.9
-            anchors.horizontalCenter: parent.horizontalCenter
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                border.color: Palette.turquoise()
-                border.width: 1
-                radius: 5
+            TextField {
+                id: createNewList
+                visible: false
+                placeholderText: qsTr("Nouvelle liste")
+                font.family: localFont.name
+                font.pointSize: 20
+                color: Palette.greenSea()
+                width: parent.width - newList.width - parent.spacing
+                background: Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.9
+                    border.color: Palette.turquoise()
+                    border.width: 1
+                    radius: 5
+                }
             }
         }
 
         Row {
             spacing: 10
+            height: childrenRect.height
+            width: childrenRect.width
+            anchors.horizontalCenter: parent.horizontalCenter
 
             FastTextButton {
                 id:buttonDel
-                visible: newList.checked
+                visible: false
                 buttonText: "Effacer"
 
                 onClicked: {
@@ -239,7 +228,7 @@ FastPopup {
             // create list
             FastTextButton {
                 id:buttonCreate
-                visible: newList.checked
+                visible: false
                 buttonText: "Créer la liste"
 
                 onClicked: {
@@ -253,7 +242,7 @@ FastPopup {
         }
 
         Rectangle {
-            x:0
+            anchors.horizontalCenter: parent.horizontalCenter
             width: cachesRecordedLists.width*0.9
             height: 2
             color: Palette.white()
@@ -262,8 +251,8 @@ FastPopup {
 
         // button Valider
         FastTextButton {
-            x:10
             buttonText:"Valider"
+            anchors.horizontalCenter: parent.horizontalCenter
 
             onClicked: {
                 // Close cachesRecordedLists

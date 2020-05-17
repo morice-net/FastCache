@@ -6,6 +6,7 @@ import QtQuick.Layouts 1.2
 import "JavaScript/Palette.js" as Palette
 
 Item {
+    id: listBox
     property bool checkable: true
     property bool editable: false
 
@@ -23,11 +24,11 @@ Item {
 
     CheckBox {
         id: box
-        visible: checkable
+        visible: listBox.checkable
         onClicked: listBoxClicked()
         indicator: Rectangle {
-            implicitWidth: 30
-            implicitHeight: 30
+            implicitWidth: 35
+            implicitHeight: 35
             radius: 3
             border.width: 1
             y: parent.height / 2 - height / 2
@@ -39,16 +40,20 @@ Item {
                 anchors.margins: 4
             }
         }
+        width: indicator.width + 2 * indicator.anchors.margins
+        height: indicator.height + 2 * indicator.anchors.margins
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     Text {
         id: listBoxText
         text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
         font.family: localFont.name
-        font.pointSize: 20
+        font.pointSize: 18
         verticalAlignment: Text.AlignVCenter
-        leftPadding: indicator.width + 25
-        color: checked ? Palette.white() : Palette.silver()
+        anchors.left: box.right
+        anchors.margins: 20
+        color: !checkable || checked ? Palette.white() : Palette.silver()
     }
 
     Image {
@@ -56,9 +61,9 @@ Item {
         visible: editable
         source: "qrc:/Image/" + "icon_edit.png"
         anchors.right: deleteList.left
-        anchors.bottom: box.bottom
-        anchors.top: box.top
-        anchors.rightMargin: 40
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        anchors.rightMargin: 20
         fillMode: Image.PreserveAspectFit
         width: height
 
@@ -73,9 +78,9 @@ Item {
         visible: editable
         source: "qrc:/Image/" + "icon_delete.png"
         anchors.right: parent.right
-        anchors.bottom: box.bottom
-        anchors.top: box.top
-        anchors.rightMargin: 15
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
+        anchors.rightMargin: 20
         fillMode: Image.PreserveAspectFit
         width: height
 
@@ -84,7 +89,6 @@ Item {
             onClicked: deleteListClicked()
         }
     }
-
 }
 
 

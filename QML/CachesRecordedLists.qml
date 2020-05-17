@@ -23,18 +23,17 @@ FastPopup {
 
     ScrollView {
         id: displayListColumn
-        visible: true
         clip: true
         width: repeaterColumn.width
         height: Math.min(repeaterColumn.height, 4 * main.height / 5)
+        contentWidth: -1
 
         Column {
             id: repeaterColumn
             spacing: 10
-            width: childrenRect.width
+            width: Math.max(childrenRect.width, main.width * 2 / 3)
             height: childrenRect.height
 
-            Component.onCompleted: console.log("column LENGTH = " + width + "x" + height)
             // repeater
             Repeater {
                 model: sqliteStorage.countLists
