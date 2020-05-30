@@ -234,8 +234,10 @@ FastPopup {
                 onClicked: {
                     if (createNewList.length !== 0) {
                         sqliteStorage.updateLists("lists" , -1 , createNewList.text )
-                        newList.checked = false
                         sqliteStorage.numberCachesInLists("cacheslists")
+                        buttonDel = false
+                        createNewList = false
+                        buttonCreate.visible = false
                     }
                 }
             }

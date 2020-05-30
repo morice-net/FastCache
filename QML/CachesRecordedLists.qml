@@ -19,6 +19,7 @@ FastPopup {
         width: Math.max( displayListColumn.width, manageListButton.width )
         height: displayListColumn.height + manageListButton.height + 30
         color: Palette.turquoise()
+        radius: 10
     }
 
     ScrollView {
