@@ -96,4 +96,9 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 {
 }
 
+void CachesRecorded::updateMapCachesRecorded(SQLiteStorage *sqliteStorage)
+{
+    m_mapCachesRecorded.clear();
+    // more
+}
 

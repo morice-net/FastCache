@@ -2,6 +2,8 @@
 #define CACHESRECORDED_H
 
 #include "cachesretriever.h"
+#include "sqlitestorage.h"
+#include <QMap>
 
 class Cache;
 
@@ -18,9 +20,13 @@ public:
     Q_INVOKABLE void emptyList();
 
     void moreCaches() override;
+    void updateMapCachesRecorded(SQLiteStorage *sqliteStorage) ;
 
 protected:
     void addGetRequestParameters(QString &parameters) override;
+
+private:
+    QMap<int, QString > m_mapCachesRecorded;
 };
 
 #endif // CACHESRECORDED_H
