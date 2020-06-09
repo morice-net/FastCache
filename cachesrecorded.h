@@ -18,15 +18,15 @@ public:
 
     Q_INVOKABLE void parseRecordedJson(const QJsonDocument &dataJsonDoc);
     Q_INVOKABLE void emptyList();
+    Q_INVOKABLE bool updateMapCachesRecorded();
 
     void moreCaches() override;
-    void updateMapCachesRecorded(SQLiteStorage *sqliteStorage) ;
 
 protected:
     void addGetRequestParameters(QString &parameters) override;
 
 private:
-    QMap<int, QString > m_mapCachesRecorded;
+    QMap<int,QList<Cache*> > m_mapCachesRecorded;
 };
 
 #endif // CACHESRECORDED_H

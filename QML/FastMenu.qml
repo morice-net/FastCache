@@ -308,8 +308,7 @@ Item {
                 var minLon = listLon.reduce(function(a,b) {
                     return Math.min(a, b);
                 });
-                fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );
-            }
+                fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );           }
         }
     }
 

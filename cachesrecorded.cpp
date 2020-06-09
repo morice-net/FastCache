@@ -2,8 +2,8 @@
 #include "cache.h"
 #include "constants.h"
 #include <QJsonObject>
-
-#include <QJsonDocument>
+#include <QSqlQuery>
+#include <QSqlError>
 
 CachesRecorded::CachesRecorded(CachesRetriever *parent)
     : CachesRetriever(parent)
@@ -96,9 +96,42 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 {
 }
 
-void CachesRecorded::updateMapCachesRecorded(SQLiteStorage *sqliteStorage)
+bool CachesRecorded::updateMapCachesRecorded()
 {
+    QString selectQueryText = "SELECT cacheslists.list , fullcache.json FROM cacheslists , fullcache"
+                              " WHERE cacheslists.code = fullcache.id ORDER BY cacheslists.list";
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return false;
+    }
+    qDebug() << "Request success";
     m_mapCachesRecorded.clear();
-    // more
+    CachesRecorded::emptyList();
+    int a = 0;
+    QString jsonString;
+    QByteArray jsonByteArray;
+    QJsonDocument json = QJsonDocument();
+    while(select.next()) {
+        jsonString = select.value(1).toString();
+        jsonByteArray = jsonString.toUtf8();
+        json = QJsonDocument::fromJson(jsonByteArray);
+        if(m_caches.length() == 0) {
+            a = select.value(0).toInt() ;
+            CachesRecorded::parseJson(json);
+        } else {
+            if(a == select.value(0).toInt()) {
+                CachesRecorded::parseJson(json);
+            } else {
+                a = select.value(0).toInt();
+                m_mapCachesRecorded.insert(a , m_caches);
+                CachesRecorded::emptyList();
+                CachesRecorded::parseJson(json);
+            }
+        }
+    }
+    return true;
 }
 
