@@ -12,6 +12,11 @@ Rectangle {
     visible: opacity > 0
     color: Palette.white()
 
+    TabViewRecordedCaches{
+        id : tabViewRecordedCaches
+        visible: main.state === "recorded" && main.viewState === "list" ? true:false
+    }
+
     ListView {
         id: fastListColumn
         width: parent.width
@@ -100,7 +105,7 @@ Rectangle {
             return  "Par coordonnées(" + fastListColumn.count + ")"
         } else if(main.state === "recorded"){
             fastListBottom.visible = false ;
-            fastListColumn.y = fastListHeader.height + 10
+            fastListColumn.y = fastListHeader.height + tabViewRecordedCaches.height + 10
             return  "Enregistrées...(" + fastListColumn.count + ")"
         }
         return ""

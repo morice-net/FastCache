@@ -164,5 +164,6 @@
         <file>Image/icon_edit.png</file>
         <file>QML/FastTextButton.qml</file>
         <file>QML/RecordedListsManager.qml</file>
+        <file>QML/TabViewRecordedCaches.qml</file>
     </qresource>
 </RCC>
