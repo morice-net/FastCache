@@ -13,17 +13,20 @@ TabBar {
 
         TabButton {
             id: tabButton
-            text: sqliteStorage.readAllStringsFromTable("lists")[index]
             width: Math.max(100, bar.width / sqliteStorage.countLists)
+            contentItem: Text {
+                text: sqliteStorage.readAllStringsFromTable("lists")[index]
+                font.family: localFont.name
+                font.pointSize: 20
+                color: tabButton.checked ? Palette.white() : Palette.silver()
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+            }
             background: Rectangle {
                 color: tabButton.checked ? Palette.turquoise() : Palette.greenSea()
                 border.color:  Palette.turquoise()
                 radius: 4
-                Text {
-                    id: text
-                    anchors.centerIn: parent
-                    color: tabButton.checked ? Palette.white()  : Palette.silver()
-                }
             }
         }
     }
