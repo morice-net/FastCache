@@ -551,6 +551,8 @@ Item {
 
     function centerMapCachesRecorded() {
         // Center
+        if(cachesRecorded.caches.length === 0)
+            return
         var listLat = [];
         var listLon = [];
         for (var j = 0; j < cachesRecorded.caches.length ; j++) {
