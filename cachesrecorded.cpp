@@ -120,18 +120,24 @@ bool CachesRecorded::updateMapCachesRecorded()
         json = QJsonDocument::fromJson(jsonByteArray);
         if(m_caches.length() == 0) {
             a = select.value(0).toInt() ;
-            CachesRecorded::parseJson(json);
+            CachesRecorded::parseRecordedJson(json);
         } else {
             if(a == select.value(0).toInt()) {
-                CachesRecorded::parseJson(json);
+                CachesRecorded::parseRecordedJson(json);
             } else {
-                a = select.value(0).toInt();
                 m_mapCachesRecorded.insert(a , m_caches);
+                a = select.value(0).toInt();
                 CachesRecorded::emptyList();
-                CachesRecorded::parseJson(json);
+                CachesRecorded::parseRecordedJson(json);
             }
         }
     }
+    m_mapCachesRecorded.insert(a , m_caches);
     return true;
 }
 
+void CachesRecorded::updateListCachesRecorded(int list)
+{
+    m_caches = m_mapCachesRecorded[list];
+    emit cachesChanged();
+}

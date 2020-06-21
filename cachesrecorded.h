@@ -19,6 +19,7 @@ public:
     Q_INVOKABLE void parseRecordedJson(const QJsonDocument &dataJsonDoc);
     Q_INVOKABLE void emptyList();
     Q_INVOKABLE bool updateMapCachesRecorded();
+    Q_INVOKABLE void updateListCachesRecorded(int list);
 
     void moreCaches() override;
 

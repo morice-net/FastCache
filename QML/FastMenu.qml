@@ -287,30 +287,10 @@ Item {
                 main.cachesActive = false
                 hideMenu();
                 main.state = "recorded";
-                var geocodes = sqliteStorage.readAllIdsFromTable("fullcache")
-                updateRecordedList( geocodes);
-
+                cachesRecorded.updateMapCachesRecorded()
+                cachesRecorded.updateListCachesRecorded(1)
                 // Center
-                var listLat = [];
-                var listLon = [];
-                for (var j = 0; j < geocodes.length ; j++) {
-                    listLat.push(cachesRecorded.caches[j].lat);
-                    listLon.push(cachesRecorded.caches[j].lon);
-                }
-                var maxLat = listLat.reduce(function(a,b) {
-                    return Math.max(a, b);
-                });
-                var minLat = listLat.reduce(function(a,b) {
-                    return Math.min(a, b);
-                });
-                var maxLon = listLon.reduce(function(a,b) {
-                    return Math.max(a, b);
-                });
-                var minLon = listLon.reduce(function(a,b) {
-                    return Math.min(a, b);
-                });
-                fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );
-
+                centerMapCachesRecorded()
             }
         }
     }

@@ -82,9 +82,6 @@ Item {
                 cachesRecordedLists.x = main.width - cachesRecordedLists.width - storageHeartButton.width
                 cachesRecordedLists.y = storageHeartButton.height
                 cachesRecordedLists.open()
-                if(main.state === "recorded"){
-                    updateRecordedList(sqliteStorage.readAllIdsFromTable("fullcache"));
-                }
             }
         }
     }

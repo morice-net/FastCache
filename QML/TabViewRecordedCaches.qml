@@ -7,10 +7,13 @@ TabBar {
     id: bar
     width: parent.width
     y: parent.height * 0.07
+    onCurrentIndexChanged: {
+        cachesRecorded.updateListCachesRecorded(bar.currentIndex + 1)
+        centerMapCachesRecorded()
+    }
 
     Repeater {
         model: sqliteStorage.countLists
-
         TabButton {
             id: tabButton
             width: Math.max(100, bar.width / sqliteStorage.countLists)
