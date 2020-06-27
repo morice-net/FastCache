@@ -12,6 +12,8 @@ Rectangle {
     visible: opacity > 0
     color: Palette.white()
 
+    property int tabBarRecordedCachesIndex: tabViewRecordedCaches.currentIndex
+
     TabViewRecordedCaches{
         id : tabViewRecordedCaches
         visible: main.state === "recorded" && main.viewState === "list" ? true:false
@@ -106,7 +108,7 @@ Rectangle {
         } else if(main.state === "recorded"){
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + tabViewRecordedCaches.height + 10
-            return  "Enregistrées...(" + fastListColumn.count + ")"
+            return sqliteStorage.readAllStringsFromTable("lists")[tabViewRecordedCaches.currentIndex] + " ( " + fastListColumn.count + " )"
         }
         return ""
     }

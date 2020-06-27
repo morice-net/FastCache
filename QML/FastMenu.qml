@@ -288,7 +288,7 @@ Item {
                 hideMenu();
                 main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
-                cachesRecorded.updateListCachesRecorded(1)
+                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                 // Center
                 centerMapCachesRecorded()
             }

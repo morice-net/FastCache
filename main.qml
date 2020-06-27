@@ -45,6 +45,9 @@ Item {
 
     signal positionUpdated
 
+    // current index in TabViewRecordedCaches
+    property alias tabBarRecordedCachesIndex: fastList.tabBarRecordedCachesIndex
+
     FastSettings { id: settings }
 
     Location {

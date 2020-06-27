@@ -6,16 +6,17 @@ import "JavaScript/Palette.js" as Palette
 TabBar {
     id: bar
     width: parent.width
+    x:3
     y: parent.height * 0.07
-    onCurrentIndexChanged: {
-        cachesRecorded.updateListCachesRecorded(bar.currentIndex + 1)
-        centerMapCachesRecorded()
-    }
 
     Repeater {
         model: sqliteStorage.countLists
         TabButton {
             id: tabButton
+            onClicked: {
+                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[bar.currentIndex])
+                centerMapCachesRecorded()
+            }
             width: Math.max(100, bar.width / sqliteStorage.countLists)
             contentItem: Text {
                 text: sqliteStorage.readAllStringsFromTable("lists")[index]
