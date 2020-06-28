@@ -6,27 +6,30 @@ MapQuickItem {
 
     property int index: 0
 
-    coordinate: QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon)
+    coordinate: listCaches().length !== 0 ? QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon) : QtPositioning.coordinate(-1,-1)
     anchorPoint.x: cacheIcon.width/2
     anchorPoint.y: cacheIcon.height
     sourceItem: CacheIcon {
         id: cacheIcon
-        type: listCaches()[index].typeIndex
-        found: listCaches()[index].found
-        registered: listCaches()[index].registered
+        type: listCaches().length !== 0 ? listCaches()[index].typeIndex : 0
+        found: listCaches().length !== 0 ? listCaches()[index].found : false
+        registered: listCaches().length !== 0 ? listCaches()[index].registered : false
 
         MouseArea {
             anchors.fill: parent
-            onClicked: selectedCache = listCaches()[index]
+            onClicked: {
+                if(listCaches().length !== 0)
+                    selectedCache = listCaches()[index]
+            }
         }
     }
 
     function listCaches() {
         if(main.cachesActive)
-            return cachesBBox.caches;
+            return cachesBBox.caches
         if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
-            return cachesNear.caches;
+            return cachesNear.caches
         if(main.state === "recorded" )
-            return cachesRecorded.caches;
+            return cachesRecorded.caches
     }
 }

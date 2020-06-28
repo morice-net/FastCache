@@ -85,7 +85,7 @@ void CachesRecorded::parseRecordedJson(const QJsonDocument &dataJsonDoc)
 void CachesRecorded::emptyList()
 {
     m_caches.clear();
-    emit cachesChanged();
+ //   emit cachesChanged();
 }
 
 void CachesRecorded::moreCaches()
@@ -137,7 +137,7 @@ bool CachesRecorded::updateMapCachesRecorded()
 }
 
 void CachesRecorded::updateListCachesRecorded(int list)
-{
+{    
     m_caches = m_mapCachesRecorded[list];
     emit cachesChanged();
 }
