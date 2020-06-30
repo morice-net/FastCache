@@ -70,19 +70,14 @@ Rectangle {
         }
 
         function updateCachesOnMap(caches) {
-            var currentCachesLength = caches.caches.length
-            if (lastCachesLength >= currentCachesLength) {
-                clearMap()
-                lastCachesLength = 0
-            }
-            for (var i = lastCachesLength; i < currentCachesLength; i++) {
+            clearMap()
+            for (var i = 0; i < currentCachesLength; i++) {
                 if (caches.caches[i].lat !== "" && caches.caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i
                     addMapItem(itemMap)
                 }
             }
-            lastCachesLength = caches.caches.length
         }
 
         function updateCacheOnMap(caches , indexList) {
