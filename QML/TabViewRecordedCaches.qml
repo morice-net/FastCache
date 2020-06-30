@@ -13,7 +13,7 @@ TabBar {
         model: sqliteStorage.countLists
         TabButton {
             id: tabButton
-            onClicked: {
+            onClicked: {                
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[bar.currentIndex])
                 centerMapCachesRecorded()
             }

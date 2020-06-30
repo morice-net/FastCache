@@ -71,7 +71,7 @@ Rectangle {
 
         function updateCachesOnMap(caches) {
             clearMap()
-            for (var i = 0; i < currentCachesLength; i++) {
+            for (var i = 0; i < caches.caches.length; i++) {
                 if (caches.caches[i].lat !== "" && caches.caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i

@@ -69,17 +69,25 @@ Item {
 
     CachesBBox {
         id: cachesBBox
-        onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesBBox)
+        onCachesChanged: {
+            if(main.cachesActive)
+                fastMap.mapItem.updateCachesOnMap(cachesBBox)
+        }
     }
 
     CachesNear {
         id: cachesNear
-        onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesNear)
+        onCachesChanged: {
+            if(main.state === "near" || main.state === "address" || main.state === "coordinates")
+                fastMap.mapItem.updateCachesOnMap(cachesNear)}
     }
 
     CachesRecorded {
         id: cachesRecorded
-        onCachesChanged: fastMap.mapItem.updateCachesOnMap(cachesRecorded)
+        onCachesChanged: {
+            if(main.state === "recorded")
+                fastMap.mapItem.updateCachesOnMap(cachesRecorded)
+        }
     }
 
     FastMap { id: fastMap }
