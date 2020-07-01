@@ -29,7 +29,9 @@ MapQuickItem {
             return cachesBBox.caches
         if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
             return cachesNear.caches
-        if(main.state === "recorded")
+        if(main.state === "recorded"){
+            console.log("INDEX:  " + index )
             return cachesRecorded.caches
+        }
     }
 }

@@ -31,6 +31,7 @@ protected:
 
 signals:    
     void cachesChanged();
+    void clearMapRequested();
 
 protected:
     int m_indexMoreCaches;

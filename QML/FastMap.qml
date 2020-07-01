@@ -38,11 +38,8 @@ Rectangle {
     Map {
         id: map
         plugin: mapPlugin
-        property int lastCachesLength: 0
-
         anchors.fill: parent
         zoomLevel: currentZoomlevel
-
         gesture.enabled: true
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
         gesture.onPanFinished: { reloadCaches() }
@@ -70,7 +67,6 @@ Rectangle {
         }
 
         function updateCachesOnMap(caches) {
-            clearMap()
             for (var i = 0; i < caches.caches.length; i++) {
                 if (caches.caches[i].lat !== "" && caches.caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
