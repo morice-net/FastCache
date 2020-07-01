@@ -13,6 +13,7 @@ Rectangle {
     property alias mapPlugin:mapPlugin
     property var component
     property var selectedCache
+    property var cacheItems: []
 
     // Map properties
     property real zoomlevelRecord: 14.5
@@ -71,6 +72,7 @@ Rectangle {
                 if (caches.caches[i].lat !== "" && caches.caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i
+                    cacheItems.push(itemMap)
                     addMapItem(itemMap)
                 }
             }
@@ -79,6 +81,7 @@ Rectangle {
         function updateCacheOnMap(caches , indexList) {
             var itemMap = Qt.createQmlObject('FastMapItem {}', map)
             itemMap.index = indexList
+            cacheItems.push(itemMap)
             addMapItem(itemMap)
         }
 
@@ -124,5 +127,7 @@ Rectangle {
 
     function clearMap() {
         map.clearMapItems()
+        cacheItems.forEach(item => item.destroy())
+        cacheItems = []
     }
 }

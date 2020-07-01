@@ -74,8 +74,7 @@ Item {
                 fastMap.mapItem.updateCachesOnMap(cachesBBox)
         }
         onClearMapRequested: {
-            if(main.cachesActive)
-                fastMap.clearMap();
+            fastMap.clearMap();
         }
     }
 
@@ -86,8 +85,7 @@ Item {
                 fastMap.mapItem.updateCachesOnMap(cachesNear)
         }
         onClearMapRequested: {
-            if(main.state === "near" || main.state === "address" || main.state === "coordinates")
-                fastMap.clearMap()
+            fastMap.clearMap()
         }
     }
 
@@ -98,8 +96,7 @@ Item {
                 fastMap.mapItem.updateCachesOnMap(cachesRecorded)
         }
         onClearMapRequested: {
-            if(main.state === "recorded")
-                fastMap.clearMap()
+            fastMap.clearMap()
         }
     }
 

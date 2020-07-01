@@ -30,8 +30,8 @@ void CachesRetriever::sendRequest(QString token)
     m_tokenTemp=token;
     if(m_indexMoreCaches == 0) {
         emit clearMapRequested();
-        m_caches.clear();
         qDeleteAll(m_caches);
+        m_caches.clear();
     }
 
     //Build url

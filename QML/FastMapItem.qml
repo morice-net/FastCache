@@ -34,4 +34,11 @@ MapQuickItem {
             return cachesRecorded.caches
         }
     }
+
+    Component.onCompleted: {
+        console.log("FastMapItem " + index + " created.")
+    }
+    Component.onDestruction: {
+        console.log("FastMapItem " + index + " destroyed.")
+    }
 }
