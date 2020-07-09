@@ -115,10 +115,13 @@ Rectangle {
     MouseArea {
         id: cacheItemArea
         anchors.fill: parent
-
         onClicked: {
             fullCache.geocode = selectedCache.geocode
-            fullCacheRetriever.sendRequest(connector.tokenKey)
+            if(main.state === "recorded"  && selectedCache.registered === true){
+                fullCacheRetriever.parseJson(sqliteStorage.readObject("fullcache" , fullCache.geocode ))
+            }else{
+                fullCacheRetriever.sendRequest(connector.tokenKey)
+            }
             main.viewState = "fullcache"
         }
     }
