@@ -149,7 +149,7 @@ Item {
                 else
                     main.viewState = "list"
                 if (main.cachesActive)
-                    fastMap.mapItem.updateCachesOnMap(cachesBBox)
+                    fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
             }
         }
 
@@ -185,7 +185,7 @@ Item {
                             reloadCaches()
                         } else {
                             main.cachesActive = false
-                            fastMap.mapItem.updateCachesOnMap(cachesNear)
+                            fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
                         }
                     }
                 }

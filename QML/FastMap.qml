@@ -68,8 +68,8 @@ Rectangle {
         }
 
         function updateCachesOnMap(caches) {
-            for (var i = 0; i < caches.caches.length; i++) {
-                if (caches.caches[i].lat !== "" && caches.caches[i].lon !== "") {
+            for (var i = 0; i < caches.length; i++) {
+                if (caches[i].lat !== "" && caches[i].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                     itemMap.index = i
                     cacheItems.push(itemMap)

@@ -71,7 +71,7 @@ Item {
         id: cachesBBox
         onCachesChanged: {
             if(main.cachesActive)
-                fastMap.mapItem.updateCachesOnMap(cachesBBox)
+                fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
         }
         onClearMapRequested: {
             fastMap.clearMap();
@@ -82,7 +82,7 @@ Item {
         id: cachesNear
         onCachesChanged: {
             if(main.state === "near" || main.state === "address" || main.state === "coordinates")
-                fastMap.mapItem.updateCachesOnMap(cachesNear)
+                fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
         }
         onClearMapRequested: {
             fastMap.clearMap()
@@ -93,7 +93,7 @@ Item {
         id: cachesRecorded
         onCachesChanged: {
             if(main.state === "recorded")
-                fastMap.mapItem.updateCachesOnMap(cachesRecorded)
+                fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)
         }
         onClearMapRequested: {
             fastMap.clearMap()
@@ -339,7 +339,7 @@ Item {
 
     Component.onCompleted: {
         main.viewState = "map"
-        fastMap.mapItem.updateCachesOnMap(cachesBBox)
+        fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
 
         // retrieve settings
         connector.tokenKey = settings.tokenKey
