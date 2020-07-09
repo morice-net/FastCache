@@ -20,7 +20,6 @@ public:
     Q_INVOKABLE bool updateMapCachesRecorded();
     Q_INVOKABLE void updateListCachesRecorded(int list);
 
-    void emptyList();
     void moreCaches() override;
 
 protected:

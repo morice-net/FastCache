@@ -81,13 +81,6 @@ void CachesRecorded::parseRecordedJson(const QJsonDocument &dataJsonDoc)
     m_caches.append(cache);
 }
 
-void CachesRecorded::emptyList()
-{    
-    emit clearMapRequested();
-    m_caches.clear();
-    qDeleteAll(m_caches);
-}
-
 void CachesRecorded::moreCaches()
 {
 }
@@ -109,7 +102,8 @@ bool CachesRecorded::updateMapCachesRecorded()
     }
     qDebug() << "Request success";
     m_mapCachesRecorded.clear();
-    CachesRecorded::emptyList();
+    qDeleteAll(m_caches);
+    m_caches.clear();
     int a = 0;
     QString jsonString;
     QByteArray jsonByteArray;
@@ -127,7 +121,8 @@ bool CachesRecorded::updateMapCachesRecorded()
             } else {
                 m_mapCachesRecorded.insert(a , m_caches);
                 a = select.value(0).toInt();
-                CachesRecorded::emptyList();
+                emit clearMapRequested();
+                m_caches.clear();
                 CachesRecorded::parseRecordedJson(json);
             }
         }
