@@ -17,9 +17,6 @@ FastPopup {
 
     signal  okCoordinatesClicked
 
-    x: parent.height * 0.05 + 10
-    y: parent.height * 0.05 + 10
-
     ComboBox {
         id: gpsFormatCombo
         y: 80
