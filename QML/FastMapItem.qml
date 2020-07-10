@@ -6,19 +6,19 @@ MapQuickItem {
 
     property int index: 0
 
-    coordinate: listCaches().length >index ? QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon) : QtPositioning.coordinate(-1,-1)
+    coordinate: listCaches().length !==0 ? QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon) : QtPositioning.coordinate(-1,-1)
     anchorPoint.x: cacheIcon.width/2
     anchorPoint.y: cacheIcon.height
     sourceItem: CacheIcon {
         id: cacheIcon
-        type: listCaches().length >index ? listCaches()[index].typeIndex : 0
-        found: listCaches().length >index ? listCaches()[index].found : false
-        registered: listCaches().length >index ? listCaches()[index].registered : false
+        type: listCaches().length !==0 ? listCaches()[index].typeIndex : 0
+        found: listCaches().length !==0 ? listCaches()[index].found : false
+        registered: listCaches().length !==0 ? listCaches()[index].registered : false
 
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(listCaches().length >index)
+                if(listCaches().length !==0)
                     selectedCache = listCaches()[index]
             }
         }
