@@ -289,7 +289,7 @@ Item {
                 main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
-                // Center
+                // center and zoom level
                 centerMapCachesRecorded()
             }
         }

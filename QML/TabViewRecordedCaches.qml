@@ -13,8 +13,9 @@ TabBar {
         model: sqliteStorage.countLists
         TabButton {
             id: tabButton
-            onClicked: {                
+            onClicked: {
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[bar.currentIndex])
+                // center and zoom level
                 centerMapCachesRecorded()
             }
             width: Math.max(100, bar.width / sqliteStorage.countLists)

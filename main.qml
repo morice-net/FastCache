@@ -81,6 +81,7 @@ Item {
     CachesNear {
         id: cachesNear
         onCachesChanged: {
+            fastMap.mapItem.zoomLevel = fastMap.currentZoomlevel
             if(main.state === "near" || main.state === "address" || main.state === "coordinates")
                 fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
         }
@@ -571,28 +572,10 @@ Item {
     }
 
     function centerMapCachesRecorded() {
-        // Center
+        // center and zoom level
         if(cachesRecorded.caches.length === 0)
             return
-        var listLat = [];
-        var listLon = [];
-        for (var j = 0; j < cachesRecorded.caches.length ; j++) {
-            listLat.push(cachesRecorded.caches[j].lat);
-            listLon.push(cachesRecorded.caches[j].lon);
-        }
-        var maxLat = listLat.reduce(function(a,b) {
-            return Math.max(a, b);
-        });
-        var minLat = listLat.reduce(function(a,b) {
-            return Math.min(a, b);
-        });
-        var maxLon = listLon.reduce(function(a,b) {
-            return Math.max(a, b);
-        });
-        var minLon = listLon.reduce(function(a,b) {
-            return Math.min(a, b);
-        });
-        fastMap.mapItem.center = QtPositioning.coordinate((maxLat + minLat)/2 , (maxLon + minLon)/2 );
+        fastMap.mapItem.fitViewportToVisibleMapItems()
     }
 }
 
