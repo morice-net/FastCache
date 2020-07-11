@@ -286,6 +286,7 @@ Item {
                 // Display list of recorded caches and prepare Center Map.
                 main.cachesActive = false
                 hideMenu();
+                fastMap.clearMap()
                 main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])

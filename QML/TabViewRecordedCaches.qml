@@ -14,6 +14,7 @@ TabBar {
         TabButton {
             id: tabButton
             onClicked: {
+                fastMap.clearMap()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[bar.currentIndex])
                 // center and zoom level
                 centerMapCachesRecorded()

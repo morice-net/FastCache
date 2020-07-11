@@ -133,6 +133,7 @@ bool CachesRecorded::updateMapCachesRecorded()
 
 void CachesRecorded::updateListCachesRecorded(int list)
 {
+    m_caches.clear();
     m_caches = m_mapCachesRecorded[list];
     emit cachesChanged();
 }
