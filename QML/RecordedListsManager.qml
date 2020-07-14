@@ -14,7 +14,6 @@ FastPopup {
     width: parent.width
     height: parent.height
 
-    //first zone
     Column {
         id: renameDeleteColumn
         width:cachesRecordedLists.width
@@ -159,7 +158,7 @@ FastPopup {
         }
     }
 
-    //third zone
+    // new list
     Column {
         id: newListColumn
         width:cachesRecordedLists.width
@@ -185,9 +184,9 @@ FastPopup {
                 id : newList
                 buttonText: "Nouvelle liste"
                 onClicked: {
-                    buttonDel.visible = true
-                    createNewList.visible = true
-                    buttonCreate.visible = true
+                    buttonDel.visible = !buttonDel.visible
+                    createNewList.visible = !createNewList.visible
+                    buttonCreate.visible = !buttonCreate.visible
                 }
             }
 
@@ -230,14 +229,10 @@ FastPopup {
                 id:buttonCreate
                 visible: false
                 buttonText: "Créer la liste"
-
                 onClicked: {
                     if (createNewList.length !== 0) {
                         sqliteStorage.updateLists("lists" , -1 , createNewList.text )
                         sqliteStorage.numberCachesInLists("cacheslists")
-                        buttonDel = false
-                        createNewList = false
-                        buttonCreate.visible = false
                     }
                 }
             }
