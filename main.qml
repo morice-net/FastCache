@@ -81,7 +81,6 @@ Item {
     CachesNear {
         id: cachesNear
         onCachesChanged: {
-            fastMap.mapItem.zoomLevel = fastMap.currentZoomlevel
             if(main.state === "near" || main.state === "address" || main.state === "coordinates")
                 fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
         }
@@ -573,9 +572,14 @@ Item {
 
     function centerMapCachesRecorded() {
         // center and zoom level
+        fastMap.currentZoomlevel = 14.5
+        fastMap.zoomlevelRecord = fastMap.mapItem.zoomLevel
+
         if(cachesRecorded.caches.length === 0)
             return
         fastMap.mapItem.fitViewportToVisibleMapItems()
+        fastMap.zoomlevelRecord = fastMap.mapItem.zoomLevel
+        fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
     }
 }
 
