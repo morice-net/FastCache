@@ -570,7 +570,7 @@ Item {
         }
     }
 
-    function centerMapCachesRecorded() {
+    function centerMapCaches() {
         // center and zoom level
         fastMap.currentZoomlevel = 14.5
         fastMap.zoomlevelRecord = fastMap.mapItem.zoomLevel

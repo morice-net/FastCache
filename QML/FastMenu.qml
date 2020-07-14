@@ -291,7 +291,7 @@ Item {
                 cachesRecorded.updateMapCachesRecorded()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                 // center and zoom level
-                centerMapCachesRecorded()
+                centerMapCaches()
             }
         }
     }
