@@ -15,6 +15,7 @@ SOURCES += main.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
     gettravelbuguser.cpp \
+    imagedownloader.cpp \
     parameter.cpp \
     sendtravelbuglog.cpp \
     senduserwaypoint.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     connector.h \
     fullcacheretriever.h \
     gettravelbuguser.h \
+    imagedownloader.h \
     parameter.h \
     sendtravelbuglog.h \
     senduserwaypoint.h \

@@ -30,7 +30,6 @@ FastPopup {
             text: "Gérer les listes.."
         }
 
-        // rename list
         TextField {
             id: renameList
             visible: false
@@ -48,6 +47,8 @@ FastPopup {
                 radius: 5
             }
         }
+
+        // rename list
 
         FastTextButton {
             id:buttonRename
@@ -218,7 +219,6 @@ FastPopup {
                 id:buttonDel
                 visible: false
                 buttonText: "Effacer"
-
                 onClicked: {
                     createNewList.text = "" ;
                 }
