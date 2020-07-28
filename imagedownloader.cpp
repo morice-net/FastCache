@@ -1,9 +1,9 @@
 #include "imagedownloader.h"
 #include <QDebug>
 
-ImageDownloader::ImageDownloader(QObject *parent)
-    : QObject(parent),
-      webCtrl(new QNetworkAccessManager(this))
+ImageDownloader::ImageDownloader(QObject *parent) :
+    QObject(parent),
+    webCtrl(new QNetworkAccessManager(this))
 {
 }
 
@@ -12,10 +12,8 @@ ImageDownloader::~ImageDownloader()
     delete webCtrl;
 }
 
-void ImageDownloader::downloadImage(QUrl url, QString id, QString path)
+void ImageDownloader::downloadFile(QUrl url, QString id, QString path)
 {
-    QString url_string = url.toString();
-
     QFile *file = new QFile(path, this);
     if(!file->open(QIODevice::WriteOnly))
     {
@@ -25,15 +23,20 @@ void ImageDownloader::downloadImage(QUrl url, QString id, QString path)
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", userAgent);
 
+    QSslConfiguration sslConfiguration(QSslConfiguration::defaultConfiguration());
+    sslConfiguration.setPeerVerifyMode(QSslSocket::VerifyNone);
+    sslConfiguration.setProtocol(QSsl::AnyProtocol);
+    request.setSslConfiguration(sslConfiguration);
+
     QNetworkReply *reply = webCtrl->get(request);
     replytofile.insert(reply, file);
     replytopathid.insert(reply, QPair<QString, QString>(path, id));
 
-    QObject::connect(reply, &QNetworkReply::finished, this, &ImageDownloader::imageDownloaded);
+    QObject::connect(reply, &QNetworkReply::finished, this, &ImageDownloader::fileDownloaded);
     QObject::connect(reply, &QNetworkReply::readyRead, this, &ImageDownloader::onReadyRead);
 }
 
-void ImageDownloader::imageDownloaded()
+void ImageDownloader::fileDownloaded()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 

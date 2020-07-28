@@ -15,9 +15,9 @@ class ImageDownloader : public QObject
     Q_OBJECT
 
 public:
-    explicit ImageDownloader(QObject *parent = nullptr);
-    virtual~ImageDownloader() ;
-    void downloadImage(QUrl url, QString id, QString dir_absolute_path);
+    explicit ImageDownloader(QObject *parent = 0);
+    virtual ~ImageDownloader();
+    void downloadFile(QUrl url, QString id, QString path);
 
 signals:
     // emits error string
@@ -26,7 +26,7 @@ signals:
     void downloaded(QString, QString);
 
 private slots:
-    void imageDownloaded();
+    void fileDownloaded();
     void onReadyRead();
 
 private:

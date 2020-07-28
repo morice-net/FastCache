@@ -25,6 +25,9 @@
 #include "gettravelbuguser.h"
 #include "senduserwaypoint.h"
 
+
+#include "replaceimageintext.h"
+
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
@@ -44,6 +47,9 @@ int main(int argc, char *argv[])
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");
     qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
+
+    qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");
+
 
     QGuiApplication app(argc, argv);
     app.setOrganizationName("morice");

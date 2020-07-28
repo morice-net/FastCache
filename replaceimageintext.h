@@ -1,15 +1,17 @@
 #ifndef REPLACEIMAGEINTEXT_H
 #define REPLACEIMAGEINTEXT_H
 
-#include <QObject>
+#include "imagedownloader.h"
 
-class ReplaceImageInText : public QObject
+class ReplaceImageInText : public ImageDownloader
 {
     Q_OBJECT
 
-public:
-    explicit ReplaceImageInText(QObject *parent = nullptr);
+public:    
+    explicit ReplaceImageInText(ImageDownloader *parent = nullptr);
     ~ReplaceImageInText() ;
+
+    Q_INVOKABLE  void replaceUrlImageToPath(const QString &geocode , const QJsonDocument &dataJsonDoc);
 };
 
 #endif // REPLACEIMAGEINTEXT_H
