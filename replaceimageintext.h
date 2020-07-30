@@ -2,6 +2,7 @@
 #define REPLACEIMAGEINTEXT_H
 
 #include "imagedownloader.h"
+#include <QJsonDocument>
 
 class ReplaceImageInText : public ImageDownloader
 {
@@ -11,7 +12,7 @@ public:
     explicit ReplaceImageInText(ImageDownloader *parent = nullptr);
     ~ReplaceImageInText() ;
 
-    Q_INVOKABLE  void replaceUrlImageToPath(const QString &geocode , const QJsonDocument &dataJsonDoc);
+    Q_INVOKABLE  QJsonDocument replaceUrlImageToPath(const QString &geocode , const QJsonDocument &dataJsonDoc);
 };
 
 #endif // REPLACEIMAGEINTEXT_H

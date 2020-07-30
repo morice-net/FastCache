@@ -19,7 +19,6 @@ void ImageDownloader::downloadFile(QUrl url, QString id, QString path)
     {
         return;
     }
-
     QNetworkRequest request(url);
     request.setRawHeader("User-Agent", userAgent);
 
@@ -66,6 +65,5 @@ void ImageDownloader::fileDownloaded()
 void ImageDownloader::onReadyRead()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-
     replytofile[reply]->write(reply->readAll());
 }
