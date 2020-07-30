@@ -19,13 +19,10 @@ void ImageDownloader::downloadFile(QUrl url, QString id, QString path)
     {
         return;
     }
-    QNetworkRequest request(url);
-    request.setRawHeader("User-Agent", userAgent);
 
-    QSslConfiguration sslConfiguration(QSslConfiguration::defaultConfiguration());
-    sslConfiguration.setPeerVerifyMode(QSslSocket::VerifyNone);
-    sslConfiguration.setProtocol(QSsl::AnyProtocol);
-    request.setSslConfiguration(sslConfiguration);
+    QNetworkRequest request(url);
+    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+    request.setRawHeader("User-Agent", userAgent);
 
     QNetworkReply *reply = webCtrl->get(request);
     replytofile.insert(reply, file);
@@ -67,3 +64,12 @@ void ImageDownloader::onReadyRead()
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     replytofile[reply]->write(reply->readAll());
 }
+
+
+
+
+
+
+
+
+
