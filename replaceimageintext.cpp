@@ -40,6 +40,8 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
         i += 1;
         downloadFile(QUrl(url), "", path);
     }
+    cacheJson.insert("ShortDescription"  , QJsonValue::fromVariant(shortDescription));
+
     // replace in "long description" of recorded cache
     pos = 0;
     i = 1;
@@ -57,23 +59,31 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
         i += 1;
         downloadFile(QUrl(url), "", path);
     }
+    cacheJson.insert("longDescription" , QJsonValue::fromVariant(longDescription));
 
     // replace in "images" of recorded cache
-    i = 1;
+    i = 0;
     path = "";
     url = "";
 
     QJsonArray images = cacheJson["images"].toArray();
+    QJsonObject oneElement;
     foreach (const QJsonValue &image , images)
     {
         url = image["url"].toString();
-        path = "./ImagesRecorded/" + geocode + "/Images#" + QString::number(i) + url.mid(url.lastIndexOf(".", -1),-1);
+        path = "./ImagesRecorded/" + geocode + "/Images#" + QString::number(i+1) + url.mid(url.lastIndexOf(".", -1),-1);
         qDebug()<< url;
         qDebug()<< path;
-        image.toString().replace(url , path);
+        oneElement =images.at(i).toObject();
+        oneElement.insert("url", QJsonValue(path));
+        images.removeAt(i);
+        images.insert(i, oneElement);
         i += 1;
         downloadFile(QUrl(url), "", path);
     }
+    cacheJson.insert("images", images);
+    jsonDoc.setObject(cacheJson);
+    qDebug()<<jsonDoc;
     return jsonDoc;
 }
 
