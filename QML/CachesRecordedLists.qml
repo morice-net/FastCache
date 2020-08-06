@@ -13,7 +13,6 @@ FastPopup {
     property int listIndex: 0
     width: Math.max( displayListColumn.width, manageListButton.width )
     height: displayListColumn.height + manageListButton.height + 50
-
     background: Rectangle {
         id: backgroundRectangle
         width: Math.max( displayListColumn.width, manageListButton.width )

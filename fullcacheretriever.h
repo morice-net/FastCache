@@ -4,10 +4,13 @@
 #include "requestor.h"
 #include "fullcache.h"
 #include "sqlitestorage.h"
+#include "replaceimageintext.h"
 
 #include <QNetworkReply>
 
+class ReplaceImageInText;
 class FullCache;
+
 class FullCacheRetriever : public Requestor
 {
     Q_OBJECT
@@ -20,12 +23,12 @@ public:
     Q_INVOKABLE void updateFullCache(FullCache *fullCache);
     Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void deleteToStorage(SQLiteStorage *sqliteStorage);
-
     Q_INVOKABLE  void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;
+    ReplaceImageInText* m_replaceImageInText = new ReplaceImageInText;
 };
 
 #endif // FULLCACHERETRIEVER_H

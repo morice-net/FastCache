@@ -52,17 +52,28 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
     sqliteStorage->updateObject("fullcache", m_fullCache->geocode(), m_dataJson);
+    // Download images of cache recorded
+    m_replaceImageInText->replaceUrlImageToPath(m_fullCache->geocode() , m_dataJson ,true);
 }
 
 void FullCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage)
 {
     sqliteStorage->deleteObject("fullcache", m_fullCache->geocode());
+    // delete dir of recorded cache images
+    m_replaceImageInText->removeDir(m_fullCache->geocode());
 }
 
 void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 {
     m_dataJson = dataJsonDoc;
-    QJsonObject cacheJson = dataJsonDoc.object();
+    QJsonObject cacheJson;
+
+    if(m_fullCache->checkRegistered()){
+        QJsonDocument jsonDoc = m_replaceImageInText->replaceUrlImageToPath(m_fullCache->geocode() , dataJsonDoc , false);
+        cacheJson = jsonDoc.object();
+    } else {
+        cacheJson = dataJsonDoc.object();
+    }
     qDebug() << "cacheOject:" << cacheJson;
 
     SmileyGc * smileys = new SmileyGc;

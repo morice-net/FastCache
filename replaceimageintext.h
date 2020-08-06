@@ -11,8 +11,11 @@ class ReplaceImageInText : public ImageDownloader
 public:    
     explicit ReplaceImageInText(ImageDownloader *parent = nullptr);
     ~ReplaceImageInText() ;
+    QJsonDocument replaceUrlImageToPath(const QString &geocode , const QJsonDocument &dataJsonDoc , const bool &saveImage);
+    void removeDir(const QString &geocode);
 
-    Q_INVOKABLE  QJsonDocument replaceUrlImageToPath(const QString &geocode , const QJsonDocument &dataJsonDoc);
+private:
+    QString m_dir = "./ImagesRecorded/";
 };
 
 #endif // REPLACEIMAGEINTEXT_H

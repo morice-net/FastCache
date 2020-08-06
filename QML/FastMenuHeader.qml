@@ -3,23 +3,13 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
-
 import com.mycompany.connecting 1.0
 
 Item {
     id: fastMenuHeader
     anchors.fill: parent
-
-
-
-
-
-    ReplaceImageInText{
-        id: replaceImageInText
-    }
-
-
     // Menu caller
+
     Rectangle {
         color: Palette.turquoise().replace("#","#99")
         radius: 10
@@ -93,10 +83,6 @@ Item {
                 cachesRecordedLists.x = main.width - cachesRecordedLists.width - storageHeartButton.width
                 cachesRecordedLists.y = storageHeartButton.height
                 cachesRecordedLists.open()
-
-
-
-                replaceImageInText.replaceUrlImageToPath(fullCache.geocode ,  sqliteStorage.readObject("fullcache" , fullCache.geocode))
             }
         }
     }

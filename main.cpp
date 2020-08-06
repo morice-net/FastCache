@@ -25,9 +25,6 @@
 #include "gettravelbuguser.h"
 #include "senduserwaypoint.h"
 
-
-#include "replaceimageintext.h"
-
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
@@ -48,9 +45,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
 
-    qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");
-
-
     QGuiApplication app(argc, argv);
     app.setOrganizationName("morice");
     app.setOrganizationDomain("ipsquad.net");
@@ -59,9 +53,7 @@ int main(int argc, char *argv[])
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();
 #endif
-
     QQuickView view(QUrl(QStringLiteral("qrc:/main.qml")));
-
     view.setWidth(450);
     view.setHeight(840);
     view.show();

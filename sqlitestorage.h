@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QJsonDocument>
+#include "replaceimageintext.h"
 
 class SQLiteStorage: public QObject
 {
@@ -62,6 +63,7 @@ private:
     QList<int> m_listsIds;
     int m_countLists;
     QList<int> m_countCachesInLists;
+    ReplaceImageInText* m_replaceImageInText = new ReplaceImageInText;
 };
 
 #endif // SQLITESTORAGE_H

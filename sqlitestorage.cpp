@@ -305,6 +305,8 @@ void SQLiteStorage::updateFullCachesTable(const QString &tableNameLists , const 
         // eventually delete element of table "fullcache"
         if(listCodes.indexOf(codeFullCache) == -1){
             deleteObject("fullcache", codeFullCache);
+            // delete dir of recorded cache images
+            m_replaceImageInText->removeDir(codeFullCache);
         }
     }
 }

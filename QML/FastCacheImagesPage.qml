@@ -50,7 +50,6 @@ Item {
                             visible: fullCache.listVisibleImages[index]
                             source: fullCache.imagesUrl[index]
                             horizontalAlignment: Image.AlignHCenter
-
                         }
                     }
                 }
