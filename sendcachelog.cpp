@@ -2,7 +2,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
-#include <QJsonDocument>
+#include <QJsonObject>
 
 SendCacheLog::SendCacheLog(Requestor *parent)
     : Requestor (parent)
@@ -14,7 +14,7 @@ SendCacheLog::~SendCacheLog()
 {
 }
 
-QJsonObject SendCacheLog::makeJsonLog(int logType , QString date , QString text , bool favorite)
+QJsonDocument SendCacheLog::makeJsonLog(int logType , QString date , QString text , bool favorite)
 {
     QJsonObject log;
     log.insert("loggedDate", QJsonValue(date));
@@ -25,8 +25,7 @@ QJsonObject SendCacheLog::makeJsonLog(int logType , QString date , QString text 
     type.insert("id",logType);
     log.insert("geocacheLogType", type);
 
-    return log;
-
+    return QJsonDocument(log);
 }
 
 void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , QString date , QString text , bool favorite)

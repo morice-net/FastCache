@@ -5,7 +5,7 @@
 
 #include <QNetworkReply>
 #include <QObject>
-#include <QJsonObject>
+#include <QJsonDocument>
 
 class SendCacheLog : public Requestor
 {
@@ -21,7 +21,7 @@ public:
     int founds() const;
     void setFounds(const int &count);
 
-    Q_INVOKABLE QJsonObject makeJsonLog(int logType , QString date , QString log , bool favorite) ;
+    Q_INVOKABLE QJsonDocument makeJsonLog(int logType , QString date , QString log , bool favorite) ;
     Q_INVOKABLE void sendRequest(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite) ;
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
