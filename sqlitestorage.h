@@ -20,13 +20,13 @@ public:
     virtual ~SQLiteStorage();
 
     bool isCacheInTable(const QString &tableName, const QString &id);
-    void deleteObject(const QString &tableName, const QString &id);
     bool updateCacheInLists(const QString &tableName, const int &list, const QString &code);
     void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
     QList<int> readAllIdsFromLists(const QString &tableName);
     int count(const QString &tableName);
 
-    Q_INVOKABLE  bool updateObject(const QString &tableName, const QString &id, const QJsonDocument &json);
+    Q_INVOKABLE void deleteObject(const QString &tableName, const QString &id);
+    Q_INVOKABLE bool updateObject(const QString &tableName, const QString &id, const QJsonDocument &json);
     Q_INVOKABLE QJsonDocument readObject(const QString &tableName, const QString &id);
     Q_INVOKABLE QList<QString> readAllIdsFromTable(const QString &tableName);
     Q_INVOKABLE QList<QString> readAllStringsFromTable(const QString &tableName);

@@ -234,7 +234,8 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
-
+                // clears the cache log record
+                sqliteStorage.deleteObject("cacheslog", fullCache.geocode())
                 // Send list of travelbugs
                 for (var i = 0; i < fastCache.listTbSend.length; i++) {
                     if(fastCache.listTbSend[i].split(',')[2] !== "0"){
