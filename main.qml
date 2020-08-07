@@ -321,8 +321,9 @@ Item {
             sqliteStorage.createTable("fullcache", "(id string primary key, json string)");
             sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
             sqliteStorage.createTable("cacheslists", "(id integer primary key default 1 , list integer , code string , UNIQUE(list, code))");
-            sqliteStorage.updateLists("lists", 1 , "Enregistrées");
+            sqliteStorage.createTable("cacheslog", "(id string primary key, log string)");
 
+            sqliteStorage.updateLists("lists", 1 , "Enregistrées");
             sqliteStorage.numberCachesInLists("cacheslists");
         }
     }

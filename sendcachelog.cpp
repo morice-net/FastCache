@@ -3,7 +3,6 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QJsonDocument>
-#include <QJsonObject>
 
 SendCacheLog::SendCacheLog(Requestor *parent)
     : Requestor (parent)
@@ -13,6 +12,21 @@ SendCacheLog::SendCacheLog(Requestor *parent)
 
 SendCacheLog::~SendCacheLog()
 {
+}
+
+QJsonObject SendCacheLog::makeJsonLog(int logType , QString date , QString text , bool favorite)
+{
+    QJsonObject log;
+    log.insert("loggedDate", QJsonValue(date));
+    log.insert("text", QJsonValue(text));
+    log.insert("usedFavoritePoint",QJsonValue(favorite));
+
+    QJsonObject type;
+    type.insert("id",logType);
+    log.insert("geocacheLogType", type);
+
+    return log;
+
 }
 
 void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , QString date , QString text , bool favorite)
