@@ -20,12 +20,12 @@ QJsonDocument SendCacheLog::makeJsonLog(int logType , QString date , QString tex
     log.insert("loggedDate", QJsonValue(date));
     log.insert("text", QJsonValue(text));
     log.insert("usedFavoritePoint",QJsonValue(favorite));
-
     QJsonObject type;
     type.insert("id",logType);
     log.insert("geocacheLogType", type);
 
-    return QJsonDocument(log);
+    QJsonDocument logDoc(log);
+    return logDoc;
 }
 
 void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , QString date , QString text , bool favorite)

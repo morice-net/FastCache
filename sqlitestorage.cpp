@@ -199,7 +199,7 @@ QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString 
 
 // update in tables
 
-bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, QJsonDocument &json)
+bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, const QJsonDocument &json)
 {
     QString queryCommand;
     QString stringJson(json.toJson(QJsonDocument::Compact));
