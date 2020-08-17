@@ -20,13 +20,13 @@ public:
 
     int founds() const;
     void setFounds(const int &count);
-
-    Q_INVOKABLE QJsonDocument makeJsonLog(int logType , QString date , QString log , bool favorite) ;
-    Q_INVOKABLE void sendRequest(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite) ;
-
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
-signals:   
+    Q_INVOKABLE QJsonDocument makeJsonLog(int logType , QString date , QString log , bool favorite);
+    Q_INVOKABLE void sendRequest(QString token , QString cacheCode, int logType , QString date , QString log , bool favorite);
+    Q_INVOKABLE QVariant readJsonProperty(const QJsonDocument &jsonDoc, QString propertyName);
+
+signals:
     void foundsChanged() ;
 
 private:

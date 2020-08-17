@@ -31,7 +31,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = new Date().toLocaleDateString(Qt.LocaleDate);
+                    addLog = new Date().toLocaleDateString(Qt.LocaleDate);
                     addText.close() ;
                 }
             }
@@ -55,7 +55,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = new Date().getHours(Qt.LocaleDate) + " h : " + new Date().getMinutes(Qt.LocaleDate);
+                    addLog = new Date().getHours(Qt.LocaleDate) + " h : " + new Date().getMinutes(Qt.LocaleDate);
                     addText.close() ;
                 }
             }
@@ -79,7 +79,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = userInfo.name ;
+                    addLog = userInfo.name ;
                     addText.close() ;
                 }
             }
@@ -103,8 +103,8 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = fullCache.owner;
-                    addText.close() ;
+                    addLog = fullCache.owner
+                    addText.close()
                 }
             }
         }
@@ -127,7 +127,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = fullCache.name;
+                    addLog = fullCache.name;
                     addText.close() ;
                 }
             }
@@ -151,7 +151,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = fullCache.difficulty;
+                    addLog = fullCache.difficulty;
                     addText.close() ;
                 }
             }
@@ -175,7 +175,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = fullCache.terrain;
+                    addLog = fullCache.terrain;
                     addText.close() ;
                 }
             }
@@ -199,7 +199,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    textLog = fullCache.size;
+                    addLog = fullCache.size;
                     addText.close() ;
                 }
             }

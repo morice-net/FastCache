@@ -8,19 +8,38 @@ import com.mycompany.connecting 1.0
 Item {
     id: logPage
 
-    property string dateIso: new Date().toISOString()
-    property int typeLog: 2
-    property string textLog: ""
+    property string dateIso: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
+                                 sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
+                               : new Date().toISOString()
+    property int typeLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
+                              sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") : 2
+
+    property string addLog: ""
+    property string textLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
+                                 sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : message.text
 
     onTypeLogChanged: {
-        button1.checked = typeLog == 2  // type of log : Found It
-        button2.checked = typeLog == 3  // type of log : Didn't find it
-        button3.checked = typeLog == 4  // type of log : Write note
-        button4.checked = typeLog == 45 // type of log : Needs Maintenance
-        button5.checked = typeLog == 7  // type of log : Needs Archived
+        button1.checked = typeLog == 2;  // type of log : Found It
+        button2.checked = typeLog == 3;  // type of log : Didn't find it
+        button3.checked = typeLog == 4;  // type of log : Write note
+        button4.checked = typeLog == 45; // type of log : Needs Maintenance
+        button5.checked = typeLog == 7; // type of log : Needs Archived
+    }
+    onDateIsoChanged: {
+        sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ? logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate) :
+                                                                       logDate.text = new Date().toLocaleDateString(Qt.LocaleDate)
     }
 
-    onTextLogChanged: message.text = message.text + textLog ;
+    onAddLogChanged: {
+        console.log("addLog: " + addLog)
+        message.text = message.text + addLog
+        addLog = ""
+    }
+
+    onTextLogChanged: {
+        console.log("textLog: " + textLog)
+        message.text = textLog
+    }
 
     AddTextLog{
         id:addText
@@ -47,7 +66,7 @@ Item {
                         id:button1
                         text: "Trouvée"
                         checked: true
-                        onClicked: typeLog = 2
+                        onClicked: typeLog.valueOf(2)
                         contentItem: Text {
                             text: button1.text
                             font.family: localFont.name
@@ -74,7 +93,7 @@ Item {
                     RadioButton {
                         id:button2
                         text: "Non trouvée"
-                        onClicked: typeLog = 3
+                        onClicked: typeLog.valueOf(3)
                         contentItem: Text {
                             text: button2.text
                             font.family: localFont.name
@@ -101,7 +120,7 @@ Item {
                     RadioButton {
                         id:button3
                         text: "Note"
-                        onClicked: typeLog = 4
+                        onClicked: typeLog.valueOf(4)
                         contentItem: Text {
                             text: button3.text
                             font.family: localFont.name
@@ -128,7 +147,7 @@ Item {
                     RadioButton {
                         id:button4
                         text: "Nécessite une maintenance"
-                        onClicked: typeLog = 45
+                        onClicked: typeLog.valueOf(45)
                         contentItem: Text {
                             text: button4.text
                             font.family: localFont.name
@@ -155,7 +174,7 @@ Item {
                     RadioButton {
                         id:button5
                         text: "Nécessite d'être archivée"
-                        onClicked: typeLog = 7
+                        onClicked: typeLog.valueOf(7)
                         contentItem: Text {
                             text: button5.text
                             font.family: localFont.name
@@ -186,9 +205,7 @@ Item {
                 width: parent.width
                 font.family: localFont.name
                 font.pointSize: 18
-                text: "Date  " + new Date().toLocaleDateString(Qt.LocaleDate)
                 color: Palette.white()
-
                 MouseArea {
                     anchors.fill: logDate
                     onClicked: {
@@ -219,7 +236,7 @@ Item {
                         radius: 4
                     }
                     onClicked:{
-                        message.text=""
+                        message.text = ""
                     }
                 }
 
@@ -238,7 +255,6 @@ Item {
                     }
                     onClicked:{
                         addText.open();
-                        textLog = "" ;
                     }
                 }
 
@@ -294,7 +310,8 @@ Item {
             CheckBox {
                 id :favorited
                 x:10
-                checked:false
+                checked:sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
+                            sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint") : false
                 contentItem: Text {
                     text: "Ajouter cette cache à vos favoris"
                     font.family: localFont.name

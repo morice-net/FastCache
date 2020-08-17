@@ -8,8 +8,9 @@ import com.mycompany.connecting 1.0
 Calendar {
     id:calendar
     onClicked:{
-        logDate.text="Date  " + date.toLocaleDateString(Qt.LocaleDate);
-        dateIso = date.toISOString()
+        logDate.text = "Date  " + date.toLocaleDateString(Qt.LocaleDate);
+        dateIso.valueOf(date.toISOString())
+        calendar.visible = false
     }
     style: CalendarStyle {
         gridVisible: false
