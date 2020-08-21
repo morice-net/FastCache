@@ -12,17 +12,21 @@ Item {
     property string dateInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
                                   sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
                                 : new Date().toISOString()
-    property int typeLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
-                              sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") : 2
+    property int typeLog
+    property int typeLogCheck
+    property int typeLogInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
+                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") : 2
     property string addLog: ""
     property string textLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : message.text
-    onTypeLogChanged: {
+    onTypeLogInitChanged: {
+        typeLog = typeLogInit
         button1.checked = typeLog == 2;  // type of log : Found It
         button2.checked = typeLog == 3;  // type of log : Didn't find it
         button3.checked = typeLog == 4;  // type of log : Write note
         button4.checked = typeLog == 45; // type of log : Needs Maintenance
         button5.checked = typeLog == 7; // type of log : Needs Archived
+        console.log("typeLog: " + typeLog)
     }
     onDateInitChanged:{
         dateIso = dateInit
@@ -64,7 +68,10 @@ Item {
                         id:button1
                         text: "Trouvée"
                         checked: true
-                        onClicked: typeLog.valueOf(2)
+                        onClicked: {
+                            typeLogCheck = 2
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button1.text
                             font.family: localFont.name
@@ -91,7 +98,10 @@ Item {
                     RadioButton {
                         id:button2
                         text: "Non trouvée"
-                        onClicked: typeLog.valueOf(3)
+                        onClicked: {
+                            typeLogCheck = 3
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button2.text
                             font.family: localFont.name
@@ -118,7 +128,10 @@ Item {
                     RadioButton {
                         id:button3
                         text: "Note"
-                        onClicked: typeLog.valueOf(4)
+                        onClicked: {
+                            typeLogCheck = 4
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button3.text
                             font.family: localFont.name
@@ -145,7 +158,10 @@ Item {
                     RadioButton {
                         id:button4
                         text: "Nécessite une maintenance"
-                        onClicked: typeLog.valueOf(45)
+                        onClicked: {
+                            typeLogCheck = 45
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button4.text
                             font.family: localFont.name
@@ -172,7 +188,10 @@ Item {
                     RadioButton {
                         id:button5
                         text: "Nécessite d'être archivée"
-                        onClicked: typeLog.valueOf(7)
+                        onClicked: {
+                            typeLogCheck = 7
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button5.text
                             font.family: localFont.name

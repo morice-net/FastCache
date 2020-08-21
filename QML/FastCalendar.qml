@@ -11,10 +11,7 @@ Calendar {
     property var dateCalendar
 
     onClicked:{
-        //  dateIso = date.toISOString()
-        //   dateBis = date.toISOString()
         dateCalendar = date
-        //   logDate.text = "Date  " + date.toLocaleDateString(Qt.LocaleDate);
         calendar.visible = false
     }
     style: CalendarStyle {
