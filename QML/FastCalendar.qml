@@ -7,9 +7,14 @@ import com.mycompany.connecting 1.0
 
 Calendar {
     id:calendar
+
+    property var dateCalendar
+
     onClicked:{
-        logDate.text = "Date  " + date.toLocaleDateString(Qt.LocaleDate);
-        dateIso.valueOf(date.toISOString())
+        //  dateIso = date.toISOString()
+        //   dateBis = date.toISOString()
+        dateCalendar = date
+        //   logDate.text = "Date  " + date.toLocaleDateString(Qt.LocaleDate);
         calendar.visible = false
     }
     style: CalendarStyle {

@@ -8,16 +8,15 @@ import com.mycompany.connecting 1.0
 Item {
     id: logPage
 
-    property string dateIso: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
-                                 sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
-                               : new Date().toISOString()
+    property string dateIso
+    property string dateInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
+                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
+                                : new Date().toISOString()
     property int typeLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                               sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") : 2
-
     property string addLog: ""
     property string textLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : message.text
-
     onTypeLogChanged: {
         button1.checked = typeLog == 2;  // type of log : Found It
         button2.checked = typeLog == 3;  // type of log : Didn't find it
@@ -25,11 +24,10 @@ Item {
         button4.checked = typeLog == 45; // type of log : Needs Maintenance
         button5.checked = typeLog == 7; // type of log : Needs Archived
     }
-    onDateIsoChanged: {
-        sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ? logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate) :
-                                                                       logDate.text = new Date().toLocaleDateString(Qt.LocaleDate)
+    onDateInitChanged:{
+        dateIso = dateInit
+        logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate)
     }
-
     onAddLogChanged: {
         console.log("addLog: " + addLog)
         message.text = message.text + addLog
@@ -217,6 +215,10 @@ Item {
             FastCalendar {
                 id:calendar
                 visible: false
+                onDateCalendarChanged:{
+                    dateIso = dateCalendar.toISOString()
+                    logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate)
+                }
             }
 
             Row {
@@ -281,6 +283,7 @@ Item {
                         if(message.text !== null && message.text !== '') {
                             sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
                                                                                                                   favorited.checked))
+                            sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(fastCache.listTbSend))
                             sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
                         }
                     }
@@ -358,7 +361,6 @@ Item {
                     model: getTravelbugUser.tbsCode.length
                     onItemAdded:{ fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," +
                                                             "0," + dateIso + "," +  "");
-
                     }
 
                     Row {

@@ -4,6 +4,7 @@
 #include <QNetworkRequest>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 
 SendTravelbugLog::SendTravelbugLog(Requestor *parent)
     : Requestor (parent)
@@ -12,6 +13,26 @@ SendTravelbugLog::SendTravelbugLog(Requestor *parent)
 
 SendTravelbugLog::~SendTravelbugLog()
 {
+}
+
+QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
+{
+    QJsonArray tbsUserLog;
+    QJsonObject item;
+    for(int i = 0; i < list.size(); ++i)
+    {
+        item.insert("tbCode", QJsonValue(list[i].split(',')[0]));
+        item.insert("trackingCode", QJsonValue(list[i].split(',')[1]));
+        item.insert("logType", QJsonValue(list[i].split(',')[2]));
+        item.insert("text", QJsonValue(list[i].split(',')[4]));
+        tbsUserLog.push_back(QJsonValue(item));
+    }
+
+    QJsonObject doc;
+    doc.insert("array", QJsonValue(tbsUserLog));
+
+    QJsonDocument logDoc(doc);
+    return logDoc;
 }
 
 void SendTravelbugLog::sendRequest(QString token ,QString geocode , QString tbCode, QString trackingCode , int logType , QString date , QString text)

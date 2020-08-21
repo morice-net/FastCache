@@ -16,6 +16,7 @@ public:
     ~SendTravelbugLog() override;
 
     Q_INVOKABLE void sendRequest(QString token , QString geocode , QString tbCode, QString trackingCode ,int logType , QString date , QString log ) ;
+    Q_INVOKABLE QJsonDocument makeJsonTbsUserLog(const QList<QString> &list);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
