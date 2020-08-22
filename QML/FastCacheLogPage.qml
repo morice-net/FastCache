@@ -12,13 +12,14 @@ Item {
     property string dateInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
                                   sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
                                 : new Date().toISOString()
-    property int typeLog
+    property int typeLog: 2
     property int typeLogCheck
     property int typeLogInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                   sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") : 2
     property string addLog: ""
-    property string textLog: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
-                                 sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : message.text
+    property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
+                                      sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : ""
+
     onTypeLogInitChanged: {
         typeLog = typeLogInit
         button1.checked = typeLog == 2;  // type of log : Found It
@@ -37,10 +38,9 @@ Item {
         message.text = message.text + addLog
         addLog = ""
     }
-
-    onTextLogChanged: {
-        console.log("textLog: " + textLog)
-        message.text = textLog
+    onTextRecordedChanged: {
+        console.log("textRecorded: " + textRecorded)
+        message.text = textRecorded
     }
 
     AddTextLog{
@@ -303,7 +303,7 @@ Item {
                             sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
                                                                                                                   favorited.checked))
                             sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(fastCache.listTbSend))
-                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
+                            //    sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
                         }
                     }
                 }
