@@ -35,6 +35,25 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
     return logDoc;
 }
 
+QList<QString> SendTravelbugLog::readJsonArray(const QJsonDocument &jsonDoc)
+{
+    // return list of strings of the form: tbCode,trackingNumber,logType,text
+
+    QList<QString> list;
+    QString type;
+    QJsonObject jsonObject = jsonDoc.object();
+    QJsonArray jsonArray = jsonObject["array"].toArray();
+    QJsonValue jsonValue;
+    for(int i = 0; i < jsonArray.count(); i++)
+    {
+        jsonValue = jsonArray[i];
+        list.append(jsonValue["tbCode"].toString() + "," + jsonValue["trackingCode"].toString() + "," + jsonValue["logType"].toString() +
+                "," + jsonValue["text"].toString());
+    }
+    qDebug()<<"List: "<< list;
+    return list;
+}
+
 void SendTravelbugLog::sendRequest(QString token ,QString geocode , QString tbCode, QString trackingCode , int logType , QString date , QString text)
 {
     //Build url

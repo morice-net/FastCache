@@ -17,9 +17,9 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token , QString geocode , QString tbCode, QString trackingCode ,int logType , QString date , QString log ) ;
     Q_INVOKABLE QJsonDocument makeJsonTbsUserLog(const QList<QString> &list);
+    Q_INVOKABLE QList<QString> readJsonArray(const QJsonDocument &jsonDoc);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
-
 };
 
 #endif // SENDTRAVELBUGLOG_H
