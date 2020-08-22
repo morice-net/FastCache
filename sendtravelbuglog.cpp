@@ -5,7 +5,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-#include <QString>
 
 SendTravelbugLog::SendTravelbugLog(Requestor *parent)
     : Requestor (parent)
@@ -31,8 +30,7 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
         tbCode = list[i].split(',')[0];
         trackingCode = list[i].split(',')[1];
         logType = list[i].split(',')[2];
-        text = list[i].mid(list[i].split(',')[0].length() + list[i].split(',')[1].length() + list[i].split(',')[2].length()
-                + list[i].split(',')[3].length() + 4);
+        text = list[i].mid(tbCode.length() + trackingCode.length() + logType.length() + list[i].split(',')[3].length() + 4);
 
         item.insert("tbCode", QJsonValue(tbCode));
         item.insert("trackingCode", QJsonValue(trackingCode));

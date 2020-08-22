@@ -237,11 +237,20 @@ Item {
                 // clears the cache log record
                 sqliteStorage.deleteObject("cacheslog", fullCache.geocode())
                 // Send list of travelbugs
+
+                var   tbCode;
+                var   trackingCode;
+                var   logType;
+                var dateIso;
+                var   text;
                 for (var i = 0; i < fastCache.listTbSend.length; i++) {
                     if(fastCache.listTbSend[i].split(',')[2] !== "0"){
-                        sendTravelbugLog.sendRequest(connector.tokenKey , fullCache.geocode , fastCache.listTbSend[i].split(',')[0] ,
-                                                     fastCache.listTbSend[i].split(',')[1] , fastCache.listTbSend[i].split(',')[2] ,
-                                                     fastCache.listTbSend[i].split(',')[3]  , fastCache.listTbSend[i].split(',')[4]);
+                        tbCode = fastCache.listTbSend[i].split(',')[0]
+                        trackingCode = fastCache.listTbSend[i].split(',')[1]
+                        logType = fastCache.listTbSend[i].split(',')[2]
+                        dateIso = fastCache.listTbSend[i].split(',')[3]
+                        text = fastCache.listTbSend[i].substring(tbCode.length() + trackingCode.length() + logType.length() + dateIso.length() + 4);
+                        sendTravelbugLog.sendRequest(connector.tokenKey , fullCache.geocode , tbCode , trackingCode , logType , dateIso , text);
                     }
                 }
             }
