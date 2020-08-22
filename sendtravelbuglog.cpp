@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QString>
 
 SendTravelbugLog::SendTravelbugLog(Requestor *parent)
     : Requestor (parent)
@@ -19,12 +20,25 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
 {
     QJsonArray tbsUserLog;
     QJsonObject item;
+
+    QString   tbCode;
+    QString   trackingCode;
+    QString   logType;
+    QString   text;
+
     for(int i = 0; i < list.size(); ++i)
     {
-        item.insert("tbCode", QJsonValue(list[i].split(',')[0]));
-        item.insert("trackingCode", QJsonValue(list[i].split(',')[1]));
-        item.insert("logType", QJsonValue(list[i].split(',')[2]));
-        item.insert("text", QJsonValue(list[i].split(',')[4]));
+        tbCode = list[i].split(',')[0];
+        trackingCode = list[i].split(',')[1];
+        logType = list[i].split(',')[2];
+        text = list[i].mid(list[i].split(',')[0].length() + list[i].split(',')[1].length() + list[i].split(',')[2].length()
+                + list[i].split(',')[3].length() + 4);
+
+        item.insert("tbCode", QJsonValue(tbCode));
+        item.insert("trackingCode", QJsonValue(trackingCode));
+        item.insert("logType", QJsonValue(logType));
+        item.insert("text", QJsonValue(text));
+
         tbsUserLog.push_back(QJsonValue(item));
     }
 
