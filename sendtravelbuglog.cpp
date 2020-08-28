@@ -23,6 +23,7 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
     QString   tbCode;
     QString   trackingCode;
     QString   logType;
+    QString   dateIso;
     QString   text;
 
     for(int i = 0; i < list.size(); ++i)
@@ -30,11 +31,13 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
         tbCode = list[i].split(',')[0];
         trackingCode = list[i].split(',')[1];
         logType = list[i].split(',')[2];
-        text = list[i].mid(tbCode.length() + trackingCode.length() + logType.length() + list[i].split(',')[3].length() + 4);
+        dateIso = list[i].split(',')[3];
+        text = list[i].mid(tbCode.length() + trackingCode.length() + logType.length() + dateIso.length() + 4);
 
         item.insert("tbCode", QJsonValue(tbCode));
         item.insert("trackingCode", QJsonValue(trackingCode));
         item.insert("logType", QJsonValue(logType));
+        item.insert("dateIso", QJsonValue(dateIso));
         item.insert("text", QJsonValue(text));
 
         tbsUserLog.push_back(QJsonValue(item));
@@ -49,7 +52,7 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
 
 QList<QString> SendTravelbugLog::readJsonArray(const QJsonDocument &jsonDoc)
 {
-    // return list of strings of the form: tbCode,trackingNumber,logType,text
+    // return list of strings of the form: tbCode,trackingNumber,logType,dateIso,text
 
     QList<QString> list;
     QString type;
@@ -60,7 +63,7 @@ QList<QString> SendTravelbugLog::readJsonArray(const QJsonDocument &jsonDoc)
     {
         jsonValue = jsonArray[i];
         list.append(jsonValue["tbCode"].toString() + "," + jsonValue["trackingCode"].toString() + "," + jsonValue["logType"].toString() +
-                "," + jsonValue["text"].toString());
+                "," + jsonValue["dateIso"].toString() + ","  + jsonValue["text"].toString());
     }
     qDebug()<<"List: "<< list;
     return list;

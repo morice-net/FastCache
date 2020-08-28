@@ -237,7 +237,6 @@ Item {
                 // clears the cache log record
                 sqliteStorage.deleteObject("cacheslog", fullCache.geocode())
                 // Send list of travelbugs
-
                 var   tbCode;
                 var   trackingCode;
                 var   logType;
