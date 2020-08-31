@@ -29,7 +29,8 @@ Rectangle {
     property bool deleteUserWpt: true
 
     // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso,logText
-    property var listTbSend: []
+    property var listTbSend: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
+                                 sendTravelbugLog.readJsonArray(sqliteStorage.readObject("cachestbsuserlog" , fullCache.geocode)) : []
 
     anchors.fill: parent
     opacity: main.viewState === "fullcache" ? 1 : 0

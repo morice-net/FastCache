@@ -19,7 +19,6 @@ Item {
     property string addLog: ""
     property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                       sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : ""
-
     onTypeLogInitChanged: {
         typeLog = typeLogInit
         button1.checked = typeLog == 2;  // type of log : Found It
@@ -302,8 +301,8 @@ Item {
                         if(message.text !== null && message.text !== '') {
                             sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
                                                                                                                   favorited.checked))
-                            sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(fastCache.listTbSend))
-                            //  sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
+                            sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
+                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
                         }
                     }
                 }
@@ -378,8 +377,10 @@ Item {
                     property int repeaterIndex
 
                     model: getTravelbugUser.tbsCode.length
-                    onItemAdded:{ fastCache.listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," +
-                                                            "0," + dateIso + "," +  "");
+                    onItemAdded:{
+                        if(sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode) === false)
+                            listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
+                                            dateIso + "," +  "")
                     }
 
                     Row {
@@ -422,7 +423,7 @@ Item {
                             ComboBox {
                                 id: tbCombo
                                 visible:false
-                                model: ["Ne rien faire", "Visité", "Déposé"]
+                                model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
                                 delegate: ItemDelegate {
                                     width: tbCombo.width
                                     contentItem: Text {
@@ -454,21 +455,24 @@ Item {
                                     tbLog.visible = true;
                                     title.visible = false;
                                     messageTbLog.visible = false;
-                                    if(tbLog.text === "Ne rien faire") {
-                                        fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] +
+                                    if(tbLog.text === tbComboText(0)) {
+                                        listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] +
                                                 "," +getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
                                                 dateIso + "," + "";
                                     } else{
-                                        fastCache.listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
+                                        listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
                                                 getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
                                                 dateIso + "," + messageTbLog.text;
                                     }
                                 }
                             }
 
+                            property string typeTbLog: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
+                                                           tbComboText(Number(listTbSend[tbList.repeaterIndex].split(',')[2])) : tbComboText(0)
+                            onTypeTbLogChanged: tbLog.text = typeTbLog
+
                             Text {
                                 id: tbLog
-                                text: "Ne rien faire"
                                 font.family: localFont.name
                                 font.bold: true
                                 font.pointSize: 14
@@ -498,6 +502,11 @@ Item {
 
                             TextArea {
                                 id: messageTbLog
+                                text: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
+                                          listTbSend[tbList.repeaterIndex].substring(listTbSend[tbList.repeaterIndex].split(',')[0].length
+                                                                                     + listTbSend[tbList.repeaterIndex].split(',')[1].length  +
+                                                                                     listTbSend[tbList.repeaterIndex].split(',')[2].length +
+                                                                                     listTbSend[tbList.repeaterIndex].split(',')[3].length + 4) : ""
                                 visible: false
                                 width: logPage.width*0.85
                                 font.family: localFont.name
@@ -522,6 +531,15 @@ Item {
             return 75;  // Visited
         else if(comboIndex === 2)
             return 14  // Dropped Off
+    }
+
+    function tbComboText(type) {
+        if(type === 0)
+            return "Ne rien faire"   // Nothing
+        else if(type === 75)
+            return "Visité"   // Visited
+        else if(type === 14)
+            return "Déposé"  // Dropped Off
     }
 }
 
