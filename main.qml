@@ -252,6 +252,8 @@ Item {
                         sendTravelbugLog.sendRequest(connector.tokenKey , fullCache.geocode , tbCode , trackingCode , logType , dateIso , text);
                     }
                 }
+                // clears the tbsUser log record
+                sqliteStorage.deleteObject("cachestbsuserlog", fullCache.geocode())
             }
         }
         onFoundsChanged: {

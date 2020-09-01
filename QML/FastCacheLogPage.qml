@@ -302,7 +302,7 @@ Item {
                             sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
                                                                                                                   favorited.checked))
                             sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
-                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
+                            //   sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked );
                         }
                     }
                 }
@@ -421,7 +421,7 @@ Item {
                             }
 
                             ComboBox {
-                                id: tbCombo
+                                id: tbCombo                                
                                 visible:false
                                 model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
                                 delegate: ItemDelegate {
@@ -484,6 +484,7 @@ Item {
                                         tbList.repeaterIndex = index;
                                         tbLog.visible = false
                                         tbCombo.visible = true;
+                                        tbCombo.currentIndex = tbCombo.find(tbLog.text)
                                         title.visible = true;
                                         messageTbLog.visible = true;
                                     }
