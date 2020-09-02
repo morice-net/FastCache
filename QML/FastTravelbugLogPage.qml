@@ -8,20 +8,47 @@ import com.mycompany.connecting 1.0
 Item {
     id: logPage
 
-    property string dateIso: new Date().toISOString()
+    property string dateIso
+    property string dateInit: sqliteStorage.isCacheInTable("tblog", travelbug.tbCode) ?
+                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" ,travelbug.tbCode), "loggedDate")
+                                : new Date().toISOString()
     property int typeLog: 4
-    property string textLog: ""
+    property int typeLogCheck
+    property int typeLogInit: sqliteStorage.isCacheInTable("tblog" , travelbug.tbCode)?
+                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" , travelbug.tbCode), "logType") :4
+    property string addLog: ""
+    property string textRecorded: sqliteStorage.isCacheInTable("tblog", travelbug.tbCode)?
+                                      sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" , travelbug.tbCode), "text") : ""
 
-    onTypeLogChanged: {
+    property string tracking: sqliteStorage.isCacheInTable("tblog", travelbug.tbCode) ?
+                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" ,travelbug.tbCode), "trackingCode") : ""
+
+    onDateInitChanged:{
+        dateIso = dateInit
+        logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate)
+    }
+    onTypeLogInitChanged: {
+        typeLog = typeLogInit
         button1.checked = typeLog == 13   // type of log: Retrieve It from a Cache
         button2.checked = typeLog == 19   // type of log: Grab It (Not from a Cache)
         button3.checked = typeLog == 4   // type of log: Write Note
         button4.checked = typeLog == 48  // type of log: Discovered It
         button5.checked = typeLog == 75  // type of log: Visited
         button6.checked = typeLog == 14  // type of log: Dropped Off
+        console.log("typeLog: " + typeLog)
     }
-
-    onTextLogChanged: message.text = message.text + textLog ;
+    onAddLogChanged: {
+        console.log("addLog: " + addLog)
+        message.text = message.text + addLog
+        addLog = ""
+    }
+    onTextRecordedChanged: {
+        console.log("textRecorded: " + textRecorded)
+        message.text = textRecorded
+    }
+    onTrackingChanged: {
+        trackingCode.text = tracking
+    }
 
     AddTextLog{
         id:addText
@@ -48,7 +75,10 @@ Item {
                         text: "Récupéré"
                         visible: travelbug.tbStatus === 1 //travelbug in cache
                         checked: false
-                        onClicked: typeLog = 13
+                        onClicked: {
+                            typeLogCheck = 13
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button1.text
                             font.family: localFont.name
@@ -77,7 +107,10 @@ Item {
                         text: "Pris ailleurs"
                         visible: travelbug.tbStatus === 1 //travelbug in cache
                         checked: false
-                        onClicked: typeLog = 19
+                        onClicked: {
+                            typeLogCheck = 19
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button2.text
                             font.family: localFont.name
@@ -106,7 +139,10 @@ Item {
                         text: "Note"
                         visible:true
                         checked: true
-                        onClicked: typeLog = 4
+                        onClicked: {
+                            typeLogCheck = 4
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button3.text
                             font.family: localFont.name
@@ -135,7 +171,10 @@ Item {
                         text: "Découvert"
                         visible: travelbug.tbStatus === 1 //travelbug in cache
                         checked: false
-                        onClicked: typeLog = 48
+                        onClicked: {
+                            typeLogCheck = 48
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button4.text
                             font.family: localFont.name
@@ -163,7 +202,10 @@ Item {
                         id:button5
                         text: "Visité"
                         visible: false
-                        onClicked: typeLog = 75
+                        onClicked: {
+                            typeLogCheck = 75
+                            typeLog = typeLogCheck
+                        }
                         checked: false
                         contentItem: Text {
                             text: button5.text
@@ -193,7 +235,10 @@ Item {
                         text: "Déposé"
                         visible: false
                         checked: false
-                        onClicked: typeLog = 14
+                        onClicked: {
+                            typeLogCheck = 14
+                            typeLog = typeLogCheck
+                        }
                         contentItem: Text {
                             text: button6.text
                             font.family: localFont.name
@@ -238,6 +283,10 @@ Item {
             FastCalendar {
                 id: calendar
                 visible: false
+                onDateCalendarChanged:{
+                    dateIso = dateCalendar.toISOString()
+                    logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate)
+                }
             }
 
             Row {
@@ -293,8 +342,11 @@ Item {
                     }
                     onClicked:{
                         if(typeLog !== 4 && travelbug.tbStatus === 1 && message.text !=="") {
+                            sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,
+                                                                                                                   dateIso , message.text))
                             sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
                         } else if(typeLog === 4 && message.text !==""){
+                            sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog("" , typeLog , dateIso , message.text))
                             sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
                         }
                     }

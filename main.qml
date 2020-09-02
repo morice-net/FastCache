@@ -274,6 +274,8 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("Le log du travelbug a été correctement envoyé ");
+                // clears the travelbug log record
+                sqliteStorage.deleteObject("tblog", travelbug.tbCode)
             }
         }
     }
