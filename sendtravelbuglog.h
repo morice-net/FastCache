@@ -17,7 +17,9 @@ public:
 
     Q_INVOKABLE void sendRequest(QString token , QString geocode , QString tbCode, QString trackingCode ,int logType , QString date , QString log ) ;
     Q_INVOKABLE QJsonDocument makeJsonTbsUserLog(const QList<QString> &list);
+    Q_INVOKABLE QJsonDocument makeJsonTbLog(const QString &trackingCode , const int &logType , const QString &date , const QString &text );
     Q_INVOKABLE QList<QString> readJsonArray(const QJsonDocument &jsonDoc);
+    Q_INVOKABLE QVariant readJsonProperty(const QJsonDocument &jsonDoc, QString propertyName);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 };

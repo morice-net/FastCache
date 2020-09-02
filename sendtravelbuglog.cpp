@@ -50,6 +50,25 @@ QJsonDocument SendTravelbugLog::makeJsonTbsUserLog(const QList<QString> &list )
     return logDoc;
 }
 
+QJsonDocument SendTravelbugLog::makeJsonTbLog(const QString &trackingCode , const int &logType , const QString &date , const QString &text )
+{
+    QJsonObject log;
+    log.insert("trackingCode", QJsonValue(trackingCode));
+    log.insert("logType", QJsonValue(logType));
+    log.insert("loggedDate", QJsonValue(date));
+    log.insert("text", QJsonValue(text));
+
+    QJsonDocument logDoc(log);
+    return logDoc;
+}
+
+QVariant SendTravelbugLog::readJsonProperty(const QJsonDocument &jsonDoc, QString propertyName)
+{
+    QJsonObject json = jsonDoc.object();
+    return json[propertyName].toVariant();
+}
+
+
 QList<QString> SendTravelbugLog::readJsonArray(const QJsonDocument &jsonDoc)
 {
     // return list of strings of the form: tbCode,trackingNumber,logType,dateIso,text
