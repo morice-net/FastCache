@@ -65,6 +65,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
+            onPressAndHold: cachesRecordedLists.open()
         }
 
         function updateCachesOnMap(caches) {
@@ -88,6 +89,12 @@ Rectangle {
         Component.onCompleted:{
             map.center = currentPosition.position.coordinate
         }
+    }
+
+    CachesRecordedLists {
+        id:cachesRecordedLists
+        x: main.width/6
+        y: 10
     }
 
     PositionMarker {
