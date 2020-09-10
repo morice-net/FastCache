@@ -87,6 +87,7 @@ void CachesRecorded::moreCaches()
 
 void CachesRecorded::addGetRequestParameters(QString &parameters)
 {
+    Q_UNUSED(parameters)
 }
 
 bool CachesRecorded::updateMapCachesRecorded()
