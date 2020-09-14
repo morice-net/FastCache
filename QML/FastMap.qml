@@ -65,7 +65,10 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
-            onPressAndHold: cachesRecordedLists.open()
+            onPressAndHold: {
+                console.log("list of geocodes:   " + listGeocodesOnMap())
+                cachesRecordedLists.open()
+            }
         }
 
         function updateCachesOnMap(caches) {
@@ -136,5 +139,13 @@ Rectangle {
         map.clearMapItems()
         cacheItems.forEach(item => item.destroy())
         cacheItems = []
+    }
+
+    function listGeocodesOnMap() {
+        var listGeocodes = []
+        for (var i = 0; i < map.mapItems.length; i++) {
+            listGeocodes.push(map.mapItems[i].geocode)
+        }
+        return listGeocodes
     }
 }
