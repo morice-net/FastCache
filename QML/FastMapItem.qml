@@ -5,6 +5,7 @@ import QtPositioning 5.3
 MapQuickItem {
 
     property int index: 0
+    property string geocode: listCaches().length !==0 ? listCaches()[index].geocode  : ""
 
     coordinate: listCaches().length !==0 ? QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon) : QtPositioning.coordinate(-1,-1)
     anchorPoint.x: cacheIcon.width/2
