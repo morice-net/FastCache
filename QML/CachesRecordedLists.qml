@@ -12,11 +12,13 @@ FastPopup {
     property var listChecked: []
     property int listIndex: 0
     width: Math.max( displayListColumn.width, manageListButton.width )
-    height: displayListColumn.height + manageListButton.height + 50
+    height: recordCachesButton.visible ? displayListColumn.height + manageListButton.height + recordCachesButton.height + 50 :
+                                         displayListColumn.height + manageListButton.height + 50
     background: Rectangle {
         id: backgroundRectangle
         width: Math.max( displayListColumn.width, manageListButton.width )
-        height: displayListColumn.height + manageListButton.height + 30
+        height: recordCachesButton.visible ? displayListColumn.height + manageListButton.height + recordCachesButton.height + 30 :
+                                             displayListColumn.height + manageListButton.height + 30
         color: Palette.turquoise()
         radius: 10
     }
@@ -66,6 +68,15 @@ FastPopup {
         onClicked: recordedListManager.open()
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
+        anchors.margins: 10
+    }
+
+    FastTextButton {
+        id: recordCachesButton
+        buttonText: "Enregistrer les caches"
+        visible: main.viewState === "fullcache" ? false : true
+        anchors.bottom: manageListButton.top
+        anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
     }
 
