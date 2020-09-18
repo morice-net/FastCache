@@ -14,6 +14,7 @@ SOURCES += main.cpp \
     cachesrecorded.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
+    fullcachesrecorded.cpp \
     gettravelbuguser.cpp \
     imagedownloader.cpp \
     parameter.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     cachesrecorded.h \
     connector.h \
     fullcacheretriever.h \
+    fullcachesrecorded.h \
     gettravelbuguser.h \
     imagedownloader.h \
     parameter.h \

@@ -100,6 +100,10 @@ Item {
         }
     }
 
+    FullCachesRecorded {
+        id: fullCachesRecorded
+    }
+
     FastMap { id: fastMap }
 
     FastList { id: fastList }

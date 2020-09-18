@@ -24,6 +24,7 @@
 #include "sqlitestorage.h"
 #include "gettravelbuguser.h"
 #include "senduserwaypoint.h"
+#include "fullcachesrecorded.h"
 
 int main(int argc, char *argv[])
 {
@@ -44,6 +45,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");
     qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
+    qmlRegisterType<FullCachesRecorded>("com.mycompany.connecting", 1, 0, "FullCachesRecorded");
 
     QGuiApplication app(argc, argv);
     app.setOrganizationName("morice");

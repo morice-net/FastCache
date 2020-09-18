@@ -36,6 +36,7 @@ Rectangle {
                 value: true
             }]
     }
+
     Map {
         id: map
         plugin: mapPlugin
