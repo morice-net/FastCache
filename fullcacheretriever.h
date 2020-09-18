@@ -4,6 +4,7 @@
 #include "requestor.h"
 #include "fullcache.h"
 #include "sqlitestorage.h"
+#include "replaceimageintext.h"
 
 #include <QNetworkReply>
 
