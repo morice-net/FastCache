@@ -69,6 +69,7 @@ Rectangle {
             onPressAndHold: {
                 console.log("list of geocodes:   " + listGeocodesOnMap())
                 cachesRecordedLists.open()
+                fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodesOnMap() , [] , sqliteStorage)
             }
         }
 

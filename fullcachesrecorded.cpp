@@ -17,10 +17,13 @@ FullCachesRecorded::~FullCachesRecorded()
 {
 }
 
-void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes)
+void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes , QList<int> cachesLists , SQLiteStorage *sqliteStorage)
 {
+    m_cachesLists = cachesLists;
+    m_sqliteStorage = sqliteStorage;
+
     //Build url
-    QString requestName = "geocaches/" ;
+    QString requestName = "geocaches?referenceCodes=" ;
 
     for(int i = 0; i < geocodes.size()-1 ; ++i)
     {
@@ -29,7 +32,7 @@ void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes)
     }
     requestName.append(geocodes[geocodes.size()-1]);
 
-    requestName.append("?lite=false");
+    requestName.append("&lite=false");
 
     // Fields
     requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
@@ -51,5 +54,14 @@ void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes)
 
 void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
 {
+    QJsonDocument jsonDoc ;
+    QJsonArray dataJsonArray = dataJsonDoc.array();
+    QString geocode;
 
+    for (QJsonValue fullCache: dataJsonArray)
+    {
+        geocode = fullCache["referenceCode"].toString();
+        jsonDoc.setObject(fullCache.toObject());
+        m_sqliteStorage->updateObject("fullcache", geocode,  m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  ,true));
+    }
 }
