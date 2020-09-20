@@ -42,20 +42,23 @@ FastPopup {
 
                 ListBox {
                     x:10
-                    checked:listCheckedBool(fullCache.geocode)[index]
+                    checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listCheckedBoolAtFalse()[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
                         listChecked[index] = !listChecked[index]
-                        if(listChecked.indexOf(true) === -1)
+                        if(main.viewState === "fullcache")
                         {
-                            fullCacheRetriever.deleteToStorage(sqliteStorage)
-                            fullCache.registered = false
-                        } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
-                            fullCacheRetriever.writeToStorage(sqliteStorage)
-                            fullCache.registered = true
+                            if(listChecked.indexOf(true) === -1)
+                            {
+                                fullCacheRetriever.deleteToStorage(sqliteStorage)
+                                fullCache.registered = false
+                            } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
+                                fullCacheRetriever.writeToStorage(sqliteStorage)
+                                fullCache.registered = true
+                            }
+                            sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
+                            sqliteStorage.numberCachesInLists("cacheslists")
                         }
-                        sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
-                        sqliteStorage.numberCachesInLists("cacheslists")
                     }
                 }
             }
@@ -87,6 +90,13 @@ FastPopup {
 
     function listCheckedBool(geocode) {
         listChecked = sqliteStorage.cacheInLists("cacheslists", geocode)
+        return listChecked
+    }
+
+    function listCheckedBoolAtFalse() {
+        for (var i = 0; i < sqliteStorage.countLists; i++) {
+            listChecked.push(false)
+        }
         return listChecked
     }
 }
