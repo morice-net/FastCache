@@ -17,13 +17,13 @@ public:
     explicit  FullCachesRecorded(Requestor *parent = nullptr);
     ~FullCachesRecorded() override;
 
-    Q_INVOKABLE void sendRequest(QString token , QList<QString> geocodes , QList<int> cachesLists , SQLiteStorage *sqliteStorage);
+    Q_INVOKABLE void sendRequest(QString token , QList<QString> geocodes , QList<bool> cachesLists , SQLiteStorage *sqliteStorage);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
     ReplaceImageInText* m_replaceImageInText = new ReplaceImageInText;
-    QList<int> m_cachesLists;
+    QList<bool> m_cachesLists;
     SQLiteStorage *m_sqliteStorage;
 };
 

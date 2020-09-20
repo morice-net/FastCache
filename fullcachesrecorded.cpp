@@ -17,7 +17,7 @@ FullCachesRecorded::~FullCachesRecorded()
 {
 }
 
-void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes , QList<int> cachesLists , SQLiteStorage *sqliteStorage)
+void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes , QList<bool> cachesLists , SQLiteStorage *sqliteStorage)
 {
     m_cachesLists = cachesLists;
     m_sqliteStorage = sqliteStorage;
@@ -63,5 +63,6 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         geocode = fullCache["referenceCode"].toString();
         jsonDoc.setObject(fullCache.toObject());
         m_sqliteStorage->updateObject("fullcache", geocode,  m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  ,true));
+        m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode);
     }
 }
