@@ -66,11 +66,7 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
-            onPressAndHold: {
-                console.log("list of geocodes:   " + listGeocodesOnMap())
-                cachesRecordedLists.open()
-                fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodesOnMap() , [] , sqliteStorage)
-            }
+            onPressAndHold: cachesRecordedLists.open()
         }
 
         function updateCachesOnMap(caches) {

@@ -11,6 +11,7 @@ FastPopup {
 
     property var listChecked: []
     property int listIndex: 0
+
     width: Math.max( displayListColumn.width, manageListButton.width )
     height: recordCachesButton.visible ? displayListColumn.height + manageListButton.height + recordCachesButton.height + 50 :
                                          displayListColumn.height + manageListButton.height + 50
@@ -78,6 +79,11 @@ FastPopup {
         id: recordCachesButton
         buttonText: "Enregistrer les caches"
         visible: main.viewState === "fullcache" ? false : true
+        onClicked: {
+            console.log("list of geocodes:   " + listGeocodesOnMap())
+            console.log("list checked:   " + listChecked)
+            //    fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodesOnMap() , listChecked , sqliteStorage)
+        }
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
@@ -94,9 +100,7 @@ FastPopup {
     }
 
     function listCheckedBoolAtFalse() {
-        for (var i = 0; i < sqliteStorage.countLists; i++) {
-            listChecked.push(false)
-        }
+        listChecked.push(false)
         return listChecked
     }
 }
