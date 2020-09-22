@@ -66,7 +66,9 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
-            onPressAndHold: cachesRecordedLists.open()
+            onPressAndHold: {
+                cachesRecordedLists.open()
+            }
         }
 
         function updateCachesOnMap(caches) {
@@ -142,7 +144,9 @@ Rectangle {
     function listGeocodesOnMap() {
         var listGeocodes = []
         for (var i = 0; i < map.mapItems.length; i++) {
-            listGeocodes.push(map.mapItems[i].geocode)
+            // is in viewport
+            if(map.fromCoordinate(map.mapItems[i].coordinate, true).x.toString() !== "NaN")
+                listGeocodes.push(map.mapItems[i].geocode)
         }
         return listGeocodes
     }

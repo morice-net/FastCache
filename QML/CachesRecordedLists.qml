@@ -57,7 +57,7 @@ FastPopup {
                                 fullCacheRetriever.writeToStorage(sqliteStorage)
                                 fullCache.registered = true
                             }
-                            sqliteStorage.updateListWithGeocode("cacheslists" ,listChecked , fullCache.geocode)
+                            sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode)
                             sqliteStorage.numberCachesInLists("cacheslists")
                         }
                     }
