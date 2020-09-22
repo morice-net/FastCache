@@ -66,8 +66,10 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             onClicked: mapControls.show()
-            onPressAndHold: cachesRecordedLists.open()
-
+            onPressAndHold: {
+                if(main.state !== "recorded")
+                    cachesRecordedLists.open()
+            }
         }
 
         function updateCachesOnMap(caches) {
