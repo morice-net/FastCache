@@ -15,9 +15,8 @@ Popup {
 
     width: childrenRect.width
     height: childrenRect.height
-    //anchors.centerIn: parent
-
     opacity: 0
+
     Behavior on opacity { NumberAnimation { duration: 800 ; easing.type: Easing.OutCurve } }
 
     background: Rectangle {

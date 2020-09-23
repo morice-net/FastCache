@@ -24,6 +24,12 @@ FastPopup {
         radius: 10
     }
 
+    RecordedListsManager {
+        id: recordedListsManager
+        x: -200
+        y: -50
+    }
+
     ScrollView {
         id: displayListColumn
         clip: true
@@ -42,7 +48,6 @@ FastPopup {
                 model: sqliteStorage.countLists
 
                 ListBox {
-                    x:10
                     checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listCheckedBoolAtFalse()[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
@@ -69,7 +74,7 @@ FastPopup {
     FastTextButton {
         id: manageListButton
         buttonText: "Gérer les listes..."
-        onClicked: recordedListManager.open()
+        onClicked: recordedListsManager .open()
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.margins: 10
@@ -100,7 +105,8 @@ FastPopup {
     }
 
     function listCheckedBoolAtFalse() {
-        listChecked.push(false)
-        return listChecked
+        for (var i = 0; i < sqliteStorage.countLists; i++) {
+            listChecked.push(false)
+            return listChecked}
     }
 }

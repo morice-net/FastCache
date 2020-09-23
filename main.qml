@@ -126,8 +126,6 @@ Item {
 
     UserWaypoint { id: userWaypoint }
 
-    RecordedListsManager { id: recordedListManager }
-
     // Used for loggin
     WebView {
         id: webEngine

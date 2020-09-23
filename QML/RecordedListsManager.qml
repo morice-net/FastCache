@@ -6,17 +6,16 @@ import QtQuick.Controls.Styles 1.4
 import "JavaScript/Palette.js" as Palette
 
 FastPopup {
-    id: cachesRecordedLists
+    id: recordedListsManager
 
-    property var listChecked: []
     property int listIndex: 0
 
-    width: parent.width
-    height: parent.height
+    width: main.width
+    height: main.height
 
     Column {
         id: renameDeleteColumn
-        width:cachesRecordedLists.width
+        width:recordedListsManager.width
         spacing: 20
 
         Text {
@@ -84,7 +83,7 @@ FastPopup {
                     sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
                     sqliteStorage.numberCachesInLists("cacheslists")
                     sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache")
-                    if(listChecked.indexOf(true) === -1)
+                    if(listChecked .indexOf(true) === -1)
                     {
                         fullCache.registered = false
                     } else {
@@ -126,7 +125,7 @@ FastPopup {
         Column {
             id: repeaterColumn
             spacing: 10
-            width:cachesRecordedLists.width*0.9
+            width:recordedListsManager.width*0.9
 
             // repeater
             Repeater {
@@ -162,14 +161,14 @@ FastPopup {
     // new list
     Column {
         id: newListColumn
-        width:cachesRecordedLists.width
+        width:recordedListsManager.width
         anchors.top: displayListColumn.bottom
         anchors.margins: 10
         visible: true
         spacing: 10
 
         Rectangle {
-            width: cachesRecordedLists.width*0.9
+            width: recordedListsManager.width*0.9
             height: 2
             color: Palette.white()
             radius:10
@@ -240,7 +239,7 @@ FastPopup {
 
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
-            width: cachesRecordedLists.width*0.9
+            width: recordedListsManager.width*0.9
             height: 2
             color: Palette.white()
             radius:10
@@ -250,11 +249,10 @@ FastPopup {
         FastTextButton {
             buttonText:"Valider"
             anchors.horizontalCenter: parent.horizontalCenter
-
             onClicked: {
-                // Close cachesRecordedLists
+                // Close recordedListsManager
                 closeIfMenu()
-                cachesRecordedLists.close()
+                recordedListsManager.close()
             }
         }
     }
