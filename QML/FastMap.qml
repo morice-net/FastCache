@@ -67,7 +67,7 @@ Rectangle {
             anchors.fill: parent
             onClicked: mapControls.show()
             onPressAndHold: {
-                if(main.state !== "recorded")
+                if(main.state === "near" || main.state === "address" || main.state === "coordinates" || main.cachesActive)
                     cachesRecordedLists.open()
             }
         }
