@@ -48,7 +48,7 @@ FastPopup {
                 model: sqliteStorage.countLists
 
                 ListBox {
-                    checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listCheckedBoolAtFalse()[index]
+                    checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listChecked[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
                         listChecked[index] = !listChecked[index]
@@ -94,6 +94,11 @@ FastPopup {
         anchors.margins: 10
     }
 
+    Component.onCompleted: {
+        if(main.viewState !== "fullcache")
+            listCheckedBoolAtFalse()
+    }
+
     function closeIfMenu() {
         if (fastMenu.isMenuVisible())
             visible = false
@@ -107,6 +112,6 @@ FastPopup {
     function listCheckedBoolAtFalse() {
         for (var i = 0; i < sqliteStorage.countLists; i++) {
             listChecked.push(false)
-            return listChecked}
+        }
     }
 }
