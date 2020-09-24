@@ -77,18 +77,20 @@ FastPopup {
                 id:buttonDelete
                 visible: false
                 buttonText: "Etes vous sur ?"
-
                 onClicked: {
                     listChecked.splice(listIndex , 1 )
                     sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
                     sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
                     sqliteStorage.numberCachesInLists("cacheslists")
                     sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache")
-                    if(listChecked.indexOf(true) === -1)
+                    if(main.viewState === "fullcache")
                     {
-                        fullCache.registered = false
-                    } else {
-                        fullCache.registered = true
+                        if(listChecked.indexOf(true) === -1)
+                        {
+                            fullCache.registered = false
+                        } else {
+                            fullCache.registered = true
+                        }
                     }
                     title.text = "Gérer les listes.."
                     displayListColumn.visible = true
