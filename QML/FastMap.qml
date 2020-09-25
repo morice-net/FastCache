@@ -59,6 +59,10 @@ Rectangle {
         minimumZoomLevel: 6.
         maximumZoomLevel: 18.
 
+        LoadingPage {
+            id: loadingPage
+        }
+
         FastScale {
             id: scale
         }

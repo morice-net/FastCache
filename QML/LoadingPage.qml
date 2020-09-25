@@ -6,6 +6,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id:loadingPage
+    opacity: 0.8
 
     Rectangle {
         x:0
@@ -14,7 +15,7 @@ Item {
         color: Palette.greenSea()
         radius:10
         visible: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
-                 || travelbug.state === "loading" || sendTravelbugLog.state === "loading"
+                 || travelbug.state === "loading" || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading"
 
         Text {
             anchors.fill: parent
@@ -30,7 +31,7 @@ Item {
         BusyIndicator {
             anchors.centerIn: parent
             running: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
-                     || travelbug.state === "loading" || sendTravelbugLog.state === "loading"
+                     || travelbug.state === "loading" || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading"
         }
     }
 }
