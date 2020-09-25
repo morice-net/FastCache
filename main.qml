@@ -100,10 +100,6 @@ Item {
         }
     }
 
-    FullCachesRecorded {
-        id: fullCachesRecorded
-    }
-
     FastMap { id: fastMap }
 
     FastList { id: fastList }
@@ -200,6 +196,19 @@ Item {
     FullCacheRetriever {
         id: fullCacheRetriever
         Component.onCompleted: updateFullCache(fullCache)
+    }
+
+    FullCachesRecorded {
+        id: fullCachesRecorded
+        onStateChanged: {
+            toast.visible = fullCachesRecorded.state !== "loading";
+            if(fullCachesRecorded.state !== "OK")
+                toast.show("Erreur  " + "(" + state + ")");
+            if (fullCachesRecorded.state === "OK"){
+                fastMap.markedCachesRegistered()
+                toast.show("Les caches ont été enregistrées");
+            }
+        }
     }
 
     Travelbug {

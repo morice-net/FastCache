@@ -87,8 +87,10 @@ FastPopup {
         onClicked: {
             console.log("list of geocodes:   " + listGeocodesOnMap())
             console.log("list checked:   " + listChecked)
-            if(listGeocodesOnMap().length > 0 && listGeocodesOnMap() <= 50 && listChecked.indexOf(true) !== -1)
+            if(listGeocodesOnMap().length > 0 && listGeocodesOnMap().length <= 50 && listChecked.indexOf(true) !== -1) {
                 fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodesOnMap() , listChecked , sqliteStorage)
+                cachesRecordedLists.close()
+            }
         }
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter

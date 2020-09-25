@@ -33,7 +33,7 @@ Rectangle {
 
     Timer {
         id:toastTimer
-        interval: 4000
+        interval: 9000
         running: true
         repeat: false
         onTriggered: rect.visible = false

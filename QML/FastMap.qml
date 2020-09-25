@@ -151,4 +151,21 @@ Rectangle {
         }
         return listGeocodes
     }
+
+    function markedCachesRegistered() {
+        if(main.state === "near" || main.state === "address" || main.state === "coordinates" ) {
+            for (var i = 0; i < cachesNear.caches.length; i++) {
+                if(listGeocodesOnMap().indexOf(cachesNear.caches[i].geocode) !== -1){
+                    cachesNear.caches[i].registered = true
+                }
+            }
+        }
+        if(main.cachesActive) {
+            for (var j = 0; j < cachesBBox.caches.length; j++) {
+                if(listGeocodesOnMap().indexOf(cachesBBox.caches[j].geocode) !== -1) {
+                    cachesBBox.caches[j].registered = true
+                }
+            }
+        }
+    }
 }
