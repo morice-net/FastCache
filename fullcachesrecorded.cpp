@@ -65,4 +65,5 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         m_sqliteStorage->updateObject("fullcache", geocode,  m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  ,true));
         m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode);
     }
+    m_sqliteStorage->numberCachesInLists("cacheslists");
 }
