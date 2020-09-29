@@ -13,6 +13,14 @@ Rectangle {
     color: Palette.white()
 
     property int tabBarRecordedCachesIndex: tabViewRecordedCaches.currentIndex
+    property var selectedInList: createSelectedInList()
+
+    states: [
+        State {
+            name: "selectedInList"
+            PropertyChanges { target: fastList }
+        }
+    ]
 
     TabViewRecordedCaches{
         id : tabViewRecordedCaches
@@ -29,7 +37,9 @@ Rectangle {
         model: modelState()
         delegate: SelectedCacheItem {
             x: (fastList.width - width ) / 2
-            Component.onCompleted: show(modelData)
+            Component.onCompleted: {
+                show(modelData)
+            }
         }
         ScrollBar.vertical: ScrollBar {}
     }
@@ -111,5 +121,24 @@ Rectangle {
             return sqliteStorage.readAllStringsFromTable("lists")[tabViewRecordedCaches.currentIndex] + " ( " + fastListColumn.count + " )"
         }
         return ""
+    }
+
+    function createSelectedInList() {
+        var selected = []
+        if(main.cachesActive){
+            for (var i = 0; i < cachesBBox.caches.length; i++) {
+                selected.push(false)
+            }
+        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
+            for (var j = 0; j < cachesNear.caches.length; j++) {
+                selected.push(false)
+            }
+        } else if(main.state === "recorded" ){
+            for (var k = 0; k < cachesRecorded.caches.length; k++) {
+                selected.push(false)
+            }
+        }
+        console.log("selected in list:  " + selected)
+        return selected
     }
 }

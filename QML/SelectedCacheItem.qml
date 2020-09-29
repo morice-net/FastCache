@@ -8,7 +8,7 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: selectedCacheItem
-    color: Palette.white().replace("#","#99")
+    color: selectedInList[index]? Palette.silver() : Palette.white().replace("#","#99")
     radius: parent.width/30
     border.width: 2
     border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
@@ -97,7 +97,6 @@ Rectangle {
         anchors.leftMargin: 20
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: parent.left
-
         ratingName: "Difficulté"
         ratingValue: selectedCache.difficulty
     }
@@ -107,7 +106,6 @@ Rectangle {
         anchors.margins: 10
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: selectedCacheDifficultyField.right
-
         ratingName: "Terrain"
         ratingValue: selectedCache.terrain
     }
@@ -115,14 +113,27 @@ Rectangle {
     MouseArea {
         id: cacheItemArea
         anchors.fill: parent
-        onClicked: {
-            fullCache.geocode = selectedCache.geocode
-            if(main.state === "recorded"  && selectedCache.registered === true){
-                fullCacheRetriever.parseJson(sqliteStorage.readObject("fullcache" , fullCache.geocode ))
-            }else{
-                fullCacheRetriever.sendRequest(connector.tokenKey)
+        onPressAndHold: {
+            if(fastList.state === "selectedInList") {
+                fastList.state = ""
+            } else {
+                fastList.state = "selectedInList"
             }
-            main.viewState = "fullcache"
+        }
+        onClicked: {
+            if(fastList.state === "selectedInList" && viewState === "list" &&
+                    (main.state === "near" || main.state === "address" || main.state === "coordinates" || main.cachesActive)){
+                selectedInList[index] = !selectedInList[index]
+                selectedCacheItem.color = selectedInList[index]? Palette.silver() : Palette.white().replace("#","#99")
+            } else {
+                fullCache.geocode = selectedCache.geocode
+                if(main.state === "recorded"  && selectedCache.registered === true){
+                    fullCacheRetriever.parseJson(sqliteStorage.readObject("fullcache" , fullCache.geocode ))
+                }else{
+                    fullCacheRetriever.sendRequest(connector.tokenKey)
+                }
+                main.viewState = "fullcache"
+            }
         }
     }
 
@@ -197,7 +208,6 @@ Rectangle {
         selectedCacheIconField.type = selectedCacheVar.typeIndex
         if (hideTimer.running)
             hideTimer.restart()
-
         opacity = 1
     }
 
