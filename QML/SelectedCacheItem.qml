@@ -113,18 +113,11 @@ Rectangle {
     MouseArea {
         id: cacheItemArea
         anchors.fill: parent
-        onPressAndHold: {
-            if(fastList.state === "selectedInList") {
-                fastList.state = ""
-            } else {
-                fastList.state = "selectedInList"
-            }
-        }
         onClicked: {
             if(fastList.state === "selectedInList" && viewState === "list" &&
                     (main.state === "near" || main.state === "address" || main.state === "coordinates" || main.cachesActive)){
                 selectedInList[index] = !selectedInList[index]
-                selectedCacheItem.color = selectedInList[index]? Palette.silver() : Palette.white().replace("#","#99")
+                selectedInList = getSelectedInList()
             } else {
                 fullCache.geocode = selectedCache.geocode
                 if(main.state === "recorded"  && selectedCache.registered === true){

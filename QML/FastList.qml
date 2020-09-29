@@ -12,8 +12,9 @@ Rectangle {
     visible: opacity > 0
     color: Palette.white()
 
+    property bool selectAll: false
     property int tabBarRecordedCachesIndex: tabViewRecordedCaches.currentIndex
-    property var selectedInList: createSelectedInList()
+    property var selectedInList: createAllSelectedInList(false)
 
     states: [
         State {
@@ -37,9 +38,7 @@ Rectangle {
         model: modelState()
         delegate: SelectedCacheItem {
             x: (fastList.width - width ) / 2
-            Component.onCompleted: {
-                show(modelData)
-            }
+            Component.onCompleted: show(modelData)
         }
         ScrollBar.vertical: ScrollBar {}
     }
@@ -58,6 +57,23 @@ Rectangle {
             font.pixelSize: parent.height * 0.65
             color: Palette.greenSea()
             text: textHeader()
+
+            MouseArea {
+                anchors.fill: parent
+                onPressAndHold: {
+                    if(fastList.state === "selectedInList") {
+                        fastList.state = ""
+                    } else {
+                        fastList.state = "selectedInList"
+                    }
+                }
+                onClicked: {
+                    if(fastList.state === "selectedInList" ){
+                        selectAll = !selectAll
+                        selectedInList = createAllSelectedInList(selectAll)
+                    }
+                }
+            }
         }
     }
 
@@ -123,21 +139,27 @@ Rectangle {
         return ""
     }
 
-    function createSelectedInList() {
+    function createAllSelectedInList(flag) {
         var selected = []
         if(main.cachesActive){
             for (var i = 0; i < cachesBBox.caches.length; i++) {
-                selected.push(false)
+                selected.push(flag)
             }
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
             for (var j = 0; j < cachesNear.caches.length; j++) {
-                selected.push(false)
+                selected.push(flag)
             }
         } else if(main.state === "recorded" ){
             for (var k = 0; k < cachesRecorded.caches.length; k++) {
-                selected.push(false)
+                selected.push(flag)
             }
         }
+        console.log("selected in list:  " + selected)
+        return selected
+    }
+
+    function getSelectedInList() {
+        var selected = selectedInList
         console.log("selected in list:  " + selected)
         return selected
     }
