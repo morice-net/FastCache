@@ -29,6 +29,10 @@ Rectangle {
         visible: main.state === "recorded" && main.viewState === "list" ? true:false
     }
 
+    LoadingPage {
+               id: loadingPage
+           }
+
     ListView {
         id: fastListColumn
         width: parent.width
