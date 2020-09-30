@@ -63,6 +63,7 @@ Rectangle {
                 onPressAndHold: {
                     if(fastList.state === "selectedInList") {
                         fastList.state = ""
+                        selectedInList = createAllSelectedInList(false)
                     } else {
                         fastList.state = "selectedInList"
                     }
