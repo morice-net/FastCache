@@ -99,12 +99,6 @@ Rectangle {
         }
     }
 
-    CachesRecordedLists {
-        id:cachesRecordedLists
-        x: main.width/6
-        y: 10
-    }
-
     PositionMarker {
         id: positionMarker
     }

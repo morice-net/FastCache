@@ -79,7 +79,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: changeFiltersVisibility()
+            onClicked: cachesRecordedLists.open()
         }
     }
 
@@ -110,10 +110,6 @@ Item {
                 cachesRecordedLists.open()
             }
         }
-    }
-
-    CachesRecordedLists {
-        id: cachesRecordedLists
     }
 
     CacheFilter { id: cacheFilter }

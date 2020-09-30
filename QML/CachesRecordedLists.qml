@@ -85,12 +85,20 @@ FastPopup {
         buttonText: "Enregistrer les caches"
         visible: main.viewState === "fullcache" ? false : true
         onClicked: {
-            console.log("list of geocodes:   " + listGeocodesOnMap())
             console.log("list checked:   " + listChecked)
-            if(listGeocodesOnMap().length > 0 && listGeocodesOnMap().length <= 50 && listChecked.indexOf(true) !== -1) {
-                fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodesOnMap() , listChecked , sqliteStorage)
-                cachesRecordedLists.close()
+            var list = []
+            if(viewState === "map"){
+                list = fastMap.listGeocodesOnMap()
+                console.log("list of geocodes(map):   " + list)
+                if(list.length > 0 && list.length <= 50 && listChecked.indexOf(true) !== -1)
+                    fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
+            } else if (viewState === "list"){
+                list = fastList.listGeocodesOnList()
+                console.log("list of geocodes(list):   " + list)
+                if(list.length > 0 && list.length <= 50 && listChecked.indexOf(true) !== -1)
+                    fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
             }
+            cachesRecordedLists.close()
         }
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter

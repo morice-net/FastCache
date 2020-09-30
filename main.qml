@@ -100,6 +100,12 @@ Item {
         }
     }
 
+    CachesRecordedLists {
+        id: cachesRecordedLists
+        x: main.width/6
+        y: 10
+    }
+
     FastMap { id: fastMap }
 
     FastList { id: fastList }

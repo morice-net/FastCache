@@ -15,6 +15,7 @@ Rectangle {
     property bool selectAll: false
     property int tabBarRecordedCachesIndex: tabViewRecordedCaches.currentIndex
     property var selectedInList: createAllSelectedInList(false)
+    property var listCaches: modelState()
 
     states: [
         State {
@@ -163,5 +164,14 @@ Rectangle {
         var selected = selectedInList
         console.log("selected in list:  " + selected)
         return selected
+    }
+
+    function listGeocodesOnList() {
+        var listGeocodes = []
+        for (var i = 0; i <selectedInList.length ; i++) {
+            if(selectedInList[i])
+                listGeocodes.push(listCaches[i].geocode)
+        }
+        return listGeocodes
     }
 }
