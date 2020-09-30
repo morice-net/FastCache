@@ -6,6 +6,7 @@ import com.mycompany.connecting 1.0
 
 Item {
     id:loadingPage
+    z:2
     opacity: 0.8
 
     Rectangle {
