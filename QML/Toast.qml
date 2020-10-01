@@ -11,7 +11,7 @@ Rectangle {
     visible: false
     x:20
     y:main.height*0.7
-    z: 2
+    z: 4
     height: message.height + margin
     width: main.width*0.8
     radius: margin

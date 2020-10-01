@@ -20,7 +20,6 @@ void CachesRecorded::parseRecordedJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "cacheOject:" << cacheJson;
     Cache *cache ;
     cache = new Cache();
-
     cache->setGeocode(cacheJson["referenceCode"].toString());
     cache->setRegistered(cache->checkRegistered());
 
@@ -91,7 +90,10 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 }
 
 bool CachesRecorded::updateMapCachesRecorded()
-{
+{    
+    // Inform QML we are loading
+    setState("loading");
+
     QString selectQueryText = "SELECT cacheslists.list , fullcache.json FROM cacheslists , fullcache"
                               " WHERE cacheslists.code = fullcache.id ORDER BY cacheslists.list";
     qDebug() << "Query:" << selectQueryText;
@@ -129,6 +131,9 @@ bool CachesRecorded::updateMapCachesRecorded()
         }
     }
     m_mapCachesRecorded.insert(a , m_caches);
+
+    // end of the operation
+    setState("OK");
     return true;
 }
 

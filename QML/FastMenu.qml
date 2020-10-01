@@ -10,11 +10,14 @@ Item {
     id: fastMenu
     anchors.fill: parent
 
+    LoadingPage {
+        id: loadingPage
+    }
+
     Rectangle {
         id: menuShadow
         anchors.fill: parent
         visible: false
-
         color: Palette.black()
         opacity: 0
 
@@ -24,7 +27,6 @@ Item {
             anchors.fill: parent
             onClicked: fastMenu.hideMenu()
         }
-
         onOpacityChanged: {
             visible = opacity > 0 ? true : false
         }
@@ -44,6 +46,7 @@ Item {
         ///////////////////////////////////////////////////////////////////////////
         //                      user info on the top of the menu                 //
         ///////////////////////////////////////////////////////////////////////////
+
         Item {
             id: userInfoMenu
             height: parent.height * 0.12
@@ -126,7 +129,6 @@ Item {
                 }
             }
         }
-
 
         ///////////////////////////////////////////////////////////////////////////
         //                      button on the middle of the menu                 //
@@ -285,12 +287,12 @@ Item {
             function buttonClicked() {
                 // Display list of recorded caches and prepare Center Map.
                 main.cachesActive = false
-                hideMenu();
                 fastMap.clearMap()
                 main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                 // center and zoom level
+                hideMenu()
                 centerMapCaches()
             }
         }
