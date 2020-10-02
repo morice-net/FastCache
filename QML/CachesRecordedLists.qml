@@ -13,13 +13,11 @@ FastPopup {
     property int listIndex: 0
 
     width: Math.max( displayListColumn.width, manageListButton.width )
-    height: recordCachesButton.visible ? displayListColumn.height + manageListButton.height + recordCachesButton.height + 50 :
-                                         displayListColumn.height + manageListButton.height + 50
+    height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height + 60
     background: Rectangle {
         id: backgroundRectangle
         width: Math.max( displayListColumn.width, manageListButton.width )
-        height: recordCachesButton.visible ? displayListColumn.height + manageListButton.height + recordCachesButton.height + 30 :
-                                             displayListColumn.height + manageListButton.height + 30
+        height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height + 40
         color: Palette.turquoise()
         radius: 10
     }
@@ -83,7 +81,7 @@ FastPopup {
     FastTextButton {
         id: recordCachesButton
         buttonText: "Enregistrer les caches"
-        visible: main.viewState === "fullcache" ? false : true
+        visible: (main.viewState === "fullcache" || main.state === "recorded") ? false : true
         onClicked: {
             console.log("list checked:   " + listChecked)
             var list = []
@@ -101,6 +99,28 @@ FastPopup {
             cachesRecordedLists.close()
         }
         anchors.bottom: manageListButton.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 10
+    }
+
+    FastTextButton {
+        id: deleteCachesButton
+        buttonText: "Supprimer les caches"
+        visible: (main.viewState === "fullcache" || main.state !== "recorded") ? false : true
+        onClicked: {
+        }
+        anchors.bottom: manageListButton.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 10
+    }
+
+    FastTextButton {
+        id: refreshCachesButton
+        buttonText: "Rafraichir les caches"
+        visible: (main.viewState === "fullcache" || main.state !== "recorded") ? false : true
+        onClicked: {
+        }
+        anchors.bottom: recordCachesButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
     }
