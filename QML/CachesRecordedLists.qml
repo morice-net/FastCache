@@ -46,6 +46,7 @@ FastPopup {
                 model: sqliteStorage.countLists
 
                 ListBox {
+                    checkable: (main.state === "recorded" && viewState !== "fullcache") ? main.tabBarRecordedCachesIndex === index : true
                     checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listChecked[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
