@@ -257,14 +257,15 @@ bool SQLiteStorage::updateCacheInLists(const QString &tableName, const int &list
     return true;
 }
 
-void SQLiteStorage::updateListWithGeocode(const QString &tableName , const QList<bool> &list , const QString &code)
+void SQLiteStorage::updateListWithGeocode(const QString &tableName , const QList<bool> &list , const QString &code , const bool &deleteIfTrue)
 {
     for(int index=0 ; index<list.length() ; index++)
     {
         if(list[index] == true) {
             updateCacheInLists(tableName, m_listsIds[index] , code);
         } else {
-            deleteCacheInList(tableName , m_listsIds[index] , code);
+            if(deleteIfTrue)
+                deleteCacheInList(tableName , m_listsIds[index] , code);
         }
     }
     setListWithGeocode(list);

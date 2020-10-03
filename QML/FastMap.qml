@@ -21,7 +21,7 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        name: "esri"
+        name: "osm"
         // configure your own map_id and access_token here
         parameters: [  PluginParameter {
                 name: "mapbox.mapping.map_id"

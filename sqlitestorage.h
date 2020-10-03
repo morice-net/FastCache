@@ -20,10 +20,10 @@ public:
     virtual ~SQLiteStorage();
 
     bool updateCacheInLists(const QString &tableName, const int &list, const QString &code);
-    void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
     QList<int> readAllIdsFromLists(const QString &tableName);
     int count(const QString &tableName);
 
+    Q_INVOKABLE void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
     Q_INVOKABLE bool isCacheInTable(const QString &tableName, const QString &id);
     Q_INVOKABLE void deleteObject(const QString &tableName, const QString &id);
     Q_INVOKABLE bool updateObject(const QString &tableName, const QString &id, const QJsonDocument &json);
@@ -33,7 +33,7 @@ public:
     Q_INVOKABLE bool updateLists(const QString &tableName, const int &id, const QString &string);
     Q_INVOKABLE bool createTable(const QString &tableName, const QString &columns);
     Q_INVOKABLE QList<bool> cacheInLists(const QString &tableName, const QString &code);
-    Q_INVOKABLE void updateListWithGeocode(const QString &tableName , const QList<bool> &list , const QString &code);
+    Q_INVOKABLE void updateListWithGeocode(const QString &tableName , const QList<bool> &list , const QString &code , const bool &deleteIfTrue);
     Q_INVOKABLE QList<int> numberCachesInLists(const QString &tableName);
     Q_INVOKABLE void deleteCachesInList(const QString &tableName , const int &list);
     Q_INVOKABLE void deleteList(const QString &tableName, const QString &id);

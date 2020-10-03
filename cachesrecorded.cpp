@@ -134,6 +134,7 @@ bool CachesRecorded::updateMapCachesRecorded()
 
     // end of the operation
     setState("OK");
+    emit cachesChanged();
     return true;
 }
 

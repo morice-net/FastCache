@@ -93,6 +93,9 @@ Item {
         id: cachesRecorded
         onCachesChanged: {
             if(main.state === "recorded")
+
+                console.log("BONJOUR:")
+
                 fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)
         }
         onClearMapRequested: {

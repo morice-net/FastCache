@@ -61,7 +61,7 @@ FastPopup {
                                 fullCacheRetriever.writeToStorage(sqliteStorage)
                                 fullCache.registered = true
                             }
-                            sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode)
+                            sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode , true)
                             sqliteStorage.numberCachesInLists("cacheslists")
                         }
                     }
@@ -82,7 +82,8 @@ FastPopup {
     FastTextButton {
         id: recordCachesButton
         buttonText: "Enregistrer les caches"
-        visible: (main.viewState === "fullcache" || main.state === "recorded") ? false : true
+        visible: (main.cachesActive === true || main.state === "near" || main.state === "address" || main.state === "coordinates")&&
+                 (viewState !== "fullcache" ) ? true : false
         onClicked: {
             console.log("list checked:   " + listChecked)
             var list = []
@@ -107,8 +108,23 @@ FastPopup {
     FastTextButton {
         id: deleteCachesButton
         buttonText: "Supprimer les caches"
-        visible: (main.viewState === "fullcache" || main.state !== "recorded") ? false : true
+        visible: (main.cachesActive === true || main.state === "near" || main.state === "address" || main.state === "coordinates")||
+                 viewState === "fullcache" ? false : true
         onClicked: {
+            var list = []
+            if(viewState === "map"){
+                list = fastMap.listGeocodesOnMap()
+                console.log("list of geocodes(map):   " + list)
+                if(list.length > 0 && listChecked.indexOf(true) !== -1){
+                    for (var i = 0; i < list.length; i++){
+                        sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[i] )
+                    }
+                    sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
+                }
+            } else if (viewState === "list"){
+            }
+            cachesRecordedLists.close()
+            cachesRecorded.updateMapCachesRecorded()
         }
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
@@ -118,8 +134,10 @@ FastPopup {
     FastTextButton {
         id: refreshCachesButton
         buttonText: "Rafraichir les caches"
-        visible: (main.viewState === "fullcache" || main.state !== "recorded") ? false : true
+        visible: (main.cachesActive === true || main.state === "near" || main.state === "address" || main.state === "coordinates")||
+                 viewState === "fullcache" ? false : true
         onClicked: {
+            console.log("list checked:  " + listChecked)
         }
         anchors.bottom: recordCachesButton.top
         anchors.horizontalCenter: parent.horizontalCenter
