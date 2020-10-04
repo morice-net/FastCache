@@ -287,10 +287,11 @@ Item {
             function buttonClicked() {
                 // Display list of recorded caches and prepare Center Map.
                 main.cachesActive = false
-                fastMap.clearMap()
                 main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
+                fastMap.clearMap()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+
                 // center and zoom level
                 hideMenu()
                 centerMapCaches()

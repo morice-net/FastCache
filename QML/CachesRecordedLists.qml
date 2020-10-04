@@ -126,6 +126,7 @@ FastPopup {
                 cachesRecorded.updateMapCachesRecorded()
                 sqliteStorage.numberCachesInLists("cacheslists")
                 fastList.selectedInList = fastList.createAllSelectedInList(false)
+                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
             }
             cachesRecordedLists.close()
         }
