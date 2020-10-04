@@ -46,7 +46,8 @@ FastPopup {
                 model: sqliteStorage.countLists
 
                 ListBox {
-                    checkable: (main.state === "recorded" && viewState !== "fullcache") ? main.tabBarRecordedCachesIndex === index : true
+                    checkable: main.cachesActive === true || main.state === "near" || main.state === "address" || main.state === "coordinates" ||
+                               viewState === "fullcache"  ? true : main.tabBarRecordedCachesIndex === index
                     checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listChecked[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
@@ -119,10 +120,17 @@ FastPopup {
                     for (var i = 0; i < list.length; i++){
                         sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[i] )
                     }
-                    sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
                 }
             } else if (viewState === "list"){
+                list = fastList.listGeocodesOnList()
+                console.log("list of geocodes(list):   " + list)
+                if(list.length > 0 && listChecked.indexOf(true) !== -1){
+                    for (var j = 0; j < list.length; j++){
+                        sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[j] )
+                    }
+                }
             }
+            sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
             cachesRecordedLists.close()
             cachesRecorded.updateMapCachesRecorded()
         }
