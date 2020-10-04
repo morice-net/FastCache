@@ -91,14 +91,12 @@ FastPopup {
             if(viewState === "map"){
                 list = fastMap.listGeocodesOnMap()
                 console.log("list of geocodes(map):   " + list)
-                if(list.length > 0 && list.length <= 50 && listChecked.indexOf(true) !== -1)
-                    fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
             } else if (viewState === "list"){
                 list = fastList.listGeocodesOnList()
                 console.log("list of geocodes(list):   " + list)
-                if(list.length > 0 && list.length <= 50 && listChecked.indexOf(true) !== -1)
-                    fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
             }
+            if(list.length > 0 && list.length <= 50 && listChecked.indexOf(true) !== -1)
+                fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
             cachesRecordedLists.close()
         }
         anchors.bottom: manageListButton.top
@@ -116,23 +114,20 @@ FastPopup {
             if(viewState === "map"){
                 list = fastMap.listGeocodesOnMap()
                 console.log("list of geocodes(map):   " + list)
-                if(list.length > 0 && listChecked.indexOf(true) !== -1){
-                    for (var i = 0; i < list.length; i++){
-                        sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[i] )
-                    }
-                }
             } else if (viewState === "list"){
                 list = fastList.listGeocodesOnList()
                 console.log("list of geocodes(list):   " + list)
-                if(list.length > 0 && listChecked.indexOf(true) !== -1){
-                    for (var j = 0; j < list.length; j++){
-                        sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[j] )
-                    }
-                }
             }
-            sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
+            if(list.length > 0 && listChecked.indexOf(true) !== -1){
+                for (var i = 0; i < list.length; i++){
+                    sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[i] )
+                }
+                sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
+                cachesRecorded.updateMapCachesRecorded()
+                sqliteStorage.numberCachesInLists("cacheslists")
+                fastList.selectedInList = fastList.createAllSelectedInList(false)
+            }
             cachesRecordedLists.close()
-            cachesRecorded.updateMapCachesRecorded()
         }
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
