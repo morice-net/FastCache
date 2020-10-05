@@ -141,7 +141,21 @@ FastPopup {
         visible: (main.cachesActive === true || main.state === "near" || main.state === "address" || main.state === "coordinates")||
                  viewState === "fullcache" ? false : true
         onClicked: {
-            console.log("list checked:  " + listChecked)
+            var list = []
+            if(viewState === "map"){
+                list = fastMap.listGeocodesOnMap()
+                console.log("list of geocodes(map):   " + list)
+            } else if (viewState === "list"){
+                list = fastList.listGeocodesOnList()
+                console.log("list of geocodes(list):   " + list)
+            }
+            if(list.length > 0 && list.length <= 50 && listChecked.indexOf(true) !== -1){
+                fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
+                cachesRecorded.updateMapCachesRecorded()
+                fastList.selectedInList = fastList.createAllSelectedInList(false)
+                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+            }
+            cachesRecordedLists.close()
         }
         anchors.bottom: recordCachesButton.top
         anchors.horizontalCenter: parent.horizontalCenter
