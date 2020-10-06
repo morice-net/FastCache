@@ -64,6 +64,10 @@ FastPopup {
                             }
                             sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode , true)
                             sqliteStorage.numberCachesInLists("cacheslists")
+                            if(main.state === "recorded" && main.cachesActive === false){
+                                cachesRecorded.updateMapCachesRecorded()
+                                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+                            }
                         }
                     }
                 }
