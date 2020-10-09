@@ -14,69 +14,24 @@ CachesRecorded::~CachesRecorded()
 {
 }
 
-void CachesRecorded::parseRecordedJson(const QJsonDocument &dataJsonDoc)
+void CachesRecorded::createRecordedCaches(const QList<QString> &list)
 {
-    QJsonObject cacheJson = dataJsonDoc.object();
-    qDebug() << "cacheOject:" << cacheJson;
+    // list: (code,name,type,size,difficulty,terrain,lat,lon)
+    qDebug() << "list" << list;
     Cache *cache ;
     cache = new Cache();
-    cache->setGeocode(cacheJson["referenceCode"].toString());
+    cache->setGeocode(list[0]);
     cache->setRegistered(cache->checkRegistered());
+    cache->setName(list[1]);
+    cache->setType(list[2]);
+    cache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(CACHE_TYPE_MAP.value(list[2])).toInt());
+    cache->setSize(list[3]);
+    cache->setSizeIndex(CACHE_SIZE_INDEX_MAP.key(CACHE_SIZE_MAP.value(list[3])).toInt());
+    cache->setDifficulty(list[4].toDouble());
+    cache->setTerrain(list[5].toDouble());
+    cache->setLat(list[6].toDouble());
+    cache->setLon(list[7].toDouble());
 
-    if(cacheJson["status"].toString() == "Unpublished"){
-        cache->setArchived(false);
-        cache->setDisabled(false);
-    } else if(cacheJson["status"].toString() == "Active"){
-        cache->setArchived(false);
-        cache->setDisabled(false);
-    } else if(cacheJson["status"].toString() == "Disabled"){
-        cache->setArchived(false);
-        cache->setDisabled(true);
-    } else if(cacheJson["status"].toString() == "Locked"){
-        cache->setArchived(false);
-        cache->setDisabled(false);
-    } else if(cacheJson["status"].toString() == "Archived"){
-        cache->setArchived(true);
-        cache->setDisabled(false);
-    }
-    cache->setOwner(cacheJson["ownerAlias"].toString());
-    cache->setDate(cacheJson["placedDate"].toString());
-
-    QJsonObject v1 = cacheJson["geocacheType"].toObject();
-    cache->setType(CACHE_TYPE_MAP.key(v1["id"].toInt()));
-    cache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(v1["id"].toInt()).toInt());
-
-    v1 = cacheJson["geocacheSize"].toObject();
-    cache->setSize(CACHE_SIZE_MAP.key(v1["id"].toInt()));
-    cache->setSizeIndex(CACHE_SIZE_INDEX_MAP.key(v1["id"].toInt()).toInt());
-
-    cache->setDifficulty(cacheJson["difficulty"].toDouble());
-    cache->setFavoritePoints(cacheJson["favoritePoints"].toInt());
-
-    QString name(cacheJson["name"].toString());
-    cache->setName(name);
-    cache->setTrackableCount(cacheJson["trackableCount"].toInt());
-
-    // coordinates
-    v1 = cacheJson["userData"].toObject();
-    if(v1["correctedCoordinates"].isNull()){
-        v1 = cacheJson["postedCoordinates"].toObject();
-        cache->setLat(v1["latitude"].toDouble());
-        cache->setLon(v1["longitude"].toDouble());
-    }  else {
-        QJsonObject  v2 = v1["correctedCoordinates"].toObject();
-        cache->setLat(v2["latitude"].toDouble());
-        cache->setLon(v2["longitude"].toDouble());
-    }
-
-    //found
-    v1 = cacheJson["userData"].toObject();
-    if(v1["foundDate"].isNull()){
-        cache->setFound(false);
-    } else {
-        cache->setFound(true);
-    }
-    cache->setTerrain(cacheJson["terrain"].toDouble());
     m_caches.append(cache);
 }
 
@@ -90,12 +45,11 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 }
 
 bool CachesRecorded::updateMapCachesRecorded()
-{    
-    // Inform QML we are loading
-    setState("loading");
-
-    QString selectQueryText = "SELECT cacheslists.list , fullcache.json FROM cacheslists , fullcache"
+{
+    QString selectQueryText = "SELECT cacheslists.list , fullcache.id, fullcache.name, fullcache.type, fullcache.size, fullcache.difficulty,"
+                              " fullcache.terrain, fullcache.lat, fullcache.lon  FROM cacheslists , fullcache"
                               " WHERE cacheslists.code = fullcache.id ORDER BY cacheslists.list";
+
     qDebug() << "Query:" << selectQueryText;
     QSqlQuery select;
     if(!select.exec(selectQueryText))
@@ -108,32 +62,35 @@ bool CachesRecorded::updateMapCachesRecorded()
     qDeleteAll(m_caches);
     m_caches.clear();
     int a = 0;
-    QString jsonString;
-    QByteArray jsonByteArray;
-    QJsonDocument json = QJsonDocument();
+    QList<QString> list;
     while(select.next()) {
-        jsonString = select.value(1).toString();
-        jsonByteArray = jsonString.toUtf8();
-        json = QJsonDocument::fromJson(jsonByteArray);
+        list.clear();
+
+        list.append(select.value(1).toString());  // geocode
+        list.append(select.value(2).toString());  // name
+        list.append(select.value(3).toString());  // type
+        list.append(select.value(4).toString());  // size
+        list.append(select.value(5).toString());  // difficulty
+        list.append(select.value(6).toString());  // terrain
+        list.append(select.value(7).toString());  // lat
+        list.append(select.value(8).toString());  // lon
+
         if(m_caches.length() == 0) {
             a = select.value(0).toInt() ;
-            CachesRecorded::parseRecordedJson(json);
+            CachesRecorded::createRecordedCaches(list);
         } else {
             if(a == select.value(0).toInt()) {
-                CachesRecorded::parseRecordedJson(json);
+                CachesRecorded::createRecordedCaches(list);
             } else {
                 m_mapCachesRecorded.insert(a , m_caches);
                 a = select.value(0).toInt();
                 emit clearMapRequested();
                 m_caches.clear();
-                CachesRecorded::parseRecordedJson(json);
+                CachesRecorded::createRecordedCaches(list);
             }
         }
     }
     m_mapCachesRecorded.insert(a , m_caches);
-
-    // end of the operation
-    setState("OK");
     emit cachesChanged();
     return true;
 }

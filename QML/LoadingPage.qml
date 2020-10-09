@@ -17,7 +17,6 @@ Item {
         radius:10
         visible: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
                  || travelbug.state === "loading" || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading"
-                 || cachesRecorded.state === "loading"
 
         Text {
             anchors.fill: parent
@@ -34,7 +33,6 @@ Item {
             anchors.centerIn: parent
             running: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
                      || travelbug.state === "loading" || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading"
-                     || cachesRecorded.state === "loading"
         }
     }
 }

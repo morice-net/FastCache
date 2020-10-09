@@ -16,7 +16,7 @@ public:
     explicit  CachesRecorded(CachesRetriever *parent = nullptr);
     ~CachesRecorded() override;
 
-    Q_INVOKABLE void parseRecordedJson(const QJsonDocument &dataJsonDoc);
+    Q_INVOKABLE void createRecordedCaches(const QList<QString> &list);
     Q_INVOKABLE bool updateMapCachesRecorded();
     Q_INVOKABLE void updateListCachesRecorded(int list);
 
