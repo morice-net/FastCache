@@ -348,8 +348,8 @@ Item {
         id: sqliteStorage
         Component.onCompleted: {
             // Build database
-            sqliteStorage.createTable("fullcache", "(id string primary key, json string, name string, type string, size string, difficulty decimal,
-                                        terrain decimal, lat double, lon double )");
+            sqliteStorage.createTable("fullcache", "(id string primary key, name string, type string, size string, difficulty double,
+                                        terrain double, lat double, lon double, json string )");
             sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
             sqliteStorage.createTable("cacheslists", "(id integer primary key default 1 , list integer , code string , UNIQUE(list, code))");
             sqliteStorage.createTable("cacheslog", "(id string primary key, json string)");

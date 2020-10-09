@@ -199,6 +199,33 @@ QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString 
 
 // update in tables
 
+bool SQLiteStorage::updateFullCache(const QString &tableName, const QString &geocode, const QString &name, const QString &type, const QString &size,
+                                    const double &difficulty, const double &terrain , const double &lat, const double &lon, const QJsonDocument &json)
+{
+    QString nameAlias = name;
+    QString queryCommand;
+    QString stringJson(json.toJson(QJsonDocument::Compact));
+    queryCommand += "REPLACE INTO " + tableName + " (id , name, type, size, difficulty, terrain, lat, lon, json) VALUES ('" + geocode
+            + "' , '"  + nameAlias.replace('\"', '"').replace("'","''")
+            + "' , '"  + type
+            + "' , '"  + size
+            + "' , '"  + QString::number(difficulty)
+            + "' , '"  + QString::number(terrain )
+            + "' , '"  + QString::number(lat)
+            + "' , '"  + QString::number(lon)
+            + "' , '"  + stringJson.replace('\"', '"').replace("'","''")
+            + "')";
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+    return true;
+}
+
 bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, const QJsonDocument &json)
 {
     QString queryCommand;
