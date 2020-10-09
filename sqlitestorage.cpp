@@ -199,8 +199,8 @@ QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString 
 
 // update in tables
 
-bool SQLiteStorage::updateFullCachesColumns(const QString &tableName, const QString &geocode, const QString &name, const QString &type, const QString &size,
-                                         const double &difficulty, const double &terrain , const double &lat, const double &lon, const QJsonDocument &json)
+bool SQLiteStorage::updateFullCacheColumns(const QString &tableName, const QString &geocode, const QString &name, const QString &type, const QString &size,
+                                           const double &difficulty, const double &terrain , const double &lat, const double &lon, const QJsonDocument &json)
 {
     QString nameAlias = name;
     QString queryCommand;

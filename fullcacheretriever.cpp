@@ -51,7 +51,8 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
-    sqliteStorage->updateObject("fullcache", m_fullCache->geocode(), m_dataJson);
+    sqliteStorage->updateFullCacheColumns("fullcache", m_fullCache->geocode(), m_fullCache->name(), m_fullCache->type(), m_fullCache->size(),
+                                          m_fullCache->difficulty(), m_fullCache->terrain(), m_fullCache->lat(), m_fullCache->lon(), m_dataJson);
     // Download images of cache recorded
     m_replaceImageInText->replaceUrlImageToPath(m_fullCache->geocode() , m_dataJson ,true);
 }

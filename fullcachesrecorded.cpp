@@ -91,8 +91,8 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
             lon =v2["longitude"].toDouble();
         }
         jsonDoc.setObject(fullCache.toObject());
-        m_sqliteStorage->updateFullCachesColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon,
-                                                 m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  , true));
+        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon,
+                                                m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  , true));
         m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode , false);
     }
     m_sqliteStorage->numberCachesInLists("cacheslists");
