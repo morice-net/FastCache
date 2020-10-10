@@ -373,7 +373,6 @@ Item {
 
     Component.onCompleted: {
         main.viewState = "map"
-        fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
 
         // retrieve settings
         connector.tokenKey = settings.tokenKey
