@@ -18,6 +18,7 @@ Rectangle {
     // Map properties
     property real zoomlevelRecord: 14.5
     property real currentZoomlevel: 14.5
+    property int currentCacheIndex: 0
 
     Plugin {
         id: mapPlugin
@@ -77,12 +78,13 @@ Rectangle {
         }
 
         function updateCachesOnMap(caches) {
-            for (var i = 0; i < caches.length; i++) {
-                if (caches[i].lat !== "" && caches[i].lon !== "") {
+            while(currentCacheIndex <= caches.length) {
+                if (caches[currentCacheIndex].lat !== "" && caches[currentCacheIndex].lon !== "") {
                     var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-                    itemMap.index = i
+                    itemMap.index = currentCacheIndex
                     cacheItems.push(itemMap)
                     addMapItem(itemMap)
+                    currentCacheIndex++
                 }
             }
         }
@@ -92,6 +94,7 @@ Rectangle {
             itemMap.index = indexList
             cacheItems.push(itemMap)
             addMapItem(itemMap)
+            currentCacheIndex++
         }
 
         Component.onCompleted:{
@@ -138,6 +141,7 @@ Rectangle {
         map.clearMapItems()
         cacheItems.forEach(item => item.destroy())
         cacheItems = []
+        currentCacheIndex = 0
     }
 
     function listGeocodesOnMap() {

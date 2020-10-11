@@ -13,18 +13,23 @@ class CachesRetriever : public Requestor
     Q_OBJECT
 
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
+    Q_PROPERTY(int indexMoreCaches READ indexMoreCaches WRITE setIndexMoreCaches NOTIFY indexMoreCachesChanged)
 
 public:
     explicit  CachesRetriever(Requestor *parent = nullptr);
     ~CachesRetriever() override;
 
     Q_INVOKABLE void sendRequest(QString token);
-    Q_INVOKABLE void updateFilterCaches(QList <bool> types , QList <bool> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,QList <QString > keyWordDiscoverOwner ,QString userName);
+    Q_INVOKABLE void updateFilterCaches(QList <bool> types , QList <bool> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,
+                                        QList <QString > keyWordDiscoverOwner ,QString userName);
 
     QQmlListProperty<Cache> caches();
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
     virtual void moreCaches() = 0;
+
+    int indexMoreCaches();
+    void setIndexMoreCaches(int indexMoreCaches);
 
 protected:
     virtual void addGetRequestParameters(QString& parameters) = 0;
@@ -32,6 +37,7 @@ protected:
 signals:    
     void cachesChanged();
     void clearMapRequested();
+    void indexMoreCachesChanged();
 
 protected:
     int m_indexMoreCaches;

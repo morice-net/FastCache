@@ -30,12 +30,7 @@ void CachesNear::parseJson(const QJsonDocument &dataJsonDoc)
 
 void CachesNear::moreCaches()
 {
-    m_indexMoreCaches = m_indexMoreCaches + MAX_PER_PAGE;
-}
-
-void CachesNear::indexMoreCaches(int index)
-{
-    m_indexMoreCaches = index;
+    setIndexMoreCaches(m_indexMoreCaches + MAX_PER_PAGE);
 }
 
 void CachesNear::addGetRequestParameters(QString &parameters)

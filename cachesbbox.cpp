@@ -31,7 +31,7 @@ void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
 
 void CachesBBox::moreCaches()
 {
-    m_indexMoreCaches = m_indexMoreCaches + MAX_PER_PAGE;
+    setIndexMoreCaches(m_indexMoreCaches + MAX_PER_PAGE);
     sendRequest(m_tokenTemp);
 }
 

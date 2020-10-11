@@ -18,7 +18,6 @@ public:
     ~CachesNear() override;
 
     Q_INVOKABLE void sendRequest(QString token);
-    Q_INVOKABLE void indexMoreCaches(int index) ;
     void parseJson(const QJsonDocument &dataJsonDoc) override;
     void moreCaches() override;
 

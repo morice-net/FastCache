@@ -187,7 +187,13 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     if (lengthCaches == MAX_PER_PAGE) {
         moreCaches();
     } else if(lengthCaches != MAX_PER_PAGE)
-        m_indexMoreCaches = 0 ;
+        setIndexMoreCaches(0);
+}
+
+void CachesRetriever::setIndexMoreCaches(int indexMoreCaches)
+{
+    m_indexMoreCaches = indexMoreCaches;
+    emit indexMoreCachesChanged();
 }
 
 void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
@@ -227,6 +233,11 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
     m_filterExcludeArchived = archived ;
     m_keyWordDiscoverOwner = keyWordDiscoverOwner;
     m_userName = name ;
+}
+
+int CachesRetriever::indexMoreCaches()
+{
+    return m_indexMoreCaches;
 }
 
 
