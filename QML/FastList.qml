@@ -26,12 +26,12 @@ Rectangle {
 
     TabViewRecordedCaches{
         id : tabViewRecordedCaches
-        visible: main.state === "recorded" && main.viewState === "list" ? true:false
+        visible: main.state === "recorded" && main.viewState === "list" && main.cachesActive === false ? true:false
     }
 
     LoadingPage {
-               id: loadingPage
-           }
+        id: loadingPage
+    }
 
     ListView {
         id: fastListColumn
@@ -90,7 +90,7 @@ Rectangle {
         color: Palette.turquoise()
         radius:10
         anchors.top: fastListHeader.bottom
-        visible:main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ? true : false
+        visible:main.state === "near" || main.state === "address" || main.state === "coordinates"  ? true : false
 
         Text {
             verticalAlignment: Text.AlignVCenter
