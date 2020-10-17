@@ -93,6 +93,7 @@ bool CachesRecorded::updateMapCachesRecorded()
         }
     }
     m_mapCachesRecorded.insert(a , m_caches);
+    emit clearMapRequested();
     emit cachesChanged();
     return true;
 }
