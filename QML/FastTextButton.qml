@@ -6,6 +6,7 @@ import QtQuick.Controls.Styles 1.4
 import "JavaScript/Palette.js" as Palette
 
 Button {
+    id: control
 
     property string buttonText
 
@@ -14,13 +15,13 @@ Button {
         text: buttonText
         font.family: localFont.name
         font.pointSize: 20
-        color: Palette.white()
+        color: control.down ? Palette.silver() : Palette.white()
     }
     background: Rectangle {
         anchors.fill: parent
         color: Palette.greenSea()
-        border.color: Palette.white()
-        border.width: 1
+        border.color: control.down ? Palette.silver() : Palette.white()
+        border.width: 2
         radius: 5
     }
 }
