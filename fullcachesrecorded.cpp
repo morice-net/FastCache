@@ -65,6 +65,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
     double terrain;
     double lat;
     double lon;
+    bool found;
 
     for (QJsonValue fullCache: dataJsonArray)
     {
@@ -75,6 +76,13 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
 
         QJsonObject v1 = fullCache["geocacheType"].toObject();
         type = CACHE_TYPE_MAP.key(v1["id"].toInt());
+
+        v1 = fullCache["userData"].toObject();
+        if(v1["foundDate"].isNull()){
+            found = false;
+        } else {
+            found = true;
+        }
 
         v1 = fullCache["geocacheSize"].toObject();
         size = CACHE_SIZE_MAP.key(v1["id"].toInt());
@@ -91,7 +99,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
             lon =v2["longitude"].toDouble();
         }
         jsonDoc.setObject(fullCache.toObject());
-        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon,
+        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found,
                                                 m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  , true));
         m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode , false);
     }
