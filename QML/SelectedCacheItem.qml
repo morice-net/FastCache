@@ -121,7 +121,7 @@ Rectangle {
                 selectedInList = getSelectedInList()
             } else {
                 fullCache.geocode = selectedCache.geocode
-                if(main.state === "recorded"  && selectedCache.registered === true){
+                if(main.state === "recorded" && main.cachesActive === false && selectedCache.registered === true){
                     fullCacheRetriever.parseJson(sqliteStorage.readObject("fullcache" , fullCache.geocode ))
                 }else{
                     fullCacheRetriever.sendRequest(connector.tokenKey)
