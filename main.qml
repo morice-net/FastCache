@@ -169,11 +169,6 @@ Item {
 
     UserInfo {
         id: userInfo
-        onRequestReady:{
-            cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
-                                          createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
-            reloadCaches()
-        }
     }
 
     CacheAttributes {
