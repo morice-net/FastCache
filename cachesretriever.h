@@ -40,7 +40,7 @@ signals:
     void indexMoreCachesChanged();
 
 protected:
-    long m_indexMoreCaches;
+    int m_indexMoreCaches;
     QString m_tokenTemp ;
     QString m_userName;
 
