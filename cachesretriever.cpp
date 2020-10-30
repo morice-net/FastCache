@@ -106,12 +106,13 @@ void CachesRetriever::sendRequest(QString token)
 }
 
 void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
-{    
+{
     QJsonArray caches = dataJsonDoc.array();
-    qDebug() << "cachesArray:" << caches ;
+    qDebug() << "cachesArray: " << caches ;
 
     int lengthCaches = caches.size();
     if (lengthCaches == 0) {
+        setIndexMoreCaches(0);
         return ;
     }
 
@@ -184,9 +185,9 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     // request success
     emit requestReady();
 
-    if (lengthCaches == MAX_PER_PAGE) {
+    if (lengthCaches == MAX_PER_PAGE)
         moreCaches();
-    } else if(lengthCaches != MAX_PER_PAGE)
+    else
         setIndexMoreCaches(0);
 }
 

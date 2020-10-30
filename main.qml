@@ -134,7 +134,6 @@ Item {
         url: ""
         anchors.fill: parent
         visible: false
-
         onUrlChanged: {
             console.log("[URL] The load request URL is: " + url);
             console.log("[URL] redirectUri: ", connector.redirectUri)
@@ -454,22 +453,20 @@ Item {
     }
 
     function reloadCaches(){
-        if (lastReload.running){
-            return;
-        }
         if (!cachesActive){
             return;
         }
-        lastReload.start()
+        if(cachesBBox.state !== "loading")
+        {
+            cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
+            cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
+            cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
+            cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
 
-        cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
-        cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
-        cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
-        cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
-
-        cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
-                                      createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
-        cachesBBox.sendRequest(connector.tokenKey)
+            cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
+                                          createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesBBox.sendRequest(connector.tokenKey)
+        }
     }
 
     function  formatLat( lat) {

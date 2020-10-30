@@ -80,14 +80,16 @@ void Requestor::sendDeleteRequest(const QString &requestName ,  QString token)
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
 {
+    if (m_requests.isEmpty())
+        return;
+
     QVariant   statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-    if (!m_requests.isEmpty())
-    {
-        // the current request is processed we can remove it from the list
-        // we take it here because maybe if it fails we want to process it again or read the data to know what happened
-        m_requests.takeFirst();
-        emit requestsLengthChanged();
-    }
+
+    // the current request is processed we can remove it from the list
+    // we take it here because maybe if it fails we want to process it again or read the data to know what happened
+    m_requests.takeFirst();
+    emit requestsLengthChanged();
+
     switch(statusCode.toInt()){
     case 200:
         setState("OK");
