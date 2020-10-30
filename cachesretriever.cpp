@@ -29,7 +29,6 @@ void CachesRetriever::sendRequest(QString token)
 {
     m_tokenTemp=token;
     if(m_indexMoreCaches == 0) {
-        emit clearMapRequested();
         qDeleteAll(m_caches);
         m_caches.clear();
     }
@@ -187,8 +186,10 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
     if (lengthCaches == MAX_PER_PAGE)
         moreCaches();
-    else
+    else {
         setIndexMoreCaches(0);
+        emit clearMapRequested();
+    }
 }
 
 void CachesRetriever::setIndexMoreCaches(int indexMoreCaches)
