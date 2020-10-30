@@ -16,7 +16,6 @@ Rectangle {
     property var cacheItems: []
 
     // Map properties
-    property real zoomlevelRecord: 14.5
     property real currentZoomlevel: 14.5
     property int currentCacheIndex: 0
 

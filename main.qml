@@ -593,12 +593,9 @@ Item {
     function centerMapCaches() {
         // center and zoom level
         fastMap.currentZoomlevel = 14.5
-        fastMap.zoomlevelRecord = fastMap.mapItem.zoomLevel
-
         if(cachesRecorded.caches.length === 0)
             return
         fastMap.mapItem.fitViewportToVisibleMapItems()
-        fastMap.zoomlevelRecord = fastMap.mapItem.zoomLevel
         fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
     }
 }
