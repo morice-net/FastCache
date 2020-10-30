@@ -338,11 +338,6 @@ Item {
         id: toast
     }
 
-    Timer {
-        id: lastReload
-        interval: 4000
-    }
-
     SQLiteStorage {
         id: sqliteStorage
         Component.onCompleted: {
