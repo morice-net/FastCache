@@ -265,6 +265,13 @@ Item {
                 }
                 // clears the tbsUser log record
                 sqliteStorage.deleteObject("cachestbsuserlog", fullCache.geocode())
+
+                // if it is a registered cache, mark found on list and map.
+                if(fullCache.registered) {
+                    var dateLogged = fullCache.findersDate[fullCache.findersName.indexOf(userInfo.name)]
+                    sqliteStorage.updateObject("fullcache", fullCache.geocode, fullCachesRecorded.markFoundInJson(
+                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), dateLogged))
+                }
             }
         }
         onFoundsChanged: {

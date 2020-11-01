@@ -18,6 +18,7 @@ public:
     ~FullCachesRecorded() override;
 
     Q_INVOKABLE void sendRequest(QString token , QList<QString> geocodes , QList<bool> cachesLists , SQLiteStorage *sqliteStorage);
+    Q_INVOKABLE QJsonDocument markFoundInJson(const QJsonDocument &dataJsonDoc, const QString &date);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
