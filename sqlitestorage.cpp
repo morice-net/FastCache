@@ -228,6 +228,25 @@ bool SQLiteStorage::updateFullCacheColumns(const QString &tableName, const QStri
     return true;
 }
 
+bool SQLiteStorage::updateFullCacheColumnsFoundJson(const QString &tableName, const QString &id, const bool &found, const QJsonDocument &json)
+{
+    QString queryCommand;
+    QString stringJson(json.toJson(QJsonDocument::Compact));
+    queryCommand += "UPDATE " + tableName
+            + " SET found = '" + QString::number(found ? 1 : 0) + "' , "
+            + " json = '" + stringJson.replace('\"', '"').replace("'","''") + "'"
+            + " WHERE " + "id='" + id + "'";
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+    return true;
+}
+
 bool SQLiteStorage::updateObject(const QString &tableName, const QString &id, const QJsonDocument &json)
 {
     QString queryCommand;

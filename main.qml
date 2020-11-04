@@ -268,9 +268,10 @@ Item {
 
                 // if it is a registered cache, mark found on list and map.
                 if(fullCache.registered) {
-                    var dateLogged = fullCache.findersDate[fullCache.findersName.indexOf(userInfo.name)]
-                    sqliteStorage.updateObject("fullcache", fullCache.geocode, fullCachesRecorded.markFoundInJson(
-                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), dateLogged))
+                    sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true,
+                                                                  fullCachesRecorded.markFoundInJson(
+                                                                      sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString()))
+                    fullCache.found = true
                 }
             }
         }

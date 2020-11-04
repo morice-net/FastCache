@@ -111,11 +111,12 @@ QJsonDocument FullCachesRecorded::markFoundInJson(const QJsonDocument &dataJsonD
     QJsonDocument jsonDoc = dataJsonDoc;
     QJsonObject cacheJson = jsonDoc.object();
     QJsonObject user = cacheJson["userData"].toObject();
+
     if(user["foundDate"].isNull()){
         user.insert("foundDate", QJsonValue(date));
+        cacheJson.insert("userData", QJsonValue::fromVariant(user));
+        jsonDoc.setObject(cacheJson);
+        qDebug()<<jsonDoc;
     }
-    cacheJson.insert("userData", QJsonValue::fromVariant(user));
-    jsonDoc.setObject(cacheJson);
-    qDebug()<<jsonDoc;
     return jsonDoc;
 }

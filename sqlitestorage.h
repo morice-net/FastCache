@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE bool isCacheInTable(const QString &tableName, const QString &id);
     Q_INVOKABLE void deleteObject(const QString &tableName, const QString &id);
     Q_INVOKABLE bool updateObject(const QString &tableName, const QString &id, const QJsonDocument &json);
+    Q_INVOKABLE bool updateFullCacheColumnsFoundJson(const QString &tableName, const QString &id, const bool &found, const QJsonDocument &json);
     Q_INVOKABLE QJsonDocument readObject(const QString &tableName, const QString &id);
     Q_INVOKABLE QList<QString> readAllIdsFromTable(const QString &tableName);
     Q_INVOKABLE QList<QString> readAllStringsFromTable(const QString &tableName);
