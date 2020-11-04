@@ -106,7 +106,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
     m_sqliteStorage->numberCachesInLists("cacheslists");
 }
 
-QJsonDocument FullCachesRecorded::markFoundInJson(const QJsonDocument &dataJsonDoc, const QString &date)
+QJsonDocument FullCachesRecorded::markFoundInJson(const QJsonDocument &dataJsonDoc, const QString &date, const bool &favorited)
 {
     QJsonDocument jsonDoc = dataJsonDoc;
     QJsonObject cacheJson = jsonDoc.object();
@@ -114,6 +114,7 @@ QJsonDocument FullCachesRecorded::markFoundInJson(const QJsonDocument &dataJsonD
 
     if(user["foundDate"].isNull()){
         user.insert("foundDate", QJsonValue(date));
+        user.insert("isFavorited", QJsonValue(favorited));
         cacheJson.insert("userData", QJsonValue::fromVariant(user));
         jsonDoc.setObject(cacheJson);
         qDebug()<<jsonDoc;
