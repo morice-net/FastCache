@@ -245,6 +245,16 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
+
+                // if it is a registered cache, mark found on list and map.
+                if(fullCache.registered) {
+                    var fav = sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
+                    sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
+                                                                      sqliteStorage.readObject("fullcache",fullCache.geocode), new Date().toISOString(), fav))
+                    fullCache.found = true
+                    fullCache.favorited = favorited
+                }
+
                 // clears the cache log record
                 sqliteStorage.deleteObject("cacheslog", fullCache.geocode())
                 // Send list of travelbugs
@@ -265,14 +275,6 @@ Item {
                 }
                 // clears the tbsUser log record
                 sqliteStorage.deleteObject("cachestbsuserlog", fullCache.geocode())
-
-                // if it is a registered cache, mark found on list and map.
-                if(fullCache.registered) {
-                    sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true,
-                                                                  fullCachesRecorded.markFoundInJson(
-                                                                      sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString()))
-                    fullCache.found = true
-                }
             }
         }
         onFoundsChanged: {
