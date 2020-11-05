@@ -243,8 +243,10 @@ Item {
             toast.visible = sendCacheLog.state !== "loading";
             if (sendCacheLog.state !== "Created") {
                 toast.show("Erreur  " + "(" + state + ")");
+                fullCache.toDoLog = true
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
+                fullCache.toDoLog = false
 
                 // if it is a registered cache, mark found on list and map.
                 if(fullCache.registered) {

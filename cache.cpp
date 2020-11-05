@@ -23,6 +23,7 @@ Cache::Cache(QObject *parent)
     , m_lat(0)
     , m_lon(0)
     , m_registered(false)
+    , m_toDoLog(false)
 {
 }
 
@@ -244,4 +245,15 @@ void Cache::setRegistered(bool registered)
 {
     m_registered = registered;
     emit registeredChanged();
+}
+
+bool Cache::toDoLog() const
+{
+    return m_toDoLog;
+}
+
+void Cache::setToDoLog(const bool &log)
+{
+    m_toDoLog = log ;
+    emit toDoLogChanged();
 }

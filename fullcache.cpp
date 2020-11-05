@@ -441,3 +441,5 @@ void FullCache::setCorrectedCode(const QString &code)
     emit correctedCodeChanged();
 }
 
+
+

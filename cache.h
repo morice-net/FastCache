@@ -29,6 +29,7 @@ class Cache : public QObject
     Q_PROPERTY(double lat READ lat WRITE setLat NOTIFY latChanged)
     Q_PROPERTY(double lon READ lon WRITE setLon NOTIFY lonChanged)
     Q_PROPERTY(bool registered READ registered WRITE setRegistered NOTIFY registeredChanged)
+    Q_PROPERTY(bool toDoLog READ toDoLog WRITE setToDoLog NOTIFY toDoLogChanged)
 
 public:
     explicit  Cache(QObject *parent = nullptr);
@@ -93,6 +94,9 @@ public:
     bool registered() const;
     void setRegistered(bool registered);
 
+    bool toDoLog() const;
+    void setToDoLog(const bool &log);
+
 signals:
     void nameChanged();
     void geocodeChanged();
@@ -112,6 +116,7 @@ signals:
     void latChanged();
     void lonChanged();
     void registeredChanged();
+    void toDoLogChanged();
 
 protected:
     QString m_name;
@@ -132,6 +137,7 @@ protected:
     double m_lat;
     double m_lon;
     bool m_registered;
+    bool m_toDoLog;
 
 private:
     SQLiteStorage *m_sqliteStorage;

@@ -166,5 +166,6 @@
         <file>QML/RecordedListsManager.qml</file>
         <file>QML/TabViewRecordedCaches.qml</file>
         <file>Image/fastCache_icon.png</file>
+        <file>Image/not_logged.png</file>
     </qresource>
 </RCC>
