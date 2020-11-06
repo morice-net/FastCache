@@ -122,6 +122,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
         cache->setGeocode(v["referenceCode"].toString());
         cache->setRegistered(cache->checkRegistered());
+        cache->setToDoLog(cache->checkToDoLog());
 
         if(v["status"].toString() == "Unpublished"){
             cache->setArchived(false);

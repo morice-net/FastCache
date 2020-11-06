@@ -41,6 +41,11 @@ bool Cache::checkRegistered()
     return   m_sqliteStorage->isCacheInTable("fullcache", m_geocode);
 }
 
+bool Cache::checkToDoLog()
+{
+    return   m_sqliteStorage->isCacheInTable("cacheslog", m_geocode);
+}
+
 void Cache::launchMaps(double lat , double lon)
 {
     QString mapsUrl = "https://www.google.com/maps/search/?api=1&basemap=terrain&query=" + QString::number(lat) + "," + QString::number(lon);

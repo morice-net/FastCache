@@ -36,6 +36,7 @@ public:
     ~Cache();
 
     bool checkRegistered();
+    bool checkToDoLog();
 
     Q_INVOKABLE void updateSqliteStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void launchMaps(double lat , double lon);
