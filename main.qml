@@ -191,6 +191,11 @@ Item {
             foundCacheBBoxMap();
             foundCacheRecordedMap()
         }
+        onToDoLogChanged: {
+            toDoLogCacheNearMap();
+            toDoLogCacheBBoxMap();
+            toDoLogCacheRecordedMap()
+        }
     }
 
     FullCacheRetriever {
@@ -601,6 +606,38 @@ Item {
             }
         }
     }
+
+    function toDoLogCacheNearMap() {
+        for (var i = 0; i < cachesNear.caches.length; i++) {
+            if(cachesNear.caches[i].geocode === fullCache.geocode){
+                cachesNear.caches[i].toDoLog = fullCache.toDoLog;
+                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
+                return;
+            }
+        }
+
+    }
+
+    function toDoLogCacheBBoxMap() {
+        for (var i = 0; i < cachesBBox.caches.length; i++) {
+            if(cachesBBox.caches[i].geocode === fullCache.geocode){
+                cachesBBox.caches[i].toDoLog = fullCache.toDoLog;
+                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
+                return;
+            }
+        }
+    }
+
+    function toDoLogCacheRecordedMap() {
+        for (var i = 0; i < cachesRecorded.caches.length; i++) {
+            if(cachesRecorded.caches[i].geocode === fullCache.geocode){
+                cachesRecorded.caches[i].toDoLog = fullCache.toDoLog;
+                fastMap.mapItem.updateCacheOnMap(cachesRecorded, i);
+                return;
+            }
+        }
+    }
+
 
     function centerMapCaches() {
         // center and zoom level
