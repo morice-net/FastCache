@@ -82,7 +82,7 @@ Rectangle {
             }
         }
 
-        function updateCacheOnMap(caches , indexList) {
+        function updateCacheOnMap(indexList) {
             var itemMap = Qt.createQmlObject('FastMapItem {}', map)
             itemMap.index = indexList
             cacheItems.push(itemMap)

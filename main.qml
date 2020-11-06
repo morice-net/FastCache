@@ -178,23 +178,24 @@ Item {
     FullCache {
         id: fullCache
         onIsCorrectedCoordinatesChanged: {
-            correctedCoordinatesCacheNearMap();
-            correctedCoordinatesCacheBBoxMap();
-            correctedCoordinatesCacheRecordedMap()
+            correctedCoordinatesDynamic(cachesBBox.caches);
+            correctedCoordinatesDynamic(cachesNear.caches);
+            correctedCoordinatesDynamic(cachesRecorded.caches);
         }
         onRegisteredChanged: {
-            registeredCacheNearMap();
-            registeredCacheBBoxMap();
+            registeredDynamic(cachesBBox.caches)
+            registeredDynamic(cachesNear.caches)
         }
         onFoundChanged: {
-            foundCacheNearMap();
-            foundCacheBBoxMap();
-            foundCacheRecordedMap()
+            foundDynamic(cachesBBox.caches);
+            foundDynamic(cachesNear.caches);
+            foundDynamic(cachesRecorded.caches);
+
         }
         onToDoLogChanged: {
-            toDoLogCacheNearMap();
-            toDoLogCacheBBoxMap();
-            toDoLogCacheRecordedMap()
+            toDoLogDynamic(cachesBBox.caches)
+            toDoLogDynamic(cachesNear.caches)
+            toDoLogDynamic(cachesRecorded.caches)
         }
     }
 
@@ -508,139 +509,55 @@ Item {
         fastMenuHeader.recordInSettings()
     }
 
-    //dynamic changes on the map
-    function correctedCoordinatesCacheNearMap() {
-        for (var i = 0; i < cachesNear.caches.length; i++) {
-            if(cachesNear.caches[i].geocode === fullCache.geocode){
+    //dynamic changes on list and  map
+    function correctedCoordinatesDynamic(listCaches) {
+        for (var i = 0; i < listCaches.length; i++) {
+            if(listCaches[i].geocode === fullCache.geocode){
                 if(fullCache.isCorrectedCoordinates){
-                    cachesNear.caches[i].lat = fullCache.correctedLat;
-                    cachesNear.caches[i].lon = fullCache.correctedLon;
+                    listCaches[i].lat = fullCache.correctedLat;
+                    listCaches[i].lon = fullCache.correctedLon;
                 } else {
-                    cachesNear.caches[i].lat = fullCache.lat;
-                    cachesNear.caches[i].lon = fullCache.lon;
+                    listCaches[i].lat = fullCache.lat;
+                    listCaches[i].lon = fullCache.lon;
                 }
-                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
+                fastMap.mapItem.updateCacheOnMap(i);
                 return;
             }
         }
     }
 
-    function correctedCoordinatesCacheBBoxMap() {
-        for (var i = 0; i < cachesBBox.caches.length; i++) {
-            if(cachesBBox.caches[i].geocode === fullCache.geocode){
-                if(fullCache.isCorrectedCoordinates){
-                    cachesBBox.caches[i].lat = fullCache.correctedLat;
-                    cachesBBox.caches[i].lon = fullCache.correctedLon;
-                } else {
-                    cachesBBox.caches[i].lat = fullCache.lat;
-                    cachesBBox.caches[i].lon = fullCache.lon;
-                }
-                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
+    function registeredDynamic(listCaches) {
+        for (var i = 0; i < listCaches.length; i++) {
+            if(listCaches[i].geocode === fullCache.geocode){
+                listCaches[i].registered = fullCache.registered;
+                fastMap.mapItem.updateCacheOnMap(i);
                 return;
             }
         }
     }
 
-    function correctedCoordinatesCacheRecordedMap() {
-        for (var i = 0; i < cachesRecorded.caches.length; i++) {
-            if(cachesRecorded.caches[i].geocode === fullCache.geocode){
-                if(fullCache.isCorrectedCoordinates){
-                    cachesRecorded.caches[i].lat = fullCache.correctedLat;
-                    cachesRecorded.caches[i].lon = fullCache.correctedLon;
-                } else {
-                    cachesRecorded.caches[i].lat = fullCache.lat;
-                    cachesRecorded.caches[i].lon = fullCache.lon;
-                }
-                fastMap.mapItem.updateCacheOnMap(cachesRecorded, i);
+    function foundDynamic(listCaches) {
+        for (var i = 0; i < listCaches.length; i++) {
+            if(listCaches[i].geocode === fullCache.geocode){
+                listCaches[i].found = fullCache.found;
+                fastMap.mapItem.updateCacheOnMap(i);
                 return;
             }
         }
     }
 
-    function registeredCacheNearMap() {
-        for (var i = 0; i < cachesNear.caches.length; i++) {
-            if(cachesNear.caches[i].geocode === fullCache.geocode){
-                cachesNear.caches[i].registered = fullCache.registered;
-                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
+    function toDoLogDynamic(listCaches) {
+        for (var i = 0; i < listCaches.length; i++) {
+            if(listCaches[i].geocode === fullCache.geocode){
+                listCaches[i].toDoLog = fullCache.toDoLog;
+                fastMap.mapItem.updateCacheOnMap(i);
                 return;
             }
         }
     }
 
-    function registeredCacheBBoxMap() {
-        for (var i = 0; i < cachesBBox.caches.length; i++) {
-            if(cachesBBox.caches[i].geocode === fullCache.geocode){
-                cachesBBox.caches[i].registered = fullCache.registered;
-                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
-                return;
-            }
-        }
-    }
-
-    function foundCacheNearMap() {
-        for (var i = 0; i < cachesNear.caches.length; i++) {
-            if(cachesNear.caches[i].geocode === fullCache.geocode){
-                cachesNear.caches[i].found = fullCache.found;
-                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
-                return;
-            }
-        }
-    }
-
-    function foundCacheBBoxMap() {
-        for (var i = 0; i < cachesBBox.caches.length; i++) {
-            if(cachesBBox.caches[i].geocode === fullCache.geocode){
-                cachesBBox.caches[i].found = fullCache.found;
-                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
-                return;
-            }
-        }
-    }
-
-    function foundCacheRecordedMap() {
-        for (var i = 0; i < cachesRecorded.caches.length; i++) {
-            if(cachesRecorded.caches[i].geocode === fullCache.geocode){
-                cachesRecorded.caches[i].found = fullCache.found;
-                fastMap.mapItem.updateCacheOnMap(cachesRecorded, i);
-                return;
-            }
-        }
-    }
-
-    function toDoLogCacheNearMap() {
-        for (var i = 0; i < cachesNear.caches.length; i++) {
-            if(cachesNear.caches[i].geocode === fullCache.geocode){
-                cachesNear.caches[i].toDoLog = fullCache.toDoLog;
-                fastMap.mapItem.updateCacheOnMap(cachesNear, i);
-                return;
-            }
-        }
-
-    }
-
-    function toDoLogCacheBBoxMap() {
-        for (var i = 0; i < cachesBBox.caches.length; i++) {
-            if(cachesBBox.caches[i].geocode === fullCache.geocode){
-                cachesBBox.caches[i].toDoLog = fullCache.toDoLog;
-                fastMap.mapItem.updateCacheOnMap(cachesBBox, i);
-                return;
-            }
-        }
-    }
-
-    function toDoLogCacheRecordedMap() {
-        for (var i = 0; i < cachesRecorded.caches.length; i++) {
-            if(cachesRecorded.caches[i].geocode === fullCache.geocode){
-                cachesRecorded.caches[i].toDoLog = fullCache.toDoLog;
-                fastMap.mapItem.updateCacheOnMap(cachesRecorded, i);
-                return;
-            }
-        }
-    }
-
-
+    // center and zoom level
     function centerMapCaches() {
-        // center and zoom level
         fastMap.currentZoomlevel = 14.5
         if(cachesRecorded.caches.length === 0)
             return
