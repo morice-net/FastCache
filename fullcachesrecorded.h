@@ -21,6 +21,7 @@ public:
     Q_INVOKABLE QJsonDocument markFoundInJson(const QJsonDocument &dataJsonDoc, const QString &date, const bool &favorited);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
+    QList<QString> extract(const QList<QString> &list, const int &begin, const int &blockLength);
 
 private:
     ReplaceImageInText* m_replaceImageInText = new ReplaceImageInText;

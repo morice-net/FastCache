@@ -1,9 +1,9 @@
 #include "fullcachesrecorded.h"
 #include "constants.h"
 
+#include <QtMath>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
-#include "constants.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -22,35 +22,42 @@ void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes , Q
 {
     m_cachesLists = cachesLists;
     m_sqliteStorage = sqliteStorage;
+    int maxFullCachesPerPages = 50;
+    int numberPages = (int) qCeil((double) geocodes.length()/maxFullCachesPerPages);
+    QList<QString> geocodesPage ;
 
-    //Build url
-    QString requestName = "geocaches?referenceCodes=" ;
-
-    for(int i = 0; i < geocodes.size()-1 ; ++i)
+    for(int number = 0; number < numberPages ; ++number)
     {
-        requestName.append(geocodes[i]);
-        requestName.append(",");
+        geocodesPage = extract(geocodes, number*maxFullCachesPerPages, maxFullCachesPerPages);
+
+        //Build url
+        QString requestName = "geocaches?referenceCodes=" ;
+        for(int i = 0; i < geocodesPage.size()-1 ; ++i)
+        {
+            requestName.append(geocodesPage[i]);
+            requestName.append(",");
+        }
+        requestName.append(geocodesPage[geocodesPage.size()-1]);
+
+        requestName.append("&lite=false");
+
+        // Fields
+        requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
+                           "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml,additionalWaypoints");
+        // Expand
+        requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOGS_COUNT) +
+                           ",trackables:" + QString::number(TRACKABLE_LOGS_COUNT) +
+                           ",geocachelog.images:" + QString::number(GEOCACHE_LOG_IMAGES_COUNT) +
+                           ",userwaypoints:" + QString::number(USER_WAYPOINTS) +
+                           ",images:" + QString::number(IMAGES));
+
+        qDebug() << "URL:" << requestName ;
+
+        // Inform QML we are loading
+        setState("loading");
+
+        Requestor::sendGetRequest(requestName , token);
     }
-    requestName.append(geocodes[geocodes.size()-1]);
-
-    requestName.append("&lite=false");
-
-    // Fields
-    requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
-                       "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml,additionalWaypoints");
-    // Expand
-    requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOGS_COUNT) +
-                       ",trackables:" + QString::number(TRACKABLE_LOGS_COUNT) +
-                       ",geocachelog.images:" + QString::number(GEOCACHE_LOG_IMAGES_COUNT) +
-                       ",userwaypoints:" + QString::number(USER_WAYPOINTS) +
-                       ",images:" + QString::number(IMAGES));
-
-    qDebug() << "URL:" << requestName ;
-
-    // Inform QML we are loading
-    setState("loading");
-
-    Requestor::sendGetRequest(requestName , token);
 }
 
 void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
@@ -120,4 +127,17 @@ QJsonDocument FullCachesRecorded::markFoundInJson(const QJsonDocument &dataJsonD
         qDebug()<<jsonDoc;
     }
     return jsonDoc;
+}
+
+QList<QString> FullCachesRecorded::extract(const QList<QString> &list, const int &begin, const int &blockLength)
+{
+    QList<QString> build;
+    if(list.isEmpty())
+        return build;
+    for(int i = begin; i < begin + blockLength ; ++i){
+        if(i >= list.length())
+            return build;
+        build.append(list[i]);
+    }
+    return  build;
 }

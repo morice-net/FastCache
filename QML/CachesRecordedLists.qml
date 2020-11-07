@@ -9,7 +9,6 @@ FastPopup {
     id: cachesRecordedLists
     closeButtonVisible: false
 
-    property int fullCachesMax: 50
     property var listChecked: []
     property int listIndex: 0
 
@@ -100,7 +99,7 @@ FastPopup {
                 list = fastList.listGeocodesOnList()
                 console.log("list of geocodes(list):   " + list)
             }
-            if(list.length > 0 && list.length <= fullCachesMax && listChecked.indexOf(true) !== -1)
+            if(list.length > 0  && listChecked.indexOf(true) !== -1)
                 fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
             cachesRecordedLists.close()
         }
@@ -154,7 +153,7 @@ FastPopup {
                 list = fastList.listGeocodesOnList()
                 console.log("list of geocodes(list):   " + list)
             }
-            if(list.length > 0 && list.length <= fullCachesMax && listChecked.indexOf(true) !== -1){
+            if(list.length > 0 && listChecked.indexOf(true) !== -1){
                 fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
                 cachesRecorded.updateMapCachesRecorded()
                 fastList.selectedInList = fastList.createAllSelectedInList(false)
