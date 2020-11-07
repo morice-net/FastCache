@@ -17,7 +17,7 @@ TabBar {
                 fastMap.clearMap()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[bar.currentIndex])
                 // center and zoom level
-                centerMapCaches()
+                centerMapCaches(cachesRecorded.caches)
             }
             width: Math.max(100, bar.width / sqliteStorage.countLists)
             contentItem: Text {

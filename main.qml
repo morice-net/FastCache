@@ -557,9 +557,9 @@ Item {
     }
 
     // center and zoom level
-    function centerMapCaches() {
+    function centerMapCaches(listCaches) {
         fastMap.currentZoomlevel = 14.5
-        if(cachesRecorded.caches.length === 0)
+        if(listCaches.length === 0)
             return
         fastMap.mapItem.fitViewportToVisibleMapItems()
         fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
