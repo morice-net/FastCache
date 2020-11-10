@@ -46,8 +46,10 @@ Rectangle {
         gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
         gesture.onPanFinished: reloadCaches()
         onZoomLevelChanged: {
-            scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
-            reloadCaches()
+            if(main.viewState === "map") {
+                scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
+                reloadCaches()
+            }
         }
         onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
         minimumZoomLevel: 6.
