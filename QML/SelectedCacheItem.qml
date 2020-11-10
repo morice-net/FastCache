@@ -56,6 +56,16 @@ Rectangle {
     }
 
     Image {
+        visible: selectedCache.own
+        source: "qrc:/Image/marker_own.png"
+        fillMode: Image.PreserveAspectFit
+        width: selectedCacheIconField.width / 2
+        height: selectedCacheIconField.height / 3
+        x: selectedCacheIconField.x + selectedCacheIconField.width/2
+        y: selectedCacheIconField.y + selectedCacheIconField.height/2
+    }
+
+    Image {
         visible: selectedCache.registered
         source: "qrc:/Image/marker_save.png"
         fillMode: Image.PreserveAspectFit

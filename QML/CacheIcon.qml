@@ -6,6 +6,7 @@ Item {
     property bool found: false
     property bool registered: false
     property bool toDoLog: false
+    property bool own: false
 
     width: cacheIconBackground.width
     height: cacheIconBackground.height
@@ -50,6 +51,17 @@ Item {
         x: 3 * parent.width / 5
         y: 3 * parent.height / 5
     }
+
+    Image {
+        visible: own
+        source: "qrc:/Image/marker_own.png"
+        fillMode: Image.PreserveAspectFit
+        width: parent.width / 2
+        height: parent.height / 3
+        x: 3 * parent.width / 5
+        y: 3 * parent.height / 5
+    }
+
 
     Image {
         visible: registered

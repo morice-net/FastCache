@@ -24,6 +24,7 @@ Cache::Cache(QObject *parent)
     , m_lon(0)
     , m_registered(false)
     , m_toDoLog(false)
+    , m_own(false)
 {
 }
 
@@ -262,3 +263,15 @@ void Cache::setToDoLog(const bool &log)
     m_toDoLog = log ;
     emit toDoLogChanged();
 }
+
+bool Cache::own() const
+{
+    return m_own;
+}
+
+void Cache::setOwn(const bool &own)
+{
+    m_own = own ;
+    emit ownChanged();
+}
+

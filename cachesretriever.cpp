@@ -142,6 +142,9 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         }
 
         cache->setOwner(v["ownerAlias"].toString());
+        if(cache->owner() == m_userName)
+            cache->setOwn(true);
+
         cache->setDate(v["placedDate"].toString());
 
         QJsonObject v1 = v["geocacheType"].toObject();
