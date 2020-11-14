@@ -34,7 +34,7 @@ public:
 protected:
     virtual void addGetRequestParameters(QString& parameters) = 0;
 
-signals:    
+signals:
     void cachesChanged();
     void clearMapRequested();
     void indexMoreCachesChanged();

@@ -15,7 +15,7 @@ Rectangle {
     property bool selectAll: false
     property int tabBarRecordedCachesIndex: tabViewRecordedCaches.currentIndex
     property var selectedInList: createAllSelectedInList(false)
-    property var listCaches: modelState()
+    property var listCaches: visualModel.modelState()
 
     states: [
         State {
@@ -33,6 +33,10 @@ Rectangle {
         id: loadingPage
     }
 
+    ListCachesSort {
+        id: visualModel
+    }
+
     ListView {
         id: fastListColumn
         width: parent.width
@@ -40,11 +44,7 @@ Rectangle {
                 ? parent.height - fastListHeader.height - fastListBottom.height -10 :parent.height - fastListHeader.height -10
         y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded"
         spacing: 5
-        model: modelState()
-        delegate: SelectedCacheItem {
-            x: (fastList.width - width ) / 2
-            Component.onCompleted: show(modelData)
-        }
+        model: visualModel
         ScrollBar.vertical: ScrollBar {}
     }
 
@@ -110,16 +110,6 @@ Rectangle {
         }
     }
 
-    function modelState() {
-        if(main.cachesActive){
-            return  cachesBBox.caches
-        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
-            return  cachesNear.caches
-        } else if(main.state === "recorded" ){
-            return  cachesRecorded.caches
-        }
-    }
-
     function textHeader() {
         if(main.cachesActive){
             fastListBottom.visible = false ;
@@ -179,3 +169,5 @@ Rectangle {
         return listGeocodes
     }
 }
+
+

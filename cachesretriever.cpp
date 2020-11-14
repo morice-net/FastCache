@@ -9,6 +9,8 @@
 #include <QJsonArray>
 #include <QList>
 
+#include <QtAlgorithms>
+
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
     , m_indexMoreCaches(0)
@@ -245,7 +247,6 @@ int CachesRetriever::indexMoreCaches()
 {
     return m_indexMoreCaches;
 }
-
 
 
 
