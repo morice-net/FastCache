@@ -170,5 +170,6 @@
         <file>Image/marker_own.png</file>
         <file>QML/ListCachesSort.qml</file>
         <file>Image/sort_alphabetically.png</file>
+        <file>QML/BoxSorting.qml</file>
     </qresource>
 </RCC>

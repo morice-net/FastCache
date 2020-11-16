@@ -60,6 +60,11 @@ Item {
     }
 
     // list sort
+    BoxSorting {
+        id: groupBoxSorting
+        visible: false
+    }
+
     Rectangle {
         visible: main.viewState !== "fullcache" && viewState === "list"
         color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
@@ -80,6 +85,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
+            onClicked: groupBoxSorting.visible = !groupBoxSorting.visible
         }
     }
 
