@@ -36,6 +36,7 @@ Item {
 
     // Filters
     Rectangle {
+        id: filter
         visible: main.viewState !== "fullcache" && fastList.state === ""
         color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
         radius: 10
@@ -55,6 +56,30 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: changeFiltersVisibility()
+        }
+    }
+
+    // list sort
+    Rectangle {
+        visible: main.viewState !== "fullcache" && viewState === "list"
+        color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
+        radius: 10
+        height: parent.height * 0.05
+        width: height
+        anchors.margins: 5
+        anchors.right:  filter.left
+        anchors.top: parent.top
+
+        Image {
+            source: "qrc:/Image/sort_alphabetically.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+            anchors.margins: 5
+            scale:1.4
+        }
+
+        MouseArea {
+            anchors.fill: parent
         }
     }
 

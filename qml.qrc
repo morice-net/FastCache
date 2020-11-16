@@ -169,5 +169,6 @@
         <file>Image/not_logged.png</file>
         <file>Image/marker_own.png</file>
         <file>QML/ListCachesSort.qml</file>
+        <file>Image/sort_alphabetically.png</file>
     </qresource>
 </RCC>
