@@ -2,7 +2,7 @@ import QtQuick 2.6
 import QtQml.Models 2.14
 
 DelegateModel {
-    id: visualModel
+    id: sorting
 
     property var lessThan: [
         function(left, right) { return left.difficulty < right.difficulty },
@@ -44,10 +44,10 @@ DelegateModel {
 
         includeByDefault: true
         onChanged: {
-            if (visualModel.sortOrder == visualModel.lessThan.length)
+            if (sorting.sortOrder === sorting.lessThan.length)
                 setGroups(0, count, "items")
             else
-                visualModel.sort(visualModel.lessThan[visualModel.sortOrder])
+                sorting.sort(sorting.lessThan[sorting.sortOrder])
         }
     }
     model: modelState()

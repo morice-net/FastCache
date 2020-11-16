@@ -15,7 +15,7 @@ Rectangle {
     property bool selectAll: false
     property int tabBarRecordedCachesIndex: tabViewRecordedCaches.currentIndex
     property var selectedInList: createAllSelectedInList(false)
-    property var listCaches: visualModel.modelState()
+    property var listCaches: sorting.modelState()
 
     states: [
         State {
@@ -34,7 +34,7 @@ Rectangle {
     }
 
     ListCachesSort {
-        id: visualModel
+        id: sorting
     }
 
     ListView {
@@ -44,7 +44,7 @@ Rectangle {
                 ? parent.height - fastListHeader.height - fastListBottom.height -10 :parent.height - fastListHeader.height -10
         y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded"
         spacing: 5
-        model: visualModel
+        model: sorting
         ScrollBar.vertical: ScrollBar {}
     }
 
