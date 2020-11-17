@@ -85,7 +85,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: groupBoxSorting.visible = !groupBoxSorting.visible
+            onClicked: groupBoxSorting.visible = true
         }
     }
 

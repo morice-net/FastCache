@@ -5,11 +5,15 @@ DelegateModel {
     id: sorting
 
     property var lessThan: [
+        function(left, right) { return left.geocode < right.geocode },
+        function(left, right) { return left.name < right.name },
+        function(left, right) { return left.type < right.type },
+        function(left, right) { return left.size < right.size },
         function(left, right) { return left.difficulty < right.difficulty },
-        function(left, right) { return left.terrain < right.terrain }
+        function(left, right) { return left.terrain < right.terrain },
     ]
 
-    property int sortOrder: 1
+    property int sortOrder: main.sortingBy
     onSortOrderChanged: items.setGroups(0, items.count, "unsorted")
 
     function insertPosition(lessThan, item) {

@@ -48,6 +48,9 @@ Item {
     // current index in TabViewRecordedCaches
     property alias tabBarRecordedCachesIndex: fastList.tabBarRecordedCachesIndex
 
+    // list sort type by: géocode, name , type , size , difficulty , terrain , distance.
+    property int sortingBy : 6 // sorting by distance.
+
     FastSettings { id: settings }
 
     Location {
