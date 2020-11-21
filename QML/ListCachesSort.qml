@@ -1,5 +1,7 @@
 import QtQuick 2.6
 import QtQml.Models 2.14
+import QtLocation 5.3
+import QtPositioning 5.3
 
 DelegateModel {
     id: sorting
@@ -11,6 +13,8 @@ DelegateModel {
         function(left, right) { return left.size < right.size },
         function(left, right) { return left.difficulty < right.difficulty },
         function(left, right) { return left.terrain < right.terrain },
+        function(left, right) { return Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(left.lat, left.lon)))
+                                < Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(right.lat, right.lon))) }
     ]
 
     property int sortOrder: main.sortingBy
