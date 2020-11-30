@@ -42,8 +42,13 @@ Item {
         message.text = textRecorded
     }
 
+    ImagesBrowser{
+        id: imagesBrowser
+        visible: false
+    }
+
     AddTextLog{
-        id:addText
+        id: addText
     }
 
     Flickable {
@@ -353,6 +358,22 @@ Item {
                         color: Palette.greenSea()
                         radius: 3
                         anchors.margins: 4
+                    }
+                }
+            }
+
+            Text {
+                id: addImages
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 10
+                font.pointSize: 14
+                text: "AJOUTER DES IMAGES"
+                color: Palette.silver()
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        imagesBrowser.visible = true
                     }
                 }
             }
