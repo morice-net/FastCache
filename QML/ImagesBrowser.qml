@@ -39,7 +39,7 @@ Rectangle {
         }
     }
 
-    Row{
+    Row {
         id: buttons
         spacing: 30
         anchors.horizontalCenter: parent.horizontalCenter
@@ -58,6 +58,8 @@ Rectangle {
             y: 10
             buttonText: "Fermer"
             onClicked: {
+                console.log("Descriptions:  " + listImagesDescription)
+                console.log("Urls:  " + listImagesUrl)
                 imagesBrowser.visible = false
             }
         }
@@ -116,6 +118,11 @@ Rectangle {
 
                         MouseArea {
                             anchors.fill: parent
+                            onClicked: {
+                                listImagesUrl.splice(index , 1 )
+                                listImagesDescription.splice(index , 1)
+                                repeaterCount = listImagesDescription.length
+                            }
                         }
                     }
                 }
