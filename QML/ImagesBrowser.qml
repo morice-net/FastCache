@@ -7,6 +7,11 @@ import "JavaScript/Palette.js" as Palette
 
 Rectangle {
     id: imagesBrowser
+
+    property var listImagesUrl: []
+    property var listImagesDescription: []
+    property int repeaterCount: 0
+
     anchors.fill: parent
     anchors.topMargin: 40
     anchors.bottomMargin: anchors.topMargin/2
@@ -16,7 +21,6 @@ Rectangle {
     clip: true
     color: Palette.turquoise()
     radius: 8
-    focus: true
 
     FileDialog {
         id: fileDialog
@@ -24,29 +28,50 @@ Rectangle {
         selectExisting: true
         nameFilters: [ "Image files (*.png *.jpg *.gif)" ]
         onAccepted: {
-            console.log("Accepted: " + fileUrl)
+            listImagesDescription.push("")
+            listImagesUrl.push(fileUrl)
+            repeaterCount = listImagesDescription.length
+            console.log("Descriptions:  " + listImagesDescription)
+            console.log("Urls:  " + listImagesUrl)
         }
         onRejected: {
             console.log("Rejected")
         }
     }
 
-    FastTextButton {
-        id: fileDialogVisible
-        buttonText: "Ajouter une image"
+    Row{
+        id: buttons
+        spacing: 30
         anchors.horizontalCenter: parent.horizontalCenter
-        onClicked: {
-            fileDialog.visible = true
+
+        FastTextButton {
+            id: fileDialogVisible
+            y: 10
+            buttonText: "Ajouter une image"
+            onClicked: {
+                fileDialog.visible = true
+            }
+        }
+
+        FastTextButton {
+            id: closePage
+            y: 10
+            buttonText: "Fermer"
+            onClicked: {
+                imagesBrowser.visible = false
+            }
         }
     }
 
     ScrollView {
         id: scrollView
+        focus:true
         anchors {
             left: parent.left
             right: parent.right
-            top: fileDialogVisible.bottom
+            top: buttons.bottom
             leftMargin: 12
+            topMargin: 20
         }
 
         Column {
@@ -55,9 +80,9 @@ Rectangle {
             width: imagesBrowser.width
 
             Repeater{
-                model: 1
-
-                Row{
+                model: repeaterCount
+                delegate:
+                    Row{
                     spacing: 40
                     width: imagesBrowser.width
                     topPadding: 10
@@ -65,6 +90,7 @@ Rectangle {
                     TextArea {
                         id: description
                         placeholderText: "Description"
+                        text: listImagesDescription[index]
                         width: parent.width/3
                         font.family: localFont.name
                         font.pointSize: 14
@@ -79,7 +105,7 @@ Rectangle {
                     Image {
                         id: image
                         visible: true
-                        source: fileDialog.fileUrl
+                        source: listImagesUrl[index]
                         sourceSize.width: parent.width/4
                     }
 
@@ -87,7 +113,6 @@ Rectangle {
                         id: deleteImage
                         source: "qrc:/Image/" + "icon_delete.png"
                         fillMode: Image.PreserveAspectFit
-                        scale: 1.4
 
                         MouseArea {
                             anchors.fill: parent
