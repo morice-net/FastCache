@@ -93,6 +93,7 @@ Rectangle {
                         id: description
                         placeholderText: "Description"
                         text: listImagesDescription[index]
+                        onTextChanged: listImagesDescription[index] = description.text
                         width: parent.width/3
                         font.family: localFont.name
                         font.pointSize: 14
