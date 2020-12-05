@@ -294,6 +294,10 @@ Item {
         }
     }
 
+    SendImagesLog {
+        id:sendImagesLog
+    }
+
     SendTravelbugLog {
         id:sendTravelbugLog
         onRequestsLengthChanged: {

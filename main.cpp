@@ -17,6 +17,7 @@
 #include "cacheattribute.h"
 #include "sendcachenote.h"
 #include "sendcachelog.h"
+#include "sendimageslog.h"
 #include "sendtravelbuglog.h"
 #include "smileygc.h"
 #include "travelbug.h"
@@ -39,6 +40,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheAttribute>("com.mycompany.connecting", 1, 0, "CacheAttribute");
     qmlRegisterType<SendCacheNote>("com.mycompany.connecting", 1, 0, "SendCacheNote");
     qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");
+    qmlRegisterType<SendImagesLog>("com.mycompany.connecting", 1, 0, "SendImagesLog");
     qmlRegisterType<SendTravelbugLog>("com.mycompany.connecting", 1, 0, "SendTravelbugLog");
     qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");
     qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
