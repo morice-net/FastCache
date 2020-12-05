@@ -7,6 +7,7 @@
 SendCacheLog::SendCacheLog(Requestor *parent)
     : Requestor (parent)
     ,  m_count()
+    ,  m_codeLog("")
 {   
 }
 
@@ -61,6 +62,7 @@ void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
     QJsonObject finderJson;
 
     logJson = dataJsonDoc.object();
+    setCodeLog(logJson["referenceCode"].toString());
     finderJson = logJson["owner"].toObject();
     setFounds(finderJson["findCount"].toInt());
 
@@ -77,5 +79,16 @@ void SendCacheLog::setFounds(const int &count)
 {
     m_count = count;
     emit foundsChanged();
+}
+
+QString SendCacheLog::codeLog() const
+{
+    return m_codeLog;
+}
+
+void SendCacheLog::setCodeLog(const QString &code)
+{
+    m_codeLog = code;
+    emit codeLogChanged();
 }
 
