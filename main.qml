@@ -261,9 +261,9 @@ Item {
                 if(fullCache.registered) {
                     var fav = sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
                     sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
-                                                                      sqliteStorage.readObject("fullcache",fullCache.geocode), new Date().toISOString(), fav))
+                                                                      sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                     fullCache.found = true
-                    fullCache.favorited = favorited
+                    fullCache.favorited = fav
                 }
 
                 // clears the cache log record
