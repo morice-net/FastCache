@@ -267,7 +267,7 @@ Item {
                 }
 
                 // clears the cache log record
-                sqliteStorage.deleteObject("cacheslog", fullCache.geocode())
+                sqliteStorage.deleteObject("cacheslog", fullCache.geocode)
                 // Send list of travelbugs
                 var   tbCode;
                 var   trackingCode;
@@ -285,7 +285,7 @@ Item {
                     }
                 }
                 // clears the tbsUser log record
-                sqliteStorage.deleteObject("cachestbsuserlog", fullCache.geocode())
+                sqliteStorage.deleteObject("cachestbsuserlog", fullCache.geocode)
             }
         }
         onFoundsChanged: {
