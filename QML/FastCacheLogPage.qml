@@ -42,12 +42,12 @@ Item {
         message.text = textRecorded
     }
 
-    ImagesBrowser{
+    ImagesBrowser {
         id: imagesBrowser
         visible: false
     }
 
-    AddTextLog{
+    AddTextLog {
         id: addText
     }
 
@@ -58,7 +58,7 @@ Item {
         contentHeight: childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        Column{
+        Column {
             spacing: 10
             x:10
             y:20

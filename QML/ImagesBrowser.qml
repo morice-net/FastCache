@@ -10,6 +10,7 @@ Rectangle {
 
     property var listImagesUrl: []
     property var listImagesDescription: []
+
     property int repeaterCount: 0
 
     anchors.fill: parent
@@ -128,6 +129,12 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+
+    function addImagesToLog() {
+        for (var i = 0; i <listImagesUrl.length; i++) {
+            sendImagesLog.sendRequest(connector.tokenKey, sendCacheLog.codeLog, listImagesDescription[i], listImagesUrl[i])
         }
     }
 }
