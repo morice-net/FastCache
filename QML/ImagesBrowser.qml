@@ -133,6 +133,8 @@ Rectangle {
     }
 
     function addImagesToLog() {
+        if(sendCacheLog.codeLog === "" || listImagesUrl.length === 0)
+            return
         for (var i = 0; i <listImagesUrl.length; i++) {
             sendImagesLog.sendRequest(connector.tokenKey, sendCacheLog.codeLog, listImagesDescription[i], listImagesUrl[i])
         }
