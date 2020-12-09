@@ -292,6 +292,9 @@ Item {
             findCount = sendCacheLog.founds;
             fastCache.swipeToPage(3);
         }
+        onCodeLogChanged: {
+            fastCache.addImagesToLog()
+        }
     }
 
     SendImagesLog {

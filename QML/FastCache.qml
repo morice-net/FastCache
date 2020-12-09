@@ -9,6 +9,10 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: fastCache
 
+    // used to send images to a log
+    property var listImagesUrl: []
+    property var listImagesDescription: []
+
     // used by compassPage
     property string wptName: "Cache   " + fullCache.geocode
     property double goalLat: fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
@@ -177,5 +181,16 @@ Rectangle {
         wptName = title;
         goalLat = lat;
         goalLon = lon;
+    }
+
+    function addImagesToLog() {
+        console.log("CODE LOG:  " + sendCacheLog.codeLog)
+        console.log("DESCRIPTION:  " + listImagesDescription)
+        console.log("URL:  " + listImagesUrl)
+        if(sendCacheLog.codeLog === "" || listImagesUrl.length === 0)
+            return
+        for (var i = 0; i <listImagesUrl.length; i++) {
+            sendImagesLog.sendRequest(connector.tokenKey, sendCacheLog.codeLog, listImagesDescription[i], listImagesUrl[i])
+        }
     }
 }

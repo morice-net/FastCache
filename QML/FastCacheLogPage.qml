@@ -307,9 +307,7 @@ Item {
                             sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
                                                                                                                   favorited.checked))
                             sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
-                            sendCacheLog.codeLog = ""
                             sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked)
-                            imagesBrowser.addImagesToLog()
                         }
                     }
                 }
