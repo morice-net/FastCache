@@ -13,7 +13,6 @@ class SendImagesLog : public Requestor
 public:
     explicit SendImagesLog(Requestor *parent = nullptr);
     ~SendImagesLog() override;
-
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
     Q_INVOKABLE  void sendRequest(QString token , QString codeLog, QString description  , QString filUrl);

@@ -299,6 +299,14 @@ Item {
 
     SendImagesLog {
         id:sendImagesLog
+        onStateChanged: {
+            toast.visible = sendImagesLog.state !== "loading";
+            if (sendImagesLog.state !== "Created") {
+                toast.show("Erreur  " + "(" + state + ")");
+            } else {
+                toast.show("L'image a été rajoutée au log.");
+            }
+        }
     }
 
     SendTravelbugLog {
