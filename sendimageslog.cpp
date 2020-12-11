@@ -1,7 +1,8 @@
 #include "sendimageslog.h"
 
-#include <QFile>
+#include <QImage>
 #include <QJsonObject>
+#include <QBuffer>
 
 SendImagesLog::SendImagesLog(Requestor *parent)
     : Requestor (parent)
@@ -15,26 +16,23 @@ SendImagesLog::~SendImagesLog()
 QString SendImagesLog::imageToBase64(const QString &fileUrl)
 {
     qDebug()<<fileUrl;
-    QFile image(fileUrl);
-    if (image.open(QIODevice::ReadOnly)){
-        qDebug()<<"Fichier ouvert";
-        QByteArray byteArray = image.readAll();
-        return byteArray.toBase64();
-    } else {
-        qDebug()<<"Le fichier n'es pas ouvert";
-        return "";
-    }
+    QImage image(fileUrl);
+    QByteArray ba;
+    QBuffer buffer(&ba);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, "JPEG");
+    QByteArray base64 = ba.toBase64();
+    buffer.close();
+    return base64;
 }
 
 void SendImagesLog::sendRequest(QString token , QString codeLog, QString description  , QString fileUrl)
 {
     //Build url
-    QString requestName = "geocachelogs/" + codeLog + "/images";
-    qDebug() << "URL:" << requestName ;
+    QString requestName = "geocachelogs/" + codeLog + "/images?fields=url";
 
     //Add parameters
     QJsonObject image;
-
     image.insert("description", QJsonValue(description));
     image.insert("base64ImageData", QJsonValue(imageToBase64(fileUrl)));
 
