@@ -380,6 +380,7 @@ Item {
             sqliteStorage.createTable("cacheslog", "(id string primary key, json string)");
             sqliteStorage.createTable("cachestbsuserlog", "(id string primary key, json string)");
             sqliteStorage.createTable("tblog", "(id string primary key, json string)");
+            sqliteStorage.createTable("cachesimageslog", "(id string primary key, json string)");
 
             sqliteStorage.updateLists("lists", 1 , "Enregistrées");
             sqliteStorage.numberCachesInLists("cacheslists");
