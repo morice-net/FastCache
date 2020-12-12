@@ -14,6 +14,9 @@ Rectangle {
     property var listImagesDescription: []
     property var listImagesRotation: []
 
+    // used to save images sent to a log
+    property var listImagesLog: createListImagesLog()
+
     // used by compassPage
     property string wptName: "Cache   " + fullCache.geocode
     property double goalLat: fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
@@ -194,5 +197,13 @@ Rectangle {
         for (var i = 0; i <listImagesUrl.length; i++) {
             sendImagesLog.sendRequest(connector.tokenKey, sendCacheLog.codeLog, listImagesDescription[i], listImagesUrl[i], listImagesRotation[i])
         }
+    }
+
+    function createListImagesLog() {
+        var list = []
+        for (var i = 0; i < listImagesDescription.length; i++) {
+            list.push(listImagesUrl[i] + "," + listImagesRotation[i] + "," + listImagesDescription[i])
+        }
+        return list
     }
 }
