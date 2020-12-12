@@ -17,19 +17,22 @@ QString SendImagesLog::imageToBase64(const QString &fileUrl, const int &rotation
 {
     qDebug()<<fileUrl;
     QImage image(fileUrl);
+    if(image.isNull()) {
+        return "";
+    } else {
+        // rotation.
+        QTransform rotating;
+        rotating.rotate(rotation);
+        image = image.transformed(rotating);
 
-    // rotation.
-    QTransform rotating;
-    rotating.rotate(rotation);
-    image = image.transformed(rotating);
-
-    QByteArray ba;
-    QBuffer buffer(&ba);
-    buffer.open(QIODevice::WriteOnly);
-    image.save(&buffer, "JPEG");
-    QByteArray base64 = ba.toBase64();
-    buffer.close();
-    return base64;
+        QByteArray ba;
+        QBuffer buffer(&ba);
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, "JPEG");
+        QByteArray base64 = ba.toBase64();
+        buffer.close();
+        return base64;
+    }
 }
 
 void SendImagesLog::sendRequest(QString token , QString codeLog, QString description  , QString fileUrl, int rotation)
