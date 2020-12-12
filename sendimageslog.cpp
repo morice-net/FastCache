@@ -61,6 +61,22 @@ QJsonDocument SendImagesLog::makeJsonSendImagesLog(const QList<QString> &list )
     return logDoc;
 }
 
+QList<QString> SendImagesLog::readJsonArray(const QJsonDocument &jsonDoc)
+{
+    // return list of strings of the form: imageUrl,imageRotation,imageDescription
+    QList<QString> list;
+    QJsonObject jsonObject = jsonDoc.object();
+    QJsonArray jsonArray = jsonObject["array"].toArray();
+    QJsonValue jsonValue;
+    for(int i = 0; i < jsonArray.count(); i++)
+    {
+        jsonValue = jsonArray[i];
+        list.append(jsonValue["imageUrl"].toString() + "," + jsonValue["imageRotation"].toString() + "," + jsonValue["imageDescription"].toString());
+    }
+    qDebug()<<"List: "<< list;
+    return list;
+}
+
 void SendImagesLog::sendRequest(QString token , QString codeLog, QString description  , QString fileUrl, int rotation)
 {
     //Build url

@@ -17,6 +17,7 @@ public:
 
     Q_INVOKABLE QJsonDocument makeJsonSendImagesLog(const QList<QString> &list );
     Q_INVOKABLE  void sendRequest(QString token , QString codeLog, QString description  , QString filUrl, int rotation);
+    Q_INVOKABLE QList<QString> readJsonArray(const QJsonDocument &jsonDoc);
 
 private:
     QString imageToBase64(const QString &fileUrl, const int &rotation);

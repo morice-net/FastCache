@@ -72,9 +72,7 @@ QVariant SendTravelbugLog::readJsonProperty(const QJsonDocument &jsonDoc, QStrin
 QList<QString> SendTravelbugLog::readJsonArray(const QJsonDocument &jsonDoc)
 {
     // return list of strings of the form: tbCode,trackingNumber,logType,dateIso,text
-
     QList<QString> list;
-    QString type;
     QJsonObject jsonObject = jsonDoc.object();
     QJsonArray jsonArray = jsonObject["array"].toArray();
     QJsonValue jsonValue;
