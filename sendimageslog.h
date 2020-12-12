@@ -15,6 +15,7 @@ public:
     ~SendImagesLog() override;
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
+    Q_INVOKABLE QJsonDocument makeJsonSendImagesLog(const QList<QString> &list );
     Q_INVOKABLE  void sendRequest(QString token , QString codeLog, QString description  , QString filUrl, int rotation);
 
 private:
