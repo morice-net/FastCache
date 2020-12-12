@@ -368,8 +368,9 @@ Item {
                 font.family: localFont.name
                 leftPadding: 10
                 font.pointSize: 14
-                text: "AJOUTER DES IMAGES"
-                color: Palette.silver()
+                text: "AJOUTER DES IMAGES ( " + imagesBrowser.repeaterCount + " )"
+                color: Palette.white()
+
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
