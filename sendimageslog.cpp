@@ -13,10 +13,16 @@ SendImagesLog::~SendImagesLog()
 {
 }
 
-QString SendImagesLog::imageToBase64(const QString &fileUrl)
+QString SendImagesLog::imageToBase64(const QString &fileUrl, const int &rotation)
 {
     qDebug()<<fileUrl;
     QImage image(fileUrl);
+
+    // rotation.
+    QTransform rotating;
+    rotating.rotate(rotation);
+    image = image.transformed(rotating);
+
     QByteArray ba;
     QBuffer buffer(&ba);
     buffer.open(QIODevice::WriteOnly);
@@ -26,7 +32,7 @@ QString SendImagesLog::imageToBase64(const QString &fileUrl)
     return base64;
 }
 
-void SendImagesLog::sendRequest(QString token , QString codeLog, QString description  , QString fileUrl)
+void SendImagesLog::sendRequest(QString token , QString codeLog, QString description  , QString fileUrl, int rotation)
 {
     //Build url
     QString requestName = "geocachelogs/" + codeLog + "/images?fields=url";
@@ -34,7 +40,7 @@ void SendImagesLog::sendRequest(QString token , QString codeLog, QString descrip
     //Add parameters
     QJsonObject image;
     image.insert("description", QJsonValue(description));
-    image.insert("base64ImageData", QJsonValue(imageToBase64(fileUrl)));
+    image.insert("base64ImageData", QJsonValue(imageToBase64(fileUrl, rotation)));
 
     // Inform QML we are loading
     setState("loading");

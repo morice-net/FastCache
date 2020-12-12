@@ -28,9 +28,11 @@ Rectangle {
         onAccepted: {
             listImagesDescription.push("")
             listImagesUrl.push(fileUrl)
+            listImagesRotation.push(0)
             repeaterCount = listImagesDescription.length
             console.log("Descriptions:  " + listImagesDescription)
             console.log("Urls:  " + listImagesUrl)
+            console.log("Rotations:  " + listImagesRotation)
         }
         onRejected: {
             console.log("Rejected")
@@ -58,6 +60,7 @@ Rectangle {
             onClicked: {
                 console.log("Descriptions:  " + listImagesDescription)
                 console.log("Urls:  " + listImagesUrl)
+                console.log("Rotations:  " + listImagesRotation)
                 imagesBrowser.visible = false
             }
         }
@@ -107,7 +110,17 @@ Rectangle {
                         id: image
                         visible: true
                         source: listImagesUrl[index]
+                        rotation: listImagesRotation[index]
                         sourceSize.width: parent.width/4
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                listImagesRotation[index] = (listImagesRotation[index] + 90) % 360
+                                image.rotation = (image.rotation + 90) % 360
+                                console.log("Rotations:  " + listImagesRotation)
+                            }
+                        }
                     }
 
                     Image {
@@ -120,6 +133,7 @@ Rectangle {
                             onClicked: {
                                 listImagesUrl.splice(index , 1 )
                                 listImagesDescription.splice(index , 1)
+                                listImagesRotation.splice(index , 1)
                                 repeaterCount = listImagesDescription.length
                             }
                         }

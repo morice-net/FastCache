@@ -15,10 +15,10 @@ public:
     ~SendImagesLog() override;
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
-    Q_INVOKABLE  void sendRequest(QString token , QString codeLog, QString description  , QString filUrl);
+    Q_INVOKABLE  void sendRequest(QString token , QString codeLog, QString description  , QString filUrl, int rotation);
 
 private:
-    QString imageToBase64(const QString &fileUrl);
+    QString imageToBase64(const QString &fileUrl, const int &rotation);
 };
 
 #endif // SENDIMAGESLOG_H
