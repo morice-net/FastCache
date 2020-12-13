@@ -305,6 +305,9 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             } else {
                 toast.show("L'image a été rajoutée au log.");
+
+                // clears the images log record
+                sqliteStorage.deleteObject("cachesimageslog", fullCache.geocode)
             }
         }
     }

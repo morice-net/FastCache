@@ -10,9 +10,18 @@ Rectangle {
     id: fastCache
 
     // used to send images to a log
-    property var listImagesUrl: []
-    property var listImagesDescription: []
-    property var listImagesRotation: []
+    property var listImagesUrl: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
+                                    createListParameterImagesLog(
+                                        sendImagesLog.readJsonArray(sqliteStorage.readObject(
+                                                                        "cachesimageslog" , fullCache.geocode)), "imageUrl") : []
+    property var listImagesDescription: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
+                                            createListParameterImagesLog(
+                                                sendImagesLog.readJsonArray(sqliteStorage.readObject(
+                                                                                "cachesimageslog" , fullCache.geocode)), "imageDescription") : []
+    property var listImagesRotation: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
+                                         createListParameterImagesLog(
+                                             sendImagesLog.readJsonArray(sqliteStorage.readObject(
+                                                                             "cachesimageslog" , fullCache.geocode)), "imageRotation") : []
 
     // used to save images sent to a log
     property var listImagesLog: createListImagesLog()
@@ -206,4 +215,28 @@ Rectangle {
         }
         return list
     }
+
+    function createListParameterImagesLog(listImages, parameter) {
+        var url = []
+        var rotation = []
+        var description = []
+        var listUrl = []
+        var listRotation = []
+        var listDescription = []
+        for (var i = 0; i < listImages.length; i++) {
+            url = listImages[i].split(',')[0]
+            rotation = listImages[i].split(',')[1]
+            description = listImages[i].substring(url.length + rotation.length + 2)
+            listUrl.push(url)
+            listRotation.push(rotation)
+            listDescription.push(description)
+        }
+        if(parameter === "imageUrl")
+            return listUrl
+        if(parameter === "imageRotation")
+            return listRotation
+        if(parameter === "imageDescription")
+            return listDescription
+    }
 }
+
