@@ -69,15 +69,19 @@ Rectangle {
     ScrollView {
         id: scrollView
         focus:true
+        clip: true
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        height: Math.min(repeaterColumn.height, 4 * main.height / 5)
         anchors {
             left: parent.left
             right: parent.right
             top: buttons.bottom
             leftMargin: 12
-            topMargin: 20
+            topMargin:  20
         }
 
         Column {
+            id: repeaterColumn
             topPadding: 10
             spacing: 10
             width: imagesBrowser.width
