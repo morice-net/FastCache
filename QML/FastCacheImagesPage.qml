@@ -13,7 +13,7 @@ Item {
         anchors.fill: parent
         anchors.topMargin: 35
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: contentItem.childrenRect.height
+        contentHeight: contentItem.childrenRect.height + 20
         ScrollBar.vertical: ScrollBar {}
 
         Loader {
@@ -28,7 +28,7 @@ Item {
             Column{
                 spacing:10
                 width: imagesPage.width
-                leftPadding: 15
+                leftPadding: 10
 
                 Repeater{
                     model:displayImagesPage()
@@ -36,6 +36,7 @@ Item {
                     Column{
 
                         Text {
+                            width: imagesPage.width*0.95
                             visible: fullCache.listVisibleImages[index]
                             text: fullCache.imagesName[index]
                             font.family: localFont.name
@@ -50,6 +51,7 @@ Item {
                             visible: fullCache.listVisibleImages[index]
                             source: fullCache.imagesUrl[index]
                             horizontalAlignment: Image.AlignHCenter
+                            sourceSize.width: parent.width
                         }
                     }
                 }

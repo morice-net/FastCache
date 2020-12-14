@@ -77,7 +77,7 @@ Rectangle {
             right: parent.right
             top: buttons.bottom
             leftMargin: 12
-            topMargin:  20
+            topMargin: 20
         }
 
         Column {

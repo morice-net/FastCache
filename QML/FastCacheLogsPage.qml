@@ -15,7 +15,7 @@ Item {
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        Column{
+        Column{            
             spacing:10
             width: logsPage.width
 
