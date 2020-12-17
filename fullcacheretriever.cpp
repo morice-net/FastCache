@@ -51,11 +51,10 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
+    // Save in database and download images of cache recorded
     sqliteStorage->updateFullCacheColumns("fullcache", m_fullCache->geocode(), m_fullCache->name(), m_fullCache->type(), m_fullCache->size(),
                                           m_fullCache->difficulty(), m_fullCache->terrain(), m_fullCache->lat(), m_fullCache->lon(),
-                                          m_fullCache->found(), m_dataJson);
-    // Download images of cache recorded
-    m_replaceImageInText->replaceUrlImageToPath(m_fullCache->geocode() , m_dataJson ,true);
+                                          m_fullCache->found(), m_replaceImageInText->replaceUrlImageToPath(m_fullCache->geocode() , m_dataJson ,true));
 }
 
 void FullCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage)
@@ -69,13 +68,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 {
     m_dataJson = dataJsonDoc;
     QJsonObject cacheJson;
-
-    if(m_fullCache->checkRegistered()){
-        QJsonDocument jsonDoc = m_replaceImageInText->replaceUrlImageToPath(m_fullCache->geocode() , dataJsonDoc , false);
-        cacheJson = jsonDoc.object();
-    } else {
-        cacheJson = dataJsonDoc.object();
-    }
+    cacheJson = dataJsonDoc.object();
     qDebug() << "cacheOject:" << cacheJson;
 
     SmileyGc * smileys = new SmileyGc;
@@ -154,7 +147,6 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listAttributsBool.clear();
 
     foreach ( const QJsonValue & att, atts)
-
     {
         listAttributs.append(att["id"].toInt());
         listAttributsBool.append(att["isOn"].toBool());

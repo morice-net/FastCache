@@ -1,5 +1,6 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.5
+import QtWebView 1.1
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
@@ -7,6 +8,13 @@ import com.mycompany.connecting 1.0
 Item {
     id: descriptionPage
     height: swipeFastCache.height
+
+    property string descriptionText: fullCache.shortDescription + fullCache.longDescription
+
+    onDescriptionTextChanged: {
+        if((main.state !== "recorded") || (main.cachesActive === true))
+            webEngineView.loadHtml(descriptionText)
+    }
 
     Flickable {
         id: shortLongDescription
@@ -19,8 +27,10 @@ Item {
         Column {
             width: descriptionPage.width
             spacing: 20
+            topPadding: 25
 
             Text {
+                visible: (main.state === "recorded") && (main.cachesActive === false)
                 clip:true
                 width: parent.width
                 font.family: localFont.name
@@ -35,6 +45,14 @@ Item {
                 topPadding: 25
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: fullCache.shortDescription + fullCache.longDescription
+            }
+
+            WebView {
+                id: webEngineView
+                clip: true
+                visible: (main.state !== "recorded") || (main.cachesActive === true)
+                width: parent.width
+                height:  main.height*0.7
             }
 
             Rectangle {
