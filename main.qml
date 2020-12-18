@@ -210,6 +210,9 @@ Item {
     FullCachesRecorded {
         id: fullCachesRecorded
         onStateChanged: {
+            // User name in fullcachesrecorded
+            fullCachesRecorded.userName = userInfo.name
+
             toast.visible = fullCachesRecorded.state !== "loading";
             if(fullCachesRecorded.state !== "OK")
                 toast.show("Erreur  " + "(" + state + ")");
@@ -377,7 +380,7 @@ Item {
         Component.onCompleted: {
             // Build database
             sqliteStorage.createTable("fullcache", "(id string primary key, name string, type int, size int, difficulty double,
-                                        terrain double, lat double, lon double, found bool, json string )");
+                                        terrain double, lat double, lon double, found bool, own bool, json string )");
             sqliteStorage.createTable("lists", "(id integer primary key default 1  , text string)");
             sqliteStorage.createTable("cacheslists", "(id integer primary key default 1 , list integer , code string , UNIQUE(list, code))");
             sqliteStorage.createTable("cacheslog", "(id string primary key, json string)");

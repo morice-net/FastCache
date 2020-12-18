@@ -24,7 +24,7 @@ public:
     int count(const QString &tableName);
     bool updateFullCacheColumns(const QString &tableName, const QString &geocode, const QString &name, const QString &type, const QString &size,
                                 const double &difficulty, const double &terrain , const double &lat, const double &lon, const bool &found,
-                                const QJsonDocument &json);
+                                const bool &own, const QJsonDocument &json);
     Q_INVOKABLE void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
     Q_INVOKABLE bool isCacheInTable(const QString &tableName, const QString &id);
     Q_INVOKABLE void deleteObject(const QString &tableName, const QString &id);

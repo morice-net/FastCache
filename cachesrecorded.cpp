@@ -16,7 +16,7 @@ CachesRecorded::~CachesRecorded()
 
 void CachesRecorded::createRecordedCaches(const QList<QString> &list)
 {
-    // list: (code,name,type,size,difficulty,terrain,lat,lon,found)
+    // list: (code,name,type,size,difficulty,terrain,lat,lon,found,own)
     qDebug() << "list" << list;
     Cache *cache ;
     cache = new Cache();
@@ -32,6 +32,7 @@ void CachesRecorded::createRecordedCaches(const QList<QString> &list)
     cache->setLat(list[6].toDouble());
     cache->setLon(list[7].toDouble());
     cache->setFound(QVariant(list[8]).toBool());
+    cache->setOwn(QVariant(list[9]).toBool());
 
     m_caches.append(cache);
 }
@@ -48,7 +49,7 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 bool CachesRecorded::updateMapCachesRecorded()
 {
     QString selectQueryText = "SELECT cacheslists.list , fullcache.id, fullcache.name, fullcache.type, fullcache.size, fullcache.difficulty,"
-                              " fullcache.terrain, fullcache.lat, fullcache.lon, fullcache.found FROM cacheslists , fullcache"
+                              " fullcache.terrain, fullcache.lat, fullcache.lon, fullcache.found, fullcache.own FROM cacheslists , fullcache"
                               " WHERE cacheslists.code = fullcache.id ORDER BY cacheslists.list";
 
     qDebug() << "Query:" << selectQueryText;
@@ -76,6 +77,7 @@ bool CachesRecorded::updateMapCachesRecorded()
         list.append(select.value(7).toString());  // lat
         list.append(select.value(8).toString());  // lon
         list.append(select.value(9).toString());  // found
+        list.append(select.value(10).toString()); // own
 
         if(m_caches.length() == 0) {
             a = select.value(0).toInt() ;

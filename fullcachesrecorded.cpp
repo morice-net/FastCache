@@ -11,6 +11,7 @@
 
 FullCachesRecorded::FullCachesRecorded(Requestor *parent)
     : Requestor (parent)
+    , m_userName("")
 {
 }
 
@@ -73,6 +74,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
     double lat;
     double lon;
     bool found;
+    bool own;
 
     for (QJsonValue fullCache: dataJsonArray)
     {
@@ -80,6 +82,11 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         difficulty = fullCache["difficulty"].toDouble();
         terrain = fullCache["terrain"].toDouble();
         name = fullCache["name"].toString();
+        if(fullCache["ownerAlias"].toString() == userName()) {
+            own = true;
+        } else {
+            own = false;
+        }
 
         QJsonObject v1 = fullCache["geocacheType"].toObject();
         type = CACHE_TYPE_MAP.key(v1["id"].toInt());
@@ -106,7 +113,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
             lon =v2["longitude"].toDouble();
         }
         jsonDoc.setObject(fullCache.toObject());
-        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found,
+        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own,
                                                 m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  , true));
         m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode , false);
     }
@@ -140,4 +147,17 @@ QList<QString> FullCachesRecorded::extract(const QList<QString> &list, const int
         build.append(list[i]);
     }
     return  build;
+}
+
+/** Getters & Setters **/
+
+QString FullCachesRecorded::userName() const
+{
+    return m_userName;
+}
+
+void FullCachesRecorded::setUserName(QString &name)
+{
+    m_userName = name;
+    emit userNameChanged();
 }
