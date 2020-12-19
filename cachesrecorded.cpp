@@ -22,6 +22,7 @@ void CachesRecorded::createRecordedCaches(const QList<QString> &list)
     cache = new Cache();
     cache->setGeocode(list[0]);
     cache->setRegistered(cache->checkRegistered());
+    cache->setToDoLog(cache->checkToDoLog());
     cache->setName(list[1]);
     cache->setType(list[2]);
     cache->setTypeIndex(CACHE_TYPE_INDEX_MAP.key(CACHE_TYPE_MAP.value(list[2])).toInt());
@@ -49,7 +50,8 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 bool CachesRecorded::updateMapCachesRecorded()
 {
     QString selectQueryText = "SELECT cacheslists.list , fullcache.id, fullcache.name, fullcache.type, fullcache.size, fullcache.difficulty,"
-                              " fullcache.terrain, fullcache.lat, fullcache.lon, fullcache.found, fullcache.own FROM cacheslists , fullcache"
+                              " fullcache.terrain, fullcache.lat, fullcache.lon, fullcache.found, fullcache.own"
+                                " FROM cacheslists , fullcache"
                               " WHERE cacheslists.code = fullcache.id ORDER BY cacheslists.list";
 
     qDebug() << "Query:" << selectQueryText;
