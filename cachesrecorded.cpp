@@ -50,8 +50,7 @@ void CachesRecorded::addGetRequestParameters(QString &parameters)
 bool CachesRecorded::updateMapCachesRecorded()
 {
     QString selectQueryText = "SELECT cacheslists.list , fullcache.id, fullcache.name, fullcache.type, fullcache.size, fullcache.difficulty,"
-                              " fullcache.terrain, fullcache.lat, fullcache.lon, fullcache.found, fullcache.own"
-                                " FROM cacheslists , fullcache"
+                              " fullcache.terrain, fullcache.lat, fullcache.lon, fullcache.found, fullcache.own FROM cacheslists , fullcache"
                               " WHERE cacheslists.code = fullcache.id ORDER BY cacheslists.list";
 
     qDebug() << "Query:" << selectQueryText;
