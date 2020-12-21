@@ -172,5 +172,7 @@
         <file>Image/sort_alphabetically.png</file>
         <file>QML/BoxSorting.qml</file>
         <file>QML/ImagesBrowser.qml</file>
+        <file>Image/forward.png</file>
+        <file>Image/goback.png</file>
     </qresource>
 </RCC>

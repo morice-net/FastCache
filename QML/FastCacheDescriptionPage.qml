@@ -12,8 +12,9 @@ Item {
     property string descriptionText: fullCache.shortDescription + fullCache.longDescription
 
     onDescriptionTextChanged: {
-        if((main.state !== "recorded") || (main.cachesActive === true))
+        if((main.state !== "recorded") || (main.cachesActive === true)) {
             webEngineView.loadHtml(descriptionText)
+        }
     }
 
     Flickable {
@@ -21,7 +22,7 @@ Item {
         anchors.topMargin: 30
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: contentItem.childrenRect.height
+        contentHeight: contentItem.childrenRect.height + 20
         ScrollBar.vertical: ScrollBar {}
 
         Column {
@@ -33,6 +34,8 @@ Item {
                 visible: (main.state === "recorded") && (main.cachesActive === false)
                 clip:true
                 width: parent.width
+                leftPadding: 20
+                rightPadding: 20
                 font.family: localFont.name
                 font.pointSize: 14
                 horizontalAlignment: TextEdit.AlignJustify
@@ -40,11 +43,39 @@ Item {
                 textFormat: Qt.RichText
                 wrapMode: Text.Wrap
                 minimumPointSize: 14
-                leftPadding: 15
-                rightPadding: 15
                 topPadding: 25
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: fullCache.shortDescription + fullCache.longDescription
+            }
+
+            Row {
+                visible: (main.state !== "recorded") || (main.cachesActive === true)
+                spacing: descriptionPage.width/3
+                bottomPadding: 10
+
+                Button {
+                    icon.source: "qrc:/Image/goback.png"
+                    icon.width: 45
+                    icon.height: 45
+                    onClicked: webEngineView.goBack()
+                    enabled: webEngineView.canGoBack
+                    background: Rectangle {
+                        implicitWidth: descriptionPage.width/3
+                        color: "transparent"
+                    }
+                }
+
+                Button {
+                    icon.source: "qrc:/Image/forward.png"
+                    icon.width: 45
+                    icon.height: 45
+                    onClicked: webEngineView.goForward()
+                    enabled: webEngineView.canGoForward
+                    background: Rectangle {
+                        implicitWidth: descriptionPage.width/3
+                        color: "transparent"
+                    }
+                }
             }
 
             WebView {
