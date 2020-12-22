@@ -10,10 +10,12 @@ Item {
     height: swipeFastCache.height
 
     property string descriptionText: fullCache.shortDescription + fullCache.longDescription
+    property int webHistoryRank: -1
 
     onDescriptionTextChanged: {
         if((main.state !== "recorded") || (main.cachesActive === true)) {
             webEngineView.loadHtml(descriptionText)
+            webHistoryRank = -1
         }
     }
 
@@ -57,8 +59,12 @@ Item {
                     icon.source: "qrc:/Image/goback.png"
                     icon.width: 45
                     icon.height: 45
-                    onClicked: webEngineView.goBack()
-                    enabled: webEngineView.canGoBack
+                    onClicked:{
+                        webEngineView.goBack()
+                        webHistoryRank = webHistoryRank -2
+                        console.log("web history rank:   " + webHistoryRank)
+                    }
+                    enabled: webEngineView.canGoBack && webHistoryRank >> 0
                     background: Rectangle {
                         implicitWidth: descriptionPage.width/3
                         color: "transparent"
@@ -69,7 +75,10 @@ Item {
                     icon.source: "qrc:/Image/forward.png"
                     icon.width: 45
                     icon.height: 45
-                    onClicked: webEngineView.goForward()
+                    onClicked:{
+                        webEngineView.goForward()
+                        console.log("web history rank:   " + webHistoryRank)
+                    }
                     enabled: webEngineView.canGoForward
                     background: Rectangle {
                         implicitWidth: descriptionPage.width/3
@@ -84,6 +93,13 @@ Item {
                 visible: (main.state !== "recorded") || (main.cachesActive === true)
                 width: parent.width
                 height:  main.height*0.7
+                onLoadingChanged: {
+                    if (loadRequest.status == WebView.LoadSucceededStatus) {
+                        console.log("Load succeeded: " )
+                        webHistoryRank = webHistoryRank + 1
+                        console.log("web history rank:   " + webHistoryRank)
+                    }
+                }
             }
 
             Rectangle {
