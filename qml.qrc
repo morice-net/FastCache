@@ -174,5 +174,6 @@
         <file>QML/ImagesBrowser.qml</file>
         <file>Image/forward.png</file>
         <file>Image/goback.png</file>
+        <file>QML/LogTypes.qml</file>
     </qresource>
 </RCC>
