@@ -3,17 +3,28 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
+import com.mycompany.connecting 1.0
 
 GroupBox {
     id: groupBox
     width: parent.width*0.7
 
+    property alias button1Checked: button1.checked
+    property alias button2Checked: button2.checked
+    property alias button3Checked: button3.checked
+    property alias button4Checked: button4.checked
+    property alias button5Checked: button5.checked
+    property alias button6Checked: button6.checked
+    property alias button7Checked: button7.checked
+    property alias button8Checked: button8.checked
+
     Column {
 
         RadioButton {
             id:button1
+            visible: !(fullCache.found) && !(fullCache.owner === userInfo.name)
             text: "Trouvée"
-            checked: true
+            checked: !(fullCache.found) && !(fullCache.owner === userInfo.name)
             onClicked: {
                 typeLogCheck = 2
                 typeLog = typeLogCheck
@@ -43,6 +54,7 @@ GroupBox {
 
         RadioButton {
             id:button2
+            visible: !(fullCache.owner === userInfo.name)
             text: "Non trouvée"
             onClicked: {
                 typeLogCheck = 3
@@ -73,6 +85,8 @@ GroupBox {
 
         RadioButton {
             id:button3
+            visible: true
+            checked: (fullCache.found) || (fullCache.owner === userInfo.name)
             text: "Note"
             onClicked: {
                 typeLogCheck = 4
@@ -103,6 +117,7 @@ GroupBox {
 
         RadioButton {
             id:button4
+            visible: !(fullCache.owner === userInfo.name)
             text: "Nécessite une maintenance"
             onClicked: {
                 typeLogCheck = 45
@@ -133,6 +148,7 @@ GroupBox {
 
         RadioButton {
             id:button5
+            visible: !(fullCache.owner === userInfo.name)
             text: "Nécessite d'être archivée"
             onClicked: {
                 typeLogCheck = 7
@@ -163,6 +179,7 @@ GroupBox {
 
         RadioButton {
             id:button6
+            visible: (fullCache.owner === userInfo.name)
             text: "Maintenance effectuée"
             onClicked: {
                 typeLogCheck = 46
@@ -193,6 +210,7 @@ GroupBox {
 
         RadioButton {
             id:button7
+            visible: (fullCache.owner === userInfo.name)
             text: "Désactivée"
             onClicked: {
                 typeLogCheck = 22
@@ -224,6 +242,7 @@ GroupBox {
         RadioButton {
             id:button8
             text: "Archivée"
+            visible: (fullCache.owner === userInfo.name)
             onClicked: {
                 typeLogCheck = 5
                 typeLog = typeLogCheck

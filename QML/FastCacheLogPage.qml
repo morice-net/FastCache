@@ -12,20 +12,24 @@ Item {
     property string dateInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
                                   sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
                                 : new Date().toISOString()
-    property int typeLog: 2
+    property int typeLog: !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
     property int typeLogCheck
     property int typeLogInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
-                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") : 2
+                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") :
+                                  !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
     property string addLog: ""
     property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                       sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : ""
     onTypeLogInitChanged: {
         typeLog = typeLogInit
-        button1.checked = typeLog == 2;  // type of log : Found It
-        button2.checked = typeLog == 3;  // type of log : Didn't find it
-        button3.checked = typeLog == 4;  // type of log : Write note
-        button4.checked = typeLog == 45; // type of log : Needs Maintenance
-        button5.checked = typeLog == 7; // type of log : Needs Archived
+        logTypes.button1Checked = typeLog == 2;  // type of log : Found It
+        logTypes.button2Checked = typeLog == 3;  // type of log : Didn't find it
+        logTypes.button3Checked = typeLog == 4;  // type of log : Write note
+        logTypes.button4Checked = typeLog == 45; // type of log : Needs Maintenance
+        logTypes.button5Checked = typeLog == 7; // type of log : Needs Archived
+        logTypes.button6Checked = typeLog == 46;  // type of log : Owner Maintenance
+        logTypes.button7Checked = typeLog == 22; // type of log : Temporarily Disable Listing
+        logTypes.button8Checked = typeLog == 5; // type of log : Archive
         console.log("typeLog: " + typeLog)
     }
     onDateInitChanged:{
@@ -63,162 +67,8 @@ Item {
             x:10
             y:20
 
-            GroupBox {
-                width: parent.width*0.7
-
-                Column {
-
-                    RadioButton {
-                        id:button1
-                        text: "Trouvée"
-                        checked: true
-                        onClicked: {
-                            typeLogCheck = 2
-                            typeLog = typeLogCheck
-                        }
-                        contentItem: Text {
-                            text: button1.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button1.checked ? Palette.white() : Palette.silver()
-                            leftPadding: button1.indicator.width + button1.spacing
-                        }
-                        indicator: Rectangle {
-                            y:10
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button1.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    RadioButton {
-                        id:button2
-                        text: "Non trouvée"
-                        onClicked: {
-                            typeLogCheck = 3
-                            typeLog = typeLogCheck
-                        }
-                        contentItem: Text {
-                            text: button2.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button2.checked ? Palette.white() : Palette.silver()
-                            leftPadding: button2.indicator.width + button2.spacing
-                        }
-                        indicator: Rectangle {
-                            y:10
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button2.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    RadioButton {
-                        id:button3
-                        text: "Note"
-                        onClicked: {
-                            typeLogCheck = 4
-                            typeLog = typeLogCheck
-                        }
-                        contentItem: Text {
-                            text: button3.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button3.checked ? Palette.white() : Palette.silver()
-                            leftPadding: button3.indicator.width + button3.spacing
-                        }
-                        indicator: Rectangle {
-                            y:10
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button3.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    RadioButton {
-                        id:button4
-                        text: "Nécessite une maintenance"
-                        onClicked: {
-                            typeLogCheck = 45
-                            typeLog = typeLogCheck
-                        }
-                        contentItem: Text {
-                            text: button4.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button4.checked ? Palette.white() : Palette.silver()
-                            leftPadding: button4.indicator.width + button4.spacing
-                        }
-                        indicator: Rectangle {
-                            y:10
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button4.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    RadioButton {
-                        id:button5
-                        text: "Nécessite d'être archivée"
-                        onClicked: {
-                            typeLogCheck = 7
-                            typeLog = typeLogCheck
-                        }
-                        contentItem: Text {
-                            text: button5.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button5.checked ? Palette.white() : Palette.silver()
-                            leftPadding: button5.indicator.width + button5.spacing
-                        }
-                        indicator: Rectangle {
-                            y:10
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button5.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-                }
+            LogTypes {
+                id: logTypes
             }
 
             Text {
