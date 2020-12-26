@@ -7,13 +7,10 @@ import "JavaScript/Palette.js" as Palette
 RangeSlider {
     id: control
     width: parent.width
-    from: 1
-    to: 5
-    first.value: 1
-    second.value: 5
+    from: 1.0
+    to: 5.0
     stepSize: 0.5
     snapMode:Slider.SnapAlways
-
     background: Rectangle {
         x: control.leftPadding
         y: control.topPadding + control.availableHeight / 2 - height / 2
@@ -73,6 +70,7 @@ RangeSlider {
         return first.value;
 
     }
+
     function maxValueSlider() {
         return second.value;
     }

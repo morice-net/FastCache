@@ -310,18 +310,12 @@ Item {
         }
 
         MultiPointSlider {
-            id: difficultySlider
             visible: true
             x: 10
             first.value: settings.difficultyMin
             second.value: settings.difficultyMax
-            first.onValueChanged: main.listDifficultyTerrain[0] = minValueSlider()
-            second.onValueChanged: main.listDifficultyTerrain[1] = maxValueSlider()
-
-            function recordDifficultyinSettings() {
-                settings.difficultyMin = minValueSlider()
-                settings.difficultyMax = maxValueSlider()
-            }
+            first.onValueChanged: settings.difficultyMin = minValueSlider()
+            second.onValueChanged: settings.difficultyMax = maxValueSlider()
         }
 
         SelectableFilter {
@@ -330,18 +324,12 @@ Item {
         }
 
         MultiPointSlider {
-            id: fieldSlider
             visible: true
             x: 10
             first.value: settings.terrainMin
             second.value: settings.terrainMax
-            first.onValueChanged: main.listDifficultyTerrain[2] = minValueSlider()
-            second.onValueChanged: main.listDifficultyTerrain[3] = maxValueSlider()
-
-            function recordFieldInSettings() {
-                settings.terrainMin = minValueSlider()
-                settings.terrainMax = maxValueSlider()
-            }
+            first.onValueChanged: settings.terrainMin = minValueSlider()
+            second.onValueChanged: settings.terrainMax = maxValueSlider()
         }
 
         CheckBox {
@@ -639,8 +627,6 @@ Item {
 
     function recordFiltersInSettings() {
         popupSize.recordStateInSettings()
-        difficultySlider.recordDifficultyinSettings()
-        fieldSlider.recordFieldInSettings()
         found.recordFoundInSettings()
         archived.recordArchivedInSettings()
         mot.recordMotInSettings()

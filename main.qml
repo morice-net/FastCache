@@ -29,8 +29,6 @@ Item {
     property var listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,
         settings.virtualSize , settings.other]
 
-    property var listDifficultyTerrain : [settings.difficultyMin , settings.difficultyMax , settings.terrainMin , settings.terrainMax]
-
     property var listKeywordDiscoverOwner : [settings.keyWord , settings.discover , settings.owner]
 
     property bool excludeFound : settings.excludeCachesFound
@@ -51,7 +49,8 @@ Item {
     // list sort type by: géocode, name , type , size , difficulty , terrain , distance.
     property int sortingBy : 6 // sorting by distance.
 
-    FastSettings { id: settings }
+    FastSettings { id: settings
+    }
 
     Location {
         id: beginLocation
@@ -447,10 +446,10 @@ Item {
 
     function createFilterDifficultyTerrainGs(){
         var  list = []
-        list.push(listDifficultyTerrain[0])
-        list.push(listDifficultyTerrain[1])
-        list.push(listDifficultyTerrain[2])
-        list.push(listDifficultyTerrain[3])
+        list.push(settings.difficultyMin)
+        list.push(settings.difficultyMax)
+        list.push(settings.terrainMin)
+        list.push(settings.terrainMax)
         return list
     }
 
