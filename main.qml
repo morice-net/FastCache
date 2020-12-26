@@ -49,8 +49,7 @@ Item {
     // list sort type by: géocode, name , type , size , difficulty , terrain , distance.
     property int sortingBy : 6 // sorting by distance.
 
-    FastSettings { id: settings
-    }
+    FastSettings { id: settings }
 
     Location {
         id: beginLocation
