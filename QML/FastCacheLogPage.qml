@@ -257,8 +257,7 @@ Item {
                                             dateIso + "," +  "")
                     }
 
-                    Row {
-                        height: logPage.height*0.5
+                    Row {                    
 
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
@@ -285,12 +284,14 @@ Item {
                             }
 
                             Text {
+                                clip: true
+                                width: logPage.width
                                 text: getTravelbugUser.tbsName[index]
                                 font.family: localFont.name
                                 textFormat: Qt.RichText
                                 font.bold: true
                                 font.pointSize: 14
-                                color: Palette.white()
+                                color: Palette.silver()
                                 wrapMode: Text.Wrap
                             }
 
@@ -350,7 +351,7 @@ Item {
                                 font.family: localFont.name
                                 font.bold: true
                                 font.pointSize: 14
-                                color: Palette.silver()
+                                color: Palette.white()
 
                                 MouseArea {
                                     anchors.fill: parent
