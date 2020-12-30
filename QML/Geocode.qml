@@ -327,7 +327,6 @@ FastPopup {
                                      "city":"Ville: " ,"valCity":geocodeModel.get(i).address.city,
                                      "state":"Etat: " ,"valState":geocodeModel.get(i).address.state,
                                      "country":"Pays: " , "valCountry": geocodeModel.get(i).address.country});
-
             }
             geocodeResponse.open()
             geocode.close()

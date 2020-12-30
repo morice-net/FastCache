@@ -28,7 +28,7 @@ Settings {
     property bool wherigo: false
     property bool gchq: false
 
-    // filter by size.
+    // filter by size
     property bool micro: true
     property bool small: true
     property bool regular: true
@@ -45,20 +45,24 @@ Settings {
     property real terrainMin: 1.0
     property real terrainMax: 5.0
 
-    // Exclude caches found.
+    // Exclude caches found
     property bool excludeCachesFound: true
 
-    // Exclude caches archived.
+    // Exclude caches archived
     property bool excludeCachesArchived: true
 
-    // Filter by key word.
+    // Filter by key word
     property string keyWord: ""
 
-    // Filter by discover.
+    // Filter by discover
     property string discover: ""
 
-    // Filter by owner.
+    // Filter by owner
     property string owner: ""
+
+    // Maps : osm,googlemaps
+    property string name: "osm"
+    property bool sat: false
 }
 
 

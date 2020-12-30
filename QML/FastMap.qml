@@ -21,14 +21,25 @@ Rectangle {
 
     Plugin {
         id: mapPlugin
-        name: "osm"
-        // configure your own map_id and access_token here
-        parameters: [  PluginParameter {
+        name: "googlemaps"
+        parameters: [
+            // configure googlemaps
+            PluginParameter {
+                name: "googlemaps.maps.apikey"
+                value: "AIzaSyDGoRP53cn7a8rQ4oXgFXKLDoag3rlGvV4"
+            },
+            PluginParameter {
+                name: "googlemaps.geocode.apikey"
+                value: "AIzaSyDIgUAHUcSx5jBqcXN3-HiFSORfU6Y-Fl4"
+            },
+
+            // configure mapbox
+            PluginParameter {
                 name: "mapbox.mapping.map_id"
                 value: "mapbox.streets"
             },
             PluginParameter {
-                name: "mapbox.access_token"
+                name: "mapboxgl.access_token"
                 value: "pk.eyJ1IjoiZ3R2cGxheSIsImEiOiJjaWZ0Y2pkM2cwMXZqdWVsenJhcGZ3ZDl5In0.6xMVtyc0CkYNYup76iMVNQ"
             },
             PluginParameter {
@@ -40,6 +51,7 @@ Rectangle {
     Map {
         id: map
         plugin: mapPlugin
+        activeMapType: supportedMapTypes[settings.sat === false ? 0 : 3]
         anchors.fill: parent
         zoomLevel: currentZoomlevel
         gesture.enabled: true
