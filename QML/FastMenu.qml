@@ -236,7 +236,7 @@ Item {
                     fastCache.z = 0
                 } else {
                     main.state = "address"
-                    if(fastMap.mapPlugin.supportsGeocoding()){
+                    if(fastMap.checkedPluginMap().supportsGeocoding()){
                         main.cachesActive = false
                         hideMenu()
                         geocode.open()

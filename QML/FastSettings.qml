@@ -61,7 +61,7 @@ Settings {
     property string owner: ""
 
     // Maps : osm,googlemaps
-    property string name: "osm"
+    property string namePlugin: "osm"
     property bool sat: false
 }
 

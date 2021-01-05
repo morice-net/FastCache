@@ -175,5 +175,6 @@
         <file>Image/forward.png</file>
         <file>Image/goback.png</file>
         <file>QML/LogTypes.qml</file>
+        <file>QML/MapBuild.qml</file>
     </qresource>
 </RCC>

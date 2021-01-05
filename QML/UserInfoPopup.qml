@@ -8,6 +8,8 @@ import com.mycompany.connecting 1.0
 FastPopup {
     id: userInfoPopup
 
+    property var listPlugins: ["osm", "googlemaps"]
+
     Item {
         id: userInfoTopPopup
         height: parent.height * 0.3
@@ -46,7 +48,6 @@ FastPopup {
                 color: Palette.white()
             }
 
-            // Maps
             Text {
                 width: parent.width
                 font.family: localFont.name
@@ -56,6 +57,7 @@ FastPopup {
                 color: Palette.silver()
             }
 
+            // Maps
             GroupBox {
                 id: groupBoxMaps
                 width: parent.width*0.7
@@ -66,10 +68,12 @@ FastPopup {
                         id:button1
                         visible: true
                         text: "Open Street Map"
-                        checked: settings.name === "osm"
+                        checked: settings.namePlugin === listPlugins[0]
                         onClicked: {
-                            settings.name = "osm"
                             settings.sat = false
+                            if(settings.namePlugin !== listPlugins[0]) {
+                                updateMap(0)
+                            }
                         }
                         contentItem: Text {
                             text: button1.text
@@ -98,10 +102,12 @@ FastPopup {
                         id:button2
                         visible: true
                         text: "Google Maps : plan"
-                        checked: settings.name === "googlemaps" && settings.sat === false
+                        checked: settings.namePlugin === listPlugins[1] && settings.sat === false
                         onClicked: {
-                            settings.name = "googlemaps"
                             settings.sat = false
+                            if(settings.namePlugin !== listPlugins[1]) {
+                               updateMap(1)
+                            }
                         }
                         contentItem: Text {
                             text: button2.text
@@ -130,10 +136,12 @@ FastPopup {
                         id:button3
                         visible: true
                         text: "Google Maps : satellite"
-                        checked: settings.name === "googlemaps" && settings.sat === true
+                        checked: settings.namePlugin === listPlugins[1] && settings.sat === true
                         onClicked: {
-                            settings.name = "googlemaps"
                             settings.sat = true
+                            if(settings.namePlugin !== listPlugins[1]) {
+                               updateMap(1)
+                            }
                         }
                         contentItem: Text {
                             text: button3.text
@@ -196,6 +204,27 @@ FastPopup {
                 }
             }
         }
+    }
+
+    function addCachesOnMap() {
+        if(main.cachesActive)  {           
+            fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)          
+        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates") {            
+            fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
+        } else if (main.state === "recorded") {
+            fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)         
+        }
+    }
+
+    function updateMap(index) {
+        var center = fastMap.mapItem.center
+        var zoom = fastMap.mapItem.zoomLevel
+        fastMap.deleteMap()
+        settings.namePlugin = listPlugins[index]
+        fastMap.createMap()
+        fastMap.mapItem.center = center
+        fastMap.mapItem.zoomLevel = zoom
+        addCachesOnMap()
     }
 
     function closeIfMenu() {

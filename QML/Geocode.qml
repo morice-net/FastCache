@@ -204,7 +204,7 @@ FastPopup {
 
     GeocodeModel {
         id: geocodeModel
-        plugin: fastMap.mapPlugin
+        plugin: fastMap.checkedPluginMap()
         autoUpdate: false
         onStatusChanged: {
             if ((status == GeocodeModel.Ready) || (status == GeocodeModel.Error))
