@@ -123,8 +123,6 @@ Item {
 
     UserInfoPopup { id: userInfoPopup }
 
-    GeocodeAlert { id: geocodeAlert }
-
     CoordinatesBox { id: coordinatesBox }
 
     UserWaypoint { id: userWaypoint }
@@ -425,8 +423,6 @@ Item {
                 webEngine.visible = false
             } else if (coordinatesBox.opened) {
                 coordinatesBox.close()
-            } else if (geocodeAlert.opened) {
-                geocodeAlert.close()
             } else if (geocode.opened) {
                 geocode.close()
             } else if (fastMenu.isMenuVisible()) {

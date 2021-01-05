@@ -242,7 +242,8 @@ Item {
                         geocode.open()
                     } else {
                         hideMenu()
-                        geocodeAlert.open()
+                        toast.visible = true
+                        toast.show("Le plugin ne gère pas le géocoding.")
                     }
                 }
             }

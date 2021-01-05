@@ -38,7 +38,6 @@
         <file>Image/scaleEnd.png</file>
         <file>QML/Geocode.qml</file>
         <file>QML/FastDoubleButtonMenu.qml</file>
-        <file>QML/GeocodeAlert.qml</file>
         <file>QML/CoordinatesBox.qml</file>
         <file>QML/FastCache.qml</file>
         <file>QML/CacheAttributes.qml</file>
