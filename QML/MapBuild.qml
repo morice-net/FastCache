@@ -46,6 +46,7 @@ Map {
 
     MapControls {
         id: mapControls
+        z: 3
     }
 
     SelectedCacheItem {

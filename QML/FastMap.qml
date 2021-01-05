@@ -38,20 +38,16 @@ Rectangle {
     }
 
     Plugin {
-        id: mapboxPlugin
-        name: "mapboxgl"
+        id: herePlugin
+        name: "here"
         parameters: [
             PluginParameter {
-                name: "mapbox.mapping.map_id"
-                value: "mapbox.streets"
+                name: "here.app_id"
+                value: "bY3AcUUJgHwHZRzHZKt9"
             },
             PluginParameter {
-                name: "mapboxgl.access_token"
-                value: "pk.eyJ1IjoiZ3R2cGxheSIsImEiOiJjaWZ0Y2pkM2cwMXZqdWVsenJhcGZ3ZDl5In0.6xMVtyc0CkYNYup76iMVNQ"
-            },
-            PluginParameter {
-                name: "mapbox.mapping.highdpi_tiles"
-                value: true
+                name: "here.token"
+                value: "conK3PVPnfUJRFjsf0NRvw"
             }]
     }
 
@@ -65,6 +61,8 @@ Rectangle {
             return osmPlugin
         if(settings.namePlugin === "googlemaps")
             return googlemapsPlugin
+        if(settings.namePlugin === "here")
+            return herePlugin
     }
 
     function deleteMap() {

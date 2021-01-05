@@ -60,7 +60,7 @@ Settings {
     // Filter by owner
     property string owner: ""
 
-    // Maps : osm,googlemaps
+    // Maps : osm,googlemaps,here
     property string namePlugin: "osm"
     property bool sat: false
 }

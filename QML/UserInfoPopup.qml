@@ -8,7 +8,7 @@ import com.mycompany.connecting 1.0
 FastPopup {
     id: userInfoPopup
 
-    property var listPlugins: ["osm", "googlemaps"]
+    property var listPlugins: ["osm", "googlemaps", "here"]
 
     Item {
         id: userInfoTopPopup
@@ -106,7 +106,7 @@ FastPopup {
                         onClicked: {
                             settings.sat = false
                             if(settings.namePlugin !== listPlugins[1]) {
-                               updateMap(1)
+                                updateMap(1)
                             }
                         }
                         contentItem: Text {
@@ -140,7 +140,7 @@ FastPopup {
                         onClicked: {
                             settings.sat = true
                             if(settings.namePlugin !== listPlugins[1]) {
-                               updateMap(1)
+                                updateMap(1)
                             }
                         }
                         contentItem: Text {
@@ -159,6 +159,40 @@ FastPopup {
                             Rectangle {
                                 anchors.fill: parent
                                 visible: button3.checked
+                                color: Palette.greenSea()
+                                radius: 10
+                                anchors.margins: 4
+                            }
+                        }
+                    }
+
+                    RadioButton {
+                        id:button4
+                        visible: true
+                        text: "Here"
+                        checked: settings.namePlugin === listPlugins[2]
+                        onClicked: {
+                            settings.sat = false
+                            if(settings.namePlugin !== listPlugins[2]) {
+                                updateMap(2)
+                            }
+                        }
+                        contentItem: Text {
+                            text: button4.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: button4.checked ? Palette.white() : Palette.silver()
+                            leftPadding: button4.indicator.width + button4.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: button4.checked
                                 color: Palette.greenSea()
                                 radius: 10
                                 anchors.margins: 4
@@ -207,12 +241,12 @@ FastPopup {
     }
 
     function addCachesOnMap() {
-        if(main.cachesActive)  {           
-            fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)          
-        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates") {            
+        if(main.cachesActive)  {
+            fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
+        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
             fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
         } else if (main.state === "recorded") {
-            fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)         
+            fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)
         }
     }
 
