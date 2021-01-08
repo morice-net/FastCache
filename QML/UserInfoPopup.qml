@@ -252,12 +252,10 @@ FastPopup {
 
     function updateMap(index) {
         var center = fastMap.mapItem.center
-        var zoom = fastMap.mapItem.zoomLevel
         fastMap.deleteMap()
         settings.namePlugin = listPlugins[index]
         fastMap.createMap()
         fastMap.mapItem.center = center
-        fastMap.mapItem.zoomLevel = zoom
         addCachesOnMap()
     }
 
