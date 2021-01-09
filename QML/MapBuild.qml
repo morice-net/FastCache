@@ -78,14 +78,13 @@ Map {
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
     function updateCachesOnMap(caches) {
-        currentCacheIndex = 0
-        while(currentCacheIndex <= caches.length) {
-            if (caches[currentCacheIndex].lat !== "" && caches[currentCacheIndex].lon !== "") {
+        while(fastMap.currentCacheIndex <= caches.length) {
+            if (caches[fastMap.currentCacheIndex].lat !== "" && caches[fastMap.currentCacheIndex].lon !== "") {
                 var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-                itemMap.index = currentCacheIndex
+                itemMap.index = fastMap.currentCacheIndex
                 cacheItems.push(itemMap)
                 addMapItem(itemMap)
-                currentCacheIndex++
+                fastMap.currentCacheIndex++
             }
         }
     }
@@ -95,7 +94,7 @@ Map {
         itemMap.index = indexList
         cacheItems.push(itemMap)
         addMapItem(itemMap)
-        currentCacheIndex++
+        fastMap.currentCacheIndex++
     }
 
     Component.onCompleted:{
