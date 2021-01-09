@@ -66,6 +66,7 @@ Rectangle {
     }
 
     function deleteMap() {
+        clearMap()
         map.destroy()
     }
 
