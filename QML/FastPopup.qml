@@ -4,26 +4,25 @@ import QtQuick.Controls 2.5
 import "JavaScript/Palette.js" as Palette
 
 Popup {
+    id: popupItem
+    width: main.width*0.8
+    height: main.height*0.8
 
-    property alias backgroundWidth: backgroundRectangle.implicitWidth
-    property alias backgroundHeight: backgroundRectangle.implicitHeight
+    property alias backgroundWidth: popupItem.width
+    property alias backgroundHeight: popupItem.height
     property alias backgroundColor: backgroundRectangle.color
     property alias backgroundRadius: backgroundRectangle.radius
     property alias backgroundBorder: backgroundRectangle.border
     property alias backgroundOpacity: backgroundRectangle.opacity
     property alias closeButtonVisible: closeButton.visible
 
-    width: childrenRect.width
-    height: childrenRect.height
     opacity: 0
 
     Behavior on opacity { NumberAnimation { duration: 800 ; easing.type: Easing.OutCurve } }
 
     background: Rectangle {
         id: backgroundRectangle
-        anchors.fill: parent
-        implicitWidth: main.width
-        implicitHeight:main.height
+        radius: 10
         color: Palette.turquoise()
     }
 

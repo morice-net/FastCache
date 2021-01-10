@@ -70,11 +70,8 @@ Item {
 
         FastPopup {
             id: popupSize
-            width: 300
-            backgroundColor: Palette.greenSea()
-            backgroundWidth: 110
-            backgroundHeight: 25
-            backgroundRadius: 15
+            backgroundWidth: main.width/2
+            backgroundHeight: main.height/2
             backgroundOpacity: 0.7
             backgroundBorder {
                 width: 1
