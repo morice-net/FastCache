@@ -90,7 +90,7 @@ Item {
             WebView {
                 id: webEngineView
                 clip: true
-                visible: (main.state !== "recorded") || (main.cachesActive === true)
+                visible: (main.state !== "recorded" || main.cachesActive === true) && !fastMenu.isMenuVisible()
                 width: parent.width
                 height:  main.height*0.7
                 onLoadingChanged: {
