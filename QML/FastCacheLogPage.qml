@@ -214,20 +214,21 @@ Item {
                 }
             }
 
-            Text {
-                id: addImages
-                width: parent.width
-                font.family: localFont.name
-                leftPadding: 10
-                font.pointSize: 14
-                text: "AJOUTER DES IMAGES ( " + imagesBrowser.repeaterCount + " )"
-                color: Palette.white()
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        imagesBrowser.visible = true
-                    }
+            Button {
+                id: buttonAddImages
+                contentItem: Text {
+                    text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    color: Palette.greenSea()
+                }
+                background: Rectangle {
+                    border.width: buttonDelete.activeFocus ? 2 : 1
+                    border.color: Palette.silver()
+                    radius: 4
+                }
+                onClicked:{
+                    imagesBrowser.visible = true
                 }
             }
 
@@ -257,7 +258,7 @@ Item {
                                             dateIso + "," +  "")
                     }
 
-                    Row {                    
+                    Row {
 
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
