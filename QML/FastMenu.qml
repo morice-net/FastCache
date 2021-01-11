@@ -305,6 +305,9 @@ Item {
     }
 
     function showMenu() {
+        //web view description page not visible
+        fastCache.webViewDescriptionPageVisible = false
+
         console.log("Show menu...")
         menu.x = 0
         menuShadow.opacity = 0.5
@@ -314,6 +317,10 @@ Item {
         console.log("Hide menu...")
         menu.x = menu.width * -1
         menuShadow.opacity = 0
+
+        // web view description page visible
+        if(main.state !== "recorded" || main.cachesActive === true)
+            fastCache.webViewDescriptionPageVisible = true
     }
 
     function nearCachesClicked() {
