@@ -5,8 +5,8 @@ import "JavaScript/Palette.js" as Palette
 
 Popup {
     id: popupItem
-    width: main.width*0.8
-    height: main.height*0.8
+    width: main.width
+    height: main.height
 
     property alias backgroundWidth: popupItem.width
     property alias backgroundHeight: popupItem.height
@@ -22,7 +22,6 @@ Popup {
 
     background: Rectangle {
         id: backgroundRectangle
-        radius: 10
         color: Palette.turquoise()
     }
 

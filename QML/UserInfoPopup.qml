@@ -7,6 +7,7 @@ import com.mycompany.connecting 1.0
 
 FastPopup {
     id: userInfoPopup
+    backgroundOpacity: 0.9
 
     property var listPlugins: ["osm", "googlemaps", "here"]
 

@@ -11,6 +11,11 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: geocode
+    backgroundWidth: main.width*0.9
+    backgroundHeight: main.height/2
+    backgroundRadius: 10
+    x: 20
+    y: main.height/6
 
     Item {
         id: item2
