@@ -176,5 +176,6 @@
         <file>QML/LogTypes.qml</file>
         <file>QML/MapBuild.qml</file>
         <file>QML/CoordinatesBox1.qml</file>
+        <file>QML/CoordinatesBox2.qml</file>
     </qresource>
 </RCC>
