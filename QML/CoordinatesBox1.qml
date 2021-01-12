@@ -6,13 +6,12 @@ import "JavaScript/Palette.js" as Palette
 Button {
     contentItem: Text {
         id: box1ButtonNS
-        text:"N"
+        text: "N"
         font.family: localFont.name
-        font.pixelSize: 30
+        font.pixelSize: 35
         color: Palette.turquoise()
     }
     background: Rectangle {
-        implicitWidth: 45
         anchors.fill: parent
         opacity: 0.9
         border.color: Palette.greenSea()
@@ -28,9 +27,9 @@ Button {
         maximumLength : 2
         validator: IntValidator {bottom: 0; top: 90;}
         font.family: localFont.name
-        font.pixelSize: 30
+        font.pixelSize: 35
         anchors.left: box1ButtonNS.right
-        anchors.leftMargin:15
+        anchors.leftMargin: 15
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
@@ -42,9 +41,9 @@ Button {
     Label {
         id: box1LabelDegrees
         text: "°"
-        font.pixelSize: 30
-        anchors.left:box1Degrees.right
-        anchors.leftMargin:2
+        font.pixelSize: 35
+        anchors.left: box1Degrees.right
+        anchors.leftMargin: 2
     }
 
     TextField {
@@ -52,9 +51,9 @@ Button {
         maximumLength : 2
         validator: IntValidator {bottom: 0; top: 59;}
         font.family: localFont.name
-        font.pixelSize: 30
+        font.pixelSize: 35
         anchors.left: box1LabelDegrees.right
-        anchors.leftMargin:4
+        anchors.leftMargin: 4
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
@@ -66,9 +65,9 @@ Button {
     Label {
         id: box1LabelPoint
         text: "."
-        font.pixelSize: 30
+        font.pixelSize: 35
         anchors.left:box1Minutes.right
-        anchors.leftMargin:2
+        anchors.leftMargin: 2
     }
 
     TextField {
@@ -76,9 +75,9 @@ Button {
         maximumLength : 3
         validator: IntValidator{bottom:0 ; top: 999;}
         font.family: localFont.name
-        font.pixelSize: 30
+        font.pixelSize: 35
         anchors.left: box1LabelPoint.right
-        anchors.leftMargin:4
+        anchors.leftMargin: 4
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/8
@@ -90,23 +89,22 @@ Button {
     Label {
         id: box1LabelMinute
         text: "'"
-        font.pixelSize: 30
+        font.pixelSize: 35
         anchors.left:box1Decimal.right
-        anchors.leftMargin:2
+        anchors.leftMargin: 2
     }
 
     Button {
-        y:box1ButtonNS.y+box1ButtonNS.height+10
+        y: box1ButtonNS.y + box1ButtonNS.height + 50
         contentItem: Text {
             id: box1ButtonEO
             text:"E"
             font.family: localFont.name
-            font.pixelSize: 30
+            font.pixelSize: 35
             color: Palette.turquoise()
 
         }
         background: Rectangle {
-            implicitWidth: 45
             anchors.fill: parent
             opacity: 0.9
             border.color: Palette.greenSea()
@@ -122,9 +120,9 @@ Button {
             maximumLength : 3
             validator: IntValidator {bottom: 0; top: 180;}
             font.family: localFont.name
-            font.pixelSize: 30
+            font.pixelSize: 35
             anchors.left: box1ButtonEO.right
-            anchors.leftMargin:15
+            anchors.leftMargin: 15
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
@@ -136,9 +134,9 @@ Button {
         Label {
             id: box1LabelDegrees2
             text: "°"
-            font.pixelSize: 30
-            anchors.left:box1Degrees2.right
-            anchors.leftMargin:2
+            font.pixelSize: 35
+            anchors.left: box1Degrees2.right
+            anchors.leftMargin: 2
         }
 
         TextField {
@@ -146,9 +144,9 @@ Button {
             maximumLength : 2
             validator: IntValidator {bottom: 0; top: 59;}
             font.family: localFont.name
-            font.pixelSize: 30
+            font.pixelSize: 35
             anchors.left: box1LabelDegrees2.right
-            anchors.leftMargin:4
+            anchors.leftMargin: 4
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
@@ -160,9 +158,9 @@ Button {
         Label {
             id: box1LabelPoint2
             text: "."
-            font.pixelSize: 30
-            anchors.left:box1Minutes2.right
-            anchors.leftMargin:2
+            font.pixelSize: 35
+            anchors.left: box1Minutes2.right
+            anchors.leftMargin: 2
         }
 
         TextField {
@@ -170,9 +168,9 @@ Button {
             maximumLength : 3
             validator: IntValidator{bottom:0 ; top: 999;}
             font.family: localFont.name
-            font.pixelSize: 30
+            font.pixelSize: 35
             anchors.left: box1LabelPoint2.right
-            anchors.leftMargin:4
+            anchors.leftMargin: 4
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/8
@@ -184,9 +182,9 @@ Button {
         Label {
             id: box1LabelMinute2
             text: "'"
-            font.pixelSize: 30
-            anchors.left:box1Decimal2.right
-            anchors.leftMargin:2
+            font.pixelSize: 35
+            anchors.left: box1Decimal2.right
+            anchors.leftMargin: 2
         }
     }
 
