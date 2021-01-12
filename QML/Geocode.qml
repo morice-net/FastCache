@@ -219,9 +219,14 @@ FastPopup {
 
     FastPopup {
         id: geocodeResponse
+        y: -geocode.y + 20
+        backgroundWidth: main.width*0.9
+        backgroundHeight: geocodelist.height + 30
+        backgroundRadius: 10
 
         ListView {
             id: geocodelist
+            clip: true
             width: parent.width
             height: popupResponseHeight( )*0.85
             model: listModel
