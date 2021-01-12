@@ -5,6 +5,11 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: coordinatesBox
+    x:20
+    y:20
+    backgroundWidth: parent.width*0.9
+    backgroundHeight: parent.height*0.8
+    backgroundRadius: 10
 
     // The box gives latitude and longitude in resultLat and resultLon.
     property double resultLat: 0.0
@@ -16,8 +21,9 @@ FastPopup {
 
     ComboBox {
         id: gpsFormatCombo
+        x: 20
         y: 80
-        width: parent.width - 20
+        width: parent.width*0.9
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
         delegate: ItemDelegate {
             width: gpsFormatCombo.width
@@ -31,7 +37,7 @@ FastPopup {
             highlighted: gpsFormatCombo.highlightedIndex === index
         }
         contentItem: Text {
-            leftPadding: 10
+            leftPadding: 20
             text: gpsFormatCombo.displayText
             font.family: localFont.name
             font.pointSize: 15
@@ -40,12 +46,11 @@ FastPopup {
         }
         background: Rectangle {
             implicitWidth: 200
-            implicitHeight: 50
+            implicitHeight: 80
             border.color: Palette.silver()
-            border.width: 1
-            radius: 5
+            border.width: 5
+            radius: 10
         }
-
         onCurrentIndexChanged: {
             box1.visible = false
             box2.visible = false
@@ -64,10 +69,8 @@ FastPopup {
     Item {
         id: box1
         visible: true
-        width: parent.width - 20
-        anchors.top: gpsFormatCombo.bottom
-        anchors.margins: 10
-        anchors.topMargin: 30
+        x:20
+        y: parent.height*0.4
 
         CoordinatesBox1 {
             id: coordinatesBox1
@@ -78,9 +81,8 @@ FastPopup {
     Item {
         id: box2
         visible: false
-        width: parent.width - 20
-        anchors.top: gpsFormatCombo.bottom
-        anchors.margins: 10
+        x: 20
+        y: parent.height*0.4
 
         CoordinatesBox2 {
             id: coordinatesBox2
@@ -91,9 +93,8 @@ FastPopup {
     Item {
         id: box3
         visible: false
-        width: parent.width - 20
-        anchors.top: gpsFormatCombo.bottom
-        anchors.margins: 10
+        x: 20
+        y: parent.height*0.4
 
         CoordinatesBox3 {
             id: coordinatesBox3
@@ -108,8 +109,8 @@ FastPopup {
     Button {
         id: goButton
         text: qsTr("Ok")
-        x: 0.5 * coordinatesBox.width
-        y: parent.height - height - 10
+        x: 20
+        y: parent.height*0.7
         contentItem: Text {
             text: goButton.text
             font: goButton.font
@@ -166,8 +167,8 @@ FastPopup {
     //////////////////////////////////////////////////////////////////////
     Button {
         id: clearButton
-        x: 0.65 * coordinatesBox.width
-        y: parent.height - height - 10
+        x: 40 +goButton.width
+        y: parent.height*0.7
         text: qsTr("Effacer")
         contentItem: Text {
             text: clearButton.text

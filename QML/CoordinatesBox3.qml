@@ -17,8 +17,8 @@ Button {
         anchors.fill: parent
         opacity: 0.9
         border.color: Palette.greenSea()
-        border.width: 2
-        radius: 5
+        border.width: 5
+        radius: 10
     }
     onClicked: {
         box3ButtonNS.text === "N" ? box3ButtonNS.text="S":box3ButtonNS.text="N"
@@ -35,7 +35,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
-            radius: 5
+            radius: 10
             border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -59,7 +59,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
-            radius: 5
+            radius: 10
             border.color: box3Minutes.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -83,7 +83,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
-            radius: 5
+            radius: 10
             border.color: box3Seconds.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -107,7 +107,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/8
-            radius: 5
+            radius: 10
             border.color: box3Decimal.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -134,8 +134,8 @@ Button {
             anchors.fill: parent
             opacity: 0.9
             border.color: Palette.greenSea()
-            border.width: 2
-            radius: 5
+            border.width: 5
+            radius: 10
         }
         onClicked: {
             box3ButtonEO.text === "E" ? box3ButtonEO.text="O":box3ButtonEO.text="E"
@@ -152,7 +152,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
-                radius: 5
+                radius: 10
                 border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
             }
         }
@@ -176,7 +176,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
-                radius: 5
+                radius: 10
                 border.color: box3Minutes2.focus ? Palette.black() :Palette.turquoise()
             }
         }
@@ -200,7 +200,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
-                radius: 5
+                radius: 10
                 border.color: box3Seconds2.focus ? Palette.black() :Palette.turquoise()
             }
         }
@@ -224,7 +224,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/8
-                radius: 5
+                radius: 10
                 border.color: box3Decimal2.focus ? Palette.black() :Palette.turquoise()
             }
         }

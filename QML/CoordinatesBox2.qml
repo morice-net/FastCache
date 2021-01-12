@@ -17,8 +17,8 @@ Button {
         anchors.fill: parent
         opacity: 0.9
         border.color: Palette.greenSea()
-        border.width: 2
-        radius: 5
+        border.width: 5
+        radius: 10
     }
     onClicked: {
         box2ButtonNS.text === "N" ? box2ButtonNS.text="S":box2ButtonNS.text="N"
@@ -35,7 +35,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
-            radius: 5
+            radius: 10
             border.color: box2Degrees.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -59,7 +59,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/7
-            radius: 5
+            radius: 10
             border.color: box2Decimal.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -87,8 +87,8 @@ Button {
             anchors.fill: parent
             opacity: 0.9
             border.color: Palette.greenSea()
-            border.width: 2
-            radius: 5
+            border.width: 5
+            radius: 10
         }
         onClicked: {
             box2ButtonEO.text === "E" ? box2ButtonEO.text="O":box2ButtonEO.text="E"
@@ -105,7 +105,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
-                radius: 5
+                radius: 10
                 border.color: box2Degrees2.focus ? Palette.black() :Palette.turquoise()
             }
         }
@@ -129,7 +129,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/7
-                radius: 5
+                radius: 10
                 border.color: box2Decimal2.focus ? Palette.black() :Palette.turquoise()
             }
         }

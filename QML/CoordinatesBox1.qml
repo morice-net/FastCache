@@ -16,8 +16,8 @@ Button {
         anchors.fill: parent
         opacity: 0.9
         border.color: Palette.greenSea()
-        border.width: 2
-        radius: 5
+        border.width: 5
+        radius: 10
     }
     onClicked: {
         box1ButtonNS.text === "N" ? box1ButtonNS.text="S":box1ButtonNS.text="N"
@@ -34,7 +34,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
-            radius: 5
+            radius: 10
             border.color: box1Degrees.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -58,7 +58,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/10
-            radius: 5
+            radius: 10
             border.color: box1Minutes.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -82,7 +82,7 @@ Button {
         color: Palette.greenSea()
         background: Rectangle {
             implicitWidth: main.width/8
-            radius: 5
+            radius: 10
             border.color: box1Decimal.focus ? Palette.black() :Palette.turquoise()
         }
     }
@@ -110,8 +110,8 @@ Button {
             anchors.fill: parent
             opacity: 0.9
             border.color: Palette.greenSea()
-            border.width: 2
-            radius: 5
+            border.width: 5
+            radius: 10
         }
         onClicked: {
             box1ButtonEO.text === "E" ? box1ButtonEO.text="O":box1ButtonEO.text="E"
@@ -128,7 +128,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
-                radius: 5
+                radius: 10
                 border.color: box1Degrees2.focus ? Palette.black() :Palette.turquoise()
             }
         }
@@ -152,7 +152,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/10
-                radius: 5
+                radius: 10
                 border.color: box1Minutes2.focus ? Palette.black() :Palette.turquoise()
             }
         }
@@ -176,7 +176,7 @@ Button {
             color: Palette.greenSea()
             background: Rectangle {
                 implicitWidth: main.width/8
-                radius: 5
+                radius: 10
                 border.color: box1Decimal2.focus ? Palette.black() :Palette.turquoise()
             }
         }
