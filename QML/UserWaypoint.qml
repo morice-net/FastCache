@@ -8,6 +8,7 @@ import com.mycompany.connecting 1.0
 
 FastPopup {
     id:userWaypoint
+    backgroundColor: Palette.greenSea()
 
     property string textLog: ""
     property double userWptLat: wptLat()
@@ -189,10 +190,13 @@ FastPopup {
                     color: Palette.turquoise()
                 }
                 background: Rectangle {
-                    anchors.fill: parent
-                    border.width: 1
-                    border.color: Palette.turquoise()
-                    radius: 5
+                    border.width: send.activeFocus ? 2 : 1
+                    border.color: Palette.silver()
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: send.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: send.pressed ? "#aaa" : "#ccc" }
+                    }
                 }
                 onClicked:{
                     if(fastCache.userWptAdd === true){

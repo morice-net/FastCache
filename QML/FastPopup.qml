@@ -39,7 +39,7 @@ Popup {
         anchors.top: parent.top
         anchors.margins: 10
         font.pixelSize: parent.width / 12
-        color: backgroundColor === Palette.greenSea() || backgroundColor === Palette.turquoise() ? Palette.white() : Palette.greenSea()
+        color: Palette.black()
 
         MouseArea {
             anchors.fill: parent
