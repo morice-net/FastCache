@@ -1,32 +1,26 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.5
-import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: addText
+    backgroundWidth: main.width/2
+    backgroundRadius: 10
+    backgroundHeight: item.height + 20
+    backgroundColor: Palette.silver()
+    x: 30
+    y: 30
 
     Column {
         id: item
-        spacing: 15
-        anchors.margins: 5
-        anchors.fill: parent
+        spacing: 25
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Date"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Date"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
@@ -37,20 +31,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Heure"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Heure"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
@@ -61,20 +46,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Utilisateur"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Utilisateur"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
@@ -85,20 +61,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Propriétaire"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Propriétaire"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
@@ -109,20 +76,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Nom de la cache"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Nom de la cache"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
@@ -133,21 +91,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Difficulté"
-                color: Palette.white()
-            }
-
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Difficulté"
+            color: Palette.greenSea()
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -157,20 +105,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Terrain"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Terrain"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
@@ -181,20 +120,11 @@ FastPopup {
             }
         }
 
-        Rectangle {
-            width: parent.width
-            height: parent.height * 0.1
-            color: Palette.turquoise()
-
-            Text {
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                anchors.fill: parent
-                font.pointSize: 16
-                font.family: localFont.name
-                text: "Taille"
-                color: Palette.white()
-            }
+        Label {
+            font.pointSize: 16
+            font.family: localFont.name
+            text: "Taille"
+            color: Palette.greenSea()
 
             MouseArea {
                 anchors.fill: parent
