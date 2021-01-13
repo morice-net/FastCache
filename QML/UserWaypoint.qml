@@ -12,8 +12,14 @@ FastPopup {
     property string textLog: ""
     property double userWptLat: wptLat()
     property double userWptLon: wptLon()
+    property string addLog: ""
 
-    onTextLogChanged: description.text = description.text + textLog ;
+    onTextLogChanged: description.text = description.text + textLog
+    onAddLogChanged: {
+        console.log("addLog: " + addLog)
+        description.text = description.text + addLog
+        addLog = ""
+    }
 
     onUserWptLatChanged: lat.text = "Latitude  " + userWptLat.toFixed(5)
     onUserWptLonChanged: lon.text = "Longitude  " + userWptLon.toFixed(5)
@@ -220,12 +226,13 @@ FastPopup {
         TextArea {
             id: description
             visible: visibleDescription()
+            width: userWaypoint.width*0.8
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.turquoise()
+            wrapMode: Text.Wrap
             background: Rectangle {
                 radius: 5
-                implicitWidth: userWaypoint.width*0.9
                 implicitHeight: userWaypoint.height*0.2
             }
         }
