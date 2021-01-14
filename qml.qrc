@@ -178,5 +178,6 @@
         <file>QML/CoordinatesBox1.qml</file>
         <file>QML/CoordinatesBox2.qml</file>
         <file>QML/CoordinatesBox3.qml</file>
+        <file>QML/CursorRectangle.qml</file>
     </qresource>
 </RCC>
