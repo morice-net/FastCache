@@ -25,7 +25,12 @@ Button {
 
     TextField {
         id: box3Degrees
-        maximumLength : 3
+        onTextChanged: {
+            if(text.length === 2) {
+                box3Minutes.focus = true
+            }
+        }
+        maximumLength : 2
         validator: IntValidator {bottom: 0; top: 90;}
         font.family: localFont.name
         font.pixelSize: 35
@@ -36,6 +41,10 @@ Button {
             implicitWidth: main.width/10
             radius: 10
             border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
+        }
+        cursorDelegate : CursorRectangle {
+            height : box3Degrees.height*0.8
+            running: box3Degrees.activeFocus
         }
     }
 
@@ -49,6 +58,11 @@ Button {
 
     TextField {
         id: box3Minutes
+        onTextChanged: {
+            if(text.length === 2) {
+                box3Seconds.focus = true
+            }
+        }
         maximumLength : 2
         validator: IntValidator {bottom: 0; top: 59;}
         font.family: localFont.name
@@ -60,6 +74,10 @@ Button {
             implicitWidth: main.width/10
             radius: 10
             border.color: box3Minutes.focus ? Palette.black() :Palette.turquoise()
+        }
+        cursorDelegate : CursorRectangle {
+            height : box3Minutes.height*0.8
+            running: box3Minutes.activeFocus
         }
     }
 
@@ -73,6 +91,11 @@ Button {
 
     TextField {
         id: box3Seconds
+        onTextChanged: {
+            if(text.length === 2) {
+                box3Decimal.focus = true
+            }
+        }
         maximumLength : 2
         validator: IntValidator {bottom: 0; top: 59;}
         font.family: localFont.name
@@ -84,6 +107,10 @@ Button {
             implicitWidth: main.width/10
             radius: 10
             border.color: box3Seconds.focus ? Palette.black() :Palette.turquoise()
+        }
+        cursorDelegate : CursorRectangle {
+            height : box3Seconds.height*0.8
+            running: box3Seconds.activeFocus
         }
     }
 
@@ -97,6 +124,11 @@ Button {
 
     TextField {
         id: box3Decimal
+        onTextChanged: {
+            if(text.length === 3) {
+                box3Degrees2.focus = true
+            }
+        }
         maximumLength : 3
         validator: IntValidator {bottom: 0; top: 999;}
         font.family: localFont.name
@@ -108,6 +140,10 @@ Button {
             implicitWidth: main.width/8
             radius: 10
             border.color: box3Decimal.focus ? Palette.black() :Palette.turquoise()
+        }
+        cursorDelegate : CursorRectangle {
+            height : box3Decimal.height*0.8
+            running: box3Decimal.activeFocus
         }
     }
 
@@ -141,6 +177,11 @@ Button {
 
         TextField {
             id: box3Degrees2
+            onTextChanged: {
+                if(text.length === 3) {
+                    box3Minutes2.focus = true
+                }
+            }
             maximumLength : 3
             validator: IntValidator {bottom: 0; top: 180;}
             font.family: localFont.name
@@ -152,6 +193,10 @@ Button {
                 implicitWidth: main.width/10
                 radius: 10
                 border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
+            }
+            cursorDelegate : CursorRectangle {
+                height : box3Degrees2.height*0.8
+                running: box3Degrees2.activeFocus
             }
         }
 
@@ -165,6 +210,11 @@ Button {
 
         TextField {
             id: box3Minutes2
+            onTextChanged: {
+                if(text.length === 2) {
+                    box3Seconds2.focus = true
+                }
+            }
             maximumLength : 2
             validator: IntValidator {bottom: 0; top: 59;}
             font.family: localFont.name
@@ -176,6 +226,10 @@ Button {
                 implicitWidth: main.width/10
                 radius: 10
                 border.color: box3Minutes2.focus ? Palette.black() :Palette.turquoise()
+            }
+            cursorDelegate : CursorRectangle {
+                height : box3Minutes2.height*0.8
+                running: box3Minutes2.activeFocus
             }
         }
 
@@ -189,6 +243,11 @@ Button {
 
         TextField {
             id: box3Seconds2
+            onTextChanged: {
+                if(text.length === 2) {
+                    box3Decimal2.focus = true
+                }
+            }
             maximumLength : 2
             validator: IntValidator {bottom: 0; top: 59;}
             font.family: localFont.name
@@ -200,6 +259,10 @@ Button {
                 implicitWidth: main.width/10
                 radius: 10
                 border.color: box3Seconds2.focus ? Palette.black() :Palette.turquoise()
+            }
+            cursorDelegate : CursorRectangle {
+                height : box3Seconds2.height*0.8
+                running: box3Seconds2.activeFocus
             }
         }
 
@@ -224,6 +287,10 @@ Button {
                 implicitWidth: main.width/8
                 radius: 10
                 border.color: box3Decimal2.focus ? Palette.black() :Palette.turquoise()
+            }
+            cursorDelegate : CursorRectangle {
+                height : box3Decimal2.height*0.8
+                running: box3Decimal2.activeFocus
             }
         }
 
