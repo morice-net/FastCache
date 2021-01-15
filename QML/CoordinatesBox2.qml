@@ -25,6 +25,11 @@ Button {
 
     TextField {
         id: box2Degrees
+        onTextChanged: {
+            if(text.length === 2) {
+                box2Decimal.focus = true
+            }
+        }
         maximumLength : 2
         validator: IntValidator {bottom: 0; top: 90;}
         font.family: localFont.name
@@ -36,6 +41,10 @@ Button {
             implicitWidth: main.width/10
             radius: 10
             border.color: box2Degrees.focus ? Palette.black() :Palette.turquoise()
+        }
+        cursorDelegate : CursorRectangle {
+            height : box2Degrees.height*0.8
+            running: box2Degrees.activeFocus
         }
     }
 
@@ -49,6 +58,11 @@ Button {
 
     TextField {
         id: box2Decimal
+        onTextChanged: {
+            if(text.length === 5) {
+                box2Degrees2.focus = true
+            }
+        }
         maximumLength : 5
         validator: IntValidator {bottom: 0; top: 99999;}
         font.family: localFont.name
@@ -60,6 +74,10 @@ Button {
             implicitWidth: main.width/7
             radius: 10
             border.color: box2Decimal.focus ? Palette.black() :Palette.turquoise()
+        }
+        cursorDelegate : CursorRectangle {
+            height : box2Decimal.height*0.8
+            running: box2Decimal.activeFocus
         }
     }
 
@@ -94,6 +112,11 @@ Button {
 
         TextField {
             id: box2Degrees2
+            onTextChanged: {
+                if(text.length === 3) {
+                    box2Decimal2.focus = true
+                }
+            }
             maximumLength : 3
             validator: IntValidator {bottom: 0; top: 180;}
             font.family: localFont.name
@@ -105,6 +128,10 @@ Button {
                 implicitWidth: main.width/10
                 radius: 10
                 border.color: box2Degrees2.focus ? Palette.black() :Palette.turquoise()
+            }
+            cursorDelegate : CursorRectangle {
+                height : box2Degrees2.height*0.8
+                running: box2Degrees2.activeFocus
             }
         }
 
@@ -129,6 +156,10 @@ Button {
                 implicitWidth: main.width/7
                 radius: 10
                 border.color: box2Decimal2.focus ? Palette.black() :Palette.turquoise()
+            }
+            cursorDelegate : CursorRectangle {
+                height : box2Decimal2.height*0.8
+                running: box2Decimal2.activeFocus
             }
         }
 
