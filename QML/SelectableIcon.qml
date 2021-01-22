@@ -34,11 +34,11 @@ CheckBox {
 
         AnimatedSprite {
             id: cacheIconSprite
-            paused: true
+            running: false
             x: parent.width * 0.05
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
-            currentFrame: index % 15
+            currentFrame: index
             width: parent.width * 0.9
             height: width
             anchors.centerIn: parent

@@ -74,10 +74,10 @@ Rectangle {
             visible: false
             scale: 1.6
             y: 8
-            paused: true
+            running: false
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
-            currentFrame: fullCache.typeIndex % 15
+            currentFrame: fullCache.typeIndex
         }
 
         Text {

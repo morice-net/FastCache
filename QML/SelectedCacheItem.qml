@@ -24,10 +24,10 @@ Rectangle {
 
         property int type: 0
 
-        paused: true
+        running: false
         source: "qrc:/Image/cacheList.png"
         frameCount: 15
-        currentFrame: type % 15
+        currentFrame: type
         width: selectedCacheNameField.height + selectedCacheGeocodeField.height + 10
         height: width
         anchors.margins: 10
