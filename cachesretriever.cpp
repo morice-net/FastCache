@@ -22,7 +22,7 @@ CachesRetriever::~CachesRetriever()
 
 QQmlListProperty<Cache> CachesRetriever::caches()
 {
-    return QQmlListProperty<Cache>(this, m_caches);
+    return QQmlListProperty<Cache>(this, &m_caches);
 }
 
 void CachesRetriever::sendRequest(QString token)
