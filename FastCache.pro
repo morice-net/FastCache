@@ -17,6 +17,7 @@ SOURCES += main.cpp \
     fullcachesrecorded.cpp \
     gettravelbuguser.cpp \
     imagedownloader.cpp \
+    listcaches.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
     sendimageslog.cpp \
@@ -53,6 +54,7 @@ HEADERS += \
     fullcachesrecorded.h \
     gettravelbuguser.h \
     imagedownloader.h \
+    listcaches.h \
     parameter.h \
     replaceimageintext.h \
     sendimageslog.h \
