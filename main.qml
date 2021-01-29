@@ -68,6 +68,10 @@ Item {
         }
     }
 
+    ListCaches {
+        id:listCaches
+    }
+
     CachesBBox {
         id: cachesBBox
         onCachesChanged: {

@@ -9,6 +9,10 @@
 #include <QJsonArray>
 #include <QList>
 
+#include "listcaches.h"
+
+
+
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
     , m_indexMoreCaches(0)

@@ -26,6 +26,7 @@
 #include "gettravelbuguser.h"
 #include "senduserwaypoint.h"
 #include "fullcachesrecorded.h"
+#include "listcaches.h"
 
 int main(int argc, char *argv[])
 {
@@ -48,6 +49,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
     qmlRegisterType<FullCachesRecorded>("com.mycompany.connecting", 1, 0, "FullCachesRecorded");
+    qmlRegisterType<ListCaches>("com.mycompany.connecting", 1, 0, "ListCaches");
 
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();
