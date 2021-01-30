@@ -2,6 +2,7 @@
 #define CACHESRETRIEVER_H
 
 #include "requestor.h"
+#include "cachessinglelist.h"
 
 #include <QNetworkReply>
 #include <QQmlListProperty>
@@ -19,15 +20,16 @@ public:
     explicit  CachesRetriever(Requestor *parent = nullptr);
     ~CachesRetriever() override;
 
+    virtual void moreCaches() = 0;
+
     Q_INVOKABLE void sendRequest(QString token);
     Q_INVOKABLE void updateFilterCaches(QList <bool> types , QList <bool> Sizes , QList <double > difficultyTerrain ,bool found , bool archived ,
                                         QList <QString > keyWordDiscoverOwner ,QString userName);
+    Q_INVOKABLE void listCachesObject(CachesSingleList *listCaches);
 
     QQmlListProperty<Cache> caches();
+
     void parseJson(const QJsonDocument &dataJsonDoc) override;
-
-    virtual void moreCaches() = 0;
-
     int indexMoreCaches();
     void setIndexMoreCaches(int indexMoreCaches);
 
@@ -52,6 +54,7 @@ protected:
 
     bool m_filterExcludeFound;
     bool m_filterExcludeArchived;
+    CachesSingleList *m_listCaches;
 };
 
 #endif // CACHESRETRIEVER_H

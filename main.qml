@@ -68,19 +68,24 @@ Item {
         }
     }
 
-    ListCaches {
-        id:listCaches
+    CachesSingleList {
+        id:cachesSingleList
+        onCachesChanged: {
+            if(main.cachesActive)
+                fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
+        }
     }
 
     CachesBBox {
         id: cachesBBox
         onCachesChanged: {
             if(main.cachesActive)
-                fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
+                fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }
         onClearMapRequested: {
             fastMap.clearMap();
         }
+        Component.onCompleted:  listCachesObject(cachesSingleList)
     }
 
     CachesNear {
@@ -92,6 +97,7 @@ Item {
         onClearMapRequested: {
             fastMap.clearMap()
         }
+        Component.onCompleted: listCachesObject(cachesSingleList)
     }
 
     CachesRecorded {
@@ -103,6 +109,7 @@ Item {
         onClearMapRequested: {
             fastMap.clearMap()
         }
+        Component.onCompleted: listCachesObject(cachesSingleList)
     }
 
     CachesRecordedLists {

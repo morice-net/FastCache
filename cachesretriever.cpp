@@ -9,10 +9,6 @@
 #include <QJsonArray>
 #include <QList>
 
-#include "listcaches.h"
-
-
-
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
     , m_indexMoreCaches(0)
@@ -29,12 +25,17 @@ QQmlListProperty<Cache> CachesRetriever::caches()
     return QQmlListProperty<Cache>(this, &m_caches);
 }
 
+void CachesRetriever::listCachesObject(CachesSingleList *listCaches)
+{
+    m_listCaches = listCaches;
+}
+
 void CachesRetriever::sendRequest(QString token)
 {
     m_tokenTemp=token;
     if(m_indexMoreCaches == 0) {
-        qDeleteAll(m_caches);
-        m_caches.clear();
+        m_listCaches->deleteAll();
+        m_listCaches->clear();
     }
 
     //Build url
@@ -186,7 +187,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
             cache->setFound(true);
         }
         cache->setTerrain(v["terrain"].toDouble());
-        m_caches.append(cache);
+        m_listCaches->append(*cache);
     }
 
     // request success

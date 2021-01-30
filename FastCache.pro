@@ -12,12 +12,12 @@ win32 {
 
 SOURCES += main.cpp \
     cachesrecorded.cpp \
+    cachessinglelist.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
     fullcachesrecorded.cpp \
     gettravelbuguser.cpp \
     imagedownloader.cpp \
-    listcaches.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
     sendimageslog.cpp \
@@ -49,12 +49,12 @@ include(deployment.pri)
 
 HEADERS += \
     cachesrecorded.h \
+    cachessinglelist.h \
     connector.h \
     fullcacheretriever.h \
     fullcachesrecorded.h \
     gettravelbuguser.h \
     imagedownloader.h \
-    listcaches.h \
     parameter.h \
     replaceimageintext.h \
     sendimageslog.h \
