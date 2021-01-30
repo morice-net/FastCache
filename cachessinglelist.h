@@ -16,10 +16,12 @@ public:
 
     QQmlListProperty<Cache> caches();
 
+    QList<Cache*> getCaches();
     void  setCaches(const QList<Cache*> &caches);
     void  clear();
     void  append(Cache &cache);
     void  deleteAll();
+    int  length();
 
 signals:
     void cachesChanged();

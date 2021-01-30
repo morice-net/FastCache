@@ -242,13 +242,8 @@ FastPopup {
     }
 
     function addCachesOnMap() {
-        if(main.cachesActive)  {
-            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
-            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-        } else if (main.state === "recorded") {
-            fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)
-        }
+        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded")
+            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)         
     }
 
     function updateMap(index) {

@@ -65,12 +65,7 @@ DelegateModel {
     }
 
     function modelState() {
-        if(main.cachesActive){
+        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded")
             return  cachesSingleList.caches
-        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
-            return  cachesSingleList.caches
-        } else if(main.state === "recorded" ){
-            return  cachesRecorded.caches
-        }
     }
 }

@@ -28,14 +28,9 @@ MapQuickItem {
     }
 
     function listCaches() {
-        if(main.cachesActive)
+        if(main.cachesActive || main.state === "near" || main.state ==="address" || main.state === "coordinates" || main.state === "recorded")
             return cachesSingleList.caches
-        if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
-            return cachesSingleList.caches
-        if(main.state === "recorded")
-            return cachesRecorded.caches
     }
-
     Component.onCompleted: {
         console.log("FastMapItem " + index + " created.")
     }

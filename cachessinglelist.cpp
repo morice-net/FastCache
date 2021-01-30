@@ -26,6 +26,11 @@ void  CachesSingleList::append(Cache &cache)
     m_caches.append(&cache);
 }
 
+QList<Cache*> CachesSingleList::getCaches()
+{
+    return m_caches;
+}
+
 void CachesSingleList::setCaches(const QList<Cache*> &caches)
 {
     m_caches = caches;
@@ -37,6 +42,10 @@ void  CachesSingleList::deleteAll()
     qDeleteAll(m_caches);
 }
 
+int  CachesSingleList::length()
+{
+    return m_caches.length();
+}
 
 
 

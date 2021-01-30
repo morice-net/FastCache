@@ -295,7 +295,7 @@ Item {
 
                 // center and zoom level
                 hideMenu()
-                centerMapCaches(cachesRecorded.caches)
+                centerMapCaches(cachesSingleList.caches)
             }
         }
     }

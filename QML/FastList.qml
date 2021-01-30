@@ -137,16 +137,8 @@ Rectangle {
 
     function createAllSelectedInList(flag) {
         var selected = []
-        if(main.cachesActive){
+        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ){
             for (var i = 0; i < cachesSingleList.caches.length; i++) {
-                selected.push(flag)
-            }
-        } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
-            for (var j = 0; j < cachesSingleList.caches.length; j++) {
-                selected.push(flag)
-            }
-        } else if(main.state === "recorded" ){
-            for (var k = 0; k < cachesRecorded.caches.length; k++) {
                 selected.push(flag)
             }
         }

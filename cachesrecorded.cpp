@@ -35,7 +35,7 @@ void CachesRecorded::createRecordedCaches(const QList<QString> &list)
     cache->setFound(QVariant(list[8]).toBool());
     cache->setOwn(QVariant(list[9]).toBool());
 
-    m_caches.append(cache);
+    m_listCaches->append(*cache);
 }
 
 void CachesRecorded::moreCaches()
@@ -62,8 +62,8 @@ bool CachesRecorded::updateMapCachesRecorded()
     }
     qDebug() << "Request success";
     m_mapCachesRecorded.clear();
-    qDeleteAll(m_caches);
-    m_caches.clear();
+    m_listCaches->deleteAll();
+    m_listCaches->clear();
     int a = 0;
     QList<QString> list;
     while(select.next()) {
@@ -80,30 +80,29 @@ bool CachesRecorded::updateMapCachesRecorded()
         list.append(select.value(9).toString());  // found
         list.append(select.value(10).toString()); // own
 
-        if(m_caches.length() == 0) {
+        if( m_listCaches->length() == 0) {
             a = select.value(0).toInt() ;
             CachesRecorded::createRecordedCaches(list);
         } else {
             if(a == select.value(0).toInt()) {
                 CachesRecorded::createRecordedCaches(list);
             } else {
-                m_mapCachesRecorded.insert(a , m_caches);
+                m_mapCachesRecorded.insert(a , m_listCaches->getCaches());
                 a = select.value(0).toInt();
                 emit clearMapRequested();
-                m_caches.clear();
+                m_listCaches->clear();
                 CachesRecorded::createRecordedCaches(list);
             }
         }
     }
-    m_mapCachesRecorded.insert(a , m_caches);
+    m_mapCachesRecorded.insert(a , m_listCaches->getCaches());
     emit clearMapRequested();
-    emit cachesChanged();
+    emit m_listCaches->cachesChanged();
     return true;
 }
 
 void CachesRecorded::updateListCachesRecorded(int list)
 {
-    m_caches.clear();
-    m_caches = m_mapCachesRecorded[list];
-    emit cachesChanged();
+    m_listCaches->clear();
+    m_listCaches->setCaches(m_mapCachesRecorded[list]);
 }
