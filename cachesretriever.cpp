@@ -11,18 +11,12 @@
 
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
-    , m_indexMoreCaches(0)
-    , m_caches(QList<Cache*>())
+    , m_indexMoreCaches(0)    
 {
 }
 
 CachesRetriever::~CachesRetriever()
 {
-}
-
-QQmlListProperty<Cache> CachesRetriever::caches()
-{
-    return QQmlListProperty<Cache>(this, &m_caches);
 }
 
 void CachesRetriever::listCachesObject(CachesSingleList *listCaches)
