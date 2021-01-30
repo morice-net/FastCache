@@ -31,7 +31,7 @@ MapQuickItem {
         if(main.cachesActive)
             return cachesSingleList.caches
         if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
-            return cachesNear.caches
+            return cachesSingleList.caches
         if(main.state === "recorded")
             return cachesRecorded.caches
     }

@@ -92,7 +92,7 @@ Item {
         id: cachesNear
         onCachesChanged: {
             if(main.state === "near" || main.state === "address" || main.state === "coordinates")
-                fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
+                fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }
         onClearMapRequested: {
             fastMap.clearMap()
@@ -188,23 +188,18 @@ Item {
     FullCache {
         id: fullCache
         onIsCorrectedCoordinatesChanged: {
-            correctedCoordinatesDynamic(cachesSingleList.caches);
-            correctedCoordinatesDynamic(cachesNear.caches);
+            correctedCoordinatesDynamic(cachesSingleList.caches);            
             correctedCoordinatesDynamic(cachesRecorded.caches);
         }
         onRegisteredChanged: {
-            registeredDynamic(cachesSingleList.caches)
-            registeredDynamic(cachesNear.caches)
+            registeredDynamic(cachesSingleList.caches)            
         }
         onFoundChanged: {
-            foundDynamic(cachesSingleList.caches);
-            foundDynamic(cachesNear.caches);
+            foundDynamic(cachesSingleList.caches);            
             foundDynamic(cachesRecorded.caches);
-
         }
         onToDoLogChanged: {
-            toDoLogDynamic(cachesSingleList.caches)
-            toDoLogDynamic(cachesNear.caches)
+            toDoLogDynamic(cachesSingleList.caches)            
             toDoLogDynamic(cachesRecorded.caches)
         }
     }

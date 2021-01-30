@@ -187,7 +187,7 @@ Item {
                             reloadCaches()
                         } else {
                             main.cachesActive = false
-                            fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
+                            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
                         }
                     }
                 }

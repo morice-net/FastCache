@@ -94,9 +94,9 @@ Rectangle {
 
     function markedCachesRegistered() {
         if(main.state === "near" || main.state === "address" || main.state === "coordinates" ) {
-            for (var i = 0; i < cachesNear.caches.length; i++) {
-                if(listGeocodesOnMap().indexOf(cachesNear.caches[i].geocode) !== -1){
-                    cachesNear.caches[i].registered = true
+            for (var i = 0; i < cachesSingleList.caches.length; i++) {
+                if(listGeocodesOnMap().indexOf(cachesSingleList.caches[i].geocode) !== -1){
+                    cachesSingleList.caches[i].registered = true
                 }
             }
         }

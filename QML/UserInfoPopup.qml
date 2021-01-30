@@ -245,7 +245,7 @@ FastPopup {
         if(main.cachesActive)  {
             fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
-            fastMap.mapItem.updateCachesOnMap(cachesNear.caches)
+            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         } else if (main.state === "recorded") {
             fastMap.mapItem.updateCachesOnMap(cachesRecorded.caches)
         }

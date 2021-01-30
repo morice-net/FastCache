@@ -68,7 +68,7 @@ DelegateModel {
         if(main.cachesActive){
             return  cachesSingleList.caches
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
-            return  cachesNear.caches
+            return  cachesSingleList.caches
         } else if(main.state === "recorded" ){
             return  cachesRecorded.caches
         }

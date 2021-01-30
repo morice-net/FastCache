@@ -25,7 +25,7 @@ void CachesNear::sendRequest(QString token)
 void CachesNear::parseJson(const QJsonDocument &dataJsonDoc)
 {    
     CachesRetriever::parseJson(dataJsonDoc);
-    emit cachesChanged();
+    emit m_listCaches->cachesChanged();
 }
 
 void CachesNear::moreCaches()

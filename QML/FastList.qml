@@ -142,7 +142,7 @@ Rectangle {
                 selected.push(flag)
             }
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
-            for (var j = 0; j < cachesNear.caches.length; j++) {
+            for (var j = 0; j < cachesSingleList.caches.length; j++) {
                 selected.push(flag)
             }
         } else if(main.state === "recorded" ){
