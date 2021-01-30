@@ -26,7 +26,7 @@ void CachesBBox::sendRequest(QString token)
 void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
 {
     CachesRetriever::parseJson(dataJsonDoc);
-    emit cachesChanged();
+    emit m_listCaches->cachesChanged();
 }
 
 void CachesBBox::moreCaches()

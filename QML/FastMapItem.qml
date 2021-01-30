@@ -29,7 +29,7 @@ MapQuickItem {
 
     function listCaches() {
         if(main.cachesActive)
-            return cachesBBox.caches
+            return cachesSingleList.caches
         if(main.state === "near" || main.state ==="address" || main.state === "coordinates" )
             return cachesNear.caches
         if(main.state === "recorded")

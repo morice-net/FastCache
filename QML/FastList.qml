@@ -138,7 +138,7 @@ Rectangle {
     function createAllSelectedInList(flag) {
         var selected = []
         if(main.cachesActive){
-            for (var i = 0; i < cachesBBox.caches.length; i++) {
+            for (var i = 0; i < cachesSingleList.caches.length; i++) {
                 selected.push(flag)
             }
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){

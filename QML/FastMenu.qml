@@ -151,7 +151,7 @@ Item {
                 else
                     main.viewState = "list"
                 if (main.cachesActive)
-                    fastMap.mapItem.updateCachesOnMap(cachesBBox.caches)
+                    fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
             }
         }
 

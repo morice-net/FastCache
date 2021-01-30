@@ -188,22 +188,22 @@ Item {
     FullCache {
         id: fullCache
         onIsCorrectedCoordinatesChanged: {
-            correctedCoordinatesDynamic(cachesBBox.caches);
+            correctedCoordinatesDynamic(cachesSingleList.caches);
             correctedCoordinatesDynamic(cachesNear.caches);
             correctedCoordinatesDynamic(cachesRecorded.caches);
         }
         onRegisteredChanged: {
-            registeredDynamic(cachesBBox.caches)
+            registeredDynamic(cachesSingleList.caches)
             registeredDynamic(cachesNear.caches)
         }
         onFoundChanged: {
-            foundDynamic(cachesBBox.caches);
+            foundDynamic(cachesSingleList.caches);
             foundDynamic(cachesNear.caches);
             foundDynamic(cachesRecorded.caches);
 
         }
         onToDoLogChanged: {
-            toDoLogDynamic(cachesBBox.caches)
+            toDoLogDynamic(cachesSingleList.caches)
             toDoLogDynamic(cachesNear.caches)
             toDoLogDynamic(cachesRecorded.caches)
         }

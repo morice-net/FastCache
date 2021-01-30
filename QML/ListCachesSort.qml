@@ -66,7 +66,7 @@ DelegateModel {
 
     function modelState() {
         if(main.cachesActive){
-            return  cachesBBox.caches
+            return  cachesSingleList.caches
         } else if(main.state === "near" || main.state === "address" || main.state === "coordinates" ){
             return  cachesNear.caches
         } else if(main.state === "recorded" ){

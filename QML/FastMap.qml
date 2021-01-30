@@ -101,9 +101,9 @@ Rectangle {
             }
         }
         if(main.cachesActive) {
-            for (var j = 0; j < cachesBBox.caches.length; j++) {
-                if(listGeocodesOnMap().indexOf(cachesBBox.caches[j].geocode) !== -1) {
-                    cachesBBox.caches[j].registered = true
+            for (var j = 0; j < cachesSingleList.caches.length; j++) {
+                if(listGeocodesOnMap().indexOf(cachesSingleList.caches[j].geocode) !== -1) {
+                    cachesSingleList.caches[j].registered = true
                 }
             }
         }
