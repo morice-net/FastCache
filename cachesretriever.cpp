@@ -11,7 +11,7 @@
 
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
-    , m_indexMoreCaches(0)    
+    , m_indexMoreCaches(0)
 {
 }
 
@@ -208,7 +208,7 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
     listFilterTypes.clear();
     for (int i = 0; i < types.length(); i++) {
         if(types[i] == false  && i != 6){
-            listFilterTypes.append(CACHE_TYPE_INDEX_MAP.values(QString::number(i)));
+            listFilterTypes.append(CACHE_TYPE_INDEX_MAP.value(QString::number(i)));
         } else if(types[i] == false  && i == 6){
             listFilterTypes.append(6 );
             listFilterTypes.append(4738 );
@@ -225,7 +225,7 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
     listFilterSizes.clear();
     for (int i = 0; i < sizes.length(); i++) {
         if(sizes[i] == true ){
-            listFilterSizes.append(CACHE_SIZE_INDEX_MAP.values(QString::number(i)));
+            listFilterSizes.append(CACHE_SIZE_INDEX_MAP.value(QString::number(i)));
         }
     }
     if(listFilterSizes.length() == sizes.length())

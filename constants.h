@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#include <QMap>
+#include <QMultiMap>
 
 // Type of caches facilitator
 const QMap<QString, int> CACHE_TYPE_MAP = {{"Traditionnelle",2},
