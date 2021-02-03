@@ -50,7 +50,7 @@ void CachesRetriever::sendRequest(QString token)
     // filter by type.
     if(!m_filterTypes.isEmpty()){
         requestName.append("%2Btype:");
-        for ( int type: m_filterTypes)
+        for ( int type: qAsConst(m_filterTypes))
         {
             requestName.append(QString::number(type) + ",");
         }
@@ -60,7 +60,7 @@ void CachesRetriever::sendRequest(QString token)
     // filter by size.
     if(!m_filterSizes.isEmpty()){
         requestName.append("%2Bsize:");
-        for ( int size: m_filterSizes)
+        for ( int size: qAsConst(m_filterSizes))
         {
             requestName.append(QString::number(size) + ",");
         }
