@@ -8,9 +8,6 @@ CacheAttribute::CacheAttribute(QObject *parent)
     m_listTextYes =  CacheAttribute::listAttributesYes(list);
     m_listTextNo =  CacheAttribute::listAttributesNo(list);
     m_listIcon =  CacheAttribute::listAttributesIcon(list);
-    emit listTextYesChanged();
-    emit listTextNoChanged();
-    emit listIconChanged();
 }
 
 CacheAttribute::~CacheAttribute()
