@@ -76,7 +76,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
     bool found;
     bool own;
 
-    for (QJsonValue fullCache: dataJsonArray)
+    for (const QJsonValue &fullCache: qAsConst(dataJsonArray))
     {
         geocode = fullCache["referenceCode"].toString();
         difficulty = fullCache["difficulty"].toDouble();
