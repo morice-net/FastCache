@@ -95,7 +95,7 @@ void Connector::oauthAuthorizeCode(QString url)
     postData.append("client_secret=" + QUrl::toPercentEncoding(m_consumerSecret)+"&");
     postData.append("grant_type=authorization_code&" );
     postData.append("redirect_uri=" +QUrl::toPercentEncoding( redirectUri()) + "&");
-    postData.append("code=" + codeParameter );
+    postData.append("code=" + codeParameter.toLocal8Bit() );
 
     qDebug() << "POST DATA with the code =====>>>>>> " << postData;
 
@@ -115,7 +115,7 @@ void Connector::oauthRefreshToken()
     postData.append("client_secret=" + QUrl::toPercentEncoding(m_consumerSecret)+"&");
     postData.append("grant_type=refresh_token&" );
     postData.append("redirect_uri=" +QUrl::toPercentEncoding( redirectUri()) + "&");
-    postData.append("refresh_token=" + m_refreshToken);
+    postData.append("refresh_token=" + m_refreshToken.toLocal8Bit());
 
     qDebug() << "POST DATA second POST step =====>>>>>> " << postData;
 
