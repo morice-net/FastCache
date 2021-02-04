@@ -133,6 +133,9 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
         QJsonObject type = tbLog["trackableLogType"].toObject();
         m_logsType.append(LOG_TYPE_TB_MAP.key(type["id"].toInt()));
     }
+
+    delete smileys;
+
     emit logsTextChanged();
     emit logsTypeChanged();
     emit logsDateChanged();
