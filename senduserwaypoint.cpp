@@ -145,10 +145,10 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
 
     }  else if(state() == "OK" && userWaypoint["isCorrectedCoordinates"].toBool() == false){
         //Update userWaypoint
+         listUserWptsCode = m_fullCache->userWptsCode();
         for(int index=0 ; index<m_fullCache->userWptsCode().length() ; index++)
         {
-            if(m_fullCache->userWptsCode()[index] == userWaypoint["referenceCode"].toString()){
-
+            if(listUserWptsCode[index] == userWaypoint["referenceCode"].toString()){
                 listUserWptsDescription = m_fullCache->userWptsDescription();
                 listUserWptsDescription[index] = userWaypoint["description"].toString();
                 m_fullCache->setUserWptsDescription(listUserWptsDescription);
