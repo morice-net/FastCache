@@ -70,8 +70,16 @@ Item {
                         font.pixelSize: userInfoMenu.height * 0.45
                         color: Palette.black()
                     }
+
                     Text {
-                        text: findCount + " caches trouvées (" + userInfo.premium + ")"
+                        text: findCount + " caches trouvées"
+                        font.family: localFont.name
+                        font.pixelSize: userInfoMenu.height * 0.2
+                        color: Palette.greenSea()
+                    }
+
+                    Text {
+                        text: "Membre : " + userInfo.premium
                         font.family: localFont.name
                         font.pixelSize: userInfoMenu.height * 0.2
                         color: Palette.greenSea()
