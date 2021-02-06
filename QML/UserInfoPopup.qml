@@ -22,7 +22,6 @@ FastPopup {
 
             /// User Info
             Image {
-                anchors.horizontalCenter: parent.horizontalCenter
                 height: userInfoTopPopup.height * 0.5
                 width: height
                 source: userInfo.avatarUrl
@@ -33,7 +32,6 @@ FastPopup {
                 width: parent.width
                 text: userInfo.name
                 font.family: localFont.name
-                horizontalAlignment: Text.AlignHCenter
                 font.pixelSize: userInfoTopPopup.height * 0.2
                 color: Palette.white()
             }
@@ -41,10 +39,19 @@ FastPopup {
             Text {
                 height: userInfoTopPopup.height * 0.19
                 width: parent.width
-                text: findCount + " caches trouvées (" + userInfo.premium + ")"
+                text: findCount + " caches trouvées"
                 font.family: localFont.name
                 font.italic: true
-                horizontalAlignment: Text.AlignHCenter
+                font.pixelSize: userInfoTopPopup.height * 0.1
+                color: Palette.white()
+            }
+
+            Text {
+                height: userInfoTopPopup.height * 0.19
+                width: parent.width
+                text:  "Membre : " + userInfo.premium
+                font.family: localFont.name
+                font.italic: true
                 font.pixelSize: userInfoTopPopup.height * 0.1
                 color: Palette.white()
             }
@@ -243,7 +250,7 @@ FastPopup {
 
     function addCachesOnMap() {
         if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded")
-            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)         
+            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
     }
 
     function updateMap(index) {
