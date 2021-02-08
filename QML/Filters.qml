@@ -12,15 +12,13 @@ Item {
     id: filters
     x: parent.width * 0.05
     width: parent.width * 0.9
-    height: main.height * 0.8
-
-    MouseArea {
-        anchors.fill: parent
-    }
+    height: parent.height * 0.9
 
     Column {
         id: internFilterColumn
+        height: parent.height * 0.9
         anchors.centerIn: parent
+        spacing: parent.width/45
 
         SelectableFilter {
             id: typeFilterSelectable
@@ -30,6 +28,7 @@ Item {
         Grid {
             x: 20
             columns: 5
+
             Repeater {
                 model: main.listTypes
                 SelectableIcon {

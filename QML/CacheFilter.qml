@@ -11,7 +11,6 @@ Item {
     anchors.bottomMargin: anchors.topMargin/2
     anchors.rightMargin: anchors.topMargin/3
     anchors.leftMargin: anchors.topMargin/3
-
     opacity: 0
     visible: opacity > 0
 
@@ -26,59 +25,50 @@ Item {
         radius: parent.width/20
         border.width: 2
         border.color: Palette.greenSea()
-        width: parent.width
-        height: filterColumn.height
         anchors.top: filterHeadArrow.bottom
-        anchors.margins: -2
 
-        Column {
-            id: filterColumn
-            Row {
-                width: filtersRectangle.width
-                x: 8
-                y: 5
+        Row {
 
-                Text {
-                    y: 10
-                    font.family: localFont.name
-                    font.pointSize: 24
-                    verticalAlignment: Text.AlignLeft
-                    horizontalAlignment: Text.AlignLeft
-                    color: Palette.greenSea()
-                    text: "  Filtrer les caches par:     "
-                }
-
-                Rectangle {
-                    y: 13
-                    height: filtersRectangle.width * 0.1
-                    width: height
-                    radius: 10
-                    color: Palette.turquoise()
-
-
-                    Image {
-                        anchors.fill: parent
-                        anchors.margins: 5
-                        source: "qrc:/Image/update-arrows.png"
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            reloadCaches()
-                            cacheFilter.opacity = 0
-                        }
-                    }
-                }
-
+            Text {
+                y: 10
+                font.family: localFont.name
+                font.pointSize: 24
+                verticalAlignment: Text.AlignLeft
+                horizontalAlignment: Text.AlignLeft
+                color: Palette.greenSea()
+                text: "  Filtrer les caches par :     "
             }
 
-            Filters {
-                id: filters
-                Behavior on width { NumberAnimation { duration: 300 } }
-                Behavior on height { NumberAnimation { duration: 300 } }
+            Rectangle {
+                id: rectangleImage
+                y: 13
+                height: filtersRectangle.width * 0.1
+                width: height
+                radius: 10
+                color: Palette.turquoise()
 
+                Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    source: "qrc:/Image/update-arrows.png"
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        reloadCaches()
+                        cacheFilter.opacity = 0
+                    }
+                }
             }
+        }
+
+        Filters {
+            id: filters
+            y: rectangleImage.y + rectangleImage.height/3
+
+            Behavior on width { NumberAnimation { duration: 300 } }
+            Behavior on height { NumberAnimation { duration: 300 } }
         }
     }
 
@@ -88,7 +78,6 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.top
     }
-
     onVisibleChanged: recordCacheFiltersInSettings()
 
     function recordCacheFiltersInSettings() {
