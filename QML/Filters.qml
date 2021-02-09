@@ -9,16 +9,16 @@ import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 Item {
-    id: filters
-    x: parent.width * 0.05
+    id: filters     
     width: parent.width * 0.9
     height: parent.height * 0.9
+    anchors.centerIn: parent
 
     Column {
         id: internFilterColumn
-        height: parent.height * 0.9
-        anchors.centerIn: parent
-        spacing: parent.width/45
+        width: parent.width
+        height: parent.height
+        spacing: parent.width/25
 
         SelectableFilter {
             id: typeFilterSelectable
@@ -26,8 +26,7 @@ Item {
         }
 
         Grid {
-            x: 20
-            columns: 5
+            columns: 7
 
             Repeater {
                 model: main.listTypes
@@ -43,8 +42,7 @@ Item {
             filterText: "Taille"
         }
 
-        Button {
-            x:10
+        Button {        
             width: parent.width
             height: parent.height * 0.08
             anchors.horizontalCenter: parent.horizontalCenter
@@ -308,7 +306,7 @@ Item {
 
         MultiPointSlider {
             visible: true
-            x: 10
+            anchors.horizontalCenter: parent.horizontalCenter
             first.value: settings.difficultyMin
             second.value: settings.difficultyMax
             first.onValueChanged: settings.difficultyMin = minValueSlider()
@@ -322,7 +320,7 @@ Item {
 
         MultiPointSlider {
             visible: true
-            x: 10
+            anchors.horizontalCenter: parent.horizontalCenter
             first.value: settings.terrainMin
             second.value: settings.terrainMax
             first.onValueChanged: settings.terrainMin = minValueSlider()
@@ -339,7 +337,7 @@ Item {
                 font.pointSize: 16
                 color: Palette.greenSea()
                 verticalAlignment: Text.AlignVCenter
-                leftPadding: found .indicator.width + found .spacing
+                leftPadding: found.indicator.width + found .spacing
             }
             indicator: Rectangle {
                 implicitWidth: 25
@@ -399,8 +397,7 @@ Item {
             filterText: "Mot-clé , Découvreur..."
         }
 
-        Button {
-            x:10
+        Button {           
             width: parent.width*0.7
             height: parent.height * 0.08
             anchors.horizontalCenter: parent.horizontalCenter

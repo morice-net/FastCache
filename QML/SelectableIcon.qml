@@ -18,7 +18,7 @@ CheckBox {
 
     indicator: Rectangle {
         opacity: 0.8
-        implicitWidth: main.width / 8
+        implicitWidth: main.width / 10
         implicitHeight: implicitWidth
         radius: 15
         border.color: Palette.black()

@@ -65,7 +65,6 @@ Item {
 
         Filters {
             id: filters
-            y: rectangleImage.y + rectangleImage.height/3
 
             Behavior on width { NumberAnimation { duration: 300 } }
             Behavior on height { NumberAnimation { duration: 300 } }
