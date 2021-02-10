@@ -1,7 +1,7 @@
 ﻿import QtQuick 2.6
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
-import QtQuick.Layouts 1.1
+import QtQuick.Layouts 1.2
 import Qt.labs.settings 1.0
 import QtQuick.Dialogs 1.3
 
@@ -9,20 +9,20 @@ import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 Item {
-    id: filters     
+    id: filters
     width: parent.width * 0.9
     height: parent.height * 0.9
     anchors.centerIn: parent
 
-    Column {
+    ColumnLayout {
         id: internFilterColumn
-        width: parent.width
+        Layout.alignment: Qt.AlignLeft
         height: parent.height
-        spacing: parent.width/25
 
         SelectableFilter {
             id: typeFilterSelectable
             filterText: "Type"
+            Layout.alignment: Qt.AlignCenter
         }
 
         Grid {
@@ -40,12 +40,13 @@ Item {
         SelectableFilter {
             id: sizeFilterSelectable
             filterText: "Taille"
+            Layout.alignment: Qt.AlignCenter
         }
 
-        Button {        
-            width: parent.width
-            height: parent.height * 0.08
-            anchors.horizontalCenter: parent.horizontalCenter
+        Button {
+            implicitWidth: parent.width*0.9
+            implicitHeight: parent.height * 0.08
+            Layout.alignment: Qt.AlignCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
             contentItem: Text {
@@ -302,11 +303,12 @@ Item {
         SelectableFilter {
             id: difficultyFilterSelectable
             filterText: "Difficulté"
+            Layout.alignment: Qt.AlignCenter
         }
 
         MultiPointSlider {
             visible: true
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignCenter
             first.value: settings.difficultyMin
             second.value: settings.difficultyMax
             first.onValueChanged: settings.difficultyMin = minValueSlider()
@@ -316,11 +318,12 @@ Item {
         SelectableFilter {
             id: fieldFilterSelectable
             filterText: "Terrain"
+            Layout.alignment: Qt.AlignCenter
         }
 
         MultiPointSlider {
             visible: true
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignCenter
             first.value: settings.terrainMin
             second.value: settings.terrainMax
             first.onValueChanged: settings.terrainMin = minValueSlider()
@@ -329,6 +332,7 @@ Item {
 
         CheckBox {
             id :found
+            Layout.alignment: Qt.AlignLeft
             checked: settings.excludeCachesFound
             onCheckedChanged: main.excludeFound = found.checkState
             contentItem: Text {
@@ -361,6 +365,7 @@ Item {
 
         CheckBox {
             id :archived
+            Layout.alignment: Qt.AlignLeft
             checked: settings.excludeCachesArchived
             onCheckedChanged: main.excludeArchived = archived.checkState
             contentItem: Text {
@@ -394,13 +399,14 @@ Item {
 
         SelectableFilter {
             id: keywordFilterSelectable
+            Layout.alignment: Qt.AlignCenter
             filterText: "Mot-clé , Découvreur..."
         }
 
-        Button {           
-            width: parent.width*0.7
-            height: parent.height * 0.08
-            anchors.horizontalCenter: parent.horizontalCenter
+        Button {
+            implicitWidth: parent.width*0.9
+            implicitHeight: parent.height * 0.08
+            Layout.alignment: Qt.AlignCenter
             font.family: localFont.name
             font.pixelSize: height * 0.45
             contentItem: Text {
