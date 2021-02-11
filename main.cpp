@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("ipsquad.net");
     app.setApplicationName("FastCache");
     QQuickView view(QUrl(QStringLiteral("qrc:/main.qml")));
-    view.setWidth(450);
+    view.setWidth(510);
     view.setHeight(840);
     view.show();
 

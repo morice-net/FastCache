@@ -21,9 +21,9 @@ Item {
             clip:true
 
             Button {
-                id:buttonAddWpt            
-               anchors.horizontalCenter: parent.horizontalCenter
-               contentItem: Text {
+                id:buttonAddWpt
+                anchors.horizontalCenter: parent.horizontalCenter
+                contentItem: Text {
                     text:"Ajouter une étape personnelle"
                     font.family: localFont.name
                     font.pixelSize: 35
