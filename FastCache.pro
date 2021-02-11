@@ -10,6 +10,8 @@ win32 {
     QT += webengine
 }
 
+QMAKE_LFLAGS += -fuse-ld=gold
+
 SOURCES += main.cpp \
     cachesrecorded.cpp \
     cachessinglelist.cpp \
@@ -113,4 +115,4 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 ANDROID_EXTRA_LIBS = $$PWD/android/libcrypto.so $$PWD/android/libssl.so
 
 ANDROID_ABIS = armeabi-v7a
-android: include(/home/artaud/Android/Sdk/android_openssl/openssl.pri)
+ android: include(/home/artaud/Android/Sdk/android_openssl/openssl.pri)
