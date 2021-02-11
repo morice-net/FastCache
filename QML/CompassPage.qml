@@ -186,8 +186,7 @@ Item {
     CompassMapSwipeButton {
         id: compassMapSwipeButton
         buttonText: "Voir la\ncarte"
-
-        anchors.margins: 20
+        anchors.margins: 50
         anchors.top: parent.top
         anchors.right: parent.right
 

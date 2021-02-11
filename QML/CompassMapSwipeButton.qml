@@ -4,9 +4,8 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: compassMapSwipeButton
-    height: parent.height * 0.12
-    width: parent.width * 0.3
-
+    height: parent.height * 0.10
+    width: parent.width * 0.2
     opacity: 0.75
 
     property string buttonText
@@ -29,7 +28,7 @@ Item {
             id: compassMapSwipeButtonName
             anchors.fill: parent
             font.family: localFont.name
-            font.pointSize: 24
+            font.pointSize: 18
             text: buttonText
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
