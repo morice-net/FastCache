@@ -49,40 +49,65 @@ Item {
 
         Item {
             id: userInfoMenu
-            height: parent.height * 0.12
+            height: parent.height * 0.17
             width: parent.width
 
             Row {
-                x: 10
-                y: 10
+                anchors.fill: parent
+                anchors.margins: 5
                 spacing: 10
                 visible: userInfo.name.length > 0
                 Image {
-                    height: userInfoMenu.height - 20
+                    id: userInfoIcon
+                    height: parent.height
                     width: height
                     source: userInfo.avatarUrl
                 }
 
                 Column {
+                    height: parent.height
+                    spacing: 0
+                    clip: true
                     Text {
+                        height: parent.height * 0.5
                         text: userInfo.name
                         font.family: localFont.name
-                        font.pixelSize: userInfoMenu.height * 0.45
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: height
                         color: Palette.black()
+
+                        onTextChanged: {
+                            if (text === "") return
+                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pixelSize--
+                        }
                     }
 
                     Text {
+                        height: parent.height * 0.25
                         text: findCount + " caches trouvées"
                         font.family: localFont.name
-                        font.pixelSize: userInfoMenu.height * 0.2
+                        verticalAlignment: Text.AlignBottom
+                        font.pixelSize: height
                         color: Palette.greenSea()
+
+                        onTextChanged: {
+                            if (text === "0 caches trouvées") return
+                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pixelSize--
+                        }
                     }
 
                     Text {
+                        height: parent.height * 0.25
                         text: "Membre : " + userInfo.premium
                         font.family: localFont.name
-                        font.pixelSize: userInfoMenu.height * 0.2
+                        verticalAlignment: Text.AlignVCenter
+                        font.pixelSize: height
                         color: Palette.greenSea()
+
+                        onTextChanged: {
+                            if (text === "Membre : ") return
+                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pixelSize--
+                        }
                     }
                 }
             }
@@ -106,7 +131,7 @@ Item {
                     id: connectButtonMenuRectangle
                     radius: 20
                     anchors.fill: parent
-                    anchors.margins: 20
+                    anchors.margins: 18
                     color: Palette.turquoise()
 
                     SequentialAnimation on opacity {
@@ -146,7 +171,7 @@ Item {
             id: mapButtonMenu
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
-            anchors.topMargin: 20
+            anchors.topMargin: 18
 
             firstButtonSelected: true
             button1Text: "Carte"
@@ -167,7 +192,7 @@ Item {
             id: bboxButtonMenu
             anchors.top: mapButtonMenu.bottom
             anchors.topMargin: 2
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 18
             buttonSelected: false
 
             buttonText: " Carte active"
@@ -208,8 +233,8 @@ Item {
         FastSelectableButtonMenu {
             id: nearButtonMenu
             anchors.top: bboxButtonMenu.bottom
-            anchors.topMargin: 40
-            anchors.bottomMargin: 20
+            anchors.topMargin: 30
+            anchors.bottomMargin: 18
 
             buttonSelected: main.state === "near"
             buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
@@ -231,7 +256,7 @@ Item {
             id: addressButtonMenu
             anchors.top: nearButtonMenu.bottom
             anchors.topMargin: 2
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 18
 
             buttonSelected: main.state === "address"
             buttonText: main.viewState === "fullcache" ? "Naviguer" : "Adresse"
@@ -261,7 +286,7 @@ Item {
             id: coordinatesButtonMenu
             anchors.top: addressButtonMenu.bottom
             anchors.topMargin: 2
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 18
             buttonSelected: main.state === "coordinates"
             buttonText: main.viewState === "fullcache" ? "Log" : "Coordonnées"
 
@@ -289,8 +314,8 @@ Item {
         FastSelectableButtonMenu {
             id: saveButtonMenu
             anchors.top: coordinatesButtonMenu.bottom
-            anchors.topMargin: 40
-            anchors.bottomMargin: 20
+            anchors.topMargin: 30
+            anchors.bottomMargin: 18
             buttonText:  "Caches Enregistrées"
 
             function buttonClicked() {
