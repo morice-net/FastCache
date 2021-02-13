@@ -10,7 +10,9 @@ win32 {
     QT += webengine
 }
 
-QMAKE_LFLAGS += -fuse-ld=gold
+!win32 {
+    QMAKE_LFLAGS += -fuse-ld=gold
+}
 
 SOURCES += main.cpp \
     cachesrecorded.cpp \
