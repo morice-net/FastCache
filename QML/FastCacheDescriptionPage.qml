@@ -12,6 +12,8 @@ Item {
     property string descriptionText: fullCache.shortDescription + fullCache.longDescription
     property int webHistoryRank: -1
 
+    property alias webViewOpacity: webEngineView.opacity
+
     onDescriptionTextChanged: {
         if((main.state !== "recorded") || (main.cachesActive === true)) {
             webEngineView.loadHtml(descriptionText)

@@ -11,6 +11,7 @@ Rectangle {
 
     // use to allow overlap of the web view by the menu
     property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.cachesActive === true)
+    property alias webViewDescriptionPageOpacity: descriptionPage.webViewOpacity
 
     // used to send images to a log
     property var listImagesUrl: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
