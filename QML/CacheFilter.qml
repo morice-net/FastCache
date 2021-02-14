@@ -27,38 +27,39 @@ Item {
         border.color: Palette.greenSea()
         anchors.top: filterHeadArrow.bottom
 
-        Row {
+        Text {
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.margins: 15
+            font.family: localFont.name
+            font.pointSize: 24
+            verticalAlignment: Text.AlignLeft
+            horizontalAlignment: Text.AlignLeft
+            color: Palette.greenSea()
+            text: "  Filtrer les caches par :     "
+        }
 
-            Text {
-                y: 10
-                font.family: localFont.name
-                font.pointSize: 24
-                verticalAlignment: Text.AlignLeft
-                horizontalAlignment: Text.AlignLeft
-                color: Palette.greenSea()
-                text: "  Filtrer les caches par :     "
+        Rectangle {
+            id: rectangleImage
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 15
+            height: filtersRectangle.width * 0.1
+            width: height
+            radius: 10
+            color: Palette.turquoise()
+
+            Image {
+                anchors.fill: parent
+                anchors.margins: 5
+                source: "qrc:/Image/update-arrows.png"
             }
 
-            Rectangle {
-                id: rectangleImage
-                y: 13
-                height: filtersRectangle.width * 0.1
-                width: height
-                radius: 10
-                color: Palette.turquoise()
-
-                Image {
-                    anchors.fill: parent
-                    anchors.margins: 5
-                    source: "qrc:/Image/update-arrows.png"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        reloadCaches()
-                        cacheFilter.opacity = 0
-                    }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    reloadCaches()
+                    cacheFilter.opacity = 0
                 }
             }
         }
