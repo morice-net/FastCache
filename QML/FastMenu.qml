@@ -339,7 +339,7 @@ Item {
 
     function showMenu() {
         //web view description page not visible
-        fastCache.webViewDescriptionPageOpacity = 0
+        fastCache.webViewDescriptionPageVisible = false
 
         console.log("Show menu...")
         menu.x = 0
@@ -353,7 +353,7 @@ Item {
 
         // web view description page visible
         if(main.state !== "recorded" || main.cachesActive === true)
-            fastCache.webViewDescriptionPageOpacity = 1
+            fastCache.webViewDescriptionPageVisible = true
     }
 
     function nearCachesClicked() {
