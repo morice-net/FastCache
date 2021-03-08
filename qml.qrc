@@ -179,5 +179,7 @@
         <file>QML/CoordinatesBox2.qml</file>
         <file>QML/CoordinatesBox3.qml</file>
         <file>QML/CursorRectangle.qml</file>
+        <file>QML/FastMenuLevel1.qml</file>
+        <file>QML/FastMenuLevel2.qml</file>
     </qresource>
 </RCC>

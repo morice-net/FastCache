@@ -164,172 +164,30 @@ Item {
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        //                      button on the middle of the menu                 //
+        //                      buttons on the menu                 //
         ///////////////////////////////////////////////////////////////////////////
 
-        FastDoubleButtonMenu {
-            id: mapButtonMenu
+        FastMenuLevel1 {
+            id: fastMenuLevel1
+            width: parent.width
+            height: parent.height
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
             anchors.topMargin: 18
 
-            firstButtonSelected: true
-            button1Text: "Carte"
-            button2Text: "Liste"
-
-            function buttonClicked() {
-                firstButtonSelected = !firstButtonSelected
-                if (firstButtonSelected)
-                    main.viewState = "map"
-                else
-                    main.viewState = "list"
-                if (main.cachesActive)
-                    fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-            }
+            Behavior on x { NumberAnimation { duration: 900 } }
         }
 
-        FastSelectableButtonMenu {
-            id: bboxButtonMenu
-            anchors.top: mapButtonMenu.bottom
-            anchors.topMargin: 2
-            anchors.bottomMargin: 18
-            buttonSelected: false
+        FastMenuLevel2 {
+            id: fastMenuLevel2
+            x: - parent.width
+            height: parent.height
+            width: parent.width
+            anchors.bottomMargin: 2
+            anchors.top: userInfoMenu.bottom
+            anchors.topMargin: 18
 
-            buttonText: " Carte active"
-            centered: false
-
-            Item {
-                height: parent.height * 0.8
-                width: parent.width * 0.45
-                anchors.right: parent.right
-                anchors.margins: parent.height * 0.1
-                y: parent.height * 0.1
-
-                FastDoubleButtonMenu {
-                    id: activeCaches
-                    height: parent.height
-
-                    firstButtonSelected: main.cachesActive
-                    button1Text: "On"
-                    button2Text: "Off"
-                    small: true
-
-                    function buttonClicked() {
-                        main.cachesActive = !(main.cachesActive)
-                        if (firstButtonSelected) {
-                            reloadCaches()
-                        } else {
-                            main.cachesActive = false
-                            fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-                        }
-                    }
-                }
-            }
-
-            function buttonClicked() {
-            }
-        }
-
-        FastSelectableButtonMenu {
-            id: nearButtonMenu
-            anchors.top: bboxButtonMenu.bottom
-            anchors.topMargin: 30
-            anchors.bottomMargin: 18
-
-            buttonSelected: main.state === "near"
-            buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
-
-            function buttonClicked() {
-                if (main.viewState === "fullcache") {
-                    fullCache.launchMaps(fullCache.lat , fullCache.lon);
-                } else {
-                    main.state = "near"
-                    hideMenu()
-                    main.cachesActive = false
-                    nearCachesClicked()
-                    fastMap.mapItem.center = currentPosition.position.coordinate
-                }
-            }
-        }
-
-        FastSelectableButtonMenu {
-            id: addressButtonMenu
-            anchors.top: nearButtonMenu.bottom
-            anchors.topMargin: 2
-            anchors.bottomMargin: 18
-
-            buttonSelected: main.state === "address"
-            buttonText: main.viewState === "fullcache" ? "Naviguer" : "Adresse"
-
-            function buttonClicked() {
-                if(main.viewState === "fullcache"){
-                    hideMenu()
-                    fastCache.compassPageInit("Cache   " + fullCache.geocode , fullCache.lat , fullCache.lon)
-                    fastCache.swipeToPage(0)
-                    fastCache.z = 0
-                } else {
-                    main.state = "address"
-                    if(fastMap.checkedPluginMap().supportsGeocoding()){
-                        main.cachesActive = false
-                        hideMenu()
-                        geocode.open()
-                    } else {
-                        hideMenu()
-                        toast.visible = true
-                        toast.show("Le plugin ne gère pas le géocoding.")
-                    }
-                }
-            }
-        }
-
-        FastSelectableButtonMenu {
-            id: coordinatesButtonMenu
-            anchors.top: addressButtonMenu.bottom
-            anchors.topMargin: 2
-            anchors.bottomMargin: 18
-            buttonSelected: main.state === "coordinates"
-            buttonText: main.viewState === "fullcache" ? "Log" : "Coordonnées"
-
-            function buttonClicked() {
-                if(main.viewState === "fullcache"){
-                    hideMenu()
-                    if(fullCache.imagesName.length !== 0) {
-                        fastCache.swipeToPage(6)
-                    } else {
-                        fastCache.swipeToPage(5)
-                    }
-                } else {
-                    main.state = "coordinates"
-                    main.cachesActive = false
-                    hideMenu()
-                    coordinatesBox.open()
-                }
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////
-        //                      button on the bottom of the menu                 //
-        ///////////////////////////////////////////////////////////////////////////
-
-        FastSelectableButtonMenu {
-            id: saveButtonMenu
-            anchors.top: coordinatesButtonMenu.bottom
-            anchors.topMargin: 30
-            anchors.bottomMargin: 18
-            buttonText:  "Caches Enregistrées"
-
-            function buttonClicked() {
-                // Display list of recorded caches and prepare Center Map.
-                main.cachesActive = false
-                main.state = "recorded";
-                cachesRecorded.updateMapCachesRecorded()
-                fastMap.clearMap()
-                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
-
-                // center and zoom level
-                hideMenu()
-                centerMapCaches(cachesSingleList.caches)
-            }
+            Behavior on x { NumberAnimation { duration: 900 } }
         }
     }
 

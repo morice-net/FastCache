@@ -1,0 +1,137 @@
+import QtQuick 2.6
+
+Item {
+    id: fastMenuLevel1
+
+    FastDoubleButtonMenu {
+        id: mapButtonMenu
+        firstButtonSelected: true
+        button1Text: "Carte"
+        button2Text: "Liste"
+
+        function buttonClicked() {
+            firstButtonSelected = !firstButtonSelected
+            if (firstButtonSelected)
+                main.viewState = "map"
+            else
+                main.viewState = "list"
+            if (main.cachesActive)
+                fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
+        }
+    }
+
+    FastSelectableButtonMenu {
+        id: bboxButtonMenu
+        anchors.top: mapButtonMenu.bottom
+        anchors.topMargin: 2
+        anchors.bottomMargin: 18
+        buttonSelected: false
+
+        buttonText: " Carte active"
+        centered: false
+
+        Item {
+            height: parent.height * 0.8
+            width: parent.width * 0.45
+            anchors.right: parent.right
+            anchors.margins: parent.height * 0.1
+            y: parent.height * 0.1
+
+            FastDoubleButtonMenu {
+                id: activeCaches
+                height: parent.height
+
+                firstButtonSelected: main.cachesActive
+                button1Text: "On"
+                button2Text: "Off"
+                small: true
+
+                function buttonClicked() {
+                    main.cachesActive = !(main.cachesActive)
+                    if (firstButtonSelected) {
+                        reloadCaches()
+                    } else {
+                        main.cachesActive = false
+                        fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
+                    }
+                }
+            }
+        }
+
+        function buttonClicked() {
+        }
+    }
+
+    FastSelectableButtonMenu {
+        id: nearButtonMenu
+        anchors.top: bboxButtonMenu.bottom
+        anchors.topMargin: 30
+        anchors.bottomMargin: 18
+
+        buttonSelected: main.state === "near"
+        buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
+
+        function buttonClicked() {
+            if (main.viewState === "fullcache") {
+                fullCache.launchMaps(fullCache.lat , fullCache.lon);
+            } else {
+                main.state = "near"
+                hideMenu()
+                main.cachesActive = false
+                nearCachesClicked()
+                fastMap.mapItem.center = currentPosition.position.coordinate
+            }
+        }
+    }
+
+    FastSelectableButtonMenu {
+        id: addressButtonMenu
+        anchors.top: nearButtonMenu.bottom
+        anchors.topMargin: 2
+        anchors.bottomMargin: 18
+
+        buttonText: main.viewState === "fullcache" ? "Naviguer" : "Recherche"
+
+        function buttonClicked() {
+            if(main.viewState === "fullcache"){
+                hideMenu()
+                fastCache.compassPageInit("Cache   " + fullCache.geocode , fullCache.lat , fullCache.lon)
+                fastCache.swipeToPage(0)
+                fastCache.z = 0
+            } else {
+                fastMenuLevel1.x = -parent.width
+                fastMenuLevel2.x  = 0
+            }
+        }
+    }
+
+    FastSelectableButtonMenu {
+        id: saveButtonMenu
+        anchors.top: addressButtonMenu.bottom
+        anchors.topMargin: 30
+        anchors.bottomMargin: 18
+        buttonText: main.viewState === "fullcache" ? "Log de la cache" : "Caches Enregistrées"
+
+        function buttonClicked() {
+            if(main.viewState === "fullcache"){
+                hideMenu()
+                if(fullCache.imagesName.length !== 0) {
+                    fastCache.swipeToPage(6)
+                } else {
+                    fastCache.swipeToPage(5)
+                }
+            } else {
+                // Display list of recorded caches and prepare Center Map.
+                main.cachesActive = false
+                main.state = "recorded";
+                cachesRecorded.updateMapCachesRecorded()
+                fastMap.clearMap()
+                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+
+                // center and zoom level
+                hideMenu()
+                centerMapCaches(cachesSingleList.caches)
+            }
+        }
+    }
+}
