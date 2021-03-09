@@ -51,9 +51,10 @@ Item {
 
     FastSelectableButtonMenu {
         id: geocodeCacheButtonMenu
-        height: parent.height * 0.20
+        height: parent.height * 0.17
         anchors.top: coordinatesButtonMenu.bottom
         anchors.topMargin: 25
+        centeredVertical: false
         buttonText: "Géocode de la cache"
 
         TextField {
@@ -62,10 +63,10 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 20
             color: Palette.turquoise()
+            font.capitalization: Font.AllUppercase
             font.pointSize: 16
             placeholderText: "GC               "
             background: Rectangle {
-                implicitHeight: 30
                 color: Palette.white()
                 radius: 10
             }
@@ -77,9 +78,10 @@ Item {
 
     FastSelectableButtonMenu {
         id: codeTravelBugButtonMenu
-        height: parent.height * 0.20
+        height: parent.height * 0.17
         anchors.top: geocodeCacheButtonMenu.bottom
         anchors.topMargin: 25
+        centeredVertical: false
         buttonText: "Code du travel bug"
 
         TextField {
@@ -88,10 +90,10 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 20
             color: Palette.turquoise()
+            font.capitalization: Font.AllUppercase
             font.pointSize: 16
             placeholderText: "                 "
             background: Rectangle {
-                implicitHeight: 30
                 color: Palette.white()
                 radius: 10
             }

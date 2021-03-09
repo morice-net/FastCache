@@ -11,6 +11,7 @@ Item {
     property bool buttonSelected
     property string buttonText
     property bool centered: true
+    property bool centeredVertical: true
     
     Rectangle {
         radius: 20
@@ -25,7 +26,7 @@ Item {
             font.family: localFont.name
             font.pointSize: 24
             text: fastSelectableButtonMenu.buttonText
-            verticalAlignment: Text.AlignVCenter
+            verticalAlignment: centeredVertical ? Text.AlignVCenter :  Text.AlignTop
             horizontalAlignment: centered ? Text.AlignHCenter : Text.AlignLeft
             color: fastSelectableButtonMenu.buttonSelected ? Palette.turquoise() : Palette.white()
         }
