@@ -1,4 +1,7 @@
 import QtQuick 2.6
+import QtQuick.Controls 2.5
+
+import "JavaScript/Palette.js" as Palette
 
 Item {
 
@@ -48,9 +51,25 @@ Item {
 
     FastSelectableButtonMenu {
         id: geocodeCacheButtonMenu
+        height: parent.height * 0.20
         anchors.top: coordinatesButtonMenu.bottom
         anchors.topMargin: 25
         buttonText: "Géocode de la cache"
+
+        TextField {
+            id: geocodeCache
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 20
+            color: Palette.turquoise()
+            font.pointSize: 16
+            placeholderText: "GC               "
+            background: Rectangle {
+                implicitHeight: 30
+                color: Palette.white()
+                radius: 10
+            }
+        }
 
         function buttonClicked() {
         }
@@ -58,9 +77,25 @@ Item {
 
     FastSelectableButtonMenu {
         id: codeTravelBugButtonMenu
+        height: parent.height * 0.20
         anchors.top: geocodeCacheButtonMenu.bottom
         anchors.topMargin: 25
         buttonText: "Code du travel bug"
+
+        TextField {
+            id: codeTravelBug
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottomMargin: 20
+            color: Palette.turquoise()
+            font.pointSize: 16
+            placeholderText: "                 "
+            background: Rectangle {
+                implicitHeight: 30
+                color: Palette.white()
+                radius: 10
+            }
+        }
 
         function buttonClicked() {
         }
