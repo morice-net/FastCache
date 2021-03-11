@@ -18,6 +18,9 @@ Item {
     visible: true
     focus: true
 
+    // Used for downloading a full cache by geocode
+    property string previousGeocode: ""
+
     // State can take "near" "address" "coordinates" "recorded"....
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
     property bool cachesActive: false
@@ -191,6 +194,16 @@ Item {
 
     FullCacheRetriever {
         id: fullCacheRetriever
+        onStateChanged: {
+            if(fullCacheRetriever.state !== "loading" && fullCacheRetriever.state === "OK")
+                viewState = "fullcache"
+            if(fullCacheRetriever.state !== "loading" && fullCacheRetriever.state !== "OK") {
+                toast.visible = true;
+                toast.show("Erreur de téléchargement  " + "(" + state + ")");
+                if(viewState === "fullcache")
+                    fullCache.geocode = previousGeocode
+            }
+        }
         Component.onCompleted: updateFullCache(fullCache)
     }
 
@@ -213,9 +226,9 @@ Item {
     Travelbug {
         id: travelbug
         onStateChanged: {
-            if(travelbug.state!== "loading" && travelbug.state!=="OK")
+            if(travelbug.state !== "loading" && travelbug.state!=="OK")
             {
-                toast.visible;
+                toast.visible = true;
                 toast.show("Erreur  " + "(" + state + ")");
             }
         }
@@ -229,8 +242,7 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             if (sendCacheNote.state === "OK"){
                 toast.show("La note personnelle a été correctement envoyée");
-            }
-            else {
+            } else {
                 toast.show("La note personnelle a été supprimée ")
             }
         }

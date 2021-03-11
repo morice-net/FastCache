@@ -73,6 +73,13 @@ Item {
         }
 
         function buttonClicked() {
+            if(geocodeCache.text.length !== 0) {
+                if(main.viewState === "fullcache")
+                    // previous cache in case the download fails
+                    previousGeocode = fullCache.geocode
+                fullCache.geocode = geocodeCache.text.toUpperCase()
+                fullCacheRetriever.sendRequest(connector.tokenKey)
+            }
         }
     }
 
