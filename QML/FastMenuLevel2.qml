@@ -107,6 +107,9 @@ Item {
         }
 
         function buttonClicked() {
+            if(codeTravelBug.text.length !== 0) {
+                travelbug.sendRequest(connector.tokenKey , codeTravelBug.text.toUpperCase());
+            }
         }
     }
 }

@@ -271,6 +271,7 @@ Item {
                 Column{
                     anchors.horizontalCenter: fastTravelbugDetailsPage.horizontalCenter
                     Text {
+                        width: parent.width*0.8
                         x:10
                         visible: travelbug.imagesName[index] !== ""
                         text: travelbug.imagesName[index]

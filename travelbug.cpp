@@ -32,7 +32,7 @@ Travelbug::~Travelbug()
 {
 }
 
-void Travelbug::sendRequest(QString token ,QString trackableCode)
+void Travelbug::sendRequest(QString token , QString trackableCode)
 {
     //Build url
     QString requestName = "trackables/";

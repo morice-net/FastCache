@@ -279,7 +279,6 @@ Item {
                                     anchors.fill: parent
                                     onClicked: {
                                         travelbug.sendRequest(connector.tokenKey , getTravelbugUser.tbsCode[index]);
-                                        main.viewState = "travelbug"
                                     }
                                 }
                             }

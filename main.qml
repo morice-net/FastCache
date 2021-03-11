@@ -226,10 +226,12 @@ Item {
     Travelbug {
         id: travelbug
         onStateChanged: {
-            if(travelbug.state !== "loading" && travelbug.state!=="OK")
+            if(travelbug.state !== "loading" && travelbug.state === "OK")
+                main.viewState = "travelbug"
+            if(travelbug.state !== "loading" && travelbug.state !== "OK")
             {
                 toast.visible = true;
-                toast.show("Erreur  " + "(" + state + ")");
+                toast.show("Erreur de téléchargement   " + "(" + state + ")");
             }
         }
     }
