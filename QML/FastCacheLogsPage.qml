@@ -15,99 +15,107 @@ Item {
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        Column{            
-            spacing:10
+        Column{
+            spacing:15
             width: logsPage.width
 
             Repeater{
                 model:fullCache.logs.length
 
-                Column{
+                Rectangle{
+                    x:15
+                    width: parent.width*0.95
+                    height: textLog.height + 10
+                    border.width: 4
+                    border.color: Palette.silver()
+                    radius: 8
 
-                    Item {
-                        width: logs.width
-                        height: 35
-                        Text {
-                            text: fullCache.findersName[index]
-                            leftPadding: 15
-                            font.family: localFont.name
-                            font.bold: true
-                            font.pointSize: 15
-                            color: Palette.white()
-                            wrapMode: Text.Wrap
-                            anchors.left: parent.left
-                        }
+                    Column{
+                        id: textLog
+                        spacing: 15
 
-                        Text {
-                            text: new Date(fullCache.findersDate[index]).toLocaleDateString(Qt.locale("fr_FR"))
-                            leftPadding: 15
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.silver()
-                            wrapMode: Text.Wrap
-                            anchors.right: parent.right
-                            anchors.rightMargin: 10
-                        }
-                    }
+                        Item {
+                            width: parent.width*0.95
+                            height: 35
 
-                    Item {
-                        width: logs.width
-                        height: 35
+                            Text {
+                                topPadding: 10
+                                leftPadding: 15
+                                anchors.left: parent.left
+                                text: fullCache.findersName[index]
+                                font.family: localFont.name
+                                font.bold: true
+                                font.pointSize: 15
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
 
-                        Text {
-                            text: fullCache.logsType[index]
-                            leftPadding: 15
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.silver()
-                            wrapMode: Text.Wrap
-                            anchors.left: parent.left
-                        }
-
-                        Text {
-                            text: "Nombre de caches:  " + fullCache.findersCount[index]
-                            leftPadding: 15
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.silver()
-                            wrapMode: Text.Wrap
-                            anchors.right: parent.right
-                            anchors.rightMargin: 10
-                        }
-                    }
-
-                    Image {
-                        x:15
-                        source:"qrc:/Image/" + "icon_photo.png"
-                        visible:(fullCache.cacheImagesIndex[index + 1] - fullCache.cacheImagesIndex[index]) === 0 ? false : true
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                imagesLog(index);
-                                swipeFastCache.setCurrentIndex(5) ;
-                                fastCache.allVisible = false ;
+                            Text {
+                                text: new Date(fullCache.findersDate[index]).toLocaleDateString(Qt.locale("fr_FR"))
+                                topPadding: 10
+                                leftPadding: 15
+                                anchors.right: parent.right
+                                anchors.rightMargin: 10
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
                             }
                         }
-                    }
 
-                    Text {
-                        width: logsPage.width
-                        font.family: localFont.name
-                        font.pointSize: 15
-                        horizontalAlignment: TextEdit.AlignJustify
-                        color: Palette.white()
-                        textFormat: Qt.RichText
-                        wrapMode: TextArea.Wrap
-                        leftPadding: 15
-                        rightPadding: 15
-                        onLinkActivated: Qt.openUrlExternally(link)
-                        text: fullCache.logs[index]
-                    }
+                        Item {
+                            width: parent.width*0.95
+                            height: 35
 
-                    Rectangle {
-                        height: 1
-                        width: parent.width
-                        color: Palette.silver()
+                            Text {
+                                text: fullCache.logsType[index]
+                                leftPadding: 15
+                                anchors.left: parent.left
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
+
+                            Text {
+                                text: "Nombre de caches:  " + fullCache.findersCount[index]
+                                leftPadding: 15
+                                anchors.right: parent.right
+                                anchors.rightMargin: 10
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
+                        }
+
+                        Image {
+                            x:15
+                            source:"qrc:/Image/" + "icon_photo.png"
+                            visible:(fullCache.cacheImagesIndex[index + 1] - fullCache.cacheImagesIndex[index]) === 0 ? false : true
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    imagesLog(index);
+                                    swipeFastCache.setCurrentIndex(5) ;
+                                    fastCache.allVisible = false ;
+                                }
+                            }
+                        }
+
+                        Text {
+                            width: logsPage.width*0.95
+                            leftPadding: 10
+                            rightPadding: 10
+                            font.family: localFont.name
+                            font.pointSize: 15
+                            horizontalAlignment: TextEdit.AlignJustify
+                            color: Palette.greenSea()
+                            textFormat: Qt.RichText
+                            wrapMode: TextArea.Wrap
+                            onLinkActivated: Qt.openUrlExternally(link)
+                            text: fullCache.logs[index]
+                        }
                     }
                 }
             }
@@ -116,9 +124,7 @@ Item {
 
     function imagesLog(logIndex) {
         var visible =[];
-
         for (var i = 0; i < fullCache.imagesName.length; i++) {
-
             if( i < fullCache.cacheImagesIndex[logIndex]){
                 visible.push(false) ;
             } else {
@@ -130,7 +136,6 @@ Item {
             }
         }
         fullCache.setListVisibleImages(visible);
-
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
     }
