@@ -25,6 +25,9 @@ Item {
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
     property bool cachesActive: false
 
+    // Previous viewstate used when downloading a travel bug
+    property string previousViewState: ""
+
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
         settings.webcam , settings.wherigo , settings.gchq]
@@ -226,6 +229,7 @@ Item {
     Travelbug {
         id: travelbug
         onStateChanged: {
+            previousViewState = main.viewState
             if(travelbug.state !== "loading" && travelbug.state === "OK")
                 main.viewState = "travelbug"
             if(travelbug.state !== "loading" && travelbug.state !== "OK")
@@ -437,7 +441,7 @@ Item {
             } else if (main.viewState == "fullcache" || main.viewState == "list") {
                 main.viewState = "map"
             } else if (main.viewState == "travelbug") {
-                main.viewState = "fullcache"
+                main.viewState = previousViewState
             }else {
                 sureQuit.visible = true
             }

@@ -125,7 +125,6 @@ Item {
                 }
             }
 
-
             Row {
                 width: parent.width
                 spacing: 15
