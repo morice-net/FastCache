@@ -25,7 +25,6 @@ Item {
                 model: displayTbsPage()
 
                 Column {
-                    width: tbsPage.width
                     height: tbsPage.height * 0.1
 
                     Row {
@@ -38,6 +37,7 @@ Item {
                         }
 
                         Text {
+                            width: tbsPage.width
                             text: fullCache.trackableNames[index]
                             font.family: localFont.name
                             textFormat: Qt.RichText
@@ -49,13 +49,12 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    travelbug.sendRequest(connector.tokenKey , fullCache.trackableCodes[index]);
-                                    main.viewState = "travelbug"
+                                    travelbug.sendRequest(connector.tokenKey , fullCache.trackableCodes[index])
                                 }
                             }
                         }
-
                     }
+
                     Rectangle {
                         height: 1
                         width: parent.width*0.6
