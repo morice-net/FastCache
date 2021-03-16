@@ -22,105 +22,92 @@ Item {
             Repeater {
                 model:displayTbLogsPage()
 
-                Column {
+                Rectangle {
+                    x: 15
+                    y: 20
+                    width: parent.width*0.95
+                    height: textLog.height + 10
+                    border.width: 4
+                    border.color: Palette.silver()
+                    radius: 8
 
-                    Item {
-                        width: logs.width
-                        height: 35
-                        Text {
-                            text: travelbug.logsOwnersName[index]
-                            leftPadding: 15
-                            font.family: localFont.name
-                            font.bold: true
-                            font.pointSize: 15
-                            color: Palette.white()
-                            wrapMode: Text.Wrap
-                            anchors.left: parent.left
+                    Column{
+                        id: textLog
+                        spacing: 15
+
+                        Item {
+                            width: parent.width*0.95
+                            height: 35
+
+                            Text {
+                                topPadding: 10
+                                leftPadding: 15
+                                anchors.left: parent.left
+                                text: travelbug.logsOwnersName[index]
+                                font.family: localFont.name
+                                font.bold: true
+                                font.pointSize: 15
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
+
+                            Text {
+                                text: new Date(travelbug.logsDate[index]).toLocaleDateString(Qt.locale("fr_FR"))
+                                topPadding: 10
+                                anchors.right: parent.right
+                                anchors.rightMargin: 10
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
                         }
-
-                        Text {
-                            text: new Date(travelbug.logsDate[index]).toLocaleDateString(Qt.locale("fr_FR"))
-                            leftPadding: 15
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.silver()
-                            wrapMode: Text.Wrap
-                            anchors.right: parent.right
-                            anchors.rightMargin: 10
-                        }
-                    }
-
-                    Item {
-                        width: logs.width
-                        height: 35
 
                         Text {
                             text: travelbug.logsOwnersCount[index]
                             leftPadding: 15
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.silver()
-                            wrapMode: Text.Wrap
                             anchors.left: parent.left
+                            font.family: localFont.name
+                            font.pointSize: 13
+                            color: Palette.black()
+                            wrapMode: Text.Wrap
                         }
 
                         Text {
-                            text: travelbug.logsGeocacheCode[index]
+                            visible: travelbug.logsGeocacheCode[index] !== ""
+                            text: travelbug.logsGeocacheCode[index] + " : " + travelbug.logsGeocacheName[index]
                             leftPadding: 15
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.silver()
-                            wrapMode: Text.Wrap
-                            anchors.right: parent.right
+                            anchors.left: parent.left
                             anchors.rightMargin: 10
-                        }
-                    }
-
-                    Item {
-                        width: logs.width
-                        height: 35
-
-                        Text {
-                            text: travelbug.logsGeocacheName[index]
-                            leftPadding: 15
                             font.family: localFont.name
                             font.pointSize: 13
-                            color: Palette.silver()
+                            color: Palette.black()
                             wrapMode: Text.Wrap
+                        }
+
+                        Text {
+                            text: travelbug.logsType[index]
+                            leftPadding: 15
+                            anchors.left: parent.left
+                            font.family: localFont.name
+                            font.pointSize: 13
+                            color: Palette.black()
+                            wrapMode: Text.Wrap
+                        }
+
+                        Text {
+                            width: logsPage.width*0.95
+                            font.family: localFont.name
+                            font.pointSize: 15
+                            horizontalAlignment: TextEdit.AlignJustify
+                            color: Palette.greenSea()
                             textFormat: Qt.RichText
-                            anchors.right: parent.right
-                            anchors.rightMargin: 10
+                            wrapMode: TextArea.Wrap
+                            leftPadding: 15
+                            rightPadding: 15
+                            onLinkActivated: Qt.openUrlExternally(link)
+                            text: travelbug.logsText[index]
                         }
-                    }
-
-                    Text {
-                        text: travelbug.logsType[index]
-                        leftPadding: 15
-                        font.family: localFont.name
-                        font.pointSize: 13
-                        color: Palette.silver()
-                        wrapMode: Text.Wrap
-                        anchors.left: parent.left
-                    }
-
-                    Text {
-                        width: logsPage.width
-                        font.family: localFont.name
-                        font.pointSize: 15
-                        horizontalAlignment: TextEdit.AlignJustify
-                        color: Palette.white()
-                        textFormat: Qt.RichText
-                        wrapMode: TextArea.Wrap
-                        leftPadding: 15
-                        rightPadding: 15
-                        onLinkActivated: Qt.openUrlExternally(link)
-                        text: travelbug.logsText[index]
-                    }
-
-                    Rectangle {
-                        height: 1
-                        width: parent.width
-                        color: Palette.silver()
                     }
                 }
             }

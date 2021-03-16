@@ -54,13 +54,6 @@ Item {
                             }
                         }
                     }
-
-                    Rectangle {
-                        height: 1
-                        width: parent.width*0.6
-                        color: Palette.silver()
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
                 }
             }
         }
