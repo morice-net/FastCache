@@ -105,7 +105,7 @@ Item {
                     RadioButton {
                         id:button2
                         text: "Pris ailleurs"
-                        visible: travelbug.tbStatus === 1 //travelbug in cache
+                        visible: travelbug.tbStatus === 2 || travelbug.tbStatus === 3 //travelbug in possession of owner or holder of the trackable
                         checked: false
                         onClicked: {
                             typeLogCheck = 19
@@ -169,7 +169,7 @@ Item {
                     RadioButton {
                         id:button4
                         text: "Découvert"
-                        visible: travelbug.tbStatus === 1 //travelbug in cache
+                        visible: travelbug.tbStatus !== 0
                         checked: false
                         onClicked: {
                             typeLogCheck = 48
@@ -341,11 +341,11 @@ Item {
                         }
                     }
                     onClicked:{
-                        if(typeLog !== 4 && travelbug.tbStatus === 1 && message.text !=="") {
+                        if(typeLog !== 4 && travelbug.tbStatus !== 0 && message.text !== "") {
                             sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,
                                                                                                                    dateIso , message.text))
                             sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
-                        } else if(typeLog === 4 && message.text !==""){
+                        } else if(typeLog === 4 && message.text !== ""){
                             sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog("" , typeLog , dateIso , message.text))
                             sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
                         }
@@ -355,7 +355,7 @@ Item {
 
             TextField {
                 id: trackingCode
-                visible:((typeLog !== 4 && travelbug.tbStatus === 1) || (typeLog !== 4 && travelbug.tbStatus === 3))
+                visible:(typeLog !== 4 && travelbug.tbStatus !== 0)
                 placeholderText: qsTr("Code de suivi")
                 font.family: localFont.name
                 font.pointSize: 16

@@ -24,6 +24,7 @@ Travelbug::Travelbug(Requestor *parent)
     , m_logsGeocacheName(QList<QString>())
     , m_logsDate(QList<QString>())
     , m_tbStatus(0)
+    , m_tbIsMissing(false)
     , m_trackingNumber("")
 {
 }
@@ -61,38 +62,64 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
 
     setName(tbJson["name"].toString());
     setTbCode(tbJson["referenceCode"].toString());
+    setDateCreated(tbJson["releasedDate"].toString());
+    setIconUrl(tbJson["iconUrl"].toString());
 
     QJsonObject  tbType = tbJson["trackableType"].toObject();
     setType(tbType["name"].toString());
 
-    QJsonObject owner = tbJson["owner"].toObject();
-    setOriginalOwner(owner["username"].toString());
-
-    // status of travelbug
-    if(tbJson["isMissing"].toBool()){
-        setLocated("Inconnu");
-        setTbStatus(0); //travelbug missing
+    QJsonObject owner;
+    if(!tbJson["owner"].isNull()) {
+        owner = tbJson["owner"].toObject();
+        setOriginalOwner(owner["username"].toString());
+    } else {
+        setOriginalOwner("");
+        setTbStatus(0);
     }
-    else if (!tbJson["holder"].isNull()) {
+
+    if(tbJson["isMissing"].toBool()) {
+        setLocated("");
+        setTbIsMissing(true);
+    }
+
+    if (!tbJson["holder"].isNull()) {
         QJsonObject currentOwner = tbJson["holder"].toObject();
-        setLocated("En possession de " + currentOwner["username"].toString());
-        if(currentOwner["username"].toString() == owner["username"].toString()){
+        if(currentOwner["username"].toString() == originalOwner()){
+            setLocated("Dans les mains du propriétaire");
             setTbStatus(2);  //travelbug in possession of owner of the trackable
             setTrackingNumber(tbJson["trackingNumber"].toString());
         } else {
+            setLocated("En possession de " + currentOwner["username"].toString());
             setTbStatus(3); //travelbug in possession of holder of the trackable
         }
     }
     else if(tbJson["holder"].isNull()){
-        setLocated("Dans la cache " + tbJson["currentGeocacheCode"].toString());
-        setTbStatus(1);  // travelbug in cache
+        if(!tbJson["currentGeocacheCode"].isNull()) {
+            setLocated("Dans la cache " + tbJson["currentGeocacheCode"].toString());
+            setTbStatus(1);  // travelbug in cache
+        } else {
+            setLocated("");
+            setTbStatus(0);
+        }
     }
 
-    setDateCreated(tbJson["releasedDate"].toString());
-    setIconUrl(tbJson["iconUrl"].toString());
-    setGoal(tbJson["goal"].toString());
-    setOriginCountry(tbJson["originCountry"].toString());
-    setDescription(tbJson["description"].toString());
+    if(!tbJson["goal"].isNull()) {
+        setGoal(tbJson["goal"].toString());
+    } else {
+        setGoal("");
+    }
+
+    if(!tbJson["originCountry"].isNull()) {
+        setOriginCountry(tbJson["originCountry"].toString());
+    } else {
+        setOriginCountry("");
+    }
+
+    if(!tbJson["description"].isNull()) {
+        setDescription(tbJson["description"].toString());
+    } else {
+        setDescription("");
+    }
 
     //images
     m_imagesName.clear();
@@ -369,6 +396,17 @@ void Travelbug::setTbStatus(const int &status)
 {
     m_tbStatus = status;
     emit tbStatusChanged();
+}
+
+bool Travelbug::tbIsMissing() const
+{
+    return  m_tbIsMissing;
+}
+
+void Travelbug::setTbIsMissing(const bool &missing)
+{
+    m_tbIsMissing = missing;
+    emit tbIsMissingChanged();
 }
 
 QString Travelbug::trackingNumber() const

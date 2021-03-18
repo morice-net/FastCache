@@ -32,6 +32,7 @@ class Travelbug : public Requestor
     Q_PROPERTY(QList<QString > logsGeocacheName READ logsGeocacheName WRITE setLogsGeocacheName NOTIFY logsGeocacheNameChanged)
     Q_PROPERTY(QList<QString > logsDate READ logsDate WRITE setLogsDate NOTIFY logsDateChanged)
     Q_PROPERTY(int tbStatus READ tbStatus WRITE setTbStatus NOTIFY tbStatusChanged)
+    Q_PROPERTY(bool tbIsMissing READ tbIsMissing WRITE setTbIsMissing NOTIFY tbIsMissingChanged)
     Q_PROPERTY(QString trackingNumber READ trackingNumber WRITE setTrackingNumber NOTIFY trackingNumberChanged)
 
 public:
@@ -102,6 +103,9 @@ public:
     int tbStatus() const;
     void setTbStatus(const int &status);
 
+    bool tbIsMissing() const;
+    void setTbIsMissing(const bool &missing);
+
     QString  trackingNumber() const;
     void setTrackingNumber(const QString  &number);
 
@@ -127,6 +131,7 @@ signals:
     void logsGeocacheNameChanged();
     void logsDateChanged();
     void tbStatusChanged();
+    void tbIsMissingChanged();
     void trackingNumberChanged();
 
 protected:
@@ -150,6 +155,7 @@ protected:
     QList<QString> m_logsGeocacheName;
     QList<QString > m_logsDate;
     int m_tbStatus;
+    bool  m_tbIsMissing;
     QString m_trackingNumber;
 };
 

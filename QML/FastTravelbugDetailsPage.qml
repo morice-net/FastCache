@@ -167,6 +167,29 @@ Item {
                 }
             }
 
+            Row {
+                width: parent.width
+                spacing: 15
+
+                Text {
+                    visible: travelbug.originalOwner === "" || travelbug.tbIsMissing
+                    width: fastTravelbug.width * 0.25
+                    font.family: localFont.name
+                    horizontalAlignment: Text.AlignRight
+                    font.pointSize: 14
+                    text: "Statut "
+                    color: Palette.silver()
+                }
+
+                Text {
+                    visible: travelbug.originalOwner === "" || travelbug.tbIsMissing
+                    font.family: localFont.name
+                    font.pointSize: 17
+                    text: travelbug.originalOwner === "" ? "Le travel bug n'est pas activé" : "Le travel bug est perdu"
+                    color: Palette.black()
+                }
+            }
+
             Rectangle {
                 id: separator1
                 visible:travelbug.goal.length !== 0
