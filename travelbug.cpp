@@ -86,18 +86,17 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
 
     if (!tbJson["holder"].isNull()) {
         QJsonObject currentOwner = tbJson["holder"].toObject();
+        setLocated(currentOwner["username"].toString());
         if(currentOwner["username"].toString() == originalOwner()){
-            setLocated("Dans les mains du propriétaire");
             setTbStatus(2);  //travelbug in possession of owner of the trackable
             setTrackingNumber(tbJson["trackingNumber"].toString());
         } else {
-            setLocated("En possession de " + currentOwner["username"].toString());
             setTbStatus(3); //travelbug in possession of holder of the trackable
         }
     }
     else if(tbJson["holder"].isNull()){
         if(!tbJson["currentGeocacheCode"].isNull()) {
-            setLocated("Dans la cache " + tbJson["currentGeocacheCode"].toString());
+            setLocated(tbJson["currentGeocacheCode"].toString());
             setTbStatus(1);  // travelbug in cache
         } else {
             setLocated("");

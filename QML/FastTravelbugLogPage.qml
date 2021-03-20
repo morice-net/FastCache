@@ -105,7 +105,8 @@ Item {
                     RadioButton {
                         id:button2
                         text: "Pris ailleurs"
-                        visible: travelbug.tbStatus === 2 || travelbug.tbStatus === 3 //travelbug in possession of owner or holder of the trackable
+                        //travelbug in possession of owner or holder of the trackable and not in possession of user
+                        visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) && travelbug.located !== userInfo.name
                         checked: false
                         onClicked: {
                             typeLogCheck = 19
@@ -169,7 +170,8 @@ Item {
                     RadioButton {
                         id:button4
                         text: "Découvert"
-                        visible: travelbug.tbStatus !== 0
+                        visible: ((travelbug.tbStatus === 2 || travelbug.tbStatus === 3) && travelbug.located !== userInfo.name) ||
+                                 travelbug.tbStatus === 1
                         checked: false
                         onClicked: {
                             typeLogCheck = 48

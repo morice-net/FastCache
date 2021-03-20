@@ -139,9 +139,10 @@ Item {
                 }
 
                 Text {
+                    id: location
                     font.family: localFont.name
                     font.pointSize: 14
-                    text: travelbug.located
+                    text: tbLocation()
                     color: Palette.white()
                 }
             }
@@ -313,5 +314,17 @@ Item {
                 }
             }
         }
+    }
+
+    // location of travelbug
+    function tbLocation() {
+        if(travelbug.tbStatus === 0)
+            return ""
+        if(travelbug.tbStatus === 1)
+            return "Dans la cache " + travelbug.located
+        if(travelbug.tbStatus === 2)
+            return "Dans les mains du propriétaire "
+        if(travelbug.tbStatus === 3)
+            return "En possession de  " + travelbug.located
     }
 }
