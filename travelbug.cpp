@@ -80,6 +80,8 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     if(tbJson["isMissing"].toBool()) {
         setLocated("");
         setTbIsMissing(true);
+    } else {
+        setTbIsMissing(false);
     }
 
     if (!tbJson["holder"].isNull()) {
