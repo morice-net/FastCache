@@ -64,7 +64,7 @@ Item {
                         }
 
                         Text {
-                            text: travelbug.logsOwnersCount[index]
+                            text: "Nombre de caches: " + travelbug.logsOwnersCount[index]
                             leftPadding: 15
                             anchors.left: parent.left
                             font.family: localFont.name
