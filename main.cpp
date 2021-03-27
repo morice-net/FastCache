@@ -24,6 +24,7 @@
 #include "fullcacheretriever.h"
 #include "sqlitestorage.h"
 #include "gettravelbuguser.h"
+#include "getpocketsquerieslist.h"
 #include "senduserwaypoint.h"
 #include "fullcachesrecorded.h"
 #include "cachessinglelist.h"
@@ -47,6 +48,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");
     qmlRegisterType<GetTravelbugUser>("com.mycompany.connecting", 1, 0, "GetTravelbugUser");
+    qmlRegisterType<GetPocketsqueriesList>("com.mycompany.connecting", 1, 0, "GetPocketsqueriesList");
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
     qmlRegisterType<FullCachesRecorded>("com.mycompany.connecting", 1, 0, "FullCachesRecorded");
     qmlRegisterType<CachesSingleList>("com.mycompany.connecting", 1, 0, "CachesSingleList");

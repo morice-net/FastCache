@@ -6,7 +6,6 @@
 #include <QNetworkReply>
 #include <QObject>
 
-
 class GetTravelbugUser : public Requestor
 {
     Q_OBJECT

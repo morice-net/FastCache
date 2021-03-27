@@ -363,6 +363,10 @@ Item {
         id: getTravelbugUser
     }
 
+    GetPocketsqueriesList {
+        id: getPocketsqueriesList
+    }
+
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on

@@ -20,6 +20,7 @@ SOURCES += main.cpp \
     connector.cpp \
     fullcacheretriever.cpp \
     fullcachesrecorded.cpp \
+    getpocketsquerieslist.cpp \
     gettravelbuguser.cpp \
     imagedownloader.cpp \
     parameter.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     connector.h \
     fullcacheretriever.h \
     fullcachesrecorded.h \
+    getpocketsquerieslist.h \
     gettravelbuguser.h \
     imagedownloader.h \
     parameter.h \
