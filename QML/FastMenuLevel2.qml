@@ -112,4 +112,15 @@ Item {
             }
         }
     }
+
+    FastSelectableButtonMenu {
+        id: pocketQueriesButtonMenu
+        anchors.top: codeTravelBugButtonMenu.bottom
+        anchors.topMargin: 25
+        buttonText: "Pockets Queries"
+
+        function buttonClicked() {
+            getPocketsqueriesList.sendRequest(connector.tokenKey)
+        }
+    }
 }
