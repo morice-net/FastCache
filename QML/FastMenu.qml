@@ -164,7 +164,7 @@ Item {
         }
 
         ///////////////////////////////////////////////////////////////////////////
-        //                      buttons on the menu                 //
+        //                      items on the menu                 //
         ///////////////////////////////////////////////////////////////////////////
 
         FastMenuLevel1 {
@@ -189,6 +189,17 @@ Item {
 
             Behavior on x { NumberAnimation { duration: 900 } }
         }
+
+        ListPocketsqueries {
+            id: pocketsqueries
+            x: -parent.width
+            height: parent.height
+            width: parent.width*0.9
+            anchors.top: userInfoMenu.bottom
+            anchors.topMargin: 18
+
+            Behavior on x { NumberAnimation { duration: 900 } }
+        }
     }
 
     function isMenuVisible() {
@@ -198,7 +209,6 @@ Item {
     function showMenu() {
         //web view description page not visible
         fastCache.webViewDescriptionPageVisible = false
-
         console.log("Show menu...")
         menu.x = 0
         menuShadow.opacity = 0.5

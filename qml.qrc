@@ -181,5 +181,6 @@
         <file>QML/CursorRectangle.qml</file>
         <file>QML/FastMenuLevel1.qml</file>
         <file>QML/FastMenuLevel2.qml</file>
+        <file>QML/ListPocketsqueries.qml</file>
     </qresource>
 </RCC>

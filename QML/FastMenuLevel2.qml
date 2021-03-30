@@ -121,6 +121,8 @@ Item {
 
         function buttonClicked() {
             getPocketsqueriesList.sendRequest(connector.tokenKey)
+            fastMenuLevel2.x = -parent.width
+            pocketsqueries.x  = 15
         }
     }
 }

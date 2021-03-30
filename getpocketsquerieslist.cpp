@@ -19,6 +19,13 @@ GetPocketsqueriesList:: ~GetPocketsqueriesList()
 
 void GetPocketsqueriesList::sendRequest(QString token)
 {
+    m_referenceCodes.clear();
+    m_names.clear();
+    m_descriptions.clear();
+    m_dates.clear();
+    m_counts.clear();
+    m_findCounts.clear();
+
     //Build url
     QString requestName = "users/me/lists";
     requestName.append("?fields=referenceCode,name,description,lastUpdatedDateUtc,count,findCount");

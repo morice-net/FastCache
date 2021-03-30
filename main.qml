@@ -348,8 +348,7 @@ Item {
             } else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === true){
                 fullCache.removeUserWpt(fastCache.userWptIndex);
                 toast.show("L'étape personnelle a été supprimée");
-            }
-            else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === false){
+            } else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === false){
                 fullCache.removeCorrectedcoordinates();
                 toast.show("L'étape personnelle a été supprimée");
             } else if (sendUserWaypoint.state === "OK"){
@@ -365,6 +364,12 @@ Item {
 
     GetPocketsqueriesList {
         id: getPocketsqueriesList
+        onStateChanged: {
+            if(getPocketsqueriesList.state !== "OK" && getPocketsqueriesList.state !== "loading") {
+                toast.visible = true
+                toast.show("Erreur de chargement de la pocket " + "(" + state + ")");
+            }
+        }
     }
 
     Compass { // the compass sensor object
