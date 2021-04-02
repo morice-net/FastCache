@@ -28,7 +28,8 @@ MapQuickItem {
     }
 
     function listCaches() {
-        if(main.cachesActive || main.state === "near" || main.state ==="address" || main.state === "coordinates" || main.state === "recorded")
+        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
+                || main.state === "pocketQuery")
             return cachesSingleList.caches
     }
     Component.onCompleted: {

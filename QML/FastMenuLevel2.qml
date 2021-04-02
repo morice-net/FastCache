@@ -117,6 +117,7 @@ Item {
         id: pocketQueriesButtonMenu
         anchors.top: codeTravelBugButtonMenu.bottom
         anchors.topMargin: 25
+        buttonSelected: main.state === "pocketQuery"
         buttonText: "Pockets Queries"
 
         function buttonClicked() {

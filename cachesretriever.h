@@ -40,6 +40,7 @@ signals:
 protected:
     int m_indexMoreCaches;
     QString m_tokenTemp ;
+    QString m_referenceCode   ; // used for loading pockets queries
     QString m_userName;
     QList<int> m_filterTypes;
     QList<int> m_filterSizes;

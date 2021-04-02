@@ -50,6 +50,19 @@ Item {
                         radius: 8
                         color: Palette.turquoise()
 
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                main.cachesActive = false
+                                main.state = "pocketQuery"
+                                cachesPocketqueries.indexMoreCaches = 0
+                                cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
+                                fastMenuLevel1.x = 0
+                                pocketsqueries.x  = -parent.width
+                                hideMenu()
+                            }
+                        }
+
                         Column {
                             id: texts
                             topPadding: 10

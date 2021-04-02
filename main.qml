@@ -21,7 +21,7 @@ Item {
     // Used for downloading a full cache by geocode
     property string previousGeocode: ""
 
-    // State can take "near" "address" "coordinates" "recorded"....
+    // State can take "near" "address" "coordinates" "recorded" "pocketQuery"....
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
     property bool cachesActive: false
 
@@ -77,7 +77,8 @@ Item {
     CachesSingleList {
         id:cachesSingleList
         onCachesChanged: {
-            if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded")
+            if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
+                    || main.state === "pocketQuery")
                 fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }
     }
@@ -102,6 +103,23 @@ Item {
         id: cachesRecorded
         onClearMapRequested: {
             fastMap.clearMap()
+        }
+        Component.onCompleted: listCachesObject(cachesSingleList)
+    }
+
+    CachesPocketqueries {
+        id: cachesPocketqueries
+        onClearMapRequested: {
+            fastMap.clearMap()
+        }
+        onStateChanged: {
+            if(cachesPocketqueries.state !== "OK" && cachesPocketqueries.state !== "loading") {
+                toast.visible = true
+                toast.show("Erreur de chargement de la pocket " + "(" + state + ")");
+            } else if (cachesPocketqueries.state === "OK" && cachesPocketqueries.state !== "loading") {
+                // center and zoom level
+                centerMapCaches(cachesSingleList.caches)
+            }
         }
         Component.onCompleted: listCachesObject(cachesSingleList)
     }

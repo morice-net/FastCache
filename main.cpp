@@ -28,6 +28,7 @@
 #include "senduserwaypoint.h"
 #include "fullcachesrecorded.h"
 #include "cachessinglelist.h"
+#include "cachespocketqueries.h"
 
 int main(int argc, char *argv[])
 {
@@ -52,6 +53,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SendUserWaypoint>("com.mycompany.connecting", 1, 0, "SendUserWaypoint");
     qmlRegisterType<FullCachesRecorded>("com.mycompany.connecting", 1, 0, "FullCachesRecorded");
     qmlRegisterType<CachesSingleList>("com.mycompany.connecting", 1, 0, "CachesSingleList");
+    qmlRegisterType<CachesPocketqueries>("com.mycompany.connecting", 1, 0, "CachesPocketqueries");
 
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();

@@ -231,11 +231,12 @@ Item {
         cachesNear.latPoint = coord.latitude
         cachesNear.lonPoint = coord.longitude
         cachesNear.distance = 100
-
         cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
                                       createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
         cachesNear.indexMoreCaches = 0
         cachesNear.sendRequest(connector.tokenKey)
+        fastMap.clearMap()
+        fastMap.currentZoomlevel = 14
     }
 
     // load caches by coordinates, from CoordinatesBox.
@@ -249,6 +250,8 @@ Item {
                                           createFilterKeywordDiscoverOwner() , userInfo.name )
             cachesNear.indexMoreCaches = 0
             cachesNear.sendRequest(connector.tokenKey)
+            fastMap.clearMap()
+            fastMap.currentZoomlevel = 14
             fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
         }
     }

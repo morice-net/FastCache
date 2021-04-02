@@ -40,9 +40,11 @@ Rectangle {
     ListView {
         id: fastListColumn
         width: parent.width
-        height: main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
+        height: main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ||
+                main.state === "pocketQuery"
                 ? parent.height - fastListHeader.height - fastListBottom.height -10 :parent.height - fastListHeader.height -10
-        y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded"
+        y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded" ||
+           main.state === "pocketQuery"
         spacing: 5
         model: sorting
         ScrollBar.vertical: ScrollBar {}
@@ -90,7 +92,7 @@ Rectangle {
         color: Palette.turquoise()
         radius:10
         anchors.top: fastListHeader.bottom
-        visible:main.state === "near" || main.state === "address" || main.state === "coordinates"  ? true : false
+        visible: main.state === "near" || main.state === "address" || main.state === "coordinates"  ? true : false
 
         Text {
             verticalAlignment: Text.AlignVCenter
@@ -127,6 +129,10 @@ Rectangle {
             fastListBottom.visible = true ;
             fastListColumn.y = fastListHeader.height + fastListBottom.height +10
             return  "Par coordonnées(" + fastListColumn.count + ")"
+        } else if (main.state === "pocketQuery") {
+            fastListBottom.visible = false ;
+            fastListColumn.y = fastListHeader.height + 10
+            return "Pocket Query(" + fastListColumn.count + ")"
         } else if(main.state === "recorded"){
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + tabViewRecordedCaches.height + 10
@@ -137,7 +143,8 @@ Rectangle {
 
     function createAllSelectedInList(flag) {
         var selected = []
-        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ){
+        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
+                || main.state === "pocketQuery") {
             for (var i = 0; i < cachesSingleList.caches.length; i++) {
                 selected.push(flag)
             }

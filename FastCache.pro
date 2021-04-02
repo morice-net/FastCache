@@ -15,6 +15,7 @@ win32 {
 }
 
 SOURCES += main.cpp \
+    cachespocketqueries.cpp \
     cachesrecorded.cpp \
     cachessinglelist.cpp \
     connector.cpp \
@@ -53,6 +54,7 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
+    cachespocketqueries.h \
     cachesrecorded.h \
     cachessinglelist.h \
     connector.h \
