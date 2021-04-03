@@ -18,8 +18,8 @@ void CachesPocketqueries::sendRequest(QString token , QString referenceCode)
 {
     m_referenceCode = referenceCode;
     m_tokenTemp = token;
-
     if(m_indexMoreCaches == 0) {
+        emit clearMapRequested();
         m_listCaches->deleteAll();
         m_listCaches->clear();
     }

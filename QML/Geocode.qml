@@ -262,8 +262,6 @@ FastPopup {
                                                       createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
                         cachesNear.indexMoreCaches = 0
                         cachesNear.sendRequest(connector.tokenKey)
-                        fastMap.clearMap()
-                        fastMap.currentZoomlevel = 14
                         fastMap.mapItem.center =QtPositioning.coordinate(listModel.get(index).valLat , listModel.get(index).valLon)
                     }
                 }

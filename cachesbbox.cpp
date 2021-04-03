@@ -19,13 +19,15 @@ CachesBBox::~CachesBBox()
 }
 
 void CachesBBox::sendRequest(QString token)
-{
+{    
     CachesRetriever::sendRequest(token);
 }
 
 void CachesBBox::parseJson(const QJsonDocument &dataJsonDoc)
 {
     CachesRetriever::parseJson(dataJsonDoc);
+    if(indexMoreCaches() == 0 )
+        emit clearMapRequested();
     emit m_listCaches->cachesChanged();
 }
 

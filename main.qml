@@ -94,6 +94,7 @@ Item {
     CachesNear {
         id: cachesNear
         onClearMapRequested: {
+            fastMap.currentZoomlevel = 14
             fastMap.clearMap()
         }
         Component.onCompleted: listCachesObject(cachesSingleList)
@@ -110,7 +111,7 @@ Item {
     CachesPocketqueries {
         id: cachesPocketqueries
         onClearMapRequested: {
-            fastMap.clearMap()
+            fastMap.clearMap()            
         }
         onStateChanged: {
             if(cachesPocketqueries.state !== "OK" && cachesPocketqueries.state !== "loading") {

@@ -18,7 +18,10 @@ CachesNear::~CachesNear()
 }
 
 void CachesNear::sendRequest(QString token)
-{
+{    
+    if(m_indexMoreCaches == 0) {
+        emit clearMapRequested();
+    }
     CachesRetriever::sendRequest(token);
 }
 

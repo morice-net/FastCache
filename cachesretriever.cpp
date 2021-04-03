@@ -191,7 +191,6 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         moreCaches();
     else {
         setIndexMoreCaches(0);
-        emit clearMapRequested();
     }
 }
 
