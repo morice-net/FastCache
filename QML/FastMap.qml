@@ -93,7 +93,7 @@ Rectangle {
     }
 
     function markedCachesRegistered() {
-        if(main.state === "near" || main.state === "address" || main.state === "coordinates" ) {
+        if(main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "pocketQuery") {
             for (var i = 0; i < cachesSingleList.caches.length; i++) {
                 if(listGeocodesOnMap().indexOf(cachesSingleList.caches[i].geocode) !== -1){
                     cachesSingleList.caches[i].registered = true

@@ -135,8 +135,8 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if(fastList.state === "selectedInList" && viewState === "list" &&
-                    (main.state === "near" || main.state === "address" || main.state === "coordinates" ||main.state === "recorded"
-                     || main.cachesActive)){
+                    (main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
+                     || main.state === "pocketQuery" || main.cachesActive)){
                 selectedInList[index] = !selectedInList[index]
                 selectedInList = getSelectedInList()
             } else {
