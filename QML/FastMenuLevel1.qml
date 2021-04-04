@@ -40,7 +40,6 @@ Item {
             FastDoubleButtonMenu {
                 id: activeCaches
                 height: parent.height
-
                 firstButtonSelected: main.cachesActive
                 button1Text: "On"
                 button2Text: "Off"
@@ -49,6 +48,7 @@ Item {
                 function buttonClicked() {
                     main.cachesActive = !(main.cachesActive)
                     if (firstButtonSelected) {
+                        fastMap.currentZoomlevel = 14.5
                         reloadCaches()
                     } else {
                         main.cachesActive = false

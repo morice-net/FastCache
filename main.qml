@@ -111,7 +111,7 @@ Item {
     CachesPocketqueries {
         id: cachesPocketqueries
         onClearMapRequested: {
-            fastMap.clearMap()            
+            fastMap.clearMap()
         }
         onStateChanged: {
             if(cachesPocketqueries.state !== "OK" && cachesPocketqueries.state !== "loading") {
