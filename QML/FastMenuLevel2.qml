@@ -5,18 +5,26 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
+    Button {
+        id: buttonGoback
+        icon.source: "qrc:/Image/goback.png"
+        icon.width: 50
+        icon.height: 50
+        topPadding: 20
+        leftPadding: 20
+        anchors.top: nearButtonMenu.bottom
+        onClicked:{
             fastMenuLevel1.x = 0
             fastMenuLevel2.x  = -parent.width
+        }
+        background: Rectangle {
+            color: "transparent"
         }
     }
 
     FastSelectableButtonMenu {
         id: addressButtonMenu
-        anchors.top: nearButtonMenu.bottom
-        anchors.topMargin: 25
+        anchors.top: buttonGoback.bottom
         buttonSelected: main.state === "address"
         buttonText: "Adresse"
 
@@ -37,7 +45,6 @@ Item {
     FastSelectableButtonMenu {
         id: coordinatesButtonMenu
         anchors.top: addressButtonMenu.bottom
-        anchors.topMargin: 25
         buttonSelected: main.state === "coordinates"
         buttonText: "Coordonnées"
 
@@ -53,7 +60,6 @@ Item {
         id: geocodeCacheButtonMenu
         height: parent.height * 0.17
         anchors.top: coordinatesButtonMenu.bottom
-        anchors.topMargin: 25
         centeredVertical: false
         buttonText: "Géocode de la cache"
 
@@ -87,7 +93,6 @@ Item {
         id: codeTravelBugButtonMenu
         height: parent.height * 0.17
         anchors.top: geocodeCacheButtonMenu.bottom
-        anchors.topMargin: 25
         centeredVertical: false
         buttonText: "Code du travel bug"
 
@@ -116,7 +121,6 @@ Item {
     FastSelectableButtonMenu {
         id: pocketQueriesButtonMenu
         anchors.top: codeTravelBugButtonMenu.bottom
-        anchors.topMargin: 25
         buttonSelected: main.state === "pocketQuery"
         buttonText: "Pockets Queries"
 

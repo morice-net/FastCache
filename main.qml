@@ -616,7 +616,7 @@ Item {
         fastMap.currentZoomlevel = 14.5
         if(listCaches.length === 0)
             return
-        fastMap.mapItem.fitViewportToVisibleMapItems()
+        fastMap.mapItem.fitViewportToMapItems()
         fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
     }
 }

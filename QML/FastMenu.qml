@@ -173,7 +173,6 @@ Item {
             height: parent.height
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
-            anchors.topMargin: 18
 
             Behavior on x { NumberAnimation { duration: 900 } }
         }
@@ -185,7 +184,6 @@ Item {
             width: parent.width
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
-            anchors.topMargin: 18
 
             Behavior on x { NumberAnimation { duration: 900 } }
         }
