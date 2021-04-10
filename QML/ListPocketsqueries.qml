@@ -71,6 +71,8 @@ Item {
                             cachesPocketqueries.indexMoreCaches = 0
                             cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
                             hideMenu()
+                            fastMenuLevel1.x = 0
+                            pocketsqueries.x  = -parent.width
                         }
                     }
 

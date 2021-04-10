@@ -33,6 +33,8 @@ Item {
             if(fastMap.checkedPluginMap().supportsGeocoding()){
                 main.cachesActive = false
                 hideMenu()
+                fastMenuLevel2.x = -parent.width
+                fastMenuLevel1.x = 0
                 geocode.open()
             } else {
                 hideMenu()
@@ -52,6 +54,8 @@ Item {
             main.state = "coordinates"
             main.cachesActive = false
             hideMenu()
+            fastMenuLevel2.x = -parent.width
+            fastMenuLevel1.x = 0
             coordinatesBox.open()
         }
     }
