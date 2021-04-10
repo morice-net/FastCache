@@ -194,12 +194,6 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
 }
 
-void CachesRetriever::setIndexMoreCaches(int indexMoreCaches)
-{
-    m_indexMoreCaches = indexMoreCaches;
-    emit indexMoreCachesChanged();
-}
-
 void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
                                          QList<QString> keyWordDiscoverOwner ,QString name)
 {
@@ -242,6 +236,12 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
 int CachesRetriever::indexMoreCaches()
 {
     return m_indexMoreCaches;
+}
+
+void CachesRetriever::setIndexMoreCaches(int indexMoreCaches)
+{
+    m_indexMoreCaches = indexMoreCaches;
+    emit indexMoreCachesChanged();
 }
 
 

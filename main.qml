@@ -117,10 +117,11 @@ Item {
             if(cachesPocketqueries.state !== "OK" && cachesPocketqueries.state !== "loading") {
                 toast.visible = true
                 toast.show("Erreur de chargement de la pocket " + "(" + state + ")");
-            } else if (cachesPocketqueries.state === "OK" && cachesPocketqueries.state !== "loading") {
-                // center and zoom level
-                centerMapCaches(cachesSingleList.caches)
             }
+        }
+        onParsingCompletedChanged: {
+            // center and zoom level
+            centerMapCaches(cachesSingleList.caches)
         }
         Component.onCompleted: listCachesObject(cachesSingleList)
     }

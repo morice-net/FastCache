@@ -7,6 +7,7 @@
 
 CachesPocketqueries::CachesPocketqueries(CachesRetriever *parent)
     : CachesRetriever ( parent)
+    , m_parsingCompleted(false)
 {
 }
 
@@ -48,14 +49,27 @@ void CachesPocketqueries::addGetRequestParameters(QString &parameters)
 
 void CachesPocketqueries::parseJson(const QJsonDocument &dataJsonDoc)
 {
+    setParsingCompleted(false);
     CachesRetriever::parseJson(dataJsonDoc);
     emit m_listCaches->cachesChanged();
+    setParsingCompleted(true);
 }
 
 void CachesPocketqueries::moreCaches()
 {
     setIndexMoreCaches(m_indexMoreCaches + MAX_PER_PAGE);
     sendRequest( m_tokenTemp ,  m_referenceCode);
+}
+
+bool CachesPocketqueries::parsingCompleted()
+{
+    return m_parsingCompleted;
+}
+
+void CachesPocketqueries::setParsingCompleted(bool completed)
+{
+    m_parsingCompleted = completed;
+    emit parsingCompletedChanged();
 }
 
 
