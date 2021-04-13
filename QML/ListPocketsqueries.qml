@@ -17,7 +17,7 @@ Item {
             anchors.top: nearButtonMenu.bottom
             onClicked:{
                 openMenu = 3
-                pocketsqueries.x  = -parent.width               
+                pocketsqueries.x  = -parent.width
             }
             background: Rectangle {
                 color: "transparent"
@@ -66,13 +66,13 @@ Item {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            main.cachesActive = false
-                            main.state = "pocketQuery"
-                            cachesPocketqueries.indexMoreCaches = 0                           
-                            cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
                             hideMenu()
                             pocketsqueries.x  = -parent.width
                             fastMenuLevel1.x = 0
+                            main.cachesActive = false
+                            main.state = "pocketQuery"
+                            cachesPocketqueries.indexMoreCaches = 0
+                            cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
                         }
                     }
 

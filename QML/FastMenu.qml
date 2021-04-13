@@ -71,6 +71,7 @@ Item {
                     height: parent.height
                     spacing: 0
                     clip: true
+
                     Text {
                         height: parent.height * 0.5
                         text: userInfo.name
@@ -155,6 +156,7 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         color: Palette.white()
                     }
+
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
@@ -178,7 +180,7 @@ Item {
             anchors.top: userInfoMenu.bottom
 
             Behavior on x { NumberAnimation {
-                    duration: 900
+                    duration: 700
                     onRunningChanged: {
                         if ((openMenu === 1) && (!running)) {
                             fastMenuLevel2.x  = 0
@@ -199,7 +201,7 @@ Item {
             anchors.top: userInfoMenu.bottom
 
             Behavior on x { NumberAnimation {
-                    duration: 900
+                    duration: 700
                     onRunningChanged: {
                         if ((openMenu === 2) && (direction) && (!running)) {
                             pocketsqueries.x  = 15
@@ -210,20 +212,21 @@ Item {
                 }
             }
         }
-    }
 
-    ListPocketsqueries {
-        id: pocketsqueries
-        x: -parent.width
-        y: fastMenuLevel1.y
-        height: fastMenuLevel1.height
-        width: fastMenuLevel1.width*0.9
+        ListPocketsqueries {
+            id: pocketsqueries
+            x: -parent.width
+            height: parent.height
+            width: parent.width*0.9
+            anchors.top: userInfoMenu.bottom
+            anchors.topMargin: 18
 
-        Behavior on x { NumberAnimation {
-                duration: 900
-                onRunningChanged: {
-                    if ((openMenu === 3) && (!running)) {
-                        fastMenuLevel2.x = 0
+            Behavior on x { NumberAnimation {
+                    duration: 700
+                    onRunningChanged: {
+                        if ((openMenu === 3) && (!running)) {
+                            fastMenuLevel2.x = 0
+                        }
                     }
                 }
             }
