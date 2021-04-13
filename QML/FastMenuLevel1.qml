@@ -2,7 +2,6 @@ import QtQuick 2.6
 
 Item {
     id: fastMenuLevel1
-
     FastDoubleButtonMenu {
         id: mapButtonMenu
         firstButtonSelected: true
@@ -100,7 +99,6 @@ Item {
                 fastCache.z = 0
             } else {
                 fastMenuLevel1.x = -parent.width
-                fastMenuLevel2.x  = 0
             }
         }
     }

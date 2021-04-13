@@ -16,8 +16,8 @@ Item {
             leftPadding: 20
             anchors.top: nearButtonMenu.bottom
             onClicked:{
-                fastMenuLevel2.x = 0
-                pocketsqueries.x  = -parent.width
+                openMenu = 3
+                pocketsqueries.x  = -parent.width               
             }
             background: Rectangle {
                 color: "transparent"
@@ -68,11 +68,11 @@ Item {
                         onClicked: {
                             main.cachesActive = false
                             main.state = "pocketQuery"
-                            cachesPocketqueries.indexMoreCaches = 0
+                            cachesPocketqueries.indexMoreCaches = 0                           
                             cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
                             hideMenu()
-                            fastMenuLevel1.x = 0
                             pocketsqueries.x  = -parent.width
+                            fastMenuLevel1.x = 0
                         }
                     }
 

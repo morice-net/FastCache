@@ -14,8 +14,9 @@ Item {
         leftPadding: 20
         anchors.top: nearButtonMenu.bottom
         onClicked:{
-            fastMenuLevel1.x = 0
-            fastMenuLevel2.x  = -parent.width
+            direction = false
+            openMenu = 2
+            fastMenuLevel2.x = -parent.width
         }
         background: Rectangle {
             color: "transparent"
@@ -33,8 +34,9 @@ Item {
             if(fastMap.checkedPluginMap().supportsGeocoding()){
                 main.cachesActive = false
                 hideMenu()
+                openMenu = 2
+                direction = false
                 fastMenuLevel2.x = -parent.width
-                fastMenuLevel1.x = 0
                 geocode.open()
             } else {
                 hideMenu()
@@ -54,8 +56,9 @@ Item {
             main.state = "coordinates"
             main.cachesActive = false
             hideMenu()
+            openMenu = 2
+            direction = false
             fastMenuLevel2.x = -parent.width
-            fastMenuLevel1.x = 0
             coordinatesBox.open()
         }
     }
@@ -130,8 +133,9 @@ Item {
 
         function buttonClicked() {
             getPocketsqueriesList.sendRequest(connector.tokenKey)
+            direction = true
+            openMenu = 2
             fastMenuLevel2.x = -parent.width
-            pocketsqueries.x  = 15
         }
     }
 }

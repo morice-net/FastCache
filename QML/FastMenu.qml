@@ -10,6 +10,9 @@ Item {
     id: fastMenu
     anchors.fill: parent
 
+    property int openMenu: 1  // 1: menu 1 open, 2: menu 2 open, 3: pockets queries list open
+    property bool direction: true  // true: menu go forward, false: menu go back
+
     LoadingPage {
         id: loadingPage
     }
@@ -174,7 +177,17 @@ Item {
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
 
-            Behavior on x { NumberAnimation { duration: 900 } }
+            Behavior on x { NumberAnimation {
+                    duration: 900
+                    onRunningChanged: {
+                        if ((openMenu === 1) && (!running)) {
+                            fastMenuLevel2.x  = 0
+                        } else if ((openMenu === 2) && (!running))  {
+                            openMenu = 1
+                        }
+                    }
+                }
+            }
         }
 
         FastMenuLevel2 {
@@ -185,18 +198,35 @@ Item {
             anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
 
-            Behavior on x { NumberAnimation { duration: 900 } }
+            Behavior on x { NumberAnimation {
+                    duration: 900
+                    onRunningChanged: {
+                        if ((openMenu === 2) && (direction) && (!running)) {
+                            pocketsqueries.x  = 15
+                        } else if ((openMenu === 2) && (!direction) && (!running)){
+                            fastMenuLevel1.x = 0
+                        }
+                    }
+                }
+            }
         }
+    }
 
-        ListPocketsqueries {
-            id: pocketsqueries
-            x: -parent.width
-            height: parent.height
-            width: parent.width*0.9
-            anchors.top: userInfoMenu.bottom
-            anchors.topMargin: 18
+    ListPocketsqueries {
+        id: pocketsqueries
+        x: -parent.width
+        y: fastMenuLevel1.y
+        height: fastMenuLevel1.height
+        width: fastMenuLevel1.width*0.9
 
-            Behavior on x { NumberAnimation { duration: 900 } }
+        Behavior on x { NumberAnimation {
+                duration: 900
+                onRunningChanged: {
+                    if ((openMenu === 3) && (!running)) {
+                        fastMenuLevel2.x = 0
+                    }
+                }
+            }
         }
     }
 
