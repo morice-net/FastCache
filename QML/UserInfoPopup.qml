@@ -209,6 +209,43 @@ FastPopup {
                     }
                 }
             }
+
+            //Display Circles
+            GroupBox {
+                id: circlesMap
+                width: parent.width*0.7
+
+                RadioButton {
+                    id:buttonCircles
+                    visible: true
+                    text: "Affichage des cercles"
+                    checked: settings.circlesMap
+                    onClicked: {
+                        settings.circlesMap = !settings.circlesMap
+                    }
+                    contentItem: Text {
+                        text: buttonCircles.text
+                        font.family: localFont.name
+                        font.pointSize: 16
+                        color: buttonCircles.checked ? Palette.white() : Palette.silver()
+                        leftPadding: buttonCircles.indicator.width + buttonCircles.spacing
+                    }
+                    indicator: Rectangle {
+                        y:10
+                        implicitWidth: 25
+                        implicitHeight: 25
+                        radius: 10
+                        border.width: 1
+                        Rectangle {
+                            anchors.fill: parent
+                            visible: buttonCircles.checked
+                            color: Palette.greenSea()
+                            radius: 10
+                            anchors.margins: 4
+                        }
+                    }
+                }
+            }
         }
     }
 

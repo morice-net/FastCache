@@ -63,6 +63,9 @@ Settings {
     // Maps : osm,googlemaps,here
     property string namePlugin: "osm"
     property bool sat: false
+
+    // Circles on map
+    property bool circlesMap : false
 }
 
 

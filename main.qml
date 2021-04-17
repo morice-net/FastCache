@@ -22,6 +22,7 @@ Item {
     property string previousGeocode: ""
 
     // State can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
+
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
 
     // Previous viewstate used when downloading a travel bug
