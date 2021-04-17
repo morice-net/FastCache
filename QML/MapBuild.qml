@@ -33,8 +33,7 @@ Map {
         anchors.fill: parent
         onClicked: mapControls.show()
         onPressAndHold: {
-            if(main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" || main.cachesActive
-                    || main.state === "pocketQuery")
+            if(main.state !== "")
                 cachesRecordedLists.open()
         }
     }

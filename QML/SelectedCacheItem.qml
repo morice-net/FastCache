@@ -134,14 +134,12 @@ Rectangle {
         id: cacheItemArea
         anchors.fill: parent
         onClicked: {
-            if(fastList.state === "selectedInList" && viewState === "list" &&
-                    (main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
-                     || main.state === "pocketQuery" || main.cachesActive)){
+            if(fastList.state === "selectedInList" && viewState === "list" && (main.state !== "")) {
                 selectedInList[index] = !selectedInList[index]
                 selectedInList = getSelectedInList()
             } else {
                 fullCache.geocode = selectedCache.geocode
-                if(main.state === "recorded" && main.cachesActive === false && selectedCache.registered === true){
+                if(main.state === "recorded" && selectedCache.registered === true){
                     fullCacheRetriever.parseJson(sqliteStorage.readObject("fullcache" , fullCache.geocode ))
                 }else{
                     fullCacheRetriever.sendRequest(connector.tokenKey)

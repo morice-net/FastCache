@@ -21,9 +21,8 @@ Item {
     // Used for downloading a full cache by geocode
     property string previousGeocode: ""
 
-    // State can take "near" "address" "coordinates" "recorded" "pocketQuery"....
+    // State can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
-    property bool cachesActive: false
 
     // Previous viewstate used when downloading a travel bug
     property string previousViewState: ""
@@ -77,8 +76,7 @@ Item {
     CachesSingleList {
         id:cachesSingleList
         onCachesChanged: {
-            if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
-                    || main.state === "pocketQuery")
+            if(main.state !== "")
                 fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }
     }
@@ -437,6 +435,7 @@ Item {
     }
 
     Component.onCompleted: {
+        main.state = ""
         main.viewState = "map"
 
         // retrieve settings
@@ -517,7 +516,7 @@ Item {
     }
 
     function reloadCaches(){
-        if (!cachesActive){
+        if (main.state !== "cachesActive") {
             return;
         }
         if(cachesBBox.state !== "loading")

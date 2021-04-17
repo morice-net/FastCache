@@ -14,7 +14,7 @@ Item {
                 main.viewState = "map"
             else
                 main.viewState = "list"
-            if (main.cachesActive)
+            if (main.state === "cachesActive")
                 fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }
     }
@@ -39,18 +39,22 @@ Item {
             FastDoubleButtonMenu {
                 id: activeCaches
                 height: parent.height
-                firstButtonSelected: main.cachesActive
+                firstButtonSelected: main.state === "cachesActive"
                 button1Text: "On"
                 button2Text: "Off"
                 small: true
 
                 function buttonClicked() {
-                    main.cachesActive = !(main.cachesActive)
+                    if(main.state === "cachesActive") {
+                        main.state = ""
+                    } else {
+                        main.state = "cachesActive"
+                    }
                     if (firstButtonSelected) {
                         fastMap.currentZoomlevel = 14.5
                         reloadCaches()
                     } else {
-                        main.cachesActive = false
+                        main.state = ""
                         fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
                     }
                 }
@@ -76,7 +80,6 @@ Item {
             } else {
                 main.state = "near"
                 hideMenu()
-                main.cachesActive = false
                 nearCachesClicked()
                 fastMap.mapItem.center = currentPosition.position.coordinate
             }
@@ -120,7 +123,6 @@ Item {
                 }
             } else {
                 // Display list of recorded caches and prepare Center Map.
-                main.cachesActive = false
                 main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
                 fastMap.clearMap()

@@ -26,7 +26,7 @@ Rectangle {
 
     TabViewRecordedCaches{
         id : tabViewRecordedCaches
-        visible: main.state === "recorded" && main.viewState === "list" && main.cachesActive === false ? true:false
+        visible: main.state === "recorded" && main.viewState === "list" && main.state !== "cachesActive" ? true:false
     }
 
     LoadingPage {
@@ -113,7 +113,7 @@ Rectangle {
     }
 
     function textHeader() {
-        if(main.cachesActive){
+        if(main.state === "cachesActive"){
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + 10
             return "Liste de caches(" + fastListColumn.count + ")"
@@ -143,8 +143,7 @@ Rectangle {
 
     function createAllSelectedInList(flag) {
         var selected = []
-        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
-                || main.state === "pocketQuery") {
+        if(main.state !== "") {
             for (var i = 0; i < cachesSingleList.caches.length; i++) {
                 selected.push(flag)
             }

@@ -100,7 +100,7 @@ Rectangle {
                 }
             }
         }
-        if(main.cachesActive) {
+        if(main.state === "cachesActive") {
             for (var j = 0; j < cachesSingleList.caches.length; j++) {
                 if(listGeocodesOnMap().indexOf(cachesSingleList.caches[j].geocode) !== -1) {
                     cachesSingleList.caches[j].registered = true

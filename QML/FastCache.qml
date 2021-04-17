@@ -10,7 +10,7 @@ Rectangle {
     id: fastCache
 
     // use to allow overlap of the web view by the menu
-    property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.cachesActive === true)
+    property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.state === "cachesActive")
 
     // used to send images to a log
     property var listImagesUrl: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?

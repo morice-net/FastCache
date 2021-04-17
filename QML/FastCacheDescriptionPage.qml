@@ -13,7 +13,7 @@ Item {
     property int webHistoryRank: -1
 
     onDescriptionTextChanged: {
-        if((main.state !== "recorded") || (main.cachesActive === true)) {
+        if((main.state !== "recorded") || (main.state === "cachesActive")) {
             webEngineView.loadHtml(descriptionText)
             webHistoryRank = -1
         }
@@ -33,7 +33,7 @@ Item {
             topPadding: 25
 
             Text {
-                visible: (main.state === "recorded") && (main.cachesActive === false)
+                visible: (main.state === "recorded") && (main.state !== "cachesActive")
                 clip:true
                 width: parent.width
                 leftPadding: 20
@@ -51,7 +51,7 @@ Item {
             }
 
             Row {
-                visible: (main.state !== "recorded") || (main.cachesActive === true)
+                visible: (main.state !== "recorded") || (main.state === "cachesActive")
                 spacing: descriptionPage.width/3
                 bottomPadding: 10
 

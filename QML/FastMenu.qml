@@ -251,7 +251,7 @@ Item {
         menuShadow.opacity = 0
 
         // web view description page visible
-        if(main.state !== "recorded" || main.cachesActive === true)
+        if(main.state !== "recorded" || main.state === "cachesActive")
             fastCache.webViewDescriptionPageVisible = true
     }
 

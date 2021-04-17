@@ -249,8 +249,7 @@ FastPopup {
     }
 
     function addCachesOnMap() {
-        if(main.cachesActive || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded"
-                ||  main.state === "pocketQuery")
+        if(main.state !== "")
             fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
     }
 

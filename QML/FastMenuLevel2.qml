@@ -32,7 +32,6 @@ Item {
         function buttonClicked() {
             main.state = "address"
             if(fastMap.checkedPluginMap().supportsGeocoding()){
-                main.cachesActive = false
                 hideMenu()
                 openMenu = 2
                 direction = false
@@ -54,7 +53,6 @@ Item {
 
         function buttonClicked() {
             main.state = "coordinates"
-            main.cachesActive = false
             hideMenu()
             openMenu = 2
             direction = false

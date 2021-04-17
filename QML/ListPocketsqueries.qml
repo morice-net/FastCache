@@ -69,7 +69,6 @@ Item {
                             hideMenu()
                             pocketsqueries.x  = -parent.width
                             fastMenuLevel1.x = 0
-                            main.cachesActive = false
                             main.state = "pocketQuery"
                             cachesPocketqueries.indexMoreCaches = 0
                             cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
