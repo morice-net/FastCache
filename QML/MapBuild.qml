@@ -6,6 +6,7 @@ Map {
     id: map
 
     property var selectedCache
+    property MapCircle circle
 
     activeMapType: supportedMapTypes[settings.sat === false ? 0 : 3]
     anchors.fill: parent
@@ -82,6 +83,10 @@ Map {
                 itemMap.index = fastMap.currentCacheIndex
                 cacheItems.push(itemMap)
                 addMapItem(itemMap)
+
+                // add circle or not on the map
+                if(settings.circlesMap)
+                    createCircle(caches[fastMap.currentCacheIndex].lat , caches[fastMap.currentCacheIndex].lon)
                 fastMap.currentCacheIndex++
             }
         }
@@ -93,6 +98,15 @@ Map {
         cacheItems.push(itemMap)
         addMapItem(itemMap)
         fastMap.currentCacheIndex++
+    }
+
+    function createCircle(lat, lon) {
+        circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
+        circle.center = QtPositioning.coordinate(lat, lon)
+        circle.radius = 161.0
+        circle.color = 'red'
+        circle.opacity = 0.3
+        addMapItem(circle)
     }
 
     Component.onCompleted:{
