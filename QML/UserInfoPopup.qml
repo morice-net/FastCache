@@ -222,6 +222,8 @@ FastPopup {
                     checked: settings.circlesMap
                     onClicked: {
                         settings.circlesMap = !settings.circlesMap
+                        fastMap.clearMap()
+                        addCachesOnMap()
                     }
                     contentItem: Text {
                         text: buttonCircles.text
