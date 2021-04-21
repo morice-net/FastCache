@@ -7,6 +7,7 @@ Map {
 
     property var selectedCache
     property MapCircle circle
+    property MapCircle circleRadius
 
     activeMapType: supportedMapTypes[settings.sat === false ? 0 : 3]
     anchors.fill: parent
@@ -21,6 +22,12 @@ Map {
     onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
     minimumZoomLevel: 6.
     maximumZoomLevel: 18.
+    onCenterChanged: {
+        if(settings.circleMap) {
+            deleteCircleRadius()
+            createCircleRadius(settings.circleMapRadius)
+        }
+    }
 
     LoadingPage {
         id: loadingPage
@@ -85,7 +92,7 @@ Map {
                 addMapItem(itemMap)
 
                 // add circle or not on the map
-                if(settings.circlesMap)
+                if(settings.circlesCaches)
                     createCircle(caches[fastMap.currentCacheIndex].lat , caches[fastMap.currentCacheIndex].lon)
                 fastMap.currentCacheIndex++
             }
@@ -100,6 +107,7 @@ Map {
         fastMap.currentCacheIndex++
     }
 
+    // create a circle on map around a cache with radius 161m
     function createCircle(lat, lon) {
         circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
         circle.center = QtPositioning.coordinate(lat, lon)
@@ -107,6 +115,19 @@ Map {
         circle.color = 'red'
         circle.opacity = 0.3
         addMapItem(circle)
+    }
+    // create circle on map with variable radius
+    function createCircleRadius(radius) {
+        circleRadius = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
+        circleRadius.center = mapItem.center
+        circleRadius.radius = radius*1000
+        circleRadius.color = 'green'
+        circleRadius.opacity = 0.2
+        addMapItem(circleRadius)
+    }
+
+    function deleteCircleRadius() {
+        removeMapItem(circleRadius)
     }
 
     Component.onCompleted:{

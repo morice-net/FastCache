@@ -18,7 +18,7 @@ FastPopup {
 
         Column {
             anchors.fill: parent
-            spacing: 10
+            spacing: 5
 
             /// User Info
             Image {
@@ -212,38 +212,106 @@ FastPopup {
 
             //Display Circles
             GroupBox {
-                id: circlesMap
+                id: circlesCaches
                 width: parent.width*0.7
 
-                RadioButton {
-                    id:buttonCircles
-                    visible: true
-                    text: "Affichage des cercles"
-                    checked: settings.circlesMap
-                    onClicked: {
-                        settings.circlesMap = !settings.circlesMap
-                        fastMap.clearMap()
-                        addCachesOnMap()
-                    }
-                    contentItem: Text {
-                        text: buttonCircles.text
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: buttonCircles.checked ? Palette.white() : Palette.silver()
-                        leftPadding: buttonCircles.indicator.width + buttonCircles.spacing
-                    }
-                    indicator: Rectangle {
-                        y:10
-                        implicitWidth: 25
-                        implicitHeight: 25
-                        radius: 10
-                        border.width: 1
-                        Rectangle {
-                            anchors.fill: parent
-                            visible: buttonCircles.checked
-                            color: Palette.greenSea()
+                Column {
+
+                    Switch {
+                        id:buttonCircles
+                        visible: true
+                        text: "Cerles autour des caches"
+                        checked: settings.circlesCaches
+                        onClicked: {
+                            settings.circlesCaches = !settings.circlesCaches
+                            fastMap.clearMap()
+                            addCachesOnMap()
+                        }
+                        contentItem: Text {
+                            text: buttonCircles.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: buttonCircles.checked ? Palette.white() : Palette.silver()
+                            leftPadding: buttonCircles.indicator.width + buttonCircles.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
                             radius: 10
-                            anchors.margins: 4
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: buttonCircles.checked
+                                color: Palette.greenSea()
+                                radius: 10
+                                anchors.margins: 4
+                            }
+                        }
+                    }
+
+                    Switch {
+                        id:buttonCircle
+                        visible: true
+                        text: "Cercle (rayon en km) "
+                        checked: settings.circleMap
+                        onClicked: {
+                            settings.circleMap = !settings.circleMap
+                            fastMap.mapItem.deleteCircleRadius()
+                            if(settings.circleMap && distance.text !== "")
+                                fastMap.mapItem.createCircleRadius(settings.circleMapRadius)
+                        }
+                        contentItem: Text {
+                            text: buttonCircle.text
+                            font.family: localFont.name
+                            font.pointSize: 16
+                            color: buttonCircle.checked ? Palette.white() : Palette.silver()
+                            leftPadding: buttonCircle.indicator.width + buttonCircle.spacing
+                        }
+                        indicator: Rectangle {
+                            y:10
+                            implicitWidth: 25
+                            implicitHeight: 25
+                            radius: 10
+                            border.width: 1
+                            Rectangle {
+                                anchors.fill: parent
+                                visible: buttonCircle.checked
+                                color: Palette.greenSea()
+                                radius: 10
+                                anchors.margins: 4
+                            }
+                        }
+                    }
+
+                    TextField {
+                        id: distance
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        validator: DoubleValidator {
+                            bottom: 0.0;
+                            top: 200.0;
+                            decimals: 3;
+                            notation: DoubleValidator.StandardNotation
+                        }
+                        text: settings.circleMapRadius.toLocaleString()
+                        onTextChanged:
+                        {
+                            if(!acceptableInput) {
+                                distance.text = ""
+                            } else {
+                                settings.circleMapRadius = distance.text.replace(',', '.')
+                                if(settings.circleMap) {
+                                    fastMap.mapItem.deleteCircleRadius()
+                                    fastMap.mapItem.createCircleRadius(settings.circleMapRadius)
+                                }
+                            }
+                        }
+                        color: Palette.turquoise()
+                        font.pointSize: 15
+                        placeholderText: "rayon en km"
+                        background: Rectangle {
+                            color: Palette.white()
+                            radius: 10
                         }
                     }
                 }

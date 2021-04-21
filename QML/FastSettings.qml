@@ -64,8 +64,12 @@ Settings {
     property string namePlugin: "osm"
     property bool sat: false
 
-    // Circles on map
-    property bool circlesMap : false
+    // Circles on map around caches
+    property bool circlesCaches : false
+
+    // Circle on map (radius in km )
+    property bool circleMap : false
+    property real circleMapRadius : 10.0
 }
 
 
