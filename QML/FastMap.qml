@@ -80,6 +80,10 @@ Rectangle {
         cacheItems.forEach(item => item.destroy())
         cacheItems = []
         currentCacheIndex = 0
+
+        // Does not erase the possible circle on the map
+        if(settings.circleMap)
+            fastMap.mapItem.createCircleRadius(settings.circleMapRadius)
     }
 
     function listGeocodesOnMap() {

@@ -116,6 +116,7 @@ Map {
         circle.opacity = 0.3
         addMapItem(circle)
     }
+
     // create circle on map with variable radius
     function createCircleRadius(radius) {
         circleRadius = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)

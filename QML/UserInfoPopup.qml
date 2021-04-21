@@ -308,7 +308,8 @@ FastPopup {
                         }
                         color: Palette.turquoise()
                         font.pointSize: 15
-                        placeholderText: "rayon en km"
+                        placeholderText: qsTr("rayon en km")
+                        horizontalAlignment: TextInput.AlignLeft
                         background: Rectangle {
                             color: Palette.white()
                             radius: 10
