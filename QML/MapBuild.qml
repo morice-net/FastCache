@@ -89,6 +89,7 @@ Map {
                 var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                 itemMap.index = fastMap.currentCacheIndex
                 cacheItems.push(itemMap)
+                itemMap.z = 1
                 addMapItem(itemMap)
 
                 // add circle or not on the map
@@ -103,6 +104,7 @@ Map {
         var itemMap = Qt.createQmlObject('FastMapItem {}', map)
         itemMap.index = indexList
         cacheItems.push(itemMap)
+        itemMap.z = 1
         addMapItem(itemMap)
         fastMap.currentCacheIndex++
     }
@@ -114,6 +116,7 @@ Map {
         circle.radius = 161.0
         circle.color = 'red'
         circle.opacity = 0.3
+        circle.z = 0
         addMapItem(circle)
     }
 
@@ -124,6 +127,7 @@ Map {
         circleRadius.radius = radius*1000
         circleRadius.color = 'green'
         circleRadius.opacity = 0.2
+        circleRadius.z = 0
         addMapItem(circleRadius)
     }
 
