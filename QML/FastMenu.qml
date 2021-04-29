@@ -60,6 +60,7 @@ Item {
                 anchors.margins: 5
                 spacing: 10
                 visible: userInfo.name.length > 0
+
                 Image {
                     id: userInfoIcon
                     height: parent.height

@@ -16,45 +16,72 @@ FastPopup {
         height: parent.height * 0.3
         width: parent.width
 
-        Column {
+        /// User Info
+        Row {
             anchors.fill: parent
-            spacing: 5
+            anchors.margins: 5
+            spacing: 10
+            visible: userInfo.name.length > 0
 
-            /// User Info
             Image {
+                id: userInfoIcon
                 height: userInfoTopPopup.height * 0.5
                 width: height
                 source: userInfo.avatarUrl
             }
 
-            Text {
-                height: userInfoTopPopup.height * 0.29
-                width: parent.width
-                text: userInfo.name
-                font.family: localFont.name
-                font.pixelSize: userInfoTopPopup.height * 0.2
-                color: Palette.white()
-            }
+            Column {
+                height: userInfoIcon.height
+                clip: true
+                spacing: 10
 
-            Text {
-                height: userInfoTopPopup.height * 0.19
-                width: parent.width
-                text: findCount + " caches trouvées"
-                font.family: localFont.name
-                font.italic: true
-                font.pixelSize: userInfoTopPopup.height * 0.1
-                color: Palette.white()
-            }
+                Text {
+                    height: parent.height * 0.29
+                    text: userInfo.name
+                    font.family: localFont.name
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: height
+                    color: Palette.white()
+                    onTextChanged: {
+                        if (text === "") return
+                        while (width > (userInfoTopPopup.width*0.85 - userInfoIcon.width - 20)) font.pixelSize--
+                    }
+                }
 
-            Text {
-                height: userInfoTopPopup.height * 0.19
-                width: parent.width
-                text:  "Membre : " + userInfo.premium
-                font.family: localFont.name
-                font.italic: true
-                font.pixelSize: userInfoTopPopup.height * 0.1
-                color: Palette.white()
+                Text {
+                    height: parent.height * 0.25
+                    text: findCount + " caches trouvées"
+                    font.family: localFont.name
+                   verticalAlignment: Text.AlignBottom
+                    font.pixelSize: height
+                    font.italic: true
+                    color: Palette.white()
+                    onTextChanged: {
+                        if (text === "0 caches trouvées") return
+                        while (width > (userInfoTopPopup.width*0.85 - userInfoIcon.width - 20)) font.pixelSize--
+                    }
+                }
+
+                Text {
+                    height: parent.height * 0.25
+                    text: "Membre : " + userInfo.premium
+                    font.family: localFont.name
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: height
+                    font.italic: true
+                   color: Palette.white()
+                    onTextChanged: {
+                        if (text === "Membre : ") return
+                        while (width > (userInfoTopPopup.width*0.85 - userInfoIcon.width - 20)) font.pixelSize--
+                    }
+                }
             }
+        }
+
+        Column {
+            topPadding: userInfoIcon.height + 20
+            anchors.fill: parent
+            spacing: 10
 
             Text {
                 width: parent.width
