@@ -52,7 +52,7 @@ FastPopup {
                     height: parent.height * 0.25
                     text: findCount + " caches trouvées"
                     font.family: localFont.name
-                   verticalAlignment: Text.AlignBottom
+                    verticalAlignment: Text.AlignBottom
                     font.pixelSize: height
                     font.italic: true
                     color: Palette.white()
@@ -69,7 +69,7 @@ FastPopup {
                     verticalAlignment: Text.AlignVCenter
                     font.pixelSize: height
                     font.italic: true
-                   color: Palette.white()
+                    color: Palette.white()
                     onTextChanged: {
                         if (text === "Membre : ") return
                         while (width > (userInfoTopPopup.width*0.85 - userInfoIcon.width - 20)) font.pixelSize--
@@ -89,13 +89,13 @@ FastPopup {
                 leftPadding: 5
                 font.pointSize: 14
                 text: "CHOIX DES CARTES  "
-                color: Palette.silver()
+                color: Palette.white()
             }
 
             // Maps
             GroupBox {
                 id: groupBoxMaps
-                width: parent.width*0.7
+                width: parent.width*0.9
 
                 Column {
 
@@ -240,7 +240,7 @@ FastPopup {
             //Display Circles
             GroupBox {
                 id: circlesCaches
-                width: parent.width*0.7
+                width: parent.width*0.9
 
                 Column {
 
@@ -340,6 +340,80 @@ FastPopup {
                         background: Rectangle {
                             color: Palette.white()
                             radius: 10
+                        }
+                    }
+                }
+            }
+
+            Text {
+                width: parent.width
+                font.family: localFont.name
+                leftPadding: 5
+                font.pointSize: 14
+                text: "LISTES"
+                color: Palette.white()
+            }
+
+            //maximum number of caches in a list
+            GroupBox {
+                width: parent.width*0.9
+
+                Column {
+                    spacing: 15
+
+                    Text  {
+                        text: "Maximum de caches dans une liste"
+                        font.family: localFont.name
+                        leftPadding: 5
+                        font.pointSize: 16
+                        color: Palette.white()
+                    }
+
+                    SpinBox {
+                        id: control
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        font.pointSize: 16
+                        from: 100
+                        to: 300
+                        stepSize: 50
+                        value: settings.maxCachesInList
+                        onValueChanged: settings.maxCachesInList = control.value
+                        contentItem: TextInput {
+                            text: control.textFromValue(control.value, control.locale)
+                            font: control.font
+                            color: Palette.turquoise()
+                            horizontalAlignment: Qt.AlignHCenter
+                            verticalAlignment: Qt.AlignVCenter
+                        }
+                        background: Rectangle {
+                            radius: 10
+                            border.color: Palette.turquoise()
+                        }
+                        up.indicator: Rectangle {
+                            anchors.right: parent.right
+                            height: parent.height
+                            implicitWidth: 50
+                            radius: 10
+                            border.color: Palette.turquoise()
+                            Text {
+                                text: '+'
+                                anchors.centerIn: parent
+                                font.pointSize: 18
+                                color: Palette.turquoise()
+                            }
+                        }
+                        down.indicator: Rectangle {
+                            anchors.left: parent.left
+                            height: parent.height
+                            implicitWidth: 50
+                            radius: 10
+                            border.color: Palette.turquoise()
+                            Text {
+                                text: '-'
+                                anchors.centerIn: parent
+                                font.pointSize: 18
+                                color: Palette.turquoise()
+                            }
                         }
                     }
                 }

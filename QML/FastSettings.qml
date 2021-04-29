@@ -70,6 +70,9 @@ Settings {
     // Circle on map (radius in km )
     property bool circleMap : false
     property real circleMapRadius : 10.0
+
+    // Maximum number of caches in a list
+    property int maxCachesInList : 200
 }
 
 
