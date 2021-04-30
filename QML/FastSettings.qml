@@ -73,8 +73,16 @@ Settings {
 
     // Maximum number of caches in a list
     property int maxCachesInList : 200
+
     onMaxCachesInListChanged: {
         cachesBBox.maxCaches = maxCachesInList
+        cachesNear.maxCaches = maxCachesInList
+        cachesPocketqueries.maxCaches = maxCachesInList
+    }
+    Component.onCompleted: {
+        cachesBBox.maxCaches = maxCachesInList
+        cachesNear.maxCaches = maxCachesInList
+        cachesPocketqueries.maxCaches = maxCachesInList
     }
 }
 

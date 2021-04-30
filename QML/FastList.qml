@@ -116,29 +116,51 @@ Rectangle {
         if(main.state === "cachesActive"){
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + 10
-            return "Liste de caches(" + fastListColumn.count + ")"
-        } else if(main.state === "near" ){
-            fastListBottom.visible = true ;
-            fastListColumn.y = fastListHeader.height + fastListBottom.height +10
+            return "Carte active(" + fastListColumn.count + ")"
+
+        } else if(main.state === "near"){
+            if(fastListColumn.count < settings.maxCachesInList) {
+                fastListBottom.visible = true
+                fastListColumn.y = fastListHeader.height + fastListBottom.height + 10
+            } else {
+                fastListBottom.visible = false ;
+                fastListColumn.y = fastListHeader.height + 10
+            }
             return  "Caches proches(" + fastListColumn.count + ")"
+
         } else if(main.state === "address" ){
-            fastListBottom.visible = true ;
-            fastListColumn.y = fastListHeader.height + fastListBottom.height +10
+            if(fastListColumn.count < settings.maxCachesInList) {
+                fastListBottom.visible = true
+                fastListColumn.y = fastListHeader.height + fastListBottom.height + 10
+            } else {
+                fastListBottom.visible = false ;
+                fastListColumn.y = fastListHeader.height + 10
+            }
             return  "Par adresse(" + fastListColumn.count + ")"
+
         } else if(main.state === "coordinates" ){
-            fastListBottom.visible = true ;
-            fastListColumn.y = fastListHeader.height + fastListBottom.height +10
+            if(fastListColumn.count < settings.maxCachesInList) {
+                fastListBottom.visible = true
+                fastListColumn.y = fastListHeader.height + fastListBottom.height + 10
+            } else {
+                fastListBottom.visible = false ;
+                fastListColumn.y = fastListHeader.height + 10
+            }
             return  "Par coordonnées(" + fastListColumn.count + ")"
+
         } else if (main.state === "pocketQuery") {
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + 10
             return "Pocket Query(" + fastListColumn.count + ")"
+
         } else if(main.state === "recorded"){
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + tabViewRecordedCaches.height + 10
             return sqliteStorage.readAllStringsFromTable("lists")[tabViewRecordedCaches.currentIndex] + " ( " + fastListColumn.count + " )"
         }
-        return ""
+
+        fastListBottom.visible = false ;
+        return "Aucune caches"
     }
 
     function createAllSelectedInList(flag) {

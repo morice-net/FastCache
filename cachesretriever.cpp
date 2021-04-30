@@ -12,7 +12,7 @@
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
     , m_indexMoreCaches(0)
-    , m_maxCaches(0)
+    , m_maxCaches()
 {
 }
 
@@ -188,7 +188,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     // request success
     emit requestReady();
 
-    if (lengthCaches == MAX_PER_PAGE)
+    if (lengthCaches == MAX_PER_PAGE && m_listCaches->length() < m_maxCaches)
         moreCaches();
     else {
         setIndexMoreCaches(0);

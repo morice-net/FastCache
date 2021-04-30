@@ -133,7 +133,7 @@ const QMap<QString, int> WPT_TYPE_ICON_MAP = {{"Waypoints/waypoint_pkg.png", 217
                                               {"Waypoints/waypoint_trailhead.png", 221},
                                               {"Waypoints/waypoint_waypoint.png", 452},};
 
-const int MAX_PER_PAGE = 40;
+const int MAX_PER_PAGE = 50;
 const int GEOCACHE_LOGS_COUNT = 20;
 const int GEOCACHE_LOG_IMAGES_COUNT = 10;
 const int TRACKABLE_LOGS_COUNT = 20;
