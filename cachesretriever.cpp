@@ -12,6 +12,7 @@
 CachesRetriever::CachesRetriever(Requestor *parent)
     : Requestor (parent)
     , m_indexMoreCaches(0)
+    , m_maxCaches(0)
 {
 }
 
@@ -242,6 +243,17 @@ void CachesRetriever::setIndexMoreCaches(int indexMoreCaches)
 {
     m_indexMoreCaches = indexMoreCaches;
     emit indexMoreCachesChanged();
+}
+
+int CachesRetriever::maxCaches()
+{
+    return m_maxCaches;
+}
+
+void CachesRetriever::setMaxCaches(int max)
+{
+    m_maxCaches = max;
+    emit maxCachesChanged();
 }
 
 

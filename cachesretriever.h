@@ -14,6 +14,7 @@ class CachesRetriever : public Requestor
     Q_OBJECT
 
     Q_PROPERTY(int indexMoreCaches READ indexMoreCaches WRITE setIndexMoreCaches NOTIFY indexMoreCachesChanged)
+    Q_PROPERTY(int maxCaches READ maxCaches WRITE setMaxCaches NOTIFY maxCachesChanged)
 
 public:
     explicit  CachesRetriever(Requestor *parent = nullptr);
@@ -29,6 +30,8 @@ public:
     void parseJson(const QJsonDocument &dataJsonDoc) override;
     int indexMoreCaches();
     void setIndexMoreCaches(int indexMoreCaches);
+    int maxCaches();
+    void setMaxCaches(int max);
 
 protected:
     virtual void addGetRequestParameters(QString& parameters) = 0;
@@ -36,9 +39,11 @@ protected:
 signals:
     void clearMapRequested();
     void indexMoreCachesChanged();
+    void maxCachesChanged();
 
 protected:
     int m_indexMoreCaches;
+    int m_maxCaches;
     QString m_tokenTemp ;
     QString m_referenceCode   ; // used for loading pockets queries
     QString m_userName;
