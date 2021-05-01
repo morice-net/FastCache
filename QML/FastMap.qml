@@ -97,17 +97,10 @@ Rectangle {
     }
 
     function markedCachesRegistered() {
-        if(main.state === "" || main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "pocketQuery") {
+        if(main.state !== "recorded") {
             for (var i = 0; i < cachesSingleList.caches.length; i++) {
                 if(listGeocodesOnMap().indexOf(cachesSingleList.caches[i].geocode) !== -1){
                     cachesSingleList.caches[i].registered = true
-                }
-            }
-        }
-        if(main.state === "cachesActive") {
-            for (var j = 0; j < cachesSingleList.caches.length; j++) {
-                if(listGeocodesOnMap().indexOf(cachesSingleList.caches[j].geocode) !== -1) {
-                    cachesSingleList.caches[j].registered = true
                 }
             }
         }
