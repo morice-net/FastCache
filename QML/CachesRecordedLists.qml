@@ -46,8 +46,7 @@ FastPopup {
                 model: sqliteStorage.countLists
 
                 ListBox {
-                    checkable: main.state === "cachesActive" || main.state === "near" || main.state === "address" || main.state === "coordinates" ||
-                               main.state === "pocketQuery" || viewState === "fullcache"  ? true : main.tabBarRecordedCachesIndex === index
+                    checkable: main.state !== "recorded" || viewState === "fullcache"  ? true : main.tabBarRecordedCachesIndex === index
                     checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : listChecked[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
@@ -64,7 +63,7 @@ FastPopup {
                             }
                             sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode , true)
                             sqliteStorage.numberCachesInLists("cacheslists")
-                            if(main.state === "recorded" && main.state !== "cachesActive"){
+                            if(main.state === "recorded"){
                                 cachesRecorded.updateMapCachesRecorded()
                                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                             }
@@ -87,8 +86,7 @@ FastPopup {
     FastTextButton {
         id: recordCachesButton
         buttonText: "Enregistrer les caches"
-        visible: (main.state === "cachesActive" || main.state === "near" || main.state === "address" || main.state === "coordinates" ||
-                  main.state === "pocketQuery") && (viewState !== "fullcache" ) ? true : false
+        visible: main.state !== "recorded" && (viewState !== "fullcache" ) ? true : false
         onClicked: {
             console.log("list checked:   " + listChecked)
             var list = []
@@ -111,8 +109,7 @@ FastPopup {
     FastTextButton {
         id: deleteCachesButton
         buttonText: "Supprimer les caches"
-        visible: (main.state === "cachesActive" || main.state === "near" || main.state === "address" || main.state === "coordinates" ||
-                  main.state === "pocketQuery" ) || viewState === "fullcache" ? false : true
+        visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
         onClicked: {
             var list = []
             if(viewState === "map"){
@@ -142,8 +139,7 @@ FastPopup {
     FastTextButton {
         id: refreshCachesButton
         buttonText: "Rafraichir les caches"
-        visible: (main.state === "cachesActive" || main.state === "near" || main.state === "address" || main.state === "coordinates" ||
-                  main.state === "pocketQuery") || viewState === "fullcache" ? false : true
+        visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
         onClicked: {
             var list = []
             if(viewState === "map"){

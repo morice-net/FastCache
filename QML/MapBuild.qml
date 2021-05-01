@@ -41,8 +41,7 @@ Map {
         anchors.fill: parent
         onClicked: mapControls.show()
         onPressAndHold: {
-            if(main.state !== "")
-                cachesRecordedLists.open()
+            cachesRecordedLists.open()
         }
     }
 

@@ -165,10 +165,8 @@ Rectangle {
 
     function createAllSelectedInList(flag) {
         var selected = []
-        if(main.state !== "") {
-            for (var i = 0; i < cachesSingleList.caches.length; i++) {
-                selected.push(flag)
-            }
+        for (var i = 0; i < cachesSingleList.caches.length; i++) {
+            selected.push(flag)
         }
         console.log("selected in list:  " + selected)
         return selected

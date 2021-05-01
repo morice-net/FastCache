@@ -134,7 +134,7 @@ Rectangle {
         id: cacheItemArea
         anchors.fill: parent
         onClicked: {
-            if(fastList.state === "selectedInList" && viewState === "list" && (main.state !== "")) {
+            if(fastList.state === "selectedInList" && viewState === "list") {
                 selectedInList[index] = !selectedInList[index]
                 selectedInList = getSelectedInList()
             } else {
