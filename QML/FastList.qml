@@ -116,7 +116,7 @@ Rectangle {
         if(main.state === "cachesActive"){
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + 10
-            return "Carte active(" + fastListColumn.count + ")"
+            return "Carte active (" + fastListColumn.count + ")"
 
         } else if(main.state === "near"){
             if(fastListColumn.count < settings.maxCachesInList) {
@@ -126,7 +126,7 @@ Rectangle {
                 fastListBottom.visible = false ;
                 fastListColumn.y = fastListHeader.height + 10
             }
-            return  "Caches proches(" + fastListColumn.count + ")"
+            return  "Caches proches (" + fastListColumn.count + ")"
 
         } else if(main.state === "address" ){
             if(fastListColumn.count < settings.maxCachesInList) {
@@ -136,7 +136,7 @@ Rectangle {
                 fastListBottom.visible = false ;
                 fastListColumn.y = fastListHeader.height + 10
             }
-            return  "Par adresse(" + fastListColumn.count + ")"
+            return  "Par adresse (" + fastListColumn.count + ")"
 
         } else if(main.state === "coordinates" ){
             if(fastListColumn.count < settings.maxCachesInList) {
@@ -146,12 +146,12 @@ Rectangle {
                 fastListBottom.visible = false ;
                 fastListColumn.y = fastListHeader.height + 10
             }
-            return  "Par coordonnées(" + fastListColumn.count + ")"
+            return  "Par coordonnées (" + fastListColumn.count + ")"
 
         } else if (main.state === "pocketQuery") {
             fastListBottom.visible = false ;
             fastListColumn.y = fastListHeader.height + 10
-            return "Pocket Query(" + fastListColumn.count + ")"
+            return "Pocket Query (" + fastListColumn.count + ")"
 
         } else if(main.state === "recorded"){
             fastListBottom.visible = false ;
@@ -160,7 +160,7 @@ Rectangle {
         }
 
         fastListBottom.visible = false ;
-        return "Aucune caches"
+        return "Carte non active (" + fastListColumn.count + ")"
     }
 
     function createAllSelectedInList(flag) {

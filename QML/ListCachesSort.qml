@@ -65,7 +65,6 @@ DelegateModel {
     }
 
     function modelState() {
-        if(main.state !== "")
-            return  cachesSingleList.caches
+        return  cachesSingleList.caches
     }
 }

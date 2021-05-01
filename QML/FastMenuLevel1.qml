@@ -25,7 +25,6 @@ Item {
         anchors.topMargin: 2
         anchors.bottomMargin: 18
         buttonSelected: false
-
         buttonText: " Carte active"
         centered: false
 
@@ -55,7 +54,6 @@ Item {
                         reloadCaches()
                     } else {
                         main.state = ""
-                        fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
                     }
                 }
             }
@@ -70,7 +68,6 @@ Item {
         anchors.top: bboxButtonMenu.bottom
         anchors.topMargin: 30
         anchors.bottomMargin: 18
-
         buttonSelected: main.state === "near"
         buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
 
@@ -91,7 +88,6 @@ Item {
         anchors.top: nearButtonMenu.bottom
         anchors.topMargin: 2
         anchors.bottomMargin: 18
-
         buttonText: main.viewState === "fullcache" ? "Naviguer" : "Recherche"
 
         function buttonClicked() {

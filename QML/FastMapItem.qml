@@ -28,8 +28,7 @@ MapQuickItem {
     }
 
     function listCaches() {
-        if(main.state !== "")
-            return cachesSingleList.caches
+        return cachesSingleList.caches
     }
     Component.onCompleted: {
         console.log("FastMapItem " + index + " created.")
