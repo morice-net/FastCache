@@ -14,10 +14,10 @@ Map {
     zoomLevel: currentZoomlevel
     gesture.enabled: true
     gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
-    gesture.onPanFinished: reloadCaches()
+    gesture.onPanFinished: reloadCachesBBox()
     onZoomLevelChanged: {
         scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
-        reloadCaches()
+        reloadCachesBBox()
     }
     onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
     minimumZoomLevel: 6.

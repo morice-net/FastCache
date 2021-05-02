@@ -58,7 +58,8 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    reloadCaches()
+                    reloadCachesBBox()
+                    reloadCachesNear()
                     cacheFilter.opacity = 0
                 }
             }

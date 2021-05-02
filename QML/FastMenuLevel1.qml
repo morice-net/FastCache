@@ -51,7 +51,7 @@ Item {
                     }
                     if (firstButtonSelected) {
                         fastMap.currentZoomlevel = 14.5
-                        reloadCaches()
+                        reloadCachesBBox()
                     } else {
                         main.state = ""
                     }

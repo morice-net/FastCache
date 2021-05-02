@@ -516,20 +516,27 @@ Item {
         connector.connect()
     }
 
-    function reloadCaches(){
-        if (main.state !== "cachesActive") {
-            return;
-        }
-        if(cachesBBox.state !== "loading")
-        {
+    function reloadCachesBBox() {
+        if(main.state === "cachesActive" && cachesBBox.state !== "loading") {
             cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
             cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
             cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
             cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
-
             cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
                                           createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
             cachesBBox.sendRequest(connector.tokenKey)
+        }
+    }
+
+    function reloadCachesNear() {
+        if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
+            cachesNear.latPoint = fastMap.mapItem.center.latitude
+            cachesNear.lonPoint = fastMap.mapItem.center.longitude
+            cachesNear.distance = 100
+            cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
+                                          createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesNear.indexMoreCaches = 0
+            cachesNear.sendRequest(connector.tokenKey)
         }
     }
 
