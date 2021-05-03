@@ -82,9 +82,9 @@ Rectangle {
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
         font.pixelSize: parent.height * 0.15
-        color: Palette.black()
-        clip: true
-        width: parent.width - selectedCacheIconField.width - 3 * anchors.margins
+        color: Palette.black()       
+        width: parent.width*0.7
+        elide: Text.ElideRight
         text: selectedCache.name
     }
 
