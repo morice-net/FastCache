@@ -18,15 +18,14 @@ CachesNear::~CachesNear()
 }
 
 void CachesNear::sendRequest(QString token)
-{    
-    if(m_indexMoreCaches == 0) {
-        emit clearMapRequested();
-    }
+{        
     CachesRetriever::sendRequest(token);
 }
 
 void CachesNear::parseJson(const QJsonDocument &dataJsonDoc)
-{    
+{
+    if(indexMoreCaches() == 0 )
+        emit clearMapRequested();
     CachesRetriever::parseJson(dataJsonDoc);
     emit m_listCaches->cachesChanged();
 }
