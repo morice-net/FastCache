@@ -22,11 +22,10 @@ Item {
     property string previousGeocode: ""
 
     // State can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
-
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
 
-    // Previous viewstate used when downloading a travel bug
-    property string previousViewState: ""
+    // Previous viewstate used when downloading a fullcache or a travel bug
+    property var previousViewState: ["" , ""]
 
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
@@ -217,6 +216,8 @@ Item {
     FullCacheRetriever {
         id: fullCacheRetriever
         onStateChanged: {
+            if(fullCacheRetriever.state === "loading")
+                previousViewState[0] = viewState
             if(fullCacheRetriever.state !== "loading" && fullCacheRetriever.state === "OK")
                 viewState = "fullcache"
             if(fullCacheRetriever.state !== "loading" && fullCacheRetriever.state !== "OK") {
@@ -234,7 +235,6 @@ Item {
         onStateChanged: {
             // User name in fullcachesrecorded
             fullCachesRecorded.userName = userInfo.name
-
             toast.visible = fullCachesRecorded.state !== "loading";
             if(fullCachesRecorded.state !== "OK")
                 toast.show("Erreur  " + "(" + state + ")");
@@ -248,9 +248,10 @@ Item {
     Travelbug {
         id: travelbug
         onStateChanged: {
-            previousViewState = main.viewState
+            if(travelbug.state === "loading")
+                previousViewState[1] = viewState
             if(travelbug.state !== "loading" && travelbug.state === "OK")
-                main.viewState = "travelbug"
+                viewState = "travelbug"
             if(travelbug.state !== "loading" && travelbug.state !== "OK")
             {
                 toast.visible = true;
@@ -467,10 +468,10 @@ Item {
                 fastMenu.hideMenu()
             } else if (fastMenuHeader.isFiltersVisible()) {
                 fastMenuHeader.changeFiltersVisibility()
-            } else if (main.viewState == "fullcache" || main.viewState == "list") {
-                main.viewState = "map"
+            } else if (main.viewState == "fullcache") {
+                main.viewState = previousViewState[0]
             } else if (main.viewState == "travelbug") {
-                main.viewState = previousViewState
+                main.viewState = previousViewState[1]
             }else {
                 sureQuit.visible = true
             }
