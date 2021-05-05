@@ -207,7 +207,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listVisibleImages.clear();
 
     QJsonArray geocacheLogs = cacheJson["geocacheLogs"].toArray();
-    for (QJsonValue geocacheLog: geocacheLogs)
+    for (QJsonValue geocacheLog: qAsConst(geocacheLogs))
     {
         listLogs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog["text"].toString()));
         listFindersDate.append(geocacheLog["loggedDate"].toString());
@@ -220,7 +220,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         listLogsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
 
         QJsonArray logsImage = geocacheLog["images"].toArray();
-        for (QJsonValue logImage: logsImage)
+        for (const QJsonValue &logImage: qAsConst(logsImage))
         {
             listImagesName.append(smileys->replaceSmileyTextToImgSrc(logImage["description"].toString()));
             listImagesUrl.append(logImage["url"].toString());
@@ -249,6 +249,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QList<double> listWptsLat ;
     QList<double> listWptsLon ;
     QList<QString> listWptsComment ;
+    QJsonArray additionalWaypoints = cacheJson["additionalWaypoints"].toArray();
 
     listWptsDescription.clear();
     listWptsName.clear();
@@ -256,7 +257,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listWptsLat.clear();
     listWptsLon.clear();
     listWptsComment.clear();
-    for (QJsonValue waypoint: cacheJson["additionalWaypoints"].toArray())
+    for (const QJsonValue &waypoint: qAsConst(additionalWaypoints))
     {
         listWptsDescription.append(waypoint["name"].toString());
         listWptsName.append(WPT_TYPE_MAP.key(waypoint["typeId"].toInt()));
@@ -283,13 +284,14 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QList<double> listUserWptsLat ;
     QList<double> listUserWptsLon ;
     QList<QString> listUserWptsCode ;
+    QJsonArray userWaypoints = cacheJson["userWaypoints"].toArray();
 
     listUserWptsDescription.clear();
     listUserWptsLat.clear();
     listUserWptsLon.clear();
     listUserWptsCode.clear();
 
-    for (QJsonValue userWaypoint: cacheJson["userWaypoints"].toArray())
+    for (const QJsonValue &userWaypoint: qAsConst(userWaypoints))
     {
         listUserWptsDescription.append(userWaypoint["description"].toString());
         listUserWptsCode.append(userWaypoint["referenceCode"].toString());
@@ -310,16 +312,19 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     // Trackables: list of names and codes.
     QList<QString> listTrackableNames ;
     QList<QString> listTrackableCodes ;
+    QJsonArray trackables = cacheJson["trackables"].toArray();
 
     listTrackableNames.clear();
     listTrackableCodes.clear();
-    for (QJsonValue travel: cacheJson["trackables"].toArray())
+    for (const QJsonValue &travel: qAsConst(trackables))
     {
         listTrackableNames.append(travel["name"].toString());
         listTrackableCodes.append(travel["referenceCode"].toString());
     }
     m_fullCache->setTrackableNames(listTrackableNames);
     m_fullCache->setTrackableCodes(listTrackableCodes);
+
+    delete smileys;
 
     emit m_fullCache->registeredChanged();
 
