@@ -77,7 +77,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 18
-                color: Palette.white()
+                color: Palette.silver()
                 MouseArea {
                     anchors.fill: logDate
                     onClicked: {
