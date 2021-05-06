@@ -63,11 +63,11 @@ Item {
 
         Column{
             spacing: 10
-            x: 10
             y: 40
 
             GroupBox {
-                width: parent.width*0.7
+                width: logPage.width*0.9
+                x: logPage.width*0.05
 
                 Column {
                     RadioButton {
@@ -204,11 +204,11 @@ Item {
 
             Text {
                 id: logDate
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 18
                 text: "Date  " + new Date().toLocaleDateString(Qt.LocaleDate)
-                color: Palette.white()
+                color: Palette.silver()
 
                 MouseArea {
                     anchors.fill: logDate
@@ -220,6 +220,8 @@ Item {
 
             FastCalendar {
                 id: calendar
+                width: logPage.width*0.9
+                x: logPage.width*0.05
                 visible: false
                 onDateCalendarChanged:{
                     dateIso = dateCalendar.toISOString()
@@ -228,7 +230,9 @@ Item {
             }
 
             Row {
+                x: logPage.width*0.05
                 spacing: 40
+
                 Button {
                     contentItem: Text {
                         text: "Effacer"
@@ -294,6 +298,7 @@ Item {
             TextField {
                 id: trackingCode
                 visible:(typeLog !== 4 && travelbug.tbStatus !== 0)
+                anchors.horizontalCenter: parent.horizontalCenter
                 placeholderText: qsTr("Code de suivi")
                 font.family: localFont.name
                 font.pointSize: 16
@@ -306,7 +311,7 @@ Item {
             }
 
             Text {
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 16
                 text: "Texte du Log"
@@ -315,7 +320,8 @@ Item {
 
             TextArea {
                 id: message
-                width: logPage.width*0.95
+                x: logPage.width*0.05
+                width: logPage.width*0.9
                 font.family: localFont.name
                 font.pointSize: 14
                 color: Palette.greenSea()
