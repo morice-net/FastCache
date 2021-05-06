@@ -295,21 +295,6 @@ Item {
                 }
             }
 
-            TextField {
-                id: trackingCode
-                visible:(typeLog !== 4 && travelbug.tbStatus !== 0)
-                anchors.horizontalCenter: parent.horizontalCenter
-                placeholderText: qsTr("Code de suivi")
-                font.family: localFont.name
-                font.pointSize: 16
-                color: Palette.greenSea()
-                background: Rectangle {
-                    implicitHeight: 40
-                    color: Palette.white()
-                    border.color: Palette.greenSea()
-                }
-            }
-
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
@@ -328,6 +313,21 @@ Item {
                 wrapMode: Text.Wrap
                 background: Rectangle {
                     implicitHeight: 100
+                }
+            }
+
+            TextField {
+                id: trackingCode
+                visible:(typeLog !== 4 && travelbug.tbStatus !== 0)
+                anchors.horizontalCenter: parent.horizontalCenter
+                placeholderText: qsTr("Code de suivi")
+                font.family: localFont.name
+                font.pointSize: 16
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitHeight: 40
+                    color: Palette.white()
+                    border.color: Palette.greenSea()
                 }
             }
         }
