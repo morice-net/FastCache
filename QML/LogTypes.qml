@@ -7,7 +7,7 @@ import com.mycompany.connecting 1.0
 
 GroupBox {
     id: groupBox
-    width: parent.width*0.7
+    width: parent.width*0.9
 
     property alias button1Checked: button1.checked
     property alias button2Checked: button2.checked
