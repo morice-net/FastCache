@@ -221,7 +221,7 @@ Item {
 
             Button {
                 id: buttonAddImages
-                anchors.horizontalCenter:  parent.horizontalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 contentItem: Text {
                     text: "Cliquer pour ajouter des images ( " + imagesBrowser.repeaterCount + " )"
                     font.family: localFont.name
@@ -240,11 +240,11 @@ Item {
 
             Text {
                 id: note
+                anchors.horizontalCenter: parent.horizontalCenter
                 visible: getTravelbugUser.tbsCode.length !== 0
                 font.family: localFont.name
                 font.pointSize: 14
                 text: "INVENTAIRE"
-                anchors.horizontalCenter: parent.horizontalCenter
                 color: Palette.white()
             }
 
