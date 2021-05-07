@@ -84,7 +84,7 @@ FastPopup {
             spacing: 10
 
             Text {
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 leftPadding: 5
                 font.pointSize: 14
@@ -96,6 +96,7 @@ FastPopup {
             GroupBox {
                 id: groupBoxMaps
                 width: parent.width*0.9
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
 
@@ -241,6 +242,7 @@ FastPopup {
             GroupBox {
                 id: circlesCaches
                 width: parent.width*0.9
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
 
@@ -346,7 +348,7 @@ FastPopup {
             }
 
             Text {
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 leftPadding: 5
                 font.pointSize: 14
@@ -356,15 +358,17 @@ FastPopup {
 
             //maximum number of caches in a list
             GroupBox {
+               anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width*0.9
 
                 Column {
                     spacing: 15
+                    anchors.horizontalCenter: parent.horizontalCenter
 
                     Text  {
+                        anchors.horizontalCenter: parent.horizontalCenter
                         text: "Maximum de caches dans une liste"
                         font.family: localFont.name
-                        leftPadding: 5
                         font.pointSize: 16
                         color: Palette.white()
                     }
@@ -434,7 +438,7 @@ FastPopup {
             radius: 20
             anchors.fill: parent
             anchors.margins: 20
-            color: Palette.turquoise()
+            color: Palette.silver()
 
             Text {
                 id: connectButtonName
