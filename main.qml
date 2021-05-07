@@ -21,7 +21,9 @@ Item {
     // Used for downloading a full cache by geocode
     property string previousGeocode: ""
 
-    // State can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
+    // main.state can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
+    property string annexMainState: ""
+
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
 
     // Previous viewstate used when downloading a fullcache or a travel bug
@@ -76,6 +78,7 @@ Item {
     CachesSingleList {
         id:cachesSingleList
         onCachesChanged: {
+            main.state = annexMainState
             if(main.state !== "")
                 fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }

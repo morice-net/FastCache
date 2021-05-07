@@ -254,7 +254,7 @@ FastPopup {
                     anchors.fill: parent
                     onClicked: {
                         geocodeResponse.close()
-                        main.state = "address"
+                        main.annexMainState = "address"
                         cachesNear.latPoint = listModel.get(index).valLat
                         cachesNear.lonPoint = listModel.get(index).valLon
                         cachesNear.distance = 100
