@@ -30,7 +30,6 @@ Item {
         buttonText: "Adresse"
 
         function buttonClicked() {
-            main.state = "address"
             if(fastMap.checkedPluginMap().supportsGeocoding()){
                 hideMenu()
                 openMenu = 2
@@ -52,7 +51,6 @@ Item {
         buttonText: "Coordonnées"
 
         function buttonClicked() {
-            main.state = "coordinates"
             hideMenu()
             openMenu = 2
             direction = false

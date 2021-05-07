@@ -74,8 +74,7 @@ Item {
         function buttonClicked() {
             if (main.viewState === "fullcache") {
                 fullCache.launchMaps(fullCache.lat , fullCache.lon);
-            } else {
-                main.state = "near"
+            } else {                
                 hideMenu()
                 nearCachesClicked()
                 fastMap.mapItem.center = currentPosition.position.coordinate
