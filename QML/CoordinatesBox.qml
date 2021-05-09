@@ -150,7 +150,7 @@ FastPopup {
                     coordinatesBox.close()
                 }
 
-            if (gpsFormatCombo.currentIndex == 2)
+            if (gpsFormatCombo.currentIndex === 2)
                 if(coordinatesBox3.box3Lat() !== "" && coordinatesBox3.box3Lon() !== "") {
                     resultLat =  coordinatesBox3.box3Lat()
                     resultLon =  coordinatesBox3.box3Lon()
