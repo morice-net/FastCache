@@ -45,18 +45,15 @@ Item {
 
                 function buttonClicked() {
                     if(main.state === "cachesActive") {
-                        main.state = ""
-                        main.annexMainState = ""
+                        main.state = ""                        
                     } else {
-                        main.state = "cachesActive"
-                        main.annexMainState = "cachesActive"
+                        main.state = "cachesActive"                        
                     }
                     if (firstButtonSelected) {
                         fastMap.currentZoomlevel = 14.5
                         reloadCachesBBox()
                     } else {
-                        main.state = ""
-                        main.annexMainState = ""
+                        main.state = ""                        
                     }
                 }
             }
@@ -121,7 +118,7 @@ Item {
                 }
             } else {
                 // Display list of recorded caches and prepare Center Map.
-                main.annexMainState = "recorded";
+                main.state = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
                 fastMap.clearMap()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])

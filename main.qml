@@ -78,7 +78,7 @@ Item {
     CachesSingleList {
         id:cachesSingleList
         onCachesChanged: {
-            main.state = annexMainState
+            main.annexMainState = main.state
             if(main.state !== "")
                 fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }

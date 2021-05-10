@@ -257,7 +257,7 @@ Item {
     }
 
     function nearCachesClicked() {
-        main.annexMainState = "near"
+        main.state = "near"
         hideMenu()
         var coord = currentPosition.position.coordinate
         cachesNear.latPoint = coord.latitude
