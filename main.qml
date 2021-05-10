@@ -287,8 +287,8 @@ Item {
                 toast.show("Le log de la cache a été correctement envoyé ");
                 fullCache.toDoLog = false
 
-                // if it is a registered cache, mark found on list and map.
-                if(fullCache.registered) {
+                // if it is a registered cache and logType=2(found), mark found on list and map.
+                if(fullCache.registered && sendCacheLog.logType === 2) {
                     var fav = sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
                     sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
                                                                       sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))

@@ -8,6 +8,7 @@ SendCacheLog::SendCacheLog(Requestor *parent)
     : Requestor (parent)
     ,  m_count()
     ,  m_codeLog("")
+    ,  m_logType()
 {   
 }
 
@@ -36,7 +37,7 @@ QVariant SendCacheLog::readJsonProperty(const QJsonDocument &jsonDoc, QString pr
 void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , QString date , QString text , bool favorite)
 {
     //Build url
-    QString requestName = "geocachelogs?fields=referenceCode,owner";
+    QString requestName = "geocachelogs?fields=referenceCode,owner,geocacheLogType";
 
     //Add parameters
     QJsonObject log;
@@ -60,11 +61,14 @@ void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
 {
     QJsonObject logJson;
     QJsonObject finderJson;
+    QJsonObject logTypeJson;
 
     logJson = dataJsonDoc.object();
     setCodeLog(logJson["referenceCode"].toString());
     finderJson = logJson["owner"].toObject();
     setFounds(finderJson["findCount"].toInt());
+    logTypeJson = logJson["geocacheLogType"].toObject();
+    setLogType(logTypeJson ["id"].toInt());
 
     qDebug() << "*** logResponse**\n" << logJson;
     return ;
@@ -91,4 +95,16 @@ void SendCacheLog::setCodeLog(const QString &code)
     m_codeLog = code;
     emit codeLogChanged();
 }
+
+int SendCacheLog::logType() const
+{
+    return m_logType;
+}
+
+void SendCacheLog::setLogType(const int &type)
+{
+    m_logType = type;
+    emit logTypeChanged();
+}
+
 

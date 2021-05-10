@@ -13,6 +13,7 @@ class SendCacheLog : public Requestor
 
     Q_PROPERTY(int founds READ founds WRITE setFounds NOTIFY foundsChanged)
     Q_PROPERTY(QString codeLog READ codeLog WRITE setCodeLog NOTIFY codeLogChanged)
+    Q_PROPERTY(int logType READ logType WRITE setLogType NOTIFY logTypeChanged)
 
 public:
 
@@ -23,6 +24,8 @@ public:
     void setFounds(const int &count);
     QString codeLog() const;
     void setCodeLog(const QString &code);
+    int logType() const;
+    void setLogType(const int &type);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
@@ -33,10 +36,12 @@ public:
 signals:
     void foundsChanged() ;
     void codeLogChanged() ;
+    void logTypeChanged() ;
 
 private:
     int m_count ;
     QString m_codeLog ;
+    int m_logType ;
 };
 
 #endif // SENDCACHELOG_H
