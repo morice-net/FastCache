@@ -9,7 +9,7 @@ Rectangle {
     property real margin: 10
 
     visible: false
-    x:20
+    anchors.horizontalCenter: parent.horizontalCenter
     y:main.height*0.7
     z: 4
     height: message.height + margin
