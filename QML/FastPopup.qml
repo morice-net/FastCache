@@ -18,7 +18,7 @@ Popup {
 
     opacity: 0
 
-    Behavior on opacity { NumberAnimation { duration: 800 ; easing.type: Easing.OutCurve } }
+    Behavior on opacity { NumberAnimation { duration: 1000 ; easing.type: Easing.OutCurve } }
 
     background: Rectangle {
         id: backgroundRectangle
@@ -51,7 +51,7 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     onVisibleChanged: {
         if (visible) {
-            opacity = 1
+            opacity = backgroundOpacity
             popupTimer.running = true
         } else {
             opacity = 0
