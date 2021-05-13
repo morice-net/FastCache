@@ -82,7 +82,7 @@ Rectangle {
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
         font.pixelSize: parent.height * 0.15
-        color: Palette.black()       
+        color: Palette.black()
         width: parent.width*0.7
         elide: Text.ElideRight
         text: selectedCache.name
@@ -184,6 +184,7 @@ Rectangle {
             clip: true
             text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
                                                    .distanceTo(QtPositioning.coordinate(selectedCache.lat, selectedCache.lon))))
+            onTextChanged: sortByDistance()
         }
 
         Image {
@@ -226,5 +227,11 @@ Rectangle {
 
     function hide() {
         hideTimer.start()
+    }
+
+    function sortByDistance() {
+        // sort list by distance in dynamics
+        if(main.viewState === "list" && main.sortingBy === 6)
+            sorting.sort(sorting.lessThan[main.sortingBy])
     }
 }

@@ -39,7 +39,6 @@ DelegateModel {
         while (unsortedItems.count > 0) {
             var item = unsortedItems.get(0)
             var index = insertPosition(lessThan, item)
-
             item.groups = "items"
             items.move(item.itemsIndex, index)
         }
