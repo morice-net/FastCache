@@ -13,7 +13,8 @@ class SendCacheLog : public Requestor
 
     Q_PROPERTY(int founds READ founds WRITE setFounds NOTIFY foundsChanged)
     Q_PROPERTY(QString codeLog READ codeLog WRITE setCodeLog NOTIFY codeLogChanged)
-    Q_PROPERTY(int logType READ logType WRITE setLogType NOTIFY logTypeChanged)
+    Q_PROPERTY(int logTypeResponse READ logTypeResponse WRITE setLogTypeResponse NOTIFY logTypeResponseChanged)
+    Q_PROPERTY(bool parsingCompleted READ parsingCompleted WRITE setParsingCompleted NOTIFY parsingCompletedChanged)
 
 public:
 
@@ -24,8 +25,10 @@ public:
     void setFounds(const int &count);
     QString codeLog() const;
     void setCodeLog(const QString &code);
-    int logType() const;
-    void setLogType(const int &type);
+    int logTypeResponse() const;
+    void setLogTypeResponse(const int &type);
+    bool parsingCompleted() const;
+    void setParsingCompleted(const bool &completed);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
@@ -34,14 +37,16 @@ public:
     Q_INVOKABLE QVariant readJsonProperty(const QJsonDocument &jsonDoc, QString propertyName);
 
 signals:
-    void foundsChanged() ;
-    void codeLogChanged() ;
-    void logTypeChanged() ;
+    void foundsChanged();
+    void codeLogChanged();
+    void logTypeResponseChanged();
+    void parsingCompletedChanged();
 
 private:
-    int m_count ;
-    QString m_codeLog ;
-    int m_logType ;
+    int m_count;
+    QString m_codeLog;
+    int m_logTypeResponse;
+    bool m_parsingCompleted;
 };
 
 #endif // SENDCACHELOG_H

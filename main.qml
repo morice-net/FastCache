@@ -287,17 +287,9 @@ Item {
                 toast.show("Le log de la cache a été correctement envoyé ");
                 fullCache.toDoLog = false
 
-                // if it is a registered cache and logType=2(found), mark found on list and map.
-                if(fullCache.registered && sendCacheLog.logType === 2) {
-                    var fav = sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
-                    sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
-                                                                      sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
-                    fullCache.found = true
-                    fullCache.favorited = fav
-                }
-
                 // clears the cache log record
                 sqliteStorage.deleteObject("cacheslog", fullCache.geocode)
+
                 // Send list of travelbugs
                 var   tbCode;
                 var   trackingCode;
@@ -314,8 +306,19 @@ Item {
                         sendTravelbugLog.sendRequest(connector.tokenKey , fullCache.geocode , tbCode , trackingCode , logType , dateIso , text);
                     }
                 }
+
                 // clears the tbsUser log record
                 sqliteStorage.deleteObject("cachestbsuserlog", fullCache.geocode)
+            }
+        }
+        onParsingCompletedChanged: {
+            // if it is a registered cache and logType=2(found), mark found on list and map.
+            if(fullCache.registered && sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true) {
+                var fav = sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
+                sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
+                                                                  sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
+                fullCache.found = true
+                fullCache.favorited = fav
             }
         }
         onFoundsChanged: {

@@ -8,7 +8,8 @@ SendCacheLog::SendCacheLog(Requestor *parent)
     : Requestor (parent)
     ,  m_count()
     ,  m_codeLog("")
-    ,  m_logType()
+    ,  m_logTypeResponse()
+    ,  m_parsingCompleted(false)
 {   
 }
 
@@ -59,6 +60,8 @@ void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , 
 
 void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
 {
+    setParsingCompleted(false);
+
     QJsonObject logJson;
     QJsonObject finderJson;
     QJsonObject logTypeJson;
@@ -68,9 +71,10 @@ void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
     finderJson = logJson["owner"].toObject();
     setFounds(finderJson["findCount"].toInt());
     logTypeJson = logJson["geocacheLogType"].toObject();
-    setLogType(logTypeJson ["id"].toInt());
+    setLogTypeResponse(logTypeJson ["id"].toInt());
 
     qDebug() << "*** logResponse**\n" << logJson;
+    setParsingCompleted(true);
     return ;
 }
 
@@ -96,15 +100,26 @@ void SendCacheLog::setCodeLog(const QString &code)
     emit codeLogChanged();
 }
 
-int SendCacheLog::logType() const
+int SendCacheLog::logTypeResponse() const
 {
-    return m_logType;
+    return m_logTypeResponse;
 }
 
-void SendCacheLog::setLogType(const int &type)
+void SendCacheLog::setLogTypeResponse(const int &type)
 {
-    m_logType = type;
-    emit logTypeChanged();
+    m_logTypeResponse = type;
+    emit logTypeResponseChanged();
+}
+
+bool SendCacheLog::parsingCompleted() const
+{
+    return m_parsingCompleted;
+}
+
+void SendCacheLog::setParsingCompleted(const bool &completed)
+{
+    m_parsingCompleted = completed;
+    emit parsingCompletedChanged();
 }
 
 
