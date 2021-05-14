@@ -10,6 +10,7 @@ FastPopup {
     backgroundWidth: parent.width*0.9
     backgroundHeight: parent.height*0.8
     backgroundRadius: 10
+    backgroundOpacity: 0.9
 
     // The box gives latitude and longitude in resultLat and resultLon.
     property double resultLat: 0.0

@@ -14,6 +14,7 @@ FastPopup {
     backgroundWidth: main.width*0.9
     backgroundHeight: main.height/2
     backgroundRadius: 10
+    backgroundOpacity: 0.9
     x: 20
     y: main.height/6
 
