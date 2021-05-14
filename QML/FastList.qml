@@ -87,9 +87,10 @@ Rectangle {
 
     Rectangle {
         id: fastListBottom
-        width: parent.width
+        width: parent.width*0.9
+        anchors.horizontalCenter: parent.horizontalCenter
         height: parent.height * 0.05
-        color: Palette.turquoise()
+        color: Palette.silver()
         radius:10
         anchors.top: fastListHeader.bottom
         visible: main.state === "near" || main.state === "address" || main.state === "coordinates"  ? true : false
