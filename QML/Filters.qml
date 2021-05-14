@@ -71,7 +71,7 @@ Item {
             backgroundWidth: main.width*0.8
             backgroundHeight: main.height*0.45
             backgroundRadius: 10
-            backgroundOpacity: 0.7
+            backgroundOpacity: 0.9
             backgroundBorder {
                 width: 1
                 color: Palette.silver()
@@ -431,6 +431,7 @@ Item {
             id: keyWordPopup
             backgroundHeight: main.height/2
             backgroundWidth: main.width*0.8
+            backgroundOpacity: 0.9
             backgroundRadius: 10
 
             ColumnLayout {

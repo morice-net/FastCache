@@ -21,7 +21,8 @@ Item {
     Rectangle {
         id: filtersRectangle
         anchors.fill: parent
-        color: Palette.white().replace("#","#99")
+        color: Palette.white()
+        opacity: 0.9
         radius: parent.width/20
         border.width: 2
         border.color: Palette.greenSea()
