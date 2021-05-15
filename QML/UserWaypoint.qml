@@ -112,7 +112,6 @@ FastPopup {
             indicator: Rectangle {
                 implicitWidth: 25
                 implicitHeight: 25
-                x: corrected.leftPadding
                 y: parent.height / 2 - height / 2
                 radius: 2
                 border.color: corrected.down ? Palette.turquoise() : Palette.greenSea()
@@ -138,7 +137,7 @@ FastPopup {
         }
 
         Row {
-            spacing: 30
+            spacing: 60
 
             Button {
                 visible: visibleDescription()
@@ -219,7 +218,7 @@ FastPopup {
         }
 
         Text {
-            width: parent.width
+            anchors.horizontalCenter: parent.horizontalCenter
             visible: visibleDescription()
             font.family: localFont.name
             font.pointSize: 17
@@ -230,7 +229,7 @@ FastPopup {
         TextArea {
             id: description
             visible: visibleDescription()
-            width: userWaypoint.width*0.8
+            width: userWaypoint.width*0.9
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.turquoise()
