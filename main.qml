@@ -72,6 +72,7 @@ Item {
         active: true
         onPositionChanged: {
             main.positionUpdated()
+            fastList.sortByDistance()
         }
     }
 

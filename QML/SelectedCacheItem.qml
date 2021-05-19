@@ -9,7 +9,7 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: selectedCacheItem
     color: selectedInList[index]? Palette.silver() : Palette.white().replace("#","#99")
-    radius: parent.width/30
+    radius: 10
     border.width: 2
     border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
     width: main.width - 40
@@ -184,7 +184,6 @@ Rectangle {
             clip: true
             text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
                                                    .distanceTo(QtPositioning.coordinate(selectedCache.lat, selectedCache.lon))))
-            onTextChanged: sortByDistance()
         }
 
         Image {
@@ -227,11 +226,5 @@ Rectangle {
 
     function hide() {
         hideTimer.start()
-    }
-
-    function sortByDistance() {
-        // sort list by distance in dynamics
-        if(main.viewState === "list" && main.sortingBy === 6)
-            sorting.sort(sorting.lessThan[main.sortingBy])
     }
 }

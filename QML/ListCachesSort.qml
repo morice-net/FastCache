@@ -66,4 +66,8 @@ DelegateModel {
     function modelState() {
         return  cachesSingleList.caches
     }
+
+    function sortAgain() {
+        items.setGroups(0, items.count, "unsorted")
+    }
 }

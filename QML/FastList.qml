@@ -187,6 +187,13 @@ Rectangle {
         }
         return listGeocodes
     }
+
+    function sortByDistance() {
+        // sort list by distance in dynamics
+        if(main.viewState === "list" && main.sortingBy === 6) {
+            sorting.sortAgain()
+        }
+    }
 }
 
 
