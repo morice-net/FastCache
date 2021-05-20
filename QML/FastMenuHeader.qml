@@ -8,8 +8,8 @@ import com.mycompany.connecting 1.0
 Item {
     id: fastMenuHeader
     anchors.fill: parent
-    // Menu caller
 
+    // Menu caller
     Rectangle {
         id: menu
         color: Palette.turquoise().replace("#","#99")
@@ -58,7 +58,6 @@ Item {
             }
         }
     }
-
 
     // Filters
     Rectangle {
