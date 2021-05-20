@@ -10,29 +10,54 @@ Item {
     anchors.fill: parent
     // Menu caller
 
-    Rectangle {
-        color: Palette.turquoise().replace("#","#99")
-        radius: 10
-        height: parent.height * 0.05
-        width: height
-        anchors.margins: 5
-        anchors.left: parent.left
-        anchors.top: parent.top
-
-        Image {
-            id: menuIcon
-            source: "qrc:/Image/menuIcon.png"
-            y: parent.height*0.1
-            x: y
-            height: parent.height*0.8
+        Rectangle {
+            id: menu
+            color: Palette.turquoise().replace("#","#99")
+            radius: 10
+            height: parent.height * 0.05
             width: height
+            anchors.margins: 5
+            anchors.left: parent.left
+            anchors.top: parent.top
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: fastMenu.showMenu()
+            Image {
+                id: menuIcon
+                source: "qrc:/Image/menuIcon.png"
+                y: parent.height*0.1
+                x: y
+                height: parent.height*0.8
+                width: height
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: fastMenu.showMenu()
+                }
             }
         }
-    }
+
+        Rectangle {
+            color: Palette.turquoise().replace("#","#99")
+            radius: 10
+            height: parent.height * 0.05
+            width: height
+            anchors.margins: 5
+            anchors.top: parent.top
+            anchors.left: menu.right
+
+            Image {
+                id: settingsIcon
+                source: "qrc:/Image/settings.png"
+                y: parent.height*0.1
+                x: y
+                height: parent.height*0.8
+                width: height
+
+                MouseArea {
+                    anchors.fill: parent
+                }
+            }
+        }
+
 
     // Filters
     Rectangle {
