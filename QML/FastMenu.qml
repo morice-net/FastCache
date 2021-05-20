@@ -117,15 +117,6 @@ Item {
                 }
             }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    console.log("Open user info popup")
-                    hideMenu()
-                    userInfoPopup.open()
-                }
-            }
-
             Item {
                 id: connectButtonMenu
                 height: parent.height
