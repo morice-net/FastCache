@@ -6,7 +6,7 @@ import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 FastPopup {
-    id: userInfoPopup
+    id: userSettingsPopup
     backgroundOpacity: 0.9
     backgroundColor: Palette.black()
 
@@ -403,7 +403,7 @@ FastPopup {
                 anchors.fill: parent
                 onClicked: {
                     main.disconnectAccount()
-                    userInfoPopup.close()
+                    userSettingsPopup.close()
                 }
             }
         }

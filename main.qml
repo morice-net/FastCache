@@ -148,7 +148,7 @@ Item {
 
     Geocode { id: geocode }
 
-    UserInfoPopup { id: userInfoPopup }
+    UserSettingsPopup { id: userSettingsPopup }
 
     CoordinatesBox { id: coordinatesBox }
 
