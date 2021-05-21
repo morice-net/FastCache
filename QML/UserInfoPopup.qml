@@ -8,6 +8,7 @@ import com.mycompany.connecting 1.0
 FastPopup {
     id: userInfoPopup
     backgroundOpacity: 0.9
+    backgroundColor: Palette.black()
 
     property var listPlugins: ["osm", "googlemaps", "here"]
 
@@ -33,7 +34,7 @@ FastPopup {
             // Maps
             GroupBox {
                 id: groupBoxMaps
-                width: parent.width*0.9
+                width: parent.width*0.8
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
@@ -176,10 +177,19 @@ FastPopup {
                 }
             }
 
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                leftPadding: 5
+                font.pointSize: 14
+                text: "CERCLES SUR LES CARTES"
+                color: Palette.white()
+            }
+
             //Display Circles
             GroupBox {
                 id: circlesCaches
-                width: parent.width*0.9
+                width: parent.width*0.8
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
@@ -297,7 +307,7 @@ FastPopup {
             //maximum number of caches in a list
             GroupBox {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width*0.9
+                width: parent.width*0.8
 
                 Column {
                     spacing: 15
@@ -367,7 +377,7 @@ FastPopup {
     Item {
         id: disconnectButtonPopup
         height: parent.height * 0.12
-        width: parent.width * 0.9
+        width: parent.width * 0.8
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.margins: parent.height * 0.05
