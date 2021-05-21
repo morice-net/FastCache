@@ -9,6 +9,7 @@ FastPopup {
     id: userSettingsPopup
     backgroundOpacity: 0.9
     backgroundColor: Palette.black()
+    closeButtonVisible: false
 
     property var listPlugins: ["osm", "googlemaps", "here"]
 
