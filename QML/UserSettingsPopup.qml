@@ -325,8 +325,8 @@ FastPopup {
                         id: control
                         anchors.horizontalCenter: parent.horizontalCenter
                         font.pointSize: 16
-                        from: 100
-                        to: 500
+                        from: 50
+                        to: 300
                         stepSize: 50
                         value: settings.maxCachesInList
                         onValueChanged: settings.maxCachesInList = control.value

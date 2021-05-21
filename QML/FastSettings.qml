@@ -72,7 +72,7 @@ Settings {
     property real circleMapRadius : 10.0
 
     // Maximum number of caches in a list
-    property int maxCachesInList : 200
+    property int maxCachesInList : 100
 
     onMaxCachesInListChanged: {
         cachesBBox.maxCaches = maxCachesInList
