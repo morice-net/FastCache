@@ -102,8 +102,8 @@ Item {
         y: compassBackground.y + compassBackground.height
         visible: fastCache.wptName.length !== 0
         font.family: localFont.name
-        width: fastCache.width * 0.5 - 10
-        horizontalAlignment: Text.AlignRight
+   //     width: fastCache.width * 0.5 - 10
+   //     horizontalAlignment: Text.AlignRight
         font.pointSize: 20
         text: fastCache.wptName
         color: Palette.silver()
