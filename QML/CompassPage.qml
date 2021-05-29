@@ -109,7 +109,8 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                compassPageInit("Cache   " + fullCache.geocode , fullCache.lat , fullCache.lon)
+                compassPageInit("Cache   " + fullCache.geocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
                 swipeToPage(0);
             }
         }
