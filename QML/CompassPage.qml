@@ -21,47 +21,21 @@ Item {
         anchors.fill: parent
         anchors.topMargin: parent.height * 0.1
 
-        Row {
-            width: parent.width
-            spacing: 15
-
-            Text {
-                font.family: localFont.name
-                width: fastCache.width * 0.5 - 10
-                horizontalAlignment: Text.AlignRight
-                font.pointSize: 20
-                text: "Distance"
-                color: Palette.silver()
-            }
-
-            Text {
-                font.family: localFont.name
-                font.pointSize: 20
-                text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
-                                                       .distanceTo(goalLocation.coordinate)))
-                color: Palette.white()
-            }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 20
+            text: "Distance  " + Helper.formatDistance(Math.round(currentPosition.position.coordinate
+                                                                  .distanceTo(goalLocation.coordinate)))
+            color: Palette.white()
         }
 
-        Row {
-            width: parent.width
-            spacing: 15
-
-            Text {
-                font.family: localFont.name
-                width: fastCache.width * 0.5 - 10
-                horizontalAlignment: Text.AlignRight
-                font.pointSize: 18
-                text: "Azimut"
-                color: Palette.silver()
-            }
-
-            Text {
-                font.family: localFont.name
-                font.pointSize: 18
-                text: currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate).toFixed(0)+"°"
-                color: Palette.white()
-            }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 18
+            text: "Azimut  " + currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate).toFixed(0)+"°"
+            color: Palette.white()
         }
     }
 
@@ -104,7 +78,7 @@ Item {
         font.family: localFont.name
         font.pointSize: 20
         text: fastCache.wptName
-        color: Palette.silver()
+        color: Palette.white()
 
         MouseArea {
             anchors.fill: parent
@@ -116,78 +90,23 @@ Item {
         }
     }
 
-    Row {
-        y: compassBackground.y + compassBackground.height + 55
+    Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 10
-
-        Text {
-            font.family: localFont.name
-            width: fastCache.width * 0.1
-            horizontalAlignment: Text.AlignRight
-            font.pointSize: 16
-            text: "Lat "
-            color: Palette.silver()
-        }
-
-        Text {
-            font.family: localFont.name
-            font.pointSize: 16
-            text: main.formatLat(goalLocation.coordinate.latitude)
-            color: Palette.white()
-        }
-
-        Text {
-            font.family: localFont.name
-            horizontalAlignment: Text.AlignRight
-            font.pointSize: 16
-            text: "Lon "
-            color: Palette.silver()
-        }
-
-        Text {
-            font.family: localFont.name
-            font.pointSize: 16
-            text: main.formatLon(goalLocation.coordinate.longitude)
-            color: Palette.white()
-        }
+        y: title.y + title.height + 5
+        font.family: localFont.name
+        font.pointSize: 16
+        text: "Lat  " + main.formatLat(goalLocation.coordinate.latitude) + "   Lon  " + main.formatLon(goalLocation.coordinate.longitude)
+        color: Palette.white()
     }
 
-    Row {
-        y: compassBackground.y + compassBackground.height + 120
+    Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 10
-
-        Text {
-            font.family: localFont.name
-            width: fastCache.width * 0.1
-            horizontalAlignment: Text.AlignRight
-            font.pointSize: 16
-            text: "Lat "
-            color: Palette.silver()
-        }
-
-        Text {
-            font.family: localFont.name
-            font.pointSize: 16
-            text: main.formatLat(currentPosition.position.coordinate.latitude)
-            color: Palette.white()
-        }
-
-        Text {
-            font.family: localFont.name
-            horizontalAlignment: Text.AlignRight
-            font.pointSize: 16
-            text: "Lon "
-            color: Palette.silver()
-        }
-
-        Text {
-            font.family: localFont.name
-            font.pointSize: 16
-            text: main.formatLon(currentPosition.position.coordinate.longitude)
-            color: Palette.white()
-        }
+        y: title.y + 2*title.height + 5
+        font.family: localFont.name
+        font.pointSize: 16
+        text: "Lat  " + main.formatLat(currentPosition.position.coordinate.latitude) + "   Lon  " +
+              main.formatLon(currentPosition.position.coordinate.longitude)
+        color: Palette.white()
     }
 
     CompassMapSwipeButton {

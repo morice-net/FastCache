@@ -6,7 +6,7 @@ Item {
     id: compassMapSwipeButton
     height: parent.height * 0.10
     width: parent.width * 0.2
-    opacity: 0.75
+    opacity: 0.85
 
     property string buttonText
 
@@ -14,7 +14,7 @@ Item {
         id: compassMapSwipeButtonRectangle
         radius: 20
         anchors.fill: parent
-        color: Palette.turquoise()
+        color: Palette.silver()
         
         SequentialAnimation on opacity {
             id: compassMapSwipeButtonAnimation
@@ -34,6 +34,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             color: Palette.white()
         }
+
         MouseArea {
             anchors.fill: parent
             onClicked: {
