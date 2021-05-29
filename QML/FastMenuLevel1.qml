@@ -45,15 +45,15 @@ Item {
 
                 function buttonClicked() {
                     if(main.state === "cachesActive") {
-                        main.state = ""                        
+                        main.state = ""
                     } else {
-                        main.state = "cachesActive"                        
+                        main.state = "cachesActive"
                     }
                     if (firstButtonSelected) {
                         fastMap.currentZoomlevel = 14.5
                         reloadCachesBBox()
                     } else {
-                        main.state = ""                        
+                        main.state = ""
                     }
                 }
             }

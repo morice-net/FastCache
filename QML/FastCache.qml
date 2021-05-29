@@ -30,9 +30,10 @@ Rectangle {
     property var listImagesLog: createListImagesLog()
 
     // used by compassPage
-    property string wptName: "Cache   " + fullCache.geocode
-    property double goalLat: fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
-    property double goalLon: fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
+    property string ifFullCache: compassPageFullCache()
+    property string wptName
+    property double goalLat
+    property double goalLon
 
     property bool allVisible: true
     property int userWptIndex: 0
@@ -197,6 +198,13 @@ Rectangle {
         wptName = title;
         goalLat = lat;
         goalLon = lon;
+    }
+
+    function compassPageFullCache() {
+        wptName = "Cache   " + fullCache.geocode
+        goalLat = fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
+        goalLon = fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
+        return fullCache.geocode
     }
 
     function addImagesToLog() {
