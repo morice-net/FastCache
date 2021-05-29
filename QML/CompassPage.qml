@@ -105,6 +105,14 @@ Item {
         font.pointSize: 20
         text: fastCache.wptName
         color: Palette.silver()
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                compassPageInit("Cache   " + fullCache.geocode , fullCache.lat , fullCache.lon)
+                swipeToPage(0);
+            }
+        }
     }
 
     Row {
