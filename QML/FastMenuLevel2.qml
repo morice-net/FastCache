@@ -55,6 +55,7 @@ Item {
             openMenu = 2
             direction = false
             fastMenuLevel2.x = -parent.width
+            coordinatesBox.backgroundOpacity = 0.9
             coordinatesBox.open()
         }
     }

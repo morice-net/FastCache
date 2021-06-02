@@ -46,13 +46,13 @@ FastPopup {
             }
             background: Rectangle {
                 anchors.fill: parent
-
                 opacity: 0.9
                 border.color: Palette.turquoise()
                 border.width: 1
                 radius: 5
             }
             onClicked: {
+                coordinatesBox.backgroundOpacity = 1
                 coordinatesBox.open()
             }
         }
