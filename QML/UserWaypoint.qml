@@ -7,7 +7,7 @@ import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
 FastPopup {
-    id:userWaypoint
+    id: userWaypoint
     backgroundColor: Palette.greenSea()
 
     property string textLog: ""
@@ -22,19 +22,20 @@ FastPopup {
         addLog = ""
     }
 
-    onUserWptLatChanged: lat.text = "Latitude  " + userWptLat.toFixed(5)
-    onUserWptLonChanged: lon.text = "Longitude  " + userWptLon.toFixed(5)
+    onUserWptLatChanged: lat.text = "Latitude :  " + userWptLat.toFixed(5)
+    onUserWptLonChanged: lon.text = "Longitude :  " + userWptLon.toFixed(5)
 
     AddTextLog {
         id:addText
     }
 
     Column {
-        x: 20
-        y:20
-        spacing: 30
+        y: 20
+        spacing: 15
+        width: parent.width
 
         Button {
+            anchors.horizontalCenter: parent.horizontalCenter
             y: 10
             contentItem: Text {
                 id:coordinates
@@ -45,6 +46,7 @@ FastPopup {
             }
             background: Rectangle {
                 anchors.fill: parent
+
                 opacity: 0.9
                 border.color: Palette.turquoise()
                 border.width: 1
@@ -55,13 +57,23 @@ FastPopup {
             }
         }
 
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 14
+            text: "Relèvement en degrés"
+            color: Palette.white()
+        }
+
         TextField {
             id: bearing
-            placeholderText: qsTr("Relèvement en degrés")
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            implicitWidth: userWaypoint.width/4
             font.family: localFont.name
             font.pointSize: 17
             color: Palette.greenSea()
-            validator: DoubleValidator {bottom: 0.0; top: 360.0 ;  decimals: 3}
+            validator: DoubleValidator {bottom: 0.0; top: 360.0;  decimals: 3; notation: DoubleValidator.StandardNotation}
             background: Rectangle {
                 anchors.fill: parent
                 opacity: 0.9
@@ -69,15 +81,25 @@ FastPopup {
                 border.width: 1
                 radius: 5
             }
+        }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 14
+            text: "Distance en mètres"
+            color: Palette.white()
         }
 
         TextField {
             id: distance
-            placeholderText: qsTr("distance en mètres")
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            implicitWidth: userWaypoint.width/4
             font.family: localFont.name
             font.pointSize: 17
             color: Palette.greenSea()
-            validator: DoubleValidator {bottom: 0.0 ;  decimals: 3}
+            validator: DoubleValidator {bottom: 0.0; top: 100000.0;  decimals: 3; notation: DoubleValidator.StandardNotation}
             background: Rectangle {
                 anchors.fill: parent
                 opacity: 0.9
@@ -87,20 +109,29 @@ FastPopup {
             }
         }
 
-        Text {
-            id: lat
-            text:"Latitude  "
-            font.family: localFont.name
-            font.pointSize: 15
-            color: Palette.white()
-        }
+        GroupBox {
+            width: userWaypoint.width*0.6
+            x: userWaypoint.width*0.2
 
-        Text {
-            id: lon
-            text:"Longitude  "
-            font.family: localFont.name
-            font.pointSize: 15
-            color: Palette.white()
+            Column {
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Text {
+                    id: lat
+                    text:"Latitude  "
+                    font.family: localFont.name
+                    font.pointSize: 15
+                    color: Palette.black()
+                }
+
+                Text {
+                    id: lon
+                    text:"Longitude  "
+                    font.family: localFont.name
+                    font.pointSize: 15
+                    color: Palette.black()
+                }
+            }
         }
 
         CheckBox {
@@ -228,8 +259,9 @@ FastPopup {
 
         TextArea {
             id: description
+            x: parent.width*0.05
+            width: parent.width*0.9
             visible: visibleDescription()
-            width: userWaypoint.width*0.9
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.turquoise()
@@ -244,7 +276,7 @@ FastPopup {
     function  wptLat() {
         if(bearing.text.length !==0 && distance.text.length !== 0){
             return QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon).
-            atDistanceAndAzimuth(parseFloat(distance.text) , parseFloat(bearing.text)).latitude
+            atDistanceAndAzimuth(parseFloat(distance.text.replace(',', '.')) , parseFloat(bearing.text.replace(',', '.'))).latitude
         } else {
             return coordinatesBox.resultLat
         }
@@ -253,7 +285,7 @@ FastPopup {
     function  wptLon() {
         if(bearing.text.length !==0 && distance.text.length !== 0){
             return QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
-            .atDistanceAndAzimuth(parseFloat(distance.text) , parseFloat(bearing.text)).longitude
+            .atDistanceAndAzimuth(parseFloat(distance.text.replace(',', '.')) , parseFloat(bearing.text.replace(',', '.'))).longitude
         } else {
             return coordinatesBox.resultLon
         }
