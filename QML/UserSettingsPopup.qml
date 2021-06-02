@@ -331,42 +331,32 @@ FastPopup {
                         stepSize: 50
                         value: settings.maxCachesInList
                         onValueChanged: settings.maxCachesInList = control.value
+                        background: Rectangle {
+                            implicitWidth: userSettingsPopup.width/3.2
+                            border.color: Palette.black()
+                            radius: 10
+                        }
                         contentItem: TextInput {
+                            horizontalAlignment: Qt.AlignHCenter
+                            verticalAlignment: Qt.AlignVCenter
+                            activeFocusOnPress: false
                             text: control.textFromValue(control.value, control.locale)
                             font: control.font
                             color: Palette.turquoise()
-                            horizontalAlignment: Qt.AlignHCenter
-                            verticalAlignment: Qt.AlignVCenter
                         }
-                        background: Rectangle {
-                            radius: 10
-                            border.color: Palette.turquoise()
-                        }
-                        up.indicator: Rectangle {
+                        up.indicator: Image {
+                            anchors.margins: 15
                             anchors.right: parent.right
-                            height: parent.height
-                            implicitWidth: 50
-                            radius: 10
-                            border.color: Palette.turquoise()
-                            Text {
-                                text: '+'
-                                anchors.centerIn: parent
-                                font.pointSize: 18
-                                color: Palette.turquoise()
-                            }
+                            anchors.verticalCenter:  parent.verticalCenter
+                            source: "qrc:/Image/plus.png"
+                            scale: 1.3
                         }
-                        down.indicator: Rectangle {
+                        down.indicator: Image  {
+                            anchors.margins: 15
                             anchors.left: parent.left
-                            height: parent.height
-                            implicitWidth: 50
-                            radius: 10
-                            border.color: Palette.turquoise()
-                            Text {
-                                text: '-'
-                                anchors.centerIn: parent
-                                font.pointSize: 18
-                                color: Palette.turquoise()
-                            }
+                            anchors.verticalCenter:  parent.verticalCenter
+                            source: "qrc:/Image/minus.png"
+                            scale: 1.3
                         }
                     }
                 }

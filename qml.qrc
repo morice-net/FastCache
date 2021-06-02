@@ -183,5 +183,7 @@
         <file>QML/FastMenuLevel2.qml</file>
         <file>QML/ListPocketsqueries.qml</file>
         <file>Image/settings.png</file>
+        <file>Image/minus.png</file>
+        <file>Image/plus.png</file>
     </qresource>
 </RCC>
