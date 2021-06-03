@@ -118,7 +118,7 @@ FastPopup {
 
                 Text {
                     id: lat
-                    text:"Latitude  "
+                    text: "Latitude :  0.00000"
                     font.family: localFont.name
                     font.pointSize: 15
                     color: Palette.black()
@@ -126,7 +126,7 @@ FastPopup {
 
                 Text {
                     id: lon
-                    text:"Longitude  "
+                    text: "Longitude :  0.00000"
                     font.family: localFont.name
                     font.pointSize: 15
                     color: Palette.black()
@@ -229,6 +229,13 @@ FastPopup {
                     }
                 }
                 onClicked:{
+                    // Update the compass page
+                    if(correctCoordinates()) {
+                        fastCache.compassPageInit("Correction de coordonnées" , userWptLat , userWptLon)
+                    } else {
+                        fastCache.compassPageInit("Etape personnelle" , userWptLat , userWptLon)
+                    }
+
                     if(fastCache.userWptAdd === true){
                         // Add userWaypoint or create modification of coordinates
                         sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , correctCoordinates() ,
