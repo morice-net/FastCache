@@ -22,8 +22,8 @@ FastPopup {
         addLog = ""
     }
 
-    onUserWptLatChanged: lat.text = "Latitude :  " + userWptLat.toFixed(5)
-    onUserWptLonChanged: lon.text = "Longitude :  " + userWptLon.toFixed(5)
+    onUserWptLatChanged: lat.text = "Latitude :  " +  main.formatLat(userWptLat.toFixed(5))
+    onUserWptLonChanged: lon.text = "Longitude :  " + main.formatLon(userWptLon.toFixed(5))
 
     AddTextLog {
         id:addText
@@ -118,7 +118,7 @@ FastPopup {
 
                 Text {
                     id: lat
-                    text: "Latitude :  0.00000"
+                    text: "Latitude :  " + main.formatLat(0.0)
                     font.family: localFont.name
                     font.pointSize: 15
                     color: Palette.black()
@@ -126,7 +126,7 @@ FastPopup {
 
                 Text {
                     id: lon
-                    text: "Longitude :  0.00000"
+                    text: "Longitude :  " + main.formatLon(0.0)
                     font.family: localFont.name
                     font.pointSize: 15
                     color: Palette.black()
