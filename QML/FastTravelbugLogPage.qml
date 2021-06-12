@@ -64,10 +64,12 @@ Item {
         Column{
             spacing: 10
             y: 40
+            anchors.margins: 20
+            anchors.horizontalCenter: parent.horizontalCenter
 
             GroupBox {
                 width: logPage.width*0.9
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
                     RadioButton {
@@ -221,7 +223,7 @@ Item {
             FastCalendar {
                 id: calendar
                 width: logPage.width*0.9
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
                 visible: false
                 onDateCalendarChanged:{
                     dateIso = dateCalendar.toISOString()
@@ -230,7 +232,7 @@ Item {
             }
 
             Row {
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 40
 
                 Button {
@@ -305,7 +307,7 @@ Item {
 
             TextArea {
                 id: message
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: logPage.width*0.9
                 font.family: localFont.name
                 font.pointSize: 14
