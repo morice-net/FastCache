@@ -169,6 +169,7 @@ FastPopup {
 
         Row {
             spacing: 60
+            anchors.horizontalCenter: parent.horizontalCenter
 
             Button {
                 visible: visibleDescription()
