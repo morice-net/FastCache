@@ -111,10 +111,9 @@ FastPopup {
 
         GroupBox {
             width: userWaypoint.width*0.6
-            x: userWaypoint.width*0.2
+            anchors.horizontalCenter: parent.horizontalCenter
 
             Column {
-                anchors.horizontalCenter: parent.horizontalCenter
 
                 Text {
                     id: lat
@@ -267,7 +266,7 @@ FastPopup {
 
         TextArea {
             id: description
-            x: parent.width*0.05
+            anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width*0.9
             visible: visibleDescription()
             font.family: localFont.name
