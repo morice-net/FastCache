@@ -99,7 +99,6 @@ Item {
             }
 
             Row {
-                x: logPage.width*0.05
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 40
 
