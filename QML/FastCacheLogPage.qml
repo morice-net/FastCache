@@ -64,12 +64,13 @@ Item {
 
         Column {
             spacing: 10
-            y:20
+            anchors.fill: parent
+            anchors.margins: 20
 
             LogTypes {
                 id: logTypes
                 width: logPage.width*0.9
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Text {
@@ -89,7 +90,7 @@ Item {
             FastCalendar {
                 id:calendar
                 width: logPage.width*0.9
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
                 visible: false
                 onDateCalendarChanged:{
                     dateIso = dateCalendar.toISOString()
@@ -99,6 +100,7 @@ Item {
 
             Row {
                 x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 40
 
                 Button {
@@ -179,7 +181,7 @@ Item {
 
             TextArea {
                 id: message
-                x: logPage.width*0.05
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: logPage.width*0.9
                 font.family: localFont.name
                 font.pointSize: 14
@@ -192,7 +194,6 @@ Item {
 
             CheckBox {
                 id :favorited
-                x: logPage.width*0.05
                 checked:sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
                             sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint") : false
                 contentItem: Text {
