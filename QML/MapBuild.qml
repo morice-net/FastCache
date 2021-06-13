@@ -2,6 +2,8 @@ import QtQuick 2.6
 import QtLocation 5.3
 import QtPositioning 5.3
 
+import "JavaScript/Palette.js" as Palette
+
 Map {
     id: map
 
@@ -64,6 +66,7 @@ Map {
             if (opacity == 1)
                 hide()
         }
+        color: Palette.white().replace("#","#99")
     }
 
     CompassMapSwipeButton {

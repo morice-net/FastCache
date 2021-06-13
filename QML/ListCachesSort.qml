@@ -3,6 +3,8 @@ import QtQml.Models 2.14
 import QtLocation 5.3
 import QtPositioning 5.3
 
+import "JavaScript/Palette.js" as Palette
+
 DelegateModel {
     id: sorting
 
@@ -61,6 +63,7 @@ DelegateModel {
     delegate: SelectedCacheItem {
         x: (fastList.width - width ) / 2
         Component.onCompleted: show(modelData)
+        color: selectedInList[index] ? Palette.silver() : Palette.white().replace("#","#99")
     }
 
     function modelState() {

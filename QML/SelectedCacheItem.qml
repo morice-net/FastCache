@@ -8,7 +8,6 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: selectedCacheItem
-    color: index >= 0 && fastList.selectedInList[index] ? Palette.silver() : Palette.white().replace("#","#99")
     radius: 10
     border.width: 2
     border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
@@ -18,7 +17,6 @@ Rectangle {
     visible: opacity > 0
 
     property var selectedCache: Cache {}
-    property int index: -1
 
     AnimatedSprite {
         id: selectedCacheIconField
