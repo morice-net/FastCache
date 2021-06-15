@@ -6,15 +6,18 @@ import "JavaScript/Palette.js" as Palette
 
 Row {
     id: raterField
+
     property string ratingName
     property real ratingValue: 1.0
     property bool reversedColor: false
+    property alias ratingTextPixelSize: raterText.font.pixelSize
+
     width: parent.width / 2
     spacing: 2
     
     Text {
+        id: raterText
         font.family: localFont.name
-        font.pixelSize: selectedCacheItem.height * 0.15
         color: reversedColor ? Palette.white() : Palette.black()
         text: raterField.ratingName
         font.bold: reversedColor
@@ -22,6 +25,7 @@ Row {
 
     Repeater {
         model: Math.floor(raterField.ratingValue)
+
         Rectangle {
             width: parent.height
             height: width
@@ -32,6 +36,7 @@ Row {
     
     Repeater {
         model: Math.ceil(raterField.ratingValue) - Math.floor(raterField.ratingValue)
+
         Rectangle {
             width: parent.height
             height: width
@@ -61,6 +66,7 @@ Row {
     
     Repeater {
         model: 5 - Math.ceil(raterField.ratingValue)
+
         Rectangle {
             width: raterField.height
             height: width

@@ -118,6 +118,7 @@ Rectangle {
         anchors.left: parent.left
         ratingName: "Difficulté"
         ratingValue: selectedCache.difficulty
+        ratingTextPixelSize: selectedCacheItem.height * 0.15
     }
 
     RaterField {
@@ -127,6 +128,7 @@ Rectangle {
         anchors.left: selectedCacheDifficultyField.right
         ratingName: "Terrain"
         ratingValue: selectedCache.terrain
+        ratingTextPixelSize: selectedCacheItem.height * 0.15
     }
 
     MouseArea {

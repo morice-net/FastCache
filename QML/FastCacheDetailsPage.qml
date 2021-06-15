@@ -19,6 +19,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -27,6 +28,7 @@ Item {
                 text: "Nom"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -38,6 +40,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -46,6 +49,7 @@ Item {
                 text: "Type"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -57,6 +61,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -65,6 +70,7 @@ Item {
                 text: "Taille"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -76,6 +82,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -84,6 +91,7 @@ Item {
                 text: "Géocode"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -95,6 +103,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -103,6 +112,7 @@ Item {
                 text: "Distance"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -115,6 +125,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -135,6 +146,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -155,6 +167,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -163,6 +176,7 @@ Item {
                 text: "Favori"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -174,6 +188,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -182,6 +197,7 @@ Item {
                 text: "Propriétaire"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -193,6 +209,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -201,6 +218,7 @@ Item {
                 text: "Cachée le"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -212,6 +230,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -220,6 +239,7 @@ Item {
                 text: "Localisation"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -231,6 +251,7 @@ Item {
         Row {
             width: parent.width
             spacing: 15
+
             Text {
                 width: fastCache.width * 0.25
                 font.family: localFont.name
@@ -239,6 +260,7 @@ Item {
                 text:  fullCache.isCorrectedCoordinates ? "Coord.modif" : "Coordonnées"
                 color: Palette.silver()
             }
+
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
@@ -273,9 +295,7 @@ Item {
             color: Palette.greenSea()
             visible: true
 
-
-            // attributes of caches(icons).
-
+            // attributes of caches(icons)
             Grid {
                 id:attIcons
                 x:10
@@ -284,6 +304,7 @@ Item {
                 width: parent.width
                 columns:10
                 spacing: 17
+
                 Repeater {
                     model:fullCache.attributes.length
 
@@ -291,7 +312,6 @@ Item {
                         scale:1.3
                         source:"qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
                         Image {
-
                             source:"qrc:/Image/Attributes/attribute_no.png"
                             visible: !fullCache.attributesBool[index]
                         }
@@ -299,8 +319,7 @@ Item {
                 }
             }
 
-            // attributes of caches(text).
-
+            // attributes of caches(text)
             Flickable {
                 clip: true
                 anchors.fill: parent
