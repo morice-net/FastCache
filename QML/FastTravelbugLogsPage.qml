@@ -7,6 +7,16 @@ import com.mycompany.connecting 1.0
 Item {
     id: logsPage
 
+    Text {
+        visible: travelbug.logsText.length === 0
+        anchors.centerIn: parent
+        text: "La page des logs est vide"
+        font.family: localFont.name
+        font.bold: true
+        font.pointSize: 17
+        color: Palette.white()
+    }
+
     Flickable {
         id: logs
         anchors.fill: parent
@@ -20,7 +30,7 @@ Item {
             width: logsPage.width
 
             Repeater {
-                model:displayTbLogsPage()
+                model: travelbug.logsText.length
 
                 Rectangle {
                     x: 15
@@ -111,19 +121,6 @@ Item {
                     }
                 }
             }
-        }
-    }
-
-    function displayTbLogsPage() {
-        if(travelbug.logsText.length === 0){
-            fastTravelbug.removePage(logsPage)
-            return travelbug.logsText.length
-        } else {
-            fastTravelbug.addPage(logsPage)
-
-            // reorder pages
-            swipeFastTravelbug.moveItem(2,1);
-            return travelbug.logsText.length
         }
     }
 }
