@@ -33,8 +33,7 @@ Item {
         button2.checked = typeLog == 19   // type of log: Grab It (Not from a Cache)
         button3.checked = typeLog == 4   // type of log: Write Note
         button4.checked = typeLog == 48  // type of log: Discovered It
-        button5.checked = typeLog == 75  // type of log: Visited
-        button6.checked = typeLog == 14  // type of log: Dropped Off
+
         console.log("typeLog: " + typeLog)
     }
     onAddLogChanged: {
