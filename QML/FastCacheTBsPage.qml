@@ -8,6 +8,16 @@ Item {
     id: tbsPage
     clip: true
 
+    Text {
+        visible: fullCache.trackableCount === 0
+        anchors.centerIn: parent
+        text: "La page des travel bug est vide"
+        font.family: localFont.name
+        font.bold: true
+        font.pointSize: 17
+        color: Palette.white()
+    }
+
     Flickable {
         id: travelbugs
         anchors.fill: parent
@@ -22,7 +32,7 @@ Item {
             leftPadding: 20
 
             Repeater {
-                model: displayTbsPage()
+                model: fullCache.trackableCount
 
                 Column {
                     height: tbsPage.height * 0.1
@@ -57,15 +67,6 @@ Item {
                 }
             }
         }
-    }
-
-    function displayTbsPage() {
-        if (fullCache.trackableCount === 0) {
-            fastCache.removePage(tbsPage)
-        } else {
-            fastCache.addPage(tbsPage)
-        }
-        return fullCache.trackableCount
     }
 }
 
