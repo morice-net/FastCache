@@ -8,6 +8,16 @@ Item {
     id: imagesPage
     clip: true
 
+    Text {
+        visible: fullCache.imagesName.length === 0
+        anchors.centerIn: parent
+        text: "Il n'y a pas d'images"
+        font.family: localFont.name
+        font.bold: true
+        font.pointSize: 17
+        color: Palette.white()
+    }
+
     Flickable {
         id: images
         anchors.fill: parent
@@ -31,7 +41,7 @@ Item {
                 leftPadding: 10
 
                 Repeater{
-                    model:displayImagesPage()
+                    model: fullCache.imagesName.length
 
                     Column{
 
@@ -55,24 +65,6 @@ Item {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    function displayImagesPage() {
-        if(fullCache.imagesName.length === 0){
-            fastCache.removePage(imagesPage)
-            return fullCache.imagesName.length
-        } else {
-            fastCache.addPage(imagesPage)
-            // reorder pages
-            if(swipeFastCache.count === 7){
-                swipeFastCache.moveItem(6,5);
-                return fullCache.imagesName.length
-            }
-            if(swipeFastCache.count === 8){
-                swipeFastCache.moveItem(7,5);
-                return fullCache.imagesName.length
             }
         }
     }
