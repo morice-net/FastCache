@@ -12,189 +12,173 @@ import "JavaScript/Palette.js" as Palette
 FastPopup {
     id: geocode
     backgroundWidth: main.width*0.9
-    backgroundHeight: main.height/2
+    backgroundHeight: main.height*0.6
+    anchors.centerIn: parent
     backgroundRadius: 10
     backgroundOpacity: 0.9
-    x: 20
-    y: main.height/6
 
-    Item {
-        id: item2
-        anchors.margins: 5
+    Column {
+        spacing: 10
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: parent.width*0.7
+        y: 20
 
-        anchors.fill: parent
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Rue")
+            color: Palette.white()
+            font.family: localFont.name
+        }
 
-        GridLayout {
-            id: gridLayout3
-            anchors.rightMargin: 10
-            anchors.bottomMargin: 10
-            anchors.leftMargin: 10
-            anchors.topMargin: 10
-            rowSpacing: 15
-            rows: 1
-            columns: 2
-
-            y: 80
-            width: parent.width
-
-            Label {
-                id: label2
-                text: qsTr("Rue")
-                color: Palette.white()
-                font.family: localFont.name
+        TextField {
+            id: street
+            width: geocode.width*0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Palette.greenSea()
+            background: Rectangle {
+                radius:5
+                border.width: 3
+                border.color: street.focus ? Palette.silver() :Palette.greenSea()
             }
+            font.family: localFont.name
+        }
 
-            TextField {
-                id: street
-                Layout.fillWidth: true
-                color: Palette.greenSea()
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Ville")
+            color: Palette.white()
+            font.family: localFont.name
+        }
+
+        TextField {
+            id: city
+            width: geocode.width*0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Palette.greenSea()
+            background: Rectangle {
+                radius:5
+                border.width: 3
+                border.color: city.focus ? Palette.silver() :Palette.greenSea()
+            }
+            font.family: localFont.name
+        }
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Etat")
+            color: Palette.white()
+            font.family: localFont.name
+        }
+
+        TextField {
+            id: stateName
+            width: geocode.width*0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Palette.greenSea()
+            background: Rectangle {
+                radius:5
+                border.width: 3
+                border.color: stateName.focus ? Palette.silver() :Palette.greenSea()
+            }
+        }
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Pays")
+            color: Palette.white()
+            font.family: localFont.name
+        }
+
+        TextField {
+            id: country
+            width: geocode.width*0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Palette.greenSea()
+            background: Rectangle {
+                radius:5
+                border.width: 3
+                border.color: country.focus ? Palette.silver() :Palette.greenSea()
+            }
+            font.family: localFont.name
+        }
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Code postal")
+            color: Palette.white()
+            font.family: localFont.name
+        }
+
+        TextField {
+            id: postalCode
+            width: geocode.width*0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Palette.greenSea()
+            background: Rectangle {
+                radius:5
+                border.width: 3
+                border.color: postalCode.focus ? Palette.silver() :Palette.greenSea()
+            }
+            font.family: localFont.name
+        }
+
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 50
+
+            Button {
+                id: goButton
+                text: qsTr("Ok")
                 background: Rectangle {
-                    implicitWidth: parent.width - label2.width
-                    radius:5
-                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.white()
+                    border.color: Palette.greenSea()
+                    border.width: 1
+                    radius: 5
+                }
+                contentItem: Text {
+                    text: goButton.text
+                    color: goButton.down ? Palette.turquoise() : Palette.greenSea()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                 }
                 font.family: localFont.name
+                onClicked: {
+                    address.street = street.text
+                    address.city = city.text
+                    address.state = stateName.text
+                    address.country = country.text
+                    address.postalCode = postalCode.text
+                    geocoding(address)
+                }
             }
 
-            Label {
-                id: label3
-                text: qsTr("Ville")
-                color: Palette.white()
-                font.family: localFont.name
-            }
-
-            TextField {
-                id: city
-                Layout.fillWidth: true
-                color: Palette.greenSea()
+            Button {
+                id: clearButton
+                text: qsTr("Effacer")
                 background: Rectangle {
-                    implicitWidth: parent.width - label2.width
-                    radius:5
-                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.white()
+                    border.color: Palette.greenSea()
+                    border.width: 1
+                    radius: 5
+                }
+                contentItem: Text {
+                    text: clearButton.text
+                    color: clearButton.down ? Palette.turquoise() : Palette.greenSea()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
                 }
                 font.family: localFont.name
-            }
-
-            Label {
-                id: label4
-                text: qsTr("Etat")
-                color: Palette.white()
-                font.family: localFont.name
-            }
-
-            TextField {
-                id: stateName
-                Layout.fillWidth: true
-                color: Palette.greenSea()
-                background: Rectangle {
-                    implicitWidth: parent.width - label2.width
-                    radius:5
-                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
+                onClicked: {
+                    street.text = ""
+                    city.text = ""
+                    stateName.text = ""
+                    country.text = ""
+                    postalCode.text = ""
                 }
-            }
-
-            Label {
-                id: label5
-                text: qsTr("Pays")
-                color: Palette.white()
-                font.family: localFont.name
-            }
-
-            TextField {
-                id: country
-                Layout.fillWidth: true
-                color: Palette.greenSea()
-                background: Rectangle {
-                    implicitWidth: parent.width - label2.width
-                    radius:5
-                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
-                }
-                font.family: localFont.name
-            }
-
-            Label {
-                id: label6
-                text: qsTr("Code postal")
-                color: Palette.white()
-                font.family: localFont.name
-            }
-
-            TextField {
-                id: postalCode
-                Layout.fillWidth: true
-                color: Palette.greenSea()
-                background: Rectangle {
-                    implicitWidth: parent.width - label2.width
-                    radius:5
-                    border.color: street.focus ? Palette.silver() :Palette.greenSea()
-                }
-                font.family: localFont.name
-            }
-
-            RowLayout {
-                id: rowLayout1
-                Layout.columnSpan: 2
-                Layout.alignment: Qt.AlignRight
-
-                Button {
-                    id: goButton
-                    text: qsTr("Ok")
-                    background: Rectangle {
-                        anchors.fill: parent
-                        opacity: 0.9
-                        color: Palette.white()
-                        border.color: Palette.greenSea()
-                        border.width: 1
-                        radius: 5
-                    }
-                    contentItem: Text {
-                        text: goButton.text
-                        color: goButton.down ? Palette.turquoise() : Palette.greenSea()
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    font.family: localFont.name
-                    onClicked: {
-                        address.street = street.text
-                        address.city = city.text
-                        address.state = stateName.text
-                        address.country = country.text
-                        address.postalCode = postalCode.text
-                        geocoding(address)
-                    }
-                }
-
-                Button {
-                    id: clearButton
-                    text: qsTr("Effacer")
-                    background: Rectangle {
-                        anchors.fill: parent
-                        opacity: 0.9
-                        color: Palette.white()
-                        border.color: Palette.greenSea()
-                        border.width: 1
-                        radius: 5
-                    }
-                    contentItem: Text {
-                        text: clearButton.text
-                        color: clearButton.down ? Palette.turquoise() : Palette.greenSea()
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    font.family: localFont.name
-                    onClicked: {
-                        street.text = ""
-                        city.text = ""
-                        stateName.text = ""
-                        country.text = ""
-                        postalCode.text = ""
-                    }
-                }
-            }
-
-            Item {
-                Layout.fillHeight: true
-                Layout.columnSpan: 2
             }
         }
     }
