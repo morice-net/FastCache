@@ -19,8 +19,8 @@ Item {
     signal deleteListClicked()
     signal editListClicked()
 
-    width: childrenRect.width
-    height: childrenRect.height
+    width: main.width*0.7
+    height: box.height*1.5
 
     CheckBox {
         id: box
@@ -52,6 +52,8 @@ Item {
         font.pointSize: 18
         verticalAlignment: Text.AlignVCenter
         anchors.left: box.right
+        anchors.bottom: parent.bottom
+        anchors.top: parent.top
         anchors.margins: 20
         color: !checkable || checked ? Palette.white() : Palette.silver()
     }
