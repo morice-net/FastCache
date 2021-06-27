@@ -26,7 +26,7 @@ Rectangle {
 
     TabViewRecordedCaches{
         id : tabViewRecordedCaches
-        visible: main.state === "recorded" && main.viewState === "list" && main.state !== "cachesActive" ? true:false
+        visible: main.state === "recorded" && main.viewState === "list" ? true:false
     }
 
     LoadingPage {
