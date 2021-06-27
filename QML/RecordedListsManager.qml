@@ -48,7 +48,6 @@ FastPopup {
         }
 
         // rename list
-
         FastTextButton {
             id:buttonRename
             visible: false
