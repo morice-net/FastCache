@@ -10,7 +10,8 @@ TabBar {
     y: parent.height * 0.07
 
     Repeater {
-        model: sqliteStorage.countLists
+        model: modelList()
+
         TabButton {
             id: tabButton
             onClicked: {
@@ -21,7 +22,7 @@ TabBar {
             }
             width: Math.max(100, bar.width / sqliteStorage.countLists)
             contentItem: Text {
-                text: sqliteStorage.readAllStringsFromTable("lists")[index]
+                text: modelData
                 font.family: localFont.name
                 font.pointSize: 20
                 color: tabButton.checked ? Palette.white() : Palette.silver()
@@ -35,6 +36,15 @@ TabBar {
                 radius: 4
             }
         }
+    }
+
+    function modelList() {
+        var list = sqliteStorage.readAllStringsFromTable("lists")
+        var createList = []
+        for (var i = 0; i < sqliteStorage.countLists; i++) {
+            createList.push(list[i])
+        }
+        return createList
     }
 }
 
