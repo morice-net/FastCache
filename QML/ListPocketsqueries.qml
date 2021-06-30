@@ -14,7 +14,6 @@ Item {
             icon.width: 50
             icon.height: 50
             leftPadding: 20
-            anchors.top: nearButtonMenu.bottom
             onClicked:{
                 openMenu = 3
                 pocketsqueries.x  = -parent.width

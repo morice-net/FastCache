@@ -12,7 +12,6 @@ Item {
         icon.height: 50
         topPadding: 20
         leftPadding: 20
-        anchors.top: nearButtonMenu.bottom
         onClicked:{
             direction = false
             openMenu = 2
