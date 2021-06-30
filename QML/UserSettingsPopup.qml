@@ -19,7 +19,6 @@ FastPopup {
         width: parent.width
 
         Column {
-            topPadding: userInfoIcon.height + 20
             anchors.fill: parent
             spacing: 10
 
