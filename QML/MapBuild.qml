@@ -86,7 +86,7 @@ Map {
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
     function updateCachesOnMap(caches) {
-        while(fastMap.currentCacheIndex <= caches.length) {
+        while(fastMap.currentCacheIndex < caches.length) {
             if (caches[fastMap.currentCacheIndex].lat !== "" && caches[fastMap.currentCacheIndex].lon !== "") {
                 var itemMap = Qt.createQmlObject('FastMapItem {}', map)
                 itemMap.index = fastMap.currentCacheIndex
