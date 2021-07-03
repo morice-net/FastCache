@@ -35,10 +35,7 @@ Rectangle {
     }
 
     Image {
-        //  visible: selectedCache.found
-
         visible: selectedCache !== null ? selectedCache.found : false
-
         source: "qrc:/Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
