@@ -35,7 +35,10 @@ Rectangle {
     }
 
     Image {
-        visible: selectedCache.found
+        //  visible: selectedCache.found
+
+        visible: selectedCache !== null ? selectedCache.found : false
+
         source: "qrc:/Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
@@ -45,7 +48,7 @@ Rectangle {
     }
 
     Image {
-        visible: selectedCache.toDoLog
+        visible: selectedCache !== null ? selectedCache.toDoLog : false
         source: "qrc:/Image/not_logged.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
@@ -55,7 +58,7 @@ Rectangle {
     }
 
     Image {
-        visible: selectedCache.own
+        visible: selectedCache !== null ? selectedCache.own : false
         source: "qrc:/Image/marker_own.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
@@ -65,7 +68,7 @@ Rectangle {
     }
 
     Image {
-        visible: selectedCache.registered
+        visible: selectedCache !== null ? selectedCache.registered : false
         source: "qrc:/Image/marker_save.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 1.2
@@ -84,7 +87,7 @@ Rectangle {
         color: Palette.black()
         width: parent.width*0.7
         elide: Text.ElideRight
-        text: selectedCache.name
+        text: selectedCache !== null ? selectedCache.name : ""
     }
 
     Text {
@@ -96,7 +99,7 @@ Rectangle {
         font.pixelSize: parent.height * 0.15
         color: Palette.black()
         clip: true
-        text: selectedCache.geocode
+        text: selectedCache !== null ? selectedCache.geocode : ""
     }
 
     Text {
@@ -117,7 +120,7 @@ Rectangle {
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: parent.left
         ratingName: "Difficulté"
-        ratingValue: selectedCache.difficulty
+        ratingValue: selectedCache !== null ? selectedCache.difficulty : 0
         ratingTextPixelSize: selectedCacheItem.height * 0.15
     }
 
@@ -127,7 +130,7 @@ Rectangle {
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: selectedCacheDifficultyField.right
         ratingName: "Terrain"
-        ratingValue: selectedCache.terrain
+        ratingValue: selectedCache !== null ? selectedCache.terrain : 0
         ratingTextPixelSize: selectedCacheItem.height * 0.15
     }
 
@@ -160,8 +163,8 @@ Rectangle {
     Location {
         id: selectedCacheLocation
         coordinate {
-            latitude: selectedCache.lat
-            longitude: selectedCache.lon
+            latitude: selectedCache !== null ? selectedCache.lat : 0
+            longitude: selectedCache !== null ? selectedCache.lon : 0
         }
     }
 
@@ -183,8 +186,9 @@ Rectangle {
             font.pixelSize: selectedCacheItem.height * 0.15
             color: Palette.black()
             clip: true
-            text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
-                                                   .distanceTo(QtPositioning.coordinate(selectedCache.lat, selectedCache.lon))))
+            text: selectedCache !== null ? Helper.formatDistance(Math.round(currentPosition.position.coordinate
+                                                                            .distanceTo(QtPositioning.coordinate(selectedCache.lat,
+                                                                                                                 selectedCache.lon)))) : ""
         }
 
         Image {
