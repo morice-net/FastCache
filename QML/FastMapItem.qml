@@ -5,18 +5,18 @@ import QtPositioning 5.3
 MapQuickItem {
 
     property int index: 0
-    property string geocode: listCaches().length !==0 ? listCaches()[index].geocode  : ""
+    property string geocode: index < listCaches().length ? listCaches()[index].geocode  : ""
 
-    coordinate: listCaches().length !==0 ? QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon) : QtPositioning.coordinate(-1,-1)
+    coordinate: index < listCaches().length ? QtPositioning.coordinate(listCaches()[index].lat, listCaches()[index].lon) : QtPositioning.coordinate(-1,-1)
     anchorPoint.x: cacheIcon.width/2
     anchorPoint.y: cacheIcon.height
     sourceItem: CacheIcon {
         id: cacheIcon
-        type: listCaches().length !==0 ? listCaches()[index].typeIndex : 0
-        found: listCaches().length !==0 ? listCaches()[index].found : false
-        registered: listCaches().length !==0 ? listCaches()[index].registered : false
-        toDoLog: listCaches().length !==0 ? listCaches()[index].toDoLog : false
-        own: listCaches().length !==0 ? listCaches()[index].own : false
+        type: index < listCaches().length ? listCaches()[index].typeIndex : 0
+        found: index < listCaches().length ? listCaches()[index].found : false
+        registered: index < listCaches().length ? listCaches()[index].registered : false
+        toDoLog: index < listCaches().length ? listCaches()[index].toDoLog : false
+        own: index < listCaches().length ? listCaches()[index].own : false
 
         MouseArea {
             anchors.fill: parent
