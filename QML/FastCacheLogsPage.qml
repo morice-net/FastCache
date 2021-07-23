@@ -42,7 +42,7 @@ Item {
                                 topPadding: 10
                                 leftPadding: 15
                                 anchors.left: parent.left
-                                text: fullCache.findersName[index]
+                                text: fullCache.findersName.length !== 0 ? fullCache.findersName[index] : ""
                                 font.family: localFont.name
                                 font.bold: true
                                 font.pointSize: 15
@@ -68,7 +68,7 @@ Item {
                             height: 35
 
                             Text {
-                                text: fullCache.logsType[index]
+                                text: fullCache.logsType.length !== 0 ? fullCache.logsType[index] : ""
                                 leftPadding: 15
                                 anchors.left: parent.left
                                 font.family: localFont.name
