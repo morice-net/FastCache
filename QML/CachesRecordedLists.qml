@@ -9,7 +9,7 @@ FastPopup {
     id: cachesRecordedLists
     closeButtonVisible: false
 
-    property var listChecked: []
+    property var listChecked: main.viewState !== "fullcache" ? listCheckedBoolAtFalse() : listCheckedBool(fullCache.geocode)
     property int listIndex: 0
 
     width: Math.max( displayListColumn.width, manageListButton.width )
@@ -47,7 +47,7 @@ FastPopup {
 
                 ListBox {
                     checkable: main.state !== "recorded" || viewState === "fullcache"  ? true : main.tabBarRecordedCachesIndex === index
-                    checked: main.viewState === "fullcache" ? listCheckedBool(fullCache.geocode)[index] : false
+                    checked: listChecked[index]
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
                         listChecked[index] = !listChecked[index]
@@ -162,24 +162,21 @@ FastPopup {
         anchors.margins: 10
     }
 
-    Component.onCompleted: {
-        if(main.viewState !== "fullcache")
-            listCheckedBoolAtFalse()
-    }
-
     function closeIfMenu() {
         if (fastMenu.isMenuVisible())
             visible = false
     }
 
     function listCheckedBool(geocode) {
-        listChecked = sqliteStorage.cacheInLists("cacheslists", geocode)
-        return listChecked
+        var list = sqliteStorage.cacheInLists("cacheslists", geocode)
+        return list
     }
 
     function listCheckedBoolAtFalse() {
+        var list = []
         for (var i = 0; i < sqliteStorage.countLists; i++) {
-            listChecked.push(false)
+            list.push(false)
         }
+        return list
     }
 }
