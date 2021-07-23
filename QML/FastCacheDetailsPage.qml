@@ -13,11 +13,10 @@ Item {
     Column {
         spacing: 5
         anchors.fill: parent
-        anchors.topMargin: parent.height * 0.05
+        topPadding: parent.height * 0.05
         clip: true
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -38,7 +37,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -59,7 +57,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -80,7 +77,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -101,7 +97,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -123,7 +118,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -144,7 +138,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -165,7 +158,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -186,7 +178,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -207,7 +198,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -228,7 +218,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -249,7 +238,6 @@ Item {
         }
 
         Row {
-            width: parent.width
             spacing: 15
 
             Text {
@@ -270,9 +258,15 @@ Item {
             }
         }
 
-        Text {
-            x:10
+        Rectangle {
             width: parent.width
+            height: 2
+            color: Palette.white()
+            radius:10
+        }
+
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pointSize: 14
             text:fullCache.favorited ? "Cette cache est dans vos favoris": "Cette cache n'est pas dans vos favoris"
@@ -280,7 +274,6 @@ Item {
         }
 
         Rectangle {
-            id: separator
             width: parent.width
             height: 2
             color: Palette.white()
@@ -289,7 +282,6 @@ Item {
 
         Rectangle {
             id:rect
-            anchors.top:separator.bottom
             width: parent.width
             height:attIcons.visible ? attIcons.height : attText.height
             color: Palette.greenSea()
@@ -302,7 +294,7 @@ Item {
                 y:10
                 visible: true
                 width: parent.width
-                columns:10
+                columns: 10
                 spacing: 17
 
                 Repeater {
