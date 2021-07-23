@@ -47,7 +47,7 @@ Item {
 
                         Text {
                             width: imagesPage.width*0.95
-                            visible: fullCache.listVisibleImages[index]
+                            visible: fullCache.listVisibleImages.length !== 0 ? fullCache.listVisibleImages[index] : false
                             text: fullCache.imagesName[index]
                             font.family: localFont.name
                             textFormat: Qt.RichText
@@ -58,8 +58,8 @@ Item {
                         }
 
                         Image {
-                            visible: fullCache.listVisibleImages[index]
-                            source: fullCache.imagesUrl[index]
+                            visible: fullCache.listVisibleImages.length !== 0 ? fullCache.listVisibleImages[index] : false
+                            source: fullCache.imagesUrl.length !== 0 ? fullCache.imagesUrl[index] : ""
                             horizontalAlignment: Image.AlignHCenter
                             sourceSize.width: parent.width
                         }

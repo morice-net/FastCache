@@ -202,7 +202,7 @@ Item {
     }
 
     FullCache {
-        id: fullCache
+        id: fullCache        
         onIsCorrectedCoordinatesChanged: {
             correctedCoordinatesDynamic(cachesSingleList.caches);
         }
