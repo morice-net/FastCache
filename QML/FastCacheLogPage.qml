@@ -55,17 +55,20 @@ Item {
         id: addText
     }
 
-    Flickable {
-        anchors.topMargin: 30
+    ScrollView {
+        id: scrollView
         anchors.fill: parent
-        flickableDirection: Flickable.VerticalFlick
-        contentHeight: childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
+        anchors.topMargin: 40
+        anchors.bottomMargin: 30
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
+        contentHeight: column.height
+        clip : true
 
         Column {
+            id: column
             spacing: 10
-            anchors.fill: parent
-            anchors.margins: 20
+            width: parent.width
 
             LogTypes {
                 id: logTypes
@@ -266,13 +269,11 @@ Item {
                         spacing: 5
 
                         Image {
-                            x: logPage.width*0.05
                             source: "qrc:/Image/" + "trackable_travelbug.png"
                             scale: 1.4
                         }
 
                         Text {
-                            x: logPage.width*0.05
                             text: getTravelbugUser.trackingNumbers[index]
                             font.family: localFont.name
                             font.bold: true
@@ -289,7 +290,6 @@ Item {
 
                         Text {
                             width: logPage.width*0.9
-                            x: logPage.width*0.05
                             text: getTravelbugUser.tbsName[index]
                             font.family: localFont.name
                             textFormat: Qt.RichText
@@ -303,7 +303,6 @@ Item {
                         ComboBox {
                             id: tbCombo
                             visible:false
-                            x: logPage.width*0.05
                             model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
                             delegate: ItemDelegate {
                                 width: tbCombo.width
@@ -354,7 +353,6 @@ Item {
 
                         Text {
                             id: tbLog
-                            x: logPage.width*0.05
                             font.family: localFont.name
                             font.bold: true
                             font.pointSize: 14
@@ -392,7 +390,6 @@ Item {
                                                                                  listTbSend[tbList.repeaterIndex].split(',')[3].length + 4) : ""
                             visible: false
                             width: logPage.width*0.9
-                            x: logPage.width*0.05
                             font.family: localFont.name
                             font.pointSize: 14
                             color: Palette.greenSea()
@@ -400,11 +397,17 @@ Item {
                             background: Rectangle {
                                 implicitHeight: 100
                             }
+
+                            onVisibleChanged: {
+                                if (visible)
+                                    scrollView.scrollToBottom()
+                            }
                         }
                     }
                 }
             }
         }
+        function scrollToBottom() { ScrollBar.vertical.position = 1. }
     }
 
     function tbLogType(comboIndex) {
