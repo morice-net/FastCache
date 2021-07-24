@@ -265,22 +265,26 @@ Item {
                 Column {
                     spacing: 5
 
-                    Image {
-                        source: "qrc:/Image/" + "trackable_travelbug.png"
-                        scale: 1.4
-                    }
+                    Row {
+                        spacing: 5
 
-                    Text {
-                        text: getTravelbugUser.trackingNumbers[index]
-                        font.family: localFont.name
-                        font.bold: true
-                        font.pointSize: 14
-                        color: Palette.silver()
+                        Image {
+                            source: "qrc:/Image/" + "trackable_travelbug.png"
+                            scale: 1.4
+                        }
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                travelbug.sendRequest(connector.tokenKey , getTravelbugUser.tbsCode[index]);
+                        Text {
+                            text: getTravelbugUser.trackingNumbers[index]
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 14
+                            color: Palette.silver()
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    travelbug.sendRequest(connector.tokenKey , getTravelbugUser.tbsCode[index]);
+                                }
                             }
                         }
                     }
