@@ -119,9 +119,24 @@ Item {
                 }
 
                 Button {
+                    id: buttonAdd
+                    contentItem: Image {
+                        source: "qrc:/Image/" + "icon_edit.png"
+                    }
+                    background: Rectangle {
+                        border.width: buttonAdd.activeFocus ? 2 : 1
+                        border.color: Palette.silver()
+                        radius: 4
+                    }
+                    onClicked:{
+                        addText.open();
+                    }
+                }
+
+                Button {
                     id: buttonDelete
                     contentItem: Image {
-                        source: "qrc:/Image/" + "icon_delete.png"
+                        source: "qrc:/Image/" + "icon_erase.png"
                     }
                     background: Rectangle {
                         border.width: buttonDelete.activeFocus ? 2 : 1
@@ -130,22 +145,6 @@ Item {
                     }
                     onClicked:{
                         message.text = ""
-                    }
-                }
-
-                Button {
-                    id: buttonAdd
-                    contentItem: Image {
-                        source: "qrc:/Image/" + "icon_edit.png"
-                    }
-
-                    background: Rectangle {
-                        border.width: buttonAdd.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
-                    }
-                    onClicked:{
-                        addText.open();
                     }
                 }
             }
@@ -213,8 +212,6 @@ Item {
                     imagesBrowser.visible = true
                 }
             }
-
-
 
             Button {
                 id:buttonSendLog
@@ -301,7 +298,7 @@ Item {
                         spacing: 10
 
                         Text {
-                            width: logPage.width*0.5
+                            width: logPage.width*0.6
                             text: getTravelbugUser.tbsName[index]
                             font.family: localFont.name
                             font.bold: true

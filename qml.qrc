@@ -185,5 +185,6 @@
         <file>Image/settings.png</file>
         <file>Image/minus.png</file>
         <file>Image/plus.png</file>
+        <file>Image/icon_erase.png</file>
     </qresource>
 </RCC>
