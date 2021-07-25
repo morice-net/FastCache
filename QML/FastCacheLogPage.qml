@@ -102,16 +102,26 @@ Item {
             }
 
             Row {
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 40
+                spacing: 10
+
+                Text {
+                    id: logTextTitle
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    text: "Texte du Log de la cache"
+                    color: Palette.white()
+                }
+
+                Item {
+                    id: spacer
+                    height: 2
+                    width: logPage.width - logTextTitle.width - buttonDelete.width - buttonAdd.width - 110
+                }
 
                 Button {
                     id: buttonDelete
-                    contentItem: Text {
-                        text: "Effacer"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: Palette.greenSea()
+                    contentItem: Image {
+                        source: "qrc:/Image/" + "icon_delete.png"
                     }
                     background: Rectangle {
                         border.width: buttonDelete.activeFocus ? 2 : 1
@@ -125,12 +135,10 @@ Item {
 
                 Button {
                     id: buttonAdd
-                    contentItem: Text {
-                        text: "Ajout de texte"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: Palette.greenSea()
+                    contentItem: Image {
+                        source: "qrc:/Image/" + "icon_edit.png"
                     }
+
                     background: Rectangle {
                         border.width: buttonAdd.activeFocus ? 2 : 1
                         border.color: Palette.silver()
@@ -140,45 +148,6 @@ Item {
                         addText.open();
                     }
                 }
-
-                Button {
-                    id:buttonSendLog
-                    contentItem: Text {
-                        text: "Envoyer le log"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: Palette.greenSea()
-                    }
-                    background: Rectangle {
-                        border.width: buttonSendLog.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }
-                            GradientStop { position: 1 ; color: buttonSendLog.pressed ? "#aaa" : "#ccc" }
-                        }
-                    }
-                    onClicked:{
-                        console.log(connector.tokenKey + " " + fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
-                                    + favorited.checked);
-                        if(message.text !== null && message.text !== '') {
-                            sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
-                                                                                                                  favorited.checked))
-                            sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
-                            sqliteStorage.updateObject("cachesimageslog" , fullCache.geocode , sendImagesLog.makeJsonSendImagesLog(createListImagesLog()))
-                            fullCache.toDoLog = true
-                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked)
-                        }
-                    }
-                }
-            }
-
-            Text {
-                font.family: localFont.name
-                font.pointSize: 16
-                text: "Texte du Log de la cache"
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: Palette.white()
             }
 
             TextArea {
@@ -232,12 +201,50 @@ Item {
                     color: Palette.greenSea()
                 }
                 background: Rectangle {
-                    color: Palette.silver()
-                    border.width: buttonDelete.activeFocus ? 2 : 1
+                    border.width: buttonAddImages.activeFocus ? 2 : 1
+                    border.color: Palette.silver()
                     radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: buttonAddImages.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: buttonAddImages.pressed ? "#aaa" : "#ccc" }
+                    }
                 }
                 onClicked:{
                     imagesBrowser.visible = true
+                }
+            }
+
+
+
+            Button {
+                id:buttonSendLog
+                anchors.horizontalCenter: parent.horizontalCenter
+                contentItem: Text {
+                    text: "Envoyer le log"
+                    font.family: localFont.name
+                    font.pointSize: 24
+                    color: Palette.greenSea()
+                }
+                background: Rectangle {
+                    border.width: buttonSendLog.activeFocus ? 2 : 1
+                    border.color: Palette.silver()
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: buttonSendLog.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+                onClicked:{
+                    console.log(connector.tokenKey + " " + fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
+                                + favorited.checked);
+                    if(message.text !== null && message.text !== '') {
+                        sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
+                                                                                                              favorited.checked))
+                        sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
+                        sqliteStorage.updateObject("cachesimageslog" , fullCache.geocode , sendImagesLog.makeJsonSendImagesLog(createListImagesLog()))
+                        fullCache.toDoLog = true
+                        sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked)
+                    }
                 }
             }
 
@@ -267,6 +274,7 @@ Item {
 
                     Row {
                         spacing: 5
+                        anchors.horizontalCenter: parent.horizontalCenter
 
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
@@ -289,88 +297,70 @@ Item {
                         }
                     }
 
-                    Text {
-                        width: logPage.width*0.9
-                        text: getTravelbugUser.tbsName[index]
-                        font.family: localFont.name
-                        textFormat: Qt.RichText
-                        font.bold: true
-                        font.pointSize: 14
-                        color: Palette.white()
-                        wrapMode: Text.Wrap
-                        elide: Text.ElideRight
-                    }
+                    Row {
+                        spacing: 10
 
-                    ComboBox {
-                        id: tbCombo
-                        visible:false
-                        model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
-                        delegate: ItemDelegate {
-                            width: tbCombo.width
+                        Text {
+                            width: logPage.width*0.5
+                            text: getTravelbugUser.tbsName[index]
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 14
+                            color: Palette.white()
+                            wrapMode: Text.Wrap
+                            elide: Text.ElideRight
+                            maximumLineCount: 1
+                        }
+
+                        ComboBox {
+                            id: tbCombo
+                            model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
+                            delegate: ItemDelegate {
+                                contentItem: Text {
+                                    text: modelData
+                                    color: Palette.turquoise()
+                                    font.family: localFont.name
+                                    font.pointSize: 15
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                            }
                             contentItem: Text {
-                                text: modelData
-                                color: Palette.turquoise()
+                                leftPadding: 10
+                                text: tbCombo.displayText
                                 font.family: localFont.name
                                 font.pointSize: 15
+                                color: Palette.turquoise()
                                 verticalAlignment: Text.AlignVCenter
                             }
-                        }
-                        contentItem: Text {
-                            leftPadding: 10
-                            text: tbCombo.displayText
-                            font.family: localFont.name
-                            font.pointSize: 15
-                            color: Palette.turquoise()
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        background: Rectangle {
-                            implicitWidth: 200
-                            implicitHeight: 40
-                            border.color: Palette.silver()
-                            border.width: 1
-                            radius: 5
-                        }
-                        onActivated:  {
-                            tbLog.text = tbCombo.currentText;
-                            tbCombo.visible = false;
-                            tbLog.visible = true;
-                            title.visible = false;
-                            messageTbLog.visible = false;
-                            if(tbLog.text === tbComboText(0)) {
-                                listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] +
-                                        "," +getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
-                                        dateIso + "," + "";
-                            } else{
-                                listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
-                                        getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
-                                        dateIso + "," + messageTbLog.text;
+                            background: Rectangle {
+                                implicitWidth: 200
+                                implicitHeight: 40
+                                border.color: Palette.silver()
+                                border.width: 1
+                                radius: 8
+                            }
+                            onActivated:  {
+                                tbList.repeaterIndex = index;
+                                if(tbCombo.currentText === tbComboText(0)) {
+                                    title.visible = false;
+                                    messageTbLog.visible = false;
+                                    listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] +
+                                            "," +getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
+                                            dateIso + "," + "";
+                                } else{
+                                    title.visible = true;
+                                    messageTbLog.visible = true;
+                                    listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
+                                            getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(currentIndex) + "," +
+                                            dateIso + "," + messageTbLog.text;
+                                }
                             }
                         }
                     }
 
                     property string typeTbLog: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
                                                    tbComboText(Number(listTbSend[tbList.repeaterIndex].split(',')[2])) : tbComboText(0)
-                    onTypeTbLogChanged: tbLog.text = typeTbLog
-
-                    Text {
-                        id: tbLog
-                        font.family: localFont.name
-                        font.bold: true
-                        font.pointSize: 14
-                        color: Palette.silver()
-
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: {
-                                tbList.repeaterIndex = index;
-                                tbLog.visible = false
-                                tbCombo.visible = true;
-                                tbCombo.currentIndex = tbCombo.find(tbLog.text)
-                                title.visible = true;
-                                messageTbLog.visible = true;
-                            }
-                        }
-                    }
+                    //    onTypeTbLogChanged: tbLog.text = typeTbLog
 
                     Text {
                         id: title

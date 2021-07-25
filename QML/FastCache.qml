@@ -64,7 +64,7 @@ Rectangle {
 
     Row {
         id:fastCacheHeader
-        y: 10
+        y: 20
         height: parent.height * 0.02
         property int xGoal: 0
         x: -100
@@ -73,8 +73,8 @@ Rectangle {
         AnimatedSprite {
             id: fastCacheHeaderIcon
             visible: false
+            anchors.verticalCenter: parent.verticalCenter
             scale: 1.6
-            y: 8
             running: false
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
@@ -83,6 +83,7 @@ Rectangle {
 
         Text {
             id: fastCacheHeaderName
+            anchors.verticalCenter: parent.verticalCenter
             font.family: localFont.name
             font.bold: true
             font.pointSize: 18
