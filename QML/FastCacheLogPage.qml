@@ -82,6 +82,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 18
                 color: Palette.silver()
+
                 MouseArea {
                     anchors.fill: logDate
                     onClicked: {
@@ -257,6 +258,7 @@ Item {
 
             Repeater {
                 id:tbList
+
                 property int repeaterIndex
 
                 model: getTravelbugUser.tbsCode.length
@@ -298,7 +300,7 @@ Item {
                         spacing: 10
 
                         Text {
-                            width: logPage.width*0.6
+                            width: logPage.width*0.5
                             text: getTravelbugUser.tbsName[index]
                             font.family: localFont.name
                             font.bold: true
@@ -312,6 +314,14 @@ Item {
                         ComboBox {
                             id: tbCombo
                             model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    tbList.repeaterIndex = index
+                                    tbCombo.popup.open()
+                                }
+                            }
                             delegate: ItemDelegate {
                                 contentItem: Text {
                                     text: modelData
@@ -336,8 +346,7 @@ Item {
                                 border.width: 1
                                 radius: 8
                             }
-                            onActivated:  {
-                                tbList.repeaterIndex = index;
+                            onActivated: {
                                 if(tbCombo.currentText === tbComboText(0)) {
                                     title.visible = false;
                                     messageTbLog.visible = false;
@@ -357,12 +366,13 @@ Item {
 
                     property string typeTbLog: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
                                                    tbComboText(Number(listTbSend[tbList.repeaterIndex].split(',')[2])) : tbComboText(0)
-                    //    onTypeTbLogChanged: tbLog.text = typeTbLog
+                    onTypeTbLogChanged: tbCombo.currentIndex = tbCombo.find(typeTbLog)
+                    Component.onCompleted: tbCombo.currentIndex = tbCombo.find(typeTbLog)
 
                     Text {
                         id: title
+                        visible: tbCombo.currentText === tbComboText(0) ? false : true
                         anchors.horizontalCenter: parent.horizontalCenter
-                        visible: false
                         font.family: localFont.name
                         font.pointSize: 16
                         text: "Texte du Log du travelbug"
@@ -371,12 +381,20 @@ Item {
 
                     TextArea {
                         id: messageTbLog
+                        visible: tbCombo.currentText === tbComboText(0) ? false : true
                         text: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
                                   listTbSend[tbList.repeaterIndex].substring(listTbSend[tbList.repeaterIndex].split(',')[0].length
                                                                              + listTbSend[tbList.repeaterIndex].split(',')[1].length  +
                                                                              listTbSend[tbList.repeaterIndex].split(',')[2].length +
                                                                              listTbSend[tbList.repeaterIndex].split(',')[3].length + 4) : ""
-                        visible: false
+                        onFocusChanged: {
+                            if(messageTbLog.focus === false) {
+                                tbList.repeaterIndex = index
+                                listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
+                                        getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(tbCombo.currentIndex) + "," +
+                                        dateIso + "," + messageTbLog.text;
+                            }
+                        }
                         width: logPage.width*0.9
                         font.family: localFont.name
                         font.pointSize: 14
@@ -385,7 +403,6 @@ Item {
                         background: Rectangle {
                             implicitHeight: 100
                         }
-
                         onVisibleChanged: {
                             if (visible)
                                 scrollView.scrollToBottom()
