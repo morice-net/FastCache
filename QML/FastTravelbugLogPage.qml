@@ -53,18 +53,20 @@ Item {
         id:addText
     }
 
-    Flickable {
-        anchors.topMargin: 50
-        anchors.fill: logPage
-        flickableDirection: Flickable.VerticalFlick
-        contentHeight: childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
+    ScrollView {
+        id: scrollView
+        anchors.fill: parent
+        anchors.topMargin: 100
+        anchors.bottomMargin: 30
+        anchors.leftMargin: 20
+        anchors.rightMargin: 20
+        contentHeight: column.height
+        clip : true
 
         Column{
+            id: column
             spacing: 10
-            y: 40
-            anchors.margins: 20
-            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width
 
             GroupBox {
                 width: logPage.width*0.9
@@ -230,78 +232,53 @@ Item {
                 }
             }
 
-            Row {
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 40
 
-                Button {
-                    contentItem: Text {
-                        text: "Effacer"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: Palette.greenSea()
-                    }
-                    background: Rectangle {
-                        border.color: "#888"
-                        radius: 4
-                    }
-                    onClicked: {
-                        message.text=""
-                    }
+            Row {
+                spacing: 10
+
+                Text {
+                    id: logTextTitle
+                    font.family: localFont.name
+                    font.pointSize: 16
+                    text: "Texte du Log du travelbug"
+                    color: Palette.white()
+                }
+
+                Item {
+                    id: spacer
+                    height: 2
+                    width: logPage.width - logTextTitle.width - buttonDelete.width - buttonAdd.width - 110
                 }
 
                 Button {
-                    contentItem: Text {
-                        text: "Ajout de texte"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: Palette.greenSea()
+                    id: buttonAdd
+                    contentItem: Image {
+                        source: "qrc:/Image/" + "icon_edit.png"
                     }
                     background: Rectangle {
-                        border.color: "#888"
+                        border.width: buttonAdd.activeFocus ? 2 : 1
+                        border.color: Palette.silver()
                         radius: 4
                     }
                     onClicked:{
                         addText.open();
-                        textLog = "" ;
                     }
                 }
 
                 Button {
-                    id:sendLog
-                    contentItem: Text {
-                        text: "Envoyer le log"
-                        font.family: localFont.name
-                        font.pointSize: 16
-                        color: Palette.greenSea()
+                    id: buttonDelete
+                    contentItem: Image {
+                        source: "qrc:/Image/" + "icon_erase.png"
                     }
                     background: Rectangle {
-                        border.color: "#888"
+                        border.width: buttonDelete.activeFocus ? 2 : 1
+                        border.color: Palette.silver()
                         radius: 4
-                        gradient: Gradient {
-                            GradientStop { position: 0 ; color: sendLog.pressed ? "#ccc" : "#eee" }
-                            GradientStop { position: 1 ; color: sendLog.pressed ? "#aaa" : "#ccc" }
-                        }
                     }
-                    onClicked:{
-                        if(typeLog !== 4 && travelbug.tbStatus !== 0 && message.text !== "") {
-                            sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,
-                                                                                                                   dateIso , message.text))
-                            sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
-                        } else if(typeLog === 4 && message.text !== ""){
-                            sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog("" , typeLog , dateIso , message.text))
-                            sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
-                        }
+                    onClicked: {
+                        message.text = ""
                     }
                 }
-            }
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: localFont.name
-                font.pointSize: 16
-                text: "Texte du Log"
-                color: Palette.white()
             }
 
             TextArea {
@@ -331,6 +308,37 @@ Item {
                     border.color: Palette.greenSea()
                 }
             }
+
+            Button {
+                id:buttonSendLog
+                anchors.horizontalCenter: parent.horizontalCenter
+                contentItem: Text {
+                    text: "Envoyer le log"
+                    font.family: localFont.name
+                    font.pointSize: 24
+                    color: Palette.greenSea()
+                }
+                background: Rectangle {
+                    border.width: buttonSendLog.activeFocus ? 2 : 1
+                    border.color: Palette.silver()
+                    radius: 4
+                    gradient: Gradient {
+                        GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }
+                        GradientStop { position: 1 ; color: buttonSendLog.pressed ? "#aaa" : "#ccc" }
+                    }
+                }
+                onClicked:{
+                    if(typeLog !== 4 && travelbug.tbStatus !== 0 && message.text !== "") {
+                        sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,
+                                                                                                               dateIso , message.text))
+                        sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , trackingCode.text , typeLog , dateIso  , message.text);
+                    } else if(typeLog === 4 && message.text !== ""){
+                        sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog("" , typeLog , dateIso , message.text))
+                        sendTravelbugLog.sendRequest(connector.tokenKey , "" , travelbug.tbCode , "" , typeLog , dateIso  , message.text);
+                    }
+                }
+            }
         }
     }
 }
+
