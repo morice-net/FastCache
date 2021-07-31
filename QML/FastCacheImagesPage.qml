@@ -36,17 +36,16 @@ Item {
             id:imagesComponent
 
             Column{
-                spacing:10
-                width: imagesPage.width
-                leftPadding: 10
+                spacing:10             
+                leftPadding: images.width*0.025
 
                 Repeater{
                     model: fullCache.imagesName.length
 
-                    Column{
+                   Column{
 
                         Text {
-                            width: imagesPage.width*0.95
+                            width: images.width*0.95
                             visible: fullCache.listVisibleImages.length !== 0 ? fullCache.listVisibleImages[index] : false
                             text: fullCache.imagesName[index]
                             font.family: localFont.name
@@ -59,9 +58,8 @@ Item {
 
                         Image {
                             visible: fullCache.listVisibleImages.length !== 0 ? fullCache.listVisibleImages[index] : false
-                            source: fullCache.imagesUrl.length !== 0 ? fullCache.imagesUrl[index] : ""
-                            horizontalAlignment: Image.AlignHCenter
-                            sourceSize.width: parent.width
+                            source: fullCache.imagesUrl.length !== 0 ? fullCache.imagesUrl[index] : ""                        
+                            sourceSize.width: images.width*0.95
                         }
                     }
                 }
