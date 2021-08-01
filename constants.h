@@ -126,12 +126,12 @@ const QMap<QString, int> WPT_TYPE_MAP = {{"Parking" , 217},
                                          {"Point de repère" , 452},};
 
 // Type of logs (icons)
-const QMap<QString, int> WPT_TYPE_ICON_MAP = {{"Waypoints/waypoint_pkg.png", 217},
-                                              {"Waypoints/waypoint_puzzle.png", 218},
-                                              {"Waypoints/waypoint_stage.png", 219},
-                                              {"Waypoints/waypoint_flag.png", 220},
-                                              {"Waypoints/waypoint_trailhead.png", 221},
-                                              {"Waypoints/waypoint_waypoint.png", 452},};
+const QMap<QString, int> WPT_TYPE_ICON_MAP = {{"qrc:/Image/Waypoints/waypoint_pkg.png", 217},
+                                              {"qrc:/Image/Waypoints/waypoint_puzzle.png", 218},
+                                              {"qrc:/Image/Waypoints/waypoint_stage.png", 219},
+                                              {"qrc:/Image/Waypoints/waypoint_flag.png", 220},
+                                              {"qrc:/Image/Waypoints/waypoint_trailhead.png", 221},
+                                              {"qrc:/Image/Waypoints/waypoint_waypoint.png", 452},};
 
 const int MAX_PER_PAGE = 50;
 const int GEOCACHE_LOGS_COUNT = 20;

@@ -62,7 +62,7 @@ Item {
 
                             Binding on source {
                                 when: true
-                                value: "qrc:/Image/" + fullCache.wptsIcon[index]
+                                value: fullCache.wptsIcon[index]
                             }
                             scale: 2
                         }
