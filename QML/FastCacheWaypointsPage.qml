@@ -15,7 +15,7 @@ Item {
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
 
-        Column{
+        Column {
             spacing:10
             width: waypointsPage.width
             clip:true
@@ -49,22 +49,30 @@ Item {
                 }
             }
 
-            Repeater{
+            Repeater {
                 model:fullCache.wptsComment.length
 
-                Column{
+                Column {
                     spacing: 10
 
-                    Row{
+                    Row {
                         x:15
 
-                        Image{
-                            source: "qrc:/Image/" + fullCache.wptsIcon[index]
+                        Image {
+
+                            Binding on source {
+                                when: true
+                                value: "qrc:/Image/" + fullCache.wptsIcon[index]
+                            }
                             scale: 2
                         }
 
                         Text {
-                            text: fullCache.wptsName[index]
+
+                            Binding on text {
+                                when: true
+                                value: fullCache.wptsName[index]
+                            }
                             leftPadding: 15
                             font.family: localFont.name
                             font.bold: true
@@ -75,7 +83,11 @@ Item {
                     }
 
                     Text {
-                        text: fullCache.wptsDescription[index]
+
+                        Binding on text {
+                            when: true
+                            value: fullCache.wptsDescription[index]
+                        }
                         leftPadding: 15
                         font.family: localFont.name
                         font.bold: true
@@ -228,7 +240,7 @@ Item {
                         radius: 4
                     }
 
-                    onClicked:{
+                    onClicked: {
                         userWptAdd = false;
                         userCorrectedCoordinates = true;
                         userWaypoint.open();
@@ -363,7 +375,7 @@ Item {
                                 radius: 4
                             }
 
-                            onClicked:{
+                            onClicked: {
                                 userWptAdd = false;
                                 userCorrectedCoordinates = false
                                 userWptCode = fullCache.userWptsCode[index]
