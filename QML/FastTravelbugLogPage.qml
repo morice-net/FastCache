@@ -235,6 +235,7 @@ Item {
 
             Row {
                 spacing: 10
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Text {
                     id: logTextTitle
@@ -247,7 +248,7 @@ Item {
                 Item {
                     id: spacer
                     height: 2
-                    width: logPage.width - logTextTitle.width - buttonDelete.width - buttonAdd.width - 110
+                    width: logPage.width*0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
                 }
 
                 Button {
