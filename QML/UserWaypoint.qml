@@ -21,7 +21,6 @@ FastPopup {
         description.text = description.text + addLog
         addLog = ""
     }
-
     onUserWptLatChanged: lat.text = "Latitude :  " +  main.formatLat(userWptLat.toFixed(5))
     onUserWptLonChanged: lon.text = "Longitude :  " + main.formatLon(userWptLon.toFixed(5))
 
@@ -135,6 +134,7 @@ FastPopup {
 
         CheckBox {
             id: corrected
+            anchors.horizontalCenter: parent.horizontalCenter
             visible: (fastCache.userWptAdd === true && fullCache.isCorrectedCoordinates === false)
             text: qsTr("Utiliser comme coordonnées de la cache")
             font.pointSize: 15
@@ -167,101 +167,56 @@ FastPopup {
         }
 
         Row {
-            spacing: 60
+            spacing: 10
             anchors.horizontalCenter: parent.horizontalCenter
 
-            Button {
+            Text {
+                id: descriptionTitle
                 visible: visibleDescription()
-                contentItem: Text {
-                    text:"Effacer"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.turquoise()
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    border.color: Palette.turquoise()
-                    border.width: 1
-                    radius: 5
-                }
-                onClicked: {
-                    description.text = ""
-                }
+                font.family: localFont.name
+                font.pointSize: 17
+                text: "Description de l'étape"
+                color: Palette.white()
+            }
+
+            Item {
+                id: spacer
+                height: 2
+                width: userWaypoint.width*0.9 - descriptionTitle.width - buttonDelete.width - buttonAdd.width -60
             }
 
             Button {
+                id: buttonAdd
                 visible: visibleDescription()
-                contentItem: Text {
-                    text:"Ajout de texte"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.turquoise()
+                contentItem: Image {
+                    source: "qrc:/Image/" + "icon_edit.png"
                 }
                 background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    border.color: Palette.turquoise()
-                    border.width: 1
-                    radius: 5
+                    border.width: buttonAdd.activeFocus ? 2 : 1
+                    border.color: Palette.silver()
+                    radius: 4
                 }
-                onClicked: {
+                onClicked:{
                     addText.open();
                     textLog = "" ;
                 }
             }
 
             Button {
-                id:send
-                contentItem: Text {
-                    text: "Envoyer"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.turquoise()
+                id: buttonDelete
+                visible: visibleDescription()
+                contentItem: Image {
+                    source: "qrc:/Image/" + "icon_erase.png"
                 }
                 background: Rectangle {
-                    border.width: send.activeFocus ? 2 : 1
+                    border.width: buttonDelete.activeFocus ? 2 : 1
                     border.color: Palette.silver()
                     radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: send.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: send.pressed ? "#aaa" : "#ccc" }
-                    }
                 }
                 onClicked:{
-                    // Update the compass page
-                    if(correctCoordinates()) {
-                        fastCache.compassPageInit("Correction de coordonnées" , userWptLat , userWptLon)
-                    } else {
-                        fastCache.compassPageInit("Etape personnelle" , userWptLat , userWptLon)
-                    }
-
-                    if(fastCache.userWptAdd === true){
-                        // Add userWaypoint or create modification of coordinates
-                        sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , correctCoordinates() ,
-                                                     description.text , true);
-                        userWaypoint.visible = false;
-                    } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === false){
-                        // Modifie userWaypoint
-                        sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked ,
-                                                     description.text , false);
-                        userWaypoint.visible = false;
-                    } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true){
-                        // Modifie corrected coordinates
-                        sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , true , "" , false);
-                        userWaypoint.visible = false;
-                    }
+                    description.text = ""
                 }
             }
-        }
-
-        Text {
-            anchors.horizontalCenter: parent.horizontalCenter
-            visible: visibleDescription()
-            font.family: localFont.name
-            font.pointSize: 17
-            text: "Description de l'étape"
-            color: Palette.white()
         }
 
         TextArea {
@@ -276,6 +231,50 @@ FastPopup {
             background: Rectangle {
                 radius: 5
                 implicitHeight: userWaypoint.height*0.2
+            }
+        }
+
+        Button {
+            id:send
+            anchors.horizontalCenter: parent.horizontalCenter
+            contentItem: Text {
+                text: "Envoyer"
+                font.family: localFont.name
+                font.pointSize: 24
+                color: Palette.turquoise()
+            }
+            background: Rectangle {
+                border.width: send.activeFocus ? 2 : 1
+                border.color: Palette.silver()
+                radius: 4
+                gradient: Gradient {
+                    GradientStop { position: 0 ; color: send.pressed ? "#ccc" : "#eee" }
+                    GradientStop { position: 1 ; color: send.pressed ? "#aaa" : "#ccc" }
+                }
+            }
+            onClicked:{
+                // Update the compass page
+                if(correctCoordinates()) {
+                    fastCache.compassPageInit("Correction de coordonnées" , userWptLat , userWptLon)
+                } else {
+                    fastCache.compassPageInit("Etape personnelle" , userWptLat , userWptLon)
+                }
+
+                if(fastCache.userWptAdd === true){
+                    // Add userWaypoint or create modification of coordinates
+                    sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , correctCoordinates() ,
+                                                 description.text , true);
+                    userWaypoint.visible = false;
+                } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === false){
+                    // Modifie userWaypoint
+                    sendUserWaypoint.sendRequest(connector.tokenKey , fastCache.userWptCode , userWptLat , userWptLon , corrected.checked ,
+                                                 description.text , false);
+                    userWaypoint.visible = false;
+                } else if(fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true){
+                    // Modifie corrected coordinates
+                    sendUserWaypoint.sendRequest(connector.tokenKey , fullCache.geocode , userWptLat , userWptLon , true , "" , false);
+                    userWaypoint.visible = false;
+                }
             }
         }
     }
