@@ -11,6 +11,7 @@ Item {
 
     property string descriptionText: fullCache.shortDescription + fullCache.longDescription
     property int webHistoryRank: -1
+    property bool codedHint: true
 
     onDescriptionTextChanged: {
         if((main.state !== "recorded") || (main.state === "cachesActive")) {
@@ -24,7 +25,7 @@ Item {
         anchors.topMargin: 30
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: contentItem.childrenRect.height + 20
+        contentHeight: contentItem.childrenRect.height + 50
         ScrollBar.vertical: ScrollBar {}
 
         Column {
@@ -33,11 +34,10 @@ Item {
             topPadding: 25
 
             Text {
-                visible: (main.state === "recorded") && (main.state !== "cachesActive")
+                visible: main.state === "recorded"
                 clip:true
-                width: parent.width
-                leftPadding: 20
-                rightPadding: 20
+                width: parent.width*0.95
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 14
                 horizontalAlignment: TextEdit.AlignJustify
@@ -51,7 +51,7 @@ Item {
             }
 
             Row {
-                visible: (main.state !== "recorded") || (main.state === "cachesActive")
+                visible: main.state !== "recorded"
                 spacing: descriptionPage.width/3
                 bottomPadding: 10
 
@@ -91,7 +91,8 @@ Item {
                 id: webEngineView
                 clip: true
                 visible: webViewDescriptionPageVisible
-                width: parent.width
+                width: parent.width*0.95
+                anchors.horizontalCenter: parent.horizontalCenter
                 height:  main.height*0.7
                 onLoadingChanged: {
                     if (loadRequest.status == WebView.LoadSucceededStatus) {
@@ -104,7 +105,8 @@ Item {
 
             Rectangle {
                 id: separator1
-                width: parent.width
+                width: parent.width*0.95
+                anchors.horizontalCenter: parent.horizontalCenter
                 height: 2
                 color: Palette.white()
                 radius:10
@@ -112,7 +114,7 @@ Item {
 
             Text {
                 id:ind
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
                 y:separator1.y + 10
                 font.family: localFont.name
                 leftPadding: 15
@@ -122,7 +124,7 @@ Item {
             }
 
             Image {
-                x: 15
+                anchors.horizontalCenter: parent.horizontalCenter
                 source:"qrc:/Image/" + "icon_photo.png"
                 visible:fullCache.cacheImagesIndex[0] === 0 ? false : true
                 MouseArea {
@@ -137,125 +139,106 @@ Item {
 
             Text {
                 id:hint
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width*0.95
                 y:ind.y + 30
                 font.family: localFont.name
                 color: Palette.white()
-                leftPadding: 15
-                rightPadding: 15
                 textFormat: Text.AutoText
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: "****** *** ****** ********** *** ******** **********"
+                text: textHint()
 
                 MouseArea {
                     id: hintArea
                     anchors.fill: parent
                     onClicked: {
-                        if (hint.text == "****** *** ****** ********** *** ******** **********")
-                            hint.text = fullCache.hints
-                        else
-                            hint.text = "****** *** ****** ********** *** ******** **********"
+                        codedHint = !codedHint
                     }
                 }
-                onVisibleChanged: text = "****** *** ****** ********** *** ******** **********"
+                onVisibleChanged: codedHint = true
             }
 
             Rectangle {
-                id: separator2
-                width: parent.width
+                width: parent.width*0.95
+                anchors.horizontalCenter: parent.horizontalCenter
                 height: 2
                 color: Palette.white()
                 radius:10
             }
 
-            Text {
-                id: note
-                width: parent.width
-                font.family: localFont.name
-                leftPadding: 15
-                font.pointSize: 14
-                text: "NOTE PERSONNELLE"
-                color: Palette.silver()
+            Row {
+                spacing: 10
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Text {
+                    id: note
+                    font.family: localFont.name
+                    leftPadding: 15
+                    font.pointSize: 14
+                    text: "NOTE PERSONNELLE"
+                    color: Palette.silver()
+                }
+
+                Item {
+                    id: spacer
+                    height: 2
+                    width: descriptionPage.width*0.9 - note.width - buttonDelete.width - 30
+                }
+
+                Button {
+                    id: buttonDelete
+                    contentItem: Image {
+                        source: "qrc:/Image/" + "icon_erase.png"
+                    }
+                    background: Rectangle {
+                        border.width: buttonDelete.activeFocus ? 2 : 1
+                        border.color: Palette.silver()
+                        radius: 4
+                    }
+                    onClicked: personalNote.text = ""
+                }
             }
 
             TextArea {
                 id: personalNote
-                x: 10
-                width: parent.width - 20
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width*0.9
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
                 text: fullCache.note
                 color: Palette.greenSea()
                 background: Rectangle {
+                    implicitHeight: 100
+                }
+            }
+
+            Button {
+                id:buttonSend
+                anchors.horizontalCenter: parent.horizontalCenter
+                contentItem: Text {
+                    text: "Envoyer"
+                    font.family: localFont.name
+                    font.pixelSize: 30
+                    color: Palette.white()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+                background: Rectangle {
                     anchors.fill: parent
                     opacity: 0.9
+                    color: Palette.greenSea()
                     border.color: Palette.white()
                     border.width: 1
                     radius: 5
                 }
-            }
-
-            Row {
-                spacing: 10
-                x: parent.width / 2
-                Button {
-                    id:buttonDel
-                    contentItem: Text {
-                        text:"Effacer"
-                        font.family: localFont.name
-                        font.pixelSize: 28
-                        color: Palette.white()
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    background: Rectangle {
-                        anchors.fill: parent
-                        opacity: 0.9
-                        color: Palette.greenSea()
-                        border.color: Palette.white()
-                        border.width: 1
-                        radius: 5
-                    }
-                    onClicked: personalNote.text = ""
-                }
-
-                Button {
-                    id:buttonSend
-                    contentItem: Text {
-                        text:"Envoyer"
-                        font.family: localFont.name
-                        font.pixelSize: 28
-                        color: Palette.white()
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                    background: Rectangle {
-                        anchors.fill: parent
-                        opacity: 0.9
-                        color: Palette.greenSea()
-                        border.color: Palette.white()
-                        border.width: 1
-                        radius: 5
-                    }
-                    onClicked: {
-                        sendCacheNote.sendRequest(connector.tokenKey , fullCache.geocode , personalNote.text);
-                    }
+                onClicked: {
+                    sendCacheNote.sendRequest(connector.tokenKey , fullCache.geocode , personalNote.text);
                 }
             }
         }
-    }
-
-    Text {
-        id: spaceBottom
-        width: parent.width
-        font.family: localFont.name
-        leftPadding: 15
-        font.pointSize: 14
-        text: "\n\n\n\n\n"
-        color: Palette.white()
     }
 
     function imagesCache() {
@@ -271,6 +254,13 @@ Item {
         fullCache.setListVisibleImages(visible);
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
+    }
+
+    function textHint() {
+        if(codedHint)
+            return Qt.btoa(fullCache.hints)
+        else
+            return fullCache.hints
     }
 }
 
