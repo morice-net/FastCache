@@ -148,7 +148,7 @@ Item {
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: textHint()
+                text: codedHint ? Qt.btoa(fullCache.hints) : fullCache.hints
 
                 MouseArea {
                     id: hintArea
@@ -254,13 +254,6 @@ Item {
         fullCache.setListVisibleImages(visible);
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
-    }
-
-    function textHint() {
-        if(codedHint)
-            return Qt.btoa(fullCache.hints)
-        else
-            return fullCache.hints
     }
 }
 
