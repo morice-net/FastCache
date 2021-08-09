@@ -73,6 +73,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Column {
+
                     RadioButton {
                         id:button1
                         text: "Récupéré"

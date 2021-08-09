@@ -187,5 +187,6 @@
         <file>Image/plus.png</file>
         <file>Image/icon_erase.png</file>
         <file>Image/Attributes/attribute_field_puzzle.png</file>
+        <file>QML/LogTypesTravelbug.qml</file>
     </qresource>
 </RCC>
