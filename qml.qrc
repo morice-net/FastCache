@@ -186,5 +186,6 @@
         <file>Image/minus.png</file>
         <file>Image/plus.png</file>
         <file>Image/icon_erase.png</file>
+        <file>Image/Attributes/attribute_field_puzzle.png</file>
     </qresource>
 </RCC>
