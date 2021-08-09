@@ -148,7 +148,7 @@ Item {
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: codedHint ? Qt.btoa(fullCache.hints) : fullCache.hints
+                text: codedHint ? Qt.btoa(fullCache.hints).substring(0, fullCache.hints.length) : fullCache.hints
 
                 MouseArea {
                     id: hintArea
