@@ -248,7 +248,6 @@ Item {
             }
 
             Text {
-                id: note
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: getTravelbugUser.tbsCode.length !== 0
                 font.family: localFont.name
