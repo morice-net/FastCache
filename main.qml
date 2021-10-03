@@ -54,7 +54,15 @@ Item {
     property alias tabBarRecordedCachesIndex: fastList.tabBarRecordedCachesIndex
 
     // list sort type by: géocode, name , type , size , difficulty , terrain , distance.
-    property int sortingBy : 6 // sorting by distance.
+    property int sortGeocode: 0
+    property int sortName: 1
+    property int sortType: 2
+    property int sortSize: 3
+    property int sortDifficulty: 4
+    property int sortTerrain: 5
+    property int sortDistance: 6
+
+    property int sortingBy : sortDistance // sorting by distance.
 
     FastSettings { id: settings }
 
@@ -202,7 +210,7 @@ Item {
     }
 
     FullCache {
-        id: fullCache        
+        id: fullCache
         onIsCorrectedCoordinatesChanged: {
             correctedCoordinatesDynamic(cachesSingleList.caches);
         }

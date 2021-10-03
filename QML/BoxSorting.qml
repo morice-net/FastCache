@@ -24,10 +24,10 @@ Item {
             RadioButton {
                 id:button1
                 text: "Tri par Géocode"
-                checked: main.sortingBy === 0
+                checked: main.sortingBy === main.sortGeocode
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 0
+                    main.sortingBy = main.sortGeocode
                 }
                 contentItem: Text {
                     text: button1.text
@@ -55,10 +55,10 @@ Item {
             RadioButton {
                 id:button2
                 text: "Tri par Nom"
-                checked: main.sortingBy === 1
+                checked: main.sortingBy === main.sortName
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 1
+                    main.sortingBy = main.sortName
                 }
                 contentItem: Text {
                     text: button2.text
@@ -86,10 +86,10 @@ Item {
             RadioButton {
                 id:button3
                 text: "Tri par Type"
-                checked: main.sortingBy === 2
+                checked: main.sortingBy === main.sortType
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 2
+                    main.sortingBy = main.sortType
                 }
                 contentItem: Text {
                     text: button3.text
@@ -117,10 +117,10 @@ Item {
             RadioButton {
                 id:button4
                 text: "Tri par Taille"
-                checked: main.sortingBy === 3
+                checked: main.sortingBy === main.sortSize
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 3
+                    main.sortingBy = main.sortSize
                 }
                 contentItem: Text {
                     text: button4.text
@@ -148,10 +148,10 @@ Item {
             RadioButton {
                 id:button5
                 text: "Tri par Difficulté"
-                checked: main.sortingBy === 4
+                checked: main.sortingBy === main.sortDifficulty
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 4
+                    main.sortingBy = main.sortDifficulty
                 }
                 contentItem: Text {
                     text: button5.text
@@ -179,10 +179,10 @@ Item {
             RadioButton {
                 id:button6
                 text: "Tri par Terrain"
-                checked: main.sortingBy === 5
+                checked: main.sortingBy === main.sortTerrain
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 5
+                    main.sortingBy = main.sortTerrain
                 }
                 contentItem: Text {
                     text: button6.text
@@ -210,10 +210,10 @@ Item {
             RadioButton {
                 id:button7
                 text: "Tri par Distance"
-                checked: main.sortingBy === 6
+                checked: main.sortingBy === main.sortDistance
                 onClicked: {
                     groupBoxSorting.visible = false
-                    main.sortingBy = 6
+                    main.sortingBy = main.sortDistance
                 }
                 contentItem: Text {
                     text: button7.text

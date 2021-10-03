@@ -190,7 +190,7 @@ Rectangle {
 
     function sortByDistance() {
         // sort list by distance in dynamics
-        if(main.viewState === "list" && main.sortingBy === 6) {
+        if(main.viewState === "list" && main.sortingBy === main.sortDistance) {
             sorting.sortAgain()
         }
     }
