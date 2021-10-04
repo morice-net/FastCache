@@ -80,6 +80,7 @@ Item {
         active: true
         onPositionChanged: {
             main.positionUpdated()
+            // dynamically sort the list by distance if necessary
             fastList.sortByDistance()
         }
     }

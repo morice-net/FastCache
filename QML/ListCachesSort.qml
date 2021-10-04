@@ -50,7 +50,6 @@ DelegateModel {
     groups: DelegateModelGroup {
         id: unsortedItems
         name: "unsorted"
-
         includeByDefault: true
         onChanged: {
             if (sorting.sortOrder === sorting.lessThan.length)
@@ -72,5 +71,13 @@ DelegateModel {
 
     function sortAgain() {
         items.setGroups(0, items.count, "unsorted")
+    }
+
+    function listSortedByDistance() {
+        for (var i = 0; i < items.count - 1; i++) {
+            if(sorting.lessThan[main.sortDistance](items.get(i + 1).model , items.get(i).model))
+                return false
+        }
+        return true
     }
 }
