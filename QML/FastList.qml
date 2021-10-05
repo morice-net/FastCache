@@ -191,7 +191,7 @@ Rectangle {
     function sortByDistance() {
         // sort the list by distance if necessary
         if(main.viewState === "list" && main.sortingBy === main.sortDistance && !sorting.listSortedByDistance()) {
-            sorting.sortAgain()
+            sorting.sortList()
         }
     }
 }
