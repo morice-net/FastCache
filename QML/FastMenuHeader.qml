@@ -110,7 +110,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: groupBoxSorting.visible = true
+            onClicked: groupBoxSorting.visible = !groupBoxSorting.visible
         }
     }
 
@@ -180,5 +180,9 @@ Item {
 
     function recordInSettings() {
         cacheFilter.recordCacheFiltersInSettings()
+    }
+
+    function clearBoxSorting() {
+        groupBoxSorting.visible = false
     }
 }

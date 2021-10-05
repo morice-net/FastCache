@@ -25,6 +25,10 @@ Item {
     property string annexMainState: ""
 
     property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
+    onViewStateChanged: {
+        if(main.viewState !== "list")
+            fastMenuHeader.clearBoxSorting()
+    }
 
     // Previous viewstate used when downloading a fullcache or a travel bug
     property var previousViewState: ["" , ""]
