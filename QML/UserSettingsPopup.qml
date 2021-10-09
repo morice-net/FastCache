@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 import com.mycompany.connecting 1.0
 
 FastPopup {
@@ -392,7 +393,7 @@ FastPopup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    main.disconnectAccount()
+                    Functions.disconnectAccount()
                     userSettingsPopup.close()
                 }
             }

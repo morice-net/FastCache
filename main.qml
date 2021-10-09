@@ -9,6 +9,7 @@ import QtLocation 5.3
 import QtSensors 5.3
 
 import "QML/JavaScript/Palette.js" as Palette
+import "QML/JavaScript/MainFunctions.js" as Functions
 import "QML"
 import com.mycompany.connecting 1.0
 
@@ -498,53 +499,14 @@ Item {
         }
     }
 
-    function createFilterDifficultyTerrainGs(){
-        var  list = []
-        list.push(settings.difficultyMin)
-        list.push(settings.difficultyMax)
-        list.push(settings.terrainMin)
-        list.push(settings.terrainMax)
-        return list
-    }
-
-    function createFilterExcludeCachesFound(){
-        return excludeFound
-    }
-
-    function createFilterExcludeCachesArchived(){
-        return excludeArchived
-    }
-
-    function createFilterKeywordDiscoverOwner(){
-        var  list = []
-        list.push(listKeywordDiscoverOwner[0])
-        list.push(listKeywordDiscoverOwner[1])
-        list.push(listKeywordDiscoverOwner[2])
-        return list
-    }
-
-    function disconnectAccount() {
-        connector.tokenKey = ""
-        connector.expiresAt = 0
-        userInfo.name = ""
-        userInfo.finds = 0
-        userInfo.avatarUrl = ""
-        userInfo.premium = ""
-    }
-
-    function reconnectAccount() {
-        connector.expiresAt = 0
-        connector.connect()
-    }
-
     function reloadCachesBBox() {
         if(main.state === "cachesActive" && cachesBBox.state !== "loading") {
             cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
             cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
             cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
             cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
-            cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
-                                          createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesBBox.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs(), excludeFound,
+                                          excludeArchived, Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
             cachesBBox.sendRequest(connector.tokenKey)
         }
     }
@@ -554,8 +516,8 @@ Item {
             cachesNear.latPoint = fastMap.mapItem.center.latitude
             cachesNear.lonPoint = fastMap.mapItem.center.longitude
             cachesNear.distance = 100
-            cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
-                                          createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesNear.updateFilterCaches(listTypes, listSizes, Functions.createFilterDifficultyTerrainGs(), excludeFound,
+                                          excludeArchived, Functions.createFilterKeywordDiscoverOwner(), userInfo.name)
             cachesNear.indexMoreCaches = 0
             cachesNear.sendRequest(connector.tokenKey)
         }

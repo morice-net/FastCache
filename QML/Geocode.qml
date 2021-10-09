@@ -8,6 +8,7 @@ import QtPositioning 5.3
 import QtLocation 5.6
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 FastPopup {
     id: geocode
@@ -243,8 +244,8 @@ FastPopup {
                         cachesNear.latPoint = listModel.get(index).valLat
                         cachesNear.lonPoint = listModel.get(index).valLon
                         cachesNear.distance = 100
-                        cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
-                                                      createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
+                        cachesNear.updateFilterCaches(listTypes, listSizes, Functions.createFilterDifficultyTerrainGs(), main.excludeFound,
+                                                      main.excludeArchived, Functions.createFilterKeywordDiscoverOwner(), userInfo.name)
                         cachesNear.indexMoreCaches = 0
                         cachesNear.sendRequest(connector.tokenKey)
                         fastMap.mapItem.center =QtPositioning.coordinate(listModel.get(index).valLat , listModel.get(index).valLon)

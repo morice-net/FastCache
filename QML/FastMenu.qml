@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.2
 import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 Item {
     id: fastMenu
@@ -153,7 +154,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             buttonAnimation.start()
-                            main.reconnectAccount()
+                            Functions.reconnectAccount()
                         }
                     }
                 }
@@ -254,8 +255,8 @@ Item {
         cachesNear.latPoint = coord.latitude
         cachesNear.lonPoint = coord.longitude
         cachesNear.distance = 100
-        cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() , createFilterExcludeCachesFound() ,
-                                      createFilterExcludeCachesArchived() , createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs() , main.excludeFound,
+                                      main.excludeArchived, Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
         cachesNear.indexMoreCaches = 0
         cachesNear.sendRequest(connector.tokenKey)
     }
@@ -267,8 +268,8 @@ Item {
             cachesNear.lonPoint = coordinatesBox.resultLon
             cachesNear.distance = 100
             cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() ,
-                                          createFilterExcludeCachesFound() , createFilterExcludeCachesArchived() ,
-                                          createFilterKeywordDiscoverOwner() , userInfo.name )
+                                          main.excludeFound, main.excludeArchived,
+                                          Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
             cachesNear.indexMoreCaches = 0
             cachesNear.sendRequest(connector.tokenKey)
             fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)

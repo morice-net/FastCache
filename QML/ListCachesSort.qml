@@ -75,8 +75,9 @@ DelegateModel {
 
     function listSortedByDistance() {
         for (var i = 0; i < items.count - 1; i++) {
-            if(sorting.lessThan[main.sortDistance](items.get(i + 1).model , items.get(i).model))
+            if (sorting.lessThan[main.sortDistance](items.get(i + 1).model , items.get(i).model)) {
                 return false
+            }
         }
         return true
     }
