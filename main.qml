@@ -217,18 +217,10 @@ Item {
 
     FullCache {
         id: fullCache
-        onIsCorrectedCoordinatesChanged: {
-            correctedCoordinatesDynamic(cachesSingleList.caches);
-        }
-        onRegisteredChanged: {
-            registeredDynamic(cachesSingleList.caches)
-        }
-        onFoundChanged: {
-            foundDynamic(cachesSingleList.caches);
-        }
-        onToDoLogChanged: {
-            toDoLogDynamic(cachesSingleList.caches)
-        }
+        onIsCorrectedCoordinatesChanged: correctedCoordinatesDynamic(cachesSingleList.caches)
+        onRegisteredChanged: registeredDynamic(cachesSingleList.caches)
+        onFoundChanged: foundDynamic(cachesSingleList.caches)
+        onToDoLogChanged: toDoLogDynamic(cachesSingleList.caches)
     }
 
     FullCacheRetriever {
@@ -493,7 +485,7 @@ Item {
                 main.viewState = previousViewState[0]
             } else if (main.viewState == "travelbug") {
                 main.viewState = previousViewState[1]
-            }else {
+            } else {
                 sureQuit.visible = true
             }
         }
@@ -584,7 +576,7 @@ Item {
 
     function foundDynamic(listCaches) {
         for (var i = 0; i < listCaches.length; i++) {
-            if(listCaches[i].geocode === fullCache.geocode){
+            if(listCaches[i].geocode === fullCache.geocode) {
                 listCaches[i].found = fullCache.found;
                 fastMap.mapItem.updateCacheOnMap(i);
                 return;
