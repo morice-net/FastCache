@@ -3,6 +3,7 @@ import QtLocation 5.3
 import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 Map {
     id: map
@@ -16,10 +17,10 @@ Map {
     zoomLevel: currentZoomlevel
     gesture.enabled: true
     gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
-    gesture.onPanFinished: reloadCachesBBox()
+    gesture.onPanFinished: Functions.reloadCachesBBox()
     onZoomLevelChanged: {
         scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
-        reloadCachesBBox()
+        Functions.reloadCachesBBox()
     }
     onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
     minimumZoomLevel: 6.

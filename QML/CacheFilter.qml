@@ -3,6 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 Item {
     id: cacheFilter
@@ -59,8 +60,8 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    reloadCachesBBox()
-                    reloadCachesNear()
+                    Functions.reloadCachesBBox()
+                    Functions.reloadCachesNear()
                     cacheFilter.opacity = 0
                 }
             }

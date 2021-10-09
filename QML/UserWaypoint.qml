@@ -4,6 +4,8 @@ import QtPositioning 5.6
 import QtLocation 5.9
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
+
 import com.mycompany.connecting 1.0
 
 FastPopup {
@@ -21,8 +23,8 @@ FastPopup {
         description.text = description.text + addLog
         addLog = ""
     }
-    onUserWptLatChanged: lat.text = "Latitude :  " +  main.formatLat(userWptLat.toFixed(5))
-    onUserWptLonChanged: lon.text = "Longitude :  " + main.formatLon(userWptLon.toFixed(5))
+    onUserWptLatChanged: lat.text = "Latitude :  " +  Functions.formatLat(userWptLat.toFixed(5))
+    onUserWptLonChanged: lon.text = "Longitude :  " + Functions.formatLon(userWptLon.toFixed(5))
 
     AddTextLog {
         id:addText
@@ -116,7 +118,7 @@ FastPopup {
 
                 Text {
                     id: lat
-                    text: "Latitude :  " + main.formatLat(0.0)
+                    text: "Latitude :  " + Functions.formatLat(0.0)
                     font.family: localFont.name
                     font.pointSize: 15
                     color: Palette.black()
@@ -124,7 +126,7 @@ FastPopup {
 
                 Text {
                     id: lon
-                    text: "Longitude :  " + main.formatLon(0.0)
+                    text: "Longitude :  " + Functions.formatLon(0.0)
                     font.family: localFont.name
                     font.pointSize: 15
                     color: Palette.black()

@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 import com.mycompany.connecting 1.0
 
 Item {
@@ -98,7 +99,7 @@ Item {
 
                     Text {
                         visible: fullCache.wptsLat[index] >180  ? false : true
-                        text: main.formatLat(fullCache.wptsLat[index]) + " " + main.formatLon(fullCache.wptsLon[index])
+                        text: Functions.formatLat(fullCache.wptsLat[index]) + " " + Functions.formatLon(fullCache.wptsLon[index])
                         leftPadding: 15
                         font.family: localFont.name
                         font.pointSize: 13
@@ -166,7 +167,7 @@ Item {
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 15
-                text: "Coordonnées de la cache modifiées \n" + main.formatLat(fullCache.correctedLat) + "   " + main.formatLon(fullCache.correctedLon)
+                text: "Coordonnées de la cache modifiées \n" + Functions.formatLat(fullCache.correctedLat) + "   " + Functions.formatLon(fullCache.correctedLon)
                 color: Palette.silver()
             }
 
@@ -282,7 +283,7 @@ Item {
 
                     Text {
                         visible: fullCache.userWptsLat[index] >180  ? false : true
-                        text: main.formatLat(fullCache.userWptsLat[index]) + "   " + main.formatLon(fullCache.userWptsLon[index])
+                        text: Functions.formatLat(fullCache.userWptsLat[index]) + "   " + Functions.formatLon(fullCache.userWptsLon[index])
                         leftPadding: 15
                         font.family: localFont.name
                         font.pointSize: 15

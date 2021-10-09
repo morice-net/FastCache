@@ -217,10 +217,10 @@ Item {
 
     FullCache {
         id: fullCache
-        onIsCorrectedCoordinatesChanged: correctedCoordinatesDynamic(cachesSingleList.caches)
-        onRegisteredChanged: registeredDynamic(cachesSingleList.caches)
-        onFoundChanged: foundDynamic(cachesSingleList.caches)
-        onToDoLogChanged: toDoLogDynamic(cachesSingleList.caches)
+        onIsCorrectedCoordinatesChanged: Functions.correctedCoordinatesDynamic(cachesSingleList.caches)
+        onRegisteredChanged: Functions.registeredDynamic(cachesSingleList.caches)
+        onFoundChanged: Functions.foundDynamic(cachesSingleList.caches)
+        onToDoLogChanged: Functions.toDoLogDynamic(cachesSingleList.caches)
     }
 
     FullCacheRetriever {
@@ -465,7 +465,7 @@ Item {
     }
 
     Component.onDestruction: {
-        recordAppSettings()
+        Functions.recordAppSettings()
     }
 
     Keys.onPressed: {
@@ -487,109 +487,6 @@ Item {
                 main.viewState = previousViewState[1]
             } else {
                 sureQuit.visible = true
-            }
-        }
-    }
-
-    function reloadCachesBBox() {
-        if(main.state === "cachesActive" && cachesBBox.state !== "loading") {
-            cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
-            cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
-            cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
-            cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
-            cachesBBox.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs(), excludeFound,
-                                          excludeArchived, Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
-            cachesBBox.sendRequest(connector.tokenKey)
-        }
-    }
-
-    function reloadCachesNear() {
-        if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
-            cachesNear.latPoint = fastMap.mapItem.center.latitude
-            cachesNear.lonPoint = fastMap.mapItem.center.longitude
-            cachesNear.distance = 100
-            cachesNear.updateFilterCaches(listTypes, listSizes, Functions.createFilterDifficultyTerrainGs(), excludeFound,
-                                          excludeArchived, Functions.createFilterKeywordDiscoverOwner(), userInfo.name)
-            cachesNear.indexMoreCaches = 0
-            cachesNear.sendRequest(connector.tokenKey)
-        }
-    }
-
-    function  formatLat( lat) {
-        var latitude = "N "
-        var degrees = 0
-        var min = 0.0
-        if(lat<0){
-            latitude = "S "
-        }
-        degrees = Math.floor(Math.abs(lat))
-        min = (Math.abs(lat) - degrees) * 60
-        latitude += degrees + "°" + min.toFixed(3) + "'"
-        return latitude
-    }
-
-    function  formatLon( lon) {
-        var longitude = "E "
-        var degrees = 0
-        var min = 0.0
-        if(lon<0){
-            longitude = "O "
-        }
-        degrees = Math.floor(Math.abs(lon))
-        min = (Math.abs(lon) - degrees) * 60
-        longitude += degrees + "°" + min.toFixed(3) + "'"
-        return longitude
-    }
-
-    function recordAppSettings() {
-        settings.tokenKey = connector.tokenKey
-        settings.refreshToken = connector.refreshToken
-        fastMenuHeader.recordInSettings()
-    }
-
-    //dynamic changes on list and  map
-    function correctedCoordinatesDynamic(listCaches) {
-        for (var i = 0; i < listCaches.length; i++) {
-            if(listCaches[i].geocode === fullCache.geocode){
-                if(fullCache.isCorrectedCoordinates){
-                    listCaches[i].lat = fullCache.correctedLat;
-                    listCaches[i].lon = fullCache.correctedLon;
-                } else {
-                    listCaches[i].lat = fullCache.lat;
-                    listCaches[i].lon = fullCache.lon;
-                }
-                fastMap.mapItem.updateCacheOnMap(i);
-                return;
-            }
-        }
-    }
-
-    function registeredDynamic(listCaches) {
-        for (var i = 0; i < listCaches.length; i++) {
-            if(listCaches[i].geocode === fullCache.geocode){
-                listCaches[i].registered = fullCache.registered;
-                fastMap.mapItem.updateCacheOnMap(i);
-                return;
-            }
-        }
-    }
-
-    function foundDynamic(listCaches) {
-        for (var i = 0; i < listCaches.length; i++) {
-            if(listCaches[i].geocode === fullCache.geocode) {
-                listCaches[i].found = fullCache.found;
-                fastMap.mapItem.updateCacheOnMap(i);
-                return;
-            }
-        }
-    }
-
-    function toDoLogDynamic(listCaches) {
-        for (var i = 0; i < listCaches.length; i++) {
-            if(listCaches[i].geocode === fullCache.geocode){
-                listCaches[i].toDoLog = fullCache.toDoLog;
-                fastMap.mapItem.updateCacheOnMap(i);
-                return;
             }
         }
     }

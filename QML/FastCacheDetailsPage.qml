@@ -4,6 +4,8 @@ import QtPositioning 5.2
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
+
 import com.mycompany.connecting 1.0
 
 Item {
@@ -252,8 +254,8 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: fullCache.isCorrectedCoordinates ? main.formatLat(fullCache.correctedLat) + "   " + main.formatLon(fullCache.correctedLon) :
-                                                         main.formatLat(fullCache.lat) + "   " + main.formatLon(fullCache.lon)
+                text: fullCache.isCorrectedCoordinates ? Functions.formatLat(fullCache.correctedLat) + "   " + Functions.formatLon(fullCache.correctedLon) :
+                                                         Functions.formatLat(fullCache.lat) + "   " + Functions.formatLon(fullCache.lon)
                 color: Palette.white()
             }
         }

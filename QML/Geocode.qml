@@ -257,13 +257,13 @@ FastPopup {
                     topPadding: 10
 
                     Text {
-                        text: lat + main.formatLat(valLat)
+                        text: lat + Functions.formatLat(valLat)
                         color: Palette.greenSea()
                         font.family: localFont.name
                     }
 
                     Text {
-                        text: lon + main.formatLon(valLon)
+                        text: lon + Functions.formatLon(valLon)
                         color: Palette.greenSea()
                         font.family: localFont.name
                     }

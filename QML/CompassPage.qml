@@ -4,6 +4,7 @@ import QtPositioning 5.3
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 Item {
     id: compassPage
@@ -95,7 +96,7 @@ Item {
         y: title.y + title.height + 5
         font.family: localFont.name
         font.pointSize: 16
-        text: "Lat  " + main.formatLat(goalLocation.coordinate.latitude) + "   Lon  " + main.formatLon(goalLocation.coordinate.longitude)
+        text: "Lat  " + Functions.formatLat(goalLocation.coordinate.latitude) + "   Lon  " + Functions.formatLon(goalLocation.coordinate.longitude)
         color: Palette.white()
     }
 
@@ -104,8 +105,8 @@ Item {
         y: title.y + 2*title.height + 5
         font.family: localFont.name
         font.pointSize: 16
-        text: "Lat  " + main.formatLat(currentPosition.position.coordinate.latitude) + "   Lon  " +
-              main.formatLon(currentPosition.position.coordinate.longitude)
+        text: "Lat  " + Functions.formatLat(currentPosition.position.coordinate.latitude) + "   Lon  " +
+              Functions.formatLon(currentPosition.position.coordinate.longitude)
         color: Palette.white()
     }
 
