@@ -137,7 +137,7 @@ Item {
         }
         onParsingCompletedChanged: {
             // center and zoom level
-            centerMapCaches(cachesSingleList.caches)
+            Functions.centerMapCaches(cachesSingleList.caches)
         }
         Component.onCompleted: listCachesObject(cachesSingleList)
     }
@@ -592,15 +592,6 @@ Item {
                 return;
             }
         }
-    }
-
-    // center and zoom level
-    function centerMapCaches(listCaches) {
-        fastMap.currentZoomlevel = 14.5
-        if(listCaches.length === 0)
-            return
-        fastMap.mapItem.fitViewportToMapItems()
-        fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
     }
 }
 

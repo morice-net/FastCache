@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 TabBar {
     id: bar
@@ -18,7 +19,7 @@ TabBar {
                 fastMap.clearMap()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[bar.currentIndex])
                 // center and zoom level
-                centerMapCaches(cachesSingleList.caches)
+                Functions.centerMapCaches(cachesSingleList.caches)
             }
             width: Math.max(100, bar.width / sqliteStorage.countLists)
             contentItem: Text {

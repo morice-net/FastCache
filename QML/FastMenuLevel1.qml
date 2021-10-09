@@ -1,5 +1,7 @@
 import QtQuick 2.6
 
+import "JavaScript/MainFunctions.js" as Functions
+
 Item {
     id: fastMenuLevel1
     FastDoubleButtonMenu {
@@ -126,7 +128,7 @@ Item {
 
                 // center and zoom level
                 hideMenu()
-                centerMapCaches(cachesSingleList.caches)
+                Functions.centerMapCaches(cachesSingleList.caches)
             }
         }
     }

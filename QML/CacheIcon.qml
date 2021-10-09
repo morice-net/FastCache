@@ -32,7 +32,7 @@ Item {
     }
 
     Image {
-        visible: found
+        visible: found && !notLoggedIcon.visible
         source: "qrc:/Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: parent.width / 2
@@ -42,6 +42,7 @@ Item {
     }
 
     Image {
+        id: notLoggedIcon
         visible: toDoLog
         source: "qrc:/Image/not_logged.png"
         fillMode: Image.PreserveAspectFit
