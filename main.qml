@@ -293,6 +293,7 @@ Item {
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
                 fullCache.toDoLog = false
+                fullCache.found = true
 
                 // clears the cache log record
                 sqliteStorage.deleteObject("cacheslog", fullCache.geocode)

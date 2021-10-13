@@ -35,7 +35,7 @@ Rectangle {
     }
 
     Image {
-        visible: selectedCache !== null && !notLoggedIcon.visible ? selectedCache.found : false
+        visible: selectedCache !== null ? selectedCache.found : false
         source: "qrc:/Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
@@ -45,7 +45,6 @@ Rectangle {
     }
 
     Image {
-        id: notLoggedIcon
         visible: selectedCache !== null ? selectedCache.toDoLog : false
         source: "qrc:/Image/not_logged.png"
         fillMode: Image.PreserveAspectFit
