@@ -23,6 +23,7 @@ SOURCES += main.cpp \
     fullcachesrecorded.cpp \
     getpocketsquerieslist.cpp \
     gettravelbuguser.cpp \
+    getusergeocachelogs.cpp \
     imagedownloader.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     fullcachesrecorded.h \
     getpocketsquerieslist.h \
     gettravelbuguser.h \
+    getusergeocachelogs.h \
     imagedownloader.h \
     parameter.h \
     replaceimageintext.h \
