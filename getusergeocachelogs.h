@@ -14,7 +14,7 @@ class GetUserGeocacheLogs : public Requestor
     Q_PROPERTY(QList<QString> logs READ logs WRITE setLogs NOTIFY logsChanged)
     Q_PROPERTY(QList<QString> loggedDates READ loggedDates WRITE setLoggedDates NOTIFY loggedDatesChanged)
     Q_PROPERTY(QList<int> logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
-    Q_PROPERTY(QString geocode READ geocode WRITE setGeocode NOTIFY geocodeChanged)
+    Q_PROPERTY(QList<QString> geocodes READ geocodes WRITE setGeocodes NOTIFY geocodesChanged)
 
 public:
     explicit GetUserGeocacheLogs(Requestor *parent = nullptr);
@@ -32,8 +32,8 @@ public:
     QList<int> logsType() const;
     void setLogsType(const QList<int> &types);
 
-    QString geocode() const;
-    void setGeocode(const QString &code);
+    QList<QString> geocodes() const;
+    void setGeocodes(const  QList<QString> &codes);
 
     Q_INVOKABLE void sendRequest(QString token , QString geocode);
 
@@ -44,14 +44,14 @@ signals:
     void logsChanged();
     void loggedDatesChanged();
     void logsTypeChanged();
-    void geocodeChanged();
+    void geocodesChanged();
 
 private:
     QList<QString> m_referenceCodes;
     QList<QString> m_logs ;
     QList<QString> m_loggedDates ;
     QList<int> m_logsType ;
-    QString m_geocode ;
+    QList<QString> m_geocodes ;
 
 };
 
