@@ -190,5 +190,6 @@
         <file>QML/LogTypesTravelbug.qml</file>
         <file>QML/TravelsbugUser.qml</file>
         <file>QML/JavaScript/MainFunctions.js</file>
+        <file>QML/UserGeocacheLogs.qml</file>
     </qresource>
 </RCC>

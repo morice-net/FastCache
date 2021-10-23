@@ -392,6 +392,12 @@ FastPopup {
                             color: Palette.white()
                             radius: 10
                         }
+                        onPressAndHold: {
+                            if(geocodeCache.text !== "") {
+                                getUserGeocacheLogs.sendRequest(connector.tokenKey , geocodeCache.text.toLocaleUpperCase())
+                                userGeocacheLogs.open()
+                            }
+                        }
                     }
                 }
             }
@@ -432,6 +438,11 @@ FastPopup {
                 }
             }
         }
+    }
+
+    UserGeocacheLogs {
+        id: userGeocacheLogs
+        backgroundWidth: main.width*0.9
     }
 
     function addCachesOnMap() {

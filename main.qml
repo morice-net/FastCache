@@ -406,6 +406,10 @@ Item {
         }
     }
 
+    GetUserGeocacheLogs {
+        id: getUserGeocacheLogs
+    }
+
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on

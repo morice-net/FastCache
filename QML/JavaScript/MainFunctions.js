@@ -123,8 +123,8 @@ function reloadCachesNear() {
         cachesNear.latPoint = fastMap.mapItem.center.latitude
         cachesNear.lonPoint = fastMap.mapItem.center.longitude
         cachesNear.distance = 100
-        cachesNear.updateFilterCaches(listTypes, listSizes, Functions.createFilterDifficultyTerrainGs(), excludeFound,
-                                      excludeArchived, Functions.createFilterKeywordDiscoverOwner(), userInfo.name)
+        cachesNear.updateFilterCaches(listTypes, listSizes, createFilterDifficultyTerrainGs(), excludeFound,
+                                      excludeArchived, createFilterKeywordDiscoverOwner(), userInfo.name)
         cachesNear.indexMoreCaches = 0
         cachesNear.sendRequest(connector.tokenKey)
     }
@@ -136,8 +136,8 @@ function reloadCachesBBox() {
         cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
         cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
         cachesBBox.lonTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
-        cachesBBox.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs(), excludeFound,
-                                      excludeArchived, Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs(), excludeFound,
+                                      excludeArchived, createFilterKeywordDiscoverOwner() , userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
     }
 }

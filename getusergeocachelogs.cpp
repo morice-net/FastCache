@@ -28,7 +28,7 @@ void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 
     //Build url
     QString requestName = "users/me/geocachelogs";
-    requestName.append("?fields=referenceCode,text,loggedDate,geocacheLogType,geocacheLogType");
+    requestName.append("?fields=referenceCode,text,loggedDate,geocacheLogType,geocacheCode");
     requestName.append("&take=50");
     requestName.append("&geocacheCode=" + geocode);
 
@@ -56,7 +56,7 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
         m_geocodes.append(userLogJson["geocacheCode"].toString());
 
         type = userLogJson["geocacheLogType"].toObject();
-        m_logsType.append(type["id"].toInt());
+        m_logsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
     }
 
     emit referenceCodesChanged();
@@ -111,12 +111,12 @@ void GetUserGeocacheLogs::setLoggedDates(const QList<QString> &dates)
     emit loggedDatesChanged();
 }
 
-QList<int> GetUserGeocacheLogs::logsType() const
+QList<QString> GetUserGeocacheLogs::logsType() const
 {
     return m_logsType;
 }
 
-void GetUserGeocacheLogs::setLogsType(const QList<int> &types)
+void GetUserGeocacheLogs::setLogsType(const QList<QString> &types)
 {
     m_logsType = types;
     emit logsTypeChanged();

@@ -25,6 +25,7 @@
 #include "sqlitestorage.h"
 #include "gettravelbuguser.h"
 #include "getpocketsquerieslist.h"
+#include "getusergeocachelogs.h"
 #include "senduserwaypoint.h"
 #include "fullcachesrecorded.h"
 #include "cachessinglelist.h"
@@ -54,6 +55,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<FullCachesRecorded>("com.mycompany.connecting", 1, 0, "FullCachesRecorded");
     qmlRegisterType<CachesSingleList>("com.mycompany.connecting", 1, 0, "CachesSingleList");
     qmlRegisterType<CachesPocketqueries>("com.mycompany.connecting", 1, 0, "CachesPocketqueries");
+    qmlRegisterType<GetUserGeocacheLogs>("com.mycompany.connecting", 1, 0, "GetUserGeocacheLogs");
 
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();
