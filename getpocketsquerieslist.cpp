@@ -84,6 +84,8 @@ void GetPocketsqueriesList::parseJson(const QJsonDocument &dataJsonDoc)
     return ;
 }
 
+/** Getters & Setters **/
+
 QList<QString> GetPocketsqueriesList::referenceCodes() const
 {
     return m_referenceCodes;

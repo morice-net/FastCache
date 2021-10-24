@@ -78,6 +78,8 @@ void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
     return ;
 }
 
+/** Getters & Setters **/
+
 int SendCacheLog::founds() const
 {
     return m_count;

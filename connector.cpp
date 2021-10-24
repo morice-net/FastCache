@@ -151,6 +151,8 @@ void Connector::sslErrorsSlot(QNetworkReply *reply, const QList<QSslError> &erro
     reply->ignoreSslErrors();
 }
 
+/** Getters & Setters **/
+
 qint64 Connector::expiresAt() const
 {
     return m_expiresAt;

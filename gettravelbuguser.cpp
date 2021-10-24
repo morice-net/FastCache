@@ -67,6 +67,7 @@ GetTravelbugUser::~GetTravelbugUser()
 {
 }
 
+/** Getters & Setters **/
 
 QList<QString> GetTravelbugUser::tbsCode() const
 {

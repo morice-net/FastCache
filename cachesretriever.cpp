@@ -234,6 +234,8 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
     m_userName = name ;
 }
 
+/** Getters & Setters **/
+
 int CachesRetriever::indexMoreCaches()
 {
     return m_indexMoreCaches;

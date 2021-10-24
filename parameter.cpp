@@ -6,6 +6,8 @@ Parameter::Parameter(QObject *parent)
 {
 }
 
+/** Getters & Setters **/
+
 QString Parameter::name() const
 {
     return m_name;

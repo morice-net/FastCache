@@ -135,6 +135,8 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
     }
 }
 
+/** Getters & Setters **/
+
 QString Requestor::state() const
 {
     return m_state;

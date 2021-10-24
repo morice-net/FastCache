@@ -58,6 +58,8 @@ void FullCache::removeCorrectedcoordinates()
     setIsCorrectedCoordinates(false);
 }
 
+/** Getters & Setters **/
+
 QList<int> FullCache::attributes() const
 {
     return  m_attributes;
