@@ -20,11 +20,12 @@ GetUserGeocacheLogs:: ~GetUserGeocacheLogs()
 
 void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 {
-    m_referenceCodes.clear();
-    m_logs.clear();
-    m_loggedDates.clear();
-    m_logsType.clear();
-    m_geocodes.clear();
+    // empty list
+    setReferenceCodes(QStringList());
+    setLogs(QStringList());
+    setLoggedDates(QStringList());
+    setLogsType(QStringList());
+    setGeocodes(QStringList());
 
     //Build url
     QString requestName = "users/me/geocachelogs";
