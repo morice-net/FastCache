@@ -6,12 +6,20 @@ import com.mycompany.connecting 1.0
 
 FastPopup  {
     id: userLogs
+
+    property int repeaterIndex
+    property var listLogs: initListLogs()
+
     x: (parent.width - userLogs.width)/2
     backgroundWidth: main.width*0.9
     backgroundHeight: Math.min(columnLogs.height + geocode.height + 40 , main.height*0.7)
     backgroundRadius: 8
     backgroundOpacity: 1
     closeButtonVisible: false
+
+    AddTextLog {
+        id: addText
+    }
 
     Text {
         id: geocode
@@ -45,6 +53,15 @@ FastPopup  {
                     border.color: Palette.silver()
                     radius: 8
 
+                    MouseArea {
+                        anchors.fill: parent
+                        onPressAndHold: {
+                            repeaterIndex = index
+                            log.readOnly = !log.readOnly
+                            buttonDelete.visible = !buttonDelete.visible
+                        }
+                    }
+
                     Column{
                         id: textLog
                         spacing: 15
@@ -75,28 +92,60 @@ FastPopup  {
                             wrapMode: Text.Wrap
                         }
 
-                        Text {
+                        TextArea {
+                            id: log
+                            readOnly: true
 
                             Binding on text {
                                 when: true
-                                value: getUserGeocacheLogs.logs[index]
+                                value: listLogs[index]
                             }
-
                             width: userLogs.width*0.95
                             leftPadding: 10
                             rightPadding: 10
                             font.family: localFont.name
                             font.pointSize: 15
                             horizontalAlignment: TextEdit.AlignJustify
-                            color: Palette.greenSea()
+                            color: log.readOnly === true ? Palette.greenSea() : Palette.silver()
                             textFormat: Qt.RichText
                             wrapMode: TextArea.Wrap
                             onLinkActivated: Qt.openUrlExternally(link)
+                        }
+
+                        Button {
+                            id: buttonDelete
+                            visible: false
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            contentItem: Image {
+                                source: "qrc:/Image/" + "icon_erase.png"
+                            }
+                            background: Rectangle {
+                                border.width: buttonDelete.activeFocus ? 2 : 1
+                                border.color: Palette.silver()
+                                radius: 4
+                            }
+                            onClicked: {
+                                listLogs = updateListLogs(repeaterIndex , "")
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    function initListLogs() {
+        var list = []
+        for (var i = 0; i < getUserGeocacheLogs.logs.length; i++) {
+            list.push(getUserGeocacheLogs.logs[i])
+        }
+        return list
+    }
+
+    function updateListLogs(i , text) {
+        var list = listLogs
+        list[i] = text
+        return list
     }
 }
 
