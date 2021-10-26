@@ -17,10 +17,6 @@ FastPopup  {
     backgroundOpacity: 1
     closeButtonVisible: false
 
-    AddTextLog {
-        id: addText
-    }
-
     Text {
         id: geocode
         anchors.horizontalCenter: parent.horizontalCenter
