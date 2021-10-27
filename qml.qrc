@@ -191,5 +191,7 @@
         <file>QML/TravelsbugUser.qml</file>
         <file>QML/JavaScript/MainFunctions.js</file>
         <file>QML/UserGeocacheLogs.qml</file>
+        <file>Image/icon_update.png</file>
+        <file>Image/icon_addImage.png</file>
     </qresource>
 </RCC>

@@ -9,6 +9,9 @@ FastPopup  {
 
     property var listLogs: initListLogs()
 
+    // editLog = 0 delete log, editLog = 1 update log
+    property int editLog
+
     x: (parent.width - userLogs.width)/2
     backgroundWidth: main.width*0.9
     backgroundHeight: Math.min(columnLogs.height + geocode.height + 40 , main.height*0.9)
@@ -52,7 +55,10 @@ FastPopup  {
                         anchors.fill: parent
                         onPressAndHold: {
                             log.readOnly= !log.readOnly
-                            buttonDelete.visible = !buttonDelete.visible
+                            iconDelete.visible = !iconDelete.visible
+                            iconUpdate.visible = !iconUpdate.visible
+                            iconAddImage.visible = !iconAddImage.visible
+                            iconDeleteLog.visible =! iconDeleteLog.visible
                         }
                     }
 
@@ -106,20 +112,102 @@ FastPopup  {
                             onLinkActivated: Qt.openUrlExternally(link)
                         }
 
-                        Button {
-                            id: buttonDelete
-                            visible: false
+                        // icons
+                        Row {
+                            spacing: 20
                             anchors.horizontalCenter: parent.horizontalCenter
-                            contentItem: Image {
-                                source: "qrc:/Image/" + "icon_erase.png"
+
+                            Button {
+                                id: iconDelete
+                                visible: false
+                                contentItem: Image {
+                                    source: "qrc:/Image/" + "icon_erase.png"
+                                }
+                                background: Rectangle {
+                                    border.width: iconDelete.activeFocus ? 2 : 1
+                                    border.color: Palette.silver()
+                                    radius: 4
+                                }
+                                onClicked: {
+                                    log.text = ""
+                                }
                             }
-                            background: Rectangle {
-                                border.width: buttonDelete.activeFocus ? 2 : 1
-                                border.color: Palette.silver()
-                                radius: 4
+
+                            Button {
+                                id: iconUpdate
+                                visible: false
+                                contentItem: Image {
+                                    source: "qrc:/Image/" + "icon_update.png"
+                                }
+                                background: Rectangle {
+                                    border.width: iconUpdate.activeFocus ? 2 : 1
+                                    border.color: Palette.silver()
+                                    radius: 4
+                                }
+                                onClicked: {
+                                    editLog = 1
+                                    buttonYes.visible = true
+                                    buttonNo.visible = true
+                                }
                             }
-                            onClicked: {
-                                log.text = ""
+
+                            Button {
+                                id: iconAddImage
+                                visible: false
+                                contentItem: Image {
+                                    source: "qrc:/Image/" + "icon_addImage.png"
+                                }
+                                background: Rectangle {
+                                    border.width: iconAddImage.activeFocus ? 2 : 1
+                                    border.color: Palette.silver()
+                                    radius: 4
+                                }
+                                onClicked: {
+                                }
+                            }
+
+                            Button {
+                                id: iconDeleteLog
+                                visible: false
+                                contentItem: Image {
+                                    source: "qrc:/Image/" + "icon_delete.png"
+                                }
+                                background: Rectangle {
+                                    border.width: iconDeleteLog.activeFocus ? 2 : 1
+                                    border.color: Palette.silver()
+                                    radius: 4
+                                }
+                                onClicked: {
+                                    editLog = 0
+                                    buttonYes.visible = true
+                                    buttonNo.visible = true
+                                }
+                            }
+                        }
+
+                        // delete or update user log
+                        Row {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: 25
+
+                            FastTextButton {
+                                id: buttonYes
+                                visible: false
+                                buttonText: editLog === 0 ? "Supprimer le log ?" : "Modifier le log ?"
+                                onClicked: {
+                                    buttonYes.visible = false
+                                    buttonNo.visible = false
+                                }
+                            }
+
+                            FastTextButton {
+                                id:buttonNo
+                                visible: false
+                                buttonText: "Annuler"
+                                onClicked: {
+                                    buttonYes.visible = false
+                                    buttonNo.visible = false
+                                }
                             }
                         }
                     }
