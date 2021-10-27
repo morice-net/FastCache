@@ -7,7 +7,6 @@ import com.mycompany.connecting 1.0
 FastPopup  {
     id: userLogs
 
-    property int repeaterIndex: 0
     property var listLogs: initListLogs()
 
     x: (parent.width - userLogs.width)/2
@@ -52,7 +51,6 @@ FastPopup  {
                     MouseArea {
                         anchors.fill: parent
                         onPressAndHold: {
-                            repeaterIndex = index
                             log.readOnly= !log.readOnly
                             buttonDelete.visible = !buttonDelete.visible
                         }
