@@ -7,12 +7,12 @@ import com.mycompany.connecting 1.0
 FastPopup  {
     id: userLogs
 
-    property int repeaterIndex
+    property int repeaterIndex: 0
     property var listLogs: initListLogs()
 
     x: (parent.width - userLogs.width)/2
     backgroundWidth: main.width*0.9
-    backgroundHeight: Math.min(columnLogs.height + geocode.height + 40 , main.height*0.7)
+    backgroundHeight: Math.min(columnLogs.height + geocode.height + 40 , main.height*0.9)
     backgroundRadius: 8
     backgroundOpacity: 1
     closeButtonVisible: false
@@ -53,7 +53,7 @@ FastPopup  {
                         anchors.fill: parent
                         onPressAndHold: {
                             repeaterIndex = index
-                            log.readOnly = !log.readOnly
+                            log.readOnly= !log.readOnly
                             buttonDelete.visible = !buttonDelete.visible
                         }
                     }
@@ -121,7 +121,7 @@ FastPopup  {
                                 radius: 4
                             }
                             onClicked: {
-                                listLogs = updateListLogs(repeaterIndex , "")
+                                log.text = ""
                             }
                         }
                     }
@@ -135,12 +135,6 @@ FastPopup  {
         for (var i = 0; i < getUserGeocacheLogs.logs.length; i++) {
             list.push(getUserGeocacheLogs.logs[i])
         }
-        return list
-    }
-
-    function updateListLogs(i , text) {
-        var list = listLogs
-        list[i] = text
         return list
     }
 }
