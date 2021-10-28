@@ -27,6 +27,7 @@ SOURCES += main.cpp \
     imagedownloader.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
+    sendedituserlog.cpp \
     sendimageslog.cpp \
     sendtravelbuglog.cpp \
     senduserwaypoint.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     imagedownloader.h \
     parameter.h \
     replaceimageintext.h \
+    sendedituserlog.h \
     sendimageslog.h \
     sendtravelbuglog.h \
     senduserwaypoint.h \
