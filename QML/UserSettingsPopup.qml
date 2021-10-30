@@ -361,46 +361,6 @@ FastPopup {
                     }
                 }
             }
-
-            Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: localFont.name
-                leftPadding: 5
-                font.pointSize: 14
-                text: "MODIFIER MES LOGS DE CACHES"
-                color: Palette.white()
-            }
-
-            //modifications to user logs
-            GroupBox {
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width*0.8
-
-                Column {
-                    spacing: 15
-                    anchors.horizontalCenter: parent.horizontalCenter
-
-                    TextField {
-                        id: geocodeCache
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.bottomMargin: 20
-                        color: Palette.turquoise()
-                        font.capitalization: Font.AllUppercase
-                        font.pointSize: 16
-                        placeholderText: "GC               "
-                        background: Rectangle {
-                            color: Palette.white()
-                            radius: 10
-                        }
-                        onPressAndHold: {
-                            if(geocodeCache.text.toLocaleUpperCase().startsWith('GC')) {
-                                getUserGeocacheLogs.sendRequest(connector.tokenKey , geocodeCache.text.toLocaleUpperCase())
-                                userGeocacheLogs.open()
-                            }
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -438,10 +398,6 @@ FastPopup {
                 }
             }
         }
-    }
-
-    UserGeocacheLogs {
-        id: userGeocacheLogs
     }
 
     function addCachesOnMap() {

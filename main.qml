@@ -284,6 +284,18 @@ Item {
         }
     }
 
+    SendEditUserLog {
+        id: sendEditUserLog
+        onStateChanged: {
+            toast.visible = sendEditUserLog.state !== "loading";
+            if(sendEditUserLog.state === "OK") {
+                toast.show("Le log a été modifié");
+            } else {
+                toast.show("Erreur  " + "(" + state + ")");
+            }
+        }
+    }
+
     SendCacheLog {
         id:sendCacheLog
         onStateChanged: {

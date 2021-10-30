@@ -19,6 +19,8 @@
 #include "sendcachelog.h"
 #include "sendimageslog.h"
 #include "sendtravelbuglog.h"
+#include "sendtravelbuglog.h"
+#include "sendedituserlog.h"
 #include "smileygc.h"
 #include "travelbug.h"
 #include "fullcacheretriever.h"
@@ -46,6 +48,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SendCacheLog>("com.mycompany.connecting", 1, 0, "SendCacheLog");
     qmlRegisterType<SendImagesLog>("com.mycompany.connecting", 1, 0, "SendImagesLog");
     qmlRegisterType<SendTravelbugLog>("com.mycompany.connecting", 1, 0, "SendTravelbugLog");
+    qmlRegisterType<SendEditUserLog>("com.mycompany.connecting", 1, 0, "SendEditUserLog");
     qmlRegisterType<Travelbug>("com.mycompany.connecting", 1, 0, "Travelbug");
     qmlRegisterType<FullCacheRetriever>("com.mycompany.connecting", 1, 0, "FullCacheRetriever");
     qmlRegisterType<SQLiteStorage>("com.mycompany.connecting", 1, 0, "SQLiteStorage");

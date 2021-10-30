@@ -155,6 +155,10 @@ Rectangle {
         FastCacheTBsPage {
             id: tbsPage
         }
+
+        FastCacheUserLogsPage {
+            id: userLogsPage
+        }
     }
 
     PageIndicator {

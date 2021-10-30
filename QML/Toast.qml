@@ -10,12 +10,12 @@ Rectangle {
 
     visible: false
     anchors.horizontalCenter: parent.horizontalCenter
-    y:main.height*0.7
+    y: main.height*0.7
     z: 4
     height: message.height + margin
     width: main.width*0.8
     radius: margin
-    color:Palette.black()
+    color: Palette.black()
 
     Text {
         id: message
@@ -45,3 +45,4 @@ Rectangle {
         toastTimer.start()
     }
 }
+

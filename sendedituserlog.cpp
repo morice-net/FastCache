@@ -19,6 +19,7 @@ void SendEditUserLog::sendRequest(QString token , QString referenceCode, QString
     //Build url
     QString requestName = "geocachelogs/";
     requestName.append(referenceCode);
+    qDebug() << "*** request name**\n" << requestName;
 
     //Add log
     QJsonObject jsonLog;
@@ -33,4 +34,5 @@ void SendEditUserLog::sendRequest(QString token , QString referenceCode, QString
 
 void SendEditUserLog::parseJson(const QJsonDocument &dataJsonDoc)
 {
+    Q_UNUSED(dataJsonDoc)
 }

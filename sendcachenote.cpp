@@ -14,7 +14,7 @@ SendCacheNote::~SendCacheNote()
 {
 }
 
-void SendCacheNote::sendRequest(QString token ,QString cacheCode, QString note)
+void SendCacheNote::sendRequest(QString token , QString cacheCode, QString note)
 {
     //Build url
     QString requestName = "geocaches/";

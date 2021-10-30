@@ -4,47 +4,67 @@ import QtQuick.Controls 2.5
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
-FastPopup  {
-    id: userLogs
+Item  {
+    id: userLogsPage
 
     property var listLogs: initListLogs()
 
     // editLog = 0 delete log, editLog = 1 update log
     property int editLog
 
-    x: (parent.width - userLogs.width)/2
-    backgroundWidth: main.width*0.9
-    backgroundHeight: Math.min(columnLogs.height + geocode.height + 40 , main.height*0.9)
-    backgroundRadius: 8
-    backgroundOpacity: 1
-    closeButtonVisible: false
-
-    Text {
-        id: geocode
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: getUserGeocacheLogs.referenceCodes.length !==0 ? getUserGeocacheLogs.geocodes[0] : "Pas de logs de cache ou erreur de géocode"
-        font.family: localFont.name
-        font.pointSize: 15
-        color: Palette.black()
-    }
-
     ScrollView {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: geocode.height + 10
-        contentHeight: columnLogs.height
+        anchors.topMargin: 40
+        contentHeight: contentItem.childrenRect.height
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true
 
         Column {
             id: columnLogs
             spacing:15
-            width: userLogs.width
+            width: userLogsPage.width
+
+            Button {
+                id: press
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                font.pointSize: 15
+                 text: "Clic pour obtenir les logs utilisateur de la cache"
+                contentItem: Text {
+                    text: "Clic pour obtenir les logs utilisateur de la cache"
+                    color: Palette.greenSea()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+                background: Rectangle {
+                    anchors.fill: parent
+                    opacity: 0.9
+                    color: Palette.white()
+                    border.color: Palette.greenSea()
+                    border.width: 1
+                    radius: 5
+                }
+
+                onClicked: {
+                    getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+                }
+            }
+
+            Text {
+                id: geocode
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: getUserGeocacheLogs.referenceCodes.length !==0 ? getUserGeocacheLogs.geocodes[0] : "Pas de logs de cache ou erreur de géocode"
+                font.family: localFont.name
+                font.pointSize: 15
+                color: Palette.black()
+            }
 
             Repeater{
                 model: getUserGeocacheLogs.referenceCodes.length
 
                 Rectangle{
+                    anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width*0.95
                     height: textLog.height + 10
                     border.width: 4
@@ -54,7 +74,6 @@ FastPopup  {
                     MouseArea {
                         anchors.fill: parent
                         onPressAndHold: {
-                            log.readOnly= !log.readOnly
                             iconDelete.visible = !iconDelete.visible
                             iconUpdate.visible = !iconUpdate.visible
                             iconAddImage.visible = !iconAddImage.visible
@@ -94,19 +113,18 @@ FastPopup  {
 
                         TextArea {
                             id: log
-                            readOnly: true
 
                             Binding on text {
                                 when: true
                                 value: listLogs[index]
                             }
-                            width: userLogs.width*0.95
+                            width: userLogsPage.width*0.95
                             leftPadding: 10
                             rightPadding: 10
                             font.family: localFont.name
                             font.pointSize: 15
                             horizontalAlignment: TextEdit.AlignJustify
-                            color: log.readOnly === true ? Palette.greenSea() : Palette.silver()
+                            color: Palette.greenSea()
                             textFormat: Qt.RichText
                             wrapMode: TextArea.Wrap
                             onLinkActivated: Qt.openUrlExternally(link)
@@ -197,6 +215,12 @@ FastPopup  {
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
+                                    //update log
+                                    if(editLog === 1) {
+                                        sendEditUserLog.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index] , log.text)
+
+
+                                    }
                                 }
                             }
 
@@ -224,4 +248,3 @@ FastPopup  {
         return list
     }
 }
-
