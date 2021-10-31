@@ -9,8 +9,18 @@ Item  {
 
     property var listLogs: initListLogs()
 
-    // editLog = 0 delete log, editLog = 1 update log
-    property int editLog
+    property string geocode : fullCache.geocode
+    onGeocodeChanged: getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+
+    Text {
+        visible: getUserGeocacheLogs.referenceCodes.length ===0
+        anchors.centerIn: parent
+        text: "Pas de logs utilisateur"
+        font.family: localFont.name
+        font.bold: true
+        font.pointSize: 17
+        color: Palette.white()
+    }
 
     ScrollView {
         id: logs
@@ -25,39 +35,13 @@ Item  {
             spacing:15
             width: userLogsPage.width
 
-            Button {
+            FastTextButton {
                 id: press
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.family: localFont.name
-                font.pointSize: 15
-                 text: "Clic pour obtenir les logs utilisateur de la cache"
-                contentItem: Text {
-                    text: "Clic pour obtenir les logs utilisateur de la cache"
-                    color: Palette.greenSea()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.white()
-                    border.color: Palette.greenSea()
-                    border.width: 1
-                    radius: 5
-                }
-
+                buttonText:  "Cliquer pour rafraichir les logs"
                 onClicked: {
                     getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
                 }
-            }
-
-            Text {
-                id: geocode
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: getUserGeocacheLogs.referenceCodes.length !==0 ? getUserGeocacheLogs.geocodes[0] : "Pas de logs de cache ou erreur de géocode"
-                font.family: localFont.name
-                font.pointSize: 15
-                color: Palette.black()
             }
 
             Repeater{
@@ -74,7 +58,6 @@ Item  {
                     MouseArea {
                         anchors.fill: parent
                         onPressAndHold: {
-                            iconDelete.visible = !iconDelete.visible
                             iconUpdate.visible = !iconUpdate.visible
                             iconAddImage.visible = !iconAddImage.visible
                             iconDeleteLog.visible =! iconDeleteLog.visible
@@ -136,22 +119,6 @@ Item  {
                             anchors.horizontalCenter: parent.horizontalCenter
 
                             Button {
-                                id: iconDelete
-                                visible: false
-                                contentItem: Image {
-                                    source: "qrc:/Image/" + "icon_erase.png"
-                                }
-                                background: Rectangle {
-                                    border.width: iconDelete.activeFocus ? 2 : 1
-                                    border.color: Palette.silver()
-                                    radius: 4
-                                }
-                                onClicked: {
-                                    log.text = ""
-                                }
-                            }
-
-                            Button {
                                 id: iconUpdate
                                 visible: false
                                 contentItem: Image {
@@ -163,9 +130,8 @@ Item  {
                                     radius: 4
                                 }
                                 onClicked: {
-                                    editLog = 1
-                                    buttonYes.visible = true
-                                    buttonNo.visible = true
+                                    // log page
+                                    swipeFastCache.setCurrentIndex(6) ;
                                 }
                             }
 
@@ -196,14 +162,13 @@ Item  {
                                     radius: 4
                                 }
                                 onClicked: {
-                                    editLog = 0
                                     buttonYes.visible = true
                                     buttonNo.visible = true
                                 }
                             }
                         }
 
-                        // delete or update user log
+                        // delete user log
                         Row {
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: 25
@@ -211,16 +176,10 @@ Item  {
                             FastTextButton {
                                 id: buttonYes
                                 visible: false
-                                buttonText: editLog === 0 ? "Supprimer le log ?" : "Modifier le log ?"
+                                buttonText: "Supprimer le log ?"
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
-                                    //update log
-                                    if(editLog === 1) {
-                                        sendEditUserLog.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index] , log.text)
-
-
-                                    }
                                 }
                             }
 
