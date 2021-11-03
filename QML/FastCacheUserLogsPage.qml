@@ -82,30 +82,63 @@ Item  {
                         id: textLog
                         spacing: 15
 
-                        Text {
-                            text: new Date(getUserGeocacheLogs.loggedDates[index]).toLocaleDateString(Qt.locale("fr_FR"))
-                            topPadding: 10
-                            leftPadding: 15
-                            anchors.right: parent.right
-                            anchors.rightMargin: 10
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.black()
-                            wrapMode: Text.Wrap
+                        Item {
+                            width: parent.width*0.95
+                            height: 35
+
+                            Text {
+
+                                Binding on text {
+                                    when: true
+                                    value: getUserGeocacheLogs.logsType[index]
+                                }
+                                topPadding: 10
+                                leftPadding: 15
+                                anchors.left: parent.left
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
+
+                            Text {
+                                text: new Date(getUserGeocacheLogs.loggedDates[index]).toLocaleDateString(Qt.locale("fr_FR"))
+                                topPadding: 10
+                                leftPadding: 15
+                                anchors.right: parent.right
+                                anchors.rightMargin: 10
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                                wrapMode: Text.Wrap
+                            }
                         }
 
-                        Text {
+                        Item {
+                            width: parent.width*0.95
+                            height: 35
 
-                            Binding on text {
-                                when: true
-                                value: getUserGeocacheLogs.logsType[index]
+                            Image {
+                                x:15
+                                source: "qrc:/Image/" + "icon_photo.png"
+                                visible: getUserGeocacheLogs.imagesCount[index] !== 0
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        console.log("clicked:")
+                                    }
+                                }
                             }
-                            leftPadding: 15
-                            anchors.left: parent.left
-                            font.family: localFont.name
-                            font.pointSize: 13
-                            color: Palette.black()
-                            wrapMode: Text.Wrap
+
+                            Text {
+                                text: fullCache.favorited ? "Cette cache est dans vos favoris" : "Cette cache n'est pas dans vos favoris"
+                                anchors.right: parent.right
+                                anchors.rightMargin: 10
+                                font.family: localFont.name
+                                font.pointSize: 13
+                                color: Palette.black()
+                            }
                         }
 
                         TextArea {
