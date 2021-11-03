@@ -11,6 +11,8 @@ GetUserGeocacheLogs::GetUserGeocacheLogs(Requestor *parent)
     , m_loggedDates()
     , m_logsType()
     , m_geocodes()
+    , m_favoriteds()
+    , m_imagesCount()
 {
 }
 
@@ -29,7 +31,7 @@ void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 
     //Build url
     QString requestName = "users/me/geocachelogs";
-    requestName.append("?fields=referenceCode,text,loggedDate,geocacheLogType,geocacheCode");
+    requestName.append("?fields=referenceCode,text,loggedDate,geocacheLogType,geocacheCode,imageCount,usedFavoritePoint");
     requestName.append("&take=50");
     requestName.append("&geocacheCode=" + geocode);
 
@@ -55,6 +57,8 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
         m_logs.append(userLogJson["text"].toString());
         m_loggedDates.append(userLogJson["loggedDate"].toString());
         m_geocodes.append(userLogJson["geocacheCode"].toString());
+        m_imagesCount.append(userLogJson["imageCount"].toInt());
+        m_favoriteds.append(userLogJson["usedFavoritePoint"].toBool());
 
         type = userLogJson["geocacheLogType"].toObject();
         m_logsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
@@ -65,12 +69,16 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
     emit loggedDatesChanged();
     emit geocodesChanged();
     emit logsTypeChanged();
+    emit imagesCountChanged();
+    emit favoritedsChanged();
 
     qDebug() << "*** referenceCodes**\n" << m_referenceCodes;
     qDebug() << "*** logs**\n" << m_logs;
     qDebug() << "*** dates**\n" << m_loggedDates;
     qDebug() << "*** types**\n" << m_logsType;
     qDebug() << "*** geocodes**\n" << m_geocodes;
+    qDebug() << "*** images counts**\n" << m_imagesCount;
+    qDebug() << "*** favoriteds**\n" << m_favoriteds;
 
     // request success
     emit requestReady();
@@ -132,4 +140,26 @@ void GetUserGeocacheLogs::setGeocodes(const QList<QString> &codes)
 {
     m_geocodes = codes;
     emit geocodesChanged();
+}
+
+QList<bool> GetUserGeocacheLogs::favoriteds() const
+{
+    return m_favoriteds;
+}
+
+void GetUserGeocacheLogs::setFavoriteds(const QList<bool> &favors)
+{
+    m_favoriteds = favors;
+    emit favoritedsChanged();
+}
+
+QList<int> GetUserGeocacheLogs::imagesCount() const
+{
+    return m_imagesCount;
+}
+
+void GetUserGeocacheLogs::setImagesCount(const QList<int> &images)
+{
+    m_imagesCount = images;
+    emit imagesCountChanged();
 }
