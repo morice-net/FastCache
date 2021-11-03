@@ -9,6 +9,9 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: fastCache
 
+    // updateLog to false for a log creation, to true for a log update
+    property bool updateLog: false
+
     // use to allow overlap of the web view by the menu
     property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.state === "cachesActive")
 

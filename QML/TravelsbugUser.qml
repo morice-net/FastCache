@@ -4,7 +4,7 @@ import QtQuick.Controls 2.5
 import "JavaScript/Palette.js" as Palette
 
 Repeater {
-    id:tbList
+    id: tbList
 
     property int repeaterIndex
 
@@ -17,6 +17,7 @@ Repeater {
 
     Column {
         spacing: 5
+        visible: updateLog === false // mode create log
 
         Row {
             spacing: 5

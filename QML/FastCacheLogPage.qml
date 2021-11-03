@@ -194,6 +194,7 @@ Item {
 
             Button {
                 id: buttonAddImages
+                visible: updateLog === false
                 anchors.horizontalCenter: parent.horizontalCenter
                 contentItem: Text {
                     text: "Cliquer pour ajouter des images ( " + imagesBrowser.repeaterCount + " )"
@@ -219,7 +220,7 @@ Item {
                 id:buttonSendLog
                 anchors.horizontalCenter: parent.horizontalCenter
                 contentItem: Text {
-                    text: "Envoyer le log"
+                    text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
                     font.family: localFont.name
                     font.pointSize: 24
                     color: Palette.greenSea()
@@ -249,7 +250,7 @@ Item {
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: getTravelbugUser.tbsCode.length !== 0
+                visible: getTravelbugUser.tbsCode.length !== 0 && updateLog === false
                 font.family: localFont.name
                 font.pointSize: 14
                 text: "INVENTAIRE"

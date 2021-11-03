@@ -9,8 +9,14 @@ Item  {
 
     property var listLogs: initListLogs()
 
+    property var listClickedLogs
+
     property string geocode : fullCache.geocode
-    onGeocodeChanged: getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+    onGeocodeChanged: {
+        updateLog = false
+        getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+        listClickedLogs = initListClickedLogs()
+    }
 
     Text {
         visible: getUserGeocacheLogs.referenceCodes.length ===0
@@ -26,7 +32,7 @@ Item  {
         id: logs
         anchors.fill: parent
         anchors.topMargin: 40
-        contentHeight: contentItem.childrenRect.height
+        contentHeight: columnLogs.height + 30
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true
 
@@ -41,6 +47,8 @@ Item  {
                 buttonText:  "Cliquer pour rafraichir les logs"
                 onClicked: {
                     getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+                    listClickedLogs = initListClickedLogs()
+                    updateLog = false
                 }
             }
 
@@ -60,7 +68,13 @@ Item  {
                         onPressAndHold: {
                             iconUpdate.visible = !iconUpdate.visible
                             iconAddImage.visible = !iconAddImage.visible
-                            iconDeleteLog.visible =! iconDeleteLog.visible
+                            iconDeleteLog.visible = !iconDeleteLog.visible
+                            listClickedLogs[index] = !listClickedLogs[index]
+                            if(listClickedLogs.indexOf(true) !== -1 ) {
+                                updateLog = true
+                            } else {
+                                updateLog  = false
+                            }
                         }
                     }
 
@@ -203,6 +217,14 @@ Item  {
         var list = []
         for (var i = 0; i < getUserGeocacheLogs.logs.length; i++) {
             list.push(getUserGeocacheLogs.logs[i])
+        }
+        return list
+    }
+
+    function initListClickedLogs() {
+        var list = []
+        for (var i = 0; i < getUserGeocacheLogs.logs.length; i++) {
+            list.push(false)
         }
         return list
     }
