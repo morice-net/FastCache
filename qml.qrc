@@ -5,7 +5,6 @@
         <file>Image/cache.png</file>
         <file>QML/FastMap.qml</file>
         <file>QML/TextField.qml</file>
-        <file>Image/menuIcon.png</file>
         <file>QML/FastMenuHeader.qml</file>
         <file>QML/FastSettings.qml</file>
         <file>QML/FastMenu.qml</file>
@@ -193,5 +192,6 @@
         <file>Image/icon_update.png</file>
         <file>Image/icon_addImage.png</file>
         <file>QML/FastCacheUserLogsPage.qml</file>
+        <file>Image/menuIcon.png</file>
     </qresource>
 </RCC>
