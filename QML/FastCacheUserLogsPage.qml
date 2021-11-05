@@ -177,6 +177,7 @@ Item  {
                                     radius: 4
                                 }
                                 onClicked: {
+                                    updateLogIndex = index
                                     // log page
                                     swipeFastCache.setCurrentIndex(6) ;
                                 }

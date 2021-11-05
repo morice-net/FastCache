@@ -9,9 +9,7 @@ Item {
     id: logPage
 
     property string dateIso
-    property string dateInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
-                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
-                                : new Date().toISOString()
+    property string dateInit: initDate()
     property int typeLog: !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
     property int typeLogCheck
     property int typeLogInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
@@ -281,6 +279,16 @@ Item {
             return "Visité"   // Visited
         else if(type === 14)
             return "Déposé"  // Dropped Off
+    }
+
+    function initDate() {
+        if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
+            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
+        if(updateLog) {
+            return new Date(getUserGeocacheLogs.loggedDates[updateLogIndex]).toISOString()
+        } else {
+            return new Date().toISOString()
+        }
     }
 }
 

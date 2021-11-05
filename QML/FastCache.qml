@@ -11,6 +11,7 @@ Rectangle {
 
     // updateLog to false for a log creation, to true for a log update
     property bool updateLog: false
+    property int updateLogIndex: 0
 
     // use to allow overlap of the web view by the menu
     property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.state === "cachesActive")
