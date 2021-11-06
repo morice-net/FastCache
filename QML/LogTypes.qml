@@ -21,7 +21,7 @@ GroupBox {
 
         RadioButton {
             id:button1
-            visible: !(fullCache.found) && !(fullCache.owner === userInfo.name)
+            visible: (fastCache.updateLog || !(fullCache.found)) && !(fullCache.owner === userInfo.name)
             text: "Trouvée"
             checked: !(fullCache.found) && !(fullCache.owner === userInfo.name)
             onClicked: {

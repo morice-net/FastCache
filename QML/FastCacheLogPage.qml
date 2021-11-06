@@ -12,9 +12,7 @@ Item {
     property string dateInit: initDate()
     property int typeLog: !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
     property int typeLogCheck
-    property int typeLogInit: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
-                                  sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType") :
-                                  !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
+    property int typeLogInit: initTypeLog()
     property string addLog: ""
     property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                       sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : ""
@@ -288,6 +286,18 @@ Item {
             return new Date(getUserGeocacheLogs.loggedDates[updateLogIndex]).toISOString()
         } else {
             return new Date().toISOString()
+        }
+    }
+
+    function initTypeLog() {
+        if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
+            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType")
+        if(updateLog)
+            return getUserGeocacheLogs.logsTypeId[updateLogIndex]
+        if(!(fullCache.found) && !(fullCache.owner === userInfo.name)) {
+            return 2
+        } else {
+            return 4
         }
     }
 }

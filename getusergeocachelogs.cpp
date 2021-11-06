@@ -10,7 +10,7 @@ GetUserGeocacheLogs::GetUserGeocacheLogs(Requestor *parent)
     , m_logs()
     , m_loggedDates()
     , m_logsType()
-    , m_geocodes()
+    , m_logsTypeId()
     , m_imagesCount()
 {
 }
@@ -21,12 +21,13 @@ GetUserGeocacheLogs:: ~GetUserGeocacheLogs()
 
 void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 {
-    // empty list
+    // empty lists
     setReferenceCodes(QStringList());
     setLogs(QStringList());
     setLoggedDates(QStringList());
     setLogsType(QStringList());
-    setGeocodes(QStringList());
+    setLogsTypeId(QList<int>());
+    setImagesCount(QList<int>());
 
     //Build url
     QString requestName = "users/me/geocachelogs";
@@ -55,25 +56,25 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
         m_referenceCodes.append(userLogJson["referenceCode"].toString());
         m_logs.append(userLogJson["text"].toString());
         m_loggedDates.append(userLogJson["loggedDate"].toString());
-        m_geocodes.append(userLogJson["geocacheCode"].toString());
         m_imagesCount.append(userLogJson["imageCount"].toInt());
 
         type = userLogJson["geocacheLogType"].toObject();
+        m_logsTypeId.append(type["id"].toInt());
         m_logsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
     }
 
     emit referenceCodesChanged();
     emit logsChanged();
     emit loggedDatesChanged();
-    emit geocodesChanged();
     emit logsTypeChanged();
+    emit logsTypeIdChanged();
     emit imagesCountChanged();
 
     qDebug() << "*** referenceCodes**\n" << m_referenceCodes;
     qDebug() << "*** logs**\n" << m_logs;
     qDebug() << "*** dates**\n" << m_loggedDates;
     qDebug() << "*** types**\n" << m_logsType;
-    qDebug() << "*** geocodes**\n" << m_geocodes;
+    qDebug() << "*** typesId**\n" << m_logsTypeId;
     qDebug() << "*** images counts**\n" << m_imagesCount;
 
     // request success
@@ -127,15 +128,15 @@ void GetUserGeocacheLogs::setLogsType(const QList<QString> &types)
     emit logsTypeChanged();
 }
 
-QList<QString> GetUserGeocacheLogs::geocodes() const
+QList<int> GetUserGeocacheLogs::logsTypeId() const
 {
-    return m_geocodes;
+    return m_logsTypeId;
 }
 
-void GetUserGeocacheLogs::setGeocodes(const QList<QString> &codes)
+void GetUserGeocacheLogs::setLogsTypeId(const QList<int> &typesId)
 {
-    m_geocodes = codes;
-    emit geocodesChanged();
+    m_logsTypeId = typesId;
+    emit logsTypeIdChanged();
 }
 
 QList<int> GetUserGeocacheLogs::imagesCount() const

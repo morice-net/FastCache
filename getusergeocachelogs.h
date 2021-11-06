@@ -14,7 +14,7 @@ class GetUserGeocacheLogs : public Requestor
     Q_PROPERTY(QList<QString> logs READ logs WRITE setLogs NOTIFY logsChanged)
     Q_PROPERTY(QList<QString> loggedDates READ loggedDates WRITE setLoggedDates NOTIFY loggedDatesChanged)
     Q_PROPERTY(QList<QString> logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
-    Q_PROPERTY(QList<QString> geocodes READ geocodes WRITE setGeocodes NOTIFY geocodesChanged)
+    Q_PROPERTY(QList<int> logsTypeId READ logsTypeId WRITE setLogsTypeId NOTIFY logsTypeIdChanged)
     Q_PROPERTY(QList<int> imagesCount READ imagesCount WRITE setImagesCount NOTIFY imagesCountChanged)
 
 public:
@@ -33,8 +33,8 @@ public:
     QList<QString> logsType() const;
     void setLogsType(const QList<QString> &types);
 
-    QList<QString> geocodes() const;
-    void setGeocodes(const  QList<QString> &codes);
+    QList<int> logsTypeId() const;
+    void setLogsTypeId(const QList<int> &typesId);
 
     QList<int> imagesCount() const;
     void setImagesCount(const  QList<int> &images);
@@ -48,7 +48,7 @@ signals:
     void logsChanged();
     void loggedDatesChanged();
     void logsTypeChanged();
-    void geocodesChanged();
+    void logsTypeIdChanged();
     void imagesCountChanged();
 
 private:
@@ -56,9 +56,8 @@ private:
     QList<QString> m_logs ;
     QList<QString> m_loggedDates ;
     QList<QString> m_logsType ;
-    QList<QString> m_geocodes ;
+    QList<int> m_logsTypeId ;
     QList<int> m_imagesCount;
-
 };
 
 #endif // GETUSERGEOCACHELOGS_H
