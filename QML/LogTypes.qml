@@ -24,10 +24,7 @@ GroupBox {
             visible: (fastCache.updateLog || !(fullCache.found)) && !(fullCache.owner === userInfo.name)
             text: "Trouvée"
             checked: !(fullCache.found) && !(fullCache.owner === userInfo.name)
-            onClicked: {
-                typeLogCheck = 2
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 2
             contentItem: Text {
                 text: button1.text
                 font.family: localFont.name
@@ -55,10 +52,7 @@ GroupBox {
             id:button2
             visible: !(fullCache.owner === userInfo.name)
             text: "Non trouvée"
-            onClicked: {
-                typeLogCheck = 3
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 3
             contentItem: Text {
                 text: button2.text
                 font.family: localFont.name
@@ -87,10 +81,7 @@ GroupBox {
             visible: true
             checked: (fullCache.found) || (fullCache.owner === userInfo.name)
             text: "Note"
-            onClicked: {
-                typeLogCheck = 4
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 4
             contentItem: Text {
                 text: button3.text
                 font.family: localFont.name
@@ -118,10 +109,7 @@ GroupBox {
             id:button4
             visible: !(fullCache.owner === userInfo.name)
             text: "Nécessite une maintenance"
-            onClicked: {
-                typeLogCheck = 45
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 45
             contentItem: Text {
                 text: button4.text
                 font.family: localFont.name
@@ -149,10 +137,7 @@ GroupBox {
             id:button5
             visible: !(fullCache.owner === userInfo.name)
             text: "Nécessite d'être archivée"
-            onClicked: {
-                typeLogCheck = 7
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 7
             contentItem: Text {
                 text: button5.text
                 font.family: localFont.name
@@ -180,10 +165,7 @@ GroupBox {
             id:button6
             visible: (fullCache.owner === userInfo.name)
             text: "Maintenance effectuée"
-            onClicked: {
-                typeLogCheck = 46
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 46
             contentItem: Text {
                 text: button6.text
                 font.family: localFont.name
@@ -211,10 +193,7 @@ GroupBox {
             id:button7
             visible: (fullCache.owner === userInfo.name)
             text: "Désactivée"
-            onClicked: {
-                typeLogCheck = 22
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 22
             contentItem: Text {
                 text: button7.text
                 font.family: localFont.name
@@ -242,10 +221,7 @@ GroupBox {
             id:button8
             text: "Archivée"
             visible: (fullCache.owner === userInfo.name)
-            onClicked: {
-                typeLogCheck = 5
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 5
             contentItem: Text {
                 text: button8.text
                 font.family: localFont.name

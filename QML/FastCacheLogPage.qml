@@ -11,7 +11,6 @@ Item {
     property string dateIso
     property string dateInit: initDate()
     property int typeLog: !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
-    property int typeLogCheck
     property int typeLogInit: initTypeLog()
     property string addLog: ""
     property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
@@ -233,7 +232,7 @@ Item {
                 onClicked:{
                     console.log(connector.tokenKey + " " + fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
                                 + favorited.checked);
-                    if(message.text !== null && message.text !== '') {
+                    if(message.text !== '') {
                         sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
                                                                                                               favorited.checked))
                         sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))

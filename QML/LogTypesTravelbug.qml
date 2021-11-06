@@ -20,10 +20,7 @@ GroupBox {
             text: "Récupéré"
             visible: travelbug.tbStatus === 1 //travelbug in cache
             checked: false
-            onClicked: {
-                typeLogCheck = 13
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 13
             contentItem: Text {
                 text: button1.text
                 font.family: localFont.name
@@ -53,10 +50,7 @@ GroupBox {
             //travelbug in possession of owner or holder of the trackable and not in possession of user
             visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) && travelbug.located !== userInfo.name
             checked: false
-            onClicked: {
-                typeLogCheck = 19
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 19
             contentItem: Text {
                 text: button2.text
                 font.family: localFont.name
@@ -85,10 +79,7 @@ GroupBox {
             text: "Note"
             visible:true
             checked: true
-            onClicked: {
-                typeLogCheck = 4
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 4
             contentItem: Text {
                 text: button3.text
                 font.family: localFont.name
@@ -118,10 +109,7 @@ GroupBox {
             visible: ((travelbug.tbStatus === 2 || travelbug.tbStatus === 3) && travelbug.located !== userInfo.name) ||
                      travelbug.tbStatus === 1
             checked: false
-            onClicked: {
-                typeLogCheck = 48
-                typeLog = typeLogCheck
-            }
+            onClicked: typeLog = 48
             contentItem: Text {
                 text: button4.text
                 font.family: localFont.name

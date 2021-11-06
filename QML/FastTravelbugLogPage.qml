@@ -13,7 +13,6 @@ Item {
                                   sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" ,travelbug.tbCode), "loggedDate")
                                 : new Date().toISOString()
     property int typeLog: 4
-    property int typeLogCheck
     property int typeLogInit: sqliteStorage.isCacheInTable("tblog" , travelbug.tbCode)?
                                   sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" , travelbug.tbCode), "logType") :4
     property string addLog: ""
