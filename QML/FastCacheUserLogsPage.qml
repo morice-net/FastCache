@@ -74,6 +74,7 @@ Item  {
                                 updateLog = true
                             } else {
                                 updateLog  = false
+                                logPage.typeLog = logPage.initTypeLog()
                             }
                         }
                     }
@@ -178,6 +179,7 @@ Item  {
                                 }
                                 onClicked: {
                                     updateLogIndex = index
+                                    logPage.typeLog = logPage.initTypeLog()
                                     // log page
                                     swipeFastCache.setCurrentIndex(6) ;
                                 }

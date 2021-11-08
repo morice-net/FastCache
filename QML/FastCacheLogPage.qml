@@ -10,13 +10,12 @@ Item {
 
     property string dateIso
     property string dateInit: initDate()
-    property int typeLog: !(fullCache.found) && !(fullCache.owner === userInfo.name)? 2 : 4
-    property int typeLogInit: initTypeLog()
+    property int typeLog: initTypeLog()
     property string addLog: ""
     property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
                                       sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : ""
-    onTypeLogInitChanged: {
-        typeLog = typeLogInit
+
+    onTypeLogChanged: {
         logTypes.button1Checked = typeLog == 2;  // type of log : Found It
         logTypes.button2Checked = typeLog == 3;  // type of log : Didn't find it
         logTypes.button3Checked = typeLog == 4;  // type of log : Write note
