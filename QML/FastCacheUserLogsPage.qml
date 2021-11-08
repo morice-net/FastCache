@@ -148,7 +148,6 @@ Item  {
 
                             Button {
                                 id: iconUpdate
-                                //   visible: false
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_update.png"
                                 }
@@ -173,7 +172,6 @@ Item  {
 
                             Button {
                                 id: iconAddImage
-                                //     visible: false
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_addImage.png"
                                 }
@@ -188,7 +186,6 @@ Item  {
 
                             Button {
                                 id: iconDeleteLog
-                                //     visible: false
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_delete.png"
                                 }
