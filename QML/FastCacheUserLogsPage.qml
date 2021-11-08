@@ -9,13 +9,10 @@ Item  {
 
     property var listLogs: initListLogs()
 
-    property var listClickedLogs
-
     property string geocode : fullCache.geocode
     onGeocodeChanged: {
         updateLog = false
         getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
-        listClickedLogs = initListClickedLogs()
     }
 
     Text {
@@ -47,7 +44,6 @@ Item  {
                 buttonText:  "Cliquer pour rafraichir les logs"
                 onClicked: {
                     getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
-                    listClickedLogs = initListClickedLogs()
                     updateLog = false
                 }
             }
@@ -62,22 +58,6 @@ Item  {
                     border.width: 4
                     border.color: Palette.silver()
                     radius: 8
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onPressAndHold: {
-                            iconUpdate.visible = !iconUpdate.visible
-                            iconAddImage.visible = !iconAddImage.visible
-                            iconDeleteLog.visible = !iconDeleteLog.visible
-                            listClickedLogs[index] = !listClickedLogs[index]
-                            if(listClickedLogs.indexOf(true) !== -1 ) {
-                                updateLog = true
-                            } else {
-                                updateLog  = false
-                                logPage.typeLog = logPage.initTypeLog()
-                            }
-                        }
-                    }
 
                     Column{
                         id: textLog
@@ -168,7 +148,7 @@ Item  {
 
                             Button {
                                 id: iconUpdate
-                                visible: false
+                                //   visible: false
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_update.png"
                                 }
@@ -178,16 +158,22 @@ Item  {
                                     radius: 4
                                 }
                                 onClicked: {
+                                    updateLog = true
                                     updateLogIndex = index
                                     logPage.typeLog = logPage.initTypeLog()
                                     // log page
                                     swipeFastCache.setCurrentIndex(6) ;
                                 }
+                                onPressAndHold: {
+                                    updateLog = false
+                                    updateLogIndex = index
+                                    logPage.typeLog = logPage.initTypeLog()
+                                }
                             }
 
                             Button {
                                 id: iconAddImage
-                                visible: false
+                                //     visible: false
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_addImage.png"
                                 }
@@ -202,7 +188,7 @@ Item  {
 
                             Button {
                                 id: iconDeleteLog
-                                visible: false
+                                //     visible: false
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_delete.png"
                                 }
@@ -253,14 +239,6 @@ Item  {
         var list = []
         for (var i = 0; i < getUserGeocacheLogs.logs.length; i++) {
             list.push(getUserGeocacheLogs.logs[i])
-        }
-        return list
-    }
-
-    function initListClickedLogs() {
-        var list = []
-        for (var i = 0; i < getUserGeocacheLogs.logs.length; i++) {
-            list.push(false)
         }
         return list
     }
