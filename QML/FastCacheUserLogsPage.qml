@@ -9,12 +9,6 @@ Item  {
 
     property var listLogs: initListLogs()
 
-    property string geocode : fullCache.geocode
-    onGeocodeChanged: {
-        updateLog = false
-        getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
-    }
-
     Text {
         visible: getUserGeocacheLogs.referenceCodes.length ===0
         anchors.centerIn: parent

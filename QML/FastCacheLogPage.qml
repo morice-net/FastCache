@@ -12,8 +12,7 @@ Item {
     property string dateInit: initDate()
     property int typeLog: initTypeLog()
     property string addLog: ""
-    property string textRecorded: sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode)?
-                                      sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text") : ""
+    property string textRecorded: initTextRecorded()
 
     onTypeLogChanged: {
         logTypes.button1Checked = typeLog == 2;  // type of log : Found It
@@ -292,11 +291,19 @@ Item {
             return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType")
         if(updateLog)
             return getUserGeocacheLogs.logsTypeId[updateLogIndex]
-        if(!(fullCache.found) && !(fullCache.owner === userInfo.name)) {
-            return 2
-        } else {
+        if(fullCache.found || fullCache.owner === userInfo.name) {
             return 4
+        } else {
+            return 2
         }
+    }
+
+    function initTextRecorded() {
+        if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
+            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text")
+        if(updateLog)
+            return getUserGeocacheLogs.logs[updateLogIndex]
+        return ""
     }
 }
 

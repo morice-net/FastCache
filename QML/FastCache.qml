@@ -9,6 +9,8 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: fastCache
 
+    property alias swipeLogPage: logPage
+
     // updateLog to false for a log creation, to true for a log update
     property bool updateLog: false
     property int updateLogIndex: 0
