@@ -151,7 +151,9 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 14
                 color: Palette.greenSea()
-                wrapMode: Text.Wrap
+                textFormat: Qt.RichText
+                wrapMode: TextArea.Wrap
+                onLinkActivated: Qt.openUrlExternally(link)
                 background: Rectangle {
                     implicitHeight: 100
                 }
