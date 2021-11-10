@@ -161,8 +161,8 @@ Item {
 
             CheckBox {
                 id :favorited
-                checked:sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode) ?
-                            sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint") : false
+                visible: typeLog === 2 // found
+                checked: initFavorited()
                 contentItem: Text {
                     text: "Ajouter cette cache à vos favoris"
                     font.family: localFont.name
@@ -306,6 +306,14 @@ Item {
         if(updateLog)
             return getUserGeocacheLogs.logs[updateLogIndex]
         return ""
+    }
+
+    function initFavorited() {
+        if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
+            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
+        if(updateLog)
+            return fullCache.favorited
+        return false
     }
 }
 

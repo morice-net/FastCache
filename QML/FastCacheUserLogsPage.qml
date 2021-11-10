@@ -147,7 +147,7 @@ Item  {
                                 }
                                 background: Rectangle {
                                     border.width: iconUpdate.activeFocus ? 2 : 1
-                                    border.color: Palette.silver()
+                                    border.color: updateLog ? Palette.turquoise() : Palette.silver()
                                     radius: 4
                                 }
                                 onClicked: {
