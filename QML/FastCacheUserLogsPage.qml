@@ -137,7 +137,7 @@ Item  {
 
                         // icons
                         Row {
-                            spacing: 20
+                            spacing: 30
                             anchors.horizontalCenter: parent.horizontalCenter
 
                             Button {
@@ -161,20 +161,6 @@ Item  {
                                     updateLog = false
                                     updateLogIndex = index
                                     logPage.typeLog = logPage.initTypeLog()
-                                }
-                            }
-
-                            Button {
-                                id: iconAddImage
-                                contentItem: Image {
-                                    source: "qrc:/Image/" + "icon_addImage.png"
-                                }
-                                background: Rectangle {
-                                    border.width: iconAddImage.activeFocus ? 2 : 1
-                                    border.color: Palette.silver()
-                                    radius: 4
-                                }
-                                onClicked: {
                                 }
                             }
 

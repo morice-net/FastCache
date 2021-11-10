@@ -189,7 +189,6 @@ Item {
 
             Button {
                 id: buttonAddImages
-                visible: updateLog === false
                 anchors.horizontalCenter: parent.horizontalCenter
                 contentItem: Text {
                     text: "Cliquer pour ajouter des images ( " + imagesBrowser.repeaterCount + " )"
