@@ -232,12 +232,19 @@ Item {
                     console.log(connector.tokenKey + " " + fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
                                 + favorited.checked);
                     if(message.text !== '') {
-                        sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
-                                                                                                              favorited.checked))
-                        sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
-                        sqliteStorage.updateObject("cachesimageslog" , fullCache.geocode , sendImagesLog.makeJsonSendImagesLog(createListImagesLog()))
-                        fullCache.toDoLog = true
-                        sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked)
+                        if(updateLog === false) {
+                            // create log
+                            sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,
+                                                                                                                  favorited.checked))
+                            sqliteStorage.updateObject("cachestbsuserlog" , fullCache.geocode , sendTravelbugLog.makeJsonTbsUserLog(listTbSend))
+                            sqliteStorage.updateObject("cachesimageslog" , fullCache.geocode , sendImagesLog.makeJsonSendImagesLog(createListImagesLog()))
+                            fullCache.toDoLog = true
+                            sendCacheLog.sendRequest(connector.tokenKey , fullCache.geocode , typeLog , dateIso  , message.text , favorited.checked)
+                        } else {
+                            // updatelog
+                            sendEditUserLog.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[updateLogIndex] ,fullCache.geocode ,
+                                                        typeLog , dateIso , message.text , favorited.checked)
+                        }
                     }
                 }
             }
