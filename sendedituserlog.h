@@ -15,7 +15,7 @@ public:
     explicit  SendEditUserLog(Requestor *parent = nullptr);
     ~SendEditUserLog() override;
 
-    Q_INVOKABLE void sendRequest(QString token, QString referenceCode, QString log);
+    Q_INVOKABLE void sendRequest(QString token, QString referenceCode, QString geocode  , int logType , QString date , QString text , bool favorite);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 };
