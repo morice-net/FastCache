@@ -116,7 +116,7 @@ Item  {
                             }
                         }
 
-                        TextArea {
+                        Text {
                             id: log
 
                             Binding on text {

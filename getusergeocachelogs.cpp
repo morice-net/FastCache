@@ -1,5 +1,6 @@
 #include "getusergeocachelogs.h"
 #include "constants.h"
+#include "smileygc.h"
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -50,11 +51,13 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
         return ;
     }
 
+    SmileyGc * smileys = new SmileyGc;
+
     QJsonObject type;
     foreach ( const QJsonValue & userLogJson, userLogsJson)
     {
         m_referenceCodes.append(userLogJson["referenceCode"].toString());
-        m_logs.append(userLogJson["text"].toString());
+        m_logs.append(smileys->replaceSmileyTextToImgSrc(userLogJson["text"].toString()));
         m_loggedDates.append(userLogJson["loggedDate"].toString());
         m_imagesCount.append(userLogJson["imageCount"].toInt());
 
@@ -76,6 +79,8 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** types**\n" << m_logsType;
     qDebug() << "*** typesId**\n" << m_logsTypeId;
     qDebug() << "*** images counts**\n" << m_imagesCount;
+
+    delete smileys;
 
     // request success
     emit requestReady();

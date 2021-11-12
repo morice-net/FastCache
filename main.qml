@@ -217,14 +217,13 @@ Item {
 
     FullCache {
         id: fullCache
-        onGeocodeChanged: {
-            fastCache.updateLog = false
-            getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
-        }
         onIsCorrectedCoordinatesChanged: Functions.correctedCoordinatesDynamic(cachesSingleList.caches)
         onRegisteredChanged: Functions.registeredDynamic(cachesSingleList.caches)
         onFoundChanged: {
             Functions.foundDynamic(cachesSingleList.caches)
+
+            fastCache.updateLog = false
+            getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
             fastCache.swipeLogPage.typeLog = fastCache.swipeLogPage.initTypeLog()
         }
         onToDoLogChanged: Functions.toDoLogDynamic(cachesSingleList.caches)
