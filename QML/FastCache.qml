@@ -219,14 +219,20 @@ Rectangle {
     }
 
     function addImagesToLog() {
-        console.log("CODE LOG:  " + sendCacheLog.codeLog)
+        var code
+        if(updateLog === false) {
+            code = sendCacheLog.codeLog
+        } else {
+            code = sendEditUserLog.codeLog
+        }
+        console.log("CODE LOG:  " + code)
         console.log("DESCRIPTION:  " + listImagesDescription)
         console.log("URL:  " + listImagesUrl)
         console.log("ROTATION:  " + listImagesRotation)
-        if(sendCacheLog.codeLog === "" || listImagesUrl.length === 0)
+        if(code === "" || listImagesUrl.length === 0)
             return
         for (var i = 0; i <listImagesUrl.length; i++) {
-            sendImagesLog.sendRequest(connector.tokenKey, sendCacheLog.codeLog, listImagesDescription[i], listImagesUrl[i], listImagesRotation[i])
+            sendImagesLog.sendRequest(connector.tokenKey, code , listImagesDescription[i], listImagesUrl[i], listImagesRotation[i])
         }
     }
 

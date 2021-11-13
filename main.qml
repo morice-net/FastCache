@@ -294,11 +294,31 @@ Item {
         id: sendEditUserLog
         onStateChanged: {
             toast.visible = sendEditUserLog.state !== "loading";
-            if(sendEditUserLog.state === "OK") {
-                toast.show("Le log a été modifié");
-            } else {
+            if(sendEditUserLog.state !== "OK") {
                 toast.show("Erreur  " + "(" + state + ")");
+            } else {
+                toast.show("Le log de la cache a été correctement modifié");
             }
+        }
+        onParsingCompletedChanged: {
+            if(sendEditUserLog.logTypeResponse !== 2 && sendEditUserLog.parsingCompleted === true) {
+                fullCache.found = false
+            } else if(sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true){
+                fullCache.found = true
+            }
+            // if it is a registered cache and logType=2(found), mark found on list and map.
+            if(fullCache.registered && sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true) {
+                var fav = sendEditUserLog.favorited
+                sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
+                                                                  sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
+                fullCache.favorited = fav
+            }
+        }
+        onFoundsChanged: {
+            findCount = sendEditUserLog.founds;
+        }
+        onCodeLogChanged: {
+            fastCache.addImagesToLog()
         }
     }
 

@@ -7,6 +7,11 @@
 
 SendEditUserLog::SendEditUserLog(Requestor *parent)
     : Requestor (parent)
+    ,  m_count()
+    ,  m_codeLog("")
+    ,  m_logTypeResponse()
+    ,  m_parsingCompleted(false)
+    ,  m_favorited(false)
 {
 }
 
@@ -19,6 +24,7 @@ void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString 
     //Build url
     QString requestName = "geocachelogs/";
     requestName.append(referenceCode);
+    requestName.append("?fields=referenceCode,owner,geocacheLogType,usedFavoritePoint");
     qDebug() << "*** request name**\n" << requestName;
 
     // create geocacheLog
@@ -44,5 +50,79 @@ void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString 
 
 void SendEditUserLog::parseJson(const QJsonDocument &dataJsonDoc)
 {
-    Q_UNUSED(dataJsonDoc)
+    setParsingCompleted(false);
+
+    QJsonObject logJson;
+    QJsonObject finderJson;
+    QJsonObject logTypeJson;
+
+    logJson = dataJsonDoc.object();
+    setCodeLog(logJson["referenceCode"].toString());
+    setFavorited(logJson["usedFavoritePoint"].toBool());
+    finderJson = logJson["owner"].toObject();
+    setFounds(finderJson["findCount"].toInt());
+    logTypeJson = logJson["geocacheLogType"].toObject();
+    setLogTypeResponse(logTypeJson ["id"].toInt());
+
+    qDebug() << "*** logResponse**\n" << logJson;
+    setParsingCompleted(true);
+    return ;
+
+}
+
+/** Getters & Setters **/
+
+int SendEditUserLog::founds() const
+{
+    return m_count;
+}
+
+void SendEditUserLog::setFounds(const int &count)
+{
+    m_count = count;
+    emit foundsChanged();
+}
+
+QString SendEditUserLog::codeLog() const
+{
+    return m_codeLog;
+}
+
+void SendEditUserLog::setCodeLog(const QString &code)
+{
+    m_codeLog = code;
+    emit codeLogChanged();
+}
+
+int SendEditUserLog::logTypeResponse() const
+{
+    return m_logTypeResponse;
+}
+
+void SendEditUserLog::setLogTypeResponse(const int &type)
+{
+    m_logTypeResponse = type;
+    emit logTypeResponseChanged();
+}
+
+bool SendEditUserLog::parsingCompleted() const
+{
+    return m_parsingCompleted;
+}
+
+void SendEditUserLog::setParsingCompleted(const bool &completed)
+{
+    m_parsingCompleted = completed;
+    emit parsingCompletedChanged();
+}
+
+bool SendEditUserLog::favorited() const
+{
+    return m_favorited;
+}
+
+void SendEditUserLog::setFavorited(const bool &favorite)
+{
+    m_favorited = favorite;
+    emit favoritedChanged();
 }
