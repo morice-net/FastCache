@@ -15,6 +15,7 @@ class SendCacheLog : public Requestor
     Q_PROPERTY(QString codeLog READ codeLog WRITE setCodeLog NOTIFY codeLogChanged)
     Q_PROPERTY(int logTypeResponse READ logTypeResponse WRITE setLogTypeResponse NOTIFY logTypeResponseChanged)
     Q_PROPERTY(bool parsingCompleted READ parsingCompleted WRITE setParsingCompleted NOTIFY parsingCompletedChanged)
+    Q_PROPERTY(bool favorited READ favorited WRITE setFavorited NOTIFY favoritedChanged)
 
 public:
 
@@ -29,6 +30,8 @@ public:
     void setLogTypeResponse(const int &type);
     bool parsingCompleted() const;
     void setParsingCompleted(const bool &completed);
+    bool favorited() const;
+    void setFavorited(const bool &favorite);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
@@ -41,12 +44,14 @@ signals:
     void codeLogChanged();
     void logTypeResponseChanged();
     void parsingCompletedChanged();
+    void favoritedChanged();
 
 private:
     int m_count;
     QString m_codeLog;
     int m_logTypeResponse;
     bool m_parsingCompleted;
+    bool m_favorited;
 };
 
 #endif // SENDCACHELOG_H

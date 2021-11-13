@@ -331,7 +331,6 @@ Item {
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
                 fullCache.toDoLog = false
-                fullCache.found = true
 
                 // clears the cache log record
                 sqliteStorage.deleteObject("cacheslog", fullCache.geocode)
@@ -358,12 +357,14 @@ Item {
             }
         }
         onParsingCompletedChanged: {
+            if(sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true) {
+                fullCache.found = true
+            }
             // if it is a registered cache and logType=2(found), mark found on list and map.
             if(fullCache.registered && sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true) {
-                var fav = sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
+                var fav = sendCacheLog.favorited
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
                                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
-                fullCache.found = true
                 fullCache.favorited = fav
             }
         }

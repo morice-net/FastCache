@@ -10,6 +10,7 @@ SendCacheLog::SendCacheLog(Requestor *parent)
     ,  m_codeLog("")
     ,  m_logTypeResponse()
     ,  m_parsingCompleted(false)
+    ,  m_favorited(false)
 {   
 }
 
@@ -38,7 +39,7 @@ QVariant SendCacheLog::readJsonProperty(const QJsonDocument &jsonDoc, QString pr
 void SendCacheLog::sendRequest(QString token , QString cacheCode, int logType , QString date , QString text , bool favorite)
 {
     //Build url
-    QString requestName = "geocachelogs?fields=referenceCode,owner,geocacheLogType";
+    QString requestName = "geocachelogs?fields=referenceCode,owner,geocacheLogType,usedFavoritePoint";
 
     //Add parameters
     QJsonObject log;
@@ -68,6 +69,7 @@ void SendCacheLog::parseJson(const QJsonDocument &dataJsonDoc)
 
     logJson = dataJsonDoc.object();
     setCodeLog(logJson["referenceCode"].toString());
+    setFavorited(logJson["usedFavoritePoint"].toBool());
     finderJson = logJson["owner"].toObject();
     setFounds(finderJson["findCount"].toInt());
     logTypeJson = logJson["geocacheLogType"].toObject();
@@ -122,6 +124,17 @@ void SendCacheLog::setParsingCompleted(const bool &completed)
 {
     m_parsingCompleted = completed;
     emit parsingCompletedChanged();
+}
+
+bool SendCacheLog::favorited() const
+{
+    return m_favorited;
+}
+
+void SendCacheLog::setFavorited(const bool &favorite)
+{
+    m_favorited = favorite;
+    emit favoritedChanged();
 }
 
 
