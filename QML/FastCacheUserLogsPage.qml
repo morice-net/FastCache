@@ -32,16 +32,6 @@ Item  {
             spacing:15
             width: userLogsPage.width
 
-            FastTextButton {
-                id: press
-                anchors.horizontalCenter: parent.horizontalCenter
-                buttonText:  "Cliquer pour rafraichir les logs"
-                onClicked: {
-                    getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
-                    updateLog = false
-                }
-            }
-
             Repeater{
                 model: getUserGeocacheLogs.referenceCodes.length
 

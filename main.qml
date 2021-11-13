@@ -313,6 +313,7 @@ Item {
                                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                 fullCache.favorited = fav
             }
+            getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
         }
         onFoundsChanged: {
             findCount = sendEditUserLog.founds;
