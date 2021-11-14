@@ -165,8 +165,8 @@ Item  {
                                     radius: 4
                                 }
                                 onClicked: {
-                                    buttonYes.visible = true
-                                    buttonNo.visible = true
+                                    buttonYes.visible = !buttonYes.visible
+                                    buttonNo.visible = !buttonNo.visible
                                 }
                             }
                         }
@@ -183,6 +183,8 @@ Item  {
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
+                                    updateLogIndex = index
+                                    sendEditUserLog.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index])
                                 }
                             }
 

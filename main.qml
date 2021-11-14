@@ -294,10 +294,13 @@ Item {
         id: sendEditUserLog
         onStateChanged: {
             toast.visible = sendEditUserLog.state !== "loading";
-            if(sendEditUserLog.state !== "OK") {
+            if(sendEditUserLog.state !== "OK" && sendEditUserLog.state !== "No Content")
                 toast.show("Erreur  " + "(" + state + ")");
-            } else {
+            if(sendEditUserLog.state === "OK")
                 toast.show("Le log de la cache a été correctement modifié");
+            if(sendEditUserLog.state === "No Content") {
+                toast.show("Le log de la cache a été supprimé");
+                getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
             }
         }
         onParsingCompletedChanged: {

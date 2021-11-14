@@ -34,6 +34,7 @@ public:
     void setFavorited(const bool &favorite);
 
     Q_INVOKABLE void sendRequest(QString token, QString referenceCode, QString geocode  , int logType , QString date , QString text , bool favorite);
+    Q_INVOKABLE void sendRequest(QString token, QString referenceCode);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 

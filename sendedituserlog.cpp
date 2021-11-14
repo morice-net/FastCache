@@ -19,6 +19,7 @@ SendEditUserLog::~SendEditUserLog()
 {
 }
 
+// update log
 void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString geocode  , int logType , QString date , QString text , bool favorite)
 {
     //Build url
@@ -46,6 +47,19 @@ void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString 
     // Inform QML we are loading
     setState("loading");
     Requestor::sendPutRequest(requestName , data,token);
+}
+
+// delete log
+void SendEditUserLog::sendRequest(QString token, QString referenceCode)
+{
+    //Build url
+    QString requestName = "geocachelogs/";
+    requestName.append(referenceCode);
+    qDebug() << "*** request name**\n" << requestName;
+
+    // Inform QML we are loading
+    setState("loading");
+    Requestor::sendDeleteRequest(requestName,token);
 }
 
 void SendEditUserLog::parseJson(const QJsonDocument &dataJsonDoc)
