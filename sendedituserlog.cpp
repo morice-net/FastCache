@@ -28,25 +28,22 @@ void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString 
     requestName.append("?fields=referenceCode,owner,geocacheLogType,usedFavoritePoint");
     qDebug() << "*** request name**\n" << requestName;
 
-    // create geocacheLog
-    QJsonObject geocacheLog;
-    geocacheLog.insert("geocacheCode", QJsonValue(geocode));
-    geocacheLog.insert("loggedDate", QJsonValue(date));
-    geocacheLog.insert("text", QJsonValue(text));
-    geocacheLog.insert("usedFavoritePoint", QJsonValue(favorite));
+    // create log
+    QJsonObject log;
+    log.insert("geocacheCode", QJsonValue(geocode));
+    log.insert("loggedDate", QJsonValue(date));
+    log.insert("text", QJsonValue(text));
+    log.insert("usedFavoritePoint", QJsonValue(favorite));
     QJsonObject type;
     type.insert("id",logType);
-    geocacheLog.insert("geocacheLogType", type);
+    log.insert("geocacheLogType", type);
 
-    //Add log
-    QJsonObject jsonLog;
-    jsonLog.insert("log", QJsonValue::fromVariant(geocacheLog));
-    QJsonDocument Doc(jsonLog);
+    QJsonDocument Doc(log);
     QByteArray data = Doc.toJson();
 
     // Inform QML we are loading
     setState("loading");
-    Requestor::sendPutRequest(requestName , data,token);
+    Requestor::sendPutRequest(requestName , data ,token);
 }
 
 // delete log
