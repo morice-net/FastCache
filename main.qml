@@ -299,7 +299,7 @@ Item {
             if(sendEditUserLog.state === "OK")
                 toast.show("Le log de la cache a été correctement modifié");
             if(sendEditUserLog.state === "No Content") {
-                toast.show("Le log de la cache a été supprimé");
+                toast.show("Le log de la cache a été supprimé");                
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
             }
         }
@@ -315,8 +315,7 @@ Item {
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
                                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                 fullCache.favorited = fav
-            }
-            getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+            }            
         }
         onFoundsChanged: {
             findCount = sendEditUserLog.founds;
