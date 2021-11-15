@@ -299,7 +299,7 @@ Item {
             if(sendEditUserLog.state === "OK")
                 toast.show("Le log de la cache a été correctement modifié");
             if(sendEditUserLog.state === "No Content") {
-                toast.show("Le log de la cache a été supprimé");                
+                toast.show("Le log de la cache a été supprimé");
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
             }
         }
@@ -315,7 +315,7 @@ Item {
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
                                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                 fullCache.favorited = fav
-            }            
+            }
         }
         onFoundsChanged: {
             findCount = sendEditUserLog.founds;
@@ -360,7 +360,9 @@ Item {
             }
         }
         onParsingCompletedChanged: {
-            if(sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true) {
+            if(sendCacheLog.logTypeResponse !== 2 && sendCacheLog.parsingCompleted === true) {
+                fullCache.found = false
+            } else if(sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true){
                 fullCache.found = true
             }
             // if it is a registered cache and logType=2(found), mark found on list and map.
