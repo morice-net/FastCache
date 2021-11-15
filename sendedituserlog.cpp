@@ -7,7 +7,6 @@
 
 SendEditUserLog::SendEditUserLog(Requestor *parent)
     : Requestor (parent)
-    ,  m_count()
     ,  m_codeLog("")
     ,  m_logTypeResponse()
     ,  m_parsingCompleted(false)
@@ -70,29 +69,15 @@ void SendEditUserLog::parseJson(const QJsonDocument &dataJsonDoc)
     logJson = dataJsonDoc.object();
     setCodeLog(logJson["referenceCode"].toString());
     setFavorited(logJson["usedFavoritePoint"].toBool());
-    finderJson = logJson["owner"].toObject();
-    setFounds(finderJson["findCount"].toInt());
     logTypeJson = logJson["geocacheLogType"].toObject();
     setLogTypeResponse(logTypeJson ["id"].toInt());
 
     qDebug() << "*** logResponse**\n" << logJson;
     setParsingCompleted(true);
     return ;
-
 }
 
 /** Getters & Setters **/
-
-int SendEditUserLog::founds() const
-{
-    return m_count;
-}
-
-void SendEditUserLog::setFounds(const int &count)
-{
-    m_count = count;
-    emit foundsChanged();
-}
 
 QString SendEditUserLog::codeLog() const
 {

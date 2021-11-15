@@ -11,7 +11,6 @@ class SendEditUserLog : public Requestor
 {
     Q_OBJECT
 
-    Q_PROPERTY(int founds READ founds WRITE setFounds NOTIFY foundsChanged)
     Q_PROPERTY(QString codeLog READ codeLog WRITE setCodeLog NOTIFY codeLogChanged)
     Q_PROPERTY(int logTypeResponse READ logTypeResponse WRITE setLogTypeResponse NOTIFY logTypeResponseChanged)
     Q_PROPERTY(bool parsingCompleted READ parsingCompleted WRITE setParsingCompleted NOTIFY parsingCompletedChanged)
@@ -22,8 +21,6 @@ public:
     explicit  SendEditUserLog(Requestor *parent = nullptr);
     ~SendEditUserLog() override;
 
-    int founds() const;
-    void setFounds(const int &count);
     QString codeLog() const;
     void setCodeLog(const QString &code);
     int logTypeResponse() const;
@@ -38,15 +35,13 @@ public:
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
-signals:
-    void foundsChanged();
+signals:    
     void codeLogChanged();
     void logTypeResponseChanged();
     void parsingCompletedChanged();
     void favoritedChanged();
 
-private:
-    int m_count;
+private:    
     QString m_codeLog;
     int m_logTypeResponse;
     bool m_parsingCompleted;

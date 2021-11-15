@@ -301,13 +301,26 @@ Item {
             if(sendEditUserLog.state === "No Content") {
                 toast.show("Le log de la cache a été supprimé");
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+                if(fullCache.found) {
+                    fullCache.found = false
+                    // update manually because groundspeak does not give the number of caches fast enough
+                    findCount = findCount -1
+                }
             }
         }
         onParsingCompletedChanged: {
             if(sendEditUserLog.logTypeResponse !== 2 && sendEditUserLog.parsingCompleted === true) {
-                fullCache.found = false
+                if(fullCache.found) {
+                    fullCache.found = false
+                    // update manually because groundspeak does not give the number of caches fast enough
+                    findCount = findCount - 1
+                }
             } else if(sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true){
-                fullCache.found = true
+                if(!fullCache.found) {
+                    fullCache.found = true
+                    // update manually because groundspeak does not give the number of caches fast enough
+                    findCount = findCount + 1
+                }
             }
             // if it is a registered cache and logType=2(found), mark found on list and map.
             if(fullCache.registered && sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true) {
@@ -316,9 +329,6 @@ Item {
                                                                   sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                 fullCache.favorited = fav
             }
-        }
-        onFoundsChanged: {
-            findCount = sendEditUserLog.founds;
         }
         onCodeLogChanged: {
             fastCache.addImagesToLog()
