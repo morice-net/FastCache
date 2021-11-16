@@ -91,7 +91,7 @@ Item  {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
-                                        console.log("clicked:")
+                                        getGeocacheLogImages.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index])
                                     }
                                 }
                             }

@@ -464,6 +464,16 @@ Item {
         id: getUserGeocacheLogs
     }
 
+    GetGeocacheLogImages {
+        id: getGeocacheLogImages
+        onStateChanged: {
+            if(getGeocacheLogImages.state !== "OK" && getGeocacheLogImages.state !== "loading") {
+                toast.visible = true
+                toast.show("Erreur de chargement des images " + "(" + state + ")");
+            }
+        }
+    }
+
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on

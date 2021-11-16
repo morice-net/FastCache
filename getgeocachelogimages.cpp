@@ -26,7 +26,8 @@ void GetGeocacheLogImages::sendRequest(QString token , QString referenceCode)
     QString requestName = "geocachelogs/";
     requestName.append(referenceCode + "/images");
     requestName.append("?fields=referenceCode,description,url,guid");
-    requestName.append("&take=50");
+    requestName.append("&take=20");
+    qDebug() << "*** request name**\n" << requestName;
 
     // Inform QML we are loading
     setState("loading");
