@@ -9,7 +9,7 @@ Item {
     clip: true
 
     Text {
-        visible: userLogImages === false ? fullCache.imagesName.length === 0 : false
+        visible: userLogImages === false ? fullCache.imagesName.length === 0 : getGeocacheLogImages.descriptions.length === 0
         anchors.centerIn: parent
         text: "Il n'y a pas d'images"
         font.family: localFont.name
@@ -73,6 +73,8 @@ Item {
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
+                                    deleteLogImage.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[updateLogIndex] ,
+                                                               getGeocacheLogImages.guids[updateLogIndex])
                                 }
                             }
 

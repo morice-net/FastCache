@@ -33,6 +33,7 @@
 #include "fullcachesrecorded.h"
 #include "cachessinglelist.h"
 #include "cachespocketqueries.h"
+#include "deletelogimage.h"
 
 int main(int argc, char *argv[])
 {
@@ -61,6 +62,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<CachesPocketqueries>("com.mycompany.connecting", 1, 0, "CachesPocketqueries");
     qmlRegisterType<GetUserGeocacheLogs>("com.mycompany.connecting", 1, 0, "GetUserGeocacheLogs");
     qmlRegisterType<GetGeocacheLogImages>("com.mycompany.connecting", 1, 0, "GetGeocacheLogImages");
+    qmlRegisterType<DeleteLogImage>("com.mycompany.connecting", 1, 0, "DeleteLogImage");
 
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();

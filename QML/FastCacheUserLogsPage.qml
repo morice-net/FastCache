@@ -91,6 +91,7 @@ Item  {
                                 MouseArea {
                                     anchors.fill: parent
                                     onClicked: {
+                                        updateLogIndex = index
                                         getGeocacheLogImages.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index])
                                         userLogImages = true
                                         swipeToPage(5)

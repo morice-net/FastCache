@@ -290,6 +290,18 @@ Item {
         }
     }
 
+    DeleteLogImage {
+        id: deleteLogImage
+        onStateChanged: {
+            toast.visible = deleteLogImage.state !== "loading";
+            if(deleteLogImage.state !== "No Content")
+                toast.show("Erreur  " + "(" + state + ")");
+            else {
+                toast.show("L'image a été supprimée");
+            }
+        }
+    }
+
     SendEditUserLog {
         id: sendEditUserLog
         onStateChanged: {

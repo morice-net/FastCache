@@ -19,6 +19,7 @@ SOURCES += main.cpp \
     cachesrecorded.cpp \
     cachessinglelist.cpp \
     connector.cpp \
+    deletelogimage.cpp \
     fullcacheretriever.cpp \
     fullcachesrecorded.cpp \
     getgeocachelogimages.cpp \
@@ -61,6 +62,7 @@ HEADERS += \
     cachesrecorded.h \
     cachessinglelist.h \
     connector.h \
+    deletelogimage.h \
     fullcacheretriever.h \
     fullcachesrecorded.h \
     getgeocachelogimages.h \
