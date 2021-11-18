@@ -15,6 +15,9 @@ Rectangle {
     property bool updateLog: false
     property int updateLogIndex: 0
 
+    // userLogImages to true for a list of images from a user log, false otherwise
+    property bool userLogImages: false
+
     // use to allow overlap of the web view by the menu
     property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.state === "cachesActive")
 

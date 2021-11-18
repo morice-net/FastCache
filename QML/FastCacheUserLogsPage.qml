@@ -92,6 +92,8 @@ Item  {
                                     anchors.fill: parent
                                     onClicked: {
                                         getGeocacheLogImages.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index])
+                                        userLogImages = true
+                                        swipeToPage(5)
                                     }
                                 }
                             }

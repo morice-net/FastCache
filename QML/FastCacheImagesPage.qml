@@ -9,7 +9,7 @@ Item {
     clip: true
 
     Text {
-        visible: fullCache.imagesName.length === 0
+        visible: userLogImages === false ? fullCache.imagesName.length === 0 : false
         anchors.centerIn: parent
         text: "Il n'y a pas d'images"
         font.family: localFont.name
@@ -40,18 +40,61 @@ Item {
                 leftPadding: images.width*0.025
 
                 Repeater{
-                    model: fullCache.imagesName.length
+                    model: userLogImages === false ? fullCache.imagesName.length : getGeocacheLogImages.descriptions.length
 
                     Column{
+                        spacing: 10
+                        Button {
+                            id: iconDeleteImage
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            contentItem: Image {
+                                source: "qrc:/Image/" + "icon_delete.png"
+                            }
+                            background: Rectangle {
+                                border.width: iconDeleteImage.activeFocus ? 2 : 1
+                                border.color: Palette.silver()
+                                radius: 4
+                            }
+                            onClicked: {
+                                buttonYes.visible = !buttonYes.visible
+                                buttonNo.visible = !buttonNo.visible
+                            }
+                        }
+
+                        // delete user log image
+                        Row {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            spacing: 25
+
+                            FastTextButton {
+                                id: buttonYes
+                                visible: false
+                                buttonText: "Supprimer l'image ?"
+                                onClicked: {
+                                    buttonYes.visible = false
+                                    buttonNo.visible = false
+                                }
+                            }
+
+                            FastTextButton {
+                                id:buttonNo
+                                visible: false
+                                buttonText: "Annuler"
+                                onClicked: {
+                                    buttonYes.visible = false
+                                    buttonNo.visible = false
+                                }
+                            }
+                        }
 
                         Text {
                             width: images.width*0.95
 
                             Binding on visible {
                                 when: true
-                                value: fullCache.listVisibleImages[index]
+                                value: userLogImages === false ? fullCache.listVisibleImages[index] : true
                             }
-                            text: fullCache.imagesName[index]
+                            text: userLogImages === false ? fullCache.imagesName[index] : getGeocacheLogImages.descriptions[index]
                             font.family: localFont.name
                             textFormat: Qt.RichText
                             font.bold: true
@@ -64,12 +107,12 @@ Item {
 
                             Binding on visible {
                                 when: true
-                                value: fullCache.listVisibleImages[index]
+                                value: userLogImages === false ? fullCache.listVisibleImages[index] : true
                             }
 
                             Binding on source {
                                 when: true
-                                value: fullCache.imagesUrl[index]
+                                value: userLogImages === false ? fullCache.imagesUrl[index] : getGeocacheLogImages.urls[index]
                             }
                             sourceSize.width: images.width*0.95
                         }
