@@ -298,6 +298,8 @@ Item {
                 toast.show("Erreur  " + "(" + state + ")");
             else {
                 toast.show("L'image a été supprimée");
+                getGeocacheLogImages.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[fastCache.updateLogIndex])
+                getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] = getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] -1
             }
         }
     }

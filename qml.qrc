@@ -193,5 +193,6 @@
         <file>Image/icon_addImage.png</file>
         <file>QML/FastCacheUserLogsPage.qml</file>
         <file>Image/menuIcon.png</file>
+        <file>Image/icon_backwards.png</file>
     </qresource>
 </RCC>

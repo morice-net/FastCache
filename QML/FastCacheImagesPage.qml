@@ -8,10 +8,21 @@ Item {
     id: imagesPage
     clip: true
 
+    Image {
+        visible: userLogImages === true
+        source: "qrc:/Image/icon_backwards.png"
+        scale: 0.8
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: userLogImages = !userLogImages
+        }
+    }
+
     Text {
         visible: userLogImages === false ? fullCache.imagesName.length === 0 : getGeocacheLogImages.descriptions.length === 0
         anchors.centerIn: parent
-        text: "Il n'y a pas d'images"
+        text: userLogImages === false ?  "Il n'y a pas d'images pour la cache" : "Il n'y a pas d'images pour le log utilisateur"
         font.family: localFont.name
         font.bold: true
         font.pointSize: 17
@@ -21,7 +32,7 @@ Item {
     Flickable {
         id: images
         anchors.fill: parent
-        anchors.topMargin: 35
+        anchors.topMargin: 45
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 20
         ScrollBar.vertical: ScrollBar {}
@@ -46,6 +57,7 @@ Item {
                         spacing: 10
                         Button {
                             id: iconDeleteImage
+                            visible: userLogImages === true
                             anchors.horizontalCenter: parent.horizontalCenter
                             contentItem: Image {
                                 source: "qrc:/Image/" + "icon_delete.png"
