@@ -8,14 +8,19 @@ Item {
     id: imagesPage
     clip: true
 
-    Image {
+    Button {
+        id: buttonGoback
         visible: userLogImages === true
-        source: "qrc:/Image/icon_backwards.png"
-        scale: 0.8
-
-        MouseArea {
-            anchors.fill: parent
+        icon.source: "qrc:/Image/icon_backwards.png"
+        icon.width: 50
+        icon.height: 50
+        topPadding: 30
+        leftPadding: 20
+        onClicked:{
             onClicked: userLogImages = !userLogImages
+        }
+        background: Rectangle {
+            color: "transparent"
         }
     }
 
