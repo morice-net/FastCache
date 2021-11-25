@@ -417,6 +417,10 @@ Item {
 
                 // clears the images log record
                 sqliteStorage.deleteObject("cachesimageslog", fullCache.geocode)
+
+                // Increments imagesCount when adding an image to a user log
+                if(fastCache.updateLog === true)
+                    getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] = getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] + 1
             }
         }
     }

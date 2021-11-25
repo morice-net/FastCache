@@ -91,7 +91,7 @@ Item {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
                                     deleteLogImage.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[updateLogIndex] ,
-                                                               getGeocacheLogImages.guids[updateLogIndex])
+                                                               getGeocacheLogImages.guids[index])
                                 }
                             }
 
