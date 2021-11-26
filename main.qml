@@ -409,10 +409,12 @@ Item {
     SendImagesLog {
         id:sendImagesLog
         onStateChanged: {
-            toast.visible = sendImagesLog.state !== "loading";
-            if (sendImagesLog.state !== "Created") {
-                toast.show("Erreur  " + "(" + state + ")");
-            } else {
+            //   toast.visible = sendImagesLog.state !== "loading";
+            if (sendImagesLog.state !== "loading" && sendImagesLog.state !== "Created") {
+                toast.visible = true
+                toast.show("Erreur d'envoi de l'image  " + "(" + state + ")");
+            } else if (sendImagesLog.state !== "loading" && sendImagesLog.state === "Created") {
+                toast.visible = true
                 toast.show("L'image a été rajoutée au log.");
 
                 // clears the images log record
