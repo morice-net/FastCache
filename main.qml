@@ -67,7 +67,9 @@ Item {
     property int sortTerrain: 5
     property int sortDistance: 6
 
-    property int sortingBy : sortDistance // sorting by distance.
+    property int sortingBy: sortDistance // sorting by distance.
+
+    property int userLogImagesLoaded: - 1 // number of images of a user log downloaded
 
     FastSettings { id: settings }
 
@@ -281,7 +283,7 @@ Item {
         onStateChanged: {
             toast.visible = sendCacheNote.state !== "loading";
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
-                toast.show("Erreur  " + "(" + state + ")");
+                toast.show("Erreur d'envoi de la note " + "(" + state + ")");
             if (sendCacheNote.state === "OK"){
                 toast.show("La note personnelle a été correctement envoyée");
             } else {
@@ -295,7 +297,7 @@ Item {
         onStateChanged: {
             toast.visible = deleteLogImage.state !== "loading";
             if(deleteLogImage.state !== "No Content")
-                toast.show("Erreur  " + "(" + state + ")");
+                toast.show("Erreur de supression de l'image  " + "(" + state + ")");
             else {
                 toast.show("L'image a été supprimée");
                 getGeocacheLogImages.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[fastCache.updateLogIndex])
@@ -309,9 +311,12 @@ Item {
         onStateChanged: {
             toast.visible = sendEditUserLog.state !== "loading";
             if(sendEditUserLog.state !== "OK" && sendEditUserLog.state !== "No Content")
-                toast.show("Erreur  " + "(" + state + ")");
-            if(sendEditUserLog.state === "OK")
+                toast.show("Erreur de modification du log  " + "(" + state + ")");
+            if(sendEditUserLog.state === "OK") {
                 toast.show("Le log de la cache a été correctement modifié");
+                if(fastCache.listImagesUrl.length !== 0)
+                    userLogImagesLoaded = 0
+            }
             if(sendEditUserLog.state === "No Content") {
                 toast.show("Le log de la cache a été supprimé");
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
@@ -354,9 +359,11 @@ Item {
         onStateChanged: {
             toast.visible = sendCacheLog.state !== "loading";
             if (sendCacheLog.state !== "Created") {
-                toast.show("Erreur  " + "(" + state + ")");
+                toast.show("Erreur d'envoi du log  " + "(" + state + ")");
             } else {
                 toast.show("Le log de la cache a été correctement envoyé ");
+                if(fastCache.listImagesUrl.length !== 0)
+                    userLogImagesLoaded = 0
                 fullCache.toDoLog = false
 
                 // clears the cache log record
@@ -409,15 +416,22 @@ Item {
     SendImagesLog {
         id: sendImagesLog
         onStateChanged: {
-            //   toast.visible = sendImagesLog.state !== "loading";
             if (sendImagesLog.state !== "loading" && sendImagesLog.state !== "Created") {
+                userLogImagesLoaded  = userLogImagesLoaded  + 1
+                if(userLogImagesLoaded === fastCache.listImagesUrl.length)
+                    userLogImagesLoaded = -1
                 toast.visible = true
                 toast.show("Erreur d'envoi de l'image  " + "(" + state + ")");
             } else if (sendImagesLog.state !== "loading" && sendImagesLog.state === "Created") {
+                userLogImagesLoaded  = userLogImagesLoaded  + 1
+                if(userLogImagesLoaded === fastCache.listImagesUrl.length)
+                    userLogImagesLoaded = -1
                 toast.visible = true
                 toast.show("L'image a été rajoutée au log.");
+
                 // clears the images log record
                 sqliteStorage.deleteObject("cachesimageslog", fullCache.geocode)
+
                 // Increments imagesCount when adding an image to a user log
                 if(fastCache.updateLog === true)
                     getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] = getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] + 1
@@ -434,7 +448,7 @@ Item {
         onStateChanged: {
             toast.visible = sendTravelbugLog.state !== "loading";
             if (sendTravelbugLog.state !== "Created") {
-                toast.show("Erreur  " + "(" + state + ")");
+                toast.show("Erreur d'envoi du travelbug  " + "(" + state + ")");
             } else {
                 toast.show("Le log du travelbug a été correctement envoyé ");
                 // clears the travelbug log record

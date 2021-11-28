@@ -14,7 +14,6 @@ Item {
         width: main.width
         height: main.height
         color: Palette.greenSea()
-        radius: 10
         visible: visibleRectangle()
 
         Text {
@@ -36,7 +35,9 @@ Item {
     function visibleRectangle() {
         if(sendCacheNote.state === "loading" || sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading" || travelbug.state === "loading"
                 || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading" || sendEditUserLog.state === "loading"
-                || sendImagesLog.state === "loading" || deleteLogImage.state === "loading")
+                || deleteLogImage.state === "loading")
+            return true
+        if(userLogImagesLoaded > -1 && userLogImagesLoaded < fastCache.listImagesUrl.length)
             return true
         return false
     }
