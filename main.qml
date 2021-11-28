@@ -407,7 +407,7 @@ Item {
     }
 
     SendImagesLog {
-        id:sendImagesLog
+        id: sendImagesLog
         onStateChanged: {
             //   toast.visible = sendImagesLog.state !== "loading";
             if (sendImagesLog.state !== "loading" && sendImagesLog.state !== "Created") {
@@ -416,10 +416,8 @@ Item {
             } else if (sendImagesLog.state !== "loading" && sendImagesLog.state === "Created") {
                 toast.visible = true
                 toast.show("L'image a été rajoutée au log.");
-
                 // clears the images log record
                 sqliteStorage.deleteObject("cachesimageslog", fullCache.geocode)
-
                 // Increments imagesCount when adding an image to a user log
                 if(fastCache.updateLog === true)
                     getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] = getUserGeocacheLogs.imagesCount[fastCache.updateLogIndex] + 1

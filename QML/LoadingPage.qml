@@ -6,17 +6,16 @@ import com.mycompany.connecting 1.0
 
 Item {
     id:loadingPage
-    z:2
+    z: 2
     opacity: 0.8
 
     Rectangle {
-        x:0
-        width:main.width
+        x: 0
+        width: main.width
         height: main.height
         color: Palette.greenSea()
-        radius:10
-        visible: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
-                 || travelbug.state === "loading" || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading"
+        radius: 10
+        visible: visibleRectangle()
 
         Text {
             anchors.fill: parent
@@ -24,15 +23,21 @@ Item {
             font.pointSize: 20
             text: "Loading....\n\n\n"
             color: Palette.white()
-
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
         }
 
         BusyIndicator {
             anchors.centerIn: parent
-            running: sendCacheNote.state === "loading" ||sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading"
-                     || travelbug.state === "loading" || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading"
+            running: visibleRectangle()
         }
+    }
+
+    function visibleRectangle() {
+        if(sendCacheNote.state === "loading" || sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading" || travelbug.state === "loading"
+                || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading" || sendEditUserLog.state === "loading"
+                || sendImagesLog.state === "loading" || deleteLogImage.state === "loading")
+            return true
+        return false
     }
 }
