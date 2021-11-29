@@ -120,7 +120,7 @@ Item {
                                 anchors.fill: parent
                                 onClicked: {
                                     compassPageInit(fullCache.wptsName[index] , fullCache.wptsLat[index] , fullCache.wptsLon[index]);
-                                    swipeToPage(0);
+                                    swipeToPage(compassPageIndex);
                                 }
                             }
                         }
@@ -183,7 +183,7 @@ Item {
                         anchors.fill: parent
                         onClicked: {
                             compassPageInit("Correction de coordonnées" , fullCache.correctedLat , fullCache.correctedLon);
-                            swipeToPage(0);
+                            swipeToPage(compassPageIndex);
                         }
                     }
                 }
@@ -304,7 +304,7 @@ Item {
                                 anchors.fill: parent
                                 onClicked: {
                                     compassPageInit("Etape personnelle" , fullCache.userWptsLat[index] , fullCache.userWptsLon[index]);
-                                    swipeToPage(0);
+                                    swipeToPage(compassPageIndex);
                                 }
                             }
                         }

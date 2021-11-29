@@ -86,7 +86,7 @@ Item {
             onClicked: {
                 compassPageInit("Cache   " + fullCache.geocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
                                 fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
-                swipeToPage(0);
+                swipeToPage(compassPageIndex);
             }
         }
     }

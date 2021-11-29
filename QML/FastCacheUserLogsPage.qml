@@ -94,7 +94,7 @@ Item  {
                                         updateLogIndex = index
                                         getGeocacheLogImages.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[index])
                                         userLogImages = true
-                                        swipeToPage(5)
+                                        swipeToPage(imagesPageIndex)
                                     }
                                 }
                             }

@@ -406,7 +406,7 @@ Item {
         }
         onFoundsChanged: {
             findCount = sendCacheLog.founds;
-            fastCache.swipeToPage(3);
+            fastCache.swipeToPage(fastCache.detailsPageIndex);
         }
         onCodeLogChanged: {
             fastCache.addImagesToLog()

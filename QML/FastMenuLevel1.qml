@@ -96,7 +96,7 @@ Item {
                 hideMenu()
                 fastCache.compassPageInit("Cache   " + fullCache.geocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
                                           fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
-                fastCache.swipeToPage(0)
+                fastCache.swipeToPage(fastCache.compassPageIndex)
                 fastCache.z = 0
             } else {
                 fastMenuLevel1.x = -parent.width
@@ -115,9 +115,9 @@ Item {
             if(main.viewState === "fullcache"){
                 hideMenu()
                 if(fullCache.imagesName.length !== 0) {
-                    fastCache.swipeToPage(6)
+                    fastCache.swipeToPage(fastCache.logsPageIndex)
                 } else {
-                    fastCache.swipeToPage(5)
+                    fastCache.swipeToPage(fastCache.imagesPageIndex)
                 }
             } else {
                 // Display list of recorded caches and prepare Center Map.

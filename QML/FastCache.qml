@@ -9,6 +9,16 @@ import com.mycompany.connecting 1.0
 Rectangle {
     id: fastCache
 
+    property int compassPageIndex: 0
+    property int waypointsPageIndex: 1
+    property int descriptionPageIndex: 2
+    property int detailsPageIndex: 3
+    property int logsPageIndex: 4
+    property int imagesPageIndex: 5
+    property int logPageIndex: 6
+    property int tbsPageIndex: 7
+    property int userLogsPageIndex: 8
+
     property alias swipeLogPage: logPage
 
     // updateLog to false for a log creation, to true for a log update
