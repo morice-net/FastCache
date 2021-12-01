@@ -25,14 +25,16 @@ Item {
         logTypes.button8Checked = typeLog == 5; // type of log : Archive
         console.log("typeLog: " + typeLog)
     }
-    onDateInitChanged:{
+    onDateInitChanged: {
         dateIso = dateInit
         logDate.text = "Date  " + new Date(dateIso).toLocaleDateString(Qt.LocaleDate)
     }
     onAddLogChanged: {
         console.log("addLog: " + addLog)
-        message.text = message.text + addLog
-        addLog = ""
+        if(addLog !== "") {
+            message.insert(message.cursorPosition , addLog)
+            addLog = ""
+        }
     }
     onTextRecordedChanged: {
         console.log("textRecorded: " + textRecorded)

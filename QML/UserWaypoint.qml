@@ -20,8 +20,10 @@ FastPopup {
     onTextLogChanged: description.text = description.text + textLog
     onAddLogChanged: {
         console.log("addLog: " + addLog)
-        description.text = description.text + addLog
-        addLog = ""
+        if(addLog !== "") {
+            description.insert(description.cursorPosition , addLog)
+            addLog = ""
+        }
     }
     onUserWptLatChanged: lat.text = "Latitude :  " +  Functions.formatLat(userWptLat.toFixed(5))
     onUserWptLonChanged: lon.text = "Longitude :  " + Functions.formatLon(userWptLon.toFixed(5))

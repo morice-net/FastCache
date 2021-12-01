@@ -65,7 +65,6 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
-
     function swipeToPage(pageNumber) {
         swipeFastTravelbug.setCurrentIndex(pageNumber)
     }

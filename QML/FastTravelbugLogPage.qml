@@ -36,8 +36,10 @@ Item {
     }
     onAddLogChanged: {
         console.log("addLog: " + addLog)
-        message.text = message.text + addLog
-        addLog = ""
+        if(addLog !== "") {
+            message.insert(message.cursorPosition , addLog)
+            addLog = ""
+        }
     }
     onTextRecordedChanged: {
         console.log("textRecorded: " + textRecorded)
