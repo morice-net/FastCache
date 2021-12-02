@@ -62,7 +62,8 @@ Item {
     // Filters
     Rectangle {
         id: filter
-        visible: main.viewState !== "fullcache" && fastList.state === ""
+        visible: ((main.viewState === "map" || main.viewState === "list") && fastList.state === "") ||
+                 (main.viewState === "map" && fastList.state === "selectedInList")
         color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
         radius: 10
         height: parent.height * 0.05
