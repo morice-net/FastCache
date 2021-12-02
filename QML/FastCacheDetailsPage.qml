@@ -264,14 +264,14 @@ Item {
             width: parent.width
             height: 2
             color: Palette.white()
-            radius:10
+            radius: 10
         }
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pointSize: 14
-            text:fullCache.favorited ? "Cette cache est dans vos favoris": "Cette cache n'est pas dans vos favoris"
+            text: fullCache.favorited ? "Cette cache est dans vos favoris": "Cette cache n'est pas dans vos favoris"
             color: Palette.white()
         }
 
@@ -283,30 +283,31 @@ Item {
         }
 
         Rectangle {
-            id:rect
+            id: rect
             width: parent.width
-            height:attIcons.visible ? attIcons.height : attText.height
+            height: attIcons.visible ? attIcons.height : attText.height
             color: Palette.greenSea()
             visible: true
 
             // attributes of caches(icons)
             Grid {
-                id:attIcons
-                x:10
-                y:10
+                id: attIcons
+                x: 10
+                y: 10
                 visible: true
                 width: parent.width
                 columns: 10
                 spacing: 17
 
                 Repeater {
-                    model:fullCache.attributes.length
+                    model: fullCache.attributes.length
 
                     Image {
-                        scale:1.3
-                        source:"qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
+                        scale: 1.3
+                        source: "qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
+
                         Image {
-                            source:"qrc:/Image/Attributes/attribute_no.png"
+                            source: "qrc:/Image/Attributes/attribute_no.png"
                             visible: !fullCache.attributesBool[index]
                         }
                     }
@@ -322,16 +323,16 @@ Item {
                 ScrollBar.vertical: ScrollBar {}
 
                 Column {
-                    id:attText
-                    x:10
+                    id: attText
+                    x: 10
                     width: parent.width
-                    visible:!attIcons.visible
+                    visible: !attIcons.visible
 
                     Repeater {
-                        model:fullCache.attributes.length
+                        model: fullCache.attributes.length
 
                         Text {
-                            text:fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
+                            text: fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
                                                                  : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
                             font.family: localFont.name
                             font.pointSize: 14

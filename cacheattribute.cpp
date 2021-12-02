@@ -86,6 +86,11 @@ QList<QString> CacheAttribute::createListAttributes()
     listAttributes.append("Résidence privée,Pas une résidence privée,Attributes/attribute_frontyard.png");  // 65
     listAttributes.append("Travail d\'équipe nécessaire,Pas de travail d\'équipe nécessaire,Attributes/attribute_teamwork.png");  // 66
     listAttributes.append("Partie d\'un GéoTour,Ne fait pas partie d\'un GéoTour,Attributes/attribute_geotour.png");  // 67
+    listAttributes.append(",,");  // 68
+    listAttributes.append("Cache bonus,N\'est pas une cache bonus,Attributes/attribute_bonuscache.png");  // 69
+    listAttributes.append("Fait partie d\'un power trail,Ne fait pas partie d\'un power trail,Attributes/attribute_powertrail.png");  // 70
+    listAttributes.append("Cache Challenge,N\'est pas une cache challenge,Attributes/attribute_challengecache.png");  // 71
+    listAttributes.append("Checker Geocaching.com activé,Checker Geocaching.com désactivé,Attributes/attribute_hqsolutionchecker.png");  // 72
 
     return listAttributes;
 }

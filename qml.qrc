@@ -194,5 +194,9 @@
         <file>QML/FastCacheUserLogsPage.qml</file>
         <file>Image/menuIcon.png</file>
         <file>Image/icon_backwards.png</file>
+        <file>Image/Attributes/attribute_bonuscache.png</file>
+        <file>Image/Attributes/attribute_powertrail.png</file>
+        <file>Image/Attributes/attribute_challengecache.png</file>
+        <file>Image/Attributes/attribute_hqsolutionchecker.png</file>
     </qresource>
 </RCC>

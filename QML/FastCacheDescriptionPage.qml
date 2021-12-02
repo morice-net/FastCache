@@ -144,7 +144,7 @@ Item {
                 y:ind.y + 30
                 font.family: localFont.name
                 color: Palette.white()
-                textFormat: Text.AutoText
+                textFormat: Text.RichText
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
