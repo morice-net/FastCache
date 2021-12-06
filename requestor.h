@@ -23,7 +23,6 @@ public:
     virtual void sendGetRequest(const QString &requestName , QString token);
     virtual void sendPutRequest(const QString &requestName ,const QByteArray &data, QString token);
     virtual void sendDeleteRequest(const QString &requestName, QString token);
-
     virtual void parseJson(const QJsonDocument &dataJsonDoc) = 0;
 
     QString state() const;
@@ -35,6 +34,8 @@ public:
     bool timeOutRequest() const;
     void setTimeOutRequest(const bool &timeOut);
 
+    void abortConnection();
+
 signals:
     void requestReady();
     void stateChanged();
@@ -43,7 +44,6 @@ signals:
 
 public slots:
     void onReplyFinished(QNetworkReply* reply);
-    void disconnect ();
 
 protected:
     //  network manager

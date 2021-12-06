@@ -33,6 +33,8 @@ Item {
     }
 
     function visibleRectangle() {
+        if(fullCacheRetriever.timeOutRequest === true)
+            return false
         if(sendCacheNote.state === "loading" || sendCacheLog.state === "loading" || fullCacheRetriever.state === "loading" || travelbug.state === "loading"
                 || sendTravelbugLog.state === "loading" || fullCachesRecorded.state === "loading" || sendEditUserLog.state === "loading"
                 || deleteLogImage.state === "loading")

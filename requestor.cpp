@@ -8,7 +8,8 @@ Requestor::Requestor(QObject *parent)
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
-    connect( timer, SIGNAL(timeout()), this, SLOT(disconnect()));
+    connect( timer, &QTimer::timeout, this, &Requestor::abortConnection);
+    timer->setSingleShot(true);
     timer->setInterval(10000);
 }
 
@@ -26,8 +27,8 @@ void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &p
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
-        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        setTimeOutRequest(false);
         timer->start();
     }
 }
@@ -45,8 +46,8 @@ void Requestor::sendGetRequest(const QString &requestName , QString token)
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
-        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        setTimeOutRequest(false);
         timer->start();
     }
 }
@@ -64,8 +65,8 @@ void Requestor::sendPutRequest(const QString &requestName , const QByteArray &da
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
-        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        setTimeOutRequest(false);
         timer->start();
     }
 }
@@ -83,19 +84,20 @@ void Requestor::sendDeleteRequest(const QString &requestName ,  QString token)
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
-        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        setTimeOutRequest(false);
         timer->start();
     }
 }
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
 {
-    timer->stop();
     if (m_requests.isEmpty())
         return;
 
     QVariant   statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
+    if(statusCode.isValid())
+        timer->stop();
 
     // the current request is processed we can remove it from the list
     // we take it here because maybe if it fails we want to process it again or read the data to know what happened
@@ -147,7 +149,7 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
     }
 }
 
-void Requestor::disconnect()
+void Requestor::abortConnection()
 {
     setTimeOutRequest(true);
     m_networkManager->disconnect();

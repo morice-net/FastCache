@@ -233,6 +233,12 @@ Item {
 
     FullCacheRetriever {
         id: fullCacheRetriever
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement de la cache");
+            }
+        }
         onStateChanged: {
             if(fullCacheRetriever.state === "loading")
                 previousViewState[0] = viewState
