@@ -4,9 +4,12 @@ Requestor::Requestor(QObject *parent)
     : QObject(parent)
     , m_state()
     , m_requestsLength(0)
+    , m_timeOutRequest(false)
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
+    connect( timer, SIGNAL(timeout()), this, SLOT(disconnect()));
+    timer->setInterval(10000);
 }
 
 void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &parameters, QString token)
@@ -23,7 +26,9 @@ void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &p
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
+        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        timer->start();
     }
 }
 
@@ -40,7 +45,9 @@ void Requestor::sendGetRequest(const QString &requestName , QString token)
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
+        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        timer->start();
     }
 }
 
@@ -57,7 +64,9 @@ void Requestor::sendPutRequest(const QString &requestName , const QByteArray &da
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
+        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        timer->start();
     }
 }
 
@@ -74,12 +83,15 @@ void Requestor::sendDeleteRequest(const QString &requestName ,  QString token)
     // In case we are not already processing a request, trigger it
     if (m_requests.size() == 1)
     {
+        setTimeOutRequest(false);
         m_requests.first().process(m_networkManager);
+        timer->start();
     }
 }
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
 {
+    timer->stop();
     if (m_requests.isEmpty())
         return;
 
@@ -135,6 +147,12 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
     }
 }
 
+void Requestor::disconnect()
+{
+    setTimeOutRequest(true);
+    m_networkManager->disconnect();
+}
+
 /** Getters & Setters **/
 
 QString Requestor::state() const
@@ -157,6 +175,17 @@ void Requestor::setRequestsLength(const int &requestsLength)
 {
     m_requestsLength = requestsLength;
     emit requestsLengthChanged();
+}
+
+bool Requestor::timeOutRequest() const
+{
+    return m_timeOutRequest;
+}
+
+void Requestor::setTimeOutRequest(const bool &timeOut)
+{
+    m_timeOutRequest = timeOut;
+    emit timeOutRequestChanged();
 }
 
 
