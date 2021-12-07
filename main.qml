@@ -103,6 +103,12 @@ Item {
 
     CachesBBox {
         id: cachesBBox
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement de la carte active");
+            }
+        }
         onClearMapRequested: {
             fastMap.clearMap();
         }
@@ -111,6 +117,12 @@ Item {
 
     CachesNear {
         id: cachesNear
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement des caches proches");
+            }
+        }
         onClearMapRequested: {
             fastMap.currentZoomlevel = 14
             fastMap.clearMap()
@@ -128,6 +140,12 @@ Item {
 
     CachesPocketqueries {
         id: cachesPocketqueries
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement des pockets queries");
+            }
+        }
         onClearMapRequested: {
             fastMap.clearMap()
         }
@@ -211,6 +229,12 @@ Item {
 
     UserInfo {
         id: userInfo
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement des informations de l'utilisateur");
+            }
+        }
     }
 
     CacheAttributes {
@@ -256,6 +280,12 @@ Item {
 
     FullCachesRecorded {
         id: fullCachesRecorded
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour l'enregistrement des caches");
+            }
+        }
         onStateChanged: {
             // User name in fullcachesrecorded
             fullCachesRecorded.userName = userInfo.name
@@ -271,6 +301,12 @@ Item {
 
     Travelbug {
         id: travelbug
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement du travel bug");
+            }
+        }
         onStateChanged: {
             if(travelbug.state === "loading")
                 previousViewState[1] = viewState
@@ -286,6 +322,12 @@ Item {
 
     SendCacheNote {
         id:sendCacheNote
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour l'envoi de la note");
+            }
+        }
         onStateChanged: {
             toast.visible = sendCacheNote.state !== "loading";
             if(sendCacheNote.state !== "OK" && sendCacheNote.state !== "No Content")
@@ -300,6 +342,12 @@ Item {
 
     DeleteLogImage {
         id: deleteLogImage
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour la suppression de l'image");
+            }
+        }
         onStateChanged: {
             toast.visible = deleteLogImage.state !== "loading";
             if(deleteLogImage.state !== "No Content")
@@ -314,6 +362,12 @@ Item {
 
     SendEditUserLog {
         id: sendEditUserLog
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour la modification ou suppression du log");
+            }
+        }
         onStateChanged: {
             toast.visible = sendEditUserLog.state !== "loading";
             if(sendEditUserLog.state !== "OK" && sendEditUserLog.state !== "No Content")
@@ -362,6 +416,12 @@ Item {
 
     SendCacheLog {
         id:sendCacheLog
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour l'envoi du log");
+            }
+        }
         onStateChanged: {
             toast.visible = sendCacheLog.state !== "loading";
             if (sendCacheLog.state !== "Created") {
@@ -421,6 +481,12 @@ Item {
 
     SendImagesLog {
         id: sendImagesLog
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour l'envoi des images du log");
+            }
+        }
         onStateChanged: {
             if (sendImagesLog.state !== "loading" && sendImagesLog.state !== "Created") {
                 userLogImagesLoaded  = userLogImagesLoaded  + 1
@@ -447,6 +513,12 @@ Item {
 
     SendTravelbugLog {
         id:sendTravelbugLog
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour l'envoi du log du travelbug");
+            }
+        }
         onRequestsLengthChanged: {
             if(fullCacheRetriever.requestsLength === 0)
                 getTravelbugUser.sendRequest(connector.tokenKey);
@@ -465,6 +537,12 @@ Item {
 
     SendUserWaypoint {
         id: sendUserWaypoint
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour l'envoi des étapes personnelles");
+            }
+        }
         onStateChanged: {
             toast.visible = sendUserWaypoint.state !== "loading";
             if (sendUserWaypoint.state !== "Created" && sendUserWaypoint.state !== "No Content" && sendUserWaypoint.state !== "OK") {
@@ -486,10 +564,22 @@ Item {
 
     GetTravelbugUser {
         id: getTravelbugUser
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement des travel bugs de l'utilisateur ");
+            }
+        }
     }
 
     GetPocketsqueriesList {
         id: getPocketsqueriesList
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement de la liste des pockets queries");
+            }
+        }
         onStateChanged: {
             if(getPocketsqueriesList.state !== "OK" && getPocketsqueriesList.state !== "loading") {
                 toast.visible = true
@@ -500,10 +590,22 @@ Item {
 
     GetUserGeocacheLogs {
         id: getUserGeocacheLogs
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement des logs de l'utilisateur");
+            }
+        }
     }
 
     GetGeocacheLogImages {
         id: getGeocacheLogImages
+        onTimeOutRequestChanged: {
+            if(timeOutRequest) {
+                toast.visible = true;
+                toast.show("Délai de connexion dépassé pour le chargement des images du log");
+            }
+        }
         onStateChanged: {
             if(getGeocacheLogImages.state !== "OK" && getGeocacheLogImages.state !== "loading") {
                 toast.visible = true
