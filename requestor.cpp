@@ -10,7 +10,7 @@ Requestor::Requestor(QObject *parent)
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
     connect( timer, &QTimer::timeout, this, &Requestor::abortConnection);
     timer->setSingleShot(true);
-    timer->setInterval(10000);
+    timer->setInterval(20000);
 }
 
 void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &parameters, QString token)

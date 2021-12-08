@@ -657,7 +657,6 @@ Item {
                 connector.connect()
         }
     }
-
     Component.onCompleted: {
         main.state = ""
         main.viewState = "map"
@@ -672,11 +671,9 @@ Item {
         // or short procedure called refresh should be called
         connector.connect()
     }
-
     Component.onDestruction: {
         Functions.recordAppSettings()
     }
-
     Keys.onPressed: {
         event.accepted = true
         if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
