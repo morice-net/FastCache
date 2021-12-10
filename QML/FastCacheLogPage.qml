@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
+//import com.mycompany.connecting 1.0
 
 Item {
     id: logPage
@@ -115,30 +115,20 @@ Item {
                     width: logPage.width*0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
                 }
 
-                Button {
+                FastButton {
                     id: buttonAdd
                     contentItem: Image {
                         source: "qrc:/Image/" + "icon_edit.png"
-                    }
-                    background: Rectangle {
-                        border.width: buttonAdd.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
                     }
                     onClicked:{
                         addText.open();
                     }
                 }
 
-                Button {
+                FastButton {
                     id: buttonDelete
                     contentItem: Image {
                         source: "qrc:/Image/" + "icon_erase.png"
-                    }
-                    background: Rectangle {
-                        border.width: buttonDelete.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
                     }
                     onClicked:{
                         message.text = ""
@@ -189,51 +179,25 @@ Item {
                 }
             }
 
-            Button {
+            FastButton {
                 id: buttonAddImages
                 anchors.horizontalCenter: parent.horizontalCenter
-                contentItem: Text {
-                    text: "Cliquer pour ajouter des images ( " + imagesBrowser.repeaterCount + " )"
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    color: Palette.greenSea()
-                }
-                background: Rectangle {
-                    border.width: buttonAddImages.activeFocus ? 2 : 1
-                    border.color: Palette.silver()
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: buttonAddImages.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: buttonAddImages.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
+                text: "Cliquer pour ajouter des images ( " + imagesBrowser.repeaterCount + " )"
+                font.pointSize: 16
                 onClicked:{
                     imagesBrowser.visible = true
                 }
             }
 
-            Button {
-                id:buttonSendLog
+            FastButton {
+                id: buttonSendLog
                 anchors.horizontalCenter: parent.horizontalCenter
-                contentItem: Text {
-                    text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
-                    font.family: localFont.name
-                    font.pointSize: 24
-                    color: Palette.greenSea()
-                }
-                background: Rectangle {
-                    border.width: buttonSendLog.activeFocus ? 2 : 1
-                    border.color: Palette.silver()
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: buttonSendLog.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
-                onClicked:{
-                    console.log(connector.tokenKey + " " + fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
+                text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
+                font.pointSize: 20
+                onClicked: {
+                    console.log(fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
                                 + favorited.checked);
-                    if(message.text !== '') {
+                    if(message.length !== 0) {
                         if(updateLog === false) {
                             // create log
                             sqliteStorage.updateObject("cacheslog" , fullCache.geocode , sendCacheLog.makeJsonLog(typeLog,dateIso,message.text,

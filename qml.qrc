@@ -198,5 +198,6 @@
         <file>Image/Attributes/attribute_powertrail.png</file>
         <file>Image/Attributes/attribute_challengecache.png</file>
         <file>Image/Attributes/attribute_hqsolutionchecker.png</file>
+        <file>QML/FastButton.qml</file>
     </qresource>
 </RCC>
