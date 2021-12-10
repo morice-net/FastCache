@@ -74,19 +74,24 @@ FastPopup {
         }
     }
 
-    FastTextButton {
+    FastButton {
         id: manageListButton
-        buttonText: "Gérer les listes..."
-        onClicked: recordedListsManager .open()
+        text: "Gérer les listes..."
+        font.pointSize: 20
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.margins: 10
+        onClicked: recordedListsManager .open()
     }
 
-    FastTextButton {
+    FastButton {
         id: recordCachesButton
-        buttonText: "Enregistrer les caches"
+        text: "Enregistrer les caches"
         visible: main.state !== "recorded" && (viewState !== "fullcache" ) ? true : false
+        font.pointSize: 20
+        anchors.bottom: manageListButton.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 10
         onClicked: {
             console.log("list checked:   " + listChecked)
             var list = []
@@ -101,15 +106,16 @@ FastPopup {
                 fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
             cachesRecordedLists.close()
         }
+    }
+
+    FastButton {
+        id: deleteCachesButton
+        text: "Supprimer les caches"
+        visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
+        font.pointSize: 20
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
-    }
-
-    FastTextButton {
-        id: deleteCachesButton
-        buttonText: "Supprimer les caches"
-        visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
         onClicked: {
             var list = []
             if(viewState === "map"){
@@ -131,15 +137,16 @@ FastPopup {
             }
             cachesRecordedLists.close()
         }
-        anchors.bottom: manageListButton.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.margins: 10
     }
 
-    FastTextButton {
+    FastButton {
         id: refreshCachesButton
-        buttonText: "Rafraichir les caches"
+        text: "Rafraichir les caches"
         visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
+        font.pointSize: 20
+        anchors.bottom: recordCachesButton.top
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.margins: 10
         onClicked: {
             var list = []
             if(viewState === "map"){
@@ -157,9 +164,6 @@ FastPopup {
             }
             cachesRecordedLists.close()
         }
-        anchors.bottom: recordCachesButton.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.margins: 10
     }
 
     function closeIfMenu() {

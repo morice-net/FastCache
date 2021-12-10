@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
-//import com.mycompany.connecting 1.0
+import com.mycompany.connecting 1.0
 
 Item {
     id: logPage
@@ -288,12 +288,3 @@ Item {
         return false
     }
 }
-
-
-
-
-
-
-
-
-

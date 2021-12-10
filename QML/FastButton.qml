@@ -10,6 +10,9 @@ Button {
         font.family: localFont.name
         font.pointSize: button.font.pixelSize
         color: Palette.greenSea()
+        opacity: button.opacity
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
     background: Rectangle {
         border.width: button.activeFocus ? 2 : 1
