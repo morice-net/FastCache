@@ -10,7 +10,7 @@ Settings {
     // tokens
     property string tokenKey: ""
     property string refreshToken: ""
-    property var expiresAt: 0
+    property real expiresAt: 0
 
     // filter by type
     property bool traditional : false

@@ -120,30 +120,20 @@ Item {
                     width: logPage.width*0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
                 }
 
-                Button {
+                FastButton {
                     id: buttonAdd
                     contentItem: Image {
                         source: "qrc:/Image/" + "icon_edit.png"
-                    }
-                    background: Rectangle {
-                        border.width: buttonAdd.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
                     }
                     onClicked:{
                         addText.open();
                     }
                 }
 
-                Button {
+                FastButton {
                     id: buttonDelete
                     contentItem: Image {
                         source: "qrc:/Image/" + "icon_erase.png"
-                    }
-                    background: Rectangle {
-                        border.width: buttonDelete.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
                     }
                     onClicked: {
                         message.text = ""
@@ -179,24 +169,11 @@ Item {
                 }
             }
 
-            Button {
+            FastButton {
                 id:buttonSendLog
                 anchors.horizontalCenter: parent.horizontalCenter
-                contentItem: Text {
-                    text: "Envoyer le log"
-                    font.family: localFont.name
-                    font.pointSize: 24
-                    color: Palette.greenSea()
-                }
-                background: Rectangle {
-                    border.width: buttonSendLog.activeFocus ? 2 : 1
-                    border.color: Palette.silver()
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: buttonSendLog.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: buttonSendLog.pressed ? "#aaa" : "#ccc" }
-                    }
-                }
+                text: "Envoyer le log"
+                font.pointSize: 20
                 onClicked:{
                     if(typeLog !== 4 && travelbug.tbStatus !== 0 && message.text !== "") {
                         sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,
