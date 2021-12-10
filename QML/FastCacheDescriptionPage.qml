@@ -187,15 +187,10 @@ Item {
                     width: descriptionPage.width*0.9 - note.width - buttonDelete.width - 30
                 }
 
-                Button {
+                FastButton {
                     id: buttonDelete
                     contentItem: Image {
                         source: "qrc:/Image/" + "icon_erase.png"
-                    }
-                    background: Rectangle {
-                        border.width: buttonDelete.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
                     }
                     onClicked: personalNote.text = ""
                 }
@@ -215,25 +210,12 @@ Item {
                 }
             }
 
-            Button {
+            FastButton {
                 id:buttonSend
                 anchors.horizontalCenter: parent.horizontalCenter
-                contentItem: Text {
-                    text: "Envoyer"
-                    font.family: localFont.name
-                    font.pixelSize: 30
-                    color: Palette.white()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
+                text: "Envoyer"
+                font.family: localFont.name
+                font.pointSize: 20
                 onClicked: {
                     sendCacheNote.sendRequest(connector.tokenKey , fullCache.geocode , personalNote.text);
                 }

@@ -21,25 +21,11 @@ Item {
             width: waypointsPage.width
             clip:true
 
-            Button {
+            FastButton {
                 id:buttonAddWpt
                 anchors.horizontalCenter: parent.horizontalCenter
-                contentItem: Text {
-                    text:"Ajouter une étape personnelle"
-                    font.family: localFont.name
-                    font.pixelSize: 35
-                    color: Palette.white()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.greenSea()
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 5
-                }
+                font.pointSize: 18
+                text:"Ajouter une étape personnelle"
 
                 MouseArea {
                     anchors.fill: parent
@@ -205,20 +191,11 @@ Item {
                 x:waypointsPage.width/3
                 spacing: 40
 
-                Button {
+                FastButton {
                     id: correctedDelete
                     visible: fullCache.isCorrectedCoordinates
-                    contentItem : Text {
-                        text: "Annuler"
-                        font.family: localFont.name
-                        font.pointSize: 12
-                        color: Palette.greenSea()
-                    }
-                    background: Rectangle {
-                        border.width: correctedDelete.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
-                    }
+                    font.pointSize: 12
+                    text: "Annuler"
                     onClicked:{
                         //Delete modifications of coordinates
                         fastCache.deleteUserWpt = false
@@ -226,21 +203,12 @@ Item {
                     }
                 }
 
-                Button {
+                FastButton {
                     id: correctedUpdate
                     visible: fullCache.isCorrectedCoordinates
-                    contentItem : Text {
-                        text: "Modifier"
-                        font.family: localFont.name
-                        font.pointSize: 12
-                        color: Palette.greenSea()
-                    }
-                    background: Rectangle {
-                        border.width: correctedUpdate.activeFocus ? 2 : 1
-                        border.color: Palette.silver()
-                        radius: 4
-                    }
-
+                    text: "Modifier"
+                    font.family: localFont.name
+                    font.pointSize: 12
                     onClicked: {
                         userWptAdd = false;
                         userCorrectedCoordinates = true;
@@ -341,19 +309,10 @@ Item {
                         x:waypointsPage.width/3
                         spacing: 40
 
-                        Button {
+                        FastButton {
                             id: uwDelete
-                            contentItem : Text {
-                                text: "Supprimer"
-                                font.family: localFont.name
-                                font.pointSize: 12
-                                color: Palette.greenSea()
-                            }
-                            background: Rectangle {
-                                border.width: uwDelete.activeFocus ? 2 : 1
-                                border.color: Palette.silver()
-                                radius: 4
-                            }
+                            text: "Supprimer"
+                            font.pointSize: 12
                             onClicked:{
                                 //Delete userWaypoint
                                 fastCache.deleteUserWpt = true
@@ -362,20 +321,10 @@ Item {
                             }
                         }
 
-                        Button {
+                        FastButton {
                             id: uwUpdate
-                            contentItem : Text {
-                                text: "Modifier"
-                                font.family: localFont.name
-                                font.pointSize: 12
-                                color: Palette.greenSea()
-                            }
-                            background: Rectangle {
-                                border.width: uwUpdate.activeFocus ? 2 : 1
-                                border.color: Palette.silver()
-                                radius: 4
-                            }
-
+                            text: "Modifier"
+                            font.pointSize: 12
                             onClicked: {
                                 userWptAdd = false;
                                 userCorrectedCoordinates = false

@@ -60,17 +60,13 @@ Item {
 
                     Column{
                         spacing: 10
-                        Button {
+
+                        FastButton {
                             id: iconDeleteImage
                             visible: userLogImages === true
                             anchors.horizontalCenter: parent.horizontalCenter
                             contentItem: Image {
                                 source: "qrc:/Image/" + "icon_delete.png"
-                            }
-                            background: Rectangle {
-                                border.width: iconDeleteImage.activeFocus ? 2 : 1
-                                border.color: Palette.silver()
-                                radius: 4
                             }
                             onClicked: {
                                 buttonYes.visible = !buttonYes.visible
@@ -83,10 +79,10 @@ Item {
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: 25
 
-                            FastTextButton {
+                            FastButton {
                                 id: buttonYes
                                 visible: false
-                                buttonText: "Supprimer l'image ?"
+                                text: "Supprimer l'image ?"
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
@@ -95,10 +91,10 @@ Item {
                                 }
                             }
 
-                            FastTextButton {
+                            FastButton {
                                 id:buttonNo
                                 visible: false
-                                buttonText: "Annuler"
+                                text: "Annuler"
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false

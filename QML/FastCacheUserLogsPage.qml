@@ -133,15 +133,10 @@ Item  {
                             spacing: 30
                             anchors.horizontalCenter: parent.horizontalCenter
 
-                            Button {
+                            FastButton {
                                 id: iconUpdate
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_update.png"
-                                }
-                                background: Rectangle {
-                                    border.width: iconUpdate.activeFocus ? 2 : 1
-                                    border.color: updateLog ? Palette.turquoise() : Palette.silver()
-                                    radius: 4
                                 }
                                 onClicked: {
                                     updateLog = true
@@ -157,15 +152,10 @@ Item  {
                                 }
                             }
 
-                            Button {
+                            FastButton {
                                 id: iconDeleteLog
                                 contentItem: Image {
                                     source: "qrc:/Image/" + "icon_delete.png"
-                                }
-                                background: Rectangle {
-                                    border.width: iconDeleteLog.activeFocus ? 2 : 1
-                                    border.color: Palette.silver()
-                                    radius: 4
                                 }
                                 onClicked: {
                                     buttonYes.visible = !buttonYes.visible
@@ -179,10 +169,11 @@ Item  {
                             anchors.horizontalCenter: parent.horizontalCenter
                             spacing: 25
 
-                            FastTextButton {
+                            FastButton {
                                 id: buttonYes
                                 visible: false
-                                buttonText: "Supprimer le log ?"
+                                font.pointSize: 15
+                                text: "Supprimer le log ?"
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
@@ -191,10 +182,11 @@ Item  {
                                 }
                             }
 
-                            FastTextButton {
+                            FastButton {
                                 id:buttonNo
                                 visible: false
-                                buttonText: "Annuler"
+                                font.pointSize: 15
+                                text: "Annuler"
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
