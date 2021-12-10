@@ -107,29 +107,12 @@ FastPopup {
     ///        OK
     //////////////////////////////////////////////////////////////////////
 
-    Button {
+    FastButton {
         id: goButton
-        text: qsTr("Ok")
+        text: "Ok"
+        opacity: enabled ? 1.0 : 0.3
         x: 20
         y: parent.height*0.7
-        contentItem: Text {
-            text: goButton.text
-            font: goButton.font
-            opacity: enabled ? 1.0 : 0.3
-            color: Palette.greenSea()
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-
-        }
-        background: Rectangle {
-            anchors.fill: parent
-            opacity: 0.9
-            color: Palette.white()
-            border.color: Palette.greenSea()
-            border.width: 1
-            radius: 5
-        }
-        font.family: localFont.name
         onClicked: {
             if (gpsFormatCombo.currentIndex == 0)
                 if(coordinatesBox1.box1Lat() !== "" && coordinatesBox1.box1Lon()  !== "") {
@@ -166,29 +149,13 @@ FastPopup {
     //////////////////////////////////////////////////////////////////////
     ///        Erase button
     //////////////////////////////////////////////////////////////////////
-    Button {
+
+    FastButton {
         id: clearButton
         x: 40 +goButton.width
         y: parent.height*0.7
-        text: qsTr("Effacer")
-        contentItem: Text {
-            text: clearButton.text
-            font: clearButton.font
-            opacity: enabled ? 1.0 : 0.3
-            color: Palette.greenSea()
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-
-        }
-        background: Rectangle {
-            anchors.fill: parent
-            opacity: 0.9
-            color: Palette.white()
-            border.color: Palette.greenSea()
-            border.width: 1
-            radius: 5
-        }
-        font.family: localFont.name
+        opacity: enabled ? 1.0 : 0.3
+        text: "Effacer"
         onClicked: {
             coordinatesBox1.eraseText()
             coordinatesBox2.eraseText()

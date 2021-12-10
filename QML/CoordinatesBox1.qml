@@ -3,21 +3,10 @@ import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
 
-Button {
-    contentItem: Text {
-        id: box1ButtonNS
-        text: "N"
-        font.family: localFont.name
-        font.pixelSize: 35
-        color: Palette.turquoise()
-    }
-    background: Rectangle {
-        anchors.fill: parent
-        opacity: 0.9
-        border.color: Palette.greenSea()
-        border.width: 5
-        radius: 10
-    }
+FastButton {
+    id: box1ButtonNS
+    text: "N"
+    font.pointSize: 18
     onClicked: {
         box1ButtonNS.text === "N" ? box1ButtonNS.text="S":box1ButtonNS.text="N"
     }
@@ -121,23 +110,11 @@ Button {
         anchors.leftMargin: 2
     }
 
-    Button {
+    FastButton {
+        id: box1ButtonEO
         y: box1ButtonNS.y + box1ButtonNS.height + 50
-        contentItem: Text {
-            id: box1ButtonEO
-            text:"E"
-            font.family: localFont.name
-            font.pixelSize: 35
-            color: Palette.turquoise()
-
-        }
-        background: Rectangle {
-            anchors.fill: parent
-            opacity: 0.9
-            border.color: Palette.greenSea()
-            border.width: 5
-            radius: 10
-        }
+        text:"E"
+        font.pointSize: 18
         onClicked: {
             box1ButtonEO.text === "E" ? box1ButtonEO.text="O":box1ButtonEO.text="E"
         }
