@@ -5,7 +5,6 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: coordinatesBox
-    x:20
     y:20
     backgroundWidth: parent.width*0.9
     backgroundHeight: parent.height*0.8
@@ -22,8 +21,8 @@ FastPopup {
 
     ComboBox {
         id: gpsFormatCombo
-        x: 20
         y: 80
+        anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width*0.9
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
         delegate: ItemDelegate {
@@ -67,100 +66,84 @@ FastPopup {
     }
 
     // first box coordinates.
-    Item {
+    CoordinatesBox1 {
         id: box1
         visible: true
-        x:20
+        x: (coordinatesBox.width - box1.rowWidth())/2
         y: parent.height*0.4
-
-        CoordinatesBox1 {
-            id: coordinatesBox1
-        }
     }
 
     // second box coordinates.
-    Item {
+    CoordinatesBox2 {
         id: box2
         visible: false
-        x: 20
+        x: (coordinatesBox.width - box2.rowWidth())/2
         y: parent.height*0.4
-
-        CoordinatesBox2 {
-            id: coordinatesBox2
-        }
     }
 
     // third box coordinates.
-    Item {
+    CoordinatesBox3 {
         id: box3
         visible: false
-        x: 20
+        x: (coordinatesBox.width - box3.rowWidth())/2
         y: parent.height*0.4
-
-        CoordinatesBox3 {
-            id: coordinatesBox3
-        }
-
     }
 
-    //////////////////////////////////////////////////////////////////////
-    ///        OK
-    //////////////////////////////////////////////////////////////////////
-
-    FastButton {
-        id: goButton
-        text: "Ok"
-        font.pointSize: 10
-        x: 20
+    Row {
+        anchors.horizontalCenter: parent.horizontalCenter
         y: parent.height*0.7
-        onClicked: {
-            if (gpsFormatCombo.currentIndex == 0)
-                if(coordinatesBox1.box1Lat() !== "" && coordinatesBox1.box1Lon()  !== "") {
-                    resultLat =  coordinatesBox1.box1Lat()
-                    resultLon =  coordinatesBox1.box1Lon()
-                    main.state = "coordinates"
-                    // signal
-                    okCoordinatesClicked()
-                    coordinatesBox.close()
-                }
+        spacing: 60
 
-            if (gpsFormatCombo.currentIndex == 1)
-                if(coordinatesBox2.box2Lat() !== "" && coordinatesBox2.box2Lon()  !== "") {
-                    resultLat =  coordinatesBox2.box2Lat()
-                    resultLon =  coordinatesBox2.box2Lon()
-                    main.state = "coordinates"
-                    // signal
-                    okCoordinatesClicked()
-                    coordinatesBox.close()
-                }
+        // button OK
+        FastButton {
+            id: goButton
+            text: "Ok"
+            font.pointSize: 10
+            onClicked: {
+                if (gpsFormatCombo.currentIndex == 0)
+                    if(box1.box1Lat() !== "" && box1.box1Lon()  !== "") {
+                        resultLat =  box1.box1Lat()
+                        resultLon =  box1.box1Lon()
+                        main.state = "coordinates"
+                        // signal
+                        okCoordinatesClicked()
+                        coordinatesBox.close()
+                    }
 
-            if (gpsFormatCombo.currentIndex === 2)
-                if(coordinatesBox3.box3Lat() !== "" && coordinatesBox3.box3Lon() !== "") {
-                    resultLat =  coordinatesBox3.box3Lat()
-                    resultLon =  coordinatesBox3.box3Lon()
-                    main.state = "coordinates"
-                    // signal
-                    okCoordinatesClicked()
-                    coordinatesBox.close()
-                }
+                if (gpsFormatCombo.currentIndex == 1)
+                    if(box2.box2Lat() !== "" && box2.box2Lon()  !== "") {
+                        resultLat =  box2.box2Lat()
+                        resultLon =  box2.box2Lon()
+                        main.state = "coordinates"
+                        // signal
+                        okCoordinatesClicked()
+                        coordinatesBox.close()
+                    }
+
+                if (gpsFormatCombo.currentIndex === 2)
+                    if(box3.box3Lat() !== "" && box3.box3Lon() !== "") {
+                        resultLat =  box3.box3Lat()
+                        resultLon =  box3.box3Lon()
+                        main.state = "coordinates"
+                        // signal
+                        okCoordinatesClicked()
+                        coordinatesBox.close()
+                    }
+            }
         }
-    }
 
-    //////////////////////////////////////////////////////////////////////
-    ///        Erase button
-    //////////////////////////////////////////////////////////////////////
-
-    FastButton {
-        id: clearButton
-        x: 40 +goButton.width
-        y: parent.height*0.7
-        font.pointSize: 10
-        text: "Effacer"
-        onClicked: {
-            coordinatesBox1.eraseText()
-            coordinatesBox2.eraseText()
-            coordinatesBox3.eraseText()
+        // erase button
+        FastButton {
+            id: clearButton
+            font.pointSize: 10
+            text: "Effacer"
+            onClicked: {
+                box1.eraseText()
+                box2.eraseText()
+                box3.eraseText()
+            }
         }
+
     }
 
     function closeIfMenu() {

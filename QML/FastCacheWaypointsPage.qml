@@ -24,7 +24,7 @@ Item {
             FastButton {
                 id:buttonAddWpt
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pointSize: 12
+                font.pointSize: 11
                 text:"Ajouter une étape personnelle"
 
                 MouseArea {

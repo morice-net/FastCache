@@ -3,281 +3,265 @@ import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
 
-FastButton {
-    id: box3ButtonNS
-    y: 10
-    text: "N"
-    font.pointSize: 10
-    onClicked: {
-        box3ButtonNS.text === "N" ? box3ButtonNS.text="S":box3ButtonNS.text="N"
-    }
+Item {
 
-    TextField {
-        id: box3Degrees
-        onTextChanged: {
-            if(text.length === 2) {
-                box3Minutes.focus = true
-            }
-        }
-        maximumLength : 2
-        validator: IntValidator {bottom: 0; top: 90;}
-        font.family: localFont.name
-        font.pixelSize: 35
-        anchors.left: box3ButtonNS.right
-        anchors.leftMargin: 15
-        color: Palette.greenSea()
-        background: Rectangle {
-            implicitWidth: main.width/10
-            radius: 10
-            border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
-        }
-        cursorDelegate : CursorRectangle {
-            height : box3Degrees.height*0.8
-            running: box3Degrees.activeFocus
-        }
-    }
+    Column {
+        spacing: 20
 
-    Label {
-        id: box3LabelDegrees
-        text: "°"
-        font.pixelSize: 35
-        anchors.left: box3Degrees.right
-        anchors.leftMargin: 2
-    }
+        Row {
+            id: row
+            spacing: 10
 
-    TextField {
-        id: box3Minutes
-        onTextChanged: {
-            if(text.length === 2) {
-                box3Seconds.focus = true
-            }
-        }
-        maximumLength : 2
-        validator: IntValidator {bottom: 0; top: 59;}
-        font.family: localFont.name
-        font.pixelSize: 35
-        anchors.left: box3LabelDegrees.right
-        anchors.leftMargin: 4
-        color: Palette.greenSea()
-        background: Rectangle {
-            implicitWidth: main.width/10
-            radius: 10
-            border.color: box3Minutes.focus ? Palette.black() :Palette.turquoise()
-        }
-        cursorDelegate : CursorRectangle {
-            height : box3Minutes.height*0.8
-            running: box3Minutes.activeFocus
-        }
-    }
-
-    Label {
-        id: box3LabelMinutes
-        text: "'"
-        font.pixelSize: 35
-        anchors.left: box3Minutes.right
-        anchors.leftMargin: 2
-    }
-
-    TextField {
-        id: box3Seconds
-        onTextChanged: {
-            if(text.length === 2) {
-                box3Decimal.focus = true
-            }
-        }
-        maximumLength : 2
-        validator: IntValidator {bottom: 0; top: 59;}
-        font.family: localFont.name
-        font.pixelSize: 35
-        anchors.left: box3LabelMinutes.right
-        anchors.leftMargin: 10
-        color: Palette.greenSea()
-        background: Rectangle {
-            implicitWidth: main.width/10
-            radius: 10
-            border.color: box3Seconds.focus ? Palette.black() :Palette.turquoise()
-        }
-        cursorDelegate : CursorRectangle {
-            height : box3Seconds.height*0.8
-            running: box3Seconds.activeFocus
-        }
-    }
-
-    Label {
-        id: box3LabelPoint
-        text: "."
-        font.pixelSize: 35
-        anchors.left: box3Seconds.right
-        anchors.leftMargin: 2
-    }
-
-    TextField {
-        id: box3Decimal
-        onTextChanged: {
-            if(text.length === 3) {
-                box3Degrees2.focus = true
-            }
-        }
-        maximumLength : 3
-        validator: IntValidator {bottom: 0; top: 999;}
-        font.family: localFont.name
-        font.pixelSize: 35
-        anchors.left: box3LabelPoint.right
-        anchors.leftMargin: 4
-        color: Palette.greenSea()
-        background: Rectangle {
-            implicitWidth: main.width/8
-            radius: 10
-            border.color: box3Decimal.focus ? Palette.black() :Palette.turquoise()
-        }
-        cursorDelegate : CursorRectangle {
-            height : box3Decimal.height*0.8
-            running: box3Decimal.activeFocus
-        }
-    }
-
-    Label {
-        id: box3LabelSeconds
-        text: "''"
-        font.pixelSize: 35
-        anchors.left: box3Decimal.right
-        anchors.leftMargin: 2
-    }
-
-    FastButton {
-        id: box3ButtonEO
-        y: box3ButtonNS.y + box3ButtonNS.height + 50
-        font.pointSize: 10
-        text:"E"
-        onClicked: {
-            box3ButtonEO.text === "E" ? box3ButtonEO.text="O":box3ButtonEO.text="E"
-        }
-
-        TextField {
-            id: box3Degrees2
-            onTextChanged: {
-                if(text.length === 3) {
-                    box3Minutes2.focus = true
+            FastButton {
+                id: box3ButtonNS
+                implicitWidth: coordinatesBox.width/10
+                text: "N"
+                font.pointSize: 9
+                onClicked: {
+                    box3ButtonNS.text === "N" ? box3ButtonNS.text="S":box3ButtonNS.text="N"
                 }
             }
-            maximumLength : 3
-            validator: IntValidator {bottom: 0; top: 180;}
-            font.family: localFont.name
-            font.pixelSize: 35
-            anchors.left: box3ButtonEO.right
-            anchors.leftMargin: 15
-            color: Palette.greenSea()
-            background: Rectangle {
-                implicitWidth: main.width/10
-                radius: 10
-                border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
-            }
-            cursorDelegate : CursorRectangle {
-                height : box3Degrees2.height*0.8
-                running: box3Degrees2.activeFocus
-            }
-        }
 
-        Label {
-            id: box3LabelDegrees2
-            text: "°"
-            font.pixelSize: 35
-            anchors.left: box3Degrees2.right
-            anchors.leftMargin: 2
-        }
-
-        TextField {
-            id: box3Minutes2
-            onTextChanged: {
-                if(text.length === 2) {
-                    box3Seconds2.focus = true
+            TextField {
+                id: box3Degrees
+                onTextChanged: {
+                    if(text.length === 2) {
+                        box3Minutes.focus = true
+                    }
+                }
+                maximumLength : 2
+                validator: IntValidator {bottom: 0; top: 90;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/10
+                    radius: 10
+                    border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Degrees.height*0.8
+                    running: box3Degrees.activeFocus
                 }
             }
-            maximumLength : 2
-            validator: IntValidator {bottom: 0; top: 59;}
-            font.family: localFont.name
-            font.pixelSize: 35
-            anchors.left: box3LabelDegrees2.right
-            anchors.leftMargin: 4
-            color: Palette.greenSea()
-            background: Rectangle {
-                implicitWidth: main.width/10
-                radius: 10
-                border.color: box3Minutes2.focus ? Palette.black() :Palette.turquoise()
-            }
-            cursorDelegate : CursorRectangle {
-                height : box3Minutes2.height*0.8
-                running: box3Minutes2.activeFocus
-            }
-        }
 
-        Label {
-            id: box3LabelMinutes2
-            text: "'"
-            font.pixelSize: 35
-            anchors.left: box3Minutes2.right
-            anchors.leftMargin: 2
-        }
+            Label {
+                id: box3LabelDegrees
+                text: "°"
+                font.pixelSize: 35
+            }
 
-        TextField {
-            id: box3Seconds2
-            onTextChanged: {
-                if(text.length === 2) {
-                    box3Decimal2.focus = true
+            TextField {
+                id: box3Minutes
+                onTextChanged: {
+                    if(text.length === 2) {
+                        box3Seconds.focus = true
+                    }
+                }
+                maximumLength : 2
+                validator: IntValidator {bottom: 0; top: 59;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/10
+                    radius: 10
+                    border.color: box3Minutes.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Minutes.height*0.8
+                    running: box3Minutes.activeFocus
                 }
             }
-            maximumLength : 2
-            validator: IntValidator {bottom: 0; top: 59;}
-            font.family: localFont.name
-            font.pixelSize: 35
-            anchors.left: box3LabelMinutes2.right
-            anchors.leftMargin: 10
-            color: Palette.greenSea()
-            background: Rectangle {
-                implicitWidth: main.width/10
-                radius: 10
-                border.color: box3Seconds2.focus ? Palette.black() :Palette.turquoise()
+
+            Label {
+                id: box3LabelMinutes
+                text: "'"
+                font.pixelSize: 35
             }
-            cursorDelegate : CursorRectangle {
-                height : box3Seconds2.height*0.8
-                running: box3Seconds2.activeFocus
+
+            TextField {
+                id: box3Seconds
+                onTextChanged: {
+                    if(text.length === 2) {
+                        box3Decimal.focus = true
+                    }
+                }
+                maximumLength : 2
+                validator: IntValidator {bottom: 0; top: 59;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/10
+                    radius: 10
+                    border.color: box3Seconds.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Seconds.height*0.8
+                    running: box3Seconds.activeFocus
+                }
+            }
+
+            Label {
+                id: box3LabelPoint
+                text: "."
+                font.pixelSize: 35
+            }
+
+            TextField {
+                id: box3Decimal
+                onTextChanged: {
+                    if(text.length === 3) {
+                        box3Degrees2.focus = true
+                    }
+                }
+                maximumLength : 3
+                validator: IntValidator {bottom: 0; top: 999;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/8
+                    radius: 10
+                    border.color: box3Decimal.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Decimal.height*0.8
+                    running: box3Decimal.activeFocus
+                }
+            }
+
+            Label {
+                id: box3LabelSeconds
+                text: "''"
+                font.pixelSize: 35
             }
         }
 
-        Label {
-            id: box3LabelPoint2
-            text: "."
-            font.pixelSize: 35
-            anchors.left: box3Seconds2.right
-            anchors.leftMargin: 2
-        }
+        Row {
+            spacing: 10
 
-        TextField {
-            id: box3Decimal2
-            maximumLength : 3
-            validator: IntValidator {bottom: 0; top: 999;}
-            font.family: localFont.name
-            font.pixelSize: 35
-            anchors.left: box3LabelPoint2.right
-            anchors.leftMargin: 4
-            color: Palette.greenSea()
-            background: Rectangle {
-                implicitWidth: main.width/8
-                radius: 10
-                border.color: box3Decimal2.focus ? Palette.black() :Palette.turquoise()
+            FastButton {
+                id: box3ButtonEO
+                implicitWidth: coordinatesBox.width/10
+                font.pointSize: 9
+                text:"E"
+                onClicked: {
+                    box3ButtonEO.text === "E" ? box3ButtonEO.text="O":box3ButtonEO.text="E"
+                }
             }
-            cursorDelegate : CursorRectangle {
-                height : box3Decimal2.height*0.8
-                running: box3Decimal2.activeFocus
-            }
-        }
 
-        Label {
-            id: box3LabelSeconds2
-            text: "''"
-            font.pixelSize: 35
-            anchors.left: box3Decimal2.right
-            anchors.leftMargin: 2
+            TextField {
+                id: box3Degrees2
+                onTextChanged: {
+                    if(text.length === 3) {
+                        box3Minutes2.focus = true
+                    }
+                }
+                maximumLength : 3
+                validator: IntValidator {bottom: 0; top: 180;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/10
+                    radius: 10
+                    border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Degrees2.height*0.8
+                    running: box3Degrees2.activeFocus
+                }
+            }
+
+            Label {
+                id: box3LabelDegrees2
+                text: "°"
+                font.pixelSize: 35
+            }
+
+            TextField {
+                id: box3Minutes2
+                onTextChanged: {
+                    if(text.length === 2) {
+                        box3Seconds2.focus = true
+                    }
+                }
+                maximumLength : 2
+                validator: IntValidator {bottom: 0; top: 59;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/10
+                    radius: 10
+                    border.color: box3Minutes2.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Minutes2.height*0.8
+                    running: box3Minutes2.activeFocus
+                }
+            }
+
+            Label {
+                id: box3LabelMinutes2
+                text: "'"
+                font.pixelSize: 35
+            }
+
+            TextField {
+                id: box3Seconds2
+                onTextChanged: {
+                    if(text.length === 2) {
+                        box3Decimal2.focus = true
+                    }
+                }
+                maximumLength : 2
+                validator: IntValidator {bottom: 0; top: 59;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/10
+                    radius: 10
+                    border.color: box3Seconds2.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Seconds2.height*0.8
+                    running: box3Seconds2.activeFocus
+                }
+            }
+
+            Label {
+                id: box3LabelPoint2
+                text: "."
+                font.pixelSize: 35
+            }
+
+            TextField {
+                id: box3Decimal2
+                maximumLength : 3
+                validator: IntValidator {bottom: 0; top: 999;}
+                font.family: localFont.name
+                font.pixelSize: 35
+                color: Palette.greenSea()
+                background: Rectangle {
+                    implicitWidth: main.width/8
+                    radius: 10
+                    border.color: box3Decimal2.focus ? Palette.black() :Palette.turquoise()
+                }
+                cursorDelegate : CursorRectangle {
+                    height : box3Decimal2.height*0.8
+                    running: box3Decimal2.activeFocus
+                }
+            }
+
+            Label {
+                id: box3LabelSeconds2
+                text: "''"
+                font.pixelSize: 35
+            }
         }
     }
 
@@ -310,5 +294,9 @@ FastButton {
         box3Minutes2.text=""
         box3Seconds2.text=""
         box3Decimal2.text=""
+    }
+
+    function rowWidth() {
+        return row.width
     }
 }
