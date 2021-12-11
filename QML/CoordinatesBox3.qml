@@ -7,7 +7,7 @@ FastButton {
     id: box3ButtonNS
     y: 10
     text: "N"
-    font.pointSize: 18
+    font.pointSize: 10
     onClicked: {
         box3ButtonNS.text === "N" ? box3ButtonNS.text="S":box3ButtonNS.text="N"
     }
@@ -147,7 +147,7 @@ FastButton {
     FastButton {
         id: box3ButtonEO
         y: box3ButtonNS.y + box3ButtonNS.height + 50
-        font.pointSize: 18
+        font.pointSize: 10
         text:"E"
         onClicked: {
             box3ButtonEO.text === "E" ? box3ButtonEO.text="O":box3ButtonEO.text="E"

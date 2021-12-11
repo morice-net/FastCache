@@ -37,23 +37,12 @@ FastPopup {
         spacing: 15
         width: parent.width
 
-        Button {
+        FastButton {
+            id:coordinates
             anchors.horizontalCenter: parent.horizontalCenter
             y: 10
-            contentItem: Text {
-                id:coordinates
-                text:"Coordonnées"
-                font.family: localFont.name
-                font.pointSize: 17
-                color: Palette.turquoise()
-            }
-            background: Rectangle {
-                anchors.fill: parent
-                opacity: 0.9
-                border.color: Palette.turquoise()
-                border.width: 1
-                radius: 5
-            }
+            text:"Coordonnées"
+            font.pointSize: 10
             onClicked: {
                 coordinatesBox.backgroundOpacity = 1
                 coordinatesBox.open()
@@ -189,16 +178,11 @@ FastPopup {
                 width: userWaypoint.width*0.9 - descriptionTitle.width - buttonDelete.width - buttonAdd.width -60
             }
 
-            Button {
+            FastButton {
                 id: buttonAdd
                 visible: visibleDescription()
                 contentItem: Image {
                     source: "qrc:/Image/" + "icon_edit.png"
-                }
-                background: Rectangle {
-                    border.width: buttonAdd.activeFocus ? 2 : 1
-                    border.color: Palette.silver()
-                    radius: 4
                 }
                 onClicked:{
                     addText.open();
@@ -206,16 +190,11 @@ FastPopup {
                 }
             }
 
-            Button {
+            FastButton {
                 id: buttonDelete
                 visible: visibleDescription()
                 contentItem: Image {
                     source: "qrc:/Image/" + "icon_erase.png"
-                }
-                background: Rectangle {
-                    border.width: buttonDelete.activeFocus ? 2 : 1
-                    border.color: Palette.silver()
-                    radius: 4
                 }
                 onClicked:{
                     description.text = ""
@@ -238,24 +217,11 @@ FastPopup {
             }
         }
 
-        Button {
+        FastButton {
             id:send
             anchors.horizontalCenter: parent.horizontalCenter
-            contentItem: Text {
-                text: "Envoyer"
-                font.family: localFont.name
-                font.pointSize: 24
-                color: Palette.turquoise()
-            }
-            background: Rectangle {
-                border.width: send.activeFocus ? 2 : 1
-                border.color: Palette.silver()
-                radius: 4
-                gradient: Gradient {
-                    GradientStop { position: 0 ; color: send.pressed ? "#ccc" : "#eee" }
-                    GradientStop { position: 1 ; color: send.pressed ? "#aaa" : "#ccc" }
-                }
-            }
+            text: "Envoyer"
+            font.pointSize: 10
             onClicked:{
                 // Update the compass page
                 if(correctCoordinates()) {

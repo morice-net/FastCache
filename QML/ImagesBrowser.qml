@@ -44,19 +44,21 @@ Rectangle {
         spacing: 30
         anchors.horizontalCenter: parent.horizontalCenter
 
-        FastTextButton {
+        FastButton {
             id: fileDialogVisible
             y: 10
-            buttonText: "Ajouter une image"
+            text: "Ajouter une image"
+            font.pointSize: 10
             onClicked: {
                 fileDialog.visible = true
             }
         }
 
-        FastTextButton {
+        FastButton {
             id: closePage
             y: 10
-            buttonText: "Fermer"
+            text: "Fermer"
+            font.pointSize: 10
             onClicked: {
                 console.log("Descriptions:  " + listImagesDescription)
                 console.log("Urls:  " + listImagesUrl)

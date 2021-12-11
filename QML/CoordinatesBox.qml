@@ -110,7 +110,7 @@ FastPopup {
     FastButton {
         id: goButton
         text: "Ok"
-        opacity: enabled ? 1.0 : 0.3
+        font.pointSize: 10
         x: 20
         y: parent.height*0.7
         onClicked: {
@@ -154,7 +154,7 @@ FastPopup {
         id: clearButton
         x: 40 +goButton.width
         y: parent.height*0.7
-        opacity: enabled ? 1.0 : 0.3
+        font.pointSize: 10
         text: "Effacer"
         onClicked: {
             coordinatesBox1.eraseText()

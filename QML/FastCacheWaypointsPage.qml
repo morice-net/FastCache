@@ -24,7 +24,7 @@ Item {
             FastButton {
                 id:buttonAddWpt
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pointSize: 18
+                font.pointSize: 12
                 text:"Ajouter une étape personnelle"
 
                 MouseArea {
@@ -188,13 +188,13 @@ Item {
             }
 
             Row {
-                x:waypointsPage.width/3
+                anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 40
 
                 FastButton {
                     id: correctedDelete
                     visible: fullCache.isCorrectedCoordinates
-                    font.pointSize: 12
+                    font.pointSize: 10
                     text: "Annuler"
                     onClicked:{
                         //Delete modifications of coordinates
@@ -208,7 +208,7 @@ Item {
                     visible: fullCache.isCorrectedCoordinates
                     text: "Modifier"
                     font.family: localFont.name
-                    font.pointSize: 12
+                    font.pointSize: 10
                     onClicked: {
                         userWptAdd = false;
                         userCorrectedCoordinates = true;
@@ -306,13 +306,13 @@ Item {
                     }
 
                     Row {
-                        x:waypointsPage.width/3
+                        anchors.horizontalCenter: parent.horizontalCenter
                         spacing: 40
 
                         FastButton {
                             id: uwDelete
                             text: "Supprimer"
-                            font.pointSize: 12
+                            font.pointSize: 10
                             onClicked:{
                                 //Delete userWaypoint
                                 fastCache.deleteUserWpt = true
@@ -324,7 +324,7 @@ Item {
                         FastButton {
                             id: uwUpdate
                             text: "Modifier"
-                            font.pointSize: 12
+                            font.pointSize: 10
                             onClicked: {
                                 userWptAdd = false;
                                 userCorrectedCoordinates = false

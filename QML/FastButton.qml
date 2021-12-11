@@ -15,8 +15,8 @@ Button {
         verticalAlignment: Text.AlignVCenter
     }
     background: Rectangle {
-        border.width: button.activeFocus ? 2 : 1
-        border.color: button.down ? Palette.silver() : Palette.white()
+        border.width: button.activeFocus ? 3 : 1
+        border.color: Palette.silver()
         color: Palette.white()
         radius: 6
     }

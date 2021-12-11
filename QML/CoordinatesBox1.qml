@@ -6,7 +6,7 @@ import "JavaScript/Palette.js" as Palette
 FastButton {
     id: box1ButtonNS
     text: "N"
-    font.pointSize: 18
+    font.pointSize: 10
     onClicked: {
         box1ButtonNS.text === "N" ? box1ButtonNS.text="S":box1ButtonNS.text="N"
     }
@@ -114,7 +114,7 @@ FastButton {
         id: box1ButtonEO
         y: box1ButtonNS.y + box1ButtonNS.height + 50
         text:"E"
-        font.pointSize: 18
+        font.pointSize: 10
         onClicked: {
             box1ButtonEO.text === "E" ? box1ButtonEO.text="O":box1ButtonEO.text="E"
         }

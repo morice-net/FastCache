@@ -77,7 +77,7 @@ FastPopup {
     FastButton {
         id: manageListButton
         text: "Gérer les listes..."
-        font.pointSize: 20
+        font.pointSize: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.margins: 10
@@ -88,7 +88,7 @@ FastPopup {
         id: recordCachesButton
         text: "Enregistrer les caches"
         visible: main.state !== "recorded" && (viewState !== "fullcache" ) ? true : false
-        font.pointSize: 20
+        font.pointSize: 10
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
@@ -112,7 +112,7 @@ FastPopup {
         id: deleteCachesButton
         text: "Supprimer les caches"
         visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
-        font.pointSize: 20
+        font.pointSize: 10
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
@@ -143,7 +143,7 @@ FastPopup {
         id: refreshCachesButton
         text: "Rafraichir les caches"
         visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
-        font.pointSize: 20
+        font.pointSize: 10
         anchors.bottom: recordCachesButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10

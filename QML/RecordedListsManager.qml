@@ -48,12 +48,12 @@ FastPopup {
         }
 
         // rename list
-        FastTextButton {
+        FastButton {
             id:buttonRename
-            visible: false
-            buttonText: "Renommer la liste"
             anchors.horizontalCenter: parent.horizontalCenter
-
+            visible: false
+            text: "Renommer la liste"
+            font.pointSize: 10
             onClicked: {
                 if(renameList.text.length !== 0)
                 {
@@ -72,10 +72,11 @@ FastPopup {
         Row {
             spacing: 25
 
-            FastTextButton {
+            FastButton {
                 id:buttonDelete
                 visible: false
-                buttonText: "Etes vous sur ?"
+                font.pointSize: 10
+                text: "Etes vous sur ?"
                 onClicked: {
                     listChecked.splice(listIndex , 1 )
                     sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
@@ -99,11 +100,11 @@ FastPopup {
                 }
             }
 
-            FastTextButton {
+            FastButton {
                 id:buttonNo
                 visible: false
-                buttonText: "Annuler"
-
+                text: "Annuler"
+                font.pointSize: 10
                 onClicked: {
                     title.text = "Gérer les listes.."
                     displayListColumn.visible = true
@@ -182,9 +183,10 @@ FastPopup {
             height: childrenRect.height
             spacing: 10
             // new list
-            FastTextButton {
+            FastButton {
                 id : newList
-                buttonText: "Nouvelle liste"
+                text: "Nouvelle liste"
+                font.pointSize: 10
                 onClicked: {
                     buttonDel.visible = !buttonDel.visible
                     createNewList.visible = !createNewList.visible
@@ -216,20 +218,22 @@ FastPopup {
             width: childrenRect.width
             anchors.horizontalCenter: parent.horizontalCenter
 
-            FastTextButton {
+            FastButton {
                 id:buttonDel
                 visible: false
-                buttonText: "Effacer"
+                text: "Effacer"
+                font.pointSize: 10
                 onClicked: {
                     createNewList.text = "" ;
                 }
             }
 
             // create list
-            FastTextButton {
+            FastButton {
                 id:buttonCreate
                 visible: false
-                buttonText: "Créer la liste"
+                text: "Créer la liste"
+                font.pointSize: 10
                 onClicked: {
                     if (createNewList.length !== 0) {
                         listChecked.push(false)
@@ -249,9 +253,10 @@ FastPopup {
         }
 
         // button Valider
-        FastTextButton {
-            buttonText:"Valider"
+        FastButton {
             anchors.horizontalCenter: parent.horizontalCenter
+            text:"Valider"
+            font.pointSize: 10
             onClicked: {
                 // Close recordedListsManager
                 closeIfMenu()

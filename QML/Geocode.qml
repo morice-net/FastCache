@@ -127,24 +127,9 @@ FastPopup {
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 50
 
-            Button {
+            FastButton {
                 id: goButton
-                text: qsTr("Ok")
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.white()
-                    border.color: Palette.greenSea()
-                    border.width: 1
-                    radius: 5
-                }
-                contentItem: Text {
-                    text: goButton.text
-                    color: goButton.down ? Palette.turquoise() : Palette.greenSea()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                font.family: localFont.name
+                text: "Ok"
                 onClicked: {
                     address.street = street.text
                     address.city = city.text
@@ -155,24 +140,9 @@ FastPopup {
                 }
             }
 
-            Button {
+            FastButton {
                 id: clearButton
-                text: qsTr("Effacer")
-                background: Rectangle {
-                    anchors.fill: parent
-                    opacity: 0.9
-                    color: Palette.white()
-                    border.color: Palette.greenSea()
-                    border.width: 1
-                    radius: 5
-                }
-                contentItem: Text {
-                    text: clearButton.text
-                    color: clearButton.down ? Palette.turquoise() : Palette.greenSea()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                font.family: localFont.name
+                text: "Effacer"
                 onClicked: {
                     street.text = ""
                     city.text = ""

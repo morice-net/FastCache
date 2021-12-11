@@ -73,7 +73,7 @@ Map {
     CompassMapSwipeButton {
         id: compassMapSwipeButton
         buttonText: "Voir la\nboussole"
-        visible: viewState == "fullcache"
+        visible: viewState === "fullcache"
         anchors.topMargin: 20 + parent.height * 0.05
         anchors.rightMargin: 20
         anchors.top: parent.top

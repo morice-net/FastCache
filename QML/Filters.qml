@@ -43,26 +43,10 @@ Item {
             Layout.alignment: Qt.AlignCenter
         }
 
-        Button {
-            implicitWidth: parent.width*0.9
-            implicitHeight: parent.height * 0.08
+        FastButton {
+            id: textButtonId
             Layout.alignment: Qt.AlignCenter
-            font.family: localFont.name
-            font.pixelSize: height * 0.45
-            contentItem: Text {
-                id: textButtonId
-                color: Palette.greenSea()
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
-            background: Rectangle {
-                anchors.fill: parent
-                anchors.margins: 5
-                opacity: 0.9
-                border.color: Palette.greenSea()
-                border.width: 1
-                radius: 10
-            }
+            font.pointSize: 8
             onClicked: popupSize.open()
         }
 
@@ -403,27 +387,11 @@ Item {
             filterText: "Mot-clé , Découvreur..."
         }
 
-        Button {
-            implicitWidth: parent.width*0.9
-            implicitHeight: parent.height * 0.08
+        FastButton {
+            id: keywordButtonId
             Layout.alignment: Qt.AlignCenter
-            font.family: localFont.name
-            font.pixelSize: height * 0.45
-            contentItem: Text {
-                id: keywordButtonId
-                text:"Pas de filtres.."
-                color: Palette.turquoise()
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-            }
-            background: Rectangle {
-                anchors.fill: parent
-                anchors.margins: 5
-                opacity: 0.9
-                border.color: Palette.greenSea()
-                border.width: 1
-                radius: 10
-            }
+            text:"Pas de filtres.."
+            font.pointSize: 8
             onClicked: keyWordPopup.open()
         }
 
@@ -511,24 +479,10 @@ Item {
                     }
                 }
 
-                Button {
-                    font.family: localFont.name
-                    font.pixelSize: height * 0.45
-                    contentItem: Text {
-                        id: efface
-                        text: "Effacer"
-                        color: Palette.greenSea()
-                        horizontalAlignment: Text.AlignHCenter
-                    }
-                    background: Rectangle {
-                        implicitHeight: 50
-                        anchors.fill: parent
-                        anchors.margins: 5
-                        opacity: 0.9
-                        border.color: Palette.greenSea()
-                        border.width: 1
-                        radius: 5
-                    }
+                FastButton {
+                    id: efface
+                    text: "Effacer"
+                    font.pointSize: 8
                     onClicked:{
                         mot.text=""
                         decouvreur.text=""
