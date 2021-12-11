@@ -395,6 +395,7 @@ Item {
             onClicked: keyWordPopup.open()
         }
 
+        // key word popup
         FastPopup {
             id: keyWordPopup
             backgroundHeight: main.height/2
@@ -402,11 +403,14 @@ Item {
             backgroundOpacity: 0.9
             backgroundRadius: 10
 
-            ColumnLayout {
+            Column {
                 id: column
+                spacing: 20
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Label {
                     id:label1
+                    anchors.horizontalCenter: parent.horizontalCenter
                     text: "Mot-clé:"
                     color:Palette.white()
                     font.family: localFont.name
@@ -417,9 +421,8 @@ Item {
                     text:  qsTr(settings.keyWord)
                     color: Palette.greenSea()
                     background: Rectangle {
-                        implicitHeight: 40
-                        implicitWidth: main.width/2.2
-                        radius:10
+                        implicitWidth: main.width/1.5
+                        radius: 6
                         border.color: mot.focus ? Palette.silver() :Palette.greenSea()
                     }
                     onTextChanged: keyWordButton()
@@ -427,13 +430,13 @@ Item {
                     function recordMotInSettings() {
                         settings.keyWord = mot.text
                     }
-
                 }
 
                 Label {
                     id:label2
+                    anchors.horizontalCenter: parent.horizontalCenter
                     text: "Découvreur:"
-                    color:Palette.white()
+                    color: Palette.white()
                     anchors.topMargin: 5
                     font.family: localFont.name
                 }
@@ -443,9 +446,8 @@ Item {
                     text: qsTr(settings.discover)
                     color: Palette.greenSea()
                     background: Rectangle {
-                        implicitHeight: 40
-                        implicitWidth: main.width/2.2
-                        radius:10
+                        implicitWidth: main.width/1.5
+                        radius: 6
                         border.color: decouvreur.focus ? Palette.silver() :Palette.greenSea()
                     }
                     onTextChanged: keyWordButton()
@@ -457,6 +459,7 @@ Item {
 
                 Label {
                     id: label3
+                    anchors.horizontalCenter: parent.horizontalCenter
                     text: "Proprietaire:"
                     color: Palette.white()
                     font.family: localFont.name
@@ -467,9 +470,8 @@ Item {
                     text: qsTr(settings.owner)
                     color: Palette.greenSea()
                     background: Rectangle {
-                        implicitHeight: 40
-                        implicitWidth: main.width/2.2
-                        radius:10
+                        implicitWidth: main.width/1.5
+                        radius: 6
                         border.color: proprietaire.focus ? Palette.silver() :Palette.greenSea()
                     }
                     onTextChanged: keyWordButton()
@@ -481,6 +483,7 @@ Item {
 
                 FastButton {
                     id: efface
+                    anchors.horizontalCenter: parent.horizontalCenter
                     text: "Effacer"
                     font.pointSize: 8
                     onClicked:{
@@ -522,42 +525,34 @@ Item {
         main.listSizes[4] = false
         main.listSizes[5] = false
         main.listSizes[6] = false
-
         if(size1.checked){
             textArray+="Mc "
             main.listSizes[0]  = true
         }
-
         if(size2.checked){
             textArray+="Pt "
             main.listSizes[1] = true
         }
-
         if(size3.checked){
             textArray+="Nm "
             main.listSizes[2] = true
         }
-
         if(size4.checked){
             textArray+="Gr "
             main.listSizes[3] = true
         }
-
         if(size5.checked){
             textArray+="NonRenseignée "
             main.listSizes[4] = true
         }
-
         if(size6.checked){
             textArray+="Virt "
             main.listSizes[5] = true
         }
-
         if(size7.checked){
             textArray+="Autre "
             main.listSizes[6] = true
         }
-
         if(textArray === "")
             textArray = "Aucune"
         textButtonId.text = textArray
@@ -565,17 +560,12 @@ Item {
 
     function keyWordButton() {
         var index = 0
-
         main.listKeywordDiscoverOwner[0] = mot.text
         main.listKeywordDiscoverOwner[1] = decouvreur.text
         main.listKeywordDiscoverOwner[2] = proprietaire.text
-
         if(mot.text.length) index += 1
-
         if(decouvreur.text.length) index += 1
-
         if(proprietaire.text.length)  index += 1
-
         if(!index) {
             keywordButtonId.text = "Pas de filtres.."
         } else {
