@@ -9,7 +9,7 @@ import com.mycompany.connecting 1.0
 FastPopup {
     id: userSettingsPopup
     backgroundOpacity: 0.9
-    backgroundColor: Palette.black()
+    backgroundColor: Palette.white()
     closeButtonVisible: false
 
     property var listPlugins: ["osm", "googlemaps", "here"]
@@ -29,7 +29,7 @@ FastPopup {
                 leftPadding: 5
                 font.pointSize: 14
                 text: "CHOIX DES CARTES  "
-                color: Palette.white()
+                color: Palette.greenSea()
             }
 
             // Maps
@@ -37,6 +37,10 @@ FastPopup {
                 id: groupBoxMaps
                 width: parent.width*0.8
                 anchors.horizontalCenter: parent.horizontalCenter
+                background: Rectangle {
+                    border.color: Palette.greenSea()
+                    border.width: 2
+                }
 
                 Column {
 
@@ -55,7 +59,7 @@ FastPopup {
                             text: button1.text
                             font.family: localFont.name
                             font.pointSize: 16
-                            color: button1.checked ? Palette.white() : Palette.silver()
+                            color: button1.checked ? Palette.greenSea() : Palette.silver()
                             leftPadding: button1.indicator.width + button1.spacing
                         }
                         indicator: Rectangle {
@@ -89,7 +93,7 @@ FastPopup {
                             text: button2.text
                             font.family: localFont.name
                             font.pointSize: 16
-                            color: button2.checked ? Palette.white() : Palette.silver()
+                            color: button2.checked ? Palette.greenSea() : Palette.silver()
                             leftPadding: button2.indicator.width + button2.spacing
                         }
                         indicator: Rectangle {
@@ -123,7 +127,7 @@ FastPopup {
                             text: button3.text
                             font.family: localFont.name
                             font.pointSize: 16
-                            color: button3.checked ? Palette.white() : Palette.silver()
+                            color: button3.checked ? Palette.greenSea() : Palette.silver()
                             leftPadding: button3.indicator.width + button3.spacing
                         }
                         indicator: Rectangle {
@@ -157,7 +161,7 @@ FastPopup {
                             text: button4.text
                             font.family: localFont.name
                             font.pointSize: 16
-                            color: button4.checked ? Palette.white() : Palette.silver()
+                            color: button4.checked ? Palette.greenSea() : Palette.silver()
                             leftPadding: button4.indicator.width + button4.spacing
                         }
                         indicator: Rectangle {
@@ -184,7 +188,7 @@ FastPopup {
                 leftPadding: 5
                 font.pointSize: 14
                 text: "CERCLES SUR LES CARTES"
-                color: Palette.white()
+                color: Palette.greenSea()
             }
 
             //Display Circles
@@ -192,6 +196,10 @@ FastPopup {
                 id: circlesCaches
                 width: parent.width*0.8
                 anchors.horizontalCenter: parent.horizontalCenter
+                background: Rectangle {
+                    border.color: Palette.greenSea()
+                    border.width: 2
+                }
 
                 Column {
 
@@ -209,7 +217,7 @@ FastPopup {
                             text: buttonCircles.text
                             font.family: localFont.name
                             font.pointSize: 16
-                            color: buttonCircles.checked ? Palette.white() : Palette.silver()
+                            color: buttonCircles.checked ? Palette.greenSea() : Palette.silver()
                             leftPadding: buttonCircles.indicator.width + buttonCircles.spacing
                         }
                         indicator: Rectangle {
@@ -243,7 +251,7 @@ FastPopup {
                             text: buttonCircle.text
                             font.family: localFont.name
                             font.pointSize: 16
-                            color: buttonCircle.checked ? Palette.white() : Palette.silver()
+                            color: buttonCircle.checked ? Palette.greenSea() : Palette.silver()
                             leftPadding: buttonCircle.indicator.width + buttonCircle.spacing
                         }
                         indicator: Rectangle {
@@ -284,13 +292,15 @@ FastPopup {
                                 }
                             }
                         }
-                        color: Palette.turquoise()
+                        color: Palette.greenSea()
                         font.pointSize: 15
                         placeholderText: qsTr("rayon en km")
                         horizontalAlignment: TextInput.AlignLeft
                         background: Rectangle {
                             color: Palette.white()
-                            radius: 10
+                            radius: 8
+                            border.color: Palette.greenSea()
+                            border.width: 2
                         }
                     }
                 }
@@ -302,13 +312,17 @@ FastPopup {
                 leftPadding: 5
                 font.pointSize: 14
                 text: "LISTES"
-                color: Palette.white()
+                color: Palette.greenSea()
             }
 
             //maximum number of caches in a list
             GroupBox {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width*0.8
+                background: Rectangle {
+                    border.color: Palette.greenSea()
+                    border.width: 2
+                }
 
                 Column {
                     spacing: 15
@@ -319,7 +333,7 @@ FastPopup {
                         text: "Maximum de caches dans une liste"
                         font.family: localFont.name
                         font.pointSize: 16
-                        color: Palette.white()
+                        color: Palette.greenSea()
                     }
 
                     SpinBox {
@@ -333,8 +347,9 @@ FastPopup {
                         onValueChanged: settings.maxCachesInList = control.value
                         background: Rectangle {
                             implicitWidth: userSettingsPopup.width/3.2
-                            border.color: Palette.black()
-                            radius: 10
+                            border.color: Palette.greenSea()
+                            border.width: 2
+                            radius: 8
                         }
                         contentItem: TextInput {
                             horizontalAlignment: Qt.AlignHCenter
@@ -342,21 +357,21 @@ FastPopup {
                             activeFocusOnPress: false
                             text: control.textFromValue(control.value, control.locale)
                             font: control.font
-                            color: Palette.turquoise()
+                            color: Palette.greenSea()
                         }
                         up.indicator: Image {
                             anchors.margins: 15
                             anchors.right: parent.right
                             anchors.verticalCenter:  parent.verticalCenter
                             source: "qrc:/Image/plus.png"
-                            scale: 1.3
+                            scale: 0.55
                         }
                         down.indicator: Image  {
                             anchors.margins: 15
                             anchors.left: parent.left
                             anchors.verticalCenter:  parent.verticalCenter
                             source: "qrc:/Image/minus.png"
-                            scale: 1.3
+                            scale: 0.55
                         }
                     }
                 }
@@ -364,39 +379,16 @@ FastPopup {
         }
     }
 
-    /// Disconnect button ///
-    Item {
-        id: disconnectButtonPopup
-        height: parent.height * 0.12
-        width: parent.width * 0.8
-        anchors.horizontalCenter: parent.horizontalCenter
+    // Disconnect button
+    FastButton {
         anchors.bottom: parent.bottom
-        anchors.margins: parent.height * 0.05
-
-        Rectangle {
-            radius: 20
-            anchors.fill: parent
-            anchors.margins: 20
-            color: Palette.silver()
-
-            Text {
-                id: connectButtonName
-                anchors.fill: parent
-                font.family: localFont.name
-                font.pointSize: 24
-                text: "Se déconnecter"
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignHCenter
-                color: Palette.white()
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    Functions.disconnectAccount()
-                    userSettingsPopup.close()
-                }
-            }
+        anchors.bottomMargin: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: "Se déconnecter"
+        font.pointSize: 14
+        onClicked: {
+            Functions.disconnectAccount()
+            userSettingsPopup.close()
         }
     }
 

@@ -181,8 +181,6 @@
         <file>QML/FastMenuLevel2.qml</file>
         <file>QML/ListPocketsqueries.qml</file>
         <file>Image/settings.png</file>
-        <file>Image/minus.png</file>
-        <file>Image/plus.png</file>
         <file>Image/icon_erase.png</file>
         <file>Image/Attributes/attribute_field_puzzle.png</file>
         <file>QML/LogTypesTravelbug.qml</file>
@@ -198,5 +196,7 @@
         <file>Image/Attributes/attribute_challengecache.png</file>
         <file>Image/Attributes/attribute_hqsolutionchecker.png</file>
         <file>QML/FastButton.qml</file>
+        <file>Image/minus.png</file>
+        <file>Image/plus.png</file>
     </qresource>
 </RCC>
