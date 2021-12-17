@@ -169,7 +169,7 @@ FastPopup {
         plugin: fastMap.checkedPluginMap()
         autoUpdate: false
         onStatusChanged: {
-            if ((status == GeocodeModel.Ready) || (status == GeocodeModel.Error))
+            if ((status === GeocodeModel.Ready) || (status === GeocodeModel.Error))
                 geocodeMessage()
         }
     }

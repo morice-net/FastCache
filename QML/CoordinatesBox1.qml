@@ -223,7 +223,7 @@ Item {
             return ""
         lon = parseFloat( box1Degrees2.text) + parseFloat((box1Minutes2.text + "." + box1Decimal2.text)/60)
         if(lon > 180) return ""
-        if(box1ButtonEO.text==="O") lon = -lon
+        if(box1ButtonEO.text === "O") lon = -lon
         console.log("Longitude:   " + lon)
         return lon
     }

@@ -22,7 +22,7 @@ void Downloador::downloadFile(QUrl url, QString id, QString path)
     }
 
     QNetworkRequest request(url);
-    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+    request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
     request.setRawHeader("User-Agent", userAgent);
     // Inform  we are loading
     setState("loading");

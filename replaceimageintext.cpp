@@ -18,26 +18,26 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
 {
     QJsonDocument jsonDoc = dataJsonDoc;
     QJsonObject cacheJson = jsonDoc.object();
-    QRegExp rx("(https?://\\S+(\\.jpg|\\.jpeg|\\.gif|\\.png))" , Qt::CaseInsensitive );
+    QRegularExpression rx("(https?://\\S+(\\.jpg|\\.jpeg|\\.gif|\\.png))" , QRegularExpression::CaseInsensitiveOption );
 
     QDir dir(m_dir + geocode);
     if (!dir.exists())
         dir.mkpath(".");
 
     // replace in "short description" of recorded cache
-    int pos = 0;
     int i = 1;
     QString path = "";
     QString url = "";
-
     QString shortDescription = cacheJson["ShortDescription"].toString();
-    while ((pos = rx.indexIn(shortDescription, pos)) != -1) {
-        url = rx.cap(1);
+    QRegularExpressionMatchIterator j = rx.globalMatch(shortDescription);
+
+    while (j.hasNext()) {
+        QRegularExpressionMatch match = j.next();
+        url = match.captured(1);
         path = dir.absolutePath() + "/ShortDescription-" + QString::number(i) + url.mid(url.lastIndexOf(".", -1),-1);
         qDebug()<< url;
         qDebug()<< path;
         shortDescription.replace(url , "file:" + path);
-        pos += rx.matchedLength();
         i += 1;
         if(saveImage)
             downloadFile(QUrl(url), "", path);
@@ -45,19 +45,18 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
     cacheJson.insert("ShortDescription"  , QJsonValue::fromVariant(shortDescription));
 
     // replace in "long description" of recorded cache
-    pos = 0;
     i = 1;
     path = "";
     url = "";
-
     QString longDescription = cacheJson["longDescription"].toString();
-    while ((pos = rx.indexIn(longDescription, pos)) != -1) {
-        url = rx.cap(1);
+    j = rx.globalMatch(longDescription);
+    while (j.hasNext()) {
+        QRegularExpressionMatch match = j.next();
+        url = match.captured(1);
         path = dir.absolutePath() + "/longDescription-" + QString::number(i) + url.mid(url.lastIndexOf(".", -1),-1);
         qDebug()<< url;
         qDebug()<< path;
         longDescription.replace(url , "file:" + path);
-        pos += rx.matchedLength();
         i += 1;
         if(saveImage)
             downloadFile(QUrl(url), "", path);

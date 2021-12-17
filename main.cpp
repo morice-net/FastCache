@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 
 #if !defined Q_OS_ANDROID
-#include <QtWebEngine/qtwebengineglobal.h>
+#include <QtWebEngineQuick/qtwebenginequickglobal.h>
 #endif
 
 #include <QQuickView>
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SatelliteModel>("com.mycompany.connecting", 1, 0, "SatelliteModel");
 
 #if !defined Q_OS_ANDROID
-    QtWebEngine::initialize();
+    QtWebEngineQuick::initialize();
 #endif
 
     QGuiApplication app(argc, argv);

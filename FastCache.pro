@@ -1,13 +1,15 @@
 TEMPLATE = app
 
-QT += qml quick location svg sql
+QT +=  qml quick svg sql core
+
+QT += core5compat
 
 linux:!android {
-    QT += webengine
+    QT += webenginequick
 }
 
 win32 {
-    QT += webengine
+    QT += webenginequick
 }
 
 !win32 {
