@@ -1,6 +1,5 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.5
-import QtQuick.Controls.Styles 1.4
 
 import "JavaScript/Palette.js" as Palette
 

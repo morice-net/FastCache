@@ -2,7 +2,6 @@ import QtQuick.Layouts 1.2
 import QtQuick.Dialogs 1.3
 import QtQuick 2.6
 import QtQuick.Controls 2.5
-import QtQuick.Controls.Styles 1.4
 import Qt.labs.settings 1.0
 import QtPositioning 5.3
 import QtLocation 5.6
