@@ -4,6 +4,7 @@
 #include <QJsonArray>
 #include <QDebug>
 
+
 ReplaceImageInText::ReplaceImageInText(ImageDownloader *parent)
     : ImageDownloader(parent)
 {

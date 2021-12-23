@@ -35,6 +35,11 @@ Rectangle {
     Plugin {
         id: osmPlugin
         name: "osm"
+        parameters:
+            PluginParameter {
+            name: "osm.mapping.offline.directory"
+            value: "./osmTiles"
+        }
     }
 
     Plugin {

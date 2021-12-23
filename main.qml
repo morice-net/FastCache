@@ -629,6 +629,8 @@ Item {
         id: toast
     }
 
+    TilesDownloader { id: tilesDownloader }
+
     SQLiteStorage {
         id: sqliteStorage
         Component.onCompleted: {
