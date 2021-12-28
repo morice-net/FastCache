@@ -77,6 +77,11 @@ FastPopup {
                         }
                     }
 
+                    ButtonTiles {
+                        anchors.left: button1.right
+                        anchors.leftMargin: 30
+                    }
+
                     RadioButton {
                         id:button2
                         visible: true

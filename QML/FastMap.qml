@@ -38,7 +38,7 @@ Rectangle {
         parameters:
             PluginParameter {
             name: "osm.mapping.offline.directory"
-            value: "./osmTiles"
+            value: tilesDownloader.dirOsm
         }
     }
 

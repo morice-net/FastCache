@@ -3,6 +3,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 FastPopup {
     id: cachesRecordedLists
@@ -95,6 +96,8 @@ FastPopup {
             console.log("list checked:   " + listChecked)
             var list = []
             if(viewState === "map"){
+                // download tiles
+                Functions.downloadTiles()
                 list = fastMap.listGeocodesOnMap()
                 console.log("list of geocodes(map):   " + list)
             } else if (viewState === "list"){

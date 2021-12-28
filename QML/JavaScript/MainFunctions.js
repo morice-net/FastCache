@@ -141,3 +141,15 @@ function reloadCachesBBox() {
         cachesBBox.sendRequest(connector.tokenKey)
     }
 }
+
+function downloadTiles() {
+    //osm
+    if(settings.namePlugin === userSettingsPopup.listPlugins[0]) {
+        var latTop = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
+        var latBottom = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
+        var lonLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
+        var lonRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
+        var zoom = fastMap.mapItem.zoomLevel
+        tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom)
+    }
+}
