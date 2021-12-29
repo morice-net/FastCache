@@ -12,7 +12,7 @@ Map {
     property MapCircle circle
     property MapCircle circleRadius
 
-    activeMapType: supportedMapTypes[settings.sat === false ? 2 : 3]
+    activeMapType: supportedMapTypes[supportedMap()]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
     gesture.enabled: true
@@ -136,6 +136,21 @@ Map {
 
     function deleteCircleRadius() {
         removeMapItem(circleRadius)
+    }
+
+    function supportedMap() {
+        //osm
+        if(settings.namePlugin === settings.listPlugins[0])
+            return 1
+        // googlemaps plan
+        if(settings.namePlugin === settings.listPlugins[1] && settings.sat === false)
+            return 0
+        // googlemaps sat
+        if(settings.namePlugin === settings.listPlugins[1] && settings.sat === true)
+            return 3
+        // here
+        if(settings.namePlugin === settings.listPlugins[2])
+            return 0
     }
 
     Component.onCompleted:{
