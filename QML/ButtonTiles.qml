@@ -35,12 +35,13 @@ Item {
         text: tilesDownloader.folderSizeOsm
         color: Palette.greenSea()
         font.family: localFont.name
-        font.pointSize: 10
+        font.pointSize: 12
     }
 
     FastButton {
         id: deleteButton
         visible: false
+        font.pointSize: 8
         text:  "Supprimer les tuiles"
         onClicked: deleteButton.visible = false
         onPressAndHold: {

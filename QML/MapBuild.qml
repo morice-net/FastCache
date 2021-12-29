@@ -12,7 +12,7 @@ Map {
     property MapCircle circle
     property MapCircle circleRadius
 
-    activeMapType: supportedMapTypes[settings.sat === false ? 0 : 3]
+    activeMapType: supportedMapTypes[settings.sat === false ? 2 : 3]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
     gesture.enabled: true

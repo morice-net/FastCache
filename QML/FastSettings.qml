@@ -61,6 +61,7 @@ Settings {
     property string owner: ""
 
     // Maps : osm,googlemaps,here
+    property var listPlugins: ["osm", "googlemaps", "here"]
     property string namePlugin: "osm"
     property bool sat: false
 

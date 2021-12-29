@@ -34,13 +34,12 @@ void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double 
         for(int y = yStart; y < yEnd + 1 ; ++y)
         {
             url = "http://a.tile.openstreetmap.org/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
-            path = dirOsm.absolutePath() + "/osm_100-l-3-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
+            path = dirOsm.absolutePath() + "/osm_100-l-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
             downloadTileOsm(url, "", path);
         }
     }
- //   dirSizeOsm();
 }
 
 void TilesDownloader::downloadTileOsm(QUrl url, QString id, QString path)

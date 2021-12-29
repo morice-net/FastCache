@@ -144,7 +144,7 @@ function reloadCachesBBox() {
 
 function downloadTiles() {
     //osm
-    if(settings.namePlugin === userSettingsPopup.listPlugins[0]) {
+    if(settings.namePlugin === settings.listPlugins[0]) {
         var latTop = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
         var latBottom = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
         var lonLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude

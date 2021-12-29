@@ -11,8 +11,6 @@ FastPopup {
     backgroundColor: Palette.white()
     closeButtonVisible: false
 
-    property var listPlugins: ["osm", "googlemaps", "here"]
-
     Item {
         id: userInfoTopPopup
         height: parent.height * 0.3
@@ -47,10 +45,10 @@ FastPopup {
                         id:button1
                         visible: true
                         text: "Open Street Map"
-                        checked: settings.namePlugin === listPlugins[0]
+                        checked: settings.namePlugin === settings.listPlugins[0]
                         onClicked: {
                             settings.sat = false
-                            if(settings.namePlugin !== listPlugins[0]) {
+                            if(settings.namePlugin !== settings.listPlugins[0]) {
                                 updateMap(0)
                             }
                         }
@@ -86,10 +84,10 @@ FastPopup {
                         id:button2
                         visible: true
                         text: "Google Maps : plan"
-                        checked: settings.namePlugin === listPlugins[1] && settings.sat === false
+                        checked: settings.namePlugin === settings.listPlugins[1] && settings.sat === false
                         onClicked: {
                             settings.sat = false
-                            if(settings.namePlugin !== listPlugins[1]) {
+                            if(settings.namePlugin !== settings.listPlugins[1]) {
                                 updateMap(1)
                             }
                         }
@@ -120,10 +118,10 @@ FastPopup {
                         id:button3
                         visible: true
                         text: "Google Maps : satellite"
-                        checked: settings.namePlugin === listPlugins[1] && settings.sat === true
+                        checked: settings.namePlugin === settings.listPlugins[1] && settings.sat === true
                         onClicked: {
                             settings.sat = true
-                            if(settings.namePlugin !== listPlugins[1]) {
+                            if(settings.namePlugin !== settings.listPlugins[1]) {
                                 updateMap(1)
                             }
                         }
@@ -154,10 +152,10 @@ FastPopup {
                         id:button4
                         visible: true
                         text: "Here"
-                        checked: settings.namePlugin === listPlugins[2]
+                        checked: settings.namePlugin === settings.listPlugins[2]
                         onClicked: {
                             settings.sat = false
-                            if(settings.namePlugin !== listPlugins[2]) {
+                            if(settings.namePlugin !== settings.listPlugins[2]) {
                                 updateMap(2)
                             }
                         }
@@ -404,7 +402,7 @@ FastPopup {
     function updateMap(index) {
         var center = fastMap.mapItem.center
         fastMap.deleteMap()
-        settings.namePlugin = listPlugins[index]
+        settings.namePlugin = settings.listPlugins[index]
         fastMap.createMap()
         fastMap.mapItem.center = center
         addCachesOnMap()
