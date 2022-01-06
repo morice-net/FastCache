@@ -35,13 +35,17 @@ Rectangle {
     Plugin {
         id: osmPlugin
         name: "osm"
-        parameters:
+        parameters: [
             PluginParameter {
-            name: "osm.mapping.offline.directory"
-            value: tilesDownloader.dirOsm
-        }
+                name: "osm.mapping.providersrepository.address"
+                value: "http://a.tile.openstreetmap.org/"
+            },
+            PluginParameter {
+                name: "osm.mapping.offline.directory"
+                value: tilesDownloader.dirOsm
+            }
+        ]
     }
-
     Plugin {
         id: herePlugin
         name: "here"

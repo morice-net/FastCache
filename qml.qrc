@@ -199,6 +199,5 @@
         <file>Image/minus.png</file>
         <file>Image/plus.png</file>
         <file>QML/ButtonTiles.qml</file>
-        <file>Image/icon_check.png</file>
     </qresource>
 </RCC>

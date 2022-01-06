@@ -40,6 +40,7 @@ FastPopup {
                 }
 
                 Column {
+                    spacing: 70
 
                     RadioButton {
                         id:button1
@@ -76,8 +77,7 @@ FastPopup {
                     }
 
                     ButtonTiles {
-                        anchors.left: button1.right
-                        anchors.leftMargin: 30
+                        anchors.top: button1.bottom
                     }
 
                     RadioButton {

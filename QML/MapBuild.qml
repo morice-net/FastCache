@@ -141,7 +141,7 @@ Map {
     function supportedMap() {
         //osm
         if(settings.namePlugin === settings.listPlugins[0])
-            return 1
+            return 0
         // googlemaps plan
         if(settings.namePlugin === settings.listPlugins[1] && settings.sat === false)
             return 0

@@ -74,7 +74,14 @@ void TilesDownloader::tileDownloaded()
 
     switch(reply->error())
     {
-    case QNetworkReply::NoError: dirSizeOsm();
+    case QNetworkReply::NoError: {
+        qDebug()<< "Bonjour:  ";
+
+        dirSizeOsm();
+
+
+
+    }
         break;
 
     default:
@@ -139,7 +146,7 @@ qint64 TilesDownloader::dirSize(QString dirPath)
 }
 
 QString TilesDownloader::formatSize(qint64 size) {
-    QStringList units = {"Bytes", "KB", "MB", "GB", "TB", "PB"};
+    QStringList units = {"octets", "ko", "Mo", "Go", "To", "Po"};
     int i;
     double outputSize = size;
     for(i=0; i<units.size()-1; i++) {
