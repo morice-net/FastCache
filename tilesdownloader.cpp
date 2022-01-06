@@ -74,14 +74,8 @@ void TilesDownloader::tileDownloaded()
 
     switch(reply->error())
     {
-    case QNetworkReply::NoError: {
-        qDebug()<< "Bonjour:  ";
+    case QNetworkReply::NoError: dirSizeOsm();
 
-        dirSizeOsm();
-
-
-
-    }
         break;
 
     default:
