@@ -12,6 +12,8 @@ Item {
     id: detailsPage
     visible:true
 
+    property bool formatCoordinates: true
+
     Column {
         spacing: 5
         anchors.fill: parent
@@ -252,11 +254,19 @@ Item {
             }
 
             Text {
+                id: coordinates
                 font.family: localFont.name
                 font.pointSize: 14
-                text: fullCache.isCorrectedCoordinates ? Functions.formatLat(fullCache.correctedLat) + "   " + Functions.formatLon(fullCache.correctedLon) :
-                                                         Functions.formatLat(fullCache.lat) + "   " + Functions.formatLon(fullCache.lon)
+                text: fullCache.isCorrectedCoordinates ? formatLatText(formatCoordinates , fullCache.correctedLat) + "  ,   " +
+                                                         formatLonText(formatCoordinates , fullCache.correctedLon) :
+                                                         formatLatText(formatCoordinates , fullCache.lat) + "  ,   " +
+                                                         formatLonText(formatCoordinates , fullCache.lon)
                 color: Palette.white()
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: formatCoordinates = !formatCoordinates
+                }
             }
         }
 
@@ -333,7 +343,7 @@ Item {
 
                         Text {
                             text: fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
-                                                                 : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
+                                                                  : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
                             font.family: localFont.name
                             font.pointSize: 14
                             color: Palette.white()
@@ -348,6 +358,22 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    function formatLatText(format , lat) {
+        if(format)  {
+            return Functions.formatLat(lat)
+        } else {
+            return lat
+        }
+    }
+
+    function formatLonText(format , lon) {
+        if(format)  {
+            return Functions.formatLon(lon)
+        } else {
+            return lon
         }
     }
 }
