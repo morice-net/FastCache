@@ -41,7 +41,7 @@ Rectangle {
 
     Row {
         id: buttons
-        spacing: 30
+        spacing: 60
         anchors.horizontalCenter: parent.horizontalCenter
 
         FastButton {
@@ -54,16 +54,21 @@ Rectangle {
             }
         }
 
-        FastButton {
+        Text {
             id: closePage
-            y: 10
-            text: "Fermer"
-            font.pointSize: 10
-            onClicked: {
-                console.log("Descriptions:  " + listImagesDescription)
-                console.log("Urls:  " + listImagesUrl)
-                console.log("Rotations:  " + listImagesRotation)
-                imagesBrowser.visible = false
+            text: "X"
+            topPadding: 15
+            font.pointSize: 25
+            color: Palette.black()
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    console.log("Descriptions:  " + listImagesDescription)
+                    console.log("Urls:  " + listImagesUrl)
+                    console.log("Rotations:  " + listImagesRotation)
+                    imagesBrowser.visible = false
+                }
             }
         }
     }

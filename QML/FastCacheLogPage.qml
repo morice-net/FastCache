@@ -181,7 +181,7 @@ Item {
             FastButton {
                 id: buttonAddImages
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: "Cliquer pour ajouter des images ( " + imagesBrowser.repeaterCount + " )"
+                text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
                 font.pointSize: 10
                 onClicked:{
                     imagesBrowser.visible = true
