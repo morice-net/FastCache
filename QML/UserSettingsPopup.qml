@@ -40,7 +40,7 @@ FastPopup {
                 }
 
                 Column {
-                    spacing: 70
+                    spacing: 35
 
                     RadioButton {
                         id:button1

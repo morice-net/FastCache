@@ -8,20 +8,10 @@ Item {
     Text {
         id: tiles
         anchors.top: parent.bottom
-        text: "Tuiles"
+        text: tilesDownloader.folderSizeOsm !== "" ? "Tuiles: "  + tilesDownloader.folderSizeOsm + " (appui long pour supprimer)"  : "Tuiles: 0.0 octets"
         color: tilesDownloader.folderSizeOsm === "" ? Palette.silver() : Palette.greenSea()
         font.family: localFont.name
-        font.pointSize: 16
-    }
-
-    Text {
-        anchors.top: tiles.bottom
-        anchors.left: tiles.left
-        anchors.leftMargin: 20
-        text: tilesDownloader.folderSizeOsm !== "" ? tilesDownloader.folderSizeOsm + " (appui long pour supprimer les tuiles)"  : ""
-        color: Palette.greenSea()
-        font.family: localFont.name
-        font.pointSize: 12
+        font.pointSize: 13
 
         MouseArea {
             anchors.fill: parent
