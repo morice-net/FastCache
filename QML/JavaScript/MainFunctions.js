@@ -151,5 +151,9 @@ function downloadTiles() {
         var lonRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
         var zoom = fastMap.mapItem.zoomLevel
         tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom)
+        if(zoom < 19)
+            tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom + 1)
+        if(zoom < 18)
+            tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom + 2)
     }
 }
