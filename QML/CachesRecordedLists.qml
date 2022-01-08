@@ -10,7 +10,6 @@ FastPopup {
     closeButtonVisible: false
 
     property var listChecked: main.viewState !== "fullcache" ? listCheckedBoolAtFalse() : listCheckedBool(fullCache.geocode)
-    property int listIndex: 0
 
     width: Math.max( displayListColumn.width, manageListButton.width )
     height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height + 60
@@ -51,6 +50,7 @@ FastPopup {
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
                     onListBoxClicked: {
                         listChecked[index] = !listChecked[index]
+                        listChecked = listChecked  // Indicates that list "listChecked" is changing
                         if(main.viewState === "fullcache")
                         {
                             if(listChecked.indexOf(true) === -1)
@@ -77,7 +77,7 @@ FastPopup {
     FastButton {
         id: manageListButton
         text: "Gérer les listes..."
-        font.pointSize: 10
+        font.pointSize: 9
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.margins: 10
@@ -86,9 +86,9 @@ FastPopup {
 
     FastButton {
         id: recordCachesButton
-        text: "Enregistrer les caches"
+        text: recordButton()
         visible: main.state !== "recorded" && (viewState !== "fullcache" ) ? true : false
-        font.pointSize: 10
+        font.pointSize: 9
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
@@ -114,7 +114,7 @@ FastPopup {
         id: deleteCachesButton
         text: "Supprimer les caches"
         visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
-        font.pointSize: 10
+        font.pointSize: 9
         anchors.bottom: manageListButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
@@ -145,7 +145,7 @@ FastPopup {
         id: refreshCachesButton
         text: "Rafraichir les caches"
         visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
-        font.pointSize: 10
+        font.pointSize: 9
         anchors.bottom: recordCachesButton.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
@@ -184,5 +184,17 @@ FastPopup {
             list.push(false)
         }
         return list
+    }
+
+    function  recordButton() {
+        if(viewState === "list" )
+            return "Enregistrer les caches"
+        if(viewState === "map" && listChecked.indexOf(true) === -1) {
+            return "Enregistrer la carte"
+        }
+        if(viewState === "map" && listChecked.indexOf(true) !== -1) {
+            return "Enregistrer caches et carte"
+        }
+        return ""
     }
 }
