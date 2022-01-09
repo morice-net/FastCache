@@ -97,12 +97,14 @@ void Requestor::onReplyFinished(QNetworkReply *reply)
 
     QVariant   statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
     if(statusCode.isValid())
+    {
         timer->stop();
 
-    // the current request is processed we can remove it from the list
-    // we take it here because maybe if it fails we want to process it again or read the data to know what happened
-    m_requests.takeFirst();
-    emit requestsLengthChanged();
+        // the current request is processed we can remove it from the list
+        // we take it here because maybe if it fails we want to process it again or read the data to know what happened
+        m_requests.takeFirst();
+        emit requestsLengthChanged();
+    }
 
     switch(statusCode.toInt()){
     case 200:
@@ -153,6 +155,8 @@ void Requestor::abortConnection()
 {
     setTimeOutRequest(true);
     m_networkManager->disconnect();
+    m_requests.takeFirst();
+    emit requestsLengthChanged();
 }
 
 /** Getters & Setters **/
