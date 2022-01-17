@@ -1,6 +1,7 @@
  How to add the googlemaps plugin in QT :  
     Add project googlemaps in QtCreator 
      git clone https://github.com/vladest/googlemaps.git
+     edit googlemaps using the attached googlemapsOffline.diff file. 
      open project googlemaps         
     Build project googlemaps for all configurations in QtCreator  
     with linux:  Drop the libqtgeoservices_googlemaps.so file in Qt / 5.15.2 / gcc_64 / plugins / geoservices 
