@@ -1,0 +1,229 @@
+
+
+diff --git a/googlemaps.pro b/googlemaps.pro
+index 498bc58..3e68631 100644
+--- a/googlemaps.pro
++++ b/googlemaps.pro
+@@ -23,6 +23,7 @@ QT += network
+ INCLUDEPATH += ../ ./
+ 
+ HEADERS += \
++    qgeofiletilecachegooglemaps.h \
+     qgeoserviceproviderplugingooglemaps.h \
+     qgeocodingmanagerenginegooglemaps.h \
+     qgeocodereplygooglemaps.h \
+@@ -39,6 +40,7 @@ HEADERS += \
+     qgeoerror_messages.h
+ 
+ SOURCES += \
++    qgeofiletilecachegooglemaps.cpp \
+     qgeoserviceproviderplugingooglemaps.cpp \
+     qgeocodingmanagerenginegooglemaps.cpp \
+     qgeocodereplygooglemaps.cpp \
+diff --git a/qgeofiletilecachegooglemaps.cpp b/qgeofiletilecachegooglemaps.cpp
+new file mode 100644
+index 0000000..400d4a4
+--- /dev/null
++++ b/qgeofiletilecachegooglemaps.cpp
+@@ -0,0 +1,83 @@
++#include "qgeofiletilecachegooglemaps.h"
++#include <QtLocation/private/qgeotilespec_p.h>
++
++#include <QDirIterator>
++#include <QPair>
++#include <QDateTime>
++#include <QThread>
++
++QT_BEGIN_NAMESPACE
++
++QGeoFileTileCacheGooglemaps::QGeoFileTileCacheGooglemaps(const QString &offlineDirectory, const QString &directory,  QObject *parent)
++    :   QGeoFileTileCache(directory, parent), m_offlineDirectory(offlineDirectory), m_offlineData(false)
++{
++    if (!offlineDirectory.isEmpty()) {
++        m_offlineDirectory = QDir(offlineDirectory);
++        if (m_offlineDirectory.exists())
++            m_offlineData = true;
++    }
++}
++
++QGeoFileTileCacheGooglemaps::~QGeoFileTileCacheGooglemaps()
++{
++}
++
++QSharedPointer<QGeoTileTexture> QGeoFileTileCacheGooglemaps::get(const QGeoTileSpec &spec)
++{
++    QSharedPointer<QGeoTileTexture> tt = getFromMemory(spec);
++    if (tt)
++        return tt;
++    if ((tt = getFromOfflineStorage(spec)))
++        return tt;
++    return getFromDisk(spec);
++}
++
++QSharedPointer<QGeoTileTexture> QGeoFileTileCacheGooglemaps::getFromOfflineStorage(const QGeoTileSpec &spec)
++{
++    if (!m_offlineData)
++        return QSharedPointer<QGeoTileTexture>();
++    const QString fileName = tileSpecToFilenameDefault(spec, QStringLiteral("*"));
++    QStringList validTiles = m_offlineDirectory.entryList({fileName});
++    if (!validTiles.size())
++        return QSharedPointer<QGeoTileTexture>();
++
++    QFile file(m_offlineDirectory.absoluteFilePath(validTiles.first()));
++    if (!file.open(QIODevice::ReadOnly))
++        return QSharedPointer<QGeoTileTexture>();
++    QByteArray bytes = file.readAll();
++    file.close();
++
++    QImage image;
++    if (!image.loadFromData(bytes)) {
++        handleError(spec, QLatin1String("Problem with tile image"));
++        return QSharedPointer<QGeoTileTexture>(0);
++    }
++
++    addToMemoryCache(spec, bytes, QString());
++    return addToTextureCache(spec, image);
++}
++
++QString QGeoFileTileCacheGooglemaps::tileSpecToFilenameDefault(const QGeoTileSpec &spec, const QString &format) const
++{
++    QString filename = spec.plugin();
++    filename += QLatin1String("-");
++    filename += QString::number(spec.mapId());
++    filename += QLatin1String("-");
++    filename += QString::number(spec.zoom());
++    filename += QLatin1String("-");
++    filename += QString::number(spec.x());
++    filename += QLatin1String("-");
++    filename += QString::number(spec.y());
++    //Append version if real version number to ensure backwards compatibility and eviction of old tiles
++    if (spec.version() != -1) {
++        filename += QLatin1String("-");
++        filename += QString::number(spec.version());
++    }
++    filename += QLatin1String(".");
++    filename += format;
++    return filename;
++}
++
++QT_END_NAMESPACE
++
++
+diff --git a/qgeofiletilecachegooglemaps.h b/qgeofiletilecachegooglemaps.h
+new file mode 100644
+index 0000000..1cbf239
+--- /dev/null
++++ b/qgeofiletilecachegooglemaps.h
+@@ -0,0 +1,32 @@
++#ifndef QGEOFILETILECACHEGOOGLEMAPS_H
++#define QGEOFILETILECACHEGOOGLEMAPS_H
++
++#include <QtLocation/private/qgeofiletilecache_p.h>
++#include <QHash>
++#include <QDir>
++
++#include <qatomic.h>
++
++QT_BEGIN_NAMESPACE
++
++class QGeoFileTileCacheGooglemaps : public QGeoFileTileCache
++{
++    Q_OBJECT
++public:
++    QGeoFileTileCacheGooglemaps(const QString &offlineDirectory = QString(), const QString &directory = QString(),  QObject *parent = 0);
++    ~QGeoFileTileCacheGooglemaps();
++    QSharedPointer<QGeoTileTexture> get(const QGeoTileSpec &spec) override;
++
++protected:
++    QSharedPointer<QGeoTileTexture> getFromOfflineStorage(const QGeoTileSpec &spec);
++    QString tileSpecToFilenameDefault(const QGeoTileSpec &spec, const QString &format) const;
++    QDir m_offlineDirectory;
++    bool m_offlineData;
++    QVector<bool> m_highDpi;
++    QVector<QDateTime> m_maxMapIdTimestamps;
++};
++
++QT_END_NAMESPACE
++
++#endif // QGEOFILETILECACHEOSM_H
++
+diff --git a/qgeotiledmappingmanagerenginegooglemaps.cpp b/qgeotiledmappingmanagerenginegooglemaps.cpp
+index 800950a..45fbb79 100644
+--- a/qgeotiledmappingmanagerenginegooglemaps.cpp
++++ b/qgeotiledmappingmanagerenginegooglemaps.cpp
+@@ -3,12 +3,7 @@
+ #include "qgeotiledmapgooglemaps.h"
+ #include "qgeotilefetchergooglemaps.h"
+ #include "QtLocation/private/qgeotilespec_p.h"
+-#if QT_VERSION < QT_VERSION_CHECK(5,6,0)
+-#include <QStandardPaths>
+-#include "QtLocation/private/qgeotilecache_p.h"
+-#else
+-#include "QtLocation/private/qgeofiletilecache_p.h"
+-#endif
++#include "qgeofiletilecachegooglemaps.h"
+ 
+ #include <QDebug>
+ #include <QDir>
+@@ -22,8 +17,8 @@
+ QT_BEGIN_NAMESPACE
+ 
+ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps(const QVariantMap &parameters,
+-    QGeoServiceProvider::Error *error,
+-    QString *errorString)
++                                                                                 QGeoServiceProvider::Error *error,
++                                                                                 QString *errorString)
+     : QGeoTiledMappingManagerEngine()
+ {
+     Q_UNUSED(error);
+@@ -40,22 +35,11 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
+     setTileSize(QSize(tile, tile));
+ 
+     QList<QGeoMapType> types;
+-#if QT_VERSION < QT_VERSION_CHECK(5,9,0)
+-    types << QGeoMapType(QGeoMapType::StreetMap, tr("Road Map"), tr("Normal map view in daylight mode"), false, false, 1);
+-    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite"), tr("Satellite map view in daylight mode"), false, false, 2);
+-    types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain"), tr("Terrain map view in daylight mode"), false, false, 3);
+-    types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid"), tr("Satellite map view with streets in daylight mode"), false, false, 4);
+-#elif QT_VERSION < QT_VERSION_CHECK(5,10,0)
+-    types << QGeoMapType(QGeoMapType::StreetMap, tr("Road Map"), tr("Normal map view in daylight mode"), false, false, 1, "googlemaps");
+-    types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite"), tr("Satellite map view in daylight mode"), false, false, 2, "googlemaps");
+-    types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain"), tr("Terrain map view in daylight mode"), false, false, 3, "googlemaps");
+-    types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid"), tr("Satellite map view with streets in daylight mode"), false, false, 4, "googlemaps");
+-#else
+     types << QGeoMapType(QGeoMapType::StreetMap, tr("Road Map"), tr("Normal map view in daylight mode"), false, false, 1, "googlemaps", capabilities, parameters);
+     types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite"), tr("Satellite map view in daylight mode"), false, false, 2, "googlemaps", capabilities, parameters);
+     types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain"), tr("Terrain map view in daylight mode"), false, false, 3, "googlemaps", capabilities, parameters);
+     types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid"), tr("Satellite map view with streets in daylight mode"), false, false, 4, "googlemaps", capabilities, parameters);
+-#endif
++
+     setSupportedMapTypes(types);
+ 
+     QGeoTileFetcherGooglemaps *fetcher = new QGeoTileFetcherGooglemaps(parameters, this, tileSize());
+@@ -65,19 +49,17 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
+         m_cacheDirectory = parameters.value(QStringLiteral("googlemaps.cachefolder")).toString();
+ 
+     const int szCache = 100 * 1024 * 1024;
+-#if QT_VERSION < QT_VERSION_CHECK(5,6,0)
+-    if (m_cacheDirectory.isEmpty())
+-        m_cacheDirectory = QStandardPaths::writableLocation(QStandardPaths::GenericCacheLocation) + QLatin1String("googlemaps");
+-    QGeoTileCache *tileCache = createTileCacheWithDir(m_cacheDirectory);
+-    if (tileCache)
+-        tileCache->setMaxDiskUsage(szCache);
+-#else
++
+     if (m_cacheDirectory.isEmpty())
+         m_cacheDirectory = QAbstractGeoTileCache::baseCacheDirectory() + QLatin1String("googlemaps");
+-    QAbstractGeoTileCache *tileCache = new QGeoFileTileCache(m_cacheDirectory);
++
++    QString offlineDirectory = "";
++    if (parameters.contains(QStringLiteral("googlemaps.mapping.offline.directory")))
++        offlineDirectory = parameters.value(QStringLiteral("googlemaps.mapping.offline.directory")).toString();
++
++    QAbstractGeoTileCache *tileCache = new QGeoFileTileCacheGooglemaps(offlineDirectory , m_cacheDirectory);
+     tileCache->setMaxDiskUsage(szCache);
+     setTileCache(tileCache);
+-#endif
+ 
+     *error = QGeoServiceProvider::NoError;
+     errorString->clear();
