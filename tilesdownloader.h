@@ -55,7 +55,7 @@ private:
 
     int latTileY(double lat, int zoom);
     int longTileX(double , int ) ;
-    void downloadTileOsm(QUrl url, QString id, QString path);
+    void downloadTile(QUrl url, QString id, QString path);
     //  void dirSizeOsm();
     qint64 dirSize(QString dirPath);
     QString formatSize(qint64 size);

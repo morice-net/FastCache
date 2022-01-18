@@ -37,12 +37,12 @@ void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double 
             path = dirOsm.absolutePath() + "/osm_100-l-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
-            downloadTileOsm(url, "", path);
+            downloadTile(url, "", path);
         }
     }
 }
 
-void TilesDownloader::downloadTileOsm(QUrl url, QString id, QString path)
+void TilesDownloader::downloadTile(QUrl url, QString id, QString path)
 {
     QFile *file = new QFile(path, this);
     if(!file->open(QIODevice::WriteOnly))
