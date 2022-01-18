@@ -14,29 +14,35 @@ class TilesDownloader : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString folderSizeOsm READ folderSizeOsm WRITE setFolderSizeOsm NOTIFY folderSizeOsmChanged)
+    Q_PROPERTY(QString folderSize READ folderSize WRITE setFolderSize NOTIFY folderSizeChanged)
     Q_PROPERTY(QString dirOsm READ dirOsm WRITE setDirOsm NOTIFY dirOsmChanged)
+    Q_PROPERTY(QString dirGooglemaps READ dirGooglemaps WRITE setDirGooglemaps NOTIFY dirGooglemapsChanged)
 
 public:
     explicit TilesDownloader(QObject *parent = 0);
     virtual ~TilesDownloader();
 
-    QString folderSizeOsm() const;
-    void setFolderSizeOsm(const QString &size);
+    QString folderSize() const;
+    void setFolderSize(const QString &size);
     QString dirOsm() const;
     void setDirOsm(const QString &folder);
+    QString dirGooglemaps() const;
+    void setDirGooglemaps(const QString &folder);
+
 
     Q_INVOKABLE void downloadTilesOsm(double latTop ,double latBottom , double lonLeft , double lonRight , int zoom);
     Q_INVOKABLE void removeDir(QString dirPath);
-    Q_INVOKABLE void dirSizeOsm();
+    Q_INVOKABLE void dirSizeFolder(QString dirPath);
 
 signals:
     // emits error string
     void error(QString);
     // Emits path to tile on disk and id
     void downloaded(QString, QString);
-    void folderSizeOsmChanged();
+    void folderSizeChanged();
     void dirOsmChanged();
+    void dirGooglemapsChanged();
+
 
 
 private slots:
@@ -44,8 +50,9 @@ private slots:
     void onReadyRead();
 
 private:
-    QString m_folderSizeOsm;
+    QString m_folderSize;
     QString m_dirOsm = "./osmTiles";
+    QString m_dirGooglemaps = "./googlemapsTiles";
 
     QNetworkAccessManager *webCtrl;
     QMap<QNetworkReply*, QFile*> replytofile;
@@ -56,7 +63,6 @@ private:
     int latTileY(double lat, int zoom);
     int longTileX(double , int ) ;
     void downloadTile(QUrl url, QString id, QString path);
-    //  void dirSizeOsm();
     qint64 dirSize(QString dirPath);
     QString formatSize(qint64 size);
 };

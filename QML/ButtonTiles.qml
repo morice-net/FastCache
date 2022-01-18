@@ -8,8 +8,8 @@ Item {
     Text {
         id: tiles
         anchors.top: parent.bottom
-        text: tilesDownloader.folderSizeOsm !== "" ? "Tuiles: "  + tilesDownloader.folderSizeOsm + " (appui long pour supprimer)"  : "Tuiles: 0.0 octets"
-        color: tilesDownloader.folderSizeOsm === "" ? Palette.silver() : Palette.greenSea()
+        text: tilesDownloader.folderSize !== "" ? "Tuiles: "  + tilesDownloader.folderSize + " (appui long pour supprimer)"  : "Tuiles: 0.0 octets"
+        color: tilesDownloader.folderSize === "" ? Palette.silver() : Palette.greenSea()
         font.family: localFont.name
         font.pointSize: 13
 
@@ -22,6 +22,6 @@ Item {
     }
 
     Component.onCompleted: {
-        tilesDownloader.dirSizeOsm()
+        tilesDownloader.dirSizeFolder(tilesDownloader.dirOsm)
     }
 }

@@ -5,7 +5,7 @@
 
 TilesDownloader::TilesDownloader(QObject *parent) :
     QObject(parent),
-    m_folderSizeOsm(),
+    m_folderSize(),
     webCtrl(new QNetworkAccessManager(this))
 {
 }
@@ -74,7 +74,7 @@ void TilesDownloader::tileDownloaded()
 
     switch(reply->error())
     {
-    case QNetworkReply::NoError: dirSizeOsm();
+    case QNetworkReply::NoError: dirSizeFolder(m_dirOsm);
 
         break;
 
@@ -112,17 +112,17 @@ void TilesDownloader::removeDir(QString dirPath)
     QDir dir(dirPath);
     if (dir.exists())  {
         dir.removeRecursively();
-        setFolderSizeOsm("");
+        setFolderSize("");
     }
 }
 
-void TilesDownloader::dirSizeOsm()
+void TilesDownloader::dirSizeFolder(QString dirPath)
 {
-    QDir dir(m_dirOsm);
+    QDir dir(dirPath);
     if (dir.exists()) {
-        setFolderSizeOsm(formatSize(dirSize(m_dirOsm)));
+        setFolderSize(formatSize(dirSize(dirPath)));
     }  else {
-        setFolderSizeOsm("");
+        setFolderSize("");
     }
 }
 
@@ -152,15 +152,15 @@ QString TilesDownloader::formatSize(qint64 size) {
 
 /** Getters & Setters **/
 
-QString TilesDownloader::folderSizeOsm() const
+QString TilesDownloader::folderSize() const
 {
-    return m_folderSizeOsm;
+    return m_folderSize;
 }
 
-void TilesDownloader::setFolderSizeOsm(const QString &size)
+void TilesDownloader::setFolderSize(const QString &size)
 {
-    m_folderSizeOsm = size;
-    emit folderSizeOsmChanged();
+    m_folderSize = size;
+    emit folderSizeChanged();
 }
 
 QString TilesDownloader::dirOsm() const
@@ -172,6 +172,17 @@ void TilesDownloader::setDirOsm(const QString &folder)
 {
     m_dirOsm = folder;
     emit dirOsmChanged();
+}
+
+QString TilesDownloader::dirGooglemaps() const
+{
+    return m_dirGooglemaps;
+}
+
+void TilesDownloader::setDirGooglemaps(const QString &folder)
+{
+    m_dirGooglemaps = folder;
+    emit dirGooglemapsChanged();
 }
 
 
