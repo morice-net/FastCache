@@ -23,6 +23,10 @@ Rectangle {
         name: "googlemaps"
         parameters: [
             PluginParameter {
+                name: "googlemaps.mapping.offline.directory"
+                value: "./googleMapsTiles"
+            },
+            PluginParameter {
                 name: "googlemaps.maps.apikey"
                 value: "AIzaSyDGoRP53cn7a8rQ4oXgFXKLDoag3rlGvV4"
             },
