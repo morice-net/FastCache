@@ -16,7 +16,8 @@ class TilesDownloader : public QObject
 
     Q_PROPERTY(QString folderSize READ folderSize WRITE setFolderSize NOTIFY folderSizeChanged)
     Q_PROPERTY(QString dirOsm READ dirOsm WRITE setDirOsm NOTIFY dirOsmChanged)
-    Q_PROPERTY(QString dirGooglemaps READ dirGooglemaps WRITE setDirGooglemaps NOTIFY dirGooglemapsChanged)
+    Q_PROPERTY(QString dirGooglemapsPlan READ dirGooglemapsPlan WRITE setDirGooglemapsPlan NOTIFY dirGooglemapsPlanChanged)
+    Q_PROPERTY(QString dirGooglemapsSat READ dirGooglemapsSat WRITE setDirGooglemapsSat NOTIFY dirGooglemapsSatChanged)
 
 public:
     explicit TilesDownloader(QObject *parent = 0);
@@ -26,11 +27,14 @@ public:
     void setFolderSize(const QString &size);
     QString dirOsm() const;
     void setDirOsm(const QString &folder);
-    QString dirGooglemaps() const;
-    void setDirGooglemaps(const QString &folder);
+    QString dirGooglemapsPlan() const;
+    void setDirGooglemapsPlan(const QString &folder);
+    QString dirGooglemapsSat() const;
+    void setDirGooglemapsSat(const QString &folder);
 
 
     Q_INVOKABLE void downloadTilesOsm(double latTop ,double latBottom , double lonLeft , double lonRight , int zoom);
+    Q_INVOKABLE void downloadTilesGooglemaps(double latTop ,double latBottom , double lonLeft , double lonRight , int zoom , int supportedMap);
     Q_INVOKABLE void removeDir(QString dirPath);
     Q_INVOKABLE void dirSizeFolder(QString dirPath);
 
@@ -41,7 +45,8 @@ signals:
     void downloaded(QString, QString);
     void folderSizeChanged();
     void dirOsmChanged();
-    void dirGooglemapsChanged();
+    void dirGooglemapsPlanChanged();
+    void dirGooglemapsSatChanged();
 
 
 
@@ -52,7 +57,8 @@ private slots:
 private:
     QString m_folderSize;
     QString m_dirOsm = "./osmTiles";
-    QString m_dirGooglemaps = "./googlemapsTiles";
+    QString m_dirGooglemapsPlan = "./googlemapsPlanTiles";    ;
+    QString m_dirGooglemapsSat = "./googlemapsSatTiles";
 
     QNetworkAccessManager *webCtrl;
     QMap<QNetworkReply*, QFile*> replytofile;
