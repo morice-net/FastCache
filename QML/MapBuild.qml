@@ -142,7 +142,7 @@ Map {
         //osm
         if(settings.namePlugin === settings.listPlugins[0])
             return 0
-        // googlemaps plan
+        // googlemaps road map
         if(settings.namePlugin === settings.listPlugins[1] && settings.sat === false)
             return 0
         // googlemaps sat

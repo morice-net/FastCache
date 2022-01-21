@@ -5,7 +5,9 @@
 
 TilesDownloader::TilesDownloader(QObject *parent) :
     QObject(parent),
-    m_folderSize(),
+    m_folderSizeOsm(),
+    m_folderSizeGooglemapsPlan(),
+    m_folderSizeGooglemapsSat(),
     webCtrl(new QNetworkAccessManager(this))
 {
 }
@@ -51,35 +53,30 @@ void TilesDownloader::downloadTilesGooglemaps(double latTop, double latBottom, d
 
     QString path = "";
     QString url = "";
-
-    QDir dirGooglemapsPlan(m_dirGooglemapsPlan);
-    if (!dirGooglemapsPlan.exists())
-        dirGooglemapsPlan.mkpath(".");
-    QDir dirGooglemapsSat(m_dirGooglemapsSat);
-    if (!dirGooglemapsSat.exists())
-        dirGooglemapsSat.mkpath(".");
+    QDir dirGooglemaps(m_dirGooglemaps);
+    if (!dirGooglemaps.exists())
+        dirGooglemaps.mkpath(".");
 
     for(int x = xStart; x < xEnd + 1 ; ++x)
     {
         for(int y = yStart; y < yEnd + 1 ; ++y)
         {
-            if(supportedMap == 0)
-            {
+            if(supportedMap == 0)  {
+                //road map
                 url = "https://mt.google.com/vt/lyrs=m&hl=fr-FR&x=" + QString::number(x) + "&y=" + QString::number(y) + "&z=" + QString::number(zoom);
-                path = dirGooglemapsPlan.absolutePath() + "/googlemaps_100-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  +
+                path = dirGooglemaps.absolutePath() + "/googlemaps_100-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  +
                         QString::number(y) + ".png";
                 qDebug()<< url;
                 qDebug()<< path;
-                downloadTile(url, m_dirGooglemapsPlan, path);
-            }
-            else if(supportedMap == 3)
-            {
+                downloadTile(url, m_dirGooglemaps + "false", path);
+            } else if(supportedMap == 3) {
+                //sat
                 url = "https://mt.google.com/vt/lyrs=y&hl=fr-FR&x=" + QString::number(x) + "&y=" + QString::number(y) + "&z=" + QString::number(zoom);
-                path = dirGooglemapsSat.absolutePath() + "/googlemaps_100-4-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  +
+                path = dirGooglemaps.absolutePath() + "/googlemaps_100-4-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  +
                         QString::number(y) + ".png";
                 qDebug()<< url;
                 qDebug()<< path;
-                downloadTile(url, m_dirGooglemapsSat, path);
+                downloadTile(url, m_dirGooglemaps + "true", path);
             }
         }
     }
@@ -109,8 +106,7 @@ void TilesDownloader::tileDownloaded()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
-    if (replytofile[reply]->isOpen())
-    {
+    if (replytofile[reply]->isOpen()) {
         replytofile[reply]->close();
         replytofile[reply]->deleteLater();
     }
@@ -119,11 +115,11 @@ void TilesDownloader::tileDownloaded()
     {
     case QNetworkReply::NoError:{
         if(replytopathid[reply].second == m_dirOsm )
-            dirSizeFolder(m_dirOsm);
-        else if(replytopathid[reply].second == m_dirGooglemapsPlan )
-            dirSizeFolder(m_dirGooglemapsPlan);
-        else if(replytopathid[reply].second == m_dirGooglemapsSat )
-            dirSizeFolder(m_dirGooglemapsSat);
+            dirSizeFolder(m_dirOsm, false);
+        else if(replytopathid[reply].second == m_dirGooglemaps + "false" )
+            dirSizeFolder(m_dirGooglemaps, false);
+        else if(replytopathid[reply].second == m_dirGooglemaps + "true" )
+            dirSizeFolder(m_dirGooglemaps, true);
     }
         break;
 
@@ -156,32 +152,73 @@ int TilesDownloader::latTileY(double lat, int zoom)
     return (int) floor(pow(2.0,zoom)*(((1.0 - asinh(tan(latRad))/ M_PI)/2.0)));
 }
 
-void TilesDownloader::removeDir(QString dirPath)
+void TilesDownloader::removeDir(QString dirPath, bool sat)
 {
     QDir dir(dirPath);
     if (dir.exists())  {
-        dir.removeRecursively();
-        setFolderSize("");
+        if(dirPath == m_dirOsm ) {
+            dir.setNameFilters(QStringList() << "*.*");
+            dir.setFilter(QDir::Files);
+            setFolderSizeOsm("");
+        }
+        else if(dirPath == m_dirGooglemaps && sat == false )  {
+            dir.setNameFilters(QStringList() << "*googlemaps_100-1*.*");
+            dir.setFilter(QDir::Files);
+            setFolderSizeGooglemapsPlan("");
+        }
+        else if(dirPath == m_dirGooglemaps && sat ==true) {
+            dir.setNameFilters(QStringList() << "*googlemaps_100-4*.*");
+            dir.setFilter(QDir::Files);
+            setFolderSizeGooglemapsSat("");
+        }
+        for( QString &dirFile: dir.entryList()) {
+            dir.remove(dirFile);
+        }
     }
 }
 
-void TilesDownloader::dirSizeFolder(QString dirPath)
+void TilesDownloader::dirSizeFolder(QString dirPath, bool sat)
 {
     QDir dir(dirPath);
-    if (dir.exists()) {
-        setFolderSize(formatSize(dirSize(dirPath)));
-    }  else {
-        setFolderSize("");
+    if(dirPath == m_dirOsm) {
+        if (dir.exists()) {
+            setFolderSizeOsm(formatSize(dirSize(dirPath, false)));
+        }  else {
+            setFolderSizeOsm("");
+        }
+    }
+    else if(dirPath == m_dirGooglemaps && sat == false ) {
+        if (dir.exists()) {
+            setFolderSizeGooglemapsPlan(formatSize(dirSize(dirPath, false)));
+        }  else {
+            setFolderSizeGooglemapsPlan("");
+        }
+    }
+    else if(dirPath == m_dirGooglemaps && sat == true ) {
+        if (dir.exists()) {
+            setFolderSizeGooglemapsSat(formatSize(dirSize(dirPath, true)));
+        }  else {
+            setFolderSizeGooglemapsSat("");
+        }
     }
 }
 
-qint64 TilesDownloader::dirSize(QString dirPath)
+qint64 TilesDownloader::dirSize(QString dirPath, bool sat)
 {
     qint64 size = 0;
     QDir dir(dirPath);
-    //calculate total size of current directories' files
-    QDir::Filters fileFilters = QDir::Files|QDir::System|QDir::Hidden;
-    for( QString &filePath :dir.entryList(fileFilters)) {
+    dir.setFilter(QDir::Files|QDir::System|QDir::Hidden);
+
+    if(dirPath == m_dirOsm ) {
+        dir.setNameFilters(QStringList() << "*.*");
+    }
+    else if(dirPath == m_dirGooglemaps && sat == false ) {
+        dir.setNameFilters(QStringList() << "*googlemaps_100-1*.*");
+    }
+    else if(dirPath == m_dirGooglemaps && sat == true ) {
+        dir.setNameFilters(QStringList() << "*googlemaps_100-4*.*");
+    }
+    for( QString &filePath :dir.entryList()) {
         QFileInfo fi(dir, filePath);
         size+= fi.size();
     }
@@ -189,6 +226,8 @@ qint64 TilesDownloader::dirSize(QString dirPath)
 }
 
 QString TilesDownloader::formatSize(qint64 size) {
+    if(size == 0.0)
+        return "";
     QStringList units = {"octets", "ko", "Mo", "Go", "To", "Po"};
     int i;
     double outputSize = size;
@@ -201,15 +240,37 @@ QString TilesDownloader::formatSize(qint64 size) {
 
 /** Getters & Setters **/
 
-QString TilesDownloader::folderSize() const
+QString TilesDownloader::folderSizeOsm() const
 {
-    return m_folderSize;
+    return m_folderSizeOsm;
 }
 
-void TilesDownloader::setFolderSize(const QString &size)
+void TilesDownloader::setFolderSizeOsm(const QString &size)
 {
-    m_folderSize = size;
-    emit folderSizeChanged();
+    m_folderSizeOsm = size;
+    emit folderSizeOsmChanged();
+}
+
+QString TilesDownloader::folderSizeGooglemapsPlan() const
+{
+    return m_folderSizeGooglemapsPlan;
+}
+
+void TilesDownloader::setFolderSizeGooglemapsPlan(const QString &size)
+{
+    m_folderSizeGooglemapsPlan = size;
+    emit folderSizeGooglemapsPlanChanged();
+}
+
+QString TilesDownloader::folderSizeGooglemapsSat() const
+{
+    return m_folderSizeGooglemapsSat;
+}
+
+void TilesDownloader::setFolderSizeGooglemapsSat(const QString &size)
+{
+    m_folderSizeGooglemapsSat = size;
+    emit folderSizeGooglemapsSatChanged();
 }
 
 QString TilesDownloader::dirOsm() const
@@ -223,27 +284,20 @@ void TilesDownloader::setDirOsm(const QString &folder)
     emit dirOsmChanged();
 }
 
-QString TilesDownloader::dirGooglemapsPlan() const
+QString TilesDownloader::dirGooglemaps() const
 {
-    return m_dirGooglemapsPlan;
+    return m_dirGooglemaps;
 }
 
-void TilesDownloader::setDirGooglemapsPlan(const QString &folder)
+void TilesDownloader::setDirGooglemaps(const QString &folder)
 {
-    m_dirGooglemapsPlan = folder;
-    emit dirGooglemapsPlanChanged();
+    m_dirGooglemaps = folder;
+    emit dirGooglemapsChanged();
 }
 
-QString TilesDownloader::dirGooglemapsSat() const
-{
-    return m_dirGooglemapsSat;
-}
 
-void TilesDownloader::setDirGooglemapsSat(const QString &folder)
-{
-    m_dirGooglemapsSat = folder;
-    emit dirGooglemapsSatChanged();
-}
+
+
 
 
 

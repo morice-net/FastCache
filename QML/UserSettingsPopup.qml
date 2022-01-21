@@ -78,6 +78,9 @@ FastPopup {
 
                     ButtonTiles {
                         anchors.top: button1.bottom
+                        folderTiles: tilesDownloader.dirOsm
+                        satTiles: false
+                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirOsm , false)
                     }
 
                     RadioButton {
@@ -114,6 +117,13 @@ FastPopup {
                         }
                     }
 
+                    ButtonTiles {
+                        anchors.top: button2.bottom
+                        folderTiles: tilesDownloader.dirGooglemaps
+                        satTiles: false
+                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirGooglemaps , false)
+                    }
+
                     RadioButton {
                         id:button3
                         visible: true
@@ -146,6 +156,13 @@ FastPopup {
                                 anchors.margins: 4
                             }
                         }
+                    }
+
+                    ButtonTiles {
+                        anchors.top: button3.bottom
+                        folderTiles: tilesDownloader.dirGooglemaps
+                        satTiles: true
+                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirGooglemaps , true)
                     }
 
                     RadioButton {

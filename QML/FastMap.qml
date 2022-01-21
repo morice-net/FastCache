@@ -24,7 +24,7 @@ Rectangle {
         parameters: [
             PluginParameter {
                 name: "googlemaps.mapping.offline.directory"
-                value: "./googleMapsTiles"
+                value:  tilesDownloader.dirGooglemaps
             },
             PluginParameter {
                 name: "googlemaps.maps.apikey"
@@ -32,7 +32,7 @@ Rectangle {
             },
             PluginParameter {
                 name: "googlemaps.geocode.apikey"
-                value: "AIzaSyDIgUAHUcSx5jBqcXN3-HiFSORfU6Y-Fl4"
+                value: "AIzaSyCH0CCl67E9VfCcVovtTUDvT3391wpPqZ8"
             }]
     }
 

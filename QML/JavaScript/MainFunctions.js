@@ -143,17 +143,38 @@ function reloadCachesBBox() {
 }
 
 function downloadTiles() {
+    var latTop = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
+    var latBottom = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
+    var lonLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
+    var lonRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
+    var zoom = fastMap.mapItem.zoomLevel
     //osm
     if(settings.namePlugin === settings.listPlugins[0]) {
-        var latTop = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
-        var latBottom = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
-        var lonLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).longitude
-        var lonRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
-        var zoom = fastMap.mapItem.zoomLevel
         tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom)
         if(zoom < 19)
             tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom + 1)
         if(zoom < 18)
             tilesDownloader.downloadTilesOsm(latTop , latBottom , lonLeft , lonRight , zoom + 2)
+    }
+    //googlemaps road map
+    else  if(settings.namePlugin === settings.listPlugins[1] && settings.sat === false) {
+        tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom , 0)
+        if(zoom < 19)
+            tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom + 1 , 0)
+        if(zoom < 18)
+            tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom + 2 , 0)
+    }
+    //googlemaps Sat
+    else if(settings.namePlugin === settings.listPlugins[1] && settings.sat === true) {
+        tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom , 3)
+        if(zoom < 19)
+            tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom + 1 , 3)
+        if(zoom < 18)
+            tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom + 2 , 3)
+    }
+    //here
+    else if(settings.namePlugin === settings.listPlugins[2]) {
+        toast.visible = true
+        toast.show("Le plugin ne permet pas d'enregistrer la carte");
     }
 }
