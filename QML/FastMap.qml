@@ -28,11 +28,11 @@ Rectangle {
             },
             PluginParameter {
                 name: "googlemaps.maps.apikey"
-                value: "AIzaSyDGoRP53cn7a8rQ4oXgFXKLDoag3rlGvV4"
+                value: Qt.atob("QUl6YVN5QUpXZUFyZUdtbE1tdGlVN1lROWVEWFM5Z1ZMLVV2ZkE0")
             },
             PluginParameter {
                 name: "googlemaps.geocode.apikey"
-                value: "AIzaSyCH0CCl67E9VfCcVovtTUDvT3391wpPqZ8"
+                value: Qt.atob("QUl6YVN5Q2JiSXJkYi1DbFM4REQ1VDVacGV2SExBUWx3ME43ME1z")
             }]
     }
 
