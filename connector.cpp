@@ -6,9 +6,9 @@
 #include <QJsonDocument>
 
 Connector::Connector(QObject *parent)
-    : QObject(parent)
-    , m_consumerKey("B312A77A-BA25-45D4-BC12-937114751512")
-    , m_consumerSecret("894B6893-C651-44FB-83E1-E5E8AEB5801C")
+    : QObject(parent)  
+    , m_consumerKey(QByteArray::fromBase64("QjMxMkE3N0EtQkEyNS00NUQ0LUJDMTItOTM3MTE0NzUxNTEy"))
+    , m_consumerSecret(QByteArray::fromBase64("ODk0QjY4OTMtQzY1MS00NEZCLTgzRTEtRTVFOEFFQjU4MDFD"))
     , m_redirectUri("https://geocaching4locus.eu/oauth")
     , m_tokenKey()
     , m_refreshToken()
