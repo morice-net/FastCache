@@ -56,11 +56,11 @@ Rectangle {
         parameters: [
             PluginParameter {
                 name: "here.app_id"
-                value: "bY3AcUUJgHwHZRzHZKt9"
+                value: Qt.atob("YlkzQWNVVUpnSHdIWlJ6SFpLdDk=")
             },
             PluginParameter {
                 name: "here.token"
-                value: "conK3PVPnfUJRFjsf0NRvw"
+                value: Qt.atob("Y29uSzNQVlBuZlVKUkZqc2YwTlJ2dw==")
             }]
     }
 
