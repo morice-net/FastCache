@@ -4,8 +4,7 @@ import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
 
 Item {
-    z: map.z + 3
-    //visible: scaleText.text != "0 m"
+    z: map.z + 3    
     anchors.bottom: parent.bottom;
     anchors.left: parent.left
     anchors.margins: 30

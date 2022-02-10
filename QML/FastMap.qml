@@ -109,6 +109,16 @@ Rectangle {
         return listGeocodes
     }
 
+    function countCachesOnMap() {
+        var count  = 0
+        for (var i = 0; i < map.mapItems.length; i++) {
+            // is in viewport
+            if(map.fromCoordinate(map.mapItems[i].coordinate, true).x.toString() !== "NaN")
+                count = count + 1
+        }
+        return count
+    }
+
     function markedCachesRegistered() {
         if(main.state !== "recorded") {
             for (var i = 0; i < cachesSingleList.caches.length; i++) {

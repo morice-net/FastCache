@@ -32,6 +32,19 @@ Map {
         }
     }
 
+    Text {
+        id: numberCaches
+        z: map.z + 3
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        bottomPadding: 30
+        font.pixelSize: 30
+        color: Palette.black()
+        font.family: localFont.name
+        text: fastMap.countCachesOnMap() === 0 || fastMap.countCachesOnMap() === 1 ? fastMap.countCachesOnMap() + "  cache" :
+                                                                                     fastMap.countCachesOnMap() + "  caches"
+    }
+
     LoadingPage {
         id: loadingPage
     }
