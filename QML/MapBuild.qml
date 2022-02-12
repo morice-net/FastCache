@@ -11,15 +11,22 @@ Map {
     property var selectedCache
     property MapCircle circle
     property MapCircle circleRadius
+    property int cachesOnMap: fastMap.countCachesOnMap() // number of caches on map
 
     activeMapType: supportedMapTypes[supportedMap()]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
     gesture.enabled: true
     gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
-    gesture.onPanFinished: Functions.reloadCachesBBox()
+    gesture.onPanFinished: {
+        if(cachesSingleList.caches.length !== 0)
+            cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
+        Functions.reloadCachesBBox()
+    }
     onZoomLevelChanged: {
         scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
+        if(cachesSingleList.caches.length !== 0)
+            cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
         Functions.reloadCachesBBox()
     }
     onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
@@ -41,8 +48,7 @@ Map {
         font.pixelSize: 30
         color: Palette.black()
         font.family: localFont.name
-        text: fastMap.countCachesOnMap() === 0 || fastMap.countCachesOnMap() === 1 ? fastMap.countCachesOnMap() + "  cache" :
-                                                                                     fastMap.countCachesOnMap() + "  caches"
+        text: cachesOnMap === 0 || cachesOnMap === 1 ? cachesOnMap + "  cache" : cachesOnMap + "  caches"
     }
 
     LoadingPage {
@@ -114,6 +120,7 @@ Map {
                 fastMap.currentCacheIndex++
             }
         }
+        cachesOnMap = fastMap.countCachesOnMap()  // update cachesOnMap
     }
 
     function updateCacheOnMap(indexList) {
