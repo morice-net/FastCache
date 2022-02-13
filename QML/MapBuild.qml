@@ -42,13 +42,12 @@ Map {
     Text {
         id: numberCaches
         z: map.z + 3
-        anchors.bottom: parent.bottom
+        anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        bottomPadding: 30
         font.pixelSize: 30
         color: Palette.black()
         font.family: localFont.name
-        text: cachesOnMap === 0 || cachesOnMap === 1 ? cachesOnMap + "  cache" : cachesOnMap + "  caches"
+        text: listModeText(cachesOnMap)
     }
 
     LoadingPage {
@@ -102,7 +101,6 @@ Map {
             fastCache.z = 0
         }
     }
-
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
     function updateCachesOnMap(caches) {
@@ -171,6 +169,23 @@ Map {
         // here
         if(settings.namePlugin === settings.listPlugins[2])
             return 0
+    }
+
+    function listModeText(count) {
+        if(main.annexMainState === "cachesActive"){
+            return "Carte active (" + count + ")"
+        } else if(main.annexMainState === "near"){
+            return  "Caches proches (" + count + ")"
+        } else if(main.annexMainState === "address" ){
+            return  "Par adresse (" + count + ")"
+        } else if(main.annexMainState === "coordinates" ){
+            return  "Par coordonnées (" + count + ")"
+        } else if (main.annexMainState === "pocketQuery") {
+            return "Pocket Query (" + count + ")"
+        } else if(main.annexMainState === "recorded"){
+            return sqliteStorage.readAllStringsFromTable("lists")[tabViewRecordedCaches.currentIndex] + " ( " + count + " )"
+        }
+        return "Carte non active (" + count + ")"
     }
 
     Component.onCompleted:{
