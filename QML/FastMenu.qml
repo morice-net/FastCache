@@ -254,8 +254,8 @@ Item {
         cachesNear.latPoint = coord.latitude
         cachesNear.lonPoint = coord.longitude
         cachesNear.distance = 100
-        cachesNear.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs() , main.excludeFound,
-                                      main.excludeArchived, Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
+        cachesNear.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs() , main.excludeFound ,
+                                      main.excludeArchived , Functions.createFilterKeywordDiscoverOwner() , userInfo.name)
         cachesNear.indexMoreCaches = 0
         cachesNear.sendRequest(connector.tokenKey)
     }
@@ -266,9 +266,8 @@ Item {
             cachesNear.latPoint = coordinatesBox.resultLat
             cachesNear.lonPoint = coordinatesBox.resultLon
             cachesNear.distance = 100
-            cachesNear.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs() ,
-                                          main.excludeFound, main.excludeArchived,
-                                          Functions.createFilterKeywordDiscoverOwner() , userInfo.name )
+            cachesNear.updateFilterCaches(listTypes , listSizes , Functions.createFilterDifficultyTerrainGs() , main.excludeFound ,
+                                          main.excludeArchived , Functions.createFilterKeywordDiscoverOwner() , userInfo.name)
             cachesNear.indexMoreCaches = 0
             cachesNear.sendRequest(connector.tokenKey)
             fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
