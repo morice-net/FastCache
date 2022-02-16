@@ -186,15 +186,15 @@ FastPopup {
         return list
     }
 
-    function  recordButton() {
+    function recordButton() {
         if(viewState === "list" )
             return "Enregistrer les caches"
-        if(viewState === "map" && listChecked.indexOf(true) === -1) {
+        if(viewState === "map" && listChecked.indexOf(true) === -1)
             return "Enregistrer la carte"
-        }
-        if(viewState === "map" && listChecked.indexOf(true) !== -1) {
+        if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin === settings.listPlugins[2]) // here
+            return "Enregistrer les caches"
+        if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin !== settings.listPlugins[2])
             return "Enregistrer caches et carte"
-        }
         return ""
     }
 }
