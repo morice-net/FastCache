@@ -183,7 +183,7 @@ Map {
         } else if (main.annexMainState === "pocketQuery") {
             return "Pocket Query (" + count + ")"
         } else if(main.annexMainState === "recorded"){
-            return sqliteStorage.readAllStringsFromTable("lists")[tabViewRecordedCaches.currentIndex] + " ( " + count + " )"
+            return "Caches enregistrées (" + count + ")"
         }
         return "Carte non active (" + count + ")"
     }
