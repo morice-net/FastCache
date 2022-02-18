@@ -106,13 +106,14 @@ FastPopup {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Column {
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Text {
                     id: lat
                     text: "Latitude :  " + Functions.formatLat(0.0)
                     font.family: localFont.name
                     font.pointSize: 15
-                    color: Palette.black()
+                    color: Palette.white()
                 }
 
                 Text {
@@ -120,7 +121,7 @@ FastPopup {
                     text: "Longitude :  " + Functions.formatLon(0.0)
                     font.family: localFont.name
                     font.pointSize: 15
-                    color: Palette.black()
+                    color: Palette.white()
                 }
             }
         }
