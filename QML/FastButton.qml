@@ -8,7 +8,7 @@ Button {
     contentItem: Text {
         text: button.text
         font.family: localFont.name
-        font.pointSize: button.font.pixelSize
+        font.pointSize: button.font.pointSize
         color: Palette.greenSea()
         opacity: button.opacity
         horizontalAlignment: Text.AlignHCenter

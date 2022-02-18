@@ -98,7 +98,7 @@ FastPopup {
         FastButton {
             id: goButton
             text: "Ok"
-            font.pointSize: 10
+            font.pointSize: 18
             onClicked: {
                 if (gpsFormatCombo.currentIndex == 0)
                     if(box1.box1Lat() !== "" && box1.box1Lon()  !== "") {
@@ -135,7 +135,7 @@ FastPopup {
         // erase button
         FastButton {
             id: clearButton
-            font.pointSize: 10
+            font.pointSize: 18
             text: "Effacer"
             onClicked: {
                 box1.eraseText()

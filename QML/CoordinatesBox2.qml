@@ -16,7 +16,7 @@ Item {
                 id: box2ButtonNS
                 implicitWidth: coordinatesBox.width/10
                 text: "N"
-                font.pointSize: 9
+                font.pointSize: 18
                 onClicked: {
                     box2ButtonNS.text === "N" ? box2ButtonNS.text="S":box2ButtonNS.text="N"
                 }
@@ -32,7 +32,7 @@ Item {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 90;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
@@ -48,7 +48,7 @@ Item {
             Label {
                 id: box2LabelPoint
                 text: "."
-                font.pixelSize: 35
+                font.pointSize: 18
             }
 
             TextField {
@@ -61,7 +61,7 @@ Item {
                 maximumLength : 5
                 validator: IntValidator {bottom: 0; top: 99999;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/7
@@ -77,7 +77,7 @@ Item {
             Label {
                 id: box2LabelDegrees
                 text: "°"
-                font.pixelSize: 35
+                font.pointSize: 18
             }
         }
 
@@ -88,7 +88,7 @@ Item {
                 id: box2ButtonEO
                 implicitWidth: coordinatesBox.width/10
                 text: "E"
-                font.pointSize: 9
+                font.pointSize: 18
                 onClicked: {
                     box2ButtonEO.text === "E" ? box2ButtonEO.text="O":box2ButtonEO.text="E"
                 }
@@ -104,7 +104,7 @@ Item {
                 maximumLength : 3
                 validator: IntValidator {bottom: 0; top: 180;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
@@ -120,7 +120,7 @@ Item {
             Label {
                 id: box2LabelPoint2
                 text: "."
-                font.pixelSize: 35
+                font.pointSize: 18
             }
 
             TextField {
@@ -128,7 +128,7 @@ Item {
                 maximumLength : 5
                 validator: IntValidator {bottom: 0; top: 99999;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/7
@@ -144,7 +144,7 @@ Item {
             Label {
                 id: box2LabelDegrees2
                 text: "°"
-                font.pixelSize: 35
+                font.pointSize: 18
             }
         }
 

@@ -16,7 +16,7 @@ Item {
                 id: box1ButtonNS
                 implicitWidth: coordinatesBox.width/10
                 text: "N"
-                font.pointSize: 9
+                font.pointSize: 18
                 onClicked: {
                     box1ButtonNS.text === "N" ? box1ButtonNS.text="S":box1ButtonNS.text="N"
                 }
@@ -32,7 +32,7 @@ Item {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 90;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
@@ -48,7 +48,7 @@ Item {
             Label {
                 id: box1LabelDegrees
                 text: "°"
-                font.pixelSize: 35
+                font.pointSize: 18
             }
 
             TextField {
@@ -61,7 +61,7 @@ Item {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 59;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
@@ -77,7 +77,7 @@ Item {
             Label {
                 id: box1LabelPoint
                 text: "."
-                font.pixelSize: 35
+                font.pointSize: 18
             }
 
             TextField {
@@ -90,7 +90,7 @@ Item {
                 maximumLength : 3
                 validator: IntValidator{bottom:0 ; top: 999;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/8
@@ -106,7 +106,7 @@ Item {
             Label {
                 id: box1LabelMinute
                 text: "'"
-                font.pixelSize: 35
+                font.pointSize: 18
             }
         }
 
@@ -117,7 +117,7 @@ Item {
                 id: box1ButtonEO
                 implicitWidth: coordinatesBox.width/10
                 text:"E"
-                font.pointSize: 9
+                font.pointSize: 18
                 onClicked: {
                     box1ButtonEO.text === "E" ? box1ButtonEO.text="O":box1ButtonEO.text="E"
                 }
@@ -133,7 +133,7 @@ Item {
                 maximumLength : 3
                 validator: IntValidator {bottom: 0; top: 180;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
@@ -149,7 +149,7 @@ Item {
             Label {
                 id: box1LabelDegrees2
                 text: "°"
-                font.pixelSize: 35
+                font.pointSize: 18
             }
 
             TextField {
@@ -163,7 +163,7 @@ Item {
                 maximumLength : 2
                 validator: IntValidator {bottom: 0; top: 59;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/10
@@ -179,7 +179,7 @@ Item {
             Label {
                 id: box1LabelPoint2
                 text: "."
-                font.pixelSize: 35
+                font.pointSize: 18
             }
 
             TextField {
@@ -187,7 +187,7 @@ Item {
                 maximumLength : 3
                 validator: IntValidator{bottom:0 ; top: 999;}
                 font.family: localFont.name
-                font.pixelSize: 35
+                font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitWidth: main.width/8
@@ -203,7 +203,7 @@ Item {
             Label {
                 id: box1LabelMinute2
                 text: "'"
-                font.pixelSize: 35
+                font.pointSize: 18
             }
         }
     }
