@@ -23,7 +23,7 @@ FastPopup {
         id: gpsFormatCombo
         y: 80
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width*0.9
+        width: parent.width*0.5
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
         delegate: ItemDelegate {
             width: gpsFormatCombo.width
@@ -31,7 +31,7 @@ FastPopup {
                 text: modelData
                 color: Palette.turquoise()
                 font.family: localFont.name
-                font.pointSize: 15
+                font.pointSize: 14
                 verticalAlignment: Text.AlignVCenter
             }
             highlighted: gpsFormatCombo.highlightedIndex === index
@@ -40,7 +40,7 @@ FastPopup {
             leftPadding: 20
             text: gpsFormatCombo.displayText
             font.family: localFont.name
-            font.pointSize: 15
+            font.pointSize: 14
             color: Palette.turquoise()
             verticalAlignment: Text.AlignVCenter
         }
