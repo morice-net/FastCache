@@ -24,7 +24,7 @@ Item {
             FastButton {
                 id:buttonAddWpt
                 anchors.horizontalCenter: parent.horizontalCenter
-                font.pointSize: 11
+                font.pointSize: 18
                 text:"Ajouter une étape personnelle"
 
                 MouseArea {
@@ -194,7 +194,7 @@ Item {
                 FastButton {
                     id: correctedDelete
                     visible: fullCache.isCorrectedCoordinates
-                    font.pointSize: 10
+                    font.pointSize: 18
                     text: "Annuler"
                     onClicked:{
                         //Delete modifications of coordinates
@@ -208,7 +208,7 @@ Item {
                     visible: fullCache.isCorrectedCoordinates
                     text: "Modifier"
                     font.family: localFont.name
-                    font.pointSize: 10
+                    font.pointSize: 18
                     onClicked: {
                         userWptAdd = false;
                         userCorrectedCoordinates = true;
@@ -312,7 +312,7 @@ Item {
                         FastButton {
                             id: uwDelete
                             text: "Supprimer"
-                            font.pointSize: 10
+                            font.pointSize: 18
                             onClicked:{
                                 //Delete userWaypoint
                                 fastCache.deleteUserWpt = true
@@ -324,7 +324,7 @@ Item {
                         FastButton {
                             id: uwUpdate
                             text: "Modifier"
-                            font.pointSize: 10
+                            font.pointSize: 18
                             onClicked: {
                                 userWptAdd = false;
                                 userCorrectedCoordinates = false

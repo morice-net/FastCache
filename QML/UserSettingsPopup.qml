@@ -404,7 +404,7 @@ FastPopup {
         anchors.bottomMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Se déconnecter"
-        font.pointSize: 14
+        font.pointSize: 18
         onClicked: {
             Functions.disconnectAccount()
             userSettingsPopup.close()

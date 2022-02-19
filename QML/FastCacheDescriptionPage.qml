@@ -214,8 +214,7 @@ Item {
                 id:buttonSend
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Envoyer"
-                font.family: localFont.name
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     sendCacheNote.sendRequest(connector.tokenKey , fullCache.geocode , personalNote.text);
                 }

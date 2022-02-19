@@ -182,7 +182,7 @@ Item {
                 id: buttonAddImages
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked:{
                     imagesBrowser.visible = true
                 }
@@ -192,7 +192,7 @@ Item {
                 id: buttonSendLog
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     console.log(fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
                                 + favorited.checked);

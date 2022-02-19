@@ -172,7 +172,7 @@ Item  {
                             FastButton {
                                 id: buttonYes
                                 visible: false
-                                font.pointSize: 10
+                                font.pointSize: 18
                                 text: "Supprimer le log ?"
                                 onClicked: {
                                     buttonYes.visible = false
@@ -185,7 +185,7 @@ Item  {
                             FastButton {
                                 id:buttonNo
                                 visible: false
-                                font.pointSize: 10
+                                font.pointSize: 18
                                 text: "Annuler"
                                 onClicked: {
                                     buttonYes.visible = false

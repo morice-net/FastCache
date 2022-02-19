@@ -172,7 +172,7 @@ Item {
                 id:buttonSendLog
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Envoyer le log"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked:{
                     if(typeLog !== 4 && travelbug.tbStatus !== 0 && message.text !== "") {
                         sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,

@@ -48,7 +48,7 @@ Rectangle {
             id: fileDialogVisible
             y: 10
             text: "Ajouter une image"
-            font.pointSize: 10
+            font.pointSize: 18
             onClicked: {
                 fileDialog.visible = true
             }

@@ -52,7 +52,7 @@ FastPopup {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: false
             text: "Renommer la liste"
-            font.pointSize: 10
+            font.pointSize: 18
             onClicked: {
                 if(renameList.text.length !== 0)
                 {
@@ -74,7 +74,7 @@ FastPopup {
             FastButton {
                 id:buttonDelete
                 visible: false
-                font.pointSize: 10
+                font.pointSize: 18
                 text: "Etes vous sur ?"
                 onClicked: {
                     listChecked.splice(listIndex , 1 )
@@ -103,7 +103,7 @@ FastPopup {
                 id:buttonNo
                 visible: false
                 text: "Annuler"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     title.text = "Gérer les listes.."
                     displayListColumn.visible = true
@@ -185,7 +185,7 @@ FastPopup {
             FastButton {
                 id : newList
                 text: "Nouvelle liste"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     buttonDel.visible = !buttonDel.visible
                     createNewList.visible = !createNewList.visible
@@ -221,7 +221,7 @@ FastPopup {
                 id:buttonDel
                 visible: false
                 text: "Effacer"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     createNewList.text = "" ;
                 }
@@ -232,7 +232,7 @@ FastPopup {
                 id:buttonCreate
                 visible: false
                 text: "Créer la liste"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     if (createNewList.length !== 0) {
                         listChecked.push(false)
@@ -255,7 +255,7 @@ FastPopup {
         FastButton {
             anchors.horizontalCenter: parent.horizontalCenter
             text:"Valider"
-            font.pointSize: 10
+            font.pointSize: 18
             onClicked: {
                 // Close recordedListsManager
                 closeIfMenu()

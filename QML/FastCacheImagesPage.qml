@@ -83,6 +83,7 @@ Item {
                                 id: buttonYes
                                 visible: false
                                 text: "Supprimer l'image ?"
+                                font.pointSize: 18
                                 onClicked: {
                                     buttonYes.visible = false
                                     buttonNo.visible = false
@@ -94,6 +95,7 @@ Item {
                             FastButton {
                                 id:buttonNo
                                 visible: false
+                                font.pointSize: 18
                                 text: "Annuler"
                                 onClicked: {
                                     buttonYes.visible = false

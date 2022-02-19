@@ -45,7 +45,7 @@ Item {
         FastButton {
             id: textButtonId
             Layout.alignment: Qt.AlignCenter
-            font.pointSize: 8
+            font.pointSize: 18
             onClicked: popupSize.open()
         }
 
@@ -390,7 +390,7 @@ Item {
             id: keywordButtonId
             Layout.alignment: Qt.AlignCenter
             text:"Pas de filtres.."
-            font.pointSize: 8
+            font.pointSize: 18
             onClicked: keyWordPopup.open()
         }
 
@@ -484,7 +484,7 @@ Item {
                     id: efface
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Effacer"
-                    font.pointSize: 8
+                    font.pointSize: 18
                     onClicked:{
                         mot.text=""
                         decouvreur.text=""

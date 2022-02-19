@@ -129,7 +129,7 @@ FastPopup {
             FastButton {
                 id: goButton
                 text: "Ok"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     address.street = street.text
                     address.city = city.text
@@ -143,7 +143,7 @@ FastPopup {
             FastButton {
                 id: clearButton
                 text: "Effacer"
-                font.pointSize: 10
+                font.pointSize: 18
                 onClicked: {
                     street.text = ""
                     city.text = ""

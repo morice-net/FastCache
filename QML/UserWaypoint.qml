@@ -42,7 +42,7 @@ FastPopup {
             anchors.horizontalCenter: parent.horizontalCenter
             y: 10
             text:"Coordonnées"
-            font.pointSize: 10
+            font.pointSize: 18
             onClicked: {
                 coordinatesBox.backgroundOpacity = 1
                 coordinatesBox.open()
@@ -222,7 +222,7 @@ FastPopup {
             id:send
             anchors.horizontalCenter: parent.horizontalCenter
             text: "Envoyer"
-            font.pointSize: 10
+            font.pointSize: 18
             onClicked:{
                 // Update the compass page
                 if(correctCoordinates()) {
