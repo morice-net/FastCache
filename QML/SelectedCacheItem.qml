@@ -80,7 +80,7 @@ Rectangle {
         anchors.top: parent.top
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
-        font.pixelSize: parent.height * 0.15
+        font.pointSize: parent.height * 0.08
         color: Palette.black()
         width: parent.width*0.7
         elide: Text.ElideRight
@@ -93,7 +93,7 @@ Rectangle {
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
-        font.pixelSize: parent.height * 0.15
+        font.pointSize: parent.height * 0.08
         color: Palette.black()
         clip: true
         text: selectedCache !== null ? selectedCache.geocode : ""
@@ -105,7 +105,7 @@ Rectangle {
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheTerrainField.left
         font.family: localFont.name
-        font.pixelSize: parent.height * 0.15
+        font.pointSize: parent.height * 0.08
         color: Palette.black()
         clip: true
     }
@@ -118,7 +118,7 @@ Rectangle {
         anchors.left: parent.left
         ratingName: "Difficulté"
         ratingValue: selectedCache !== null ? selectedCache.difficulty : 0
-        ratingTextPixelSize: selectedCacheItem.height * 0.15
+        ratingTextPointSize: selectedCacheItem.height * 0.08
     }
 
     RaterField {
@@ -128,7 +128,7 @@ Rectangle {
         anchors.left: selectedCacheDifficultyField.right
         ratingName: "Terrain"
         ratingValue: selectedCache !== null ? selectedCache.terrain : 0
-        ratingTextPixelSize: selectedCacheItem.height * 0.15
+        ratingTextPointSize: selectedCacheItem.height * 0.08
     }
 
     MouseArea {
@@ -180,7 +180,7 @@ Rectangle {
             anchors.top: parent.top
             anchors.right: parent.right
             font.family: localFont.name
-            font.pixelSize: selectedCacheItem.height * 0.15
+            font.pointSize: selectedCacheItem.height * 0.08
             color: Palette.black()
             clip: true
             text: selectedCache !== null ? Helper.formatDistance(Math.round(currentPosition.position.coordinate

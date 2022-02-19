@@ -14,7 +14,7 @@ Rectangle {
         anchors.centerIn: parent
         text: "Etes-vous sur de vouloir\n   quitter FastCache ?"
         font.family: localFont.name
-        font.pixelSize: parent.height * 0.05
+        font.pointSize: parent.height * 0.025
         color: Palette.white()
     }
 

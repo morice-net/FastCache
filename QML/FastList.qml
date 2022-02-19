@@ -61,7 +61,7 @@ Rectangle {
             horizontalAlignment: Text.AlignHCenter
             anchors.fill: parent
             font.family: localFont.name
-            font.pixelSize: parent.height * 0.5
+            font.pointSize: parent.height * 0.22
             color: Palette.greenSea()
             text: textHeader()
 

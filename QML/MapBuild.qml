@@ -44,7 +44,7 @@ Map {
         z: map.z + 3
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pixelSize: 30
+        font.pointSize: 17
         color: Palette.black()
         font.family: localFont.name
         text: listModeText(cachesOnMap)

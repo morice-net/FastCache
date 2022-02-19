@@ -10,7 +10,7 @@ Row {
     property string ratingName
     property real ratingValue: 1.0
     property bool reversedColor: false
-    property alias ratingTextPixelSize: raterText.font.pixelSize
+    property alias ratingTextPointSize: raterText.font.pointSize
 
     width: parent.width / 2
     spacing: 2
@@ -27,7 +27,7 @@ Row {
         model: Math.floor(raterField.ratingValue)
 
         Rectangle {
-            width: parent.height
+            width: parent.height * 0.95
             height: width
             radius: width/2
             color: reversedColor ? Palette.white() : Palette.greenSea()
@@ -38,7 +38,7 @@ Row {
         model: Math.ceil(raterField.ratingValue) - Math.floor(raterField.ratingValue)
 
         Rectangle {
-            width: parent.height
+            width: parent.height * 0.95
             height: width
             radius: width/2
             rotation: 90
@@ -68,7 +68,7 @@ Row {
         model: 5 - Math.ceil(raterField.ratingValue)
 
         Rectangle {
-            width: raterField.height
+            width: raterField.height * 0.95
             height: width
             radius: width/2
             border.color: reversedColor ? Palette.white() : Palette.greenSea()

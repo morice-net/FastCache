@@ -78,12 +78,12 @@ Item {
                         text: userInfo.name
                         font.family: localFont.name
                         verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: height
+                        font.pointSize: height
                         color: Palette.black()
 
                         onTextChanged: {
                             if (text === "") return
-                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pixelSize--
+                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
                         }
                     }
 
@@ -92,12 +92,12 @@ Item {
                         text: findCount + " caches trouvées"
                         font.family: localFont.name
                         verticalAlignment: Text.AlignBottom
-                        font.pixelSize: height
+                        font.pointSize: height
                         color: Palette.greenSea()
 
                         onTextChanged: {
                             if (text === "0 caches trouvées") return
-                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pixelSize--
+                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
                         }
                     }
 
@@ -106,12 +106,12 @@ Item {
                         text: "Membre : " + userInfo.premium
                         font.family: localFont.name
                         verticalAlignment: Text.AlignVCenter
-                        font.pixelSize: height
+                        font.pointSize: height
                         color: Palette.greenSea()
 
                         onTextChanged: {
                             if (text === "Membre : ") return
-                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pixelSize--
+                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
                         }
                     }
                 }

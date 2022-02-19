@@ -38,7 +38,7 @@ Popup {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: 10
-        font.pixelSize: parent.width / 12
+        font.pointSize: parent.width / 22
         color: Palette.black()
 
         MouseArea {
