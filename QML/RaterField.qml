@@ -14,7 +14,7 @@ Row {
 
     width: parent.width / 2
     spacing: 2
-    
+
     Text {
         id: raterText
         font.family: localFont.name
@@ -27,7 +27,8 @@ Row {
         model: Math.floor(raterField.ratingValue)
 
         Rectangle {
-            width: parent.height * 0.95
+           anchors.verticalCenter: raterText.verticalCenter
+            width: parent.height * 0.6
             height: width
             radius: width/2
             color: reversedColor ? Palette.white() : Palette.greenSea()
@@ -38,7 +39,8 @@ Row {
         model: Math.ceil(raterField.ratingValue) - Math.floor(raterField.ratingValue)
 
         Rectangle {
-            width: parent.height * 0.95
+            anchors.verticalCenter: raterText.verticalCenter
+            width: parent.height * 0.6
             height: width
             radius: width/2
             rotation: 90
@@ -68,7 +70,8 @@ Row {
         model: 5 - Math.ceil(raterField.ratingValue)
 
         Rectangle {
-            width: raterField.height * 0.95
+            anchors.verticalCenter: raterText.verticalCenter
+            width: parent.height * 0.6
             height: width
             radius: width/2
             border.color: reversedColor ? Palette.white() : Palette.greenSea()

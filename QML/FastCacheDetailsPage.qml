@@ -125,6 +125,7 @@ Item {
             spacing: 15
 
             Text {
+                id:diff
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -134,6 +135,7 @@ Item {
             }
 
             RaterField {
+                anchors.verticalCenter: diff.verticalCenter
                 y: 5
                 reversedColor: true
                 ratingName: " "
@@ -145,6 +147,7 @@ Item {
             spacing: 15
 
             Text {
+                id:terr
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -154,6 +157,7 @@ Item {
             }
 
             RaterField {
+                anchors.verticalCenter: terr.verticalCenter
                 y: 5
                 reversedColor: true
                 ratingName:" "
