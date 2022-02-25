@@ -26,9 +26,10 @@ GroupBox {
                 font.pointSize: 16
                 color: button1.checked ? Palette.white() : Palette.silver()
                 leftPadding: button1.indicator.width + button1.spacing
+                verticalAlignment: Text.AlignVCenter
             }
             indicator: Rectangle {
-                y:10
+                y: parent.height / 2 - height / 2
                 implicitWidth: 25
                 implicitHeight: 25
                 radius: 10
@@ -56,9 +57,10 @@ GroupBox {
                 font.pointSize: 16
                 color: button2.checked ? Palette.white() : Palette.silver()
                 leftPadding: button2.indicator.width + button2.spacing
+                verticalAlignment: Text.AlignVCenter
             }
             indicator: Rectangle {
-                y:10
+                y: parent.height / 2 - height / 2
                 implicitWidth: 25
                 implicitHeight: 25
                 radius: 10
@@ -85,9 +87,10 @@ GroupBox {
                 font.pointSize: 16
                 color: button3.checked ? Palette.white() : Palette.silver()
                 leftPadding: button3.indicator.width + button3.spacing
+                verticalAlignment: Text.AlignVCenter
             }
             indicator: Rectangle {
-                y:10
+                y: parent.height / 2 - height / 2
                 implicitWidth: 25
                 implicitHeight: 25
                 radius: 10
@@ -115,9 +118,10 @@ GroupBox {
                 font.pointSize: 16
                 color: button4.checked ? Palette.white() : Palette.silver()
                 leftPadding: button4.indicator.width + button4.spacing
+                verticalAlignment: Text.AlignVCenter
             }
             indicator: Rectangle {
-                y:10
+                y: parent.height / 2 - height / 2
                 implicitWidth: 25
                 implicitHeight: 25
                 radius: 10
