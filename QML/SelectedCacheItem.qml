@@ -79,10 +79,10 @@ Rectangle {
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: selectedCacheIconField.right
+        anchors.right: littleCompass.left
         font.family: localFont.name
         font.pointSize: parent.height * 0.08
         color: Palette.black()
-        width: parent.width*0.7
         elide: Text.ElideRight
         text: selectedCache !== null ? selectedCache.name : ""
     }
@@ -112,8 +112,7 @@ Rectangle {
 
     RaterField {
         id: selectedCacheDifficultyField
-        anchors.topMargin: 10
-        anchors.leftMargin: 20
+        anchors.margins: 10
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: parent.left
         ratingName: "Difficulté"

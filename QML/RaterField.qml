@@ -13,7 +13,7 @@ Row {
     property alias ratingTextPointSize: raterText.font.pointSize
 
     width: parent.width / 2
-    spacing: 2
+    spacing: 4
 
     Text {
         id: raterText
