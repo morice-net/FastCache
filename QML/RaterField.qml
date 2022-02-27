@@ -24,58 +24,54 @@ Row {
     }
 
     Repeater {
-        model: Math.floor(raterField.ratingValue)
-
-        Rectangle {
-           anchors.verticalCenter: raterText.verticalCenter
-            width: parent.height * 0.6
-            height: width
-            radius: width/2
-            color: reversedColor ? Palette.white() : Palette.greenSea()
-        }
-    }
-    
-    Repeater {
-        model: Math.ceil(raterField.ratingValue) - Math.floor(raterField.ratingValue)
+        model: 5
 
         Rectangle {
             anchors.verticalCenter: raterText.verticalCenter
             width: parent.height * 0.6
             height: width
             radius: width/2
-            rotation: 90
             border.color: reversedColor ? Palette.white() : Palette.greenSea()
+            rotation: rectangleType(index) === 2 ? 90 : 0   // semi-full rectangle or not
             gradient: Gradient {
                 GradientStop {
                     position: 0.000
-                    color: reversedColor ? Palette.silver() : Palette.white()
+                    color: gradientColorBeginning(index)
                 }
                 GradientStop {
                     position: 0.500
-                    color: reversedColor ? Palette.silver() : Palette.white()
+                    color: gradientColorBeginning(index)
                 }
                 GradientStop {
                     position: 0.501
-                    color: reversedColor ? Palette.white() : Palette.greenSea()
+                    color: gradientColorEnd(index)
                 }
                 GradientStop {
                     position: 1
-                    color: reversedColor ? Palette.white() : Palette.greenSea()
+                    color: gradientColorEnd(index)
                 }
             }
         }
     }
-    
-    Repeater {
-        model: 5 - Math.ceil(raterField.ratingValue)
 
-        Rectangle {
-            anchors.verticalCenter: raterText.verticalCenter
-            width: parent.height * 0.6
-            height: width
-            radius: width/2
-            border.color: reversedColor ? Palette.white() : Palette.greenSea()
-            color: reversedColor ? Palette.silver() : Palette.white()
-        }
+    function rectangleType(indexModel) {
+        if((raterField.ratingValue - indexModel) >= 1) // solid rectangle
+            return 1
+        if((raterField.ratingValue - indexModel) < 1 && (raterField.ratingValue - indexModel) > 0) // semi-full rectangle
+            return 2
+        if((raterField.ratingValue - indexModel ) <= 0) // empty rectangle
+            return 3
+    }
+
+    function gradientColorBeginning(indexModel) {
+        if((raterField.ratingValue - indexModel) >= 1) // solid rectangle
+            return reversedColor ? Palette.white() : Palette.greenSea()
+        return reversedColor ? Palette.silver() : Palette.white() // not solid rectangle
+    }
+
+    function gradientColorEnd(indexModel) {
+        if((raterField.ratingValue - indexModel ) <= 0) // empty rectangle
+            return reversedColor ? Palette.silver() : Palette.white()
+        return reversedColor ? Palette.white() : Palette.greenSea() // not empty rectangle
     }
 }
