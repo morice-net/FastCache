@@ -101,9 +101,9 @@ Rectangle {
 
     Text {
         id: selectedCacheSizeField
-        anchors.margins: 10
+        anchors.topMargin: 10
         anchors.top: selectedCacheNameField.bottom
-        anchors.left: selectedCacheTerrainField.left
+        x: selectedCacheItem.width * 0.5
         font.family: localFont.name
         font.pointSize: parent.height * 0.08
         color: Palette.black()
@@ -124,7 +124,7 @@ Rectangle {
         id: selectedCacheTerrainField
         anchors.margins: 10
         anchors.top: selectedCacheGeocodeField.bottom
-        anchors.left: selectedCacheDifficultyField.right
+        anchors.right: parent.right
         ratingName: "Terrain"
         ratingValue: selectedCache !== null ? selectedCache.terrain : 0
         ratingTextPointSize: selectedCacheItem.height * 0.075

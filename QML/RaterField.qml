@@ -12,7 +12,6 @@ Row {
     property bool reversedColor: false
     property alias ratingTextPointSize: raterText.font.pointSize
 
-    width: parent.width / 2
     spacing: 4
 
     Text {
