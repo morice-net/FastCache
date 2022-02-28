@@ -88,19 +88,19 @@ Map {
         color: Palette.white().replace("#","#99")
     }
 
-    CompassMapSwipeButton {
+    FastButton {
         id: compassMapSwipeButton
-        buttonText: "Voir la\nboussole"
+        opacity: 0.85
+        font.pointSize: 18
+        text: "Voir la\nboussole"
         visible: viewState === "fullcache"
         anchors.topMargin: 20 + parent.height * 0.05
         anchors.rightMargin: 20
         anchors.top: parent.top
         anchors.right: parent.right
-        function buttonClicked()
-        {
-            fastCache.z = 0
-        }
+        onClicked: fastCache.z = 0
     }
+
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
     function updateCachesOnMap(caches) {

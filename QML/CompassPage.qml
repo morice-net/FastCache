@@ -110,17 +110,14 @@ Item {
         color: Palette.white()
     }
 
-    CompassMapSwipeButton {
+    FastButton {
         id: compassMapSwipeButton
-        buttonText: "Voir la\ncarte"
+        font.pointSize: 18
+        text: "Voir la\ncarte"
         anchors.margins: 50
         anchors.top: parent.top
         anchors.right: parent.right
-
-        function buttonClicked()
-        {
-            fastCache.z = -10
-        }
+        onClicked: fastCache.z = -10
     }
 
     function updateRotation() {

@@ -128,7 +128,6 @@
         <file>Image/Compass/compass_rose.png</file>
         <file>Image/Compass/compass_underlay.png</file>
         <file>QML/FastPopup.qml</file>
-        <file>QML/CompassMapSwipeButton.qml</file>
         <file>Image/marker_found.png</file>
         <file>QML/FastCacheLogPage.qml</file>
         <file>Image/heart-off.png</file>
