@@ -11,6 +11,7 @@ Item {
     // Menu caller
     Rectangle {
         id: menu
+        visible: !fastMap.compassMapButton
         color: Palette.turquoise().replace("#","#99")
         radius: 10
         height: parent.height * 0.05
@@ -61,8 +62,8 @@ Item {
     // Filters
     Rectangle {
         id: filter
-        visible: ((main.viewState === "map" || main.viewState === "list") && fastList.state === "") ||
-                 (main.viewState === "map" && fastList.state === "selectedInList")
+        visible:(!fastMap.compassMapButton) && ((main.viewState === "map" || main.viewState === "list") && fastList.state === "") ||
+                (main.viewState === "map" && fastList.state === "selectedInList")
         color: cacheFilter.opacity > 0 ? Palette.turquoise() : Palette.turquoise().replace("#","#99")
         radius: 10
         height: parent.height * 0.05

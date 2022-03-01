@@ -47,7 +47,7 @@ Map {
         font.pointSize: 17
         color: Palette.black()
         font.family: localFont.name
-        text: listModeText(cachesOnMap)
+        text: !fastMap.compassMapButton ? listModeText(cachesOnMap) : "Cache   " + fullCache.geocode
     }
 
     LoadingPage {
@@ -91,16 +91,18 @@ Map {
     FastButton {
         id: compassMapSwipeButton
         opacity: 0.85
-        font.pointSize: 18
+        font.pointSize: 17
         text: "Voir la\nboussole"
-        visible: viewState === "fullcache"
+        visible: fastMap.compassMapButton === true
         anchors.topMargin: 20 + parent.height * 0.05
         anchors.rightMargin: 20
         anchors.top: parent.top
         anchors.right: parent.right
-        onClicked: fastCache.z = 0
+        onClicked: {
+            viewState = "fullcache"
+            fastMap.compassMapButton = false
+        }
     }
-
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
 
     function updateCachesOnMap(caches) {

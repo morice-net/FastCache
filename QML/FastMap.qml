@@ -18,6 +18,9 @@ Rectangle {
     property real currentZoomlevel: 14.5
     property int currentCacheIndex: 0
 
+    // compassMap
+    property bool compassMapButton: false   // false: compassMapButton not clicked
+
     Plugin {
         id: googlemapsPlugin
         name: "googlemaps"

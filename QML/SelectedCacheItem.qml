@@ -8,13 +8,13 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: selectedCacheItem
+    visible: opacity > 0 && !fastMap.compassMapButton
     radius: 10
     border.width: 2
     border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
     width: main.width - 40
     height: main.height * 0.12
     opacity: 0
-    visible: opacity > 0
 
     property var selectedCache: Cache {}
 
