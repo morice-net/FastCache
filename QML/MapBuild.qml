@@ -101,6 +101,7 @@ Map {
         onClicked: {
             viewState = "fullcache"
             fastMap.compassMapButton = false
+            fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
@@ -130,6 +131,14 @@ Map {
         itemMap.z = 1
         addMapItem(itemMap)
         fastMap.currentCacheIndex++
+    }
+
+    // Makes a single cache visible on the map if flag is true, makes all caches visible if not.
+    function oneCacheOnMap(geocode , flag) {
+        for (var i = 0; i < cacheItems.length; i++) {
+            if(cacheItems[i].geocode !== geocode)
+                cacheItems[i].visible = !flag
+        }
     }
 
     // create a circle on map around a cache with radius 161m

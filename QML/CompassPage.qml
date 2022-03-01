@@ -121,6 +121,7 @@ Item {
         onClicked: {
             viewState = "map"
             fastMap.compassMapButton = true
+            fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
         }
     }
 
