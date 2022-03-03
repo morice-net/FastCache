@@ -36,6 +36,7 @@ Item {
     }
 
     Rectangle {
+        visible: !fastMap.compassMapButton
         color: Palette.turquoise().replace("#","#99")
         radius: 10
         height: parent.height * 0.05

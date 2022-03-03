@@ -122,6 +122,7 @@ Item {
             viewState = "map"
             fastMap.compassMapButton = true
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
+            fastMap.mapItem.oneCircleOnMap(fullCache.geocode , true) // makes one circle cache visible on map
         }
     }
 

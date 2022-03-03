@@ -13,6 +13,7 @@ Rectangle {
     property var map
     property var component
     property var cacheItems: []
+    property var circleCacheItems: []
 
     // Map properties
     property real currentZoomlevel: 14.5
@@ -95,6 +96,8 @@ Rectangle {
         map.clearMapItems()
         cacheItems.forEach(item => item.destroy())
         cacheItems = []
+        circleCacheItems.forEach(item => item.destroy())
+        circleCacheItems = []
         currentCacheIndex = 0
 
         // Does not erase the possible circle on the map
@@ -104,19 +107,19 @@ Rectangle {
 
     function listGeocodesOnMap() {
         var listGeocodes = []
-        for (var i = 0; i < map.mapItems.length; i++) {
+        for (var i = 0; i < cacheItems.length; i++) {
             // is in viewport
-            if(map.fromCoordinate(map.mapItems[i].coordinate, true).x.toString() !== "NaN")
-                listGeocodes.push(map.mapItems[i].geocode)
+            if(map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN")
+                listGeocodes.push(cacheItems[i].geocode)
         }
         return listGeocodes
     }
 
     function countCachesOnMap() {
         var count  = 0
-        for (var i = 0; i < map.mapItems.length; i++) {
-            // is in viewport
-            if(map.fromCoordinate(map.mapItems[i].coordinate, true).x.toString() !== "NaN")
+        for (var i = 0; i < cacheItems.length; i++) {
+            //    is in viewport
+            if(map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN")
                 count = count + 1
         }
         return count

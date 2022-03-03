@@ -93,7 +93,7 @@ Map {
         opacity: 0.85
         font.pointSize: 17
         text: "Voir la\nboussole"
-        visible: fastMap.compassMapButton === true
+        visible: fastMap.compassMapButton
         anchors.topMargin: 20 + parent.height * 0.05
         anchors.rightMargin: 20
         anchors.top: parent.top
@@ -102,6 +102,7 @@ Map {
             viewState = "fullcache"
             fastMap.compassMapButton = false
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
+            fastMap.mapItem.oneCircleOnMap(fullCache.geocode , false) // makes all circle caches visible on map
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
@@ -141,6 +142,16 @@ Map {
         }
     }
 
+    // Makes a single cercle cache visible on the map if flag is true, makes all circle caches visible if not.
+    function oneCircleOnMap(geocode , flag) {
+        if(settings.circlesCaches)  {
+            for (var i = 0; i < cacheItems.length; i++) {
+                if(cacheItems[i].geocode !== geocode)
+                    circleCacheItems[i].visible = !flag
+            }
+        }
+    }
+
     // create a circle on map around a cache with radius 161m
     function createCircle(lat, lon) {
         circle = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
@@ -149,6 +160,7 @@ Map {
         circle.color = 'red'
         circle.opacity = 0.3
         circle.z = 0
+        fastMap.circleCacheItems.push(circle)
         addMapItem(circle)
     }
 
