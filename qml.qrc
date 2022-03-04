@@ -198,5 +198,6 @@
         <file>Image/minus.png</file>
         <file>Image/plus.png</file>
         <file>QML/ButtonTiles.qml</file>
+        <file>QML/MapFullCacheItem.qml</file>
     </qresource>
 </RCC>

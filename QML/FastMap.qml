@@ -125,6 +125,14 @@ Rectangle {
         return count
     }
 
+    function isGeocodeInCachesList(geocode) {
+        for (var i = 0; i < cachesSingleList.caches.length; i++) {
+            if(cachesSingleList.caches[i].geocode === geocode)
+                return true
+        }
+        return false
+    }
+
     function markedCachesRegistered() {
         if(main.state !== "recorded") {
             for (var i = 0; i < cachesSingleList.caches.length; i++) {

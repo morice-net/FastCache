@@ -270,7 +270,7 @@ Item {
                                           main.excludeArchived , Functions.createFilterKeywordDiscoverOwner() , userInfo.name)
             cachesNear.indexMoreCaches = 0
             cachesNear.sendRequest(connector.tokenKey)
-            fastMap.mapItem.center =QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
+            fastMap.mapItem.center = QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
         }
     }
 

@@ -11,6 +11,7 @@ Map {
     property var selectedCache
     property MapCircle circle
     property MapCircle circleRadius
+    property MapFullCacheItem singleCache
     property int cachesOnMap: fastMap.countCachesOnMap() // number of caches on map
 
     activeMapType: supportedMapTypes[supportedMap()]
@@ -103,6 +104,9 @@ Map {
             fastMap.compassMapButton = false
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , false) // makes all circle caches visible on map
+            // is cache in list?
+            if(!fastMap.isGeocodeInCachesList(fullCache.geocode))
+                deleteCacheOnMap() // delete cache on map
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
@@ -132,6 +136,16 @@ Map {
         itemMap.z = 1
         addMapItem(itemMap)
         fastMap.currentCacheIndex++
+    }
+
+    function addCacheOnMap() {
+        singleCache = Qt.createQmlObject('import QtLocation 5.3; MapFullCacheItem {}', map)
+        singleCache.z = 1
+        addMapItem(singleCache)
+    }
+
+    function deleteCacheOnMap() {
+        removeMapItem(singleCache)
     }
 
     // Makes a single cache visible on the map if flag is true, makes all caches visible if not.
