@@ -15,6 +15,11 @@ Map {
     property MapFullCacheItem singleCache
     property int cachesOnMap: fastMap.countCachesOnMap() // number of caches on map
 
+    // memorizes the center and the zoom of the map
+    property real latCenterMap
+    property real lonCenterMap
+    property real zoomMap
+
     activeMapType: supportedMapTypes[supportedMap()]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
@@ -111,6 +116,9 @@ Map {
                 if(settings.circlesCaches)
                     deleteCircleSingleCache() // delete circle around singlecache
             }
+            // restores the center and the zoom of the map
+            center = QtPositioning.coordinate(latCenterMap , lonCenterMap)
+            zoomLevel = zoomMap
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)

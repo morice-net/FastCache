@@ -120,6 +120,11 @@ Item {
         anchors.right: parent.right
         onClicked: {
             viewState = "map"
+            // memorizes the center and the zoom of the map
+            fastMap.mapItem.latCenterMap = fastMap.mapItem.center.latitude
+            fastMap.mapItem.lonCenterMap = fastMap.mapItem.center.longitude
+            fastMap.mapItem.zoomMap = fastMap.mapItem.zoomLevel
+
             fastMap.compassMapButton = true
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , true) // makes one circle cache visible on map
