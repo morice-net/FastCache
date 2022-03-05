@@ -129,7 +129,7 @@ Item {
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , true) // makes one circle cache visible on map
             fastMap.mapItem.center = QtPositioning.coordinate(fullCache.lat , fullCache.lon) // center cache on map
-            // is cache in list?
+            // is cache in list of caches?
             if(!fastMap.isGeocodeInCachesList(fullCache.geocode)) {
                 fastMap.mapItem.addCacheOnMap() // add full cache on map, not in list
                 if(settings.circlesCaches)

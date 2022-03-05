@@ -43,7 +43,6 @@ function toDoLogDynamic(listCaches) {
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode){
             listCaches[i].toDoLog = fullCache.toDoLog;
-            fastMap.mapItem.updateCacheOnMap(i);
             return;
         }
     }
@@ -53,7 +52,6 @@ function foundDynamic(listCaches) {
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode) {
             listCaches[i].found = fullCache.found;
-            fastMap.mapItem.updateCacheOnMap(i);
             return;
         }
     }
@@ -63,7 +61,6 @@ function registeredDynamic(listCaches) {
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode){
             listCaches[i].registered = fullCache.registered;
-            fastMap.mapItem.updateCacheOnMap(i);
             return;
         }
     }
@@ -80,7 +77,6 @@ function correctedCoordinatesDynamic(listCaches) {
                 listCaches[i].lat = fullCache.lat;
                 listCaches[i].lon = fullCache.lon;
             }
-            fastMap.mapItem.updateCacheOnMap(i);
             return;
         }
     }

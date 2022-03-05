@@ -110,7 +110,7 @@ Map {
             fastMap.compassMapButton = false
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , false) // makes all circle caches visible on map
-            // is cache in list?
+            // is cache in list of caches?
             if(!fastMap.isGeocodeInCachesList(fullCache.geocode)) {
                 deleteCacheOnMap() // delete cache on map
                 if(settings.circlesCaches)
@@ -139,15 +139,6 @@ Map {
             }
         }
         cachesOnMap = fastMap.countCachesOnMap()  // update cachesOnMap
-    }
-
-    function updateCacheOnMap(indexList) {
-        var itemMap = Qt.createQmlObject('FastMapItem {}', map)
-        itemMap.index = indexList
-        cacheItems.push(itemMap)
-        itemMap.z = 1
-        addMapItem(itemMap)
-        fastMap.currentCacheIndex++
     }
 
     function addCacheOnMap() {
