@@ -69,7 +69,8 @@ Map {
         anchors.fill: parent
         onClicked: mapControls.show()
         onPressAndHold: {
-            cachesRecordedLists.open()
+            if(!fastMap.compassMapButton)  // Whether or not to save a cache from the map
+                cachesRecordedLists.open()
         }
     }
 
