@@ -40,6 +40,8 @@ function centerMapCaches(listCaches) {
 }
 
 function toDoLogDynamic(listCaches) {
+    if(!fastCache.geocodeInCachesList) //cache not in list
+        return
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode){
             listCaches[i].toDoLog = fullCache.toDoLog;
@@ -49,6 +51,8 @@ function toDoLogDynamic(listCaches) {
 }
 
 function foundDynamic(listCaches) {
+    if(!fastCache.geocodeInCachesList) //cache not in list
+        return
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode) {
             listCaches[i].found = fullCache.found;
@@ -58,6 +62,8 @@ function foundDynamic(listCaches) {
 }
 
 function registeredDynamic(listCaches) {
+    if(!fastCache.geocodeInCachesList) //cache not in list
+        return
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode){
             listCaches[i].registered = fullCache.registered;
@@ -68,6 +74,8 @@ function registeredDynamic(listCaches) {
 
 //dynamic changes on list and  map
 function correctedCoordinatesDynamic(listCaches) {
+    if(!fastCache.geocodeInCachesList) //cache not in list
+        return
     for (var i = 0; i < listCaches.length; i++) {
         if(listCaches[i].geocode === fullCache.geocode){
             if(fullCache.isCorrectedCoordinates){

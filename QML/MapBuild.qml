@@ -112,7 +112,7 @@ Map {
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , false) // makes all circle caches visible on map
             // is cache in list of caches?
-            if(!fastMap.isGeocodeInCachesList(fullCache.geocode)) {
+            if(!fastCache.geocodeInCachesList) {
                 deleteCacheOnMap() // delete cache on map
                 if(settings.circlesCaches)
                     deleteCircleSingleCache() // delete circle around singlecache

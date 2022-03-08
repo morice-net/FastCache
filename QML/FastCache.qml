@@ -72,6 +72,9 @@ Rectangle {
     property var listTbSend: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
                                  sendTravelbugLog.readJsonArray(sqliteStorage.readObject("cachestbsuserlog" , fullCache.geocode)) : []
 
+    // Is geocode on list of caches?
+    property bool geocodeInCachesList: fastMap.isGeocodeInCachesList(fullCache.geocode)
+
     anchors.fill: parent
     opacity: main.viewState === "fullcache" ? 1 : 0
     visible: opacity > 0
@@ -113,8 +116,8 @@ Rectangle {
                 if(fastCacheHeaderIcon.width + fastCacheHeaderName.width <= fastCache.width - parent.x - fastCache.width * 0.1)  {
                     parent.xGoal = parent.x
                 } else {
-                parent.xGoal = Math.min(fastCache.width - parent.x - fastCacheHeaderIcon.width - fastCacheHeaderName.width - fastCache.width * 0.1 ,
-                                        parent.x)
+                    parent.xGoal = Math.min(fastCache.width - parent.x - fastCacheHeaderIcon.width - fastCacheHeaderName.width - fastCache.width * 0.1 ,
+                                            parent.x)
                 }
                 fastCacheHeaderIcon.visible = true
                 headerAnimation.restart()
