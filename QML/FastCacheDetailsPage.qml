@@ -316,18 +316,27 @@ Item {
                 Repeater {
                     model: fullCache.attributes.length
 
-                    Image {
-                        scale: 1.3
-                        source: "qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
+                    Rectangle {
+                        width: parent.width/12
+                        height: width
+                        color: Palette.black()
+                        border.color: Palette.white()
+                        border.width: 1
+                        radius: 6
 
                         Image {
-                            source: "qrc:/Image/Attributes/attribute_no.png"
-                            visible: !fullCache.attributesBool[index]
+                            anchors.fill: parent
+                            source: "qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
+
+                            Image {
+                                anchors.fill: parent
+                                source: "qrc:/Image/Attributes/attribute_no.png"
+                                visible: !fullCache.attributesBool[index]
+                            }
                         }
                     }
                 }
             }
-
             // attributes of caches(text)
             Flickable {
                 clip: true
