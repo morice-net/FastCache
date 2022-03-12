@@ -236,10 +236,6 @@ Item {
         }
     }
 
-    CacheAttributes {
-        id: cacheAttributes
-    }
-
     FullCache {
         id: fullCache
         onIsCorrectedCoordinatesChanged: Functions.correctedCoordinatesDynamic(cachesSingleList.caches)

@@ -290,87 +290,16 @@ Item {
         }
 
         Rectangle {
+            id: rect
             width: parent.width
             height: 2
             color: Palette.white()
             radius:10
         }
 
-        Rectangle {
-            id: rect
-            width: parent.width
-            height: attIcons.visible ? attIcons.height : attText.height
-            color: Palette.greenSea()
-            visible: true
-
-            // attributes of caches(icons)
-            Grid {
-                id: attIcons
-                x: 10
-                y: 10
-                visible: true
-                width: parent.width
-                columns: 10
-                spacing: 17
-
-                Repeater {
-                    model: fullCache.attributes.length
-
-                    Rectangle {
-                        width: parent.width/12
-                        height: width
-                        color: Palette.black()
-                        border.color: Palette.white()
-                        border.width: 1
-                        radius: 6
-
-                        Image {
-                            anchors.fill: parent
-                            source: "qrc:/Image/" + cacheAttributes.attributesIcon[fullCache.attributes[index]-1]
-
-                            Image {
-                                anchors.fill: parent
-                                source: "qrc:/Image/Attributes/attribute_no.png"
-                                visible: !fullCache.attributesBool[index]
-                            }
-                        }
-                    }
-                }
-            }
-            // attributes of caches(text)
-            Flickable {
-                clip: true
-                anchors.fill: parent
-                flickableDirection: Flickable.VerticalFlick
-                contentHeight: attText.height + 100
-                ScrollBar.vertical: ScrollBar {}
-
-                Column {
-                    id: attText
-                    x: 10
-                    width: parent.width
-                    visible: !attIcons.visible
-
-                    Repeater {
-                        model: fullCache.attributes.length
-
-                        Text {
-                            text: fullCache.attributesBool[index] ? cacheAttributes.attributesYes[fullCache.attributes[index]-1]
-                                                                  : cacheAttributes.attributesNo[fullCache.attributes[index]-1]
-                            font.family: localFont.name
-                            font.pointSize: 14
-                            color: Palette.white()
-                        }
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        attIcons.visible = ! attIcons.visible ;
-                    }
-                }
-            }
+        CacheAttributes {
+            id: cacheAttributes
+            anchors.top: rect.bottom
         }
     }
 

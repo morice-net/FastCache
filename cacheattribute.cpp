@@ -1,5 +1,7 @@
 #include "cacheattribute.h"
 
+#include <QDebug>
+
 CacheAttribute::CacheAttribute(QObject *parent)
     :QObject(parent)
 {
@@ -8,6 +10,8 @@ CacheAttribute::CacheAttribute(QObject *parent)
     m_listTextYes =  CacheAttribute::listAttributesYes(list);
     m_listTextNo =  CacheAttribute::listAttributesNo(list);
     m_listIcon =  CacheAttribute::listAttributesIcon(list);
+    m_listGroup =  CacheAttribute::listAttributesGroup(list);
+    m_numberAttributesByGroup = QList<int>();
 }
 
 CacheAttribute::~CacheAttribute()
@@ -134,6 +138,65 @@ QList<QString>  CacheAttribute::listAttributesIcon(QList<QString> list)
     return createList;
 }
 
+QList<int>  CacheAttribute::listAttributesGroup(QList<QString> list)
+{
+    QList<int> createList;
+    createList.clear();
+
+    for(int i = 0; i < list.length(); ++i)
+    {
+        createList.append(list[i].split(',')[3].toInt());
+
+    }
+    return createList;
+}
+
+QList<int> CacheAttribute::sortAttributesByGroup(QList<int> list)
+{
+    QList<int> list1;
+    QList<int> list2;
+    QList<int> list3;
+    QList<int> list4;
+    QList<int> list5;
+    QList<int> list6;
+
+    for(int i = 0; i < list.size(); ++i)
+    {
+        switch(m_listGroup[list[i]-1]){
+        case 10:  // permissions
+            list1.append(list[i]);
+            break;
+        case 20:  // equipment
+            list2.append(list[i]);
+            break;
+        case 30:  // Conditions
+            list3.append(list[i]);
+            break;
+        case 40:  // hazards
+            list4.append(list[i]);
+            break;
+        case 50:  // facilities
+            list5.append(list[i]);
+            break;
+        case 60:  // specials
+            list6.append(list[i]);
+            break;
+        default:
+            break;
+        }
+    }
+    m_numberAttributesByGroup.append(list1.size());
+    m_numberAttributesByGroup.append(list2.size());
+    m_numberAttributesByGroup.append(list3.size());;
+    m_numberAttributesByGroup.append(list4.size());;
+    m_numberAttributesByGroup.append(list5.size());
+    m_numberAttributesByGroup.append(list6.size());
+
+    return list1 + list2 + list3 + list4 + list5 +list6;
+}
+
+/** Getters **/
+
 QList<QString> CacheAttribute::listTextYes() const
 {
     return m_listTextYes;
@@ -147,5 +210,21 @@ QList<QString> CacheAttribute::listTextNo() const
 QList<QString> CacheAttribute::listIcon() const
 {
     return m_listIcon;
+}
+
+QList<int> CacheAttribute::listGroup() const
+{
+    return m_listGroup;
+}
+
+QList<int> CacheAttribute::numberAttributesByGroup() const
+{
+    return m_numberAttributesByGroup;
+}
+
+void CacheAttribute::setNumberAttributesByGroup(QList<int> list)
+{
+    m_numberAttributesByGroup = list;
+    emit numberAttributesByGroupChanged();
 }
 
