@@ -12,6 +12,8 @@ CacheAttribute::CacheAttribute(QObject *parent)
     m_listIcon =  CacheAttribute::listAttributesIcon(list);
     m_listGroup =  CacheAttribute::listAttributesGroup(list);
     m_numberAttributesByGroup = QList<int>();
+    m_sortedAttributesByGroup = QList<int>();
+    m_sortedBoolByGroup = QList<bool>();
 }
 
 CacheAttribute::~CacheAttribute()
@@ -99,6 +101,7 @@ QList<QString> CacheAttribute::createListAttributes()
     return listAttributes;
 }
 
+// all attributes
 QList<QString>  CacheAttribute::listAttributesYes(QList<QString> list)
 {
     QList<QString> createList;
@@ -151,51 +154,157 @@ QList<int>  CacheAttribute::listAttributesGroup(QList<QString> list)
     return createList;
 }
 
-QList<int> CacheAttribute::sortAttributesByGroup(QList<int> list)
+// attributes of cache
+QList<QString> CacheAttribute::sortAttributes(QList<bool> listBool , QList<int> listAtt)
 {
-    QList<int> list1;
-    QList<int> list2;
-    QList<int> list3;
-    QList<int> list4;
-    QList<int> list5;
-    QList<int> list6;
+    QList<QString> list;  // text with header and attributes
+    list.clear();
+    if(listBool.isEmpty() || listAtt.isEmpty() || listBool.size() != listAtt.size())
+        return list;
 
-    for(int i = 0; i < list.size(); ++i)
+    QList<QString> list1;
+    QList<QString> list2;
+    QList<QString> list3;
+    QList<QString> list4;
+    QList<QString> list5;
+    QList<QString> list6;
+
+    for(int i = 0; i < listAtt.size(); ++i)
     {
-        switch(m_listGroup[list[i]-1]){
+        switch(m_listGroup[listAtt[i]-1]){
         case 10:  // permissions
-            list1.append(list[i]);
+            list1.append(QString::number(listAtt[i]) + "," + QVariant(listBool[i]).toString());
             break;
         case 20:  // equipment
-            list2.append(list[i]);
+            list2.append(QString::number(listAtt[i]) + "," + QVariant(listBool[i]).toString());
             break;
         case 30:  // Conditions
-            list3.append(list[i]);
+            list3.append(QString::number(listAtt[i]) + "," + QVariant(listBool[i]).toString());
             break;
         case 40:  // hazards
-            list4.append(list[i]);
+            list4.append(QString::number(listAtt[i]) + "," + QVariant(listBool[i]).toString());
             break;
         case 50:  // facilities
-            list5.append(list[i]);
+            list5.append(QString::number(listAtt[i]) + "," + QVariant(listBool[i]).toString());
             break;
         case 60:  // specials
-            list6.append(list[i]);
+            list6.append(QString::number(listAtt[i]) + "," + QVariant(listBool[i]).toString());
             break;
         default:
             break;
         }
     }
-    m_numberAttributesByGroup.append(list1.size());
-    m_numberAttributesByGroup.append(list2.size());
-    m_numberAttributesByGroup.append(list3.size());;
-    m_numberAttributesByGroup.append(list4.size());;
-    m_numberAttributesByGroup.append(list5.size());
-    m_numberAttributesByGroup.append(list6.size());
+    m_numberAttributesByGroup.clear();
+    m_sortedAttributesByGroup.clear();
+    m_sortedBoolByGroup.clear();
 
-    return list1 + list2 + list3 + list4 + list5 +list6;
+    if(list1.size() != 0) {
+        m_numberAttributesByGroup.append(list1.size());
+        list.append(headerText(10));
+    }
+    for(int i = 0; i < list1.size(); ++i) {
+        m_sortedAttributesByGroup.append(list1[i].split(',')[0].toInt());
+        m_sortedBoolByGroup.append(QVariant(list1[i].split(',')[1]).toBool());
+        if(QVariant(list1[i].split(',')[1]).toBool()) {
+            list.append(m_listTextYes[list1[i].split(',')[0].toInt() - 1]);
+        } else {
+            list.append(m_listTextNo[list1[i].split(',')[0].toInt() - 1]);
+        }
+
+    }
+
+    if(list2.size() != 0) {
+        m_numberAttributesByGroup.append(list2.size());
+        list.append(headerText(20));
+    }
+    for(int i = 0; i < list2.size(); ++i) {
+        m_sortedAttributesByGroup.append(list2[i].split(',')[0].toInt());
+        m_sortedBoolByGroup.append(QVariant(list2[i].split(',')[1]).toBool());
+        if(QVariant(list2[i].split(',')[1]).toBool()) {
+            list.append(m_listTextYes[list2[i].split(',')[0].toInt() - 1]);
+        } else {
+            list.append(m_listTextNo[list2[i].split(',')[0].toInt() - 1]);
+        }
+    }
+
+    if(list3.size() != 0) {
+        m_numberAttributesByGroup.append(list3.size());
+        list.append(headerText(30));
+    }
+    for(int i = 0; i < list3.size(); ++i) {
+        m_sortedAttributesByGroup.append(list3[i].split(',')[0].toInt());
+        m_sortedBoolByGroup.append(QVariant(list3[i].split(',')[1]).toBool());
+        if(QVariant(list3[i].split(',')[1]).toBool()) {
+            list.append(m_listTextYes[list3[i].split(',')[0].toInt() - 1]);
+        } else {
+            list.append(m_listTextNo[list3[i].split(',')[0].toInt() - 1]);
+        }
+    }
+    if(list4.size() != 0) {
+        m_numberAttributesByGroup.append(list4.size());
+        list.append(headerText(40));
+    }
+    for(int i = 0; i < list4.size(); ++i) {
+        m_sortedAttributesByGroup.append(list4[i].split(',')[0].toInt());
+        m_sortedBoolByGroup.append(QVariant(list4[i].split(',')[1]).toBool());
+        if(QVariant(list4[i].split(',')[1]).toBool()) {
+            list.append(m_listTextYes[list4[i].split(',')[0].toInt() - 1]);
+        } else {
+            list.append(m_listTextNo[list4[i].split(',')[0].toInt() - 1]);
+        }
+    }
+
+    if(list5.size() != 0) {
+        m_numberAttributesByGroup.append(list5.size());
+        list.append(headerText(50));
+    }
+    for(int i = 0; i < list5.size(); ++i) {
+        m_sortedAttributesByGroup.append(list5[i].split(',')[0].toInt());
+        m_sortedBoolByGroup.append(QVariant(list5[i].split(',')[1]).toBool());
+        if(QVariant(list5[i].split(',')[1]).toBool()) {
+            list.append(m_listTextYes[list5[i].split(',')[0].toInt() - 1]);
+        } else {
+            list.append(m_listTextNo[list5[i].split(',')[0].toInt() - 1]);
+        }
+    }
+
+    if(list6.size() != 0) {
+        m_numberAttributesByGroup.append(list6.size());
+        list.append(headerText(60));
+    }
+    for(int i = 0; i < list6.size(); ++i) {
+        m_sortedAttributesByGroup.append(list6[i].split(',')[0].toInt());
+        m_sortedBoolByGroup.append(QVariant(list6[i].split(',')[1]).toBool());
+        if(QVariant(list6[i].split(',')[1]).toBool()) {
+            list.append(m_listTextYes[list6[i].split(',')[0].toInt() - 1]);
+        } else {
+            list.append(m_listTextNo[list6[i].split(',')[0].toInt() - 1]);
+        }
+    }
+    emit sortedAttributesByGroupChanged();
+    emit sortedBoolByGroupChanged();
+    emit numberAttributesByGroupChanged();
+    return list;
 }
 
-/** Getters **/
+QString  CacheAttribute::headerText(int index)
+{
+    if(index == 10) //permissions
+        return "Autorisations";
+    if(index == 20) //equipment
+        return "Equipement";
+    if(index == 30) // conditions
+        return "Conditions";
+    if(index == 40) //hazards
+        return "Dangers";
+    if(index == 50) //facilities
+        return "Installations";
+    if(index == 60) //specials
+        return "Promotions";
+    return "";
+}
+
+/** Getters and setters**/
 
 QList<QString> CacheAttribute::listTextYes() const
 {
@@ -227,4 +336,28 @@ void CacheAttribute::setNumberAttributesByGroup(QList<int> list)
     m_numberAttributesByGroup = list;
     emit numberAttributesByGroupChanged();
 }
+
+QList<int> CacheAttribute::sortedAttributesByGroup() const
+{
+    return m_sortedAttributesByGroup;
+}
+
+void CacheAttribute::setSortedAttributesByGroup(QList<int> list)
+{
+    m_sortedAttributesByGroup = list;
+    emit sortedAttributesByGroupChanged();
+}
+
+QList<bool> CacheAttribute::sortedBoolByGroup() const
+{
+    return m_sortedBoolByGroup;
+}
+
+void CacheAttribute::setSortedBoolByGroup(QList<bool> list)
+{
+    m_sortedBoolByGroup = list;
+    emit sortedBoolByGroupChanged();
+}
+
+
 

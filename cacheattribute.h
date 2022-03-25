@@ -15,6 +15,8 @@ class CacheAttribute : public QObject
 
     // attributes of a cache
     Q_PROPERTY(QList<int> numberAttributesByGroup READ numberAttributesByGroup WRITE setNumberAttributesByGroup  NOTIFY numberAttributesByGroupChanged)
+    Q_PROPERTY(QList<int> sortedAttributesByGroup READ sortedAttributesByGroup WRITE setSortedAttributesByGroup  NOTIFY sortedAttributesByGroupChanged)
+    Q_PROPERTY(QList<bool> sortedBoolByGroup READ sortedBoolByGroup WRITE setSortedBoolByGroup  NOTIFY sortedBoolByGroupChanged)
 
 public:
     explicit  CacheAttribute(QObject *parent = nullptr);
@@ -26,8 +28,12 @@ public:
     QList<int>  listGroup() const;
     QList<int>  numberAttributesByGroup() const;
     void setNumberAttributesByGroup(QList<int> list);
+    QList<int>  sortedAttributesByGroup() const;
+    void setSortedAttributesByGroup(QList<int> list);
+    QList<bool>  sortedBoolByGroup() const;
+    void setSortedBoolByGroup(QList<bool> list);
 
-    Q_INVOKABLE QList<int> sortAttributesByGroup(QList<int> list);
+    Q_INVOKABLE QList<QString> sortAttributes(QList<bool> listBool , QList<int> listAtt);
 
 private:
     QList<QString> createListAttributes();
@@ -35,6 +41,7 @@ private:
     QList<QString>  listAttributesNo(QList<QString> list) ;
     QList<QString>  listAttributesIcon(QList<QString> list) ;
     QList<int>  listAttributesGroup(QList<QString> list) ;
+    QString  headerText(int index) ;
 
 signals:
     void listTextYesChanged();
@@ -42,6 +49,8 @@ signals:
     void listIconChanged();
     void listGroupChanged();
     void numberAttributesByGroupChanged();
+    void sortedAttributesByGroupChanged();
+    void sortedBoolByGroupChanged();
 
 private:
     QList<QString> m_listTextYes;
@@ -49,6 +58,8 @@ private:
     QList<QString> m_listIcon;
     QList<int> m_listGroup;
     QList<int> m_numberAttributesByGroup;
+    QList<int> m_sortedAttributesByGroup;
+    QList<bool> m_sortedBoolByGroup;
 };
 
 #endif // CACHEATTRIBUTE_H
