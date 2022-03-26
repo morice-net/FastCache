@@ -1,6 +1,7 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.5
 import QtPositioning 5.2
+import QtQuick.Layouts 1.2
 
 import "JavaScript/Palette.js" as Palette
 
@@ -24,14 +25,11 @@ Item {
         visible: true
 
         // attributes of caches(icons)
-        Grid {
+        GridLayout {
             id: attIcons
-            topPadding: 10
-            leftPadding: 10
+            width:  parent.width
             visible: true
-            width:  main.width
-            columns: 10
-            spacing: 17
+            columns: 9
 
             Repeater {
                 model: fullCache.attributes.length
@@ -39,6 +37,8 @@ Item {
                 Rectangle {
                     width: parent.width/12
                     height: width
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.topMargin: 10
                     color: colorAttIcon(cacheAttribute.sortedAttributesByGroup[index]) !== undefined ?
                                colorAttIcon(cacheAttribute.sortedAttributesByGroup[index]) : ""
                     border.color: Palette.white()
@@ -59,12 +59,13 @@ Item {
                 }
             }
         }
+
         // attributes of caches(text)
         Flickable {
             clip: true
             anchors.fill: parent
             flickableDirection: Flickable.VerticalFlick
-            contentHeight: attText.height + 100
+            contentHeight: attText.height + 150
             ScrollBar.vertical: ScrollBar {}
 
             Column {
