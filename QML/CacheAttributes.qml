@@ -17,10 +17,13 @@ Item {
     //attributes of cache
     property var textAttributes: cacheAttribute.sortAttributes(fullCache.attributesBool , fullCache.attributes)
 
+    //number of icons in the grid
+    property int numberIcons : Math.floor(fullCache.attributes.length/attIcons.columns)*attIcons.columns
+
     Rectangle {
         id: rect
         width:  main.width
-        height: attIcons.visible ? attIcons.height : attText.height
+        height: attIcons.visible ? attIcons.height + lastLine.height : attText.height
         color: Palette.greenSea()
         visible: true
 
@@ -29,15 +32,15 @@ Item {
             id: attIcons
             width:  parent.width
             visible: true
-            columns: 9
+            columns: 6
 
             Repeater {
-                model: fullCache.attributes.length
+                model: numberIcons
 
                 Rectangle {
                     width: parent.width/12
                     height: width
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.alignment: Qt.AlignHCenter
                     Layout.topMargin: 10
                     color: colorAttIcon(cacheAttribute.sortedAttributesByGroup[index]) !== undefined ?
                                colorAttIcon(cacheAttribute.sortedAttributesByGroup[index]) : ""
@@ -54,6 +57,41 @@ Item {
                             anchors.fill: parent
                             source: "qrc:/Image/Attributes/attribute_no.png"
                             visible: !cacheAttribute.sortedBoolByGroup[index]
+                        }
+                    }
+                }
+            }
+        }
+
+        // attributes of caches(icons).center the last line
+        RowLayout {
+            id: lastLine
+            width: parent.width
+            y: attIcons.height
+
+            Repeater {
+                model: fullCache.attributes.length - numberIcons
+
+                Rectangle {
+                    width: parent.width/12
+                    height: width
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.topMargin: 10
+                    color: colorAttIcon(cacheAttribute.sortedAttributesByGroup[index + numberIcons ]) !== undefined ?
+                               colorAttIcon(cacheAttribute.sortedAttributesByGroup[index + numberIcons]) : ""
+                    border.color: Palette.white()
+                    border.width: 1
+                    radius: 6
+
+                    Image {
+                        anchors.fill: parent
+                        source: cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index + numberIcons]-1] !== undefined ?
+                                    "qrc:/Image/" + cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index + numberIcons]-1] : ""
+
+                        Image {
+                            anchors.fill: parent
+                            source: "qrc:/Image/Attributes/attribute_no.png"
+                            visible: !cacheAttribute.sortedBoolByGroup[index + numberIcons]
                         }
                     }
                 }
@@ -91,6 +129,7 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     attIcons.visible = ! attIcons.visible ;
+                    lastLine.visible = ! lastLine.visible ;
                 }
             }
         }
