@@ -4,13 +4,10 @@ Requestor::Requestor(QObject *parent)
     : QObject(parent)
     , m_state()
     , m_requestsLength(0)
-    , m_timeOutRequest(false)
 {
     m_networkManager = new QNetworkAccessManager(this);
     connect( m_networkManager, &QNetworkAccessManager::finished, this, &Requestor::onReplyFinished);
-    connect( timer, &QTimer::timeout, this, &Requestor::abortConnection);
-    timer->setSingleShot(true);
-    timer->setInterval(20000);
+    m_networkManager->setTransferTimeout(m_timeOut);
 }
 
 void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &parameters, QString token)
@@ -28,8 +25,6 @@ void Requestor::sendPostRequest(const QString &requestName, const QJsonObject &p
     if (m_requests.size() == 1)
     {
         m_requests.first().process(m_networkManager);
-        setTimeOutRequest(false);
-        timer->start();
     }
 }
 
@@ -47,8 +42,6 @@ void Requestor::sendGetRequest(const QString &requestName , QString token)
     if (m_requests.size() == 1)
     {
         m_requests.first().process(m_networkManager);
-        setTimeOutRequest(false);
-        timer->start();
     }
 }
 
@@ -66,8 +59,6 @@ void Requestor::sendPutRequest(const QString &requestName , const QByteArray &da
     if (m_requests.size() == 1)
     {
         m_requests.first().process(m_networkManager);
-        setTimeOutRequest(false);
-        timer->start();
     }
 }
 
@@ -85,78 +76,69 @@ void Requestor::sendDeleteRequest(const QString &requestName ,  QString token)
     if (m_requests.size() == 1)
     {
         m_requests.first().process(m_networkManager);
-        setTimeOutRequest(false);
-        timer->start();
     }
 }
 
 void Requestor::onReplyFinished(QNetworkReply *reply)
-{
+{    
     if (m_requests.isEmpty())
         return;
 
     QVariant   statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
     if(statusCode.isValid())
     {
-        timer->stop();
-
-        // the current request is processed we can remove it from the list
-        // we take it here because maybe if it fails we want to process it again or read the data to know what happened
-        m_requests.takeFirst();
-        emit requestsLengthChanged();
+        switch(statusCode.toInt()){
+        case 200:
+            setState("OK");
+            parseJson(QJsonDocument::fromJson(reply->readAll()));
+            break;
+        case 201:
+            setState("Created");
+            parseJson(QJsonDocument::fromJson(reply->readAll()));
+            break;
+        case 204:
+            setState("No Content");
+            break;
+        case 400:
+            setState("Bad Request");
+            break;
+        case 401:
+            setState("Unauthorized");
+            break;
+        case 403:
+            setState("Forbidden");
+            break;
+        case 404:
+            setState("Not Found");
+            break;
+        case 409:
+            setState("Conflict");
+            break;
+        case 422:
+            setState("Unprocessable Entity");
+            break;
+        case 429:
+            setState("Too Many Requests");
+            break;
+        case 500:
+            setState("Internal Server Error");
+            break;
+        default:
+            break;
+        }
+    } else {
+        setState("timeOutConnection");
     }
 
-    switch(statusCode.toInt()){
-    case 200:
-        setState("OK");
-        parseJson(QJsonDocument::fromJson(reply->readAll()));
-        break;
-    case 201:
-        setState("Created");
-        parseJson(QJsonDocument::fromJson(reply->readAll()));
-        break;
-    case 204:
-        setState("No Content");
-        break;
-    case 400:
-        setState("Bad Request");
-        break;
-    case 401:
-        setState("Unauthorized");
-        break;
-    case 403:
-        setState("Forbidden");
-        break;
-    case 404:
-        setState("Not Found");
-        break;
-    case 409:
-        setState("Conflict");
-        break;
-    case 422:
-        setState("Unprocessable Entity");
-        break;
-    case 429:
-        setState("Too Many Requests");
-        break;
-    case 500:
-        setState("Internal Server Error");
-        break;
-    default:
-        break;
-    }
+    // the current request is processed we can remove it from the list
+    // we take it here because maybe if it fails we want to process it again or read the data to know what happened
+    m_requests.takeFirst();
+    emit requestsLengthChanged();
+
     // If we have some other request waiting we can trigger the next one
     if (m_requests.size() > 0) {
         m_requests.first().process(m_networkManager);
     }
-}
-
-void Requestor::abortConnection()
-{
-    setTimeOutRequest(true);
-    m_networkManager->disconnect();
-    m_requests.takeFirst();
-    emit requestsLengthChanged();
 }
 
 /** Getters & Setters **/
@@ -183,15 +165,6 @@ void Requestor::setRequestsLength(const int &requestsLength)
     emit requestsLengthChanged();
 }
 
-bool Requestor::timeOutRequest() const
-{
-    return m_timeOutRequest;
-}
 
-void Requestor::setTimeOutRequest(const bool &timeOut)
-{
-    m_timeOutRequest = timeOut;
-    emit timeOutRequestChanged();
-}
 
 

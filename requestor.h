@@ -14,7 +14,6 @@ class Requestor : public QObject
 
     Q_PROPERTY(QString state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(int requestsLength READ requestsLength WRITE setRequestsLength NOTIFY requestsLengthChanged)
-    Q_PROPERTY(bool timeOutRequest READ timeOutRequest WRITE setTimeOutRequest NOTIFY timeOutRequestChanged)
 
 public:
     explicit Requestor(QObject *parent = nullptr);
@@ -31,16 +30,10 @@ public:
     int requestsLength() const;
     void setRequestsLength(const int &requestsLength);
 
-    bool timeOutRequest() const;
-    void setTimeOutRequest(const bool &timeOut);
-
-    void abortConnection();
-
 signals:
     void requestReady();
     void stateChanged();
     void requestsLengthChanged();
-    void timeOutRequestChanged();
 
 public slots:
     void onReplyFinished(QNetworkReply* reply);
@@ -49,13 +42,11 @@ protected:
     //  network manager
     QNetworkAccessManager *m_networkManager;
 
-    QTimer *timer = new QTimer(this);
-
 private:
     QString m_state;
     QList<AllRequest> m_requests;
     int m_requestsLength;
-    bool m_timeOutRequest;
+    int m_timeOut = 20000;
 };
 
 #endif // REQUESTOR_H

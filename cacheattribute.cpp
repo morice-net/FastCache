@@ -58,7 +58,7 @@ QList<QString> CacheAttribute::createListAttributes()
     listAttributes.append("Camping possible,Pas de camping possible,Attributes/attribute_camping.png,50"); // 31
     listAttributes.append("Vélos autorisés,Vélos interdits,Attributes/attribute_bicycles.png,10"); // 32
     listAttributes.append("Motos autorisées,Motos interdites,Attributes/attribute_motorcycles.png,10"); // 33
-    listAttributes.append("Quads autorisés,Quads interdits,Attributes/attribute_quads .png,10");  // 34
+    listAttributes.append("Quads autorisés,Quads interdits,Attributes/attribute_quads.png,10");  // 34
     listAttributes.append("Véhicules tout-terrain autorisés,Véhicules tout-terrain interdits,Attributes/attribute_jeeps.png,10");  //35
     listAttributes.append("Motos-neige autorisées,Motos-neige interdites,Attributes/attribute_snowmobiles.png,10");  // 36
     listAttributes.append("Chevaux autorisés,Chevaux interdits,Attributes/attribute_horses.png,10");  //37
