@@ -10,9 +10,9 @@ Item  {
     property var listLogs: initListLogs()
 
     Text {
-        visible: getUserGeocacheLogs.referenceCodes.length ===0
+        visible: getUserGeocacheLogs.referenceCodes.length === 0
         anchors.centerIn: parent
-        text: "Pas de logs utilisateur"
+        text: (main.state !== "recorded" || fullCache.registered === false) ?  "Pas de logs utilisateur" : "logs utilisateur non renseignés"
         font.family: localFont.name
         font.bold: true
         font.pointSize: 17
