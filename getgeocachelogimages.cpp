@@ -40,7 +40,6 @@ void GetGeocacheLogImages::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** log images**\n" << logImages;
 
     if (logImages.size() == 0) {
-        emit requestReady();
         return ;
     }
 
@@ -59,8 +58,6 @@ void GetGeocacheLogImages::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** urls**\n" << m_urls;
     qDebug() << "*** guids**\n" << m_guids;
 
-    // request success
-    emit requestReady();
     return ;
 }
 

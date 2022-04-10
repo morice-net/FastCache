@@ -45,7 +45,6 @@ void GetPocketsqueriesList::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** Pockets Queries**\n" << pocketsJson;
 
     if (pocketsJson.size() == 0) {
-        emit requestReady();
         return ;
     }
 
@@ -79,8 +78,6 @@ void GetPocketsqueriesList::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** counts**\n" << m_counts;
     qDebug() << "*** findCounts**\n" << m_findCounts;
 
-    // request success
-    emit requestReady();
     return ;
 }
 

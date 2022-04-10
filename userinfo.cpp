@@ -66,9 +66,6 @@ void UserInfo::parseJson(const QJsonDocument &dataJsonDoc)
     emit avatarUrlChanged();
     emit premiumChanged();
 
-    // request success
-    emit requestReady();
-
     // now we have user info, we need to find the user tb list
     m_tbGetter->sendRequest(m_token);
 }

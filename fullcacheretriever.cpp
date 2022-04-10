@@ -329,9 +329,6 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     delete smileys;
 
     emit m_fullCache->registeredChanged();
-
-    // request success
-    emit requestReady();
 }
 
 

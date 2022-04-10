@@ -172,8 +172,6 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     emit logsGeocacheCodeChanged();
     emit logsGeocacheNameChanged();
 
-    // request success
-    emit requestReady();
     return ;
 }
 

@@ -39,8 +39,6 @@ void GetTravelbugUser::parseJson(const QJsonDocument &dataJsonDoc)
 
     int lengthTbs = tbsJson.size();
     if (lengthTbs == 0) {
-
-        emit requestReady();
         return ;
     }
 
@@ -57,9 +55,6 @@ void GetTravelbugUser::parseJson(const QJsonDocument &dataJsonDoc)
     emit trackingNumbersChanged();
 
     qDebug() << "*** tbsCode**\n" << m_tbsCode;
-
-    // request success
-    emit requestReady();
     return ;
 }
 

@@ -185,9 +185,6 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_listCaches->append(*cache);
     }
 
-    // request success
-    emit requestReady();
-
     if (lengthCaches == MAX_PER_PAGE && m_listCaches->length() < m_maxCaches)
         moreCaches();
     else {

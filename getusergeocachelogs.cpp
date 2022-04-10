@@ -47,7 +47,6 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** user Logs**\n" << userLogsJson;
 
     if (userLogsJson.size() == 0) {
-        emit requestReady();
         return ;
     }
 
@@ -81,9 +80,6 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
     qDebug() << "*** images counts**\n" << m_imagesCount;
 
     delete smileys;
-
-    // request success
-    emit requestReady();
     return ;
 }
 

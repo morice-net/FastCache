@@ -30,8 +30,7 @@ public:
     int requestsLength() const;
     void setRequestsLength(const int &requestsLength);
 
-signals:
-    void requestReady();
+signals:    
     void stateChanged();
     void requestsLengthChanged();
 
