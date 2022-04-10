@@ -416,6 +416,8 @@ Item {
         onStateChanged: {
             toast.visible = sendCacheLog.state !== "loading";
             if (sendCacheLog.state !== "Created") {
+                if(sendCacheLog.state === "Unprocessable Entity" )
+                    fullCache.toDoLog = false
                 if(sendCacheLog.state === "timeOutConnection") {
                     toast.show("Délai de connexion dépassé pour l'envoi du log")
                 } else {
