@@ -1,18 +1,19 @@
-#include "imagedownloader.h"
-#include <QDebug>
+#include "downloador.h"
 
-ImageDownloader::ImageDownloader(QObject *parent) :
-    QObject(parent),
-    webCtrl(new QNetworkAccessManager(this))
+Downloador::Downloador(QObject *parent)
+    : QObject(parent)
+    , m_state()
 {
+    webCtrl = new QNetworkAccessManager(this);
+    webCtrl->setTransferTimeout(m_timeOut);
 }
 
-ImageDownloader::~ImageDownloader()
+Downloador::~Downloador()
 {
     delete webCtrl;
 }
 
-void ImageDownloader::downloadFile(QUrl url, QString id, QString path)
+void Downloador::downloadFile(QUrl url, QString id, QString path)
 {
     QFile *file = new QFile(path, this);
     if(!file->open(QIODevice::WriteOnly))
@@ -28,11 +29,11 @@ void ImageDownloader::downloadFile(QUrl url, QString id, QString path)
     replytofile.insert(reply, file);
     replytopathid.insert(reply, QPair<QString, QString>(path, id));
 
-    QObject::connect(reply, &QNetworkReply::finished, this, &ImageDownloader::fileDownloaded);
-    QObject::connect(reply, &QNetworkReply::readyRead, this, &ImageDownloader::onReadyRead);
+    QObject::connect(reply, &QNetworkReply::finished, this, &Downloador::fileDownloaded);
+    QObject::connect(reply, &QNetworkReply::readyRead, this, &Downloador::onReadyRead);
 }
 
-void ImageDownloader::fileDownloaded()
+void Downloador::fileDownloaded()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
@@ -45,30 +46,41 @@ void ImageDownloader::fileDownloaded()
     switch(reply->error())
     {
     case QNetworkReply::NoError:
+        setState("OK");
+        downloaded(reply);
         break;
-
     default:
-        emit error(reply->errorString().toLatin1());
+        setState(reply->errorString().toLatin1());
         break;
     }
-
-    emit downloaded(replytopathid[reply].first, replytopathid[reply].second);
-
     replytofile.remove(reply);
     replytopathid.remove(reply);
     delete reply;
 }
 
-void ImageDownloader::onReadyRead()
+void Downloador::onReadyRead()
 {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     replytofile[reply]->write(reply->readAll());
 }
 
+void Downloador::downloaded(QNetworkReply* reply)
+{
 
+}
 
+/** Getters & Setters **/
 
+QString Downloador::state() const
+{
+    return m_state;
+}
 
+void Downloador::setState(const QString &state)
+{
+    m_state = state;
+    emit stateChanged();
+}
 
 
 

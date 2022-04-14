@@ -5,8 +5,8 @@
 #include <QDebug>
 
 
-ReplaceImageInText::ReplaceImageInText(ImageDownloader *parent)
-    : ImageDownloader(parent)
+ReplaceImageInText::ReplaceImageInText(Downloador *parent)
+    : Downloador(parent)
 {
 }
 

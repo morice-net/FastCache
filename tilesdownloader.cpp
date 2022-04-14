@@ -3,18 +3,16 @@
 #include <QDebug>
 #include <math.h>
 
-TilesDownloader::TilesDownloader(QObject *parent) :
-    QObject(parent),
+TilesDownloader::TilesDownloader(Downloador *parent) :
+    Downloador(parent),
     m_folderSizeOsm(),
     m_folderSizeGooglemapsPlan(),
-    m_folderSizeGooglemapsSat(),
-    webCtrl(new QNetworkAccessManager(this))
+    m_folderSizeGooglemapsSat()
 {
 }
 
 TilesDownloader::~TilesDownloader()
-{
-    delete webCtrl;
+{    
 }
 
 void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double lonLeft , double lonRight , int zoom)
@@ -39,7 +37,7 @@ void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double 
             path = dirOsm.absolutePath() + "/osm_100-l-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
-            downloadTile(url, m_dirOsm, path);
+            downloadFile(url, m_dirOsm, path);
         }
     }
 }
@@ -68,7 +66,7 @@ void TilesDownloader::downloadTilesGooglemaps(double latTop, double latBottom, d
                         QString::number(y) + ".png";
                 qDebug()<< url;
                 qDebug()<< path;
-                downloadTile(url, m_dirGooglemaps + "false", path);
+                downloadFile(url, m_dirGooglemaps + "false", path);
             } else if(supportedMap == 3) {
                 //sat
                 url = "https://mt.google.com/vt/lyrs=y&hl=fr-FR&x=" + QString::number(x) + "&y=" + QString::number(y) + "&z=" + QString::number(zoom);
@@ -76,69 +74,10 @@ void TilesDownloader::downloadTilesGooglemaps(double latTop, double latBottom, d
                         QString::number(y) + ".png";
                 qDebug()<< url;
                 qDebug()<< path;
-                downloadTile(url, m_dirGooglemaps + "true", path);
+                downloadFile(url, m_dirGooglemaps + "true", path);
             }
         }
     }
-}
-
-void TilesDownloader::downloadTile(QUrl url, QString id, QString path)
-{
-    QFile *file = new QFile(path, this);
-    if(!file->open(QIODevice::WriteOnly))
-    {
-        return;
-    }
-
-    QNetworkRequest request(url);
-    request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
-    request.setRawHeader("User-Agent", userAgent);
-
-    QNetworkReply *reply = webCtrl->get(request);
-    replytofile.insert(reply, file);
-    replytopathid.insert(reply, QPair<QString, QString>(path, id));
-
-    QObject::connect(reply, &QNetworkReply::finished, this, &TilesDownloader::tileDownloaded);
-    QObject::connect(reply, &QNetworkReply::readyRead, this, &TilesDownloader::onReadyRead);
-}
-
-void TilesDownloader::tileDownloaded()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-
-    if (replytofile[reply]->isOpen()) {
-        replytofile[reply]->close();
-        replytofile[reply]->deleteLater();
-    }
-
-    switch(reply->error())
-    {
-    case QNetworkReply::NoError:{
-        if(replytopathid[reply].second == m_dirOsm )
-            dirSizeFolder(m_dirOsm, false);
-        else if(replytopathid[reply].second == m_dirGooglemaps + "false" )
-            dirSizeFolder(m_dirGooglemaps, false);
-        else if(replytopathid[reply].second == m_dirGooglemaps + "true" )
-            dirSizeFolder(m_dirGooglemaps, true);
-    }
-        break;
-
-    default:
-        emit error(reply->errorString().toLatin1());
-        break;
-    }
-
-    emit downloaded(replytopathid[reply].first, replytopathid[reply].second);
-
-    replytofile.remove(reply);
-    replytopathid.remove(reply);
-    delete reply;
-}
-
-void TilesDownloader::onReadyRead()
-{
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    replytofile[reply]->write(reply->readAll());
 }
 
 int TilesDownloader::longTileX(double lon, int zoom)
@@ -236,6 +175,16 @@ QString TilesDownloader::formatSize(qint64 size) {
         outputSize= outputSize/1024;
     }
     return QString("%0 %1").arg(outputSize, 0, 'f', 2).arg(units[i]);
+}
+
+void TilesDownloader::downloaded(QNetworkReply* reply)
+{
+    if(replytopathid[reply].second == m_dirOsm )
+        dirSizeFolder(m_dirOsm, false);
+    else if(replytopathid[reply].second == m_dirGooglemaps + "false" )
+        dirSizeFolder(m_dirGooglemaps, false);
+    else if(replytopathid[reply].second == m_dirGooglemaps + "true" )
+        dirSizeFolder(m_dirGooglemaps, true);
 }
 
 /** Getters & Setters **/

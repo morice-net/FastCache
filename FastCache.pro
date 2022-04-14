@@ -20,13 +20,13 @@ SOURCES += main.cpp \
     cachessinglelist.cpp \
     connector.cpp \
     deletelogimage.cpp \
+    downloador.cpp \
     fullcacheretriever.cpp \
     fullcachesrecorded.cpp \
     getgeocachelogimages.cpp \
     getpocketsquerieslist.cpp \
     gettravelbuguser.cpp \
     getusergeocachelogs.cpp \
-    imagedownloader.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
     sendedituserlog.cpp \
@@ -64,13 +64,13 @@ HEADERS += \
     cachessinglelist.h \
     connector.h \
     deletelogimage.h \
+    downloador.h \
     fullcacheretriever.h \
     fullcachesrecorded.h \
     getgeocachelogimages.h \
     getpocketsquerieslist.h \
     gettravelbuguser.h \
     getusergeocachelogs.h \
-    imagedownloader.h \
     parameter.h \
     replaceimageintext.h \
     sendedituserlog.h \

@@ -1,16 +1,16 @@
 #ifndef TILESDOWNLOADER_H
 #define TILESDOWNLOADER_H
 
-#include <QObject>
+#include "downloador.h"
+
 #include <QStringList>
 #include <QFile>
 #include <QDir>
-
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 
-class TilesDownloader : public QObject
+class TilesDownloader : public Downloador
 {
     Q_OBJECT
 
@@ -21,8 +21,8 @@ class TilesDownloader : public QObject
     Q_PROPERTY(QString dirGooglemaps READ dirGooglemaps WRITE setDirGooglemaps NOTIFY dirGooglemapsChanged)
 
 public:
-    explicit TilesDownloader(QObject *parent = 0);
-    virtual ~TilesDownloader();
+    explicit TilesDownloader(Downloador *parent = nullptr);
+    ~TilesDownloader() override;
 
     QString folderSizeOsm() const;
     void setFolderSizeOsm(const QString &size);
@@ -41,19 +41,11 @@ public:
     Q_INVOKABLE void dirSizeFolder(QString dirPath, bool sat);
 
 signals:
-    // emits error string
-    void error(QString);
-    // Emits path to tile on disk and id
-    void downloaded(QString, QString);
     void folderSizeOsmChanged();
     void folderSizeGooglemapsPlanChanged();
     void folderSizeGooglemapsSatChanged();
     void dirOsmChanged();
     void dirGooglemapsChanged();
-
-private slots:
-    void tileDownloaded();
-    void onReadyRead();
 
 private:
     QString m_folderSizeOsm;
@@ -62,17 +54,12 @@ private:
     QString m_dirOsm = "./osmTiles";
     QString m_dirGooglemaps = "./googlemapsTiles";
 
-    QNetworkAccessManager *webCtrl;
-    QMap<QNetworkReply*, QFile*> replytofile;
-    QMap<QNetworkReply*, QPair<QString, QString> > replytopathid;
-
-    const QByteArray userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36";
-
     int latTileY(double lat, int zoom);
     int longTileX(double , int ) ;
-    void downloadTile(QUrl url, QString id, QString path);
     qint64 dirSize(QString dirPath,bool sat);
     QString formatSize(qint64 size);
+
+    void downloaded(QNetworkReply* reply) override;
 };
 
 #endif // TILESDOWNLOADER_H
