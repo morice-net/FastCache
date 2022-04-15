@@ -621,11 +621,17 @@ Item {
         skipDuplicates: true
     }
 
-    Toast {
-        id: toast
-    }
+    Toast { id: toast }
 
-    TilesDownloader { id: tilesDownloader }
+    TilesDownloader {
+        id: tilesDownloader
+        onStateChanged: {
+            if(tilesDownloader.state !== "OK" && tilesDownloader.state !== "loading") {
+                toast.visible = true
+                toast.show("Erreur de chargement des dalles "   + "(" + state + ")")
+            }
+        }
+    }
 
     SQLiteStorage {
         id: sqliteStorage

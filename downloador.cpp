@@ -24,6 +24,8 @@ void Downloador::downloadFile(QUrl url, QString id, QString path)
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     request.setRawHeader("User-Agent", userAgent);
+    // Inform  we are loading
+    setState("loading");
 
     QNetworkReply *reply = webCtrl->get(request);
     replytofile.insert(reply, file);

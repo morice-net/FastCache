@@ -41,7 +41,7 @@ private:
     QNetworkAccessManager *webCtrl;
 
     QString m_state;
-    int m_timeOut = 20000;
+    int m_timeOut = 10000;
 };
 
 #endif // DOWNLOADOR_H
