@@ -202,7 +202,7 @@ Item {
         onUrlChanged: {
             console.log("[URL] The load request URL is: " + url);
             console.log("[URL] redirectUri: ", connector.redirectUri)
-            if (tools.beginsWith(url, connector.redirectUri + "?")) {
+            if(url.toString().indexOf(connector.redirectUri + "?") === 0) {
                 connector.oauthAuthorizeCode(url)
                 webEngine.visible = false
             }
@@ -218,8 +218,6 @@ Item {
     /////////////////////////
 
     FontLoader { id: localFont; source: "qrc:/Ressources/DellaRespira-Regular.ttf" }
-
-    Tools { id: tools }
 
     Connector {
         id: connector

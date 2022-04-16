@@ -34,7 +34,6 @@ SOURCES += main.cpp \
     sendtravelbuglog.cpp \
     senduserwaypoint.cpp \
     tilesdownloader.cpp \
-    tools.cpp \
     cachesretriever.cpp \
     travelbug.cpp \
     userinfo.cpp \
@@ -78,7 +77,6 @@ HEADERS += \
     sendtravelbuglog.h \
     senduserwaypoint.h \
     tilesdownloader.h \
-    tools.h \
     cachesretriever.h \
     travelbug.h \
     userinfo.h \

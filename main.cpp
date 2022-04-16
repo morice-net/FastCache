@@ -7,7 +7,6 @@
 #include <QQuickView>
 #include <QQuickItem>
 #include "connector.h"
-#include "tools.h"
 #include "userinfo.h"
 #include "cachesbbox.h"
 #include "cachesnear.h"
@@ -39,7 +38,6 @@
 int main(int argc, char *argv[])
 {
     qmlRegisterType<Connector>("com.mycompany.connecting", 1, 0, "Connector");
-    qmlRegisterType<Tools>("com.mycompany.connecting", 1, 0, "Tools");
     qmlRegisterType<UserInfo>("com.mycompany.connecting", 1, 0, "UserInfo");
     qmlRegisterType<Cache>("com.mycompany.connecting", 1, 0, "Cache");
     qmlRegisterType<FullCache>("com.mycompany.connecting", 1, 0, "FullCache");
