@@ -24,11 +24,12 @@ public:
     Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void deleteToStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE  void parseJson(const QJsonDocument &dataJsonDoc) override;
+    Q_INVOKABLE void updateReplaceImageInText(ReplaceImageInText *replace);
 
 private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;
-    ReplaceImageInText* m_replaceImageInText = new ReplaceImageInText;
+    ReplaceImageInText* m_replaceImageInText ;
 };
 
 #endif // FULLCACHERETRIEVER_H

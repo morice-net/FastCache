@@ -470,6 +470,11 @@ bool SQLiteStorage::createTable(const QString &tableName, const QString &columns
     return true;
 }
 
+void SQLiteStorage::updateReplaceImageInText(ReplaceImageInText *replace)
+{
+    m_replaceImageInText = replace;
+}
+
 /** Getters & Setters **/
 
 QList<bool> SQLiteStorage::listWithGeocode() const

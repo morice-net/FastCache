@@ -41,6 +41,7 @@ public:
     Q_INVOKABLE void deleteCachesInList(const QString &tableName , const int &list);
     Q_INVOKABLE void deleteList(const QString &tableName, const QString &id);
     Q_INVOKABLE void updateFullCachesTable(const QString &tableNameLists , const QString &tableNameFullCache);
+    Q_INVOKABLE void updateReplaceImageInText(ReplaceImageInText *replace);
 
     QList<bool> listWithGeocode() const;
     void setListWithGeocode(const QList<bool> &list);
@@ -66,7 +67,7 @@ private:
     QList<int> m_listsIds;
     int m_countLists;
     QList<int> m_countCachesInLists;
-    ReplaceImageInText* m_replaceImageInText = new ReplaceImageInText;
+    ReplaceImageInText* m_replaceImageInText;
 };
 
 #endif // SQLITESTORAGE_H

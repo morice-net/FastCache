@@ -149,6 +149,11 @@ QList<QString> FullCachesRecorded::extract(const QList<QString> &list, const int
     return  build;
 }
 
+void FullCachesRecorded::updateReplaceImageInText(ReplaceImageInText *replace)
+{
+    m_replaceImageInText = replace;
+}
+
 /** Getters & Setters **/
 
 QString FullCachesRecorded::userName() const

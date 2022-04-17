@@ -49,6 +49,11 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
     m_fullCache = fullCache;
 }
 
+void FullCacheRetriever::updateReplaceImageInText(ReplaceImageInText *replace)
+{
+   m_replaceImageInText = replace;
+}
+
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
     // Save in database and download images of cache recorded

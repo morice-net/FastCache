@@ -22,6 +22,7 @@
 #include "sendedituserlog.h"
 #include "smileygc.h"
 #include "travelbug.h"
+#include "replaceimageintext.h"
 #include "fullcacheretriever.h"
 #include "sqlitestorage.h"
 #include "gettravelbuguser.h"
@@ -63,6 +64,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<GetGeocacheLogImages>("com.mycompany.connecting", 1, 0, "GetGeocacheLogImages");
     qmlRegisterType<DeleteLogImage>("com.mycompany.connecting", 1, 0, "DeleteLogImage");
     qmlRegisterType<TilesDownloader>("com.mycompany.connecting", 1, 0, "TilesDownloader");
+    qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");
 
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();

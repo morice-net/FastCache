@@ -276,7 +276,10 @@ Item {
                     fullCache.geocode = previousGeocode
             }
         }
-        Component.onCompleted: updateFullCache(fullCache)
+        Component.onCompleted: {
+            fullCacheRetriever.updateFullCache(fullCache)
+            fullCacheRetriever.updateReplaceImageInText(replaceImageInText)
+        }
     }
 
     FullCachesRecorded {
@@ -297,6 +300,7 @@ Item {
                 toast.show("Les caches ont été enregistrées");
             }
         }
+        Component.onCompleted: fullCachesRecorded.updateReplaceImageInText(replaceImageInText)
     }
 
     Travelbug {
@@ -631,6 +635,16 @@ Item {
         }
     }
 
+    ReplaceImageInText {
+        id: replaceImageInText
+        onStateChanged: {
+            if(replaceImageInText.state !== "OK" && replaceImageInText.state !== "loading") {
+                toast.visible = true
+                toast.show("Erreur de chargement des images "   + "(" + state + ")")
+            }
+        }
+    }
+
     SQLiteStorage {
         id: sqliteStorage
         Component.onCompleted: {
@@ -646,6 +660,8 @@ Item {
 
             sqliteStorage.updateLists("lists", 1 , "Enregistrées");
             sqliteStorage.numberCachesInLists("cacheslists");
+
+            sqliteStorage.updateReplaceImageInText(replaceImageInText)
         }
     }
 
