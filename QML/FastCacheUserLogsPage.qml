@@ -22,7 +22,7 @@ Item  {
     ScrollView {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: 40
+        anchors.topMargin: 70
         contentHeight: columnLogs.height + 30
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true

@@ -17,7 +17,7 @@ Item {
     Column {
         spacing: 5
         anchors.fill: parent
-        topPadding: parent.height * 0.05
+        topPadding: parent.height * 0.07
         clip: true
 
         Row {

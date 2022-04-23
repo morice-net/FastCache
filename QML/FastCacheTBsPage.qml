@@ -21,7 +21,7 @@ Item {
     Flickable {
         id: travelbugs
         anchors.fill: parent
-        anchors.topMargin: 50
+        anchors.topMargin: 70
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}

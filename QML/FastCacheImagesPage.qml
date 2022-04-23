@@ -37,7 +37,7 @@ Item {
     Flickable {
         id: images
         anchors.fill: parent
-        anchors.topMargin: 45
+        anchors.topMargin: 70
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 20
         ScrollBar.vertical: ScrollBar {}

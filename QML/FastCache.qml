@@ -172,8 +172,8 @@ Rectangle {
 
     ScrollView {
         width: main.width
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
+        anchors.top: fastCacheHeader.bottom
+        anchors.topMargin: 20
         ScrollBar.horizontal.policy: ScrollBar.SnapOnRelease
 
         PageIndicator {
@@ -187,7 +187,7 @@ Rectangle {
                 Text {
                 font.pointSize: 14
                 text: pageIndicatorMenu(index)
-                color: index === indicatorFastCache.currentIndex ? Palette.white() : Palette.silver()
+                color: index === indicatorFastCache.currentIndex ? Palette.white() : Palette.black()
             }
         }
     }

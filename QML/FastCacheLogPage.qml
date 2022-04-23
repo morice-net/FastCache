@@ -52,7 +52,7 @@ Item {
     ScrollView {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: 40
+        anchors.topMargin: 70
         anchors.bottomMargin: 30
         anchors.leftMargin: 20
         anchors.rightMargin: 20

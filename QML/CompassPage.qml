@@ -115,7 +115,7 @@ Item {
         opacity: 0.85
         font.pointSize: 17
         text: "Voir la\ncarte"
-        anchors.margins: 50
+        anchors.margins: 75
         anchors.top: parent.top
         anchors.right: parent.right
         onClicked: {
