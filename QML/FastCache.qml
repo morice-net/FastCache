@@ -151,52 +151,45 @@ Rectangle {
             }
         }
 
-        CompassPage {
-            id: compassPage
-        }
+        CompassPage { id: compassPage }
 
-        FastCacheWaypointsPage {
-            id: waypointsPage
-        }
+        FastCacheWaypointsPage { id: waypointsPage }
 
-        FastCacheDescriptionPage {
-            id: descriptionPage
-        }
+        FastCacheDescriptionPage { id: descriptionPage }
 
-        FastCacheDetailsPage {
-            id: detailsPage
-        }
+        FastCacheDetailsPage { id: detailsPage }
 
-        FastCacheLogsPage {
-            id: logsPage
-        }
+        FastCacheLogsPage { id: logsPage }
 
-        FastCacheImagesPage {
-            id: imagesPage
-        }
+        FastCacheImagesPage { id: imagesPage }
 
-        FastCacheLogPage {
-            id: logPage
-        }
+        FastCacheLogPage {id: logPage }
 
-        FastCacheTBsPage {
-            id: tbsPage
-        }
+        FastCacheTBsPage { id: tbsPage }
 
-        FastCacheUserLogsPage {
-            id: userLogsPage
-        }
+        FastCacheUserLogsPage { id: userLogsPage }
     }
 
-    PageIndicator {
-        id: indicatorFastCache
-        visible: fullCacheRetriever.state !== "loading"
+    ScrollView {
+        width: main.width
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 10
+        ScrollBar.horizontal.policy: ScrollBar.SnapOnRelease
 
-        count: swipeFastCache.count
-        currentIndex: swipeFastCache.currentIndex
-
-        anchors.bottom: fastCache.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+        PageIndicator {
+            id: indicatorFastCache
+            visible: fullCacheRetriever.state !== "loading"
+            interactive: true
+            count: swipeFastCache.count
+            currentIndex: swipeFastCache.currentIndex
+            onCurrentIndexChanged: swipeToPage(currentIndex)
+            delegate:
+                Text {
+                font.pointSize: 14
+                text: pageIndicatorMenu(index)
+                color: index === indicatorFastCache.currentIndex ? Palette.white() : Palette.silver()
+            }
+        }
     }
 
     function imagesTrue() {
@@ -286,6 +279,27 @@ Rectangle {
             return listRotation
         if(parameter === "imageDescription")
             return listDescription
+    }
+
+    function pageIndicatorMenu(index) {
+        if(index === compassPageIndex)
+            return "Boussole   "
+        if(index ===  waypointsPageIndex )
+            return "Etapes   "
+        if(index === descriptionPageIndex )
+            return "Description  "
+        if(index === detailsPageIndex )
+            return "Détails  "
+        if(index === logsPageIndex )
+            return "Logs   "
+        if(index === imagesPageIndex )
+            return "Images  "
+        if(index === logPageIndex )
+            return "Loguer  "
+        if(index === tbsPageIndex )
+            return "TravelBug   "
+        if(index === userLogsPageIndex )
+            return "Logs-utilisateur"
     }
 }
 
