@@ -17,7 +17,7 @@ Item {
     Column {
         spacing: 5
         anchors.fill: parent
-        topPadding: parent.height * 0.07
+        anchors.topMargin: fastCacheHeaderIcon.height * 2
         clip: true
 
         Row {

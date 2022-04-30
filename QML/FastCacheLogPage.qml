@@ -52,7 +52,7 @@ Item {
     ScrollView {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: 70
+        anchors.topMargin: fastCacheHeaderIcon.height * 2
         anchors.bottomMargin: 30
         anchors.leftMargin: 20
         anchors.rightMargin: 20

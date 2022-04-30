@@ -21,8 +21,8 @@ Item {
     }
 
     Flickable {
-        id: shortLongDescription
-        anchors.topMargin: 40
+        id: shortLongDescription    
+        anchors.topMargin: fastCacheHeaderIcon.height * 2
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 50

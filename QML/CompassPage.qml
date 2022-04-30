@@ -115,9 +115,9 @@ Item {
         opacity: 0.85
         font.pointSize: 17
         text: "Voir la\ncarte"
-        anchors.margins: 75
-        anchors.top: parent.top
+        y: fastCacheHeader.height * 2
         anchors.right: parent.right
+        anchors.rightMargin: 50
         onClicked: {
             viewState = "map"
             // memorizes the center and the zoom of the map
