@@ -61,8 +61,6 @@
         <file>QML/FastPopup.qml</file>
         <file>Image/marker_found.png</file>
         <file>QML/FastCacheLogPage.qml</file>
-        <file>Image/heart-off.png</file>
-        <file>Image/heart-on.png</file>
         <file>Image/logTypes/marker_archive.png</file>
         <file>Image/logTypes/marker_found_offline.png</file>
         <file>Image/logTypes/marker_maintenance.png</file>
@@ -83,7 +81,6 @@
         <file>QML/UserSettingsPopup.qml</file>
         <file>Image/Compass/compassIcon.png</file>
         <file>Image/mapsIcon.png</file>
-        <file>Image/marker_save.png</file>
         <file>QML/CachesRecordedLists.qml</file>
         <file>QML/ListBox.qml</file>
         <file>Image/icon_delete.png</file>
@@ -194,5 +191,8 @@
         <file>Image/Attributes/attribute_winter.png</file>
         <file>Image/Attributes/attribute_wirelessbeacon.png</file>
         <file>Image/Attributes/attribute_no.png</file>
+        <file>Image/marker_save.png</file>
+        <file>Image/saved-on.png</file>
+        <file>Image/saved-off.png</file>
     </qresource>
 </RCC>

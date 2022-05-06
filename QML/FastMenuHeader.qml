@@ -154,10 +154,19 @@ Item {
         anchors.top: parent.top
 
         Image {
-            source: fullCache.registered ? "qrc:/Image/heart-on.png" : "qrc:/Image/heart-off.png"
-            fillMode: Image.PreserveAspectFit
             anchors.fill: parent
-            anchors.margins: 5
+            source: "qrc:/Image/saved-on.png"
+            scale: 0.7
+            horizontalAlignment: Image.AlignHCenter
+            verticalAlignment: Image.AlignVCenter
+
+            Image {
+                anchors.fill: parent
+                visible: !fullCache.registered
+                source: "qrc:/Image/saved-off.png"
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+            }
         }
 
         MouseArea {
