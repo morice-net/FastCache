@@ -283,21 +283,21 @@ Rectangle {
     function pageIndicatorMenu(index) {
         if(index === compassPageIndex)
             return "Boussole   "
-        if(index ===  waypointsPageIndex )
+        if(index ===  waypointsPageIndex)
             return "Etapes   "
-        if(index === descriptionPageIndex )
+        if(index === descriptionPageIndex)
             return "Description  "
-        if(index === detailsPageIndex )
+        if(index === detailsPageIndex)
             return "Détails  "
-        if(index === logsPageIndex )
+        if(index === logsPageIndex)
             return "Logs   "
-        if(index === imagesPageIndex )
+        if(index === imagesPageIndex)
             return "Images  "
-        if(index === logPageIndex )
+        if(index === logPageIndex)
             return "Loguer  "
-        if(index === tbsPageIndex )
+        if(index === tbsPageIndex)
             return "TravelBug   "
-        if(index === userLogsPageIndex )
+        if(index === userLogsPageIndex)
             return "Logs-utilisateur"
     }
 }

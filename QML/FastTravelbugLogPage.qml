@@ -55,7 +55,7 @@ Item {
     ScrollView {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: 100
+        anchors.topMargin: fastTravelbugHeader.height * 3
         anchors.bottomMargin: 30
         anchors.leftMargin: 20
         anchors.rightMargin: 20

@@ -18,7 +18,6 @@ Rectangle {
         id:fastTravelbugHeader
         x: 200
         y: 10
-        height: parent.height * 0.02
         spacing: 10
 
         Image {
@@ -44,25 +43,30 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        FastTravelbugDetailsPage {
-            id: fastTravelbugDetailsPage
-        }
-        FastTravelbugLogsPage{
-            id: fastTravelbugLogsPage
-        }
+        FastTravelbugDetailsPage { id: fastTravelbugDetailsPage }
 
-        FastTravelbugLogPage{
-            id: fastTravelbugLogPage
-        }
+        FastTravelbugLogsPage{ id: fastTravelbugLogsPage }
+
+        FastTravelbugLogPage{ id: fastTravelbugLogPage }
     }
 
     PageIndicator {
         id: indicatorFastTravelbug
+        anchors.top: fastTravelbugHeader.bottom
+        anchors.topMargin: 15
+        anchors.horizontalCenter: parent.horizontalCenter
         count: swipeFastTravelbug.count
         visible: travelbug.state !== "loading"
+        interactive: true
         currentIndex: swipeFastTravelbug.currentIndex
-        anchors.bottom: fastTravelbug.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+        onCurrentIndexChanged: swipeToPage(currentIndex)
+        delegate:
+            Text {
+            font.pointSize: 14
+            text: pageIndicatorMenu(index)
+            color: index === indicatorFastTravelbug.currentIndex ? Palette.white() : Palette.black()
+        }
+
     }
 
     function swipeToPage(pageNumber) {
@@ -84,5 +88,14 @@ Rectangle {
         }
         page.visible = false ;
         return ;
+    }
+
+    function pageIndicatorMenu(index) {
+        if(index === 0)
+            return "Détails   "
+        if(index ===  1 )
+            return "Logs   "
+        if(index === 2 )
+            return "Loguer  "
     }
 }

@@ -9,7 +9,7 @@ Item {
     visible:true
 
     Flickable {
-        anchors.topMargin: 60
+        anchors.topMargin: fastTravelbugHeader.height * 3
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
