@@ -119,7 +119,10 @@ Map {
             }
             // restores the center and the zoom of the map
             center = QtPositioning.coordinate(latCenterMap , lonCenterMap)
-            zoomLevel = zoomMap
+            fastMap.currentZoomlevel = zoomMap
+
+            // delete waypoints cache on map
+            deleteWaypointsCacheOnMap()
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
@@ -150,6 +153,21 @@ Map {
 
     function deleteCacheOnMap() {
         removeMapItem(singleCache)
+    }
+
+    function addWaypointsCacheOnMap() {
+        for (var i = 0; i < fullCache.wptsComment.length; i++) {
+            var waypoint = Qt.createQmlObject('import QtLocation 5.3; MapWaypoint {}', map)
+            waypoint.index = i
+            waypoint.z = 1
+            fastMap.waypointCacheItems.push(waypoint)
+            addMapItem(waypoint)
+        }
+    }
+
+    function deleteWaypointsCacheOnMap() {
+        waypointCacheItems.forEach(item => item.destroy())
+        waypointCacheItems = []
     }
 
     // Makes a single cache visible on the map if flag is true, makes all caches visible if not.

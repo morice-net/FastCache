@@ -14,6 +14,8 @@ Rectangle {
     property var component
     property var cacheItems: []
     property var circleCacheItems: []
+    property var waypointCacheItems: []
+
 
     // Map properties
     property real currentZoomlevel: 14.5
@@ -98,6 +100,8 @@ Rectangle {
         cacheItems = []
         circleCacheItems.forEach(item => item.destroy())
         circleCacheItems = []
+        waypointCacheItems.forEach(item => item.destroy())
+        waypointCacheItems = []
         currentCacheIndex = 0
 
         // Does not erase the possible circle on the map

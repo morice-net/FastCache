@@ -194,5 +194,6 @@
         <file>Image/marker_save.png</file>
         <file>Image/saved-on.png</file>
         <file>Image/saved-off.png</file>
+        <file>QML/MapWaypoint.qml</file>
     </qresource>
 </RCC>
