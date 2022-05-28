@@ -195,5 +195,7 @@
         <file>Image/saved-on.png</file>
         <file>Image/saved-off.png</file>
         <file>QML/MapWaypoint.qml</file>
+        <file>Image/Waypoints/waypoint_user.png</file>
+        <file>QML/MapUserWaypoint.qml</file>
     </qresource>
 </RCC>

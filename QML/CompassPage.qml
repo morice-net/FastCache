@@ -140,6 +140,9 @@ Item {
             }
             // Add waypoints cache on map
             fastMap.mapItem.addWaypointsCacheOnMap()
+
+            // Add user waypoints cache on map
+            fastMap.mapItem.addUserWaypointsCacheOnMap()
         }
     }
 

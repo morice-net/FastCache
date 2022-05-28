@@ -14,6 +14,9 @@ Map {
     property MapCircle circleRadius
     property MapFullCacheItem singleCache
     property int cachesOnMap: fastMap.countCachesOnMap() // number of caches on map
+    property var waypointCacheItems: []  // list of waypoints of cache
+    property var userWaypointCacheItems: []  // list of user waypoints of cache
+
 
     // memorizes the center and the zoom of the map
     property real latCenterMap
@@ -123,6 +126,9 @@ Map {
 
             // delete waypoints cache on map
             deleteWaypointsCacheOnMap()
+
+            // delete user waypoints cache on map
+            deleteUserWaypointsCacheOnMap()
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
@@ -145,6 +151,7 @@ Map {
         cachesOnMap = fastMap.countCachesOnMap()  // update cachesOnMap
     }
 
+    // cache on map
     function addCacheOnMap() {
         singleCache = Qt.createQmlObject('import QtLocation 5.3; MapFullCacheItem {}', map)
         singleCache.z = 1
@@ -155,12 +162,13 @@ Map {
         removeMapItem(singleCache)
     }
 
+    // waypoints cache on map
     function addWaypointsCacheOnMap() {
         for (var i = 0; i < fullCache.wptsComment.length; i++) {
             var waypoint = Qt.createQmlObject('import QtLocation 5.3; MapWaypoint {}', map)
             waypoint.index = i
             waypoint.z = 1
-            fastMap.waypointCacheItems.push(waypoint)
+            waypointCacheItems.push(waypoint)
             addMapItem(waypoint)
         }
     }
@@ -168,6 +176,22 @@ Map {
     function deleteWaypointsCacheOnMap() {
         waypointCacheItems.forEach(item => item.destroy())
         waypointCacheItems = []
+    }
+
+    // user waypoints cache on map
+    function addUserWaypointsCacheOnMap() {
+        for (var i = 0; i < fullCache.userWptsCode.length; i++) {
+            var userWaypoint = Qt.createQmlObject('import QtLocation 5.3; MapUserWaypoint {}', map)
+            userWaypoint.index = i
+            userWaypoint.z = 1
+            userWaypointCacheItems.push(userWaypoint)
+            addMapItem(userWaypoint)
+        }
+    }
+
+    function deleteUserWaypointsCacheOnMap() {
+        userWaypointCacheItems.forEach(item => item.destroy())
+        userWaypointCacheItems = []
     }
 
     // Makes a single cache visible on the map if flag is true, makes all caches visible if not.

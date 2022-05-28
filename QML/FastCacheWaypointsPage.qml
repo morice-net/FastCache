@@ -226,9 +226,8 @@ Item {
 
             Text {
                 visible: fullCache.userWptsCode.length !== 0
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
-                leftPadding: 15
                 font.pointSize: 16
                 text: "ETAPES PERSONNELLES"
                 color: Palette.silver()
