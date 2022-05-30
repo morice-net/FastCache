@@ -128,15 +128,17 @@ Item {
             fastMap.compassMapButton = true
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , true) // makes one circle cache visible on map
-            fastMap.mapItem.center = QtPositioning.coordinate(fullCache.lat , fullCache.lon) // center cache on map
+            // center cache on map
+            fastMap.mapItem.center = QtPositioning.coordinate(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                                              fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon )
 
             fastMap.currentZoomlevel = 17.5
-
             // is cache in list of caches?
             if(!fastCache.geocodeInCachesList) {
                 fastMap.mapItem.addCacheOnMap() // add full cache on map, not in list
                 if(settings.circlesCaches)
-                    fastMap.mapItem.createCircleSingleCache(fullCache.lat , fullCache.lon)
+                    fastMap.mapItem.createCircleSingleCache(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                                            fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
             }
             // Add waypoints cache on map
             fastMap.mapItem.addWaypointsCacheOnMap()

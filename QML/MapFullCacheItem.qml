@@ -6,7 +6,8 @@ MapQuickItem {
 
     property string geocode: fullCache.geocode
 
-    coordinate: QtPositioning.coordinate(fullCache.lat, fullCache.lon)
+    coordinate: QtPositioning.coordinate(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat,
+                                         fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
     anchorPoint.x: cacheIcon.width/2
     anchorPoint.y: cacheIcon.height
     sourceItem: CacheIcon {

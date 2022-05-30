@@ -75,7 +75,8 @@ Item {
 
         function buttonClicked() {
             if (main.viewState === "fullcache") {
-                fullCache.launchMaps(fullCache.lat , fullCache.lon);
+                fullCache.launchMaps(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                     fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon);
             } else {
                 hideMenu()
                 nearCachesClicked()

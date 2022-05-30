@@ -115,8 +115,10 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: Helper.formatDistance(Math.round(currentPosition.position.coordinate
-                                                       .distanceTo(QtPositioning.coordinate(fullCache.lat, fullCache.lon))))
+                text: Helper.formatDistance(Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
+                                                                                                                                   fullCache.correctedLat : fullCache.lat,
+                                                                                                                               fullCache.isCorrectedCoordinates ?
+                                                                                                                                   fullCache.correctedLon : fullCache.lon))))
                 color: Palette.white()
             }
         }
