@@ -2,7 +2,6 @@ import QtQuick 2.6
 import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
-import "JavaScript/MainFunctions.js" as Functions
 import com.mycompany.connecting 1.0
 
 Item {

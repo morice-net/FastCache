@@ -4,8 +4,6 @@ import QtPositioning 5.2
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
-import "JavaScript/MainFunctions.js" as Functions
-
 import com.mycompany.connecting 1.0
 
 Item {
