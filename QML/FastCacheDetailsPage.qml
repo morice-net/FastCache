@@ -304,22 +304,6 @@ Item {
             anchors.top: rect.bottom
         }
     }
-
-    function formatLatText(format , lat) {
-        if(format)  {
-            return Functions.formatLat(lat)
-        } else {
-            return lat
-        }
-    }
-
-    function formatLonText(format , lon) {
-        if(format)  {
-            return Functions.formatLon(lon)
-        } else {
-            return lon
-        }
-    }
 }
 
 

@@ -4,6 +4,7 @@ import QtPositioning 5.3
 import QtQuick.Controls 2.5
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 import com.mycompany.connecting 1.0
 
 Rectangle {
@@ -299,6 +300,22 @@ Rectangle {
             return "TravelBug   "
         if(index === userLogsPageIndex)
             return "Logs-utilisateur"
+    }
+
+    function formatLatText(format , lat) {
+        if(format)  {
+            return Functions.formatLat(lat)
+        } else {
+            return lat
+        }
+    }
+
+    function formatLonText(format , lon) {
+        if(format)  {
+            return Functions.formatLon(lon)
+        } else {
+            return lon
+        }
     }
 }
 

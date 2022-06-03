@@ -8,6 +8,10 @@ import com.mycompany.connecting 1.0
 Item {
     id: waypointsPage
 
+    property bool formatCoordinatesWaypoint: true
+    property bool formatCoordinatesCorrectedCoordinates: true
+    property bool formatCoordinatesUserWaypoint: true
+
     Flickable {
         id: waypoints
         anchors.fill: parent
@@ -95,13 +99,19 @@ Item {
 
                     Text {
                         visible: fullCache.wptsLat[index] >180  ? false : true
-                        text: Functions.formatLat(fullCache.wptsLat[index]) + " " + Functions.formatLon(fullCache.wptsLon[index])
+                        text: formatLatText(formatCoordinatesWaypoint , fullCache.wptsLat[index]) + "  ,   " +
+                              formatLonText(formatCoordinatesWaypoint , fullCache.wptsLon[index])
                         leftPadding: 15
                         font.family: localFont.name
                         font.pointSize: 13
                         color: Palette.silver()
                         wrapMode: Text.Wrap
                         anchors.leftMargin: 10
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: formatCoordinatesWaypoint = !formatCoordinatesWaypoint
+                        }
                     }
 
                     Row {
@@ -173,8 +183,14 @@ Item {
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 13
-                text: Functions.formatLat(fullCache.correctedLat) + "   " + Functions.formatLon(fullCache.correctedLon)
+                text: formatLatText(formatCoordinatesCorrectedCoordinates , fullCache.correctedLat) + "  ,   " +
+                      formatLonText(formatCoordinatesCorrectedCoordinates , fullCache.correctedLon)
                 color: Palette.silver()
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: formatCoordinatesCorrectedCoordinates = !formatCoordinatesCorrectedCoordinates
+                }
             }
 
             Row {
@@ -283,13 +299,19 @@ Item {
 
                     Text {
                         visible: fullCache.userWptsLat[index] >180  ? false : true
-                        text: Functions.formatLat(fullCache.userWptsLat[index]) + "   " + Functions.formatLon(fullCache.userWptsLon[index])
+                        text: formatLatText(formatCoordinatesUserWaypoint , fullCache.userWptsLat[index]) + "  ,   " +
+                              formatLonText(formatCoordinatesUserWaypoint , fullCache.userWptsLon[index])
                         leftPadding: 15
                         font.family: localFont.name
                         font.pointSize: 15
                         color: Palette.silver()
                         wrapMode: Text.Wrap
                         anchors.leftMargin: 10
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: formatCoordinatesUserWaypoint = !formatCoordinatesUserWaypoint
+                        }
                     }
 
                     Row {
