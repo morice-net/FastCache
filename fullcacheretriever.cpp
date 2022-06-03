@@ -51,7 +51,7 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
 
 void FullCacheRetriever::updateReplaceImageInText(ReplaceImageInText *replace)
 {
-   m_replaceImageInText = replace;
+    m_replaceImageInText = replace;
 }
 
 void FullCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
@@ -122,9 +122,9 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setIsCorrectedCoordinates(false);
     }  else {
         QJsonObject  v2 = v1["correctedCoordinates"].toObject();
-        m_fullCache->setIsCorrectedCoordinates(true);
         m_fullCache->setCorrectedLat(v2["latitude"].toDouble());
         m_fullCache->setCorrectedLon(v2["longitude"].toDouble());
+        m_fullCache->setIsCorrectedCoordinates(true);
     }
     m_fullCache->setName(cacheJson["name"].toString());
     m_fullCache->setTrackableCount(cacheJson["trackableCount"].toInt());
