@@ -36,6 +36,16 @@ Item {
                 }
             }
 
+            // list of waypoints
+            Text {
+                visible: fullCache.wptsComment.length !== 0
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                font.pointSize: 15
+                text: "ÉTAPES"
+                color: Palette.black()
+            }
+
             Repeater {
                 model:fullCache.wptsComment.length
 
@@ -43,7 +53,7 @@ Item {
                     spacing: 10
 
                     Row {
-                        x:15
+                        leftPadding: 15
 
                         Image {
 
@@ -147,13 +157,23 @@ Item {
                 }
             }
 
+            // correction of coordinates
+            Text {
+                visible: fullCache.isCorrectedCoordinates
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                font.pointSize: 15
+                text: "COORDONNÉES MODIFIÉES"
+                color: Palette.black()
+            }
+
             Text {
                 visible: fullCache.isCorrectedCoordinates
                 width: parent.width
                 font.family: localFont.name
                 leftPadding: 15
-                font.pointSize: 15
-                text: "Coordonnées de la cache modifiées \n" + Functions.formatLat(fullCache.correctedLat) + "   " + Functions.formatLon(fullCache.correctedLon)
+                font.pointSize: 13
+                text: Functions.formatLat(fullCache.correctedLat) + "   " + Functions.formatLon(fullCache.correctedLon)
                 color: Palette.silver()
             }
 
@@ -224,13 +244,14 @@ Item {
                 color: Palette.silver()
             }
 
+            // list of user waypoints
             Text {
                 visible: fullCache.userWptsCode.length !== 0
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
-                font.pointSize: 16
-                text: "ETAPES PERSONNELLES"
-                color: Palette.silver()
+                font.pointSize: 15
+                text: "ÉTAPES PERSONNELLES"
+                color: Palette.black()
             }
 
             Repeater{
@@ -239,13 +260,25 @@ Item {
                 Column{
                     spacing: 10
 
-                    Text {
-                        text: fullCache.userWptsCode[index]
+                    Row {
                         leftPadding: 15
-                        font.family: localFont.name
-                        font.bold: true
-                        font.pointSize: 13
-                        color: Palette.white()
+
+                        Image {
+                            id: iconUserwaypoint
+                            source: "qrc:/Image/Waypoints/waypoint_user.png"
+                            anchors.top: textCode.top
+                        }
+
+                        Text {
+                            id: textCode
+                            //   anchors.bottom: iconUserwaypoint.bottom
+                            leftPadding: 15
+                            text: fullCache.userWptsCode[index]
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 13
+                            color: Palette.white()
+                        }
                     }
 
                     Text {
