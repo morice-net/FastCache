@@ -12,7 +12,7 @@ Item  {
     Text {
         visible: getUserGeocacheLogs.referenceCodes.length === 0
         anchors.centerIn: parent
-        text: (main.state !== "recorded" || fullCache.registered === false) ?  "Pas de logs utilisateur" : "logs utilisateur non renseignés"
+        text: "Pas de logs utilisateur"
         font.family: localFont.name
         font.bold: true
         font.pointSize: 17

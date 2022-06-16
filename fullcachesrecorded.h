@@ -4,10 +4,12 @@
 #include "requestor.h"
 #include "sqlitestorage.h"
 #include "replaceimageintext.h"
+#include "getusergeocachelogs.h"
 
 #include <QNetworkReply>
 
 class ReplaceImageInText;
+class GetUserGeocacheLogs;
 
 class FullCachesRecorded : public Requestor
 {
@@ -32,11 +34,13 @@ public:
 signals:
     void userNameChanged();
 
-private:  
+private:
     ReplaceImageInText* m_replaceImageInText;
     QList<bool> m_cachesLists;
     SQLiteStorage *m_sqliteStorage;
     QString m_userName;
+    QString m_tokenTemp;
+    GetUserGeocacheLogs *m_getUserGeocacheLogs;
 };
 
 #endif // FULLCACHESRECORDED_H

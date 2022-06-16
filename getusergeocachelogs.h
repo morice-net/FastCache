@@ -2,9 +2,12 @@
 #define GETUSERGEOCACHELOGS_H
 
 #include "requestor.h"
+#include "sqlitestorage.h"
 
 #include <QNetworkReply>
 #include <QObject>
+
+class SQLiteStorage;
 
 class GetUserGeocacheLogs : public Requestor
 {
@@ -42,6 +45,7 @@ public:
     Q_INVOKABLE void sendRequest(QString token , QString geocode);
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
+    QJsonDocument updateUserlogs() const;
 
 signals:
     void referenceCodesChanged();
@@ -52,12 +56,16 @@ signals:
     void imagesCountChanged();
 
 private:
+    QJsonDocument m_userlogs;
     QList<QString> m_referenceCodes;
     QList<QString> m_logs ;
     QList<QString> m_loggedDates ;
     QList<QString> m_logsType ;
     QList<int> m_logsTypeId ;
     QList<int> m_imagesCount;
+
+    SQLiteStorage *m_sqliteStorage;
+    QString m_geocode;
 };
 
 #endif // GETUSERGEOCACHELOGS_H

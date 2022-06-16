@@ -112,27 +112,6 @@ QList<int> SQLiteStorage::numberCachesInLists(const QString &tableName)
 }
 
 // read in tables
-
-QList<QString> SQLiteStorage::readAllIdsFromTable(const QString &tableName)
-{
-    QString selectQueryText = "SELECT id FROM " + tableName ;
-    qDebug() << "Query:" << selectQueryText;
-    QSqlQuery select;
-
-    if(!select.exec(selectQueryText))
-    {
-        qDebug() << "Error ? " << select.lastError().text();
-        return  QList<QString>();
-    }
-    qDebug() << "Request success";
-    QList<QString> list = QList<QString>();
-    while(select.next()) {
-        list.append(select.value(0).toString());
-    }
-    qDebug() << " lists in table " << list;
-    return list;
-}
-
 QList<int> SQLiteStorage::readAllIdsFromLists(const QString &tableName)
 {
     QString selectQueryText = "SELECT id FROM " + tableName + " ORDER BY id" ;
@@ -201,12 +180,13 @@ QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString 
 
 bool SQLiteStorage::updateFullCacheColumns(const QString &tableName, const QString &geocode, const QString &name, const QString &type,
                                            const QString &size, const double &difficulty, const double &terrain , const double &lat,
-                                           const double &lon, const bool &found, const bool &own, const QJsonDocument &json)
+                                           const double &lon, const bool &found, const bool &own, const QJsonDocument &json, const QJsonDocument &userlogs)
 {
     QString nameAlias = name;
     QString queryCommand;
     QString stringJson(json.toJson(QJsonDocument::Compact));
-    queryCommand += "REPLACE INTO " + tableName + " (id , name, type, size, difficulty, terrain, lat, lon, found, own, json) VALUES ('" + geocode
+    QString stringUserlogs(userlogs.toJson(QJsonDocument::Compact));
+    queryCommand += "REPLACE INTO " + tableName + " (id , name, type, size, difficulty, terrain, lat, lon, found, own, json, userlogs) VALUES ('" + geocode
             + "' , '"  + nameAlias.replace('\"', '"').replace("'","''")
             + "' , '"  + type
             + "' , '"  + size
@@ -217,6 +197,7 @@ bool SQLiteStorage::updateFullCacheColumns(const QString &tableName, const QStri
             + "' , '"  + QString::number(found ? 1 : 0)
             + "' , '"  + QString::number(own ? 1 : 0)
             + "' , '"  + stringJson.replace('\"', '"').replace("'","''")
+            + "' , '"  + stringUserlogs.replace('\"', '"').replace("'","''")
             + "')";
     QSqlQuery query;
     query.exec(queryCommand);
@@ -236,6 +217,24 @@ bool SQLiteStorage::updateFullCacheColumnsFoundJson(const QString &tableName, co
     queryCommand += "UPDATE " + tableName
             + " SET found = '" + QString::number(found ? 1 : 0) + "' , "
             + " json = '" + stringJson.replace('\"', '"').replace("'","''") + "'"
+            + " WHERE " + "id='" + id + "'";
+    QSqlQuery query;
+    query.exec(queryCommand);
+    qDebug() << "Query command: " << queryCommand;
+    if (query.lastError().type() == QSqlError::NoError) {
+        qDebug() << "Request success";
+    } else {
+        qDebug() << "Error ? " << query.lastError().text();
+    }
+    return true;
+}
+
+bool SQLiteStorage::updateFullCacheColumnUserlogs(const QString &tableName, const QString &id, const QJsonDocument &userlogs)
+{
+    QString queryCommand;
+    QString stringUserlogs(userlogs.toJson(QJsonDocument::Compact));
+    queryCommand += "UPDATE " + tableName
+            + " SET userlogs = '" + stringUserlogs.replace('\"', '"').replace("'","''") + "'"
             + " WHERE " + "id='" + id + "'";
     QSqlQuery query;
     query.exec(queryCommand);

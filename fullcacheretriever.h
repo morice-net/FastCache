@@ -5,11 +5,13 @@
 #include "fullcache.h"
 #include "sqlitestorage.h"
 #include "replaceimageintext.h"
+#include "getusergeocachelogs.h"
 
 #include <QNetworkReply>
 
 class ReplaceImageInText;
 class FullCache;
+class GetUserGeocacheLogs;
 
 class FullCacheRetriever : public Requestor
 {
@@ -30,6 +32,7 @@ private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;
     ReplaceImageInText* m_replaceImageInText ;
+    GetUserGeocacheLogs* m_getUserGeocacheLogs;
 };
 
 #endif // FULLCACHERETRIEVER_H

@@ -13,14 +13,18 @@ FullCachesRecorded::FullCachesRecorded(Requestor *parent)
     : Requestor (parent)
     , m_userName("")
 {
+    m_getUserGeocacheLogs = new GetUserGeocacheLogs();
 }
 
 FullCachesRecorded::~FullCachesRecorded()
 {
+    delete m_getUserGeocacheLogs;
 }
 
 void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes , QList<bool> cachesLists , SQLiteStorage *sqliteStorage)
 {
+    m_tokenTemp = token;
+
     m_cachesLists = cachesLists;
     m_sqliteStorage = sqliteStorage;
     int maxFullCachesPerPages = 50;
@@ -114,7 +118,8 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         }
         jsonDoc.setObject(fullCache.toObject());
         m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own,
-                                                m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  , true));
+                                                m_replaceImageInText->replaceUrlImageToPath(geocode , jsonDoc  , true) , QJsonDocument());
+        m_getUserGeocacheLogs->sendRequest(m_tokenTemp , geocode); // download user logs from a cache
         m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode , false);
     }
     m_sqliteStorage->numberCachesInLists("cacheslists");

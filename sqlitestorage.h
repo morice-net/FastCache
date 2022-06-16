@@ -24,14 +24,14 @@ public:
     int count(const QString &tableName);
     bool updateFullCacheColumns(const QString &tableName, const QString &geocode, const QString &name, const QString &type, const QString &size,
                                 const double &difficulty, const double &terrain , const double &lat, const double &lon, const bool &found,
-                                const bool &own, const QJsonDocument &json);
+                                const bool &own, const QJsonDocument &json , const QJsonDocument &userlogs);
+    bool updateFullCacheColumnUserlogs(const QString &tableName, const QString &id, const QJsonDocument &userlogs);
     Q_INVOKABLE void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
     Q_INVOKABLE bool isCacheInTable(const QString &tableName, const QString &id);
     Q_INVOKABLE void deleteObject(const QString &tableName, const QString &id);
     Q_INVOKABLE bool updateObject(const QString &tableName, const QString &id, const QJsonDocument &json);
     Q_INVOKABLE bool updateFullCacheColumnsFoundJson(const QString &tableName, const QString &id, const bool &found, const QJsonDocument &json);
     Q_INVOKABLE QJsonDocument readObject(const QString &tableName, const QString &id);
-    Q_INVOKABLE QList<QString> readAllIdsFromTable(const QString &tableName);
     Q_INVOKABLE QList<QString> readAllStringsFromTable(const QString &tableName);
     Q_INVOKABLE bool updateLists(const QString &tableName, const int &id, const QString &string);
     Q_INVOKABLE bool createTable(const QString &tableName, const QString &columns);

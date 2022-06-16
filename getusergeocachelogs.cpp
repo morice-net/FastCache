@@ -22,6 +22,8 @@ GetUserGeocacheLogs:: ~GetUserGeocacheLogs()
 
 void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 {
+    m_userlogs = QJsonDocument();
+
     // empty lists
     setReferenceCodes(QStringList());
     setLogs(QStringList());
@@ -43,6 +45,7 @@ void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 
 void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
 {
+    m_userlogs = dataJsonDoc;
     QJsonArray  userLogsJson = dataJsonDoc.array();
     qDebug() << "*** user Logs**\n" << userLogsJson;
 
@@ -63,7 +66,10 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
         type = userLogJson["geocacheLogType"].toObject();
         m_logsTypeId.append(type["id"].toInt());
         m_logsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
+
+        m_geocode = userLogJson["geocacheCode"].toString();
     }
+    m_sqliteStorage->updateFullCacheColumnUserlogs("fullcache" , m_geocode , dataJsonDoc);
 
     emit referenceCodesChanged();
     emit logsChanged();
@@ -81,6 +87,11 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
 
     delete smileys;
     return ;
+}
+
+QJsonDocument  GetUserGeocacheLogs::updateUserlogs() const
+{
+    return m_userlogs;
 }
 
 /** Getters & Setters **/
