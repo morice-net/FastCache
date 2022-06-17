@@ -35,15 +35,15 @@ Rectangle {
     // used to send images to a log
     property var listImagesUrl: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
                                     createListParameterImagesLog(
-                                        sendImagesLog.readJsonArray(sqliteStorage.readObject(
+                                        sendImagesLog.readJsonArray(sqliteStorage.readColumnJson(
                                                                         "cachesimageslog" , fullCache.geocode)), "imageUrl") : []
     property var listImagesDescription: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
                                             createListParameterImagesLog(
-                                                sendImagesLog.readJsonArray(sqliteStorage.readObject(
+                                                sendImagesLog.readJsonArray(sqliteStorage.readColumnJson(
                                                                                 "cachesimageslog" , fullCache.geocode)), "imageDescription") : []
     property var listImagesRotation: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
                                          createListParameterImagesLog(
-                                             sendImagesLog.readJsonArray(sqliteStorage.readObject(
+                                             sendImagesLog.readJsonArray(sqliteStorage.readColumnJson(
                                                                              "cachesimageslog" , fullCache.geocode)), "imageRotation") : []
 
     // used to save images sent to a log
@@ -71,7 +71,7 @@ Rectangle {
 
     // List of travelbugs that can be sent: tbCode,trackingNumber,typeLog,dateIso,logText
     property var listTbSend: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
-                                 sendTravelbugLog.readJsonArray(sqliteStorage.readObject("cachestbsuserlog" , fullCache.geocode)) : []
+                                 sendTravelbugLog.readJsonArray(sqliteStorage.readColumnJson("cachestbsuserlog" , fullCache.geocode)) : []
 
     // Is geocode on list of caches?
     property bool geocodeInCachesList: fastMap.isGeocodeInCachesList(fullCache.geocode)

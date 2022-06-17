@@ -9,7 +9,7 @@ Rectangle {
     id: imagesBrowser
 
     property int repeaterCount: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
-                                    sendImagesLog.readJsonArray(sqliteStorage.readObject("cachesimageslog" , fullCache.geocode)).length : 0
+                                    sendImagesLog.readJsonArray(sqliteStorage.readColumnJson("cachesimageslog" , fullCache.geocode)).length : 0
     anchors.fill: parent
     anchors.topMargin: 40
     anchors.bottomMargin: anchors.topMargin/2

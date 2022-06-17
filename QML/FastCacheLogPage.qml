@@ -251,7 +251,7 @@ Item {
 
     function initDate() {
         if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
-            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "loggedDate")
+            return sendCacheLog.readJsonProperty(sqliteStorage.readColumnJson("cacheslog" ,fullCache.geocode), "loggedDate")
         if(updateLog) {
             return new Date(getUserGeocacheLogs.loggedDates[updateLogIndex]).toISOString()
         } else {
@@ -261,7 +261,7 @@ Item {
 
     function initTypeLog() {
         if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
-            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "geocacheLogType")
+            return sendCacheLog.readJsonProperty(sqliteStorage.readColumnJson("cacheslog" ,fullCache.geocode), "geocacheLogType")
         if(updateLog)
             return getUserGeocacheLogs.logsTypeId[updateLogIndex]
         if(fullCache.found || fullCache.owner === userInfo.name) {
@@ -273,7 +273,7 @@ Item {
 
     function initTextRecorded() {
         if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
-            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "text")
+            return sendCacheLog.readJsonProperty(sqliteStorage.readColumnJson("cacheslog" ,fullCache.geocode), "text")
         if(updateLog)
             return getUserGeocacheLogs.logs[updateLogIndex]
         return ""
@@ -281,7 +281,7 @@ Item {
 
     function initFavorited() {
         if(sqliteStorage.isCacheInTable("cacheslog", fullCache.geocode))
-            return sendCacheLog.readJsonProperty(sqliteStorage.readObject("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
+            return sendCacheLog.readJsonProperty(sqliteStorage.readColumnJson("cacheslog" ,fullCache.geocode), "usedFavoritePoint")
         if(updateLog)
             return fullCache.favorited
         return false

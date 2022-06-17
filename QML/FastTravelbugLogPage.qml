@@ -9,17 +9,17 @@ Item {
 
     property string dateIso
     property string dateInit: sqliteStorage.isCacheInTable("tblog", travelbug.tbCode) ?
-                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" ,travelbug.tbCode), "loggedDate")
+                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readColumnJson("tblog" ,travelbug.tbCode), "loggedDate")
                                 : new Date().toISOString()
     property int typeLog: 4
     property int typeLogInit: sqliteStorage.isCacheInTable("tblog" , travelbug.tbCode)?
-                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" , travelbug.tbCode), "logType") :4
+                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readColumnJson("tblog" , travelbug.tbCode), "logType") :4
     property string addLog: ""
     property string textRecorded: sqliteStorage.isCacheInTable("tblog", travelbug.tbCode)?
-                                      sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" , travelbug.tbCode), "text") : ""
+                                      sendTravelbugLog.readJsonProperty(sqliteStorage.readColumnJson("tblog" , travelbug.tbCode), "text") : ""
 
     property string tracking: sqliteStorage.isCacheInTable("tblog", travelbug.tbCode) ?
-                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readObject("tblog" ,travelbug.tbCode), "trackingCode") : ""
+                                  sendTravelbugLog.readJsonProperty(sqliteStorage.readColumnJson("tblog" ,travelbug.tbCode), "trackingCode") : ""
 
     onDateInitChanged:{
         dateIso = dateInit

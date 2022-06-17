@@ -404,7 +404,7 @@ Item {
             if(fullCache.registered && sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true) {
                 var fav = sendEditUserLog.favorited
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
-                                                                  sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
+                                                                  sqliteStorage.readColumnJson("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                 fullCache.favorited = fav
             }
         }
@@ -465,7 +465,7 @@ Item {
             if(fullCache.registered && sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true) {
                 var fav = sendCacheLog.favorited
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
-                                                                  sqliteStorage.readObject("fullcache", fullCache.geocode), new Date().toISOString(), fav))
+                                                                  sqliteStorage.readColumnJson("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                 fullCache.favorited = fav
             }
         }

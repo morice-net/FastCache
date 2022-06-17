@@ -153,7 +153,7 @@ QList<QString> SQLiteStorage::readAllStringsFromTable(const QString &tableName)
     return list;
 }
 
-QJsonDocument SQLiteStorage::readObject(const QString &tableName, const QString &id)
+QJsonDocument SQLiteStorage::readColumnJson(const QString &tableName, const QString &id)
 {
     QString selectQueryText = "SELECT json FROM " + tableName + " WHERE " + "id='" + id + "'";
     qDebug() << "Query:" << selectQueryText;
