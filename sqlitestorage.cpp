@@ -176,6 +176,30 @@ QJsonDocument SQLiteStorage::readColumnJson(const QString &tableName, const QStr
     return json;
 }
 
+QJsonDocument SQLiteStorage::readColumnUserlogs(const QString &tableName, const QString &id)
+{
+    QString selectQueryText = "SELECT userlogs FROM " + tableName + " WHERE " + "id='" + id + "'";
+    qDebug() << "Query:" << selectQueryText;
+    QSqlQuery select;
+
+    if(!select.exec(selectQueryText))
+    {
+        qDebug() << "Error ? " << select.lastError().text();
+        return  QJsonDocument();
+    }
+
+    qDebug() << "Request success";
+    QJsonDocument userlogs = QJsonDocument();
+    if (select.next()) {
+        QString userlogsString = select.value(0).toString();
+        QByteArray userlogsByteArray = userlogsString.toUtf8();
+        QJsonDocument userlogs = QJsonDocument::fromJson(userlogsByteArray);
+        return userlogs;
+    }
+    return userlogs;
+}
+
+
 // update in tables
 
 bool SQLiteStorage::updateFullCacheColumns(const QString &tableName, const QString &geocode, const QString &name, const QString &type,
