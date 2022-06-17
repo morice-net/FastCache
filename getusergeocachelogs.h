@@ -42,10 +42,10 @@ public:
     QList<int> imagesCount() const;
     void setImagesCount(const  QList<int> &images);
 
-    Q_INVOKABLE void sendRequest(QString token , QString geocode);
-
-    void parseJson(const QJsonDocument &dataJsonDoc) override;
     QJsonDocument updateUserlogs() const;
+
+    Q_INVOKABLE void sendRequest(QString token , QString geocode);
+    Q_INVOKABLE void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 signals:
     void referenceCodesChanged();

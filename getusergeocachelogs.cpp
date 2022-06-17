@@ -46,6 +46,15 @@ void GetUserGeocacheLogs::sendRequest(QString token , QString geocode)
 void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
 {
     m_userlogs = dataJsonDoc;
+
+    // empty lists
+    setReferenceCodes(QStringList());
+    setLogs(QStringList());
+    setLoggedDates(QStringList());
+    setLogsType(QStringList());
+    setLogsTypeId(QList<int>());
+    setImagesCount(QList<int>());
+
     QJsonArray  userLogsJson = dataJsonDoc.array();
     qDebug() << "*** user Logs**\n" << userLogsJson;
 

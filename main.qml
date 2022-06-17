@@ -251,8 +251,11 @@ Item {
         onFoundChanged: {
             Functions.foundDynamic(cachesSingleList.caches)
             fastCache.updateLog = false
-            if(state !== "recorded" || registered === false)
+            if(state !== "recorded" || registered === false)  {
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
+            } else {
+                getUserGeocacheLogs.parseJson(sqliteStorage.readColumnUserlogs("fullcache" , fullCache.geocode ))
+            }
             fastCache.swipeLogPage.typeLog = fastCache.swipeLogPage.initTypeLog()
         }
         onToDoLogChanged: Functions.toDoLogDynamic(cachesSingleList.caches)
