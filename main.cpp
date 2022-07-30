@@ -35,6 +35,7 @@
 #include "cachespocketqueries.h"
 #include "deletelogimage.h"
 #include "tilesdownloader.h"
+#include "satellitemodel.h"
 
 int main(int argc, char *argv[])
 {
@@ -65,6 +66,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<DeleteLogImage>("com.mycompany.connecting", 1, 0, "DeleteLogImage");
     qmlRegisterType<TilesDownloader>("com.mycompany.connecting", 1, 0, "TilesDownloader");
     qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");
+    qmlRegisterType<SatelliteModel>("com.mycompany.connecting", 1, 0, "SatelliteModel");
 
 #if !defined Q_OS_ANDROID
     QtWebEngine::initialize();

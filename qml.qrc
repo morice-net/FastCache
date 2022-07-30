@@ -197,5 +197,6 @@
         <file>QML/MapWaypoint.qml</file>
         <file>Image/Waypoints/waypoint_user.png</file>
         <file>QML/MapUserWaypoint.qml</file>
+        <file>QML/SatelliteInfo.qml</file>
     </qresource>
 </RCC>
