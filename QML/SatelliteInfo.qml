@@ -168,12 +168,15 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.bottom: lawngreenRect.top
                         font.pointSize: 11
+                        color: Palette.greenSea()
                         text: "50"
                     }
+
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.top: parent.top
                         font.pointSize: 11
+                        color: Palette.greenSea()
                         text: "100"
                     }
 
@@ -188,6 +191,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
                             font.pointSize: 11
+                            color: Palette.greenSea()
                             text: "00"
                         }
                     }
@@ -202,6 +206,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
                             font.pointSize: 11
+                            color: Palette.greenSea()
                             text: "10"
                         }
                     }
@@ -216,6 +221,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
                             font.pointSize: 11
+                            color: Palette.greenSea()
                             text: "20"
                         }
                     }
@@ -230,6 +236,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
                             font.pointSize: 11
+                            color: Palette.greenSea()
                             text: "30"
                         }
                     }
@@ -243,6 +250,7 @@ Rectangle {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.bottom: parent.bottom
+                            color: Palette.greenSea()
                             font.pointSize: 11
                             text: "40"
                         }
@@ -257,6 +265,7 @@ Rectangle {
                         width: view.singleWidth
 
                         Rectangle {
+                            id: rectangle
                             anchors.bottom: parent.bottom
                             width: parent.width
                             height: parent.height*signalStrength/100
@@ -265,9 +274,10 @@ Rectangle {
 
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom: parent.bottom
+                            anchors.bottom: rectangle.top
                             text: satelliteIdentifier
-                            font.pointSize: 11
+                            font.pointSize: 6
+                            color: Palette.greenSea()
                         }
                     }
                 }
