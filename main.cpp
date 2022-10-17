@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
     app.setApplicationName("FastCache");
     QQuickView view(QUrl(QStringLiteral("qrc:/main.qml")));
     view.setWidth(510);
-    view.setHeight(840);
+    view.setHeight(800);
     view.show();
 
     QObject::connect((QObject*)view.engine(), SIGNAL(quit()), &app, SLOT(quit()));

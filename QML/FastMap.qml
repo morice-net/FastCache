@@ -45,8 +45,8 @@ Rectangle {
         name: "osm"
         parameters: [
             PluginParameter {
-                name: "osm.mapping.providersrepository.address"
-                value: "http://a.tile.openstreetmap.org/"
+                name: "osm.mapping.custom.host"
+                value: "https://maps.wikimedia.org/"
             },
             PluginParameter {
                 name: "osm.mapping.offline.directory"
@@ -54,6 +54,7 @@ Rectangle {
             }
         ]
     }
+
     Plugin {
         id: herePlugin
         name: "here"
