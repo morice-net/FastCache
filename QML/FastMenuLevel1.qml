@@ -115,11 +115,7 @@ Item {
         function buttonClicked() {
             if(main.viewState === "fullcache"){
                 hideMenu()
-                if(fullCache.imagesName.length !== 0) {
-                    fastCache.swipeToPage(fastCache.logsPageIndex)
-                } else {
-                    fastCache.swipeToPage(fastCache.imagesPageIndex)
-                }
+                fastCache.swipeToPage(fastCache.logPageIndex)
             } else {
                 // Display list of recorded caches and prepare Center Map.
                 main.state = "recorded";
