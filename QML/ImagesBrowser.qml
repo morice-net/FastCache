@@ -11,7 +11,7 @@ Rectangle {
     property int repeaterCount: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
                                     sendImagesLog.readJsonArray(sqliteStorage.readColumnJson("cachesimageslog" , fullCache.geocode)).length : 0
     anchors.fill: parent
-    anchors.topMargin: 40
+    anchors.topMargin: 70
     anchors.bottomMargin: anchors.topMargin/2
     anchors.rightMargin: anchors.topMargin/3
     anchors.leftMargin: anchors.topMargin/3
@@ -57,7 +57,7 @@ Rectangle {
         Text {
             id: closePage
             text: "X"
-            topPadding: 15
+            topPadding: 10
             font.pointSize: 25
             color: Palette.black()
 
