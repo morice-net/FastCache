@@ -10,7 +10,6 @@ SendEditUserLog::SendEditUserLog(Requestor *parent)
     ,  m_codeLog("")
     ,  m_logTypeResponse()
     ,  m_parsingCompleted(false)
-    ,  m_favorited(false)
 {
 }
 
@@ -19,12 +18,12 @@ SendEditUserLog::~SendEditUserLog()
 }
 
 // update log
-void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString geocode  , int logType , QString date , QString text , bool favorite)
+void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString geocode  , int logType , QString date , QString text)
 {
     //Build url
     QString requestName = "geocachelogs/";
     requestName.append(referenceCode);
-    requestName.append("?fields=referenceCode,owner,geocacheLogType,usedFavoritePoint");
+    requestName.append("?fields=referenceCode,owner,geocacheLogType");
     qDebug() << "*** request name**\n" << requestName;
 
     // create log
@@ -32,10 +31,10 @@ void SendEditUserLog::sendRequest(QString token, QString referenceCode, QString 
     log.insert("geocacheCode", QJsonValue(geocode));
     log.insert("loggedDate", QJsonValue(date));
     log.insert("text", QJsonValue(text));
-    log.insert("usedFavoritePoint", QJsonValue(favorite));
     QJsonObject type;
     type.insert("id",logType);
     log.insert("geocacheLogType", type);
+    qDebug() << "*** update log**\n" << log;
 
     QJsonDocument Doc(log);
     QByteArray data = Doc.toJson();
@@ -68,7 +67,6 @@ void SendEditUserLog::parseJson(const QJsonDocument &dataJsonDoc)
 
     logJson = dataJsonDoc.object();
     setCodeLog(logJson["referenceCode"].toString());
-    setFavorited(logJson["usedFavoritePoint"].toBool());
     logTypeJson = logJson["geocacheLogType"].toObject();
     setLogTypeResponse(logTypeJson ["id"].toInt());
 
@@ -112,13 +110,6 @@ void SendEditUserLog::setParsingCompleted(const bool &completed)
     emit parsingCompletedChanged();
 }
 
-bool SendEditUserLog::favorited() const
-{
-    return m_favorited;
-}
 
-void SendEditUserLog::setFavorited(const bool &favorite)
-{
-    m_favorited = favorite;
-    emit favoritedChanged();
-}
+
+

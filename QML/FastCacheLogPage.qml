@@ -151,8 +151,8 @@ Item {
             }
 
             CheckBox {
-                id :favorited
-                visible: typeLog === 2 // found
+                id : favorited
+                visible: typeLog === 2  && updateLog === false // found and create log
                 checked: initFavorited()
                 contentItem: Text {
                     text: "Ajouter cette cache à vos favoris"
@@ -208,7 +208,7 @@ Item {
                         } else {
                             // updatelog
                             sendEditUserLog.sendRequest(connector.tokenKey , getUserGeocacheLogs.referenceCodes[updateLogIndex] ,fullCache.geocode ,
-                                                        typeLog , dateIso , message.text , favorited.checked)
+                                                        typeLog , dateIso , message.text)
                         }
                     }
                 }
