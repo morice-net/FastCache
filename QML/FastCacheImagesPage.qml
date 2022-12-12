@@ -14,7 +14,7 @@ Item {
         icon.source: "qrc:/Image/icon_backwards.png"
         icon.width: 50
         icon.height: 50
-        topPadding: 30
+        topPadding: 60
         leftPadding: 20
         onClicked:{
             onClicked: userLogImages = !userLogImages
