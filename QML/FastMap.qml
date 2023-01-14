@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtLocation 5.3
+import QtLocation
 import QtPositioning 5.3
 
 import "JavaScript/Palette.js" as Palette

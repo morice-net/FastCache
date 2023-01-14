@@ -1,6 +1,6 @@
 import QtQuick 2.6
 import QtQuick.Controls 2.5
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs
 import QtQuick.Layouts 1.2
 
 import "JavaScript/Palette.js" as Palette
@@ -23,7 +23,6 @@ Rectangle {
     FileDialog {
         id: fileDialog
         visible: fileDialogVisible.checked
-        selectExisting: true
         nameFilters: [ "Image files (*.png *.jpg *.gif)" ]
         onAccepted: {
             listImagesDescription.push("")

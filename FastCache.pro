@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT +=  qml quick svg sql core
+QT +=  qml quick svg location sql core
 
 QT += core5compat
 
