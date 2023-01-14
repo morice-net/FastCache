@@ -4,8 +4,8 @@ import QtQuick.Window 2.3
 import QtPositioning 5.3
 import QtWebView 1.1
 import Qt.labs.settings 1.0
-import QtLocation 5.3
-import QtSensors 5.3
+import QtLocation
+import QtSensors
 
 import "QML/JavaScript/Palette.js" as Palette
 import "QML/JavaScript/MainFunctions.js" as Functions
@@ -617,13 +617,13 @@ Item {
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on
-        skipDuplicates: true // skip similar values
+      //  skipDuplicates: true // skip similar values
     }
 
     OrientationSensor {
         id: orientationReading
         active: false
-        skipDuplicates: true
+     //   skipDuplicates: true
     }
 
     Toast { id: toast }

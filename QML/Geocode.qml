@@ -1,10 +1,10 @@
 import QtQuick.Layouts 1.2
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs
 import QtQuick 2.6
 import QtQuick.Controls 2.5
 import Qt.labs.settings 1.0
 import QtPositioning 5.3
-import QtLocation 5.6
+import QtLocation
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions

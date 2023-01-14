@@ -2,7 +2,7 @@
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.2
 import Qt.labs.settings 1.0
-import QtQuick.Dialogs 1.3
+import QtQuick.Dialogs
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
