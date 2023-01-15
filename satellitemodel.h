@@ -30,6 +30,7 @@ public:
     };
 
     //From QAbstractListModel
+<<<<<<< HEAD
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
@@ -37,6 +38,15 @@ public:
     //From QQmlParserStatus
     void classBegin() {}
     void componentComplete();
+=======
+    int rowCount(const QModelIndex &parent) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
+    QHash<int, QByteArray> roleNames() const override;
+
+    //From QQmlParserStatus
+    void classBegin() override {}
+    void componentComplete() override;
+>>>>>>> 8d36e40 (Add satelliteInfo.qml satellitemodel.h,cpp)
 
     bool running() const;
     void setRunning(bool isActive);
