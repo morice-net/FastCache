@@ -1,6 +1,7 @@
 #include "cacheattribute.h"
 
 #include <QDebug>
+#include <QVariant>
 
 CacheAttribute::CacheAttribute(QObject *parent)
     :QObject(parent)
