@@ -106,9 +106,7 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/libcrypto.so \
-    android/libssl.so \
-    android/res/values/libs.xml \
-    android/res/values/libs.xml \
+    android/libssl.so \    
     android/res/values/libs.xml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
