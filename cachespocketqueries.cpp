@@ -1,6 +1,4 @@
 #include "cachespocketqueries.h"
-#include "cache.h"
-#include "connector.h"
 #include "constants.h"
 
 #include <QJsonDocument>

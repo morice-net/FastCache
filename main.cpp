@@ -20,7 +20,6 @@
 #include "sendtravelbuglog.h"
 #include "sendtravelbuglog.h"
 #include "sendedituserlog.h"
-#include "smileygc.h"
 #include "travelbug.h"
 #include "replaceimageintext.h"
 #include "fullcacheretriever.h"
