@@ -68,7 +68,7 @@ void Downloador::onReadyRead()
 
 void Downloador::downloaded(QNetworkReply* reply)
 {
-
+    (void) reply;
 }
 
 /** Getters & Setters **/

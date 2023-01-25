@@ -45,6 +45,7 @@ void CachesPocketqueries::sendRequest(QString token , QString referenceCode)
 
 void CachesPocketqueries::addGetRequestParameters(QString &parameters)
 {
+    (void) parameters;
 }
 
 void CachesPocketqueries::parseJson(const QJsonDocument &dataJsonDoc)
