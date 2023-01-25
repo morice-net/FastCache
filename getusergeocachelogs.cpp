@@ -65,7 +65,7 @@ void GetUserGeocacheLogs::parseJson(const QJsonDocument &dataJsonDoc)
     SmileyGc * smileys = new SmileyGc;
 
     QJsonObject type;
-    foreach ( const QJsonValue & userLogJson, userLogsJson)
+    for(const QJsonValue & userLogJson : userLogsJson)
     {
         m_referenceCodes.append(userLogJson["referenceCode"].toString());
         m_logs.append(smileys->replaceSmileyTextToImgSrc(userLogJson["text"].toString()));

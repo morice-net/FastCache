@@ -43,7 +43,7 @@ void GetGeocacheLogImages::parseJson(const QJsonDocument &dataJsonDoc)
         return ;
     }
 
-    foreach ( const QJsonValue & logImage, logImages)
+    for(const QJsonValue &logImage : logImages)
     {
         m_descriptions.append(logImage["description"].toString());
         m_urls.append(logImage["url"].toString());

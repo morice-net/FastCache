@@ -154,7 +154,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listAttributs .clear();
     listAttributsBool.clear();
 
-    foreach ( const QJsonValue & att, atts)
+    for(const QJsonValue & att : atts)
     {
         listAttributs.append(att["id"].toInt());
         listAttributsBool.append(att["isOn"].toBool());
@@ -189,7 +189,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listImagesUrl.clear();
     listImagesIndex.clear();
 
-    foreach (const QJsonValue &image , images)
+    for(const QJsonValue &image : images)
     {
         listImagesName .append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
         listImagesUrl.append(image["url"].toString());

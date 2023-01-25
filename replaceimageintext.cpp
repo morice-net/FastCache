@@ -70,7 +70,7 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
 
     QJsonArray images = cacheJson["images"].toArray();
     QJsonObject oneElement;
-    foreach (const QJsonValue &image , images)
+    for(const QJsonValue &image : images)
     {
         url = image["url"].toString();
         path = dir.absolutePath() + "/Images-" + QString::number(i+1) + url.mid(url.lastIndexOf(".", -1),-1);

@@ -48,7 +48,7 @@ void GetPocketsqueriesList::parseJson(const QJsonDocument &dataJsonDoc)
         return ;
     }
 
-    foreach ( const QJsonValue & pocketJson, pocketsJson)
+    for (const QJsonValue & pocketJson : pocketsJson)
     {
         m_referenceCodes.append(pocketJson["referenceCode"].toString());
         m_names.append(pocketJson["name"].toString());

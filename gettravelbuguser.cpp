@@ -42,7 +42,7 @@ void GetTravelbugUser::parseJson(const QJsonDocument &dataJsonDoc)
         return ;
     }
 
-    foreach ( const QJsonValue & tbJson, tbsJson)
+    for( const QJsonValue & tbJson : tbsJson)
     {
         m_tbsCode.append(tbJson["referenceCode"].toString());
         m_tbsName.append(tbJson["name"].toString());

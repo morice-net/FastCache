@@ -57,14 +57,10 @@ Rectangle {
 
     Plugin {
         id: herePlugin
-        name: "here"
+        name: "mapbox"
         parameters: [
             PluginParameter {
-                name: "here.app_id"
-                value: Qt.atob("YlkzQWNVVUpnSHdIWlJ6SFpLdDk=")
-            },
-            PluginParameter {
-                name: "here.token"
+                name: "mapbox.access_token"
                 value: Qt.atob("Y29uSzNQVlBuZlVKUkZqc2YwTlJ2dw==")
             }]
     }

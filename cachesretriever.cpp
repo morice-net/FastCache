@@ -115,7 +115,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         return ;
     }
 
-    foreach ( const QJsonValue & v, caches)
+    for(const QJsonValue &v : caches)
     {
         Cache *cache ;
         cache = new Cache();
