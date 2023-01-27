@@ -1,6 +1,6 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.5
-import QtWebView 1.1
+import QtQuick
+import QtQuick.Controls
+import QtWebView
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
@@ -21,7 +21,7 @@ Item {
     }
 
     Flickable {
-        id: shortLongDescription    
+        id: shortLongDescription
         anchors.topMargin: fastCacheHeaderIcon.height * 2
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick

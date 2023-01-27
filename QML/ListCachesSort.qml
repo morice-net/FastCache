@@ -1,7 +1,7 @@
-import QtQuick 2.6
-import QtQml.Models 2.14
-import QtLocation 5.3
-import QtPositioning 5.3
+import QtQuick
+import QtQml.Models
+import QtLocation
+import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 

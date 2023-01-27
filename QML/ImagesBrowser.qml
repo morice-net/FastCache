@@ -1,7 +1,7 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.5
+import QtQuick
+import QtQuick.Controls
 import QtQuick.Dialogs
-import QtQuick.Layouts 1.2
+import QtQuick.Layouts
 
 import "JavaScript/Palette.js" as Palette
 

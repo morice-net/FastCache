@@ -1,10 +1,10 @@
-import QtQuick 2.6
+import QtQuick
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
 
 Item {
-    z: map.z + 3    
+    z: map.z + 3
     anchors.bottom: parent.bottom;
     anchors.left: parent.left
     anchors.margins: 30

@@ -1,4 +1,4 @@
-import QtQuick 2.6
+import QtQuick
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0

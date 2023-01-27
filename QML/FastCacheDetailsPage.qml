@@ -1,6 +1,6 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.5
-import QtPositioning 5.2
+import QtQuick
+import QtQuick.Controls
+import QtPositioning
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette

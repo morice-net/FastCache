@@ -1,7 +1,7 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.2
-import QtPositioning 5.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions

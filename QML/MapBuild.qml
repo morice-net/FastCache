@@ -1,6 +1,6 @@
-import QtQuick 2.6
-import QtLocation 5.3
-import QtPositioning 5.3
+import QtQuick
+import QtLocation
+import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions

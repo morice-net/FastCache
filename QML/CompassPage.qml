@@ -1,6 +1,6 @@
-import QtQuick 2.6
-import QtSensors 5.2 // to use Compass
-import QtPositioning 5.3
+import QtQuick
+import QtSensors  // to use Compass
+import QtPositioning
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
