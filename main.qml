@@ -1,9 +1,9 @@
-import QtQuick 2.6
-import QtQuick.Controls 2.2
-import QtQuick.Window 2.3
-import QtPositioning 5.3
-import QtWebView 1.1
-import Qt.labs.settings 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtPositioning
+import QtWebView
+import Qt.labs.settings
 import QtLocation
 import QtSensors
 
@@ -617,13 +617,13 @@ Item {
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on
-      //  skipDuplicates: true // skip similar values
+        //  skipDuplicates: true // skip similar values
     }
 
     OrientationSensor {
         id: orientationReading
         active: false
-     //   skipDuplicates: true
+        //   skipDuplicates: true
     }
 
     Toast { id: toast }
