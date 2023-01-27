@@ -1,10 +1,20 @@
 
 
 diff --git a/googlemaps.pro b/googlemaps.pro
-index 498bc58..3e68631 100644
+index f807072..5ceb04c 100644
 --- a/googlemaps.pro
 +++ b/googlemaps.pro
-@@ -23,6 +23,7 @@ QT += network
+@@ -1,4 +1,9 @@
++android {
++TEMPLATE = app
++} else {
+ TEMPLATE = lib
++}
++
+ CONFIG += plugin
+ CONFIG += relative_qt_rpath  # Qt's plugins should be relocatable
+ 
+@@ -28,6 +33,7 @@ QT += network
  INCLUDEPATH += ../ ./
  
  HEADERS += \
@@ -12,7 +22,7 @@ index 498bc58..3e68631 100644
      qgeoserviceproviderplugingooglemaps.h \
      qgeocodingmanagerenginegooglemaps.h \
      qgeocodereplygooglemaps.h \
-@@ -39,6 +40,7 @@ HEADERS += \
+@@ -44,6 +50,7 @@ HEADERS += \
      qgeoerror_messages.h
  
  SOURCES += \
@@ -22,14 +32,13 @@ index 498bc58..3e68631 100644
      qgeocodereplygooglemaps.cpp \
 diff --git a/qgeofiletilecachegooglemaps.cpp b/qgeofiletilecachegooglemaps.cpp
 new file mode 100644
-index 0000000..400d4a4
+index 0000000..52aa4ba
 --- /dev/null
 +++ b/qgeofiletilecachegooglemaps.cpp
-@@ -0,0 +1,83 @@
+@@ -0,0 +1,81 @@
 +#include "qgeofiletilecachegooglemaps.h"
 +#include <QtLocation/private/qgeotilespec_p.h>
 +
-+#include <QDirIterator>
 +#include <QPair>
 +#include <QDateTime>
 +#include <QThread>
@@ -108,7 +117,6 @@ index 0000000..400d4a4
 +
 +QT_END_NAMESPACE
 +
-+
 diff --git a/qgeofiletilecachegooglemaps.h b/qgeofiletilecachegooglemaps.h
 new file mode 100644
 index 0000000..1cbf239
@@ -148,7 +156,7 @@ index 0000000..1cbf239
 +#endif // QGEOFILETILECACHEOSM_H
 +
 diff --git a/qgeotiledmappingmanagerenginegooglemaps.cpp b/qgeotiledmappingmanagerenginegooglemaps.cpp
-index 800950a..45fbb79 100644
+index 800950a..0a456a2 100644
 --- a/qgeotiledmappingmanagerenginegooglemaps.cpp
 +++ b/qgeotiledmappingmanagerenginegooglemaps.cpp
 @@ -3,12 +3,7 @@
@@ -176,7 +184,7 @@ index 800950a..45fbb79 100644
      : QGeoTiledMappingManagerEngine()
  {
      Q_UNUSED(error);
-@@ -40,22 +35,11 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
+@@ -40,22 +35,12 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
      setTileSize(QSize(tile, tile));
  
      QList<QGeoMapType> types;
@@ -191,6 +199,7 @@ index 800950a..45fbb79 100644
 -    types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain"), tr("Terrain map view in daylight mode"), false, false, 3, "googlemaps");
 -    types << QGeoMapType(QGeoMapType::HybridMap, tr("Hybrid"), tr("Satellite map view with streets in daylight mode"), false, false, 4, "googlemaps");
 -#else
++
      types << QGeoMapType(QGeoMapType::StreetMap, tr("Road Map"), tr("Normal map view in daylight mode"), false, false, 1, "googlemaps", capabilities, parameters);
      types << QGeoMapType(QGeoMapType::SatelliteMapDay, tr("Satellite"), tr("Satellite map view in daylight mode"), false, false, 2, "googlemaps", capabilities, parameters);
      types << QGeoMapType(QGeoMapType::TerrainMap, tr("Terrain"), tr("Terrain map view in daylight mode"), false, false, 3, "googlemaps", capabilities, parameters);
@@ -200,7 +209,7 @@ index 800950a..45fbb79 100644
      setSupportedMapTypes(types);
  
      QGeoTileFetcherGooglemaps *fetcher = new QGeoTileFetcherGooglemaps(parameters, this, tileSize());
-@@ -65,19 +49,17 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
+@@ -65,19 +50,17 @@ QGeoTiledMappingManagerEngineGooglemaps::QGeoTiledMappingManagerEngineGooglemaps
          m_cacheDirectory = parameters.value(QStringLiteral("googlemaps.cachefolder")).toString();
  
      const int szCache = 100 * 1024 * 1024;
