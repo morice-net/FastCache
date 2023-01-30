@@ -2,8 +2,11 @@
 <manifest package="org.qtproject.example" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="-- %%INSERT_VERSION_NAME%% --" android:versionCode="-- %%INSERT_VERSION_CODE%% --" android:installLocation="auto">
     <!-- The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
          Remove the comment if you do not require these default permissions. -->
+
     <!-- %%INSERT_PERMISSIONS -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+
     <!-- The following comment will be replaced upon deployment with default features based on the dependencies of the application.
          Remove the comment if you do not require these default features. -->
     <!-- %%INSERT_FEATURES -->
@@ -13,16 +16,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>            
-            <!-- Application arguments -->            
-            <!-- meta-data android:name="android.app.arguments" android:value="arg1 arg2 arg3"/ -->            
+            </intent-filter>
+            <!-- Application arguments -->
+            <!-- meta-data android:name="android.app.arguments" android:value="arg1 arg2 arg3"/ -->
             <!-- Application arguments -->
             <meta-data android:name="android.app.lib_name" android:value="-- %%INSERT_APP_LIB_NAME%% --"/>
-            <!-- Deploy Qt libs as part of package -->            
+            <!-- Deploy Qt libs as part of package -->
             <!-- Run with local libs -->
             <!-- Used to specify custom system library path to run with local system libs -->
             <!-- <meta-data android:name="android.app.system_libs_prefix" android:value="/system/lib/"/> -->
-            <!--  Messages maps -->           
+            <!--  Messages maps -->
             <meta-data android:value="@string/unsupported_android_version" android:name="android.app.unsupported_android_version"/>
             <!--  Messages maps -->
             <!-- Splash screen -->
