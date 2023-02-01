@@ -11,7 +11,7 @@ Rectangle {
     SatelliteModel {
         id: satelliteModel
         running: true
-        onErrorFound: errorLabel.text = qsTr("Dernière Erreur: %1", "%1=error number").arg(code)
+        onErrorFound: function(code) {errorLabel.text = qsTr("Dernière Erreur: %1", "%1=error number").arg(code)}
     }
 
     Item {
