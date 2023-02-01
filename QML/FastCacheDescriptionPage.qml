@@ -10,7 +10,7 @@ Item {
     height: swipeFastCache.height
 
     property string descriptionText: fullCache.shortDescription + fullCache.longDescription
-    property int webHistoryRank: -1
+    property int webHistoryRank
     property bool codedHint: true
 
     onDescriptionTextChanged: {
@@ -53,6 +53,7 @@ Item {
             Row {
                 visible: main.state !== "recorded"
                 spacing: descriptionPage.width/3
+                anchors.horizontalCenter: parent.horizontalCenter
                 bottomPadding: 10
 
                 Button {
@@ -64,7 +65,7 @@ Item {
                         webHistoryRank = webHistoryRank -2
                         console.log("web history rank:   " + webHistoryRank)
                     }
-                    enabled: webEngineView.canGoBack && webHistoryRank >> 0
+                    visible: webEngineView.canGoBack && webHistoryRank >> 0
                     background: Rectangle {
                         implicitWidth: descriptionPage.width/3
                         color: "transparent"
@@ -79,7 +80,7 @@ Item {
                         webEngineView.goForward()
                         console.log("web history rank:   " + webHistoryRank)
                     }
-                    enabled: webEngineView.canGoForward
+                    visible: webEngineView.canGoForward
                     background: Rectangle {
                         implicitWidth: descriptionPage.width/3
                         color: "transparent"
@@ -237,4 +238,3 @@ Item {
         console.log("Visible Images:  " + fullCache.listVisibleImages)
     }
 }
-
