@@ -11,7 +11,7 @@ Repeater {
     model: getTravelbugUser.tbsCode.length
     onItemAdded:{
         if(sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache .geocode) === false)
-            listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
+         listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
                             dateIso + "," +  "")
     }
 
