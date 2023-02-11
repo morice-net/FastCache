@@ -187,7 +187,7 @@ Item {
 
     Geocode { id: geocode }
 
-    UserSettingsPopup { id: userSettingsPopup }
+    UserSettings { id: userSettings }
 
     CoordinatesBox { id: coordinatesBox }
 
@@ -705,6 +705,8 @@ Item {
                 geocode.close()
             } else if (fastMenu.isMenuVisible()) {
                 fastMenu.hideMenu()
+            } else if (userSettings.isMenuVisible()) {
+                userSettings.hideMenu()
             } else if (fastMenuHeader.isFiltersVisible()) {
                 fastMenuHeader.changeFiltersVisibility()
             } else if (main.viewState == "fullcache") {

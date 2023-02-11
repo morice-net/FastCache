@@ -226,7 +226,7 @@ Item {
     }
 
     function isMenuVisible() {
-        return (menu.x == 0)
+        return (menu.x === 0)
     }
 
     function showMenu() {

@@ -78,7 +78,7 @@
         <file>QML/FastTravelbugLogPage.qml</file>
         <file>QML/UserWaypoint.qml</file>
         <file>QML/FastCalendar.qml</file>
-        <file>QML/UserSettingsPopup.qml</file>
+        <file>QML/UserSettings.qml</file>
         <file>Image/Compass/compassIcon.png</file>
         <file>Image/mapsIcon.png</file>
         <file>QML/CachesRecordedLists.qml</file>

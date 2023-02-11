@@ -55,7 +55,7 @@ Item {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: userSettingsPopup.open()
+                onClicked: userSettings.showMenu()
             }
         }
     }
