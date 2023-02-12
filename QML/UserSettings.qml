@@ -11,7 +11,7 @@ Rectangle {
     width: parent.width*0.95
     x: -parent.width
     y: -parent.height
-    color: Palette.black()
+    color: Palette.white()
     opacity: 0.8
     radius: 10
 
