@@ -18,33 +18,18 @@ Item {
     }
 
     Rectangle {
-        id: menuShadow
-        anchors.fill: parent
-        visible: false
-        color: Palette.black()
-        opacity: 0
-
-        Behavior on opacity { NumberAnimation { duration: 1200 } }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: fastMenu.hideMenu()
-        }
-        onOpacityChanged: {
-            visible = opacity > 0 ? true : false
-        }
-    }
-
-    Rectangle {
         id: menu
         width: parent.width * 0.8
         height: parent.height
         x: -parent.width
+        y: -parent.height
         color: Palette.white()
         clip: true
         radius:10
 
-        Behavior on x { NumberAnimation { duration: 600 } }
+        Behavior on x { NumberAnimation { duration: 700 } }
+
+        Behavior on y { NumberAnimation { duration: 700 } }
 
         ///////////////////////////////////////////////////////////////////////////
         //                      user info on the top of the menu                 //
@@ -230,21 +215,15 @@ Item {
     }
 
     function showMenu() {
-        //web view description page not visible
-        fastCache.webViewDescriptionPageVisible = false
         console.log("Show menu...")
         menu.x = 0
-        menuShadow.opacity = 0.5
+        menu.y = 0
     }
 
     function hideMenu() {
         console.log("Hide menu...")
         menu.x = menu.width * -1
-        menuShadow.opacity = 0
-
-        // web view description page visible
-        if(main.state !== "recorded" || main.state === "cachesActive")
-            fastCache.webViewDescriptionPageVisible = true
+        menu.y = menu.width * -1
     }
 
     function nearCachesClicked() {

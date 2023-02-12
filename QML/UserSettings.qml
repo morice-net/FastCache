@@ -378,7 +378,7 @@ Rectangle {
                         value: settings.maxCachesInList
                         onValueChanged: settings.maxCachesInList = control.value
                         background: Rectangle {
-                            implicitWidth: userSettings.width/3.2
+                            implicitWidth: userSettings.width/2
                             border.color: Palette.greenSea()
                             border.width: 2
                             radius: 8
@@ -388,7 +388,7 @@ Rectangle {
                             verticalAlignment: Qt.AlignVCenter
                             activeFocusOnPress: false
                             text: control.textFromValue(control.value, control.locale)
-                            font.pointSize:  control.font
+                            font: control.font
                             color: Palette.greenSea()
                         }
                         up.indicator: Image {
