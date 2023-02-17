@@ -325,15 +325,9 @@ Rectangle {
                             }
                         }
                         color: Palette.greenSea()
-                        font.pointSize: 15
+                        font.pointSize: 16
                         placeholderText: qsTr("rayon en km")
                         horizontalAlignment: TextInput.AlignHCenter
-                        background: Rectangle {
-                            color: Palette.white()
-                            radius: 8
-                            border.color: Palette.greenSea()
-                            border.width: 2
-                        }
                     }
                 }
             }
@@ -378,7 +372,7 @@ Rectangle {
                         value: settings.maxCachesInList
                         onValueChanged: settings.maxCachesInList = control.value
                         background: Rectangle {
-                            implicitWidth: userSettings.width/2
+                            implicitWidth: userSettings.width * 0.7
                             border.color: Palette.greenSea()
                             border.width: 2
                             radius: 8
@@ -391,19 +385,29 @@ Rectangle {
                             font: control.font
                             color: Palette.greenSea()
                         }
-                        up.indicator: Image {
-                            anchors.margins: 15
-                            anchors.right: parent.right
-                            anchors.verticalCenter:  parent.verticalCenter
-                            source: "qrc:/Image/plus.png"
-                            scale: 0.55
-                        }
-                        down.indicator: Image  {
-                            anchors.margins: 15
+                        down.indicator: Rectangle {
+                            height: parent.height * 0.8
+                            width: height
                             anchors.left: parent.left
-                            anchors.verticalCenter:  parent.verticalCenter
-                            source: "qrc:/Image/minus.png"
-                            scale: 0.55
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.leftMargin: 5
+
+                            Image {
+                                source: "qrc:/Image/minus.png"
+                                anchors.fill: parent
+                            }
+                        }
+                        up.indicator: Rectangle {
+                            height: parent.height * 0.8
+                            width: height
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.rightMargin: 5
+
+                            Image {
+                                source: "qrc:/Image/plus.png"
+                                anchors.fill: parent
+                            }
                         }
                     }
                 }
@@ -421,8 +425,8 @@ Rectangle {
             SatelliteInfo {
                 id: satelliteInfo
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width*0.8
-                height: parent.height*0.45
+                width: parent.width * 0.8
+                height: parent.height * 0.3
             }
 
             // Disconnect button
