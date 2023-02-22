@@ -364,9 +364,6 @@ Item {
 
         CheckBox {
             id :archived
-
-            anchors.top: found.bottom
-
             Layout.alignment: Qt.AlignLeft
             checked: settings.excludeCachesArchived
             onCheckedChanged: main.excludeArchived = archived.checkState
@@ -378,7 +375,6 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 leftPadding: archived.indicator.width + archived.spacing + 10
             }
-
             indicator: Rectangle {
                 implicitWidth: 22
                 implicitHeight: 22
