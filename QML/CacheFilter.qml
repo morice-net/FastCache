@@ -14,9 +14,9 @@ Item {
     opacity: 0
     visible: opacity > 0
 
-    Behavior on opacity { NumberAnimation { duration: 300 } }
-    Behavior on width { NumberAnimation { duration: 300 } }
-    Behavior on height { NumberAnimation { duration: 300 } }
+    Behavior on opacity { NumberAnimation { duration: 600 } }
+    Behavior on width { NumberAnimation { duration: 600 } }
+    Behavior on height { NumberAnimation { duration: 600 } }
 
     Rectangle {
         id: filtersRectangle
@@ -33,19 +33,19 @@ Item {
             anchors.left: parent.left
             anchors.margins: 15
             font.family: localFont.name
-            font.pointSize: 24
+            font.pointSize: 20
             verticalAlignment: Text.AlignLeft
-            horizontalAlignment: Text.AlignLeft
+            horizontalAlignment: Text.AlignHCenter
             color: Palette.greenSea()
-            text: "  Filtrer les caches par :     "
+            text: "  Filtrer les caches par :"
         }
 
         Rectangle {
             id: rectangleImage
             anchors.top: parent.top
             anchors.right: parent.right
-            anchors.margins: 15
-            height: filtersRectangle.width * 0.1
+            anchors.margins: 12
+            height: filtersRectangle.width * 0.09
             width: height
             radius: 10
             color: Palette.turquoise()
@@ -68,9 +68,8 @@ Item {
 
         Filters {
             id: filters
-
-            Behavior on width { NumberAnimation { duration: 300 } }
-            Behavior on height { NumberAnimation { duration: 300 } }
+            anchors.top: rectangleImage.bottom
+            anchors.topMargin: 5
         }
     }
 

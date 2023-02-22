@@ -9,24 +9,22 @@ CheckBox {
     property bool type
 
     checked: type
-
     onClicked: {
         main.listTypes[index] = control.checked
         updateFilterType()
     }
-
     indicator: Rectangle {
         opacity: 0.8
-        implicitWidth: main.width / 10
+        implicitWidth: control.width
         implicitHeight: implicitWidth
-        radius: 15
+        radius: 8
         border.color: Palette.black()
-        border.width: 3
+        border.width: 2
 
         Rectangle {
             width: parent.width
             height: width
-            radius: 15
+            radius: 8
             color: control.down ? Palette.backgroundGrey():Palette.greenSea()
             visible: control.checked
         }
@@ -34,13 +32,11 @@ CheckBox {
         AnimatedSprite {
             id: cacheIconSprite
             running: false
-            x: parent.width * 0.05
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
             currentFrame: index
             width: parent.width * 0.9
             height: width
-            anchors.centerIn: parent
         }
     }
 

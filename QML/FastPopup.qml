@@ -18,7 +18,7 @@ Popup {
 
     opacity: 0
 
-    Behavior on opacity { NumberAnimation { duration: 1000 ; easing.type: Easing.OutCurve } }
+    Behavior on opacity { NumberAnimation { duration: 300 ; easing.type: Easing.OutCurve } }
 
     background: Rectangle {
         id: backgroundRectangle
@@ -38,7 +38,7 @@ Popup {
         anchors.right: parent.right
         anchors.top: parent.top
         anchors.margins: 10
-        font.pointSize: parent.width / 22
+        font.pointSize: 20
         color: Palette.black()
 
         MouseArea {

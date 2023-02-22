@@ -9,14 +9,14 @@ import com.mycompany.connecting 1.0
 
 Item {
     id: filters
-    width: parent.width * 0.9
-    height: parent.height * 0.9
-    anchors.centerIn: parent
+    width: parent.width
+    height: parent.height
+
+    property real selectableIconWidth: main.width / 10
 
     ColumnLayout {
         id: internFilterColumn
-        Layout.alignment: Qt.AlignLeft
-        height: parent.height
+        spacing: filters.height / 50
 
         SelectableFilter {
             id: typeFilterSelectable
@@ -26,11 +26,18 @@ Item {
 
         Grid {
             columns: 7
+            topPadding: 10
+            leftPadding: (filters.width - columns * (selectableIconWidth) - (columns - 1 )* columnSpacing) / 2
+            columnSpacing: 10
+            rowSpacing: 5
 
             Repeater {
                 model: main.listTypes
+
                 SelectableIcon {
                     id: selectableIcon
+                    width: selectableIconWidth
+                    height: width
                     type: modelData
                 }
             }
@@ -45,15 +52,15 @@ Item {
         FastButton {
             id: textButtonId
             Layout.alignment: Qt.AlignCenter
-            font.pointSize: 18
+            font.pointSize: 16
             onClicked: popupSize.open()
         }
 
         FastPopup {
             id: popupSize
-            backgroundWidth: main.width*0.8
-            backgroundHeight: main.height*0.45
-            backgroundRadius: 10
+            backgroundWidth: main.width * 0.6
+            backgroundHeight: main.height * 0.7
+            backgroundRadius: 8
             backgroundOpacity: 0.9
             backgroundBorder {
                 width: 1
@@ -76,11 +83,12 @@ Item {
                         leftPadding: size1.indicator.width + size1.spacing
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size1.checked
@@ -105,11 +113,12 @@ Item {
                         leftPadding: size2.indicator.width + size2.spacing
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size2.checked
@@ -134,11 +143,12 @@ Item {
                         leftPadding: size3.indicator.width + size3.spacing
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size3.checked
@@ -163,11 +173,12 @@ Item {
                         leftPadding: size4.indicator.width + size4.spacing
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size4.checked
@@ -193,11 +204,12 @@ Item {
 
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size5.checked
@@ -222,11 +234,12 @@ Item {
                         leftPadding: size6.indicator.width + size6.spacing
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size6.checked
@@ -251,11 +264,12 @@ Item {
                         leftPadding: size7.indicator.width + size7.spacing
                     }
                     indicator: Rectangle {
-                        implicitWidth: 25
-                        implicitHeight: 25
+                        implicitWidth: 20
+                        implicitHeight: 20
                         radius: 3
                         border.width: 1
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: size7.checked
@@ -324,14 +338,16 @@ Item {
                 font.pointSize: 16
                 color: Palette.greenSea()
                 verticalAlignment: Text.AlignVCenter
-                leftPadding: found.indicator.width + found .spacing
+                leftPadding: found.indicator.width + found .spacing + 10
             }
             indicator: Rectangle {
-                implicitWidth: 25
-                implicitHeight: 25
+                implicitWidth: 22
+                implicitHeight: 22
                 radius: 3
                 border.width: 1
+                x: 10
                 y: parent.height / 2 - height / 2
+
                 Rectangle {
                     anchors.fill: parent
                     visible: found .checked
@@ -348,6 +364,9 @@ Item {
 
         CheckBox {
             id :archived
+
+            anchors.top: found.bottom
+
             Layout.alignment: Qt.AlignLeft
             checked: settings.excludeCachesArchived
             onCheckedChanged: main.excludeArchived = archived.checkState
@@ -357,14 +376,15 @@ Item {
                 font.pointSize: 16
                 color: Palette.greenSea()
                 verticalAlignment: Text.AlignVCenter
-                leftPadding: archived  .indicator.width + archived  .spacing
+                leftPadding: archived.indicator.width + archived.spacing + 10
             }
 
             indicator: Rectangle {
-                implicitWidth: 25
-                implicitHeight: 25
+                implicitWidth: 22
+                implicitHeight: 22
                 radius: 3
                 border.width: 1
+                x: 10
                 y: parent.height / 2 - height / 2
                 Rectangle {
                     anchors.fill: parent
@@ -390,27 +410,28 @@ Item {
             id: keywordButtonId
             Layout.alignment: Qt.AlignCenter
             text:"Pas de filtres.."
-            font.pointSize: 18
+            font.pointSize: 16
             onClicked: keyWordPopup.open()
         }
 
         // key word popup
         FastPopup {
             id: keyWordPopup
-            backgroundHeight: main.height/2
-            backgroundWidth: main.width*0.8
+            backgroundHeight: main.height * 0.6
+            backgroundWidth: main.width * 0.8
             backgroundOpacity: 0.9
-            backgroundRadius: 10
+            backgroundRadius: 8
 
             Column {
                 id: column
-                spacing: 20
+                spacing: 15
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 Label {
                     id:label1
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Mot-clé:"
+                    font.pointSize: 16
                     color:Palette.white()
                     font.family: localFont.name
                 }
@@ -435,6 +456,7 @@ Item {
                     id:label2
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Découvreur:"
+                    font.pointSize: 16
                     color: Palette.white()
                     anchors.topMargin: 5
                     font.family: localFont.name
@@ -460,6 +482,7 @@ Item {
                     id: label3
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Proprietaire:"
+                    font.pointSize: 16
                     color: Palette.white()
                     font.family: localFont.name
                 }
@@ -484,7 +507,7 @@ Item {
                     id: efface
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: "Effacer"
-                    font.pointSize: 18
+                    font.pointSize: 16
                     onClicked:{
                         mot.text=""
                         decouvreur.text=""
