@@ -104,21 +104,10 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
-    android/gradlew.bat \
-    android/libcrypto.so \
-    android/libssl.so \
+    android/gradlew.bat \    
     android/res/values/libs.xml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
-
-contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
-    ANDROID_EXTRA_LIBS = \
-        $$PWD/android/libcrypto.so \
-        $$PWD/android/libssl.so
-}
-
-ANDROID_EXTRA_LIBS = $$PWD/android/libcrypto.so $$PWD/android/libssl.so
-
 ANDROID_ABIS = armeabi-v7a
 
 android: include(/home/artaud/Android/Sdk/android_openssl/openssl.pri)

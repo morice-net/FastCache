@@ -17,7 +17,6 @@ Map {
     property var waypointCacheItems: []  // list of waypoints of cache
     property var userWaypointCacheItems: []  // list of user waypoints of cache
 
-
     // memorizes the center and the zoom of the map
     property real latCenterMap
     property real lonCenterMap
