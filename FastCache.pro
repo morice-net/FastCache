@@ -121,3 +121,4 @@ ANDROID_EXTRA_LIBS = $$PWD/android/libcrypto.so $$PWD/android/libssl.so
 
 ANDROID_ABIS = armeabi-v7a
 
+android: include(/home/artaud/Android/Sdk/android_openssl/openssl.pri)

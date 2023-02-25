@@ -26,13 +26,13 @@ Map {
     activeMapType: supportedMapTypes[supportedMap()]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
-    gesture.enabled: true
-    gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
-    gesture.onPanFinished: {
-        if(cachesSingleList.caches.length !== 0)
-            cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
-        Functions.reloadCachesBBox()
-    }
+    //   gesture.enabled: true
+    //   gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
+    //   gesture.onPanFinished: {
+    //       if(cachesSingleList.caches.length !== 0)
+    //           cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
+    //      Functions.reloadCachesBBox()
+    //   }
     onZoomLevelChanged: {
         scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
         if(cachesSingleList.caches.length !== 0)
@@ -93,7 +93,7 @@ Map {
         anchors.right: parent.right
         anchors.margins: 20
         onOpacityChanged: {
-            if (opacity == 1)
+            if (opacity === 1)
                 hide()
         }
         color: Palette.white().replace("#","#99")
