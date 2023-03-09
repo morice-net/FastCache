@@ -14,9 +14,6 @@ Item {
     Image {
         id: cacheIconBackground
         source: "qrc:/Image/marker.png"
-        width: sourceSize.width * 1.8
-        height: sourceSize.height * 1.8
-
     }
 
     AnimatedSprite {
