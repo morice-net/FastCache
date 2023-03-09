@@ -6,7 +6,7 @@ import "JavaScript/MainFunctions.js" as Functions
 import com.mycompany.connecting 1.0
 
 Rectangle {
-    id: userSettings    
+    id: userSettings
     height: parent.height*0.95
     width: parent.width*0.95
     x: -parent.width
@@ -326,7 +326,6 @@ Rectangle {
                         }
                         color: Palette.greenSea()
                         font.pointSize: 16
-                        placeholderText: qsTr("rayon en km")
                         horizontalAlignment: TextInput.AlignHCenter
                     }
                 }
