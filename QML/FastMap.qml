@@ -16,7 +16,7 @@ Rectangle {
     property var circleCacheItems: []
 
     // Map properties
-    property real currentZoomlevel: 14.5
+    property real currentZoomlevel: 13
     property int currentCacheIndex: 0
 
     // compassMap

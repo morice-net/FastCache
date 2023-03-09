@@ -25,13 +25,37 @@ Map {
     activeMapType: supportedMapTypes[supportedMap()]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
-    //   gesture.enabled: true
-    //   gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture
-    //   gesture.onPanFinished: {
-    //       if(cachesSingleList.caches.length !== 0)
-    //           cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
-    //      Functions.reloadCachesBBox()
-    //   }
+
+    PinchHandler {
+        enabled: !userSettings.isMenuVisible()
+        target: map
+        rotationAxis.enabled: false
+        scaleAxis.minimum: (minimumZoomLevel / currentZoomlevel)
+        scaleAxis.maximum: (maximumZoomLevel / currentZoomlevel)
+        onActiveScaleChanged:  {
+            if(currentZoomlevel * Math.pow(activeScale , 1/4) >= minimumZoomLevel && currentZoomlevel * Math.pow(activeScale , 1/4) <= maximumZoomLevel)
+                currentZoomlevel = currentZoomlevel * Math.pow(activeScale , 1/4)
+        }
+    }
+
+    DragHandler {
+        enabled: !userSettings.isMenuVisible()
+        target: map
+
+        property var oldPos
+
+        onCentroidChanged: {
+            var oldPos1 = oldPos;
+            oldPos = centroid.position;
+            if ( active ) {
+                map.pan(oldPos1.x - centroid.position.x , oldPos1.y - centroid.position.y)
+                if(cachesSingleList.caches.length !== 0)
+                    cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
+                Functions.reloadCachesBBox()
+            }
+        }
+    }
+
     onZoomLevelChanged: {
         scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
         if(cachesSingleList.caches.length !== 0)
