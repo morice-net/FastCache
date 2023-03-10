@@ -8,9 +8,8 @@ Item {
     Button {
         id: buttonGoback
         icon.source: "qrc:/Image/goback.png"
-        icon.width: 50
-        icon.height: 50
-        topPadding: 20
+        icon.width: 40
+        icon.height: 30
         leftPadding: 20
         onClicked:{
             direction = false
@@ -70,12 +69,14 @@ Item {
             id: geocodeCache
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 20
+            horizontalAlignment: TextInput.AlignHCenter
+            anchors.bottomMargin: 10
             color: Palette.turquoise()
             font.capitalization: Font.AllUppercase
             font.pointSize: 16
-            placeholderText: "GC               "
             background: Rectangle {
+                implicitWidth: geocodeCacheButtonMenu.width / 2
+                implicitHeight: 20
                 color: Palette.white()
                 radius: 10
             }
@@ -103,12 +104,14 @@ Item {
             id: codeTravelBug
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: 20
+            horizontalAlignment: TextInput.AlignHCenter
+            anchors.bottomMargin: 10
             color: Palette.turquoise()
             font.capitalization: Font.AllUppercase
             font.pointSize: 16
-            placeholderText: "                 "
             background: Rectangle {
+                implicitWidth: codeTravelBugButtonMenu.width / 2
+                implicitHeight: 20
                 color: Palette.white()
                 radius: 10
             }

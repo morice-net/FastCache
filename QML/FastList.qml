@@ -39,10 +39,11 @@ Rectangle {
 
     ListView {
         id: fastListColumn
+        focus:true
         width: parent.width
         height: main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ||
                 main.state === "pocketQuery"
-                ? parent.height - fastListHeader.height - fastListBottom.height -10 : parent.height - fastListHeader.height -10
+                ? parent.height - fastListHeader.height - fastListBottom.height -15 : parent.height - fastListHeader.height -15
         y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded" ||
            main.state === "pocketQuery"
         spacing: 5
