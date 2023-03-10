@@ -27,7 +27,7 @@ Rectangle {
         source: "qrc:/Image/cacheList.png"
         frameCount: 15
         currentFrame: type
-        width: selectedCacheNameField.height + selectedCacheGeocodeField.height + 10
+        width: selectedCacheNameField.height + selectedCacheGeocodeField.height
         height: width
         anchors.margins: 10
         anchors.top: parent.top
@@ -76,12 +76,12 @@ Rectangle {
 
     Text {
         id: selectedCacheNameField
-        anchors.margins: 10
+        anchors.margins: 7
         anchors.top: parent.top
         anchors.left: selectedCacheIconField.right
         anchors.right: littleCompass.left
         font.family: localFont.name
-        font.pointSize: parent.height * 0.08
+        font.pointSize: parent.height * 0.16
         color: Palette.black()
         elide: Text.ElideRight
         text: selectedCache !== null ? selectedCache.name : ""
@@ -89,11 +89,11 @@ Rectangle {
 
     Text {
         id: selectedCacheGeocodeField
-        anchors.margins: 10
+        anchors.margins: 7
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
-        font.pointSize: parent.height * 0.08
+        font.pointSize: parent.height * 0.16
         color: Palette.black()
         clip: true
         text: selectedCache !== null ? selectedCache.geocode : ""
@@ -101,33 +101,33 @@ Rectangle {
 
     Text {
         id: selectedCacheSizeField
-        anchors.topMargin: 10
+        anchors.topMargin: 7
         anchors.top: selectedCacheNameField.bottom
         x: selectedCacheItem.width * 0.5
         font.family: localFont.name
-        font.pointSize: parent.height * 0.08
+        font.pointSize: parent.height * 0.16
         color: Palette.black()
         clip: true
     }
 
     RaterField {
         id: selectedCacheDifficultyField
-        anchors.margins: 10
+        anchors.margins: 7
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: parent.left
         ratingName: "Difficulté"
         ratingValue: selectedCache !== null ? selectedCache.difficulty : 0
-        ratingTextPointSize: selectedCacheItem.height * 0.075
+        ratingTextPointSize: selectedCacheItem.height * 0.16
     }
 
     RaterField {
         id: selectedCacheTerrainField
-        anchors.margins: 10
+        anchors.margins: 7
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.right: parent.right
         ratingName: "Terrain"
         ratingValue: selectedCache !== null ? selectedCache.terrain : 0
-        ratingTextPointSize: selectedCacheItem.height * 0.075
+        ratingTextPointSize: selectedCacheItem.height * 0.16
     }
 
     MouseArea {
@@ -175,11 +175,11 @@ Rectangle {
 
         Text {
             id:distance
-            anchors.margins: 5
+            anchors.margins: 4
             anchors.top: parent.top
             anchors.right: parent.right
             font.family: localFont.name
-            font.pointSize: selectedCacheItem.height * 0.08
+            font.pointSize: selectedCacheItem.height * 0.16
             color: Palette.black()
             clip: true
             text: selectedCache !== null ? Helper.formatDistance(Math.round(currentPosition.position.coordinate
@@ -192,8 +192,6 @@ Rectangle {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             source: "qrc:/Image/Compass/compass_mini.png"
-            width: sourceSize.width*1.8
-            height: sourceSize.height*1.8
 
             Behavior on rotation { NumberAnimation { duration: 2000 } }
         }
