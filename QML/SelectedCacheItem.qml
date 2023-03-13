@@ -81,7 +81,7 @@ Rectangle {
         anchors.left: selectedCacheIconField.right
         anchors.right: littleCompass.left
         font.family: localFont.name
-        font.pointSize: parent.height * 0.16
+        font.pointSize: parent.height * 0.15
         color: Palette.black()
         elide: Text.ElideRight
         text: selectedCache !== null ? selectedCache.name : ""
@@ -93,7 +93,7 @@ Rectangle {
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
-        font.pointSize: parent.height * 0.16
+        font.pointSize: parent.height * 0.14
         color: Palette.black()
         clip: true
         text: selectedCache !== null ? selectedCache.geocode : ""
@@ -105,7 +105,7 @@ Rectangle {
         anchors.top: selectedCacheNameField.bottom
         x: selectedCacheItem.width * 0.5
         font.family: localFont.name
-        font.pointSize: parent.height * 0.16
+        font.pointSize: parent.height * 0.14
         color: Palette.black()
         clip: true
     }
@@ -117,7 +117,7 @@ Rectangle {
         anchors.left: parent.left
         ratingName: "Difficulté"
         ratingValue: selectedCache !== null ? selectedCache.difficulty : 0
-        ratingTextPointSize: selectedCacheItem.height * 0.16
+        ratingTextPointSize: selectedCacheItem.height * 0.15
     }
 
     RaterField {
@@ -127,7 +127,7 @@ Rectangle {
         anchors.right: parent.right
         ratingName: "Terrain"
         ratingValue: selectedCache !== null ? selectedCache.terrain : 0
-        ratingTextPointSize: selectedCacheItem.height * 0.16
+        ratingTextPointSize: selectedCacheItem.height * 0.15
     }
 
     MouseArea {
