@@ -87,7 +87,7 @@ Rectangle {
 
     Row {
         id:fastCacheHeader
-        y: 20
+        y: 5
         property int xGoal: 0
         x: -100
         spacing: 10
@@ -96,7 +96,6 @@ Rectangle {
             id: fastCacheHeaderIcon
             visible: false
             anchors.verticalCenter: parent.verticalCenter
-            scale: 1.6
             running: false
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
@@ -171,10 +170,10 @@ Rectangle {
     }
 
     ScrollView {
-        width: main.width
         anchors.top: fastCacheHeader.bottom
-        anchors.topMargin: 15
-        ScrollBar.horizontal.policy: ScrollBar.SnapOnRelease
+        width: main.width
+        height: fastCacheHeader.height + 2
+        ScrollBar.horizontal.interactive: true
 
         PageIndicator {
             id: indicatorFastCache
