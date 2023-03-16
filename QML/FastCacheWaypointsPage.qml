@@ -14,7 +14,7 @@ Item {
     Flickable {
         id: waypoints
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         ScrollBar.vertical: ScrollBar {}
@@ -53,7 +53,7 @@ Item {
                 model:fullCache.wptsComment.length
 
                 Column {
-                    spacing: 10
+                    spacing: 5
 
                     Row {
                         leftPadding: 15
@@ -64,7 +64,7 @@ Item {
                                 when: true
                                 value: fullCache.wptsIcon[index]
                             }
-                            scale: 2
+                            scale: 1.5
                         }
 
                         Text {
@@ -119,7 +119,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.wptsLat[index] >180  ? false : true
                             source: "qrc:/Image/Compass/compassIcon.png"
-                            scale: 0.8
+                            scale: 0.6
 
                             MouseArea {
                                 anchors.fill: parent
@@ -134,7 +134,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.wptsLat[index] >180  ? false : true
                             source: "qrc:/Image/mapsIcon.png"
-                            scale: 0.7
+                            scale: 0.5
 
                             MouseArea {
                                 anchors.fill: parent
@@ -198,7 +198,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: fullCache.isCorrectedCoordinates
                     source: "qrc:/Image/Compass/compassIcon.png"
-                    scale: 0.8
+                    scale: 0.6
 
                     MouseArea {
                         anchors.fill: parent
@@ -213,7 +213,7 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: fullCache.isCorrectedCoordinates
                     source: "qrc:/Image/mapsIcon.png"
-                    scale: 0.7
+                    scale: 0.5
 
                     MouseArea {
                         anchors.fill: parent
@@ -273,7 +273,7 @@ Item {
                 model:fullCache.userWptsCode.length
 
                 Column{
-                    spacing: 10
+                    spacing: 5
 
                     Row {
                         leftPadding: 15
@@ -319,7 +319,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.userWptsLat[index] >180  ? false : true
                             source: "qrc:/Image/Compass/compassIcon.png"
-                            scale: 0.8
+                            scale: 0.6
 
                             MouseArea {
                                 anchors.fill: parent
@@ -334,7 +334,7 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.userWptsLat[index] >180  ? false : true
                             source: "qrc:/Image/mapsIcon.png"
-                            scale: 0.7
+                            scale: 0.5
 
                             MouseArea {
                                 anchors.fill: parent
