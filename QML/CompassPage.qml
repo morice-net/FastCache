@@ -18,9 +18,9 @@ Item {
     }
 
     Column {
-        spacing: 10
+        spacing: 8
         anchors.fill: parent
-        anchors.topMargin: parent.height * 0.1
+        anchors.topMargin: parent.height * 0.07
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -57,6 +57,7 @@ Item {
                 id: compassRose
                 anchors.centerIn: parent
                 source: "qrc:/Image/Compass/compass_rose.png"
+                scale: 0.72
 
                 Behavior on rotation { NumberAnimation { duration: 2000 } }
 
@@ -64,6 +65,7 @@ Item {
                     id: compassArrow
                     anchors.centerIn: parent
                     source: "qrc:/Image/Compass/compass_arrow.png"
+                    scale: 0.72
 
                     Behavior on rotation { NumberAnimation { duration: 2000 } }
                 }
@@ -117,7 +119,7 @@ Item {
         text: "Voir la\ncarte"
         y: fastCacheHeader.height * 2
         anchors.right: parent.right
-        anchors.rightMargin: 50
+        anchors.rightMargin: 20
         onClicked: {
             viewState = "map"
             // memorizes the center and the zoom of the map
