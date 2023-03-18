@@ -33,8 +33,8 @@ FastPopup {
     }
 
     Column {
-        y: 20
-        spacing: 15
+        y: 10
+        spacing: 10
         width: parent.width
 
         FastButton {
@@ -134,8 +134,8 @@ FastPopup {
             font.pointSize: 15
             checked: false
             indicator: Rectangle {
-                implicitWidth: 25
-                implicitHeight: 25
+                implicitWidth: 20
+                implicitHeight: 20
                 y: parent.height / 2 - height / 2
                 radius: 2
                 border.color: corrected.down ? Palette.turquoise() : Palette.greenSea()
@@ -143,8 +143,7 @@ FastPopup {
                 Rectangle {
                     width: 14
                     height: 14
-                    x: 6
-                    y: 6
+                    anchors.centerIn: parent
                     radius: 2
                     color: Palette.turquoise()
                     visible: corrected.checked
@@ -161,7 +160,7 @@ FastPopup {
         }
 
         Row {
-            spacing: 10
+            spacing: 20
             anchors.horizontalCenter: parent.horizontalCenter
 
             Text {
@@ -173,30 +172,22 @@ FastPopup {
                 color: Palette.white()
             }
 
-            Item {
-                id: spacer
-                height: 2
-                width: userWaypoint.width*0.9 - descriptionTitle.width - buttonDelete.width - buttonAdd.width -60
-            }
-
-            FastButton {
+            FastButtonIcon {
                 id: buttonAdd
                 visible: visibleDescription()
-                contentItem: Image {
-                    source: "qrc:/Image/" + "icon_edit.png"
-                }
+                anchors.bottom: descriptionTitle.bottom
+                source: "qrc:/Image/" + "icon_edit.png"
                 onClicked:{
                     addText.open();
                     textLog = "" ;
                 }
             }
 
-            FastButton {
+            FastButtonIcon {
                 id: buttonDelete
                 visible: visibleDescription()
-                contentItem: Image {
-                    source: "qrc:/Image/" + "icon_erase.png"
-                }
+                anchors.bottom: descriptionTitle.bottom
+                source: "qrc:/Image/" + "icon_erase.png"
                 onClicked:{
                     description.text = ""
                 }
@@ -214,7 +205,7 @@ FastPopup {
             wrapMode: Text.Wrap
             background: Rectangle {
                 radius: 5
-                implicitHeight: userWaypoint.height*0.2
+                implicitHeight: userWaypoint.height * 0.2
             }
         }
 
