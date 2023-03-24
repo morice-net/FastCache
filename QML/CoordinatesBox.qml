@@ -23,7 +23,7 @@ FastPopup {
         id: gpsFormatCombo
         y: 80
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width*0.5
+        width: parent.width*0.6
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
         delegate: ItemDelegate {
             width: gpsFormatCombo.width
@@ -70,7 +70,7 @@ FastPopup {
         id: box1
         visible: true
         x: (coordinatesBox.width - box1.rowWidth())/2
-        y: parent.height*0.4
+        y: parent.height * 0.4
     }
 
     // second box coordinates.
@@ -78,7 +78,7 @@ FastPopup {
         id: box2
         visible: false
         x: (coordinatesBox.width - box2.rowWidth())/2
-        y: parent.height*0.4
+        y: parent.height * 0.4
     }
 
     // third box coordinates.
@@ -86,19 +86,19 @@ FastPopup {
         id: box3
         visible: false
         x: (coordinatesBox.width - box3.rowWidth())/2
-        y: parent.height*0.4
+        y: parent.height * 0.4
     }
 
     Row {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: parent.height*0.7
+        y: parent.height * 0.7
         spacing: 60
 
         // button OK
         FastButton {
             id: goButton
             text: "Ok"
-            font.pointSize: 18
+            font.pointSize: 17
             onClicked: {
                 if (gpsFormatCombo.currentIndex == 0)
                     if(box1.box1Lat() !== "" && box1.box1Lon()  !== "") {
@@ -135,7 +135,7 @@ FastPopup {
         // erase button
         FastButton {
             id: clearButton
-            font.pointSize: 18
+            font.pointSize: 17
             text: "Effacer"
             onClicked: {
                 box1.eraseText()
