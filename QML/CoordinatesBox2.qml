@@ -10,11 +10,12 @@ Item {
 
         Row {
             id: row
-            spacing: 10
+            spacing: 2
 
             FastButton {
                 id: box2ButtonNS
-                implicitWidth: coordinatesBox.width/10
+                implicitWidth: coordinatesBox.width / 7
+                implicitHeight: box2Degrees.height
                 text: "N"
                 font.pointSize: 18
                 onClicked: {
@@ -35,12 +36,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box2Degrees.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box2Degrees.height*0.8
+                    height : box2Degrees.height * 0.6
                     running: box2Degrees.activeFocus
                 }
             }
@@ -64,12 +65,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/7
+                    implicitWidth: main.width / 4
                     radius: 10
                     border.color: box2Decimal.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box2Decimal.height*0.8
+                    height : box2Decimal.height * 0.6
                     running: box2Decimal.activeFocus
                 }
             }
@@ -82,11 +83,12 @@ Item {
         }
 
         Row {
-            spacing: 10
+            spacing: 2
 
             FastButton {
                 id: box2ButtonEO
-                implicitWidth: coordinatesBox.width/10
+                implicitWidth: coordinatesBox.width / 7
+                implicitHeight: box2Degrees2.height
                 text: "E"
                 font.pointSize: 18
                 onClicked: {
@@ -107,12 +109,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box2Degrees2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box2Degrees2.height*0.8
+                    height : box2Degrees2.height * 0.6
                     running: box2Degrees2.activeFocus
                 }
             }
@@ -131,12 +133,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/7
+                    implicitWidth: main.width / 4
                     radius: 10
                     border.color: box2Decimal2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box2Decimal2.height*0.8
+                    height : box2Decimal2.height * 0.6
                     running: box2Decimal2.activeFocus
                 }
             }

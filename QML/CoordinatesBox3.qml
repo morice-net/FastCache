@@ -10,11 +10,12 @@ Item {
 
         Row {
             id: row
-            spacing: 10
+            spacing: 2
 
             FastButton {
                 id: box3ButtonNS
-                implicitWidth: coordinatesBox.width/10
+                implicitWidth: coordinatesBox.width / 7
+                implicitHeight: box3Degrees.height
                 text: "N"
                 font.pointSize: 18
                 onClicked: {
@@ -35,12 +36,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Degrees.height*0.8
+                    height : box3Degrees.height * 0.6
                     running: box3Degrees.activeFocus
                 }
             }
@@ -64,12 +65,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Minutes.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Minutes.height*0.8
+                    height : box3Minutes.height * 0.6
                     running: box3Minutes.activeFocus
                 }
             }
@@ -93,12 +94,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Seconds.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Seconds.height*0.8
+                    height : box3Seconds.height * 0.6
                     running: box3Seconds.activeFocus
                 }
             }
@@ -122,12 +123,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/8
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Decimal.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Decimal.height*0.8
+                    height : box3Decimal.height * 0.6
                     running: box3Decimal.activeFocus
                 }
             }
@@ -140,11 +141,12 @@ Item {
         }
 
         Row {
-            spacing: 10
+            spacing: 2
 
             FastButton {
                 id: box3ButtonEO
-                implicitWidth: coordinatesBox.width/10
+                implicitWidth: coordinatesBox.width / 7
+                implicitHeight: box3Degrees2.height
                 font.pointSize: 18
                 text:"E"
                 onClicked: {
@@ -165,12 +167,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Degrees2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Degrees2.height*0.8
+                    height : box3Degrees2.height * 0.6
                     running: box3Degrees2.activeFocus
                 }
             }
@@ -194,12 +196,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Minutes2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Minutes2.height*0.8
+                    height : box3Minutes2.height * 0.6
                     running: box3Minutes2.activeFocus
                 }
             }
@@ -223,12 +225,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/10
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Seconds2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Seconds2.height*0.8
+                    height : box3Seconds2.height * 0.6
                     running: box3Seconds2.activeFocus
                 }
             }
@@ -247,12 +249,12 @@ Item {
                 font.pointSize: 18
                 color: Palette.greenSea()
                 background: Rectangle {
-                    implicitWidth: main.width/8
+                    implicitWidth: main.width / 6
                     radius: 10
                     border.color: box3Decimal2.focus ? Palette.black() :Palette.turquoise()
                 }
                 cursorDelegate : CursorRectangle {
-                    height : box3Decimal2.height*0.8
+                    height : box3Decimal2.height * 0.6
                     running: box3Decimal2.activeFocus
                 }
             }
