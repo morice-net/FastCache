@@ -24,7 +24,7 @@ Item {
     // main.state can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
     property string annexMainState: ""
 
-    property string viewState: "" // "map" or "list" or "fullcache" or"travelbug"
+    property string viewState: "" // "map" or "list" or "fullcache" or "travelbug"
     onViewStateChanged: {
         if(main.viewState !== "list")
             fastMenuHeader.clearBoxSorting()

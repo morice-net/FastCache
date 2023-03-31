@@ -27,7 +27,7 @@ Map {
     zoomLevel: currentZoomlevel
 
     PinchHandler {
-        enabled: !userSettings.isMenuVisible()
+        enabled: !userSettings.isMenuVisible() && viewState === "map"
         target: map
         rotationAxis.enabled: false
         scaleAxis.minimum: (minimumZoomLevel / currentZoomlevel)
@@ -39,7 +39,7 @@ Map {
     }
 
     DragHandler {
-        enabled: !userSettings.isMenuVisible()
+        enabled: !userSettings.isMenuVisible() && viewState === "map"
         target: map
 
         property var oldPos
