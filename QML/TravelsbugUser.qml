@@ -11,7 +11,7 @@ Repeater {
     model: getTravelbugUser.tbsCode.length
     onItemAdded:{
         if(sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache .geocode) === false)
-         listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
+            listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
                             dateIso + "," +  "")
     }
 
@@ -25,10 +25,11 @@ Repeater {
 
             Image {
                 source: "qrc:/Image/" + "trackable_travelbug.png"
-                scale: 1.4
+                y: text.y - text.height / 2
             }
 
             Text {
+                id: text
                 text: getTravelbugUser.trackingNumbers[index]
                 font.family: localFont.name
                 font.bold: true
@@ -48,7 +49,8 @@ Repeater {
             spacing: 10
 
             Text {
-                width: logPage.width*0.5
+                id: name
+                width: logPage.width * 0.55
                 text: getTravelbugUser.tbsName[index]
                 font.family: localFont.name
                 font.bold: true
@@ -61,6 +63,7 @@ Repeater {
 
             ComboBox {
                 id: tbCombo
+                y: name.y - height / 4
                 model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
 
                 MouseArea {
@@ -88,7 +91,7 @@ Repeater {
                     verticalAlignment: Text.AlignVCenter
                 }
                 background: Rectangle {
-                    implicitWidth: 200
+                    implicitWidth: 120
                     implicitHeight: 40
                     border.color: Palette.silver()
                     border.width: 1
@@ -120,7 +123,7 @@ Repeater {
         Text {
             id: title
             visible: tbCombo.currentText === tbComboText(0) ? false : true
-            anchors.horizontalCenter: parent.horizontalCenter
+            x: (logPage.width - title.width) / 2
             font.family: localFont.name
             font.pointSize: 16
             text: "Texte du Log du travelbug"
@@ -129,6 +132,7 @@ Repeater {
 
         TextArea {
             id: messageTbLog
+            x: (logPage.width - messageTbLog.width) / 2
             visible: tbCombo.currentText === tbComboText(0) ? false : true
             text: sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache.geocode)?
                       listTbSend[tbList.repeaterIndex].substring(listTbSend[tbList.repeaterIndex].split(',')[0].length
@@ -143,7 +147,7 @@ Repeater {
                             dateIso + "," + messageTbLog.text;
                 }
             }
-            width: logPage.width*0.9
+            width: logPage.width * 0.9
             font.family: localFont.name
             font.pointSize: 14
             color: Palette.greenSea()

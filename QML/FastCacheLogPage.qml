@@ -94,8 +94,8 @@ Item {
             }
 
             Row {
-                spacing: 10
-                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 20
+                leftPadding: 20
 
                 Text {
                     id: logTextTitle
@@ -107,6 +107,7 @@ Item {
 
                 FastButtonIcon {
                     id: buttonAdd
+                    y: logTextTitle.y - buttonAdd.height / 4
                     source: "qrc:/Image/" + "icon_edit.png"
                     onClicked:{
                         addText.open();
@@ -115,6 +116,7 @@ Item {
 
                 FastButtonIcon {
                     id: buttonDelete
+                    y: logTextTitle.y - buttonDelete.height / 4
                     source: "qrc:/Image/" + "icon_erase.png"
                     onClicked:{
                         message.text = ""
@@ -139,6 +141,7 @@ Item {
 
             CheckBox {
                 id : favorited
+                x: 5
                 visible: typeLog === 2  && updateLog === false // found and create log
                 checked: initFavorited()
                 contentItem: Text {
@@ -169,7 +172,7 @@ Item {
                 id: buttonAddImages
                 x: (logPage.width - buttonAddImages.width) / 2
                 text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked:{
                     imagesBrowser.visible = true
                 }
@@ -179,7 +182,7 @@ Item {
                 id: buttonSendLog
                 x: (logPage.width - buttonSendLog.width) / 2
                 text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     console.log(fullCache.geocode + " " + typeLog + " " + dateIso   + " " +  message.text + " "
                                 + favorited.checked);
