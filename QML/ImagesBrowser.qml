@@ -11,7 +11,7 @@ Rectangle {
     property int repeaterCount: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
                                     sendImagesLog.readJsonArray(sqliteStorage.readColumnJson("cachesimageslog" , fullCache.geocode)).length : 0
     anchors.fill: parent
-    anchors.topMargin: 70
+    anchors.topMargin: 60
     anchors.bottomMargin: anchors.topMargin/2
     anchors.rightMargin: anchors.topMargin/3
     anchors.leftMargin: anchors.topMargin/3
@@ -26,7 +26,7 @@ Rectangle {
         nameFilters: [ "Image files (*.png *.jpg *.gif)" ]
         onAccepted: {
             listImagesDescription.push("")
-            listImagesUrl.push(fileUrl)
+            listImagesUrl.push(fileDialog.currentFile)
             listImagesRotation.push(0)
             repeaterCount = listImagesDescription.length
             console.log("Descriptions:  " + listImagesDescription)
@@ -41,7 +41,7 @@ Rectangle {
     Row {
         id: buttons
         spacing: 60
-        anchors.horizontalCenter: parent.horizontalCenter
+        leftPadding: 40
 
         FastButton {
             id: fileDialogVisible
@@ -49,14 +49,14 @@ Rectangle {
             text: "Ajouter une image"
             font.pointSize: 18
             onClicked: {
-                fileDialog.visible = true
+                fileDialog.open()
             }
         }
 
         Text {
             id: closePage
             text: "X"
-            topPadding: 10
+            topPadding: fileDialogVisible.y + fileDialogVisible.height / 4
             font.pointSize: 25
             color: Palette.black()
 
@@ -67,6 +67,7 @@ Rectangle {
                     console.log("Urls:  " + listImagesUrl)
                     console.log("Rotations:  " + listImagesRotation)
                     imagesBrowser.visible = false
+                    fileDialog.close()
                 }
             }
         }
@@ -74,7 +75,7 @@ Rectangle {
 
     ScrollView {
         id: scrollView
-        focus:true
+        focus: true
         clip: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         height: Math.min(repeaterColumn.height, 4 * main.height / 5)
@@ -102,10 +103,10 @@ Rectangle {
 
                     TextArea {
                         id: description
-                        placeholderText: "Description"
                         text: listImagesDescription[index]
                         onTextChanged: listImagesDescription[index] = description.text
-                        width: parent.width/3
+                        width: parent.width / 3
+                        implicitHeight: image.height / 2
                         font.family: localFont.name
                         font.pointSize: 14
                         color: Palette.greenSea()
@@ -121,7 +122,7 @@ Rectangle {
                         visible: true
                         source: listImagesUrl[index]
                         rotation: listImagesRotation[index]
-                        sourceSize.width: parent.width/4
+                        sourceSize.width: parent.width / 4
 
                         MouseArea {
                             anchors.fill: parent
