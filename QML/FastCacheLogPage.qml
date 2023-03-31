@@ -52,10 +52,7 @@ Item {
     ScrollView {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
-        anchors.bottomMargin: 30
-        anchors.leftMargin: 20
-        anchors.rightMargin: 20
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.6
         contentHeight: column.height
         clip : true
 
@@ -66,13 +63,13 @@ Item {
 
             LogTypes {
                 id: logTypes
-                width: logPage.width*0.9
-                anchors.horizontalCenter: parent.horizontalCenter
+                width: logPage.width * 0.8
+                x: (logPage.width - logTypes.width) / 2
             }
 
             Text {
                 id: logDate
-                anchors.horizontalCenter: parent.horizontalCenter
+                x: (logPage.width - logDate.width) / 2
                 font.family: localFont.name
                 font.pointSize: 18
                 color: Palette.silver()
@@ -87,8 +84,8 @@ Item {
 
             FastCalendar {
                 id:calendar
-                width: logPage.width*0.9
-                anchors.horizontalCenter: parent.horizontalCenter
+                width: logPage.width * 0.9
+                x: (logPage.width - calendar.width) / 2
                 visible: false
                 onDateCalendarChanged:{
                     dateIso = dateCalendar.toISOString()
@@ -108,27 +105,17 @@ Item {
                     color: Palette.white()
                 }
 
-                Item {
-                    id: spacer
-                    height: 2
-                    width: logPage.width*0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
-                }
-
-                FastButton {
+                FastButtonIcon {
                     id: buttonAdd
-                    contentItem: Image {
-                        source: "qrc:/Image/" + "icon_edit.png"
-                    }
+                    source: "qrc:/Image/" + "icon_edit.png"
                     onClicked:{
                         addText.open();
                     }
                 }
 
-                FastButton {
+                FastButtonIcon {
                     id: buttonDelete
-                    contentItem: Image {
-                        source: "qrc:/Image/" + "icon_erase.png"
-                    }
+                    source: "qrc:/Image/" + "icon_erase.png"
                     onClicked:{
                         message.text = ""
                     }
@@ -137,8 +124,8 @@ Item {
 
             TextArea {
                 id: message
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: logPage.width*0.9
+                x: (logPage.width - message.width) / 2
+                width: logPage.width * 0.9
                 font.family: localFont.name
                 font.pointSize: 14
                 color: Palette.greenSea()
@@ -163,8 +150,8 @@ Item {
                     leftPadding: favorited.indicator.width + favorited.spacing
                 }
                 indicator: Rectangle {
-                    implicitWidth: 25
-                    implicitHeight: 25
+                    implicitWidth: 23
+                    implicitHeight: 23
                     radius: 3
                     border.width: 1
                     y: parent.height / 2 - height / 2
@@ -180,7 +167,7 @@ Item {
 
             FastButton {
                 id: buttonAddImages
-                anchors.horizontalCenter: parent.horizontalCenter
+                x: (logPage.width - buttonAddImages.width) / 2
                 text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
                 font.pointSize: 18
                 onClicked:{
@@ -190,7 +177,7 @@ Item {
 
             FastButton {
                 id: buttonSendLog
-                anchors.horizontalCenter: parent.horizontalCenter
+                x: (logPage.width - buttonSendLog.width) / 2
                 text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
                 font.pointSize: 18
                 onClicked: {
@@ -215,7 +202,8 @@ Item {
             }
 
             Text {
-                anchors.horizontalCenter: parent.horizontalCenter
+                id: inventory
+                x: (logPage.width - inventory.width) / 2
                 visible: getTravelbugUser.tbsCode.length !== 0 && updateLog === false
                 font.family: localFont.name
                 font.pointSize: 14
