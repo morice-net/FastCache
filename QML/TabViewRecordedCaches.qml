@@ -6,9 +6,10 @@ import "JavaScript/MainFunctions.js" as Functions
 
 TabBar {
     id: bar
-    width: parent.width
-    x:3
+    width: parent.width * 0.98
+    anchors.horizontalCenter: parent.horizontalCenter
     y: parent.height * 0.07
+    Material.accent: Palette.black()
 
     Repeater {
         model: modelList()
@@ -25,7 +26,7 @@ TabBar {
             contentItem: Text {
                 text: modelData
                 font.family: localFont.name
-                font.pointSize: 20
+                font.pointSize: 18
                 color: tabButton.checked ? Palette.white() : Palette.silver()
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
@@ -33,7 +34,6 @@ TabBar {
             }
             background: Rectangle {
                 color: tabButton.checked ? Palette.turquoise() : Palette.greenSea()
-                border.color:  Palette.turquoise()
                 radius: 4
             }
         }
