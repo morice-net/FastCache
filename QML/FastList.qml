@@ -42,12 +42,9 @@ Rectangle {
         width: parent.width
         height: main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ||
                 main.state === "pocketQuery"
-                ? parent.height - fastListHeader.height - fastListBottom.height -15 : parent.height - fastListHeader.height -15
-        y: main.state === "near" || main.state === "address"  || main.state === "coordinates" || main.state === "recorded" ||
-           main.state === "pocketQuery"
+                ? parent.height - fastListHeader.height - fastListBottom.height - 30 : parent.height - fastListHeader.height - 30
         spacing: 5
         model: sorting
-        ScrollBar.vertical: ScrollBar {}
     }
 
     Rectangle {
@@ -87,7 +84,7 @@ Rectangle {
 
     Rectangle {
         id: fastListBottom
-        width: parent.width*0.9
+        width: parent.width * 0.9
         anchors.horizontalCenter: parent.horizontalCenter
         height: parent.height * 0.05
         color: Palette.silver()

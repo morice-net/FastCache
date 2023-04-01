@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
