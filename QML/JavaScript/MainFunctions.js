@@ -1,4 +1,3 @@
-
 function createFilterDifficultyTerrainGs(){
     var  list = []
     list.push(settings.difficultyMin)
@@ -31,10 +30,17 @@ function reconnectAccount() {
 }
 
 // center and zoom level
-function centerMapCaches(listCaches) {
-    fastMap.currentZoomlevel = 14.5
-    if(listCaches.length === 0)
+function centerMapCaches(listCaches) {  
+    if(listCaches.length === 0) {
+        fastMap.currentZoomlevel = 14.5
         return
+    }
+    if(listCaches.length === 1) {
+        fastMap.mapItem.center.latitude = listCaches[0].lat
+        fastMap.mapItem.center.longitude = listCaches[0].lon
+        fastMap.currentZoomlevel = 14.5
+        return
+    }
     fastMap.mapItem.fitViewportToMapItems()
     fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
 }
