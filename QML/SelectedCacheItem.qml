@@ -197,7 +197,9 @@ Rectangle {
         }
 
         function updateRotation() {
-            console.log("Updating small compass...")
+            if (selectedCache == undefined)
+                return
+            console.log("Updating small compass... for cache", selectedCache.name)
             if (currentPosition == undefined)
                 return
             smallCompassNeedle.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
