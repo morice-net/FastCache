@@ -34,7 +34,7 @@ public:
     void setMaxCaches(int max);
 
 protected:
-    virtual void addGetRequestParameters(QString& parameters) = 0;
+    virtual QString addGetRequestParameters(QString parameters) = 0;
 
 signals:
     void clearMapRequested();

@@ -42,9 +42,9 @@ void CachesRecorded::moreCaches()
 {
 }
 
-void CachesRecorded::addGetRequestParameters(QString &parameters)
+QString CachesRecorded::addGetRequestParameters(QString parameters)
 {
-    Q_UNUSED(parameters)
+    return parameters;
 }
 
 bool CachesRecorded::updateMapCachesRecorded()

@@ -33,10 +33,11 @@ void CachesNear::moreCaches()
     setIndexMoreCaches(m_indexMoreCaches + MAX_PER_PAGE);
 }
 
-void CachesNear::addGetRequestParameters(QString &parameters)
+QString CachesNear::addGetRequestParameters(QString parameters)
 {
     // create Center, Radius.
     parameters.append("&q=location:[" + QString::number(m_latPoint) + "," + QString::number(m_lonPoint) + "]%2Bradius:"+QString::number(m_distance)+"km");
+    return parameters;
 }
 
 /** Getters & Setters **/

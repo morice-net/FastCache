@@ -46,7 +46,7 @@ void CachesRetriever::sendRequest(QString token)
                        "geocacheSize,location,status,userData");
 
     // Adding specific parameters(BBox or Center radius)
-    addGetRequestParameters(requestName);
+    requestName = addGetRequestParameters(requestName);
 
     // filter by type.
     if(!m_filterTypes.isEmpty()){

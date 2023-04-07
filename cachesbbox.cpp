@@ -35,10 +35,10 @@ void CachesBBox::moreCaches()
     sendRequest(m_tokenTemp);
 }
 
-void CachesBBox::addGetRequestParameters(QString &parameters)
+QString CachesBBox::addGetRequestParameters(QString parameters)
 {
     // createBBox.
-    parameters.append("&q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
+    return parameters.append("&q=box:[[" + QString::number(m_latTopLeft) + "," + QString::number(m_lonTopLeft) + "],["
                       + QString::number(m_latBottomRight) + "," + QString::number(m_lonBottomRight) + "]]");
 }
 

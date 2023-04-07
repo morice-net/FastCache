@@ -26,7 +26,7 @@ signals:
     void parsingCompletedChanged();
 
 protected:
-    void addGetRequestParameters(QString &parameters) override;
+    QString addGetRequestParameters(QString parameters) override;
 
 private:
     bool m_parsingCompleted;

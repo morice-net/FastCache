@@ -36,7 +36,7 @@ public:
     void setLonTopLeft(double lonTopLeft);
 
 protected:
-    void addGetRequestParameters(QString &parameters) override;
+    QString addGetRequestParameters(QString parameters) override;
 
 signals:
     void latBottomRightChanged();

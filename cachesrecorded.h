@@ -23,7 +23,7 @@ public:
     void moreCaches() override;
 
 protected:
-    void addGetRequestParameters(QString &parameters) override;
+    QString addGetRequestParameters(QString parameters) override;
 
 private:
     QMap<int,QList<Cache*> > m_mapCachesRecorded;

@@ -32,7 +32,7 @@ public:
     void setDistance(double distance);
 
 protected:
-    void addGetRequestParameters(QString &parameters) override;
+    QString addGetRequestParameters(QString parameters) override;
 
 signals:
     void latPointChanged();
