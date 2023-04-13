@@ -173,7 +173,6 @@ Rectangle {
         anchors.top: fastCacheHeader.bottom
         width: main.width
         height: fastCacheHeader.height + 2
-        ScrollBar.horizontal.interactive: true
 
         PageIndicator {
             id: indicatorFastCache
