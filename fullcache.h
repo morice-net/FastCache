@@ -154,7 +154,7 @@ public:
     QString correctedCode() const;
     void setCorrectedCode(const QString &code);
 
-signals:   
+signals:
     void attributesChanged();
     void attributesBoolChanged();
     void locationChanged();

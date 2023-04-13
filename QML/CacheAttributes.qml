@@ -4,7 +4,6 @@ import QtPositioning
 import QtQuick.Layouts
 
 import "JavaScript/Palette.js" as Palette
-
 import com.mycompany.connecting 1.0
 
 Item {
@@ -17,13 +16,9 @@ Item {
     //attributes of cache
     property var textAttributes: cacheAttribute.sortAttributes(fullCache.attributesBool , fullCache.attributes)
 
-    //number of icons in the grid
-    property int numberIcons : Math.floor(fullCache.attributes.length/attIcons.columns)*attIcons.columns
-
     Rectangle {
-        id: rect
         width:  main.width
-        height: attIcons.visible ? attIcons.height + lastLine.height : attText.height
+        height: attIcons.visible ? attIcons.height : attText.height
         color: Palette.greenSea()
         visible: true
 
@@ -35,7 +30,7 @@ Item {
             columns: 6
 
             Repeater {
-                model: numberIcons
+                model: fullCache.attributes.length
 
                 Rectangle {
                     width: parent.width/12
@@ -63,48 +58,12 @@ Item {
             }
         }
 
-        // attributes of caches(icons).center the last line
-        RowLayout {
-            id: lastLine
-            width: parent.width
-            y: attIcons.height
-
-            Repeater {
-                model: fullCache.attributes.length - numberIcons
-
-                Rectangle {
-                    width: parent.width/12
-                    height: width
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.topMargin: 10
-                    color: colorAttIcon(cacheAttribute.sortedAttributesByGroup[index + numberIcons ]) !== undefined ?
-                               colorAttIcon(cacheAttribute.sortedAttributesByGroup[index + numberIcons]) : ""
-                    border.color: Palette.white()
-                    border.width: 1
-                    radius: 6
-
-                    Image {
-                        anchors.fill: parent
-                        source: cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index + numberIcons]-1] !== undefined ?
-                                    "qrc:/Image/" + cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index + numberIcons]-1] : ""
-
-                        Image {
-                            anchors.fill: parent
-                            source: "qrc:/Image/Attributes/attribute_no.png"
-                            visible: !cacheAttribute.sortedBoolByGroup[index + numberIcons]
-                        }
-                    }
-                }
-            }
-        }
-
         // attributes of caches(text)
         Flickable {
             clip: true
             anchors.fill: parent
             flickableDirection: Flickable.VerticalFlick
             contentHeight: attText.height + 150
-            ScrollBar.vertical: ScrollBar {}
 
             Column {
                 id: attText
@@ -129,7 +88,6 @@ Item {
                 anchors.fill: parent
                 onClicked: {
                     attIcons.visible = ! attIcons.visible ;
-                    lastLine.visible = ! lastLine.visible ;
                 }
             }
         }

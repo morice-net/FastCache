@@ -161,6 +161,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
     qDebug() << "*** attributs**\n" <<listAttributs ;
     qDebug() << "*** attributsBool**\n" <<listAttributsBool ;
+
     m_fullCache->setAttributes(listAttributs);
     m_fullCache->setAttributesBool(listAttributsBool);
 
