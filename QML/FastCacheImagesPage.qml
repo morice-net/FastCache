@@ -37,10 +37,10 @@ Item {
     Flickable {
         id: images
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 20
-        ScrollBar.vertical: ScrollBar {}
+        clip: true
 
         Loader {
             id:imagesLoader
@@ -53,7 +53,7 @@ Item {
 
             Column{
                 spacing:10
-                leftPadding: images.width*0.025
+                leftPadding: images.width * 0.025
 
                 Repeater{
                     model: userLogImages === false ? fullCache.imagesName.length : getGeocacheLogImages.descriptions.length
@@ -105,7 +105,7 @@ Item {
                         }
 
                         Text {
-                            width: images.width*0.95
+                            width: images.width * 0.95
 
                             Binding on visible {
                                 when: true
@@ -131,7 +131,7 @@ Item {
                                 when: true
                                 value: userLogImages === false ? fullCache.imagesUrl[index] : getGeocacheLogImages.urls[index]
                             }
-                            sourceSize.width: images.width*0.95
+                            sourceSize.width: images.width * 0.95
                         }
                     }
                 }
