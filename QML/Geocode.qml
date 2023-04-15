@@ -11,17 +11,19 @@ import "JavaScript/MainFunctions.js" as Functions
 
 FastPopup {
     id: geocode
-    backgroundWidth: main.width*0.9
-    backgroundHeight: main.height*0.6
+
+    property bool geocodeResponseOpened: geocodeResponse.opened
+
+    backgroundWidth: main.width * 0.9
+    backgroundHeight: main.height * 0.7
     anchors.centerIn: parent
     backgroundRadius: 10
     backgroundOpacity: 0.9
 
     Column {
-        spacing: 10
+        spacing: 5
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width*0.7
-        y: 20
+        width: parent.width * 0.7
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -32,7 +34,7 @@ FastPopup {
 
         TextField {
             id: street
-            width: geocode.width*0.7
+            width: geocode.width * 0.7
             anchors.horizontalCenter: parent.horizontalCenter
             color: Palette.greenSea()
             background: Rectangle {
@@ -52,7 +54,7 @@ FastPopup {
 
         TextField {
             id: city
-            width: geocode.width*0.7
+            width: geocode.width * 0.7
             anchors.horizontalCenter: parent.horizontalCenter
             color: Palette.greenSea()
             background: Rectangle {
@@ -72,7 +74,7 @@ FastPopup {
 
         TextField {
             id: stateName
-            width: geocode.width*0.7
+            width: geocode.width * 0.7
             anchors.horizontalCenter: parent.horizontalCenter
             color: Palette.greenSea()
             background: Rectangle {
@@ -91,7 +93,7 @@ FastPopup {
 
         TextField {
             id: country
-            width: geocode.width*0.7
+            width: geocode.width * 0.7
             anchors.horizontalCenter: parent.horizontalCenter
             color: Palette.greenSea()
             background: Rectangle {
@@ -111,7 +113,7 @@ FastPopup {
 
         TextField {
             id: postalCode
-            width: geocode.width*0.7
+            width: geocode.width * 0.7
             anchors.horizontalCenter: parent.horizontalCenter
             color: Palette.greenSea()
             background: Rectangle {
@@ -129,7 +131,7 @@ FastPopup {
             FastButton {
                 id: goButton
                 text: "Ok"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     address.street = street.text
                     address.city = city.text
@@ -143,7 +145,7 @@ FastPopup {
             FastButton {
                 id: clearButton
                 text: "Effacer"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     street.text = ""
                     city.text = ""
@@ -176,19 +178,20 @@ FastPopup {
 
     FastPopup {
         id: geocodeResponse
-        y: -geocode.y + 20
-        backgroundWidth: main.width*0.9
+        backgroundWidth: main.width * 0.9
         backgroundHeight: geocodelist.height + 30
+        x: (parent.width - geocodeResponse.width) / 2
+        y: -geocode.y + 20
+        closeButtonVisible: false
         backgroundRadius: 10
 
         ListView {
             id: geocodelist
             clip: true
             width: parent.width
-            height: popupResponseHeight( )*0.85
+            height: popupResponseHeight() * 0.85
             model: listModel
             delegate: delegate
-            ScrollBar.vertical: ScrollBar {}
         }
 
         ListModel {
@@ -201,7 +204,7 @@ FastPopup {
             Rectangle {
                 id: item
                 width: parent.width
-                height: main.height/5
+                height: main.height / 5
                 color: Palette.white()
                 border.width: 1
                 border.color: Palette.greenSea()
@@ -267,11 +270,11 @@ FastPopup {
     }
 
     function popupResponseHeight( )  {
-        if((geocodeModel.count)*(main.height/6 )<= main.height*0.9)
+        if((geocodeModel.count)*(main.height / 6 )<= main.height * 0.9)
         {
             return (geocodeModel.count)*(main.height/6 )
         } else {
-            return main.height*0.9
+            return main.height * 0.9
         }
     }
 
