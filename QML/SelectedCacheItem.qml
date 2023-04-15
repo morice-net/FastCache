@@ -14,7 +14,7 @@ Rectangle {
     border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
     width: main.width * 0.95
     height: main.height * 0.12
-    anchors.horizontalCenter: parent.horizontalCenter
+    x: (main.width - selectedCacheItem.width) / 2
     opacity: 0
 
     property var selectedCache: Cache {}

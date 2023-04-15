@@ -52,9 +52,11 @@ Item {
                         main.state = "cachesActive"
                     }
                     if (firstButtonSelected) {
+                        hideMenu()
                         fastMap.currentZoomlevel = 14.5
                         Functions.reloadCachesBBox()
                     } else {
+                        hideMenu()
                         main.state = ""
                     }
                 }
