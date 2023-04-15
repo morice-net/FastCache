@@ -95,7 +95,7 @@ Item {
             WebView {
                 id: webEngineView
                 clip: true
-                visible: webViewDescriptionPageVisible
+                visible: webViewDescriptionPageVisible && (userSettings.isMenuVisible() === false) && (fastMenu.isMenuVisible() === false)
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter

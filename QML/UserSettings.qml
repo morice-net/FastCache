@@ -7,8 +7,8 @@ import com.mycompany.connecting 1.0
 
 Rectangle {
     id: userSettings
-    height: parent.height*0.95
-    width: parent.width*0.95
+    height: parent.height * 0.95
+    width: parent.width * 0.95
     x: -parent.width
     y: -parent.height
     color: Palette.white()
@@ -21,7 +21,6 @@ Rectangle {
     ScrollView {
         anchors.fill: parent
         contentWidth: parent.width
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
         Column {
             anchors.fill: parent
@@ -39,7 +38,7 @@ Rectangle {
             // Maps
             GroupBox {
                 id: groupBoxMaps
-                width: parent.width*0.8
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
                 background: Rectangle {
                     border.color: Palette.greenSea()
@@ -224,7 +223,7 @@ Rectangle {
             //Display Circles
             GroupBox {
                 id: circlesCaches
-                width: parent.width*0.8
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
                 background: Rectangle {
                     border.color: Palette.greenSea()
@@ -343,7 +342,7 @@ Rectangle {
             //maximum number of caches in a list
             GroupBox {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width*0.8
+                width: parent.width * 0.8
                 background: Rectangle {
                     border.color: Palette.greenSea()
                     border.width: 2
