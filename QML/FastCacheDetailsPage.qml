@@ -15,7 +15,7 @@ Item {
     Column {
         spacing: 5
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         clip: true
 
         Row {

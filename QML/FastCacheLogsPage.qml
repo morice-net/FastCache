@@ -10,10 +10,9 @@ Item {
     Flickable {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
 
         Column{
             spacing:15
@@ -23,8 +22,8 @@ Item {
                 model:fullCache.logs.length
 
                 Rectangle{
-                    x:15
-                    width: parent.width*0.95
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width * 0.95
                     height: textLog.height + 10
                     border.width: 4
                     border.color: Palette.silver()
@@ -32,10 +31,10 @@ Item {
 
                     Column{
                         id: textLog
-                        spacing: 15
+                        spacing: 5
 
                         Item {
-                            width: parent.width*0.95
+                            width: parent.width * 0.95
                             height: 35
 
                             Text {
@@ -68,7 +67,7 @@ Item {
                         }
 
                         Item {
-                            width: parent.width*0.95
+                            width: parent.width * 0.95
                             height: 35
 
                             Text {
@@ -100,7 +99,9 @@ Item {
                         Image {
                             x:15
                             source:"qrc:/Image/" + "icon_photo.png"
+                            scale: 0.7
                             visible:(fullCache.cacheImagesIndex[index + 1] - fullCache.cacheImagesIndex[index]) === 0 ? false : true
+
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
@@ -112,7 +113,7 @@ Item {
                         }
 
                         Text {
-                            width: logsPage.width*0.95
+                            width: logsPage.width * 0.95
                             leftPadding: 10
                             rightPadding: 10
                             font.family: localFont.name

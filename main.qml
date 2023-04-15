@@ -617,13 +617,11 @@ Item {
     Compass { // the compass sensor object
         id: compass
         active: false // turn the compass on
-        //  skipDuplicates: true // skip similar values
     }
 
     OrientationSensor {
         id: orientationReading
         active: false
-        //   skipDuplicates: true
     }
 
     Toast { id: toast }
