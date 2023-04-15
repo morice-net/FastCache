@@ -69,7 +69,7 @@ Item {
 
             LogTypesTravelbug {
                 id: logTypesTravelbug
-                width: logPage.width*0.9
+                width: logPage.width * 0.9
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
@@ -91,7 +91,7 @@ Item {
 
             FastCalendar {
                 id: calendar
-                width: logPage.width*0.9
+                width: logPage.width * 0.9
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: false
                 onDateCalendarChanged:{
@@ -116,7 +116,7 @@ Item {
                 Item {
                     id: spacer
                     height: 2
-                    width: logPage.width*0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
+                    width: logPage.width * 0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
                 }
 
                 FastButton {
@@ -143,7 +143,7 @@ Item {
             TextArea {
                 id: message
                 anchors.horizontalCenter: parent.horizontalCenter
-                width: logPage.width*0.9
+                width: logPage.width * 0.9
                 font.family: localFont.name
                 font.pointSize: 14
                 color: Palette.greenSea()

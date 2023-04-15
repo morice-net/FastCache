@@ -12,8 +12,9 @@ Rectangle {
     radius: 10
     border.width: 2
     border.color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
-    width: main.width - 40
+    width: main.width * 0.95
     height: main.height * 0.12
+    anchors.horizontalCenter: parent.horizontalCenter
     opacity: 0
 
     property var selectedCache: Cache {}
@@ -197,7 +198,7 @@ Rectangle {
         }
 
         function updateRotation() {
-            if (selectedCache == undefined)
+            if (selectedCache === undefined)
                 return
             console.log("Updating small compass... for cache", selectedCache.name)
             if (currentPosition == undefined)

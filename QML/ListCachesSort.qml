@@ -60,7 +60,6 @@ DelegateModel {
     }
     model: modelState()
     delegate: SelectedCacheItem {
-        x: (fastList.width - width ) / 2
         Component.onCompleted: show(modelData)
         color: selectedInList[index] ? Palette.silver() : Palette.white().replace("#","#99")
     }

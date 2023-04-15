@@ -113,8 +113,7 @@ Map {
         id: selectedCacheItem
         z: 3
         anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        anchors.margins: 20
+        anchors.bottomMargin: 20
         onOpacityChanged: {
             if (opacity === 1)
                 hide()
