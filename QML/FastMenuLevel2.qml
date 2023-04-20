@@ -87,8 +87,10 @@ Item {
                 if(main.viewState === "fullcache")
                     // previous cache in case the download fails
                     previousGeocode = fullCache.geocode
+                hideMenu()
                 fullCache.geocode = geocodeCache.text.toUpperCase()
                 fullCacheRetriever.sendRequest(connector.tokenKey)
+
             }
         }
     }
@@ -119,6 +121,7 @@ Item {
 
         function buttonClicked() {
             if(codeTravelBug.text.length !== 0) {
+                hideMenu()
                 travelbug.sendRequest(connector.tokenKey , codeTravelBug.text.toUpperCase());
             }
         }
