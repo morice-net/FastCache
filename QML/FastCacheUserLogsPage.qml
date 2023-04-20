@@ -22,7 +22,7 @@ Item  {
     ScrollView {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         contentHeight: columnLogs.height + 30
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true
@@ -37,7 +37,7 @@ Item  {
 
                 Rectangle{
                     anchors.horizontalCenter: parent.horizontalCenter
-                    width: parent.width*0.95
+                    width: parent.width * 0.95
                     height: textLog.height + 10
                     border.width: 4
                     border.color: Palette.silver()
@@ -48,7 +48,7 @@ Item  {
                         spacing: 15
 
                         Item {
-                            width: parent.width*0.95
+                            width: parent.width * 0.95
                             height: 35
 
                             Text {
@@ -80,12 +80,13 @@ Item  {
                         }
 
                         Item {
-                            width: parent.width*0.95
+                            width: parent.width * 0.95
                             height: 35
 
                             Image {
                                 x:15
                                 source: "qrc:/Image/" + "icon_photo.png"
+                                scale: 0.7
                                 visible: getUserGeocacheLogs.imagesCount[index] !== 0
 
                                 MouseArea {
@@ -116,7 +117,7 @@ Item  {
                                 when: true
                                 value: listLogs[index]
                             }
-                            width: userLogsPage.width*0.95
+                            width: userLogsPage.width * 0.95
                             leftPadding: 10
                             rightPadding: 10
                             font.family: localFont.name
@@ -133,11 +134,9 @@ Item  {
                             spacing: 30
                             anchors.horizontalCenter: parent.horizontalCenter
 
-                            FastButton {
+                            FastButtonIcon {
                                 id: iconUpdate
-                                contentItem: Image {
-                                    source: "qrc:/Image/" + "icon_update.png"
-                                }
+                                source: "qrc:/Image/" + "icon_update.png"
                                 onClicked: {
                                     updateLog = true
                                     updateLogIndex = index
@@ -152,11 +151,9 @@ Item  {
                                 }
                             }
 
-                            FastButton {
+                            FastButtonIcon {
                                 id: iconDeleteLog
-                                contentItem: Image {
-                                    source: "qrc:/Image/" + "icon_delete.png"
-                                }
+                                source: "qrc:/Image/" + "icon_delete.png"
                                 onClicked: {
                                     buttonYes.visible = !buttonYes.visible
                                     buttonNo.visible = !buttonNo.visible
@@ -172,7 +169,7 @@ Item  {
                             FastButton {
                                 id: buttonYes
                                 visible: false
-                                font.pointSize: 18
+                                font.pointSize: 17
                                 text: "Supprimer le log ?"
                                 onClicked: {
                                     buttonYes.visible = false
@@ -185,7 +182,7 @@ Item  {
                             FastButton {
                                 id:buttonNo
                                 visible: false
-                                font.pointSize: 18
+                                font.pointSize: 17
                                 text: "Annuler"
                                 onClicked: {
                                     buttonYes.visible = false
