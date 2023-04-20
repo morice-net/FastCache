@@ -13,6 +13,7 @@ Item {
         anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
+        clip :true
 
         Column{
             spacing:15

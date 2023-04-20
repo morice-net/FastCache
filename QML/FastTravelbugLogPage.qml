@@ -55,11 +55,11 @@ Item {
     ScrollView {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: fastTravelbugHeader.height * 3
-        anchors.bottomMargin: 30
+        anchors.topMargin: fastTravelbugHeader.height * 2.7
         anchors.leftMargin: 20
         anchors.rightMargin: 20
         contentHeight: column.height
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true
 
         Column {
@@ -69,7 +69,7 @@ Item {
 
             LogTypesTravelbug {
                 id: logTypesTravelbug
-                width: logPage.width * 0.9
+                width: logPage.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
@@ -91,7 +91,7 @@ Item {
 
             FastCalendar {
                 id: calendar
-                width: logPage.width * 0.9
+                width: logPage.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
                 visible: false
                 onDateCalendarChanged:{
@@ -113,27 +113,19 @@ Item {
                     color: Palette.white()
                 }
 
-                Item {
-                    id: spacer
-                    height: 2
-                    width: logPage.width * 0.9 - logTextTitle.width - buttonDelete.width - buttonAdd.width - 40
-                }
-
-                FastButton {
+                FastButtonIcon {
                     id: buttonAdd
-                    contentItem: Image {
-                        source: "qrc:/Image/" + "icon_edit.png"
-                    }
+                    y: logTextTitle.y - buttonAdd.height / 4
+                    source: "qrc:/Image/" + "icon_edit.png"
                     onClicked:{
                         addText.open();
                     }
                 }
 
-                FastButton {
+                FastButtonIcon {
                     id: buttonDelete
-                    contentItem: Image {
-                        source: "qrc:/Image/" + "icon_erase.png"
-                    }
+                    y: logTextTitle.y - buttonDelete.height / 4
+                    source: "qrc:/Image/" + "icon_erase.png"
                     onClicked: {
                         message.text = ""
                     }
@@ -153,18 +145,28 @@ Item {
                 }
             }
 
+            Text {
+                visible:(typeLog !== 4 && travelbug.tbStatus !== 0)
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                font.pointSize: 16
+                color: Palette.white()
+                text: "Code de suivi:"
+            }
+
             TextField {
                 id: trackingCode
                 visible:(typeLog !== 4 && travelbug.tbStatus !== 0)
                 anchors.horizontalCenter: parent.horizontalCenter
-                placeholderText: qsTr("Code de suivi")
                 font.family: localFont.name
-                font.pointSize: 16
+                font.pointSize: 17
                 color: Palette.greenSea()
                 background: Rectangle {
                     implicitHeight: 40
+                    implicitWidth: 100
                     color: Palette.white()
                     border.color: Palette.greenSea()
+                    radius: 6
                 }
             }
 
@@ -172,7 +174,7 @@ Item {
                 id:buttonSendLog
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Envoyer le log"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked:{
                     if(typeLog !== 4 && travelbug.tbStatus !== 0 && message.text !== "") {
                         sqliteStorage.updateObject("tblog" , travelbug.tbCode , sendTravelbugLog.makeJsonTbLog(trackingCode.text , typeLog ,

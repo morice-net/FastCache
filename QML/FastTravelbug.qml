@@ -16,19 +16,19 @@ Rectangle {
 
     Row {
         id:fastTravelbugHeader
-        x: 200
+        x: main.width / 3
         y: 10
         spacing: 10
 
         Image {
             source: travelbug.iconUrl
-            scale: 1.2
+            scale: 0.8
         }
 
         Text {
             font.family: localFont.name
             font.bold: true
-            font.pointSize: 18
+            font.pointSize: 17
             text: "Objet voyageur"
             color: Palette.white()
         }
@@ -53,7 +53,7 @@ Rectangle {
     PageIndicator {
         id: indicatorFastTravelbug
         anchors.top: fastTravelbugHeader.bottom
-        anchors.topMargin: 15
+        anchors.topMargin: 5
         anchors.horizontalCenter: parent.horizontalCenter
         count: swipeFastTravelbug.count
         visible: travelbug.state !== "loading"

@@ -21,10 +21,11 @@ Item {
     Flickable {
         id: travelbugs
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 2
+        anchors.topMargin: fastCacheHeaderIcon.height * 1.6
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
+        clip:true
+
 
         Column{
             spacing:10
@@ -43,7 +44,6 @@ Item {
                         Image {
                             source: "qrc:/Image/" + "trackable_travelbug.png"
                             horizontalAlignment: Image.AlignHCenter
-                            scale: 1.4
                         }
 
                         Text {
@@ -52,7 +52,7 @@ Item {
                             font.family: localFont.name
                             textFormat: Qt.RichText
                             font.bold: true
-                            font.pointSize: 20
+                            font.pointSize: 18
                             color: Palette.white()
                             wrapMode: Text.Wrap
 

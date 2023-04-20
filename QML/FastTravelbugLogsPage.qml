@@ -20,22 +20,21 @@ Item {
     Flickable {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: fastTravelbugHeader.height * 3
+        anchors.topMargin: fastTravelbugHeader.height * 2.7
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
+        clip:true
 
         Column {
-            spacing:10
+            spacing: 10
             width: logsPage.width
 
             Repeater {
                 model: travelbug.logsText.length
 
                 Rectangle {
-                    x: 15
-                    y: 20
-                    width: parent.width*0.95
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    width: parent.width * 0.95
                     height: textLog.height + 10
                     border.width: 4
                     border.color: Palette.silver()
@@ -106,7 +105,7 @@ Item {
                         }
 
                         Text {
-                            width: logsPage.width*0.95
+                            width: logsPage.width * 0.95
                             font.family: localFont.name
                             font.pointSize: 15
                             horizontalAlignment: TextEdit.AlignJustify

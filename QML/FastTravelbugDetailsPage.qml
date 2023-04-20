@@ -10,11 +10,11 @@ Item {
     visible:true
 
     Flickable {
-        anchors.topMargin: fastTravelbugHeader.height * 3
+        anchors.topMargin: fastTravelbugHeader.height * 2.7
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
-        contentHeight: contentItem.childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
+        contentHeight: contentItem.childrenRect.height + 10
+        clip: true
 
         Column {
             width: fastTravelbugDetailsPage.width
@@ -205,7 +205,7 @@ Item {
                 id:goal
                 visible:travelbug.goal.length !== 0
                 width: parent.width
-                y:separator1.y + 10
+                y: separator1.y + 10
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
@@ -215,18 +215,18 @@ Item {
 
             Text {
                 id:goalText
-                visible:travelbug.goal.length !== 0
-                width: parent.width
-                y:goal.y + 30
+                visible: travelbug.goal.length !== 0
+                width: fastTravelbugDetailsPage.width * 0.98
+                x: fastTravelbugDetailsPage.width * 0.01
+                y: goal.y + 30
                 font.family: localFont.name
                 color: Palette.white()
-                leftPadding: 15
-                rightPadding: 15
                 textFormat: Qt.RichText
                 wrapMode: Text.Wrap
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: travelbug.goal
+                clip: true
             }
 
             Rectangle {
@@ -242,7 +242,7 @@ Item {
                 id:description
                 visible:travelbug.description.length !== 0
                 width: parent.width
-                y:separator2.y + 10
+                y: separator2.y + 10
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
@@ -253,12 +253,11 @@ Item {
             Text {
                 id:descriptionText
                 visible:travelbug.description.length !== 0
-                width: parent.width
-                y:description.y + 30
+                width: fastTravelbugDetailsPage.width * 0.98
+                x: fastTravelbugDetailsPage.width * 0.01
+                y: description.y + 30
                 font.family: localFont.name
                 color: Palette.white()
-                leftPadding: 15
-                rightPadding: 15
                 textFormat: Qt.RichText
                 wrapMode: Text.Wrap
                 font.pointSize: 14
@@ -279,7 +278,7 @@ Item {
                 id:images
                 visible:travelbug.imagesName.length !== 0
                 width: parent.width
-                y:separator3.y + 10
+                y: separator3.y + 10
                 font.family: localFont.name
                 leftPadding: 15
                 font.pointSize: 14
@@ -290,13 +289,13 @@ Item {
             // images
             Repeater{
                 id: imageRepeater
-                model:travelbug.imagesUrl.length
+                model: travelbug.imagesUrl.length
 
                 Column{
-                    anchors.horizontalCenter: fastTravelbugDetailsPage.horizontalCenter
+
                     Text {
-                        width: parent.width*0.8
-                        x:10
+                        width: parent.width * 0.8
+                        x: 10
                         visible: travelbug.imagesName[index] !== ""
                         text: travelbug.imagesName[index]
                         font.family: localFont.name
@@ -308,9 +307,11 @@ Item {
                     }
 
                     Image {
-                        x:10
+                        id: image
                         source: travelbug.imagesUrl[index]
-                        horizontalAlignment: Image.AlignHCenter
+                        sourceSize.width: fastTravelbugDetailsPage.width * 0.98
+                        x: (fastTravelbugDetailsPage.width - image.width) / 2
+                        clip: true
                     }
                 }
             }
