@@ -11,8 +11,8 @@ Item {
         Button {
             id: buttonGoback
             icon.source: "qrc:/Image/goback.png"
-            icon.width: 50
-            icon.height: 50
+            icon.width: 40
+            icon.height: 30
             leftPadding: 20
             onClicked:{
                 openMenu = 3
@@ -26,25 +26,25 @@ Item {
         Rectangle {
             id: title
             width: pocketsqueries.width
-            height: 50
+            height: 40
             color: "transparent"
 
             Text {
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter:  parent.horizontalCenter
                 text: "Pockets queries enregistrées : " + getPocketsqueriesList.names.length
                 font.family: localFont.name
                 font.bold: true
                 font.pointSize: 17
                 color: Palette.greenSea()
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter:  parent.horizontalCenter
             }
         }
     }
 
     ScrollView {
-        y: buttonGoback.height + title.height + 10
+        y: buttonGoback.height + title.height + 5
         clip: true
-        height: Math.min(parent.height*0.7 , rectangles.height)
+        height: Math.min(parent.height * 0.7 , rectangles.height)
 
         Column {
             id: rectangles
@@ -56,8 +56,8 @@ Item {
 
                 Rectangle{
                     width: pocketsqueries.width
-                    height: texts.height
-                    border.width: 1
+                    height: texts.height + 5
+                    border.width: 3
                     border.color: Palette.silver()
                     radius: 8
                     color: Palette.turquoise()
@@ -77,7 +77,7 @@ Item {
                     Column {
                         id: texts
                         topPadding: 10
-                        leftPadding: 10
+                        leftPadding: 20
 
                         Text {
                             clip: true
@@ -86,7 +86,7 @@ Item {
                             font.family: localFont.name
                             textFormat: Qt.RichText
                             font.bold: true
-                            font.pointSize: 15
+                            font.pointSize: 16
                             color: Palette.white()
                             wrapMode: Text.Wrap
                         }
@@ -96,7 +96,7 @@ Item {
                             text: new Date(getPocketsqueriesList.dates[index]).toLocaleDateString(Qt.locale("fr_FR"))
                             font.family: localFont.name
                             font.bold: true
-                            font.pointSize: 14
+                            font.pointSize: 15
                             color: Palette.silver()
                         }
 
@@ -105,7 +105,7 @@ Item {
                             text: "Nombre de caches: " + getPocketsqueriesList.counts[index]
                             font.family: localFont.name
                             font.bold: true
-                            font.pointSize: 14
+                            font.pointSize: 15
                             color: Palette.silver()
                         }
 
@@ -114,7 +114,7 @@ Item {
                             text: "Nombre de caches trouvées: " + getPocketsqueriesList.findCounts[index]
                             font.family: localFont.name
                             font.bold: true
-                            font.pointSize: 14
+                            font.pointSize: 15
                             color: Palette.silver()
                         }
                     }

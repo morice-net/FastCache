@@ -27,7 +27,7 @@ Map {
     zoomLevel: currentZoomlevel
 
     PinchHandler {
-        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened
+        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
         target: map
         rotationAxis.enabled: false
         scaleAxis.minimum: (minimumZoomLevel / currentZoomlevel)
@@ -39,7 +39,7 @@ Map {
     }
 
     DragHandler {
-        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened
+        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
         target: map
 
         property var oldPos

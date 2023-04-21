@@ -194,7 +194,7 @@ Item {
             id: pocketsqueries
             x: -parent.width
             height: parent.height
-            width: parent.width*0.9
+            width: parent.width * 0.9
             anchors.top: userInfoMenu.bottom
             anchors.topMargin: 18
 
