@@ -53,7 +53,7 @@ Item {
         id: scrollView
         anchors.fill: parent
         anchors.topMargin: fastCacheHeaderIcon.height * 1.6
-        contentHeight: column.height
+        contentHeight: column.height + 10
         clip : true
 
         Column {
