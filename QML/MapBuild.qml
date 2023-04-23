@@ -22,38 +22,35 @@ Map {
     property real lonCenterMap
     property real zoomMap
 
+    property geoCoordinate startCentroid  // pinchHandler
+
     activeMapType: supportedMapTypes[supportedMap()]
     anchors.fill: parent
     zoomLevel: currentZoomlevel
 
     PinchHandler {
         enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
-        target: map
+        target: null
         rotationAxis.enabled: false
-        scaleAxis.minimum: (minimumZoomLevel / currentZoomlevel)
-        scaleAxis.maximum: (maximumZoomLevel / currentZoomlevel)
-        onActiveScaleChanged:  {
-            if(currentZoomlevel * Math.pow(activeScale , 1/4) >= minimumZoomLevel && currentZoomlevel * Math.pow(activeScale , 1/4) <= maximumZoomLevel)
-                currentZoomlevel = currentZoomlevel * Math.pow(activeScale , 1/4)
-        }
+        onActiveChanged: if (active) {
+                             map.startCentroid = map.toCoordinate(centroid.position, false)
+                         }
+        onScaleChanged: (delta) => {
+                            currentZoomlevel += Math.log2(delta)
+                            map.alignCoordinateToPoint(map.startCentroid, centroid.position)
+                        }
     }
 
     DragHandler {
         enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
-        target: map
-
-        property var oldPos
-
-        onCentroidChanged: {
-            var oldPos1 = oldPos;
-            oldPos = centroid.position;
-            if ( active ) {
-                map.pan(oldPos1.x - centroid.position.x , oldPos1.y - centroid.position.y)
-                if(cachesSingleList.caches.length !== 0)
-                    cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
-                Functions.reloadCachesBBox()
-            }
-        }
+        target: null
+        onTranslationChanged: (delta) => {
+                                  map.pan(-delta.x, -delta.y)
+                                  if(cachesSingleList.caches.length !== 0) {
+                                      cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
+                                  }
+                                  Functions.reloadCachesBBox()
+                              }
     }
 
     onZoomLevelChanged: {
@@ -62,6 +59,7 @@ Map {
             cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
         Functions.reloadCachesBBox()
     }
+
     onMapReadyChanged: scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
     minimumZoomLevel: 6.
     maximumZoomLevel: 18.
