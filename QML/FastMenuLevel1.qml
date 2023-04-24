@@ -53,7 +53,7 @@ Item {
                     }
                     if (firstButtonSelected) {
                         hideMenu()
-                        fastMap.currentZoomlevel = 14.5
+                        fastMap.currentZoomlevel = 13
                         Functions.reloadCachesBBox()
                     } else {
                         hideMenu()

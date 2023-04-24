@@ -41,6 +41,7 @@ Column {
     
     // Zoom plus
     Rectangle {
+        visible: currentZoomlevel < maximumZoomLevel
         height: parent.width
         width: height
         color: Palette.turquoise().replace("#","#99")
@@ -64,6 +65,7 @@ Column {
     
     // Zoom minus
     Rectangle {
+        visible: currentZoomlevel > minimumZoomLevel
         height: parent.width
         width: height
         color: Palette.turquoise().replace("#","#99")

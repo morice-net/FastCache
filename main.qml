@@ -131,7 +131,7 @@ Item {
             }
         }
         onClearMapRequested: {
-            fastMap.currentZoomlevel = 14
+            fastMap.currentZoomlevel = 13
             fastMap.clearMap()
         }
         Component.onCompleted: listCachesObject(cachesSingleList)

@@ -134,7 +134,7 @@ Item {
             fastMap.mapItem.center = QtPositioning.coordinate(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
                                                               fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon )
 
-            fastMap.currentZoomlevel = 17.5
+            fastMap.currentZoomlevel = 17
             // is cache in list of caches?
             if(!fastCache.geocodeInCachesList) {
                 fastMap.mapItem.addCacheOnMap() // add full cache on map, not in list

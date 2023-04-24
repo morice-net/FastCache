@@ -32,13 +32,13 @@ function reconnectAccount() {
 // center and zoom level
 function centerMapCaches(listCaches) {  
     if(listCaches.length === 0) {
-        fastMap.currentZoomlevel = 14.5
+        fastMap.currentZoomlevel = 13
         return
     }
     if(listCaches.length === 1) {
         fastMap.mapItem.center.latitude = listCaches[0].lat
         fastMap.mapItem.center.longitude = listCaches[0].lon
-        fastMap.currentZoomlevel = 14.5
+        fastMap.currentZoomlevel = 13
         return
     }
     fastMap.mapItem.fitViewportToMapItems()
