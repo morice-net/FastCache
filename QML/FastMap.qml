@@ -56,12 +56,12 @@ Rectangle {
     }
 
     Plugin {
-        id: herePlugin
+        id: mapboxPlugin
         name: "mapbox"
         parameters: [
             PluginParameter {
-                name: "mapbox.access_token"
-                value: Qt.atob("Y29uSzNQVlBuZlVKUkZqc2YwTlJ2dw==")
+                name: "mapbox.access_token"                
+                value: "pk.eyJ1IjoiZ2VyYXJkYXJ0YXV0IiwiYSI6ImNsZ3c4eTNidjEybGkzc281MWFqMjJ1MmwifQ.63ioe_G6lECaFUs-8aWMwg"
             }]
     }
 
@@ -75,8 +75,8 @@ Rectangle {
             return osmPlugin
         if(settings.namePlugin === "googlemaps")
             return googlemapsPlugin
-        if(settings.namePlugin === "here")
-            return herePlugin
+        if(settings.namePlugin === "mapbox")
+            return mapboxPlugin
     }
 
     function deleteMap() {

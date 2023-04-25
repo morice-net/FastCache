@@ -60,8 +60,8 @@ Settings {
     // Filter by owner
     property string owner: ""
 
-    // Maps : osm,googlemaps,here
-    property var listPlugins: ["osm", "googlemaps", "here"]
+    // Maps : osm,googlemaps,mapbox
+    property var listPlugins: ["osm", "googlemaps", "mapbox"]
     property string namePlugin: "osm"
     property bool sat: false
 

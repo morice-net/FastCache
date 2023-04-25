@@ -177,7 +177,8 @@ Rectangle {
                     RadioButton {
                         id:button4
                         visible: true
-                        text: "Here"
+                        enabled: false
+                        text: "MapBox"
                         checked: settings.namePlugin === settings.listPlugins[2]
                         onClicked: {
                             settings.sat = false

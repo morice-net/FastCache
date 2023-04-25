@@ -182,7 +182,7 @@ function downloadTiles() {
         if(zoom < 18)
             tilesDownloader.downloadTilesGooglemaps(latTop , latBottom , lonLeft , lonRight , zoom + 2 , 3)
     }
-    //here
+    //mapbox
     else if(settings.namePlugin === settings.listPlugins[2]) {
         toast.visible = true
         toast.show("Le plugin ne permet pas d'enregistrer la carte");

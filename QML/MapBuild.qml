@@ -285,7 +285,7 @@ Map {
         // googlemaps sat
         if(settings.namePlugin === settings.listPlugins[1] && settings.sat === true)
             return 3
-        // here
+        // mapbox
         if(settings.namePlugin === settings.listPlugins[2])
             return 0
     }

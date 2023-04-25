@@ -191,7 +191,7 @@ FastPopup {
             return "Enregistrer les caches"
         if(viewState === "map" && listChecked.indexOf(true) === -1)
             return "Enregistrer la carte"
-        if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin === settings.listPlugins[2]) // here
+        if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin === settings.listPlugins[2]) // mapbox
             return "Enregistrer les caches"
         if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin !== settings.listPlugins[2])
             return "Enregistrer caches et carte"
