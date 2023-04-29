@@ -4,6 +4,7 @@ import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
+import "JavaScript/helper.js" as Helper
 
 Map {
     id: map
@@ -149,6 +150,53 @@ Map {
 
             // delete user waypoints cache on map
             deleteUserWaypointsCacheOnMap()
+        }
+    }
+
+    Item {
+        id: littleCompass
+        visible: fastMap.compassMapButton
+        width: compassMapSwipeButton.width
+        anchors.left: compassMapSwipeButton.left
+        anchors.top: compassMapSwipeButton.bottom
+
+        Text {
+            id:distance
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+            font.family: localFont.name
+            font.pointSize: 16
+            color: Palette.black()
+            clip: true
+            text: Helper.formatDistance(Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
+                                                                                                                               fullCache.correctedLat : fullCache.lat,
+                                                                                                                           fullCache.isCorrectedCoordinates ?
+                                                                                                                               fullCache.correctedLon : fullCache.lon))))
+        }
+
+        Image {
+            id: smallCompassNeedle
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+            scale: 1.2
+            source: "qrc:/Image/Compass/compass_mini.png"
+
+            Behavior on rotation { NumberAnimation { duration: 2000 } }
+        }
+
+        function updateRotation() {
+            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
+                    currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
+                                                                                               fullCache.correctedLat : fullCache.lat,
+                                                                                           fullCache.isCorrectedCoordinates ?
+                                                                                               fullCache.correctedLon : fullCache.lon))
+            main.beginLat = currentPosition.position.coordinate.latitude;
+            main.beginLon = currentPosition.position.coordinate.longitude;
+        }
+        Component.onCompleted: {
+            main.positionUpdated.connect(updateRotation)
         }
     }
     onSelectedCacheChanged: selectedCacheItem.show(selectedCache)

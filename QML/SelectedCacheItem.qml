@@ -203,7 +203,7 @@ Rectangle {
             console.log("Updating small compass... for cache", selectedCache.name)
             if (currentPosition == undefined)
                 return
-            smallCompassNeedle.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
+            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
                     currentPosition.position.coordinate.azimuthTo(selectedCacheLocation.coordinate)
             main.beginLat = currentPosition.position.coordinate.latitude;
             main.beginLon = currentPosition.position.coordinate.longitude;
