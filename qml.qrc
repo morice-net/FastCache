@@ -199,5 +199,8 @@
         <file>QML/MapUserWaypoint.qml</file>
         <file>QML/SatelliteInfo.qml</file>
         <file>QML/FastButtonIcon.qml</file>
+        <file>QML/SatRssiView.qml</file>
+        <file>QML/SatSkyView.qml</file>
+        <file>QML/SatPositionStatus.qml</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT +=  qml quick svg location sql core core5compat
+QT +=  qml quick svg location sql core core5compat bluetooth
 
 !android {
     QT += webenginequick
@@ -25,7 +25,6 @@ SOURCES += main.cpp \
     getusergeocachelogs.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
-    satellitemodel.cpp \
     sendedituserlog.cpp \
     sendimageslog.cpp \
     sendtravelbuglog.cpp \
@@ -69,7 +68,6 @@ HEADERS += \
     getusergeocachelogs.h \
     parameter.h \
     replaceimageintext.h \
-    satellitemodel.h \
     sendedituserlog.h \
     sendimageslog.h \
     sendtravelbuglog.h \
