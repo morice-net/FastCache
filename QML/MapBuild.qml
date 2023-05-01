@@ -30,6 +30,7 @@ Map {
     zoomLevel: currentZoomlevel
 
     PinchHandler {
+        id: pinch
         enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
         target: null
         rotationAxis.enabled: false
@@ -150,6 +151,26 @@ Map {
 
             // delete user waypoints cache on map
             deleteUserWaypointsCacheOnMap()
+        }
+    }
+
+    FastButtonIcon {
+        id: north
+        visible: fastMap.compassMapButton
+        anchors.left: parent.left
+        anchors.leftMargin: 10
+        anchors.top: parent.top        
+        buttonRadius: width / 2
+        sourceHeight: 30
+        source: "qrc:/Image/" + "icon_north.png"
+        onClicked: {
+            if(north.source === "qrc:/Image/" + "icon_north.png") {
+                north.source = "qrc:/Image/" + "icon_compass.png"
+                pinch.rotationAxis.enabled = true
+            } else {
+                north.source = "qrc:/Image/" + "icon_north.png"
+                pinch.rotationAxis.enabled = false
+            }
         }
     }
 

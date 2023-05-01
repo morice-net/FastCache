@@ -202,5 +202,7 @@
         <file>QML/SatRssiView.qml</file>
         <file>QML/SatSkyView.qml</file>
         <file>QML/SatPositionStatus.qml</file>
+        <file>Image/icon_north.png</file>
+        <file>Image/icon_compass.png</file>
     </qresource>
 </RCC>

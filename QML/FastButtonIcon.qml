@@ -9,12 +9,13 @@ Button {
     property string source
     property int sourceWidth: 20
     property int sourceHeight: 20
+    property int buttonRadius: 6
 
     background: Rectangle {
-        border.width: button.activeFocus ? 3 : 1
+        border.width: button.activeFocus ? 2 : 1
         border.color: Palette.silver()
         color: Palette.white()
-        radius: 6
+        radius: buttonRadius
         implicitWidth: image.sourceSize.width + 5
         implicitHeight: image.sourceSize.height + 5
 
