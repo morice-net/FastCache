@@ -147,6 +147,13 @@ Item {
 
             // Add user waypoints cache on map
             fastMap.mapItem.addUserWaypointsCacheOnMap()
+
+            // Orient the map if necessary
+            if(!fastMap.oldMapNorth)
+                fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
+                                                                                                                     fullCache.correctedLat : fullCache.lat,
+                                                                                                                 fullCache.isCorrectedCoordinates ?
+                                                                                                                     fullCache.correctedLon : fullCache.lon))
         }
     }
 

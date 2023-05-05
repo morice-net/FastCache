@@ -22,6 +22,9 @@ Rectangle {
     // compassMap
     property bool compassMapButton: false   // false: compassMapButton not clicked
 
+    property bool mapNorth : true  // map orientation
+    property bool oldMapNorth : true
+
     Plugin {
         id: googlemapsPlugin
         name: "googlemaps"
@@ -60,7 +63,7 @@ Rectangle {
         name: "mapbox"
         parameters: [
             PluginParameter {
-                name: "mapbox.access_token"                
+                name: "mapbox.access_token"
                 value: "pk.eyJ1IjoiZ2VyYXJkYXJ0YXV0IiwiYSI6ImNsZ3c4eTNidjEybGkzc281MWFqMjJ1MmwifQ.63ioe_G6lECaFUs-8aWMwg"
             }]
     }

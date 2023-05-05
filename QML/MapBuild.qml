@@ -41,6 +41,7 @@ Map {
                             currentZoomlevel += Math.log2(delta)
                             map.alignCoordinateToPoint(map.startCentroid, centroid.position)
                         }
+
     }
 
     DragHandler {
@@ -132,7 +133,10 @@ Map {
         anchors.top: parent.top
         anchors.right: parent.right
         onClicked: {
-            viewState = "fullcache"
+            // Map facing north
+            map.bearing = 0
+            fastMap.mapNorth = true
+
             fastMap.compassMapButton = false
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
             fastMap.mapItem.oneCircleOnMap(fullCache.geocode , false) // makes all circle caches visible on map
@@ -151,6 +155,8 @@ Map {
 
             // delete user waypoints cache on map
             deleteUserWaypointsCacheOnMap()
+
+            viewState = "fullcache"
         }
     }
 
@@ -159,17 +165,24 @@ Map {
         visible: fastMap.compassMapButton
         anchors.left: parent.left
         anchors.leftMargin: 10
-        anchors.top: parent.top        
+        anchors.top: parent.top
         buttonRadius: width / 2
         sourceHeight: 30
-        source: "qrc:/Image/" + "icon_north.png"
+        source: fastMap.oldMapNorth ? "qrc:/Image/" + "icon_north.png" : "qrc:/Image/" + "icon_compass.png"
         onClicked: {
-            if(north.source === "qrc:/Image/" + "icon_north.png") {
+            if(fastMap.oldMapNorth) {
                 north.source = "qrc:/Image/" + "icon_compass.png"
-                pinch.rotationAxis.enabled = true
+                fastMap.mapNorth = false
+                fastMap.oldMapNorth = fastMap.mapNorth
+                map.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
+                                                                                                         fullCache.correctedLat : fullCache.lat,
+                                                                                                     fullCache.isCorrectedCoordinates ?
+                                                                                                         fullCache.correctedLon : fullCache.lon))
             } else {
                 north.source = "qrc:/Image/" + "icon_north.png"
-                pinch.rotationAxis.enabled = false
+                fastMap.mapNorth = true
+                fastMap.oldMapNorth = fastMap.mapNorth
+                map.bearing = 0
             }
         }
     }
