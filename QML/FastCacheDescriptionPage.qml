@@ -99,13 +99,13 @@ Item {
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter
-                onLoadingChanged: {
-                    loadRequest => console.log("Loaded: " + loadRequest.status)
-                    webHistoryRank = webHistoryRank + 1
-                    webHistoryRankMax = webHistoryRankMax + 1
-                    console.log("web history rank:   " + webHistoryRank)
-                    console.log("web history rank max:   " + webHistoryRankMax)
-                }
+                onLoadingChanged: (loadRequest) => {
+                                      console.log("Loaded: " + loadRequest.status)
+                                      webHistoryRank = webHistoryRank + 1
+                                      webHistoryRankMax = webHistoryRankMax + 1
+                                      console.log("web history rank:   " + webHistoryRank)
+                                      console.log("web history rank max:   " + webHistoryRankMax)
+                                  }
             }
 
             Rectangle {

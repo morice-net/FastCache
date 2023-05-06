@@ -9,11 +9,11 @@ Repeater {
     property int repeaterIndex
 
     model: getTravelbugUser.tbsCode.length
-    onItemAdded:{
-        if(sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache .geocode) === false)
-            index => listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
+    onItemAdded: (index) => {
+                     if(sqliteStorage.isCacheInTable("cachestbsuserlog", fullCache .geocode) === false)
+                     listTbSend.push(getTravelbugUser.tbsCode[index] + "," + getTravelbugUser.trackingNumbers[index] + "," + "0," +
                                      dateIso + "," +  "")
-    }
+                 }
 
     Column {
         spacing: 5

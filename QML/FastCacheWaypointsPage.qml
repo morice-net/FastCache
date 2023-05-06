@@ -17,7 +17,7 @@ Item {
         anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
-        ScrollBar.vertical: ScrollBar {}
+        clip: true
 
         Column {
             spacing:10

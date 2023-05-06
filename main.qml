@@ -227,11 +227,11 @@ Item {
 
     Connector {
         id: connector
-        onLogOn: {
-            url => console.log("\n\n***\nDownloading... " + url);
-            webEngine.url = url;
-            webEngine.visible = true;
-        }
+        onLogOn: (url) => {
+                     console.log("\n\n***\nDownloading... " + url);
+                     webEngine.url = url;
+                     webEngine.visible = true;
+                 }
         onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
         onExpiresAtChanged: settings.expiresAt = expiresAt
     }
@@ -698,29 +698,29 @@ Item {
     Component.onDestruction: {
         Functions.recordAppSettings()
     }
-    Keys.onPressed: {
-        event.accepted = true
-        if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
-            if (webEngine.visible) {
-                webEngine.visible = false
-            } else if (coordinatesBox.opened) {
-                coordinatesBox.close()
-            } else if (geocode.opened) {
-                geocode.close()
-            } else if (fastMenu.isMenuVisible()) {
-                fastMenu.hideMenu()
-            } else if (userSettings.isMenuVisible()) {
-                userSettings.hideMenu()
-            } else if (fastMenuHeader.isFiltersVisible()) {
-                fastMenuHeader.changeFiltersVisibility()
-            } else if (main.viewState == "fullcache") {
-                main.viewState = previousViewState[0]
-            } else if (main.viewState == "travelbug") {
-                main.viewState = previousViewState[1]
-            } else {
-                sureQuit.visible = true
-            }
-        }
-    }
+    Keys.onPressed: (event) => {
+                        event.accepted = true
+                        if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
+                            if (webEngine.visible) {
+                                webEngine.visible = false
+                            } else if (coordinatesBox.opened) {
+                                coordinatesBox.close()
+                            } else if (geocode.opened) {
+                                geocode.close()
+                            } else if (fastMenu.isMenuVisible()) {
+                                fastMenu.hideMenu()
+                            } else if (userSettings.isMenuVisible()) {
+                                userSettings.hideMenu()
+                            } else if (fastMenuHeader.isFiltersVisible()) {
+                                fastMenuHeader.changeFiltersVisibility()
+                            } else if (main.viewState == "fullcache") {
+                                main.viewState = previousViewState[0]
+                            } else if (main.viewState == "travelbug") {
+                                main.viewState = previousViewState[1]
+                            } else {
+                                sureQuit.visible = true
+                            }
+                        }
+                    }
 }
 

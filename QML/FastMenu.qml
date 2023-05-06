@@ -66,10 +66,10 @@ Item {
                         font.pointSize: height
                         color: Palette.black()
 
-                        onTextChanged: {
-                            if (text => text === "") return
-                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
-                        }
+                        onTextChanged: (text) => {
+                                           if (text === "") return
+                                           while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
+                                       }
                     }
 
                     Text {
@@ -80,10 +80,10 @@ Item {
                         font.pointSize: height
                         color: Palette.greenSea()
 
-                        onTextChanged: {
-                            if ( text => text === "0 caches trouvées") return
-                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
-                        }
+                        onTextChanged: (text) => {
+                                           if (text === "0 caches trouvées") return
+                                           while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
+                                       }
                     }
 
                     Text {
@@ -94,10 +94,10 @@ Item {
                         font.pointSize: height
                         color: Palette.greenSea()
 
-                        onTextChanged: {
-                            if (text => text === "Membre : ") return
-                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
-                        }
+                        onTextChanged: (text) => {
+                                           if (text === "Membre : ") return
+                                           while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
+                                       }
                     }
                 }
             }
