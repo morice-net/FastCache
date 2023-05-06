@@ -67,7 +67,7 @@ Item {
                         color: Palette.black()
 
                         onTextChanged: {
-                            if (text === "") return
+                            if (text => text === "") return
                             while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
                         }
                     }
@@ -81,7 +81,7 @@ Item {
                         color: Palette.greenSea()
 
                         onTextChanged: {
-                            if (text === "0 caches trouvées") return
+                            if ( text => text === "0 caches trouvées") return
                             while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
                         }
                     }
@@ -95,7 +95,7 @@ Item {
                         color: Palette.greenSea()
 
                         onTextChanged: {
-                            if (text === "Membre : ") return
+                            if (text => text === "Membre : ") return
                             while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
                         }
                     }

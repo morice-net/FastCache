@@ -100,7 +100,7 @@ Item {
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter
                 onLoadingChanged: {
-                    console.log("Loaded: " + loadRequest.status)
+                    loadRequest => console.log("Loaded: " + loadRequest.status)
                     webHistoryRank = webHistoryRank + 1
                     webHistoryRankMax = webHistoryRankMax + 1
                     console.log("web history rank:   " + webHistoryRank)
