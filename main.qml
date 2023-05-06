@@ -228,7 +228,7 @@ Item {
     Connector {
         id: connector
         onLogOn: {
-            console.log("\n\n***\nDownloading... " + url);
+            url => console.log("\n\n***\nDownloading... " + url);
             webEngine.url = url;
             webEngine.visible = true;
         }
