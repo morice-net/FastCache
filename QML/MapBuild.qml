@@ -276,7 +276,7 @@ Map {
     }
 
     function deleteWaypointsCacheOnMap() {
-        (item) =>  waypointCacheItems.forEach(item.destroy())
+        waypointCacheItems.forEach((item) => item.destroy())
         waypointCacheItems = []
     }
 
@@ -292,7 +292,7 @@ Map {
     }
 
     function deleteUserWaypointsCacheOnMap() {
-        (item) => userWaypointCacheItems.forEach( item.destroy())
+        userWaypointCacheItems.forEach((item) => item.destroy())
         userWaypointCacheItems = []
     }
 

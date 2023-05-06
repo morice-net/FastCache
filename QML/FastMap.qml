@@ -94,9 +94,9 @@ Rectangle {
 
     function clearMap() {
         map.clearMapItems()
-        item =>  cacheItems.forEach( item.destroy())
+        cacheItems.forEach((item) => item.destroy())
         cacheItems = []
-        item =>   circleCacheItems.forEach(item.destroy())
+        circleCacheItems.forEach((item) => item.destroy())
         circleCacheItems = []
         currentCacheIndex = 0
 
