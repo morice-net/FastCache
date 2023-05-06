@@ -1,5 +1,5 @@
 import QtQuick
-import Qt.labs.settings
+import QtCore
 
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
