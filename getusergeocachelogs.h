@@ -56,7 +56,7 @@ signals:
     void imagesCountChanged();
 
 private:
-    QJsonDocument m_userlogs;
+    QJsonDocument m_userlogs ;
     QList<QString> m_referenceCodes;
     QList<QString> m_logs ;
     QList<QString> m_loggedDates ;

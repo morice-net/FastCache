@@ -49,6 +49,11 @@ void FullCacheRetriever::updateFullCache(FullCache *fullCache)
     m_fullCache = fullCache;
 }
 
+void FullCacheRetriever::updateGetUserGeocacheLogs(GetUserGeocacheLogs *getUserGeocacheLogs)
+{
+    m_getUserGeocacheLogs = getUserGeocacheLogs;
+}
+
 void FullCacheRetriever::updateReplaceImageInText(ReplaceImageInText *replace)
 {
     m_replaceImageInText = replace;

@@ -69,7 +69,7 @@ Rectangle {
 
         PluginParameter {
             name: "nmea.source"
-            value: "socket://bluetooth:1"
+            value: "socket://Bluetooth:1"
         }
         onSatellitesInViewChanged: page.updateModel()
         onSatellitesInUseChanged: {
@@ -91,7 +91,7 @@ Rectangle {
 
         PluginParameter {
             name: "nmea.source"
-            value: "socket://bluetooth:1"
+            value: "socket://Bluetooth:1"
         }
         onPositionChanged: {
             let posData = position.coordinate.toString().split(", ")

@@ -152,7 +152,7 @@ public:
     void setCorrectedLon(const double &lon);
 
     QString correctedCode() const;
-    void setCorrectedCode(const QString &code);
+    void setCorrectedCode(const QString &code);    
 
 signals:
     void attributesChanged();
@@ -189,7 +189,7 @@ signals:
     void isCorrectedCoordinatesChanged();
     void correctedLatChanged();
     void correctedLonChanged();
-    void correctedCodeChanged();
+    void correctedCodeChanged();   
 
 private:
     QList<int> m_attributes;
@@ -226,6 +226,6 @@ private:
     bool m_isCorrectedCoordinates;
     double m_correctedLat;
     double m_correctedLon;
-    QString m_correctedCode;
+    QString m_correctedCode;    
 };
 #endif // FULLCACHE_H

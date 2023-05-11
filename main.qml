@@ -288,6 +288,7 @@ Item {
         Component.onCompleted: {
             fullCacheRetriever.updateFullCache(fullCache)
             fullCacheRetriever.updateReplaceImageInText(replaceImageInText)
+            fullCacheRetriever.updateGetUserGeocacheLogs(getUserGeocacheLogs)
         }
     }
 
