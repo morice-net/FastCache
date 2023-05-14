@@ -18,16 +18,16 @@ Item {
     signal deleteListClicked()
     signal editListClicked()
 
-    width: main.width*0.7
-    height: box.height*1.5
+    width: main.width * 0.7
+    height: box.height * 1.5
 
     CheckBox {
         id: box
         visible: listBox.checkable
         onClicked: listBoxClicked()
         indicator: Rectangle {
-            implicitWidth: 35
-            implicitHeight: 35
+            implicitWidth: 25
+            implicitHeight: 25
             radius: 3
             border.width: 1
             y: parent.height / 2 - height / 2
@@ -48,7 +48,7 @@ Item {
         id: listBoxText
         text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
         font.family: localFont.name
-        font.pointSize: 18
+        font.pointSize: 17
         verticalAlignment: Text.AlignVCenter
         anchors.left: box.right
         anchors.bottom: parent.bottom
@@ -61,10 +61,11 @@ Item {
         id: editList
         visible: editable
         source: "qrc:/Image/" + "icon_edit.png"
+        scale: 0.4
         anchors.right: deleteList.left
         anchors.bottom: parent.bottom
         anchors.top: parent.top
-        anchors.rightMargin: 20
+        anchors.rightMargin: 10
         fillMode: Image.PreserveAspectFit
         width: height
 
@@ -78,10 +79,11 @@ Item {
         id: deleteList
         visible: editable
         source: "qrc:/Image/" + "icon_delete.png"
+        scale: 0.4
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: parent.top
-        anchors.rightMargin: 20
+        anchors.rightMargin: 5
         fillMode: Image.PreserveAspectFit
         width: height
 

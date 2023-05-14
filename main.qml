@@ -175,7 +175,7 @@ Item {
 
     CachesRecordedLists {
         id: cachesRecordedLists
-        x: main.width/6
+        x: main.width / 6
         y: 10
     }
 

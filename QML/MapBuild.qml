@@ -31,7 +31,8 @@ Map {
 
     PinchHandler {
         id: pinch
-        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
+        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible() &&
+                 !cachesRecordedLists.opened
         target: null
         rotationAxis.enabled: false
         onActiveChanged: if (active) {
@@ -45,7 +46,8 @@ Map {
     }
 
     DragHandler {
-        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible()
+        enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible() &&
+                 !cachesRecordedLists.opened
         target: null
         onTranslationChanged: (delta) => {
                                   map.pan(-delta.x, -delta.y)

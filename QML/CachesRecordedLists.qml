@@ -12,11 +12,11 @@ FastPopup {
     property var listChecked: main.viewState !== "fullcache" ? listCheckedBoolAtFalse() : listCheckedBool(fullCache.geocode)
 
     width: Math.max( displayListColumn.width, manageListButton.width )
-    height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height + 60
+    height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height
     background: Rectangle {
         id: backgroundRectangle
         width: Math.max( displayListColumn.width, manageListButton.width )
-        height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height + 40
+        height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height
         color: Palette.turquoise()
         radius: 10
     }
@@ -31,8 +31,7 @@ FastPopup {
         id: displayListColumn
         clip: true
         width: repeaterColumn.width
-        height: Math.min(repeaterColumn.height, 4 * main.height / 5)
-        contentWidth: -1
+        height: Math.min(repeaterColumn.height,  main.height * 0.7 )
 
         Column {
             id: repeaterColumn

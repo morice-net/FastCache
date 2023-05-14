@@ -14,16 +14,16 @@ FastPopup {
 
     Column {
         id: renameDeleteColumn
+        anchors.horizontalCenter: parent.horizontalCenter
         width:recordedListsManager.width
         spacing: 20
 
         Text {
             id: title
             y: 10
+            anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
-            font.pointSize: 28
-            verticalAlignment: Text.AlignLeft
-            horizontalAlignment: Text.AlignLeft
+            font.pointSize: 25
             color: Palette.white()
             text: "Gérer les listes.."
         }
@@ -31,11 +31,10 @@ FastPopup {
         TextField {
             id: renameList
             visible: false
-            placeholderText: qsTr("Nouvelle liste")
             font.family: localFont.name
-            font.pointSize: 20
+            font.pointSize: 17
             color: Palette.greenSea()
-            width: parent.width * 0.9
+            width: parent.width * 0.6
             anchors.horizontalCenter: parent.horizontalCenter
             background: Rectangle {
                 anchors.fill: parent
@@ -52,7 +51,7 @@ FastPopup {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: false
             text: "Renommer la liste"
-            font.pointSize: 18
+            font.pointSize: 17
             onClicked: {
                 if(renameList.text.length !== 0)
                 {
@@ -69,12 +68,13 @@ FastPopup {
 
         // delete list
         Row {
-            spacing: 25
+            spacing: 20
+            anchors.horizontalCenter: parent.horizontalCenter
 
             FastButton {
                 id:buttonDelete
                 visible: false
-                font.pointSize: 18
+                font.pointSize: 17
                 text: "Etes vous sur ?"
                 onClicked: {
                     listChecked.splice(listIndex , 1 )
@@ -103,7 +103,7 @@ FastPopup {
                 id:buttonNo
                 visible: false
                 text: "Annuler"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     title.text = "Gérer les listes.."
                     displayListColumn.visible = true
@@ -127,14 +127,13 @@ FastPopup {
         Column {
             id: repeaterColumn
             spacing: 10
-            width:recordedListsManager.width*0.9
+            width: recordedListsManager.width * 0.9
 
-            // repeater
             Repeater {
                 model: sqliteStorage.countLists
 
                 ListBox {
-                    x:10
+                    x: 10
                     checkable: false
                     editable: index !== 0
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
@@ -185,7 +184,7 @@ FastPopup {
             FastButton {
                 id : newList
                 text: "Nouvelle liste"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     buttonDel.visible = !buttonDel.visible
                     createNewList.visible = !createNewList.visible
@@ -221,7 +220,7 @@ FastPopup {
                 id:buttonDel
                 visible: false
                 text: "Effacer"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     createNewList.text = "" ;
                 }
@@ -232,7 +231,7 @@ FastPopup {
                 id:buttonCreate
                 visible: false
                 text: "Créer la liste"
-                font.pointSize: 18
+                font.pointSize: 17
                 onClicked: {
                     if (createNewList.length !== 0) {
                         listChecked.push(false)
@@ -245,7 +244,7 @@ FastPopup {
 
         Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
-            width: recordedListsManager.width*0.9
+            width: recordedListsManager.width  *0.9
             height: 2
             color: Palette.white()
             radius:10
@@ -255,7 +254,7 @@ FastPopup {
         FastButton {
             anchors.horizontalCenter: parent.horizontalCenter
             text:"Valider"
-            font.pointSize: 18
+            font.pointSize: 17
             onClicked: {
                 // Close recordedListsManager
                 closeIfMenu()
