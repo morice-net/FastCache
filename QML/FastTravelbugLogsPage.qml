@@ -36,7 +36,7 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width * 0.95
                     height: textLog.height + 10
-                    border.width: 4
+                    border.width: 2
                     border.color: Palette.silver()
                     radius: 8
 
