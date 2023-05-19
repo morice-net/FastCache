@@ -46,7 +46,7 @@ Repeater {
         }
 
         Row {
-            spacing: 10
+            x: 20
 
             Text {
                 id: name
@@ -63,7 +63,7 @@ Repeater {
 
             ComboBox {
                 id: tbCombo
-                y: name.y - height / 4
+                y: name.y - height / 2
                 model: [tbComboText(0) , tbComboText(75), tbComboText(14)]
 
                 MouseArea {

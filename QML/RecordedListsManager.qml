@@ -6,9 +6,9 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: recordedListsManager
-
     property int listIndex: 0
 
+    closeButtonVisible: false
     width: main.width
     height: main.height
 
@@ -25,9 +25,10 @@ FastPopup {
             font.family: localFont.name
             font.pointSize: 25
             color: Palette.white()
-            text: "Gérer les listes.."
+            text: "Gérer les listes"
         }
 
+        // rename list
         TextField {
             id: renameList
             visible: false
@@ -45,12 +46,12 @@ FastPopup {
             }
         }
 
-        // rename list
+
         FastButton {
             id:buttonRename
             anchors.horizontalCenter: parent.horizontalCenter
             visible: false
-            text: "Renommer la liste"
+            text: "Ok"
             font.pointSize: 17
             onClicked: {
                 if(renameList.text.length !== 0)
@@ -121,8 +122,8 @@ FastPopup {
         anchors.top: renameDeleteColumn.bottom
         anchors.margins: 10
         width: repeaterColumn.width
-        height: Math.min(repeaterColumn.height, 4 * main.height / 5)
-        contentWidth: -1
+        height: Math.min(repeaterColumn.height, main.height * 0.7)
+
 
         Column {
             id: repeaterColumn
@@ -184,6 +185,7 @@ FastPopup {
             FastButton {
                 id : newList
                 text: "Nouvelle liste"
+                anchors.horizontalCenter: parent.horizontalCenter
                 font.pointSize: 17
                 onClicked: {
                     buttonDel.visible = !buttonDel.visible
@@ -195,7 +197,6 @@ FastPopup {
             TextField {
                 id: createNewList
                 visible: false
-                placeholderText: qsTr("Nouvelle liste")
                 font.family: localFont.name
                 font.pointSize: 20
                 color: Palette.greenSea()

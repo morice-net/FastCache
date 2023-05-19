@@ -49,7 +49,7 @@ Item {
         id: addText
     }
 
-    ScrollView {
+    Flickable {
         id: scrollView
         anchors.fill: parent
         anchors.topMargin: fastCacheHeaderIcon.height * 1.6
@@ -72,7 +72,8 @@ Item {
                 x: (logPage.width - logDate.width) / 2
                 font.family: localFont.name
                 font.pointSize: 18
-                color: Palette.silver()
+                color: Palette.white()
+                height: 60
 
                 MouseArea {
                     anchors.fill: logDate
@@ -93,21 +94,27 @@ Item {
                 }
             }
 
-            Row {
-                spacing: 20
-                leftPadding: 20
+            Item {
+                anchors.margins: 20
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: childrenRect.height
 
                 Text {
                     id: logTextTitle
                     font.family: localFont.name
                     font.pointSize: 16
                     text: "Texte du Log de la cache"
-                    color: Palette.white()
+                    color: Palette.silver()
                 }
 
                 FastButtonIcon {
                     id: buttonAdd
                     y: logTextTitle.y - buttonAdd.height / 4
+                    height: 40
+                    width: 30
+                    anchors.right: buttonDelete.left
+                    anchors.margins: 10
                     source: "qrc:/Image/" + "icon_edit.png"
                     onClicked:{
                         addText.open();
@@ -117,6 +124,9 @@ Item {
                 FastButtonIcon {
                     id: buttonDelete
                     y: logTextTitle.y - buttonDelete.height / 4
+                    height: 40
+                    width: 30
+                    anchors.right: parent.right
                     source: "qrc:/Image/" + "icon_erase.png"
                     onClicked:{
                         message.text = ""
@@ -141,7 +151,7 @@ Item {
 
             CheckBox {
                 id : favorited
-                x: 5
+                x: 15
                 visible: typeLog === 2  && updateLog === false // found and create log
                 checked: initFavorited()
                 contentItem: Text {
