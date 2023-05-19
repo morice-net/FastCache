@@ -52,14 +52,13 @@ Item {
         id:addText
     }
 
-    ScrollView {
+    Flickable {
         id: scrollView
         anchors.fill: parent
         anchors.topMargin: fastTravelbugHeader.height * 2.7
         anchors.leftMargin: 20
         anchors.rightMargin: 20
         contentHeight: column.height
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true
 
         Column {
@@ -79,7 +78,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 18
                 text: "Date  " + new Date().toLocaleDateString(Qt.LocaleDate)
-                color: Palette.silver()
+                color: Palette.white()
 
                 MouseArea {
                     anchors.fill: logDate
@@ -101,21 +100,27 @@ Item {
             }
 
 
-            Row {
-                spacing: 10
-                anchors.horizontalCenter: parent.horizontalCenter
+            Item {
+                anchors.margins: 10
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: childrenRect.height
 
                 Text {
                     id: logTextTitle
                     font.family: localFont.name
                     font.pointSize: 16
                     text: "Texte du Log du travelbug"
-                    color: Palette.white()
+                    color: Palette.silver()
                 }
 
                 FastButtonIcon {
                     id: buttonAdd
                     y: logTextTitle.y - buttonAdd.height / 4
+                    height: 40
+                    width: 30
+                    anchors.right: buttonDelete.left
+                    anchors.margins: 10
                     source: "qrc:/Image/" + "icon_edit.png"
                     onClicked:{
                         addText.open();
@@ -125,6 +130,9 @@ Item {
                 FastButtonIcon {
                     id: buttonDelete
                     y: logTextTitle.y - buttonDelete.height / 4
+                    height: 40
+                    width: 30
+                    anchors.right: parent.right
                     source: "qrc:/Image/" + "icon_erase.png"
                     onClicked: {
                         message.text = ""
@@ -134,7 +142,7 @@ Item {
 
             TextArea {
                 id: message
-                anchors.horizontalCenter: parent.horizontalCenter
+                x: (logPage.width - message.width) / 2
                 width: logPage.width * 0.9
                 font.family: localFont.name
                 font.pointSize: 14
