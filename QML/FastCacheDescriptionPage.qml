@@ -183,6 +183,8 @@ Item {
             FastButtonIcon {
                 id: buttonDelete
                 anchors.horizontalCenter: parent.horizontalCenter
+                height: 40
+                width: 30
                 source: "qrc:/Image/" + "icon_erase.png"
                 onClicked: personalNote.text = ""
             }

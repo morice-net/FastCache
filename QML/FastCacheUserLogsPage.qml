@@ -137,6 +137,8 @@ Item  {
                             FastButtonIcon {
                                 id: iconUpdate
                                 source: "qrc:/Image/" + "icon_update.png"
+                                height: 40
+                                width: 30
                                 onClicked: {
                                     updateLog = true
                                     updateLogIndex = index
@@ -154,6 +156,8 @@ Item  {
                             FastButtonIcon {
                                 id: iconDeleteLog
                                 source: "qrc:/Image/" + "icon_delete.png"
+                                height: 40
+                                width: 30
                                 onClicked: {
                                     buttonYes.visible = !buttonYes.visible
                                     buttonNo.visible = !buttonNo.visible

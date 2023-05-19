@@ -159,9 +159,11 @@ FastPopup {
             }
         }
 
-        Row {
-            spacing: 20
-            anchors.horizontalCenter: parent.horizontalCenter
+        Item {
+            anchors.margins: 20
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: childrenRect.height
 
             Text {
                 id: descriptionTitle
@@ -175,8 +177,12 @@ FastPopup {
             FastButtonIcon {
                 id: buttonAdd
                 visible: visibleDescription()
-                anchors.bottom: descriptionTitle.bottom
+                y: descriptionTitle.y - buttonAdd.height / 4
                 source: "qrc:/Image/" + "icon_edit.png"
+                anchors.right: buttonDelete.left
+                anchors.margins: 10
+                height: 40
+                width: 30
                 onClicked:{
                     addText.open();
                     textLog = "" ;
@@ -186,8 +192,11 @@ FastPopup {
             FastButtonIcon {
                 id: buttonDelete
                 visible: visibleDescription()
-                anchors.bottom: descriptionTitle.bottom
+                y: descriptionTitle.y - buttonDelete.height / 4
+                anchors.right: parent.right
                 source: "qrc:/Image/" + "icon_erase.png"
+                height: 40
+                width: 30
                 onClicked:{
                     description.text = ""
                 }
@@ -197,7 +206,7 @@ FastPopup {
         TextArea {
             id: description
             anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width*0.9
+            width: parent.width * 0.9
             visible: visibleDescription()
             font.family: localFont.name
             font.pointSize: 14
