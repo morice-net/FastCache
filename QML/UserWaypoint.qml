@@ -102,7 +102,7 @@ FastPopup {
         }
 
         GroupBox {
-            width: userWaypoint.width*0.6
+            width: userWaypoint.width * 0.6
             anchors.horizontalCenter: parent.horizontalCenter
 
             Column {
@@ -129,7 +129,7 @@ FastPopup {
         CheckBox {
             id: corrected
             anchors.horizontalCenter: parent.horizontalCenter
-            visible: (fastCache.userWptAdd === true && fullCache.isCorrectedCoordinates === false)
+            visible: (fastCache.userWptAdd === true && !fullCache.isCorrectedCoordinates)
             text: qsTr("Utiliser comme coordonnées de la cache")
             font.pointSize: 15
             checked: false
@@ -274,15 +274,15 @@ FastPopup {
     }
 
     function correctCoordinates() {
-        if (corrected.visible === false)
+        if (!corrected.visible)
             return false
         return corrected.checked
     }
 
     function visibleDescription() {
-        if (corrected.visible === false && fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true )
+        if (!corrected.visible && fastCache.userWptAdd === false && fastCache.userCorrectedCoordinates === true )
             return false
-        if(corrected.visible === false){
+        if(!corrected.visible){
             return true
         } else {
             return !corrected.checked
