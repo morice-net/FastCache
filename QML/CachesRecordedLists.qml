@@ -14,11 +14,10 @@ FastPopup {
     property int listIndex: 0
 
     width: displayListColumn.width
-    height: radioButtons.height + displayListColumn.height + saveMapBox.height + recordCachesButton.height + refreshCachesButton.height + newListColumn.height
+    height: Math.min(radioButtons.height + displayListColumn.height + saveMapBox.height + recordCachesButton.height + refreshCachesButton.height +
+                     newListColumn.height , main.height * 0.8)
     background: Rectangle {
         id: backgroundRectangle
-        width: displayListColumn.width
-        height: radioButtons.height + displayListColumn.height + saveMapBox.height + recordCachesButton.height + refreshCachesButton.height + newListColumn.height
         color: Palette.turquoise()
         radius: 10
     }
@@ -35,7 +34,7 @@ FastPopup {
             onClicked: {
                 recordingMode = true
                 title.text = "Enregistrement"
-                displayListColumn.visible = true
+                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = false
@@ -71,11 +70,10 @@ FastPopup {
             onClicked:{
                 recordingMode = false
                 title.text = "Nouvelle liste"
-                displayListColumn.visible = true
+                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
-
             }
             contentItem: Text {
                 text: button2.text
@@ -111,11 +109,13 @@ FastPopup {
     }
 
     // display lists
-    ScrollView {
+    Flickable {
         id: displayListColumn
+        flickableDirection: Flickable.VerticalFlick
         clip: true
         width: repeaterColumn.width
-        height: Math.min(repeaterColumn.height,  main.height * 0.7 )
+        height: Math.min(repeaterColumn.height,  main.height * 0.4)
+        contentHeight: repeaterColumn.height
         anchors.top: radioButtons.bottom
 
         Column {
@@ -135,14 +135,14 @@ FastPopup {
                     onDeleteListClicked: {
                         title.text = "Supprimer la liste"
                         newListColumn.visible = false
-                        displayListColumn.visible = false
+                        displayListColumn.enabled = false
                         deleteList.visible = true
                         listIndex = index
                     }
                     onEditListClicked: {
                         title.text = "Renommer la liste"
                         newListColumn.visible = false
-                        displayListColumn.visible = false
+                        displayListColumn.enabled = false
                         renameList.visible = true
                         listIndex = index
                     }
@@ -185,6 +185,7 @@ FastPopup {
     //  save map
     CheckBox {
         id: saveMapBox
+        visible: recordingMode ? true : false
         checkable: settings.namePlugin !== settings.listPlugins[2]? true : false  //mapBox or no
         anchors.top: displayListColumn.bottom
         indicator: Rectangle {
@@ -205,6 +206,7 @@ FastPopup {
 
     Text {
         id: saveMapText
+        visible: recordingMode ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: saveMapBox.bottom
         text: "Enregistrer la carte"
@@ -269,7 +271,7 @@ FastPopup {
                     sqliteStorage.numberCachesInLists("cacheslists")
                 }
                 title.text = "Nouvelle liste"
-                displayListColumn.visible = true
+                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
@@ -307,7 +309,7 @@ FastPopup {
                     }
                 }
                 title.text = "Nouvelle liste"
-                displayListColumn.visible = true
+                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
@@ -320,7 +322,7 @@ FastPopup {
             font.pointSize: 15
             onClicked: {
                 title.text = "Nouvelle liste"
-                displayListColumn.visible = true
+                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
