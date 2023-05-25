@@ -85,7 +85,6 @@
         <file>QML/ListBox.qml</file>
         <file>Image/icon_delete.png</file>
         <file>Image/icon_edit.png</file>
-        <file>QML/RecordedListsManager.qml</file>
         <file>QML/TabViewRecordedCaches.qml</file>
         <file>Image/fastCache_icon.png</file>
         <file>Image/not_logged.png</file>

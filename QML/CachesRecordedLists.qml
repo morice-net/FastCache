@@ -10,28 +10,113 @@ FastPopup {
     closeButtonVisible: false
 
     property var listChecked: main.viewState !== "fullcache" ? listCheckedBoolAtFalse() : listCheckedBool(fullCache.geocode)
+    property bool recordingMode: true //two modes: recording mode or edit mode
+    property int listIndex: 0
 
-    width: Math.max( displayListColumn.width, manageListButton.width )
-    height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height
+    width: displayListColumn.width
+    height: radioButtons.height + displayListColumn.height + saveMapBox.height + recordCachesButton.height + refreshCachesButton.height + newListColumn.height
     background: Rectangle {
         id: backgroundRectangle
-        width: Math.max( displayListColumn.width, manageListButton.width )
-        height: displayListColumn.height + manageListButton.height + recordCachesButton.height + refreshCachesButton.height
+        width: displayListColumn.width
+        height: radioButtons.height + displayListColumn.height + saveMapBox.height + recordCachesButton.height + refreshCachesButton.height + newListColumn.height
         color: Palette.turquoise()
         radius: 10
     }
 
-    RecordedListsManager {
-        id: recordedListsManager
-        x: -200
-        y: -50
+    // radio buttons
+    Column {
+        id: radioButtons
+
+        RadioButton {
+            id:button1
+            visible: true
+            text: "Enregistrement de caches"
+            checked: true
+            onClicked: {
+                recordingMode = true
+                title.text = "Enregistrement"
+                displayListColumn.visible = true
+                renameList.visible = false
+                deleteList.visible = false
+                newListColumn.visible = false
+            }
+            contentItem: Text {
+                text: button1.text
+                font.family: localFont.name
+                font.pointSize: 16
+                color: button1.checked ? Palette.white() : Palette.silver()
+                leftPadding: button1.indicator.width + button1.spacing
+                verticalAlignment: Text.AlignVCenter
+            }
+            indicator: Rectangle {
+                y: parent.height / 2 - height / 2
+                implicitWidth: 18
+                implicitHeight: 18
+                radius: 10
+                border.width: 1
+                Rectangle {
+                    anchors.fill: parent
+                    visible: button1.checked
+                    color: Palette.greenSea()
+                    radius: 10
+                    anchors.margins: 4
+                }
+            }
+        }
+
+        RadioButton {
+            id:button2
+            visible: true
+            text: "Edition de listes"
+            onClicked:{
+                recordingMode = false
+                title.text = "Nouvelle liste"
+                displayListColumn.visible = true
+                renameList.visible = false
+                deleteList.visible = false
+                newListColumn.visible = true
+
+            }
+            contentItem: Text {
+                text: button2.text
+                font.family: localFont.name
+                font.pointSize: 16
+                color: button2.checked ? Palette.white() : Palette.silver()
+                leftPadding: button2.indicator.width + button2.spacing
+                verticalAlignment: Text.AlignVCenter
+            }
+            indicator: Rectangle {
+                y: parent.height / 2 - height / 2
+                implicitWidth: 18
+                implicitHeight: 18
+                radius: 10
+                border.width: 1
+                Rectangle {
+                    anchors.fill: parent
+                    visible: button2.checked
+                    color: Palette.greenSea()
+                    radius: 10
+                    anchors.margins: 4
+                }
+            }
+        }
+
+        Text {
+            x: (cachesRecordedLists.width - width) / 2
+            font.family: localFont.name
+            font.pointSize: 18
+            color: Palette.white()
+            text: recordingMode ? "Enregistrer les caches" : "Edition de listes"
+        }
     }
 
+    // display lists
     ScrollView {
         id: displayListColumn
         clip: true
         width: repeaterColumn.width
         height: Math.min(repeaterColumn.height,  main.height * 0.7 )
+        anchors.top: radioButtons.bottom
 
         Column {
             id: repeaterColumn
@@ -39,14 +124,28 @@ FastPopup {
             width: Math.max(childrenRect.width, main.width * 2 / 3)
             height: childrenRect.height
 
-            // repeater
             Repeater {
                 model: sqliteStorage.countLists
 
                 ListBox {
-                    checkable: main.state !== "recorded" || viewState === "fullcache"  ? true : main.tabBarRecordedCachesIndex === index
+                    checkable: isCheckable(index)
                     checked: listChecked[index]
+                    editable: recordingMode ? false : index !== 0
                     text: sqliteStorage.readAllStringsFromTable("lists")[index] + " [ " + sqliteStorage.countCachesInLists[index] + " ]"
+                    onDeleteListClicked: {
+                        title.text = "Supprimer la liste"
+                        newListColumn.visible = false
+                        displayListColumn.visible = false
+                        deleteList.visible = true
+                        listIndex = index
+                    }
+                    onEditListClicked: {
+                        title.text = "Renommer la liste"
+                        newListColumn.visible = false
+                        displayListColumn.visible = false
+                        renameList.visible = true
+                        listIndex = index
+                    }
                     onListBoxClicked: {
                         listChecked[index] = !listChecked[index]
                         listChecked = listChecked  // Indicates that list "listChecked" is changing
@@ -68,35 +167,237 @@ FastPopup {
                             }
                         }
                     }
+
+                    function isCheckable(index) {
+                        if(!recordingMode)
+                            return false
+                        if(main.state !== "recorded" || viewState === "fullcache") {
+                            return true
+                        } else {
+                            return main.tabBarRecordedCachesIndex === index
+                        }
+                    }
                 }
             }
         }
     }
 
-    FastButton {
-        id: manageListButton
-        text: "Gérer les listes..."
-        font.pointSize: 17
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.margins: 10
-        onClicked: recordedListsManager .open()
+    //  save map
+    CheckBox {
+        id: saveMapBox
+        checkable: settings.namePlugin !== settings.listPlugins[2]? true : false  //mapBox or no
+        anchors.top: displayListColumn.bottom
+        indicator: Rectangle {
+            implicitWidth: 25
+            implicitHeight: 25
+            radius: 8
+            border.width: 1
+            y: parent.height / 2 - height / 2
+            Rectangle {
+                anchors.fill: parent
+                visible: saveMapBox.checked
+                color: Palette.turquoise()
+                radius: 3
+                anchors.margins: 4
+            }
+        }
     }
 
+    Text {
+        id: saveMapText
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: saveMapBox.bottom
+        text: "Enregistrer la carte"
+        font.family: localFont.name
+        font.pointSize: 18
+        color: saveMapBox.checked ? Palette.white() : Palette.silver()
+    }
+
+    //line
+    Rectangle {
+        id: line
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: cachesRecordedLists.width
+        anchors.top: saveMapBox.bottom
+        height: 2
+        color: Palette.white()
+    }
+
+    // title
+    Text {
+        id: title
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: line.bottom
+        font.family: localFont.name
+        font.pointSize: 20
+        color: Palette.white()
+        text: "Enregistrement"
+    }
+
+    // rename list
+    Column {
+        id: renameList
+        visible: false
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: title.bottom
+
+        TextField {
+            id: rename
+            font.family: localFont.name
+            font.pointSize: 15
+            color: Palette.greenSea()
+            width: cachesRecordedLists.width * 0.6
+            anchors.horizontalCenter: parent.horizontalCenter
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                border.color: Palette.turquoise()
+                border.width: 1
+                radius: 5
+            }
+        }
+
+        FastButton {
+            id:buttonRename
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Ok"
+            font.pointSize: 15
+            onClicked: {
+                if(rename.text.length !== 0)
+                {
+                    sqliteStorage.updateLists("lists", sqliteStorage.listsIds[listIndex], rename.text)
+                    sqliteStorage.numberCachesInLists("cacheslists")
+                }
+                title.text = "Nouvelle liste"
+                displayListColumn.visible = true
+                renameList.visible = false
+                deleteList.visible = false
+                newListColumn.visible = true
+
+            }
+        }
+    }
+
+    // delete list
+    Row {
+        id: deleteList
+        visible: false
+        spacing: 20
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: title.bottom
+        anchors.topMargin: 10
+
+        FastButton {
+            id: buttonDelete
+            font.pointSize: 15
+            text: "Etes vous sur ?"
+            onClicked: {
+                listChecked.splice(listIndex , 1 )
+                sqliteStorage.deleteCachesInList("cacheslists", sqliteStorage.listsIds[listIndex])
+                sqliteStorage.deleteList("lists", sqliteStorage.listsIds[listIndex])
+                sqliteStorage.numberCachesInLists("cacheslists")
+                sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache")
+                if(main.viewState === "fullcache")
+                {
+                    if(listChecked.indexOf(true) === -1)
+                    {
+                        fullCache.registered = false
+                    } else {
+                        fullCache.registered = true
+                    }
+                }
+                title.text = "Nouvelle liste"
+                displayListColumn.visible = true
+                renameList.visible = false
+                deleteList.visible = false
+                newListColumn.visible = true
+            }
+        }
+
+        FastButton {
+            id:buttonNo
+            text: "Annuler"
+            font.pointSize: 15
+            onClicked: {
+                title.text = "Nouvelle liste"
+                displayListColumn.visible = true
+                renameList.visible = false
+                deleteList.visible = false
+                newListColumn.visible = true
+            }
+        }
+    }
+
+    // add list
+    Column {
+        id: newListColumn
+        visible: false
+        anchors.top: title.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 5
+
+        TextField {
+            id: createNewList
+            width: cachesRecordedLists.width * 0.6
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 20
+            color: Palette.greenSea()
+            background: Rectangle {
+                anchors.fill: parent
+                opacity: 0.9
+                border.color: Palette.turquoise()
+                border.width: 1
+                radius: 5
+            }
+        }
+
+        Row {
+            spacing: 10
+            height: childrenRect.height
+            width: childrenRect.width
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            FastButton {
+                id:buttonDel
+                text: "Effacer"
+                font.pointSize: 15
+                onClicked: {
+                    createNewList.text = "" ;
+                }
+            }
+
+            // create list
+            FastButton {
+                id:buttonCreate
+                text: "Créer la liste"
+                font.pointSize: 15
+                onClicked: {
+                    if (createNewList.length !== 0) {
+                        listChecked.push(false)
+                        sqliteStorage.updateLists("lists" , -1 , createNewList.text )
+                        sqliteStorage.numberCachesInLists("cacheslists")
+                    }
+                }
+            }
+        }
+    }
+
+    // record caches and map
     FastButton {
         id: recordCachesButton
-        text: recordButton()
-        visible: main.state !== "recorded" && (viewState !== "fullcache" ) ? true : false
-        font.pointSize: 17
-        anchors.bottom: manageListButton.top
+        text: "Ok"
+        visible: main.state !== "recorded" && (viewState !== "fullcache" ) && recordingMode  ? true : false
+        font.pointSize: 15
+        anchors.top: title.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.margins: 10
         onClicked: {
             console.log("list checked:   " + listChecked)
             var list = []
             if(viewState === "map"){
-                // download tiles
-                Functions.downloadTiles()
+                if(saveMapBox.checked)
+                    Functions.downloadTiles()  // download tiles
                 list = fastMap.listGeocodesOnMap()
                 console.log("list of geocodes(map):   " + list)
             } else if (viewState === "list"){
@@ -109,61 +410,65 @@ FastPopup {
         }
     }
 
-    FastButton {
-        id: deleteCachesButton
-        text: "Supprimer les caches"
-        visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
-        font.pointSize: 17
-        anchors.bottom: manageListButton.top
+    // delete or refresh caches
+    Column{
+        id: deleteRefresh
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.margins: 10
-        onClicked: {
-            var list = []
-            if(viewState === "map"){
-                list = fastMap.listGeocodesOnMap()
-                console.log("list of geocodes(map):   " + list)
-            } else if (viewState === "list"){
-                list = fastList.listGeocodesOnList()
-                console.log("list of geocodes(list):   " + list)
-            }
-            if(list.length > 0 && listChecked.indexOf(true) !== -1){
-                for (var i = 0; i < list.length; i++){
-                    sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[i] )
+        visible: main.state === "recorded" && viewState !== "fullcache" && recordingMode  ? true : false
+        anchors.top: title.bottom
+        spacing: 10
+        // delete caches
+        FastButton {
+            id: deleteCachesButton
+            text: "Supprimer les caches"
+            font.pointSize: 15
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                var list = []
+                if(viewState === "map"){
+                    list = fastMap.listGeocodesOnMap()
+                    console.log("list of geocodes(map):   " + list)
+                } else if (viewState === "list"){
+                    list = fastList.listGeocodesOnList()
+                    console.log("list of geocodes(list):   " + list)
                 }
-                sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
-                cachesRecorded.updateMapCachesRecorded()
-                sqliteStorage.numberCachesInLists("cacheslists")
-                fastList.selectedInList = fastList.createAllSelectedInList(false)
-                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+                if(list.length > 0 && listChecked.indexOf(true) !== -1){
+                    for (var i = 0; i < list.length; i++){
+                        sqliteStorage.deleteCacheInList("cacheslists", sqliteStorage.listsIds[main.tabBarRecordedCachesIndex] , list[i] )
+                    }
+                    sqliteStorage.updateFullCachesTable("cacheslists" ,"fullcache");
+                    cachesRecorded.updateMapCachesRecorded()
+                    sqliteStorage.numberCachesInLists("cacheslists")
+                    fastList.selectedInList = fastList.createAllSelectedInList(false)
+                    cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+                }
+                cachesRecordedLists.close()
             }
-            cachesRecordedLists.close()
         }
-    }
 
-    FastButton {
-        id: refreshCachesButton
-        text: "Rafraichir les caches"
-        visible: main.state !== "recorded" || viewState === "fullcache" ? false : true
-        font.pointSize: 17
-        anchors.bottom: recordCachesButton.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.margins: 10
-        onClicked: {
-            var list = []
-            if(viewState === "map"){
-                list = fastMap.listGeocodesOnMap()
-                console.log("list of geocodes(map):   " + list)
-            } else if (viewState === "list"){
-                list = fastList.listGeocodesOnList()
-                console.log("list of geocodes(list):   " + list)
+        // refresh caches
+        FastButton {
+            id: refreshCachesButton
+            text: "Rafraichir les caches"
+            font.pointSize: 15
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                var list = []
+                if(viewState === "map"){
+                    list = fastMap.listGeocodesOnMap()
+                    console.log("list of geocodes(map):   " + list)
+                } else if (viewState === "list"){
+                    list = fastList.listGeocodesOnList()
+                    console.log("list of geocodes(list):   " + list)
+                }
+                if(list.length > 0 && listChecked.indexOf(true) !== -1){
+                    fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
+                    cachesRecorded.updateMapCachesRecorded()
+                    fastList.selectedInList = fastList.createAllSelectedInList(false)
+                    cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+                }
+                cachesRecordedLists.close()
             }
-            if(list.length > 0 && listChecked.indexOf(true) !== -1){
-                fullCachesRecorded.sendRequest(connector.tokenKey , list , listChecked , sqliteStorage)
-                cachesRecorded.updateMapCachesRecorded()
-                fastList.selectedInList = fastList.createAllSelectedInList(false)
-                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
-            }
-            cachesRecordedLists.close()
         }
     }
 
@@ -183,17 +488,5 @@ FastPopup {
             list.push(false)
         }
         return list
-    }
-
-    function recordButton() {
-        if(viewState === "list" )
-            return "Enregistrer les caches"
-        if(viewState === "map" && listChecked.indexOf(true) === -1)
-            return "Enregistrer la carte"
-        if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin === settings.listPlugins[2]) // mapbox
-            return "Enregistrer les caches"
-        if(viewState === "map" && listChecked.indexOf(true) !== -1 && settings.namePlugin !== settings.listPlugins[2])
-            return "Enregistrer caches et carte"
-        return ""
     }
 }
