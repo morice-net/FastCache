@@ -34,7 +34,6 @@ FastPopup {
             onClicked: {
                 recordingMode = true
                 title.text = "Enregistrement"
-                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = false
@@ -70,7 +69,6 @@ FastPopup {
             onClicked:{
                 recordingMode = false
                 title.text = "Nouvelle liste"
-                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
@@ -121,7 +119,7 @@ FastPopup {
         Column {
             id: repeaterColumn
             spacing: 10
-            width: Math.max(childrenRect.width, main.width * 2 / 3)
+            width: main.width * 0.9
             height: childrenRect.height
 
             Repeater {
@@ -135,15 +133,15 @@ FastPopup {
                     onDeleteListClicked: {
                         title.text = "Supprimer la liste"
                         newListColumn.visible = false
-                        displayListColumn.enabled = false
+                        renameList.visible = false
                         deleteList.visible = true
                         listIndex = index
                     }
                     onEditListClicked: {
                         title.text = "Renommer la liste"
                         newListColumn.visible = false
-                        displayListColumn.enabled = false
                         renameList.visible = true
+                        deleteList.visible = false
                         listIndex = index
                     }
                     onListBoxClicked: {
@@ -209,6 +207,8 @@ FastPopup {
         visible: recordingMode ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: saveMapBox.bottom
+        anchors.top: saveMapBox.top
+        verticalAlignment: Text.AlignVCenter
         text: "Enregistrer la carte"
         font.family: localFont.name
         font.pointSize: 18
@@ -271,7 +271,6 @@ FastPopup {
                     sqliteStorage.numberCachesInLists("cacheslists")
                 }
                 title.text = "Nouvelle liste"
-                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
@@ -309,7 +308,6 @@ FastPopup {
                     }
                 }
                 title.text = "Nouvelle liste"
-                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true
@@ -322,7 +320,6 @@ FastPopup {
             font.pointSize: 15
             onClicked: {
                 title.text = "Nouvelle liste"
-                displayListColumn.enabled = true
                 renameList.visible = false
                 deleteList.visible = false
                 newListColumn.visible = true

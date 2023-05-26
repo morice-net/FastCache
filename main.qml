@@ -175,7 +175,7 @@ Item {
 
     CachesRecordedLists {
         id: cachesRecordedLists
-        x: main.width / 6
+        x: (main.width - width) / 2
         y: 10
     }
 
@@ -706,6 +706,8 @@ Item {
                                 webEngine.visible = false
                             } else if (coordinatesBox.opened) {
                                 coordinatesBox.close()
+                            } else if (cachesRecordedLists.opened) {
+                                cachesRecordedLists.close()
                             } else if (geocode.opened) {
                                 geocode.close()
                             } else if (fastMenu.isMenuVisible()) {
