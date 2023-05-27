@@ -27,13 +27,14 @@ Item {
             id: attIcons
             width:  parent.width
             visible: true
-            columns: 6
+            columns: 10
 
             Repeater {
                 model: fullCache.attributes.length
 
                 Rectangle {
-                    width: parent.width/12
+                    id: rectAttribute
+                    width: parent.width / 12
                     height: width
                     Layout.alignment: Qt.AlignHCenter
                     Layout.topMargin: 10
