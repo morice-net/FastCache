@@ -29,7 +29,7 @@ FastPopup {
         RadioButton {
             id:button1
             visible: true
-            text: "Enregistrement de caches"
+            text: radioButtontext()
             checked: true
             onClicked: {
                 recordingMode = true
@@ -65,7 +65,7 @@ FastPopup {
         RadioButton {
             id:button2
             visible: true
-            text: "Edition de listes"
+            text: "Editer les listes"
             onClicked:{
                 recordingMode = false
                 title.text = "Nouvelle liste"
@@ -102,7 +102,7 @@ FastPopup {
             font.family: localFont.name
             font.pointSize: 18
             color: Palette.white()
-            text: recordingMode ? "Enregistrer les caches" : "Edition de listes"
+            text: sqliteStorage.countLists === 1 ? "Liste" : "Listes"
         }
     }
 
@@ -183,7 +183,7 @@ FastPopup {
     //  save map
     CheckBox {
         id: saveMapBox
-        visible: recordingMode ? true : false
+        visible: recordingMode && main.viewState !== "fullcache" && main.state !== "recorded"  ? true : false
         checkable: settings.namePlugin !== settings.listPlugins[2]? true : false  //mapBox or no
         anchors.top: displayListColumn.bottom
         indicator: Rectangle {
@@ -204,7 +204,7 @@ FastPopup {
 
     Text {
         id: saveMapText
-        visible: recordingMode ? true : false
+        visible: recordingMode && main.viewState !== "fullcache" && main.state !== "recorded"  ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: saveMapBox.bottom
         anchors.top: saveMapBox.top
@@ -228,6 +228,7 @@ FastPopup {
     // title
     Text {
         id: title
+        visible: !recordingMode || (main.viewState !== "fullcache" && main.state !== "recorded") ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: line.bottom
         font.family: localFont.name
@@ -469,6 +470,18 @@ FastPopup {
                 cachesRecordedLists.close()
             }
         }
+    }
+
+    function radioButtontext() {
+        if(main.viewState === "fullcache")
+            if(fullCache.registered) {
+                return "Supprimer la cache  " + fullCache.geocode
+            } else {
+                return "enregistrer la cache  " + fullCache.geocode
+            }
+        if(main.state === "recorded" && viewState !== "fullcache")
+            return "Caches enregistrées"
+        return "Enregistrer les caches"
     }
 
     function closeIfMenu() {

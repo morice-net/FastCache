@@ -172,8 +172,8 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                cachesRecordedLists.x = main.width - cachesRecordedLists.width - storageHeartButton.width
-                cachesRecordedLists.y = storageHeartButton.height
+                cachesRecordedLists.x = (main.width - cachesRecordedLists.width) /2
+                cachesRecordedLists.y = storageHeartButton.height + 10
                 cachesRecordedLists.open()
             }
         }
