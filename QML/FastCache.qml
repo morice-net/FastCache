@@ -169,10 +169,12 @@ Rectangle {
         FastCacheUserLogsPage { id: userLogsPage }
     }
 
-    ScrollView {
+    Flickable {
         anchors.top: fastCacheHeader.bottom
         width: main.width
+        contentWidth: width * 2
         height: fastCacheHeader.height + 2
+        flickableDirection: Flickable.HorizontalFlick
 
         PageIndicator {
             id: indicatorFastCache
