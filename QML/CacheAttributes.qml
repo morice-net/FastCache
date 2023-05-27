@@ -33,7 +33,6 @@ Item {
                 model: fullCache.attributes.length
 
                 Rectangle {
-                    id: rectAttribute
                     width: parent.width / 12
                     height: width
                     Layout.alignment: Qt.AlignHCenter
