@@ -257,7 +257,7 @@ Item {
         onFoundChanged: {
             Functions.foundDynamic(cachesSingleList.caches)
             fastCache.updateLog = false
-            if(state !== "recorded" || registered === false)  {
+            if(state !== "recorded" || !registered)  {
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)
             } else {
                 getUserGeocacheLogs.parseJson(sqliteStorage.readColumnUserlogs("fullcache" , fullCache.geocode ))
@@ -397,13 +397,13 @@ Item {
             }
         }
         onParsingCompletedChanged: {
-            if(sendEditUserLog.logTypeResponse !== 2 && sendEditUserLog.parsingCompleted === true) {
+            if(sendEditUserLog.logTypeResponse !== 2 && sendEditUserLog.parsingCompleted) {
                 if(fullCache.found) {
                     fullCache.found = false
                     // update manually because groundspeak does not give the number of caches fast enough
                     findCount = findCount - 1
                 }
-            } else if(sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true){
+            } else if(sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted){
                 if(!fullCache.found) {
                     fullCache.found = true
                     // update manually because groundspeak does not give the number of caches fast enough
@@ -411,7 +411,7 @@ Item {
                 }
             }
             // if it is a registered cache and logType=2(found), mark found on list and map.
-            if(fullCache.registered && sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted === true) {
+            if(fullCache.registered && sendEditUserLog.logTypeResponse === 2 && sendEditUserLog.parsingCompleted) {
                 var fav = sendEditUserLog.favorited
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
                                                                   sqliteStorage.readColumnJson("fullcache", fullCache.geocode), new Date().toISOString(), fav))
@@ -466,13 +466,13 @@ Item {
             }
         }
         onParsingCompletedChanged: {
-            if(sendCacheLog.logTypeResponse !== 2 && sendCacheLog.parsingCompleted === true) {
+            if(sendCacheLog.logTypeResponse !== 2 && sendCacheLog.parsingCompleted) {
                 fullCache.found = false
-            } else if(sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true){
+            } else if(sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted){
                 fullCache.found = true
             }
             // if it is a registered cache and logType=2(found), mark found on list and map.
-            if(fullCache.registered && sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted === true) {
+            if(fullCache.registered && sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted) {
                 var fav = sendCacheLog.favorited
                 sqliteStorage.updateFullCacheColumnsFoundJson("fullcache", fullCache.geocode, true, fullCachesRecorded.markFoundInJson(
                                                                   sqliteStorage.readColumnJson("fullcache", fullCache.geocode), new Date().toISOString(), fav))
