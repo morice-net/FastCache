@@ -706,6 +706,8 @@ Item {
                                 webEngine.visible = false
                             } else if (coordinatesBox.opened) {
                                 coordinatesBox.close()
+                            } else if (userWaypoint.opened) {
+                                userWaypoint.close()
                             } else if (cachesRecordedLists.opened) {
                                 cachesRecordedLists.close()
                             } else if (geocode.opened) {
