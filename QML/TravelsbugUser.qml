@@ -140,7 +140,7 @@ Repeater {
                                                                  listTbSend[tbList.repeaterIndex].split(',')[2].length +
                                                                  listTbSend[tbList.repeaterIndex].split(',')[3].length + 4) : ""
             onFocusChanged: {
-                if(messageTbLog.focus === false) {
+                if(!messageTbLog.focus) {
                     tbList.repeaterIndex = index
                     listTbSend[tbList.repeaterIndex] = getTravelbugUser.tbsCode[tbList.repeaterIndex] + "," +
                             getTravelbugUser.trackingNumbers[tbList.repeaterIndex] + "," + tbLogType(tbCombo.currentIndex) + "," +
