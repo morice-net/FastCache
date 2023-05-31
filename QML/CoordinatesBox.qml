@@ -55,9 +55,9 @@ FastPopup {
             box1.visible = false
             box2.visible = false
             box3.visible = false
-            if (currentIndex == 1) {
+            if (currentIndex === 1) {
                 box2.visible = true
-            } else if (currentIndex == 2) {
+            } else if (currentIndex === 2) {
                 box3.visible = true
             } else {
                 box1.visible = true
@@ -100,7 +100,7 @@ FastPopup {
             text: "Ok"
             font.pointSize: 17
             onClicked: {
-                if (gpsFormatCombo.currentIndex == 0)
+                if (gpsFormatCombo.currentIndex === 0)
                     if(box1.box1Lat() !== "" && box1.box1Lon()  !== "") {
                         resultLat =  box1.box1Lat()
                         resultLon =  box1.box1Lon()
@@ -110,7 +110,7 @@ FastPopup {
                         coordinatesBox.close()
                     }
 
-                if (gpsFormatCombo.currentIndex == 1)
+                if (gpsFormatCombo.currentIndex === 1)
                     if(box2.box2Lat() !== "" && box2.box2Lon()  !== "") {
                         resultLat =  box2.box2Lat()
                         resultLon =  box2.box2Lon()
