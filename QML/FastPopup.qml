@@ -8,8 +8,6 @@ Popup {
     width: main.width
     height: main.height
 
-    property alias backgroundWidth: popupItem.width
-    property alias backgroundHeight: popupItem.height
     property alias backgroundColor: backgroundRectangle.color
     property alias backgroundRadius: backgroundRectangle.radius
     property alias backgroundBorder: backgroundRectangle.border

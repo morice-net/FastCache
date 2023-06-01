@@ -5,9 +5,9 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: addText
-    backgroundWidth: main.width/2
+    width: main.width/2
+    height: item.height + 20
     backgroundRadius: 10
-    backgroundHeight: item.height + 20
     backgroundColor: Palette.silver()
     x: 30
     y: 30

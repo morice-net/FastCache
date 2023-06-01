@@ -14,8 +14,8 @@ FastPopup {
 
     property bool geocodeResponseOpened: geocodeResponse.opened
 
-    backgroundWidth: main.width * 0.9
-    backgroundHeight: main.height * 0.7
+    width: main.width * 0.9
+    height: main.height * 0.7
     anchors.centerIn: parent
     backgroundRadius: 10
     backgroundOpacity: 0.9
@@ -178,8 +178,8 @@ FastPopup {
 
     FastPopup {
         id: geocodeResponse
-        backgroundWidth: main.width * 0.9
-        backgroundHeight: geocodelist.height + 30
+        width: main.width * 0.9
+        height: geocodelist.height + 30
         x: (parent.width - geocodeResponse.width) / 2
         y: -geocode.y + 20
         closeButtonVisible: false

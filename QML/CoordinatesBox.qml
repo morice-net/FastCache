@@ -6,8 +6,8 @@ import "JavaScript/Palette.js" as Palette
 FastPopup {
     id: coordinatesBox
     y:20
-    backgroundWidth: parent.width
-    backgroundHeight: parent.height * 0.8
+    width: parent.width
+    height: parent.height * 0.8
     backgroundRadius: 10
     backgroundOpacity: 0.9
 

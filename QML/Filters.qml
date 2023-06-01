@@ -58,8 +58,8 @@ Item {
 
         FastPopup {
             id: popupSize
-            backgroundWidth: main.width * 0.6
-            backgroundHeight: main.height * 0.7
+            width: main.width * 0.6
+            height: main.height * 0.7
             backgroundRadius: 8
             backgroundOpacity: 0.9
             backgroundBorder {
@@ -413,8 +413,8 @@ Item {
         // key word popup
         FastPopup {
             id: keyWordPopup
-            backgroundHeight: main.height * 0.6
-            backgroundWidth: main.width * 0.8
+            height: main.height * 0.6
+            width: main.width * 0.8
             backgroundOpacity: 0.9
             backgroundRadius: 8
 
