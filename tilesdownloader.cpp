@@ -33,7 +33,7 @@ void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double 
     {
         for(int y = yStart; y < yEnd + 1 ; ++y)
         {
-            url = "https://maps.wikimedia.org/osm-intl/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
+            url = "https://a.tile.openstreetmap.de/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
             path = dirOsm.absolutePath() + "/osm_100-l-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
@@ -63,7 +63,7 @@ void TilesDownloader::downloadTilesGooglemaps(double latTop, double latBottom, d
                 //road map
                 url = "https://mt.google.com/vt/lyrs=m&hl=fr-FR&x=" + QString::number(x) + "&y=" + QString::number(y) + "&z=" + QString::number(zoom);
                 path = dirGooglemaps.absolutePath() + "/googlemaps_100-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  +
-                        QString::number(y) + ".png";
+                       QString::number(y) + ".png";
                 qDebug()<< url;
                 qDebug()<< path;
                 downloadFile(url, m_dirGooglemaps + "false", path);
@@ -71,7 +71,7 @@ void TilesDownloader::downloadTilesGooglemaps(double latTop, double latBottom, d
                 //sat
                 url = "https://mt.google.com/vt/lyrs=y&hl=fr-FR&x=" + QString::number(x) + "&y=" + QString::number(y) + "&z=" + QString::number(zoom);
                 path = dirGooglemaps.absolutePath() + "/googlemaps_100-4-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  +
-                        QString::number(y) + ".png";
+                       QString::number(y) + ".png";
                 qDebug()<< url;
                 qDebug()<< path;
                 downloadFile(url, m_dirGooglemaps + "true", path);

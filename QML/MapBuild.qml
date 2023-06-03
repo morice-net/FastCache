@@ -362,7 +362,7 @@ Map {
     function supportedMap() {
         //osm
         if(settings.namePlugin === settings.listPlugins[0])
-            return 0
+            return 6
         // googlemaps road map
         if(settings.namePlugin === settings.listPlugins[1] && settings.sat === false)
             return 0

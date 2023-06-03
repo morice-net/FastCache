@@ -49,11 +49,15 @@ Rectangle {
         parameters: [
             PluginParameter {
                 name: "osm.mapping.custom.host"
-                value: "https://maps.wikimedia.org/"
+                value: "https://a.tile.openstreetmap.de/"
             },
             PluginParameter {
                 name: "osm.mapping.offline.directory"
                 value: tilesDownloader.dirOsm
+            },
+            PluginParameter {
+                name: "osm.mapping.providersrepository.disabled"
+                value: true
             }
         ]
     }
