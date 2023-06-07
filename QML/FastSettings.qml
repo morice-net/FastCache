@@ -60,9 +60,9 @@ Settings {
     // Filter by owner
     property string owner: ""
 
-    // Maps : osm,googlemaps,mapbox
-    property var listPlugins: ["osm", "googlemaps", "mapbox"]
-    property string namePlugin: "osm"
+    // Maps : osm,googlemaps,cyclOsm
+    property var listPlugins: ["osmPlugin", "googlemapsPlugin", "cyclOsmPlugin"]
+    property string namePlugin: "osmPlugin"
     property bool sat: false
 
     // Circles on map around caches

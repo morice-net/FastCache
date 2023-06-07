@@ -369,7 +369,7 @@ Map {
         // googlemaps sat
         if(settings.namePlugin === settings.listPlugins[1] && settings.sat === true)
             return 3
-        // mapbox
+        // cyclOsm
         if(settings.namePlugin === settings.listPlugins[2])
             return 0
     }

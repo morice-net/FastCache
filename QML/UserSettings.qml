@@ -39,14 +39,16 @@ Rectangle {
             GroupBox {
                 id: groupBoxMaps
                 width: parent.width * 0.8
-                anchors.horizontalCenter: parent.horizontalCenter
+                height: columnMaps.height + 40
+                anchors.horizontalCenter: parent.horizontalCenter                
                 background: Rectangle {
                     border.color: Palette.greenSea()
                     border.width: 2
                 }
 
                 Column {
-                    spacing: 35
+                    id: columnMaps
+                    spacing: 20
 
                     RadioButton {
                         id:button1
@@ -177,8 +179,7 @@ Rectangle {
                     RadioButton {
                         id:button4
                         visible: true
-                        enabled: false
-                        text: "MapBox"
+                        text: "Cyclo OSM"
                         checked: settings.namePlugin === settings.listPlugins[2]
                         onClicked: {
                             settings.sat = false
@@ -208,6 +209,13 @@ Rectangle {
                                 anchors.margins: 4
                             }
                         }
+                    }
+
+                    ButtonTiles {
+                        anchors.top: button4.bottom
+                        folderTiles: tilesDownloader.dirCyclOsm
+                        satTiles: false
+                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirCyclOsm , false)
                     }
                 }
             }

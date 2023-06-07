@@ -7,7 +7,8 @@ TilesDownloader::TilesDownloader(Downloador *parent) :
     Downloador(parent),
     m_folderSizeOsm(),
     m_folderSizeGooglemapsPlan(),
-    m_folderSizeGooglemapsSat()
+    m_folderSizeGooglemapsSat(),
+    m_folderSizeCyclOsm()
 {
 }
 
@@ -34,7 +35,7 @@ void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double 
         for(int y = yStart; y < yEnd + 1 ; ++y)
         {
             url = "https://a.tile.openstreetmap.de/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
-            path = dirOsm.absolutePath() + "/osm_100-l-1-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
+            path = dirOsm.absolutePath() + "/osm-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
             downloadFile(url, m_dirOsm, path);
@@ -80,6 +81,33 @@ void TilesDownloader::downloadTilesGooglemaps(double latTop, double latBottom, d
     }
 }
 
+void TilesDownloader::downloadTilesCyclOsm(double latTop ,double latBottom , double lonLeft , double lonRight , int zoom)
+{
+    int xStart = longTileX(lonLeft, zoom);
+    int xEnd = longTileX(lonRight, zoom);
+    int yStart = latTileY(latTop, zoom);
+    int yEnd = latTileY(latBottom, zoom);
+
+    QString path = "";
+    QString url = "";
+
+    QDir dirCyclOsm(m_dirCyclOsm);
+    if (!dirCyclOsm.exists())
+        dirCyclOsm.mkpath(".");
+
+    for(int x = xStart; x < xEnd + 1 ; ++x)
+    {
+        for(int y = yStart; y < yEnd + 1 ; ++y)
+        {
+            url = "https://a.tile-cyclosm.openstreetmap.fr/cyclosm/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
+            path = dirCyclOsm.absolutePath() + "/cyclOsm-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
+            qDebug()<< url;
+            qDebug()<< path;
+            downloadFile(url, m_dirCyclOsm, path);
+        }
+    }
+}
+
 int TilesDownloader::longTileX(double lon, int zoom)
 {
     return (int) floor(pow(2.0,zoom)* ((lon + 180.0) / 360.0));
@@ -99,16 +127,18 @@ void TilesDownloader::removeDir(QString dirPath, bool sat)
             dir.setNameFilters(QStringList() << "*.*");
             dir.setFilter(QDir::Files);
             setFolderSizeOsm("");
-        }
-        else if(dirPath == m_dirGooglemaps && sat == false )  {
+        } else if(dirPath == m_dirGooglemaps && sat == false )  {
             dir.setNameFilters(QStringList() << "*googlemaps_100-1*.*");
             dir.setFilter(QDir::Files);
             setFolderSizeGooglemapsPlan("");
-        }
-        else if(dirPath == m_dirGooglemaps && sat ==true) {
+        } else if(dirPath == m_dirGooglemaps && sat ==true) {
             dir.setNameFilters(QStringList() << "*googlemaps_100-4*.*");
             dir.setFilter(QDir::Files);
             setFolderSizeGooglemapsSat("");
+        } else if(dirPath == m_dirCyclOsm) {
+            dir.setNameFilters(QStringList() << "*.*");
+            dir.setFilter(QDir::Files);
+            setFolderSizeCyclOsm("");
         }
         for( QString &dirFile: dir.entryList()) {
             dir.remove(dirFile);
@@ -125,19 +155,23 @@ void TilesDownloader::dirSizeFolder(QString dirPath, bool sat)
         }  else {
             setFolderSizeOsm("");
         }
-    }
-    else if(dirPath == m_dirGooglemaps && sat == false ) {
+    } else if(dirPath == m_dirGooglemaps && sat == false ) {
         if (dir.exists()) {
             setFolderSizeGooglemapsPlan(formatSize(dirSize(dirPath, false)));
         }  else {
             setFolderSizeGooglemapsPlan("");
         }
-    }
-    else if(dirPath == m_dirGooglemaps && sat == true ) {
+    } else if(dirPath == m_dirGooglemaps && sat == true ) {
         if (dir.exists()) {
             setFolderSizeGooglemapsSat(formatSize(dirSize(dirPath, true)));
         }  else {
             setFolderSizeGooglemapsSat("");
+        }
+    } else if(dirPath == m_dirCyclOsm) {
+        if (dir.exists()) {
+            setFolderSizeCyclOsm(formatSize(dirSize(dirPath, false)));
+        }  else {
+            setFolderSizeCyclOsm("");
         }
     }
 }
@@ -150,12 +184,12 @@ qint64 TilesDownloader::dirSize(QString dirPath, bool sat)
 
     if(dirPath == m_dirOsm ) {
         dir.setNameFilters(QStringList() << "*.*");
-    }
-    else if(dirPath == m_dirGooglemaps && sat == false ) {
+    } else if(dirPath == m_dirGooglemaps && sat == false ) {
         dir.setNameFilters(QStringList() << "*googlemaps_100-1*.*");
-    }
-    else if(dirPath == m_dirGooglemaps && sat == true ) {
+    } else if(dirPath == m_dirGooglemaps && sat == true ) {
         dir.setNameFilters(QStringList() << "*googlemaps_100-4*.*");
+    } else if(dirPath == m_dirCyclOsm) {
+        dir.setNameFilters(QStringList() << "*.*");
     }
     for( QString &filePath :dir.entryList()) {
         QFileInfo fi(dir, filePath);
@@ -185,6 +219,8 @@ void TilesDownloader::downloaded(QNetworkReply* reply)
         dirSizeFolder(m_dirGooglemaps, false);
     else if(replytopathid[reply].second == m_dirGooglemaps + "true" )
         dirSizeFolder(m_dirGooglemaps, true);
+    else if(replytopathid[reply].second == m_dirCyclOsm)
+        dirSizeFolder(m_dirCyclOsm, false);
 }
 
 /** Getters & Setters **/
@@ -222,6 +258,17 @@ void TilesDownloader::setFolderSizeGooglemapsSat(const QString &size)
     emit folderSizeGooglemapsSatChanged();
 }
 
+QString TilesDownloader::folderSizeCyclOsm() const
+{
+    return m_folderSizeCyclOsm;
+}
+
+void TilesDownloader::setFolderSizeCyclOsm(const QString &size)
+{
+    m_folderSizeCyclOsm = size;
+    emit folderSizeCyclOsmChanged();
+}
+
 QString TilesDownloader::dirOsm() const
 {
     return m_dirOsm;
@@ -242,6 +289,17 @@ void TilesDownloader::setDirGooglemaps(const QString &folder)
 {
     m_dirGooglemaps = folder;
     emit dirGooglemapsChanged();
+}
+
+QString TilesDownloader::dirCyclOsm() const
+{
+    return m_dirCyclOsm;
+}
+
+void TilesDownloader::setDirCyclOsm(const QString &folder)
+{
+    m_dirCyclOsm = folder;
+    emit dirCyclOsmChanged();
 }
 
 

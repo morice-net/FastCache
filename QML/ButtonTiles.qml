@@ -25,6 +25,8 @@ Item {
                     tilesDownloader.removeDir(tilesDownloader.dirGooglemaps , false)
                 } else if(folderTiles === tilesDownloader.dirGooglemaps && satTiles === true) {
                     tilesDownloader.removeDir(tilesDownloader.dirGooglemaps , true)
+                } else if(folderTiles === tilesDownloader.dirCyclOsm) {
+                    tilesDownloader.removeDir(tilesDownloader.dirCyclOsm , false)
                 }
             }
         }
@@ -40,6 +42,9 @@ Item {
         } else if(folderTiles === tilesDownloader.dirGooglemaps && satTiles === true) {
             return tilesDownloader.folderSizeGooglemapsSat  !== "" ? "Tuiles: "  + tilesDownloader.folderSizeGooglemapsSat + " (appui long pour supprimer)"
                                                                    : "Tuiles: 0.0 octets"
+        } else if(folderTiles === tilesDownloader.dirCyclOsm) {
+            return tilesDownloader.folderSizeCyclOsm  !== "" ? "Tuiles: "  + tilesDownloader.folderSizeCyclOsm + " (appui long pour supprimer)"
+                                                             : "Tuiles: 0.0 octets"
         }
     }
 }

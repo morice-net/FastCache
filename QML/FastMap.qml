@@ -63,13 +63,23 @@ Rectangle {
     }
 
     Plugin {
-        id: mapboxPlugin
-        name: "mapbox"
+        id: cyclOsmPlugin
+        name: "osm"
         parameters: [
             PluginParameter {
-                name: "mapbox.access_token"
-                value: "pk.eyJ1IjoiZ2VyYXJkYXJ0YXV0IiwiYSI6ImNsZ3c4eTNidjEybGkzc281MWFqMjJ1MmwifQ.63ioe_G6lECaFUs-8aWMwg"
-            }]
+                name: "osm.mapping.custom.host"
+                value: "https://a.tile-cyclosm.openstreetmap.fr/cyclosm/"
+            },
+            PluginParameter {
+                name: "osm.mapping.offline.directory"
+                value: tilesDownloader.dirCyclOsm
+            },
+            PluginParameter {
+                name: "osm.mapping.providersrepository.disabled"
+                value: true
+            }
+        ]
+
     }
 
     Component.onCompleted: {
@@ -78,12 +88,12 @@ Rectangle {
     }
 
     function checkedPluginMap() {
-        if(settings.namePlugin === "osm")
+        if(settings.namePlugin === "osmPlugin")
             return osmPlugin
-        if(settings.namePlugin === "googlemaps")
+        if(settings.namePlugin === "googlemapsPlugin")
             return googlemapsPlugin
-        if(settings.namePlugin === "mapbox")
-            return mapboxPlugin
+        if(settings.namePlugin === "cyclOsmPlugin")
+            return cyclOsmPlugin
     }
 
     function deleteMap() {
