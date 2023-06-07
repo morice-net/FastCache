@@ -184,9 +184,7 @@ FastPopup {
     CheckBox {
         id: saveMapBox
         visible: recordingMode && main.viewState !== "fullcache" && main.state !== "recorded"  ? true : false
-        //    checkable: settings.namePlugin !== settings.listPlugins[2]? true : false  //cyclOSM or no
         checkable: true
-
         anchors.top: displayListColumn.bottom
         indicator: Rectangle {
             implicitWidth: 25
