@@ -638,7 +638,7 @@ Item {
         onStateChanged: {
             if(tilesDownloader.state !== "OK" && tilesDownloader.state !== "loading") {
                 toast.visible = true
-                toast.show("Erreur de chargement des dalles "   + "(" + state + ")")
+                toast.show(state)
             }
         }
     }
@@ -681,6 +681,10 @@ Item {
             if(connector.expiresAt <= Date.parse(new Date()) / 1000)
                 connector.connect()
         }
+    }
+
+    CacheMapTiles {
+        id: cacheMapTiles
     }
     Component.onCompleted: {
         main.state = ""

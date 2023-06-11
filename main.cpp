@@ -34,6 +34,7 @@
 #include "cachespocketqueries.h"
 #include "deletelogimage.h"
 #include "tilesdownloader.h"
+#include "cachemaptiles.h"
 
 int main(int argc, char *argv[])
 {
@@ -63,7 +64,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<GetGeocacheLogImages>("com.mycompany.connecting", 1, 0, "GetGeocacheLogImages");
     qmlRegisterType<DeleteLogImage>("com.mycompany.connecting", 1, 0, "DeleteLogImage");
     qmlRegisterType<TilesDownloader>("com.mycompany.connecting", 1, 0, "TilesDownloader");
-    qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");    
+    qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");
+    qmlRegisterType<CacheMapTiles>("com.mycompany.connecting", 1, 0, "CacheMapTiles");
 
 #if !defined Q_OS_ANDROID
     QtWebEngineQuick::initialize();

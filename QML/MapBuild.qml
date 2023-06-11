@@ -371,7 +371,7 @@ Map {
             return 3
         // cyclOsm
         if(settings.namePlugin === settings.listPlugins[2])
-            return 0
+            return 6
     }
 
     function listModeText(count) {

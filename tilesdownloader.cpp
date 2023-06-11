@@ -35,7 +35,7 @@ void TilesDownloader::downloadTilesOsm(double latTop ,double latBottom , double 
         for(int y = yStart; y < yEnd + 1 ; ++y)
         {
             url = "https://a.tile.openstreetmap.de/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
-            path = dirOsm.absolutePath() + "/osm-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
+            path = dirOsm.absolutePath() + "/osm_100-l-8-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
             downloadFile(url, m_dirOsm, path);
@@ -100,7 +100,7 @@ void TilesDownloader::downloadTilesCyclOsm(double latTop ,double latBottom , dou
         for(int y = yStart; y < yEnd + 1 ; ++y)
         {
             url = "https://a.tile-cyclosm.openstreetmap.fr/cyclosm/" + QString::number(zoom) + "/" + QString::number(x) + "/" + QString::number(y) + ".png";
-            path = dirCyclOsm.absolutePath() + "/cyclOsm-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
+            path = dirCyclOsm.absolutePath() + "/osm_100-l-8-" + QString::number(zoom) + "-" +  QString::number(x) + "-"  + QString::number(y) + ".png";
             qDebug()<< url;
             qDebug()<< path;
             downloadFile(url, m_dirCyclOsm, path);

@@ -58,6 +58,10 @@ Rectangle {
             PluginParameter {
                 name: "osm.mapping.providersrepository.disabled"
                 value: true
+            },
+            PluginParameter {
+                name: "osm.mapping.cache.directory"
+                value: cacheMapTiles.dirCacheOsm
             }
         ]
     }
@@ -77,9 +81,12 @@ Rectangle {
             PluginParameter {
                 name: "osm.mapping.providersrepository.disabled"
                 value: true
+            },
+            PluginParameter {
+                name: "osm.mapping.cache.directory"
+                value: cacheMapTiles.dirCacheCyclOsm
             }
         ]
-
     }
 
     Component.onCompleted: {

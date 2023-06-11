@@ -11,6 +11,7 @@ QT +=  qml quick svg location sql core core5compat bluetooth
 }
 
 SOURCES += main.cpp \
+    cachemaptiles.cpp \
     cachespocketqueries.cpp \
     cachesrecorded.cpp \
     cachessinglelist.cpp \
@@ -54,6 +55,7 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
+    cachemaptiles.h \
     cachespocketqueries.h \
     cachesrecorded.h \
     cachessinglelist.h \
