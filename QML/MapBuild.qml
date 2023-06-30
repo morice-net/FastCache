@@ -202,7 +202,8 @@ Map {
             anchors.left: parent.left
             anchors.leftMargin: 8
             font.family: localFont.name
-            font.pointSize: 16
+            font.bold: true
+            font.pointSize: 17
             color: Palette.black()
             clip: true
             text: Helper.formatDistance(Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
