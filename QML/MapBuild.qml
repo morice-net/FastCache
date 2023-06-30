@@ -118,7 +118,7 @@ Map {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 20
         onOpacityChanged: {
-            if (opacity === 1)
+            if (opacity -1 === 0 )
                 hide()
         }
         color: Palette.white().replace("#","#99")

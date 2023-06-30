@@ -40,7 +40,7 @@ Rectangle {
                 id: groupBoxMaps
                 width: parent.width * 0.8
                 height: columnMaps.height + 40
-                anchors.horizontalCenter: parent.horizontalCenter                
+                anchors.horizontalCenter: parent.horizontalCenter
                 background: Rectangle {
                     border.color: Palette.greenSea()
                     border.width: 2

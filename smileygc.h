@@ -10,9 +10,10 @@ class SmileyGc: public QObject
 
 public:
     explicit SmileyGc(QObject *parent = nullptr);
-
+    
+    void extracted(QString &newString) const;
     QString replaceSmileyTextToImgSrc(const QString &text) const;
-
+    
 private:
     QMap<QString, QString > m_mapSmileyGc;
 };
