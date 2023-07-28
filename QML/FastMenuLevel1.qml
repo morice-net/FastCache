@@ -128,6 +128,8 @@ Item {
                 // center and zoom level
                 hideMenu()
                 Functions.centerMapCaches(cachesSingleList.caches)
+
+                fastMap.cachesOnMap = fastMap.countCachesOnMap()  // number of caches on map
             }
         }
     }

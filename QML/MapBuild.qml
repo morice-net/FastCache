@@ -14,7 +14,6 @@ Map {
     property MapCircle circleSingleCache
     property MapCircle circleRadius
     property MapFullCacheItem singleCache
-    property int cachesOnMap: fastMap.countCachesOnMap() // number of caches on map
     property var waypointCacheItems: []  // list of waypoints of cache
     property var userWaypointCacheItems: []  // list of user waypoints of cache
 
@@ -52,7 +51,7 @@ Map {
         onTranslationChanged: (delta) => {
                                   map.pan(-delta.x, -delta.y)
                                   if(cachesSingleList.caches.length !== 0) {
-                                      cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
+                                      fastMap.cachesOnMap = fastMap.countCachesOnMap() // count caches on map
                                   }
                                   Functions.reloadCachesBBox()
                               }
@@ -61,7 +60,7 @@ Map {
     onZoomLevelChanged: {
         scale.updateScale(map.toCoordinate(Qt.point(scale.x,scale.y)), map.toCoordinate(Qt.point(scale.x + scale.imageSourceWidth,scale.y)))
         if(cachesSingleList.caches.length !== 0)
-            cachesOnMap = fastMap.countCachesOnMap() // update cachesOnMap
+            fastMap.cachesOnMap = fastMap.countCachesOnMap() // count caches on map
         Functions.reloadCachesBBox()
     }
 
@@ -83,7 +82,8 @@ Map {
         font.pointSize: 17
         color: Palette.black()
         font.family: localFont.name
-        text: !fastMap.compassMapButton ? listModeText(cachesOnMap) : "Cache   " + fullCache.geocode
+        text: !fastMap.compassMapButton ? listModeText(fastMap.cachesOnMap) : "Cache   " + fullCache.geocode
+
     }
 
     LoadingPage {
@@ -253,7 +253,7 @@ Map {
                 fastMap.currentCacheIndex++
             }
         }
-        cachesOnMap = fastMap.countCachesOnMap()  // update cachesOnMap
+        fastMap.cachesOnMap = fastMap.countCachesOnMap()  // count caches on map
     }
 
     // cache on map
@@ -392,7 +392,7 @@ Map {
         return "Carte non active (" + count + ")"
     }
 
-    Component.onCompleted:{
+    Component.onCompleted: {
         map.center = currentPosition.position.coordinate
     }
 }

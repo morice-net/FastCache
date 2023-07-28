@@ -25,6 +25,8 @@ Rectangle {
     property bool mapNorth : true  // map orientation
     property bool oldMapNorth : true
 
+    property int cachesOnMap: countCachesOnMap()  // number of caches on map
+
     Plugin {
         id: googlemapsPlugin
         name: "googlemaps"
