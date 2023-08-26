@@ -124,6 +124,20 @@ Item {
         Component.onCompleted:  listCachesObject(cachesSingleList)
     }
 
+    AdventureLabCachesRetriever{
+        id: adventureLabCachesRetriever
+        onStateChanged: {
+            if(adventureLabCachesRetriever.state !== "OK" && adventureLabCachesRetriever.state !== "loading") {
+                toast.visible = true
+                if(adventureLabCachesRetriever.state === "timeOutConnection") {
+                    toast.show("Délai de connexion dépassé pour le chargement des caches proches");
+                } else {
+                    toast.show("Erreur de chargement des adventurelab caches " + "(" + state + ")")
+                }
+            }
+        }
+    }
+
     CachesNear {
         id: cachesNear
         onStateChanged: {

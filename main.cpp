@@ -35,6 +35,7 @@
 #include "deletelogimage.h"
 #include "tilesdownloader.h"
 #include "cachemaptiles.h"
+#include "adventurelabcachesretriever.h"
 
 int main(int argc, char *argv[])
 {
@@ -66,6 +67,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<TilesDownloader>("com.mycompany.connecting", 1, 0, "TilesDownloader");
     qmlRegisterType<ReplaceImageInText>("com.mycompany.connecting", 1, 0, "ReplaceImageInText");
     qmlRegisterType<CacheMapTiles>("com.mycompany.connecting", 1, 0, "CacheMapTiles");
+    qmlRegisterType<AdventureLabCachesRetriever>("com.mycompany.connecting", 1, 0, "AdventureLabCachesRetriever");
 
 #if !defined Q_OS_ANDROID
     QtWebEngineQuick::initialize();
