@@ -98,7 +98,7 @@ Item {
     }
 
     CachesSingleList {
-        id:cachesSingleList
+        id: cachesSingleList
         onCachesChanged: {
             main.annexMainState = main.state
             if(main.state !== "")
