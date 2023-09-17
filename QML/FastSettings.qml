@@ -12,6 +12,9 @@ Settings {
     property string refreshToken: ""
     property real expiresAt: 0
 
+    // lab cache
+    property bool labCache : false
+
     // filter by type
     property bool traditional : false
     property bool mystery : false

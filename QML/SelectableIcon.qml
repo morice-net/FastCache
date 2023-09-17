@@ -4,7 +4,7 @@ import QtQuick.Controls
 import "JavaScript/Palette.js" as Palette
 
 CheckBox {
-    id:control
+    id: control
 
     property bool type
 

@@ -18,6 +18,13 @@ Item {
         id: internFilterColumn
         spacing: filters.height / 50
 
+        SelectableLabCache {
+            id: selectableLabCache
+            Layout.alignment: Qt.AlignCenter
+            Layout.preferredHeight: main.width / 15
+            text: "Lab Cache"
+        }
+
         SelectableFilter {
             id: typeFilterSelectable
             filterText: "Type"
@@ -54,6 +61,7 @@ Item {
             Layout.alignment: Qt.AlignCenter
             font.pointSize: 16
             onClicked: popupSize.open()
+            onWidthChanged: x = (filters.width - width) / 2
         }
 
         FastPopup {
@@ -71,7 +79,7 @@ Item {
 
                 CheckBox {
                     id : size1
-                    x:10
+                    x: 10
                     checked: settings.micro
                     onCheckedChanged: textSizeButton()
                     contentItem: Text {
@@ -330,6 +338,7 @@ Item {
         CheckBox {
             id :found
             Layout.alignment: Qt.AlignLeft
+            Layout.preferredHeight: 28
             checked: settings.excludeCachesFound
             onCheckedChanged: main.excludeFound = found.checkState
             contentItem: Text {
@@ -365,6 +374,7 @@ Item {
         CheckBox {
             id :archived
             Layout.alignment: Qt.AlignLeft
+            Layout.preferredHeight: 28
             checked: settings.excludeCachesArchived
             onCheckedChanged: main.excludeArchived = archived.checkState
             contentItem: Text {
