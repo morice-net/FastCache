@@ -13,7 +13,8 @@ AdventureLabCachesRetriever::AdventureLabCachesRetriever(Requestor *parent)
     , m_indexMoreCaches(0)
     , m_maxCaches()
     , m_latPoint(0)
-    , m_lonPoint(0)    
+    , m_lonPoint(0)
+    , m_excludeOwnedCompleted(false)
 {
 }
 
@@ -36,6 +37,15 @@ void AdventureLabCachesRetriever::sendRequest(QString token)
 
     // Fields
     requestName.append("&fields=id,keyImageUrl,title,location,ratingsAverage,ratingsTotalCount,stagesTotalCount,dynamicLink,isOwned,isCompleted");
+
+    // Exclude owned,completed
+    if (m_excludeOwnedCompleted == false) {
+        requestName.append("&excludeOwned=false" );
+        requestName.append("&excludeCompleted=false" );
+    } else {
+        requestName.append("&excludeOwned=true" );
+        requestName.append("&excludeCompleted=true" );
+    }    
 
     qDebug() << "URL:" << requestName ;
 
@@ -101,6 +111,17 @@ void AdventureLabCachesRetriever::setLatPoint(double latPoint)
 {
     m_latPoint = latPoint;
     emit latPointChanged();
+}
+
+bool AdventureLabCachesRetriever::excludeOwnedCompleted() const
+{
+    return m_excludeOwnedCompleted;
+}
+
+void AdventureLabCachesRetriever::setExcludeOwnedCompleted(bool exclude)
+{
+    m_excludeOwnedCompleted = exclude;
+    emit excludeOwnedCompletedChanged();
 }
 
 

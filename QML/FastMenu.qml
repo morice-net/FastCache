@@ -230,6 +230,7 @@ Item {
         main.state = "near"
         hideMenu()
         var coord = currentPosition.position.coordinate
+        // caches
         cachesNear.latPoint = coord.latitude
         cachesNear.lonPoint = coord.longitude
         cachesNear.distance = 100
@@ -237,11 +238,21 @@ Item {
                                       main.excludeArchived , Functions.createFilterKeywordDiscoverOwner() , userInfo.name)
         cachesNear.indexMoreCaches = 0
         cachesNear.sendRequest(connector.tokenKey)
+
+        //lab caches
+        if(settings.labCache === false) {
+            adventureLabCachesRetriever.latPoint = coord.latitude
+            adventureLabCachesRetriever.lonPoint = coord.longitude
+            adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+            adventureLabCachesRetriever.indexMoreCaches = 0
+            adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+        }
     }
 
     // load caches by coordinates, from CoordinatesBox.
     function cachesByCoordinates() {
         if(main.viewState !== "fullcache"){
+            //caches
             cachesNear.latPoint = coordinatesBox.resultLat
             cachesNear.lonPoint = coordinatesBox.resultLon
             cachesNear.distance = 100
@@ -249,6 +260,15 @@ Item {
                                           main.excludeArchived , Functions.createFilterKeywordDiscoverOwner() , userInfo.name)
             cachesNear.indexMoreCaches = 0
             cachesNear.sendRequest(connector.tokenKey)
+
+            //lab caches
+            if(settings.labCache === false) {
+                adventureLabCachesRetriever.latPoint = coordinatesBox.resultLat
+                adventureLabCachesRetriever.lonPoint = coordinatesBox.resultLon
+                adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+                adventureLabCachesRetriever.indexMoreCaches = 0
+                adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+            }
             fastMap.mapItem.center = QtPositioning.coordinate(coordinatesBox.resultLat , coordinatesBox.resultLon)
         }
     }

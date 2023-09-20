@@ -215,6 +215,7 @@ FastPopup {
                     onClicked: {
                         geocodeResponse.close()
                         main.state = "address"
+                        // caches
                         cachesNear.latPoint = listModel.get(index).valLat
                         cachesNear.lonPoint = listModel.get(index).valLon
                         cachesNear.distance = 100
@@ -222,6 +223,15 @@ FastPopup {
                                                       main.excludeArchived, Functions.createFilterKeywordDiscoverOwner(), userInfo.name)
                         cachesNear.indexMoreCaches = 0
                         cachesNear.sendRequest(connector.tokenKey)
+
+                        //lab caches
+                        if(settings.labCache === false) {
+                            adventureLabCachesRetriever.latPoint = listModel.get(index).valLat
+                            adventureLabCachesRetriever.lonPoint = listModel.get(index).valLon
+                            adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+                            adventureLabCachesRetriever.indexMoreCaches = 0
+                            adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+                        }
                         fastMap.mapItem.center =QtPositioning.coordinate(listModel.get(index).valLat , listModel.get(index).valLon)
                     }
                 }

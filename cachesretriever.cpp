@@ -193,7 +193,7 @@ void CachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 }
 
 void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes , QList<double> difficultyTerrain , bool found , bool archived ,
-                                         QList<QString> keyWordDiscoverOwner ,QString name)
+                                         QList<QString> keyWordDiscoverOwner , QString name)
 {
     QList<int> listFilterTypes;
     listFilterTypes.clear();

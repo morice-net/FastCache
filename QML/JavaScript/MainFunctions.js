@@ -131,6 +131,7 @@ function  formatLat( lat) {
 
 function reloadCachesNear() {
     if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
+        // caches
         cachesNear.latPoint = fastMap.mapItem.center.latitude
         cachesNear.lonPoint = fastMap.mapItem.center.longitude
         cachesNear.distance = 100
@@ -138,11 +139,21 @@ function reloadCachesNear() {
                                       excludeArchived, createFilterKeywordDiscoverOwner(), userInfo.name)
         cachesNear.indexMoreCaches = 0
         cachesNear.sendRequest(connector.tokenKey)
+
+        //lab caches
+        if(settings.labCache === false) {
+        adventureLabCachesRetriever.latPoint = fastMap.mapItem.center.latitude
+        adventureLabCachesRetriever.lonPoint = fastMap.mapItem.center.longitude
+        adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+        adventureLabCachesRetriever.indexMoreCaches = 0
+        adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+        }
     }
 }
 
 function reloadCachesBBox() {
     if(main.state === "cachesActive" && cachesBBox.state !== "loading" && fastMap.compassMapButton === false) {
+        // caches
         cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
         cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude
         cachesBBox.latTopLeft = fastMap.mapItem.toCoordinate(Qt.point(main.x , main.y)).latitude
@@ -150,6 +161,15 @@ function reloadCachesBBox() {
         cachesBBox.updateFilterCaches(listTypes , listSizes , createFilterDifficultyTerrainGs(), excludeFound,
                                       excludeArchived, createFilterKeywordDiscoverOwner() , userInfo.name )
         cachesBBox.sendRequest(connector.tokenKey)
+
+        //lab caches
+        if(settings.labCache === false) {
+        adventureLabCachesRetriever.latPoint = (cachesBBox.latBottomRight + cachesBBox.latTopLeft) / 2
+        adventureLabCachesRetriever.lonPoint = (cachesBBox.lonBottomRight + cachesBBox.lonTopLeft) / 2
+        adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+        adventureLabCachesRetriever.indexMoreCaches = 0
+        adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+        }
     }
 }
 
