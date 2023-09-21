@@ -142,11 +142,12 @@ function reloadCachesNear() {
 
         //lab caches
         if(settings.labCache === false) {
-        adventureLabCachesRetriever.latPoint = fastMap.mapItem.center.latitude
-        adventureLabCachesRetriever.lonPoint = fastMap.mapItem.center.longitude
-        adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
-        adventureLabCachesRetriever.indexMoreCaches = 0
-        adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+            adventureLabCachesRetriever.latPoint = fastMap.mapItem.center.latitude
+            adventureLabCachesRetriever.lonPoint = fastMap.mapItem.center.longitude
+            adventureLabCachesRetriever.distance = 100
+            adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+            adventureLabCachesRetriever.indexMoreCaches = 0
+            adventureLabCachesRetriever.sendRequest(connector.tokenKey)
         }
     }
 }
@@ -164,11 +165,15 @@ function reloadCachesBBox() {
 
         //lab caches
         if(settings.labCache === false) {
-        adventureLabCachesRetriever.latPoint = (cachesBBox.latBottomRight + cachesBBox.latTopLeft) / 2
-        adventureLabCachesRetriever.lonPoint = (cachesBBox.lonBottomRight + cachesBBox.lonTopLeft) / 2
-        adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
-        adventureLabCachesRetriever.indexMoreCaches = 0
-        adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+            adventureLabCachesRetriever.latPoint = (cachesBBox.latBottomRight + cachesBBox.latTopLeft) / 2
+            adventureLabCachesRetriever.lonPoint = (cachesBBox.lonBottomRight + cachesBBox.lonTopLeft) / 2
+
+            // radius in km
+            adventureLabCachesRetriever.distance = Math.round(adventureLabCachesRetriever.distTo(cachesBBox.latBottomRight , cachesBBox.lonBottomRight ,
+                                                                                                 cachesBBox.latTopLeft , cachesBBox.lonTopLeft))
+            adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
+            adventureLabCachesRetriever.indexMoreCaches = 0
+            adventureLabCachesRetriever.sendRequest(connector.tokenKey)
         }
     }
 }

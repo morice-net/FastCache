@@ -14,6 +14,7 @@ AdventureLabCachesRetriever::AdventureLabCachesRetriever(Requestor *parent)
     , m_maxCaches()
     , m_latPoint(0)
     , m_lonPoint(0)
+    , m_distance(0)
     , m_excludeOwnedCompleted(false)
 {
 }
@@ -29,8 +30,8 @@ void AdventureLabCachesRetriever::sendRequest(QString token)
     //Build url
     QString requestName = "adventures/search?";
 
-    // create Center
-    requestName.append("q=location:[" + QString::number(m_latPoint) + "," + QString::number(m_lonPoint) + "]");
+    // create Center , radius
+    requestName.append("q=location:[" + QString::number(m_latPoint) + "," + QString::number(m_lonPoint) + "]%2Bradius:"+QString::number(m_distance)+"km");
 
     //Pagination
     requestName.append("&skip=" + QString::number(m_indexMoreCaches) + "&take=" + QString::number(MAX_PER_PAGE));
@@ -65,6 +66,17 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         setIndexMoreCaches(0);
         return ;
     }
+}
+
+double AdventureLabCachesRetriever::distTo(double latPoint1 , double lonPoint1 , double latPoint2 , double lonPoint2)
+{
+    QGeoCoordinate point1;
+    point1.setLatitude(latPoint1);
+    point1.setLongitude(lonPoint1);
+    QGeoCoordinate point2;
+    point2.setLatitude(latPoint2);
+    point2.setLongitude(lonPoint2);
+    return (point1.distanceTo(point2)) / 1000; // distance in km
 }
 
 /** Getters & Setters **/
@@ -111,6 +123,17 @@ void AdventureLabCachesRetriever::setLatPoint(double latPoint)
 {
     m_latPoint = latPoint;
     emit latPointChanged();
+}
+
+double AdventureLabCachesRetriever::distance() const
+{
+    return m_distance;
+}
+
+void AdventureLabCachesRetriever::setDistance(double distance)
+{
+    m_distance = distance;
+    emit distanceChanged();
 }
 
 bool AdventureLabCachesRetriever::excludeOwnedCompleted() const

@@ -243,6 +243,7 @@ Item {
         if(settings.labCache === false) {
             adventureLabCachesRetriever.latPoint = coord.latitude
             adventureLabCachesRetriever.lonPoint = coord.longitude
+            adventureLabCachesRetriever.distance = 100
             adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
             adventureLabCachesRetriever.indexMoreCaches = 0
             adventureLabCachesRetriever.sendRequest(connector.tokenKey)
@@ -265,6 +266,7 @@ Item {
             if(settings.labCache === false) {
                 adventureLabCachesRetriever.latPoint = coordinatesBox.resultLat
                 adventureLabCachesRetriever.lonPoint = coordinatesBox.resultLon
+                adventureLabCachesRetriever.distance = 100
                 adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
                 adventureLabCachesRetriever.indexMoreCaches = 0
                 adventureLabCachesRetriever.sendRequest(connector.tokenKey)

@@ -228,6 +228,7 @@ FastPopup {
                         if(settings.labCache === false) {
                             adventureLabCachesRetriever.latPoint = listModel.get(index).valLat
                             adventureLabCachesRetriever.lonPoint = listModel.get(index).valLon
+                            adventureLabCachesRetriever.distance = 100
                             adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
                             adventureLabCachesRetriever.indexMoreCaches = 0
                             adventureLabCachesRetriever.sendRequest(connector.tokenKey)
