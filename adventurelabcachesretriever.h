@@ -5,7 +5,6 @@
 #include "cachessinglelist.h"
 
 #include <QNetworkReply>
-
 #include <QGeoCoordinate>
 
 class AdventureLabCachesRetriever : public Requestor

@@ -25,6 +25,8 @@ Cache::Cache(QObject *parent)
     , m_registered(false)
     , m_toDoLog(false)
     , m_own(false)
+    , m_sequential(false)
+    ,m_assessment("")
 {
 }
 
@@ -274,4 +276,28 @@ void Cache::setOwn(const bool &own)
     m_own = own ;
     emit ownChanged();
 }
+
+bool Cache::sequential() const
+{
+    return m_sequential;
+}
+
+void Cache::setSequential(const bool &sequential)
+{
+    m_sequential = sequential ;
+    emit sequentialChanged();
+}
+
+QString Cache::assessment() const
+{
+    return m_assessment;
+}
+
+void Cache::setAssessment(const QString &assess)
+{
+    m_assessment = assess ;
+    emit assessmentChanged();
+}
+
+
 

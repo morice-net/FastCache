@@ -32,6 +32,10 @@ class Cache : public QObject
     Q_PROPERTY(bool toDoLog READ toDoLog WRITE setToDoLog NOTIFY toDoLogChanged)
     Q_PROPERTY(bool own READ own WRITE setOwn NOTIFY ownChanged)
 
+    // add for lab caches
+    Q_PROPERTY(bool sequential READ sequential WRITE setSequential NOTIFY sequentialChanged)
+    Q_PROPERTY(QString assessment READ assessment WRITE setAssessment NOTIFY assessmentChanged)
+
 public:
     explicit  Cache(QObject *parent = nullptr);
     ~Cache();
@@ -102,6 +106,12 @@ public:
     bool own() const;
     void setOwn(const bool &own);
 
+    bool sequential() const;
+    void setSequential(const bool &sequential);
+
+    QString assessment() const;
+    void setAssessment(const QString &assess);
+
 signals:
     void nameChanged();
     void geocodeChanged();
@@ -123,6 +133,8 @@ signals:
     void registeredChanged();
     void toDoLogChanged();
     void ownChanged();
+    void sequentialChanged();
+    void assessmentChanged();
 
 protected:
     QString m_name;
@@ -145,6 +157,8 @@ protected:
     bool m_registered;
     bool m_toDoLog;
     bool m_own;
+    bool m_sequential;
+    QString m_assessment;
 
 private:
     SQLiteStorage *m_sqliteStorage;
