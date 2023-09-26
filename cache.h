@@ -33,8 +33,11 @@ class Cache : public QObject
     Q_PROPERTY(bool own READ own WRITE setOwn NOTIFY ownChanged)
 
     // add for lab caches
-    Q_PROPERTY(bool sequential READ sequential WRITE setSequential NOTIFY sequentialChanged)
-    Q_PROPERTY(QString assessment READ assessment WRITE setAssessment NOTIFY assessmentChanged)
+    Q_PROPERTY(QString imageUrl READ imageUrl WRITE setImageUrl NOTIFY imageUrlChanged)
+    Q_PROPERTY(bool isCompleted READ isCompleted WRITE setIsCompleted NOTIFY isCompletedChanged)
+    Q_PROPERTY(int ratingsAverage READ ratingsAverage WRITE setRatingsAverage NOTIFY ratingsAverageChanged)
+    Q_PROPERTY(int ratingsTotalCount READ ratingsTotalCount WRITE setRatingsTotalCount NOTIFY ratingsTotalCountChanged)
+    Q_PROPERTY(int stagesTotalCount READ stagesTotalCount WRITE setStagesTotalCount NOTIFY stagesTotalCountChanged)
 
 public:
     explicit  Cache(QObject *parent = nullptr);
@@ -106,11 +109,20 @@ public:
     bool own() const;
     void setOwn(const bool &own);
 
-    bool sequential() const;
-    void setSequential(const bool &sequential);
+    QString imageUrl() const;
+    void setImageUrl(const QString &mage);
 
-    QString assessment() const;
-    void setAssessment(const QString &assess);
+    bool isCompleted() const;
+    void setIsCompleted(const bool &complete);
+
+    int ratingsAverage() const;
+    void setRatingsAverage(const int &average);
+
+    int ratingsTotalCount() const;
+    void setRatingsTotalCount(const int &totalCount);
+
+    int stagesTotalCount() const;
+    void setStagesTotalCount(const int &totalCount);
 
 signals:
     void nameChanged();
@@ -133,8 +145,11 @@ signals:
     void registeredChanged();
     void toDoLogChanged();
     void ownChanged();
-    void sequentialChanged();
-    void assessmentChanged();
+    void imageUrlChanged();
+    void isCompletedChanged();
+    void ratingsAverageChanged();
+    void ratingsTotalCountChanged();
+    void stagesTotalCountChanged();
 
 protected:
     QString m_name;
@@ -157,8 +172,11 @@ protected:
     bool m_registered;
     bool m_toDoLog;
     bool m_own;
-    bool m_sequential;
-    QString m_assessment;
+    QString m_imageUrl;
+    bool m_isCompleted;
+    int m_ratingsAverage;
+    int m_ratingsTotalCount;
+    int m_stagesTotalCount;
 
 private:
     SQLiteStorage *m_sqliteStorage;

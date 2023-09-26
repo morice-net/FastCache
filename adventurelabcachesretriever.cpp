@@ -1,5 +1,6 @@
 #include "adventurelabcachesretriever.h"
 #include "constants.h"
+#include "cache.h"
 
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
@@ -65,6 +66,26 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     if (lengthCaches == 0) {
         setIndexMoreCaches(0);
         return ;
+    }
+
+    for(const QJsonValue &v : adventureLabCaches)
+    {
+        Cache *cache ;
+        cache = new Cache();
+
+        cache->setGeocode(v["id"].toString());
+        cache->setOwn(v["isOwned"].toBool());
+        cache->setName(v["title"].toString());
+        cache->setRatingsAverage(v["ratingsAverage"].toInt());
+        cache->setRatingsTotalCount(v["ratingsTotalCount"].toInt());
+        cache->setStagesTotalCount(v["stagesTotalCount"].toInt());
+        cache->setIsCompleted(v["isCompleted"].toBool());
+        cache->setImageUrl(v["keyImageUrl"].toString());
+
+        // coordinates
+        QJsonObject v1 = v["location"].toObject();
+        cache->setLat(v1["latitude"].toDouble());
+        cache->setLon(v1["longitude"].toDouble());
     }
 }
 

@@ -4,6 +4,8 @@
 #include "requestor.h"
 #include "cachessinglelist.h"
 
+class Cache;
+
 #include <QNetworkReply>
 #include <QGeoCoordinate>
 

@@ -121,7 +121,7 @@ Item {
         onClearMapRequested: {
             fastMap.clearMap();
         }
-        Component.onCompleted:  listCachesObject(cachesSingleList)
+        Component.onCompleted: listCachesObject(cachesSingleList)
     }
 
     AdventureLabCachesRetriever{

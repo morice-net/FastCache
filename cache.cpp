@@ -25,8 +25,11 @@ Cache::Cache(QObject *parent)
     , m_registered(false)
     , m_toDoLog(false)
     , m_own(false)
-    , m_sequential(false)
-    ,m_assessment("")
+    , m_imageUrl("")
+    , m_isCompleted(false)
+    ,m_ratingsAverage(0)
+    ,m_ratingsTotalCount(0)
+    ,m_stagesTotalCount(0)
 {
 }
 
@@ -277,26 +280,59 @@ void Cache::setOwn(const bool &own)
     emit ownChanged();
 }
 
-bool Cache::sequential() const
+QString Cache::imageUrl() const
 {
-    return m_sequential;
+    return m_imageUrl;
 }
 
-void Cache::setSequential(const bool &sequential)
+void Cache::setImageUrl(const QString &image)
 {
-    m_sequential = sequential ;
-    emit sequentialChanged();
+    m_imageUrl = image ;
+    emit imageUrlChanged();
 }
 
-QString Cache::assessment() const
+bool Cache::isCompleted() const
 {
-    return m_assessment;
+    return m_isCompleted;
 }
 
-void Cache::setAssessment(const QString &assess)
+void Cache::setIsCompleted(const bool &complete)
 {
-    m_assessment = assess ;
-    emit assessmentChanged();
+    m_isCompleted = complete ;
+    emit isCompletedChanged();
+}
+
+int Cache::ratingsAverage() const
+{
+    return m_ratingsAverage;
+}
+
+void Cache::setRatingsAverage(const int &average)
+{
+    m_ratingsAverage = average ;
+    emit ratingsAverageChanged();
+}
+
+int Cache::ratingsTotalCount() const
+{
+    return m_ratingsTotalCount;
+}
+
+void Cache::setRatingsTotalCount(const int &totalCount)
+{
+    m_ratingsTotalCount = totalCount ;
+    emit ratingsTotalCountChanged();
+}
+
+int Cache::stagesTotalCount() const
+{
+    return m_stagesTotalCount;
+}
+
+void Cache::setStagesTotalCount(const int &totalCount)
+{
+    m_stagesTotalCount = totalCount ;
+    emit stagesTotalCountChanged();
 }
 
 
