@@ -241,6 +241,7 @@ Item {
 
         //lab caches
         if(settings.labCache === false) {
+            adventureLabCachesRetriever.cachesActive = false
             adventureLabCachesRetriever.latPoint = coord.latitude
             adventureLabCachesRetriever.lonPoint = coord.longitude
             adventureLabCachesRetriever.distance = 100
@@ -264,6 +265,7 @@ Item {
 
             //lab caches
             if(settings.labCache === false) {
+                adventureLabCachesRetriever.cachesActive = false
                 adventureLabCachesRetriever.latPoint = coordinatesBox.resultLat
                 adventureLabCachesRetriever.lonPoint = coordinatesBox.resultLon
                 adventureLabCachesRetriever.distance = 100

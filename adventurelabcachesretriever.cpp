@@ -11,17 +11,23 @@
 
 AdventureLabCachesRetriever::AdventureLabCachesRetriever(Requestor *parent)
     : Requestor (parent)
-    , m_indexMoreCaches(0)
+    , m_indexMoreLabCaches(0)
     , m_maxCaches()
     , m_latPoint(0)
     , m_lonPoint(0)
     , m_distance(0)
     , m_excludeOwnedCompleted(false)
+    , m_cachesActive(false)
 {
 }
 
 AdventureLabCachesRetriever::~AdventureLabCachesRetriever()
 {
+}
+
+void AdventureLabCachesRetriever::listCachesObject(CachesSingleList *listCaches)
+{
+    m_listCaches = listCaches;
 }
 
 void AdventureLabCachesRetriever::sendRequest(QString token)
@@ -35,7 +41,7 @@ void AdventureLabCachesRetriever::sendRequest(QString token)
     requestName.append("q=location:[" + QString::number(m_latPoint) + "," + QString::number(m_lonPoint) + "]%2Bradius:"+QString::number(m_distance)+"km");
 
     //Pagination
-    requestName.append("&skip=" + QString::number(m_indexMoreCaches) + "&take=" + QString::number(MAX_PER_PAGE));
+    requestName.append("&skip=" + QString::number(m_indexMoreLabCaches) + "&take=" + QString::number(MAX_PER_PAGE));
 
     // Fields
     requestName.append("&fields=id,keyImageUrl,title,location,ratingsAverage,ratingsTotalCount,stagesTotalCount,dynamicLink,isOwned,isCompleted");
@@ -47,7 +53,7 @@ void AdventureLabCachesRetriever::sendRequest(QString token)
     } else {
         requestName.append("&excludeOwned=true" );
         requestName.append("&excludeCompleted=true" );
-    }    
+    }
 
     qDebug() << "URL:" << requestName ;
 
@@ -64,7 +70,7 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
     int lengthCaches = adventureLabCaches.size();
     if (lengthCaches == 0) {
-        setIndexMoreCaches(0);
+        setIndexMoreLabCaches(0);
         return ;
     }
 
@@ -86,7 +92,23 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         QJsonObject v1 = v["location"].toObject();
         cache->setLat(v1["latitude"].toDouble());
         cache->setLon(v1["longitude"].toDouble());
+
+        m_listCaches->append(*cache);
     }
+    if (lengthCaches == MAX_PER_PAGE && m_listCaches->length() < m_maxCaches)
+        moreCaches();
+    else {
+        setIndexMoreLabCaches(0);
+    }
+
+    emit m_listCaches->cachesChanged();
+}
+
+void AdventureLabCachesRetriever::moreCaches()
+{
+    setIndexMoreLabCaches(m_indexMoreLabCaches + MAX_PER_PAGE);
+    if(m_cachesActive)
+        sendRequest(m_tokenTemp);
 }
 
 double AdventureLabCachesRetriever::distTo(double latPoint1 , double lonPoint1 , double latPoint2 , double lonPoint2)
@@ -102,15 +124,15 @@ double AdventureLabCachesRetriever::distTo(double latPoint1 , double lonPoint1 ,
 
 /** Getters & Setters **/
 
-int AdventureLabCachesRetriever::indexMoreCaches()
+int AdventureLabCachesRetriever::indexMoreLabCaches()
 {
-    return m_indexMoreCaches;
+    return m_indexMoreLabCaches;
 }
 
-void  AdventureLabCachesRetriever::setIndexMoreCaches(int indexMoreCaches)
+void  AdventureLabCachesRetriever::setIndexMoreLabCaches(int indexMoreCaches)
 {
-    m_indexMoreCaches = indexMoreCaches;
-    emit indexMoreCachesChanged();
+    m_indexMoreLabCaches = indexMoreCaches;
+    emit indexMoreLabCachesChanged();
 }
 
 int  AdventureLabCachesRetriever::maxCaches()
@@ -166,6 +188,17 @@ void AdventureLabCachesRetriever::setExcludeOwnedCompleted(bool exclude)
 {
     m_excludeOwnedCompleted = exclude;
     emit excludeOwnedCompletedChanged();
+}
+
+bool AdventureLabCachesRetriever::cachesActive() const
+{
+    return m_cachesActive;
+}
+
+void AdventureLabCachesRetriever::setCachesActive(bool active)
+{
+    m_cachesActive = active;
+    emit cachesActiveChanged();
 }
 
 

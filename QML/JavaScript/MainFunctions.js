@@ -142,6 +142,7 @@ function reloadCachesNear() {
 
         //lab caches
         if(settings.labCache === false) {
+            adventureLabCachesRetriever.cachesActive = false
             adventureLabCachesRetriever.latPoint = fastMap.mapItem.center.latitude
             adventureLabCachesRetriever.lonPoint = fastMap.mapItem.center.longitude
             adventureLabCachesRetriever.distance = 100
@@ -165,6 +166,7 @@ function reloadCachesBBox() {
 
         //lab caches
         if(settings.labCache === false) {
+            adventureLabCachesRetriever.cachesActive = true
             adventureLabCachesRetriever.latPoint = (cachesBBox.latBottomRight + cachesBBox.latTopLeft) / 2
             adventureLabCachesRetriever.lonPoint = (cachesBBox.lonBottomRight + cachesBBox.lonTopLeft) / 2
 

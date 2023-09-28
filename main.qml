@@ -136,6 +136,10 @@ Item {
                 }
             }
         }
+        onClearMapRequested: {
+            fastMap.clearMap();
+        }
+        Component.onCompleted: listCachesObject(cachesSingleList)
     }
 
     CachesNear {
