@@ -147,7 +147,7 @@ function reloadCachesNear() {
             adventureLabCachesRetriever.lonPoint = fastMap.mapItem.center.longitude
             adventureLabCachesRetriever.distance = 100
             adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
-            adventureLabCachesRetriever.indexMoreCaches = 0
+            adventureLabCachesRetriever.indexMoreLabCaches = 0
             adventureLabCachesRetriever.sendRequest(connector.tokenKey)
         }
     }
@@ -174,7 +174,7 @@ function reloadCachesBBox() {
             adventureLabCachesRetriever.distance = Math.round(adventureLabCachesRetriever.distTo(cachesBBox.latBottomRight , cachesBBox.lonBottomRight ,
                                                                                                  cachesBBox.latTopLeft , cachesBBox.lonTopLeft))
             adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
-            adventureLabCachesRetriever.indexMoreCaches = 0
+            adventureLabCachesRetriever.indexMoreLabCaches = 0
             adventureLabCachesRetriever.sendRequest(connector.tokenKey)
         }
     }

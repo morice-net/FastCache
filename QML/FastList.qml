@@ -106,8 +106,10 @@ Rectangle {
             anchors.fill: parent
             onClicked: {
                 cachesNear.sendRequest(connector.tokenKey)
+
                 // lab caches
-                adventureLabCachesRetriever.sendRequest(connector.tokenKey)
+                if(settings.labCache === false)
+                    adventureLabCachesRetriever.sendRequest(connector.tokenKey)
             }
         }
     }

@@ -231,7 +231,7 @@ FastPopup {
                             adventureLabCachesRetriever.lonPoint = listModel.get(index).valLon
                             adventureLabCachesRetriever.distance = 100
                             adventureLabCachesRetriever.excludeOwnedCompleted = main.excludeFound
-                            adventureLabCachesRetriever.indexMoreCaches = 0
+                            adventureLabCachesRetriever.indexMoreLabCaches = 0
                             adventureLabCachesRetriever.sendRequest(connector.tokenKey)
                         }
                         fastMap.mapItem.center =QtPositioning.coordinate(listModel.get(index).valLat , listModel.get(index).valLon)
