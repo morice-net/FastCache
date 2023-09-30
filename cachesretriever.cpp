@@ -56,6 +56,8 @@ void CachesRetriever::sendRequest(QString token)
             requestName.append(QString::number(type) + ",");
         }
         requestName.remove(requestName.size()-1, 1);
+    } else {
+        requestName.append("%2Btype:not(2,3,4,5,6,8,9,11,12,13,137,453,1304,1858,3653,3773,3774,4738,7005)");
     }
 
     // filter by size.
@@ -66,6 +68,8 @@ void CachesRetriever::sendRequest(QString token)
             requestName.append(QString::number(size) + ",");
         }
         requestName.remove(requestName.size()-1, 1);
+    } else {
+        requestName.append("%2Bsize:not(1,2,8,3,4,5,6)");
     }
 
     // filter by difficulty, terrain.
@@ -201,14 +205,12 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
         if(types[i] == false  && i != 6){
             listFilterTypes.append(CACHE_TYPE_INDEX_MAP.value(QString::number(i)));
         } else if(types[i] == false  && i == 6){
-            listFilterTypes.append(6 );
-            listFilterTypes.append(4738 );
+            listFilterTypes.append(6);
+            listFilterTypes.append(4738);
             listFilterTypes.append(1304);
-            listFilterTypes.append(3653 );
+            listFilterTypes.append(3653);
         }
     }
-    if(listFilterTypes.length() == types.length() + 3)
-        listFilterTypes.clear();
     m_filterTypes = listFilterTypes ;
     qDebug() << "*** Types**\n" <<listFilterTypes ;
 
@@ -219,8 +221,6 @@ void CachesRetriever::updateFilterCaches(QList<bool> types , QList<bool> sizes ,
             listFilterSizes.append(CACHE_SIZE_INDEX_MAP.value(QString::number(i)));
         }
     }
-    if(listFilterSizes.length() == sizes.length())
-        listFilterSizes.clear();
     m_filterSizes = listFilterSizes ;
     qDebug() << "*** Sizes**\n" <<listFilterSizes ;
 
