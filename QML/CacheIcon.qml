@@ -7,6 +7,7 @@ Item {
     property bool registered: false
     property bool toDoLog: false
     property bool own: false
+    property bool isLabCache: false
 
     width: cacheIconBackground.width
     height: cacheIconBackground.height
@@ -18,12 +19,23 @@ Item {
 
     AnimatedSprite {
         id: cacheIconSprite
+        visible: !isLabCache
         running: false
         x: cacheIconBackground.width * 0.05
         source: "qrc:/Image/cacheList.png"
         frameCount: 15
         currentFrame: type
         width: cacheIconBackground.width * 0.9
+        height: width
+        anchors.centerIn: cacheIconBackground
+    }
+
+    Image {
+        id: labCache
+        visible: isLabCache
+        x: cacheIconBackground.width * 0.05
+        source: "qrc:/Image/labCache.png"
+        width: cacheIconBackground.width * 0.65
         height: width
         anchors.centerIn: cacheIconBackground
     }

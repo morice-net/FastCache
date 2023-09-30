@@ -17,6 +17,7 @@ MapQuickItem {
         registered: index < listCaches().length ? listCaches()[index].registered : false
         toDoLog: index < listCaches().length ? listCaches()[index].toDoLog : false
         own: index < listCaches().length ? listCaches()[index].own : false
+        isLabCache: index < listCaches().length ? listCaches()[index].type === "labCache" : false
 
         MouseArea {
             anchors.fill: parent

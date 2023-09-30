@@ -79,7 +79,8 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         Cache *cache ;
         cache = new Cache();
 
-        cache->setGeocode(v["id"].toString());
+        cache->setType("labCache");
+        cache->setGeocode("LB" + v["id"].toString());
         cache->setOwn(v["isOwned"].toBool());
         cache->setName(v["title"].toString());
         cache->setRatingsAverage(v["ratingsAverage"].toInt());
