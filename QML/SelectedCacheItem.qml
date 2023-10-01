@@ -21,6 +21,7 @@ Rectangle {
 
     AnimatedSprite {
         id: selectedCacheIconField
+        visible: selectedCache !== null ? selectedCache.type !== "labCache" : false
 
         property int type: 0
 
@@ -30,6 +31,17 @@ Rectangle {
         currentFrame: type
         width: selectedCacheNameField.height + selectedCacheGeocodeField.height
         height: width
+        anchors.margins: 10
+        anchors.top: parent.top
+        anchors.left: parent.left
+    }
+
+    Image {
+        id: labCache
+        visible: selectedCache !== null ? selectedCache.type === "labCache" : false
+        width: (selectedCacheNameField.height + selectedCacheGeocodeField.height) * 0.8
+        height: width
+        source: "qrc:/Image/labCache.png"
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
@@ -77,25 +89,28 @@ Rectangle {
 
     Text {
         id: selectedCacheNameField
+        width: selectedCacheItem.width * 0.7
         anchors.margins: 7
         anchors.top: parent.top
         anchors.left: selectedCacheIconField.right
-        anchors.right: littleCompass.left
         font.family: localFont.name
         font.pointSize: parent.height * 0.15
         color: Palette.black()
         elide: Text.ElideRight
+        clip: true
         text: selectedCache !== null ? selectedCache.name : ""
     }
 
     Text {
         id: selectedCacheGeocodeField
+        width: selectedCacheItem.width / 3
         anchors.margins: 7
         anchors.top: selectedCacheNameField.bottom
         anchors.left: selectedCacheIconField.right
         font.family: localFont.name
         font.pointSize: parent.height * 0.14
         color: Palette.black()
+        elide: Text.ElideRight
         clip: true
         text: selectedCache !== null ? selectedCache.geocode : ""
     }
@@ -113,6 +128,7 @@ Rectangle {
 
     RaterField {
         id: selectedCacheDifficultyField
+        visible: selectedCache !== null ? selectedCache.type !== "labCache" : false
         anchors.margins: 7
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.left: parent.left
@@ -123,6 +139,7 @@ Rectangle {
 
     RaterField {
         id: selectedCacheTerrainField
+        visible: selectedCache !== null ? selectedCache.type !== "labCache" : false
         anchors.margins: 7
         anchors.top: selectedCacheGeocodeField.bottom
         anchors.right: parent.right
