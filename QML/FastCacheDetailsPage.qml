@@ -91,10 +91,13 @@ Item {
             }
 
             Text {
+                width: fastCache.width * 0.3
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.geocode
                 color: Palette.white()
+                elide: Text.ElideRight
+                clip: true
             }
         }
 
@@ -125,7 +128,8 @@ Item {
             spacing: 15
 
             Text {
-                id:diff
+                id: diff
+                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -135,6 +139,7 @@ Item {
             }
 
             RaterField {
+                visible: fullCache.type !== "labCache"
                 anchors.verticalCenter: diff.verticalCenter
                 y: 5
                 reversedColor: true
@@ -148,6 +153,7 @@ Item {
 
             Text {
                 id:terr
+                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -157,6 +163,7 @@ Item {
             }
 
             RaterField {
+                visible: fullCache.type !== "labCache"
                 anchors.verticalCenter: terr.verticalCenter
                 y: 5
                 reversedColor: true
@@ -169,6 +176,7 @@ Item {
             spacing: 15
 
             Text {
+                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -178,6 +186,7 @@ Item {
             }
 
             Text {
+                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.favoritePoints
@@ -189,6 +198,7 @@ Item {
             spacing: 15
 
             Text {
+                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -198,6 +208,7 @@ Item {
             }
 
             Text {
+                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.owner
@@ -209,6 +220,7 @@ Item {
             spacing: 15
 
             Text {
+                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -218,6 +230,7 @@ Item {
             }
 
             Text {
+                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: new Date(fullCache.date).toLocaleDateString(Qt.locale("fr_FR"))
@@ -229,6 +242,7 @@ Item {
             spacing: 15
 
             Text {
+                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -238,6 +252,7 @@ Item {
             }
 
             Text {
+                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.location
@@ -275,6 +290,7 @@ Item {
         }
 
         Rectangle {
+            visible: fullCache.type !== "labCache"
             width: parent.width
             height: 2
             color: Palette.white()
@@ -282,6 +298,7 @@ Item {
         }
 
         Text {
+            visible: fullCache.type !== "labCache"
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pointSize: 14
@@ -291,6 +308,7 @@ Item {
 
         Rectangle {
             id: rect
+            visible: fullCache.type !== "labCache"
             width: parent.width
             height: 2
             color: Palette.white()
@@ -299,6 +317,7 @@ Item {
 
         CacheAttributes {
             id: cacheAttributes
+            visible: fullCache.type !== "labCache"
             anchors.top: rect.bottom
         }
     }
