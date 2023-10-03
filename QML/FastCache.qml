@@ -94,12 +94,21 @@ Rectangle {
 
         AnimatedSprite {
             id: fastCacheHeaderIcon
-            visible: false
+            visible: fullCache.type !== "labCache"   // geocode GC...
             anchors.verticalCenter: parent.verticalCenter
             running: false
             source: "qrc:/Image/cacheList.png"
             frameCount: 15
             currentFrame: fullCache.typeIndex
+        }
+
+        Image {
+            id: fastLabCacheHeaderIcon
+            visible: fullCache.type === "labCache"   // lab cache
+            width: 25
+            height: 25
+            anchors.verticalCenter: parent.verticalCenter
+            source: "qrc:/Image/labCache.png"
         }
 
         Text {
@@ -118,7 +127,6 @@ Rectangle {
                     parent.xGoal = Math.min(fastCache.width - parent.x - fastCacheHeaderIcon.width - fastCacheHeaderName.width - fastCache.width * 0.1 ,
                                             parent.x)
                 }
-                fastCacheHeaderIcon.visible = true
                 headerAnimation.restart()
             }
         }
