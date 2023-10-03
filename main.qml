@@ -237,10 +237,6 @@ Item {
         id: sureQuit
     }
 
-    /////////////////////////
-    // Invisible elements  //
-    /////////////////////////
-
     FontLoader { id: localFont; source: "qrc:/Ressources/DellaRespira-Regular.ttf" }
 
     Connector {
@@ -307,6 +303,30 @@ Item {
             fullCacheRetriever.updateFullCache(fullCache)
             fullCacheRetriever.updateReplaceImageInText(replaceImageInText)
             fullCacheRetriever.updateGetUserGeocacheLogs(getUserGeocacheLogs)
+        }
+    }
+
+    FullLabCacheRetriever {
+        id: fullLabCacheRetriever
+        onStateChanged: {
+            if(fullLabCacheRetriever.state === "loading")
+                previousViewState[0] = viewState
+            if(fullLabCacheRetriever.state !== "loading" && fullLabCacheRetriever.state === "OK")
+                viewState = "fullcache"
+            if(fullLabCacheRetriever.state !== "loading" && fullLabCacheRetriever.state !== "OK") {
+                toast.visible = true;
+                if(fullLabCacheRetriever.state === "timeOutConnection") {
+                    toast.show("Délai de connexion dépassé pour le chargement de la lab cache");
+                } else {
+                    toast.show("Erreur de chargement de la lab cache " + "(" + state + ")")
+                }
+                if(viewState === "fullcache")
+                    fullCache.geocode = previousGeocode
+            }
+        }
+        Component.onCompleted: {
+            fullLabCacheRetriever.updateFullCache(fullCache)
+            listCachesObject(cachesSingleList)
         }
     }
 
