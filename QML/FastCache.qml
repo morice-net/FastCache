@@ -234,7 +234,15 @@ Rectangle {
     }
 
     function compassPageFullCache() {
-        wptName = "Cache   " + fullCache.geocode
+        var cachetype = "Cache "
+        var cacheGeocode = ""
+        if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
+            cachetype = "Lab Cache "
+            cacheGeocode = fullCache.geocode.substring(0,10) + "..."
+        } else {
+            cacheGeocode = fullCache.geocode // cache GC..
+        }
+        wptName = cachetype + cacheGeocode
         goalLat = fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
         goalLon = fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
         return fullCache.geocode

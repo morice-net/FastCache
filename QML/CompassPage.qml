@@ -86,7 +86,15 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                compassPageInit("Cache   " + fullCache.geocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                var cachetype = "Cache "
+                var cacheGeocode = ""
+                if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
+                    cachetype = "Lab Cache "
+                    cacheGeocode = fullCache.geocode.substring(0,10) + "..."
+                } else {
+                    cacheGeocode = fullCache.geocode // cache GC..
+                }
+                compassPageInit(cachetype +  cacheGeocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
                                 fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
                 swipeToPage(compassPageIndex);
             }

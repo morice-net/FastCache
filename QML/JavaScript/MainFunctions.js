@@ -80,6 +80,13 @@ function registeredDynamic(listCaches) {
 
 //dynamic changes on list and  map
 function correctedCoordinatesDynamic(listCaches) {
+
+
+    console.log("Bonjour:  " + listCaches.length)
+
+
+
+
     if(!fastCache.geocodeInCachesList) //cache not in list
         return
     for (var i = 0; i < listCaches.length; i++) {
