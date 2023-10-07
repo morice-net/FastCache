@@ -91,7 +91,6 @@ function correctedCoordinatesDynamic(listCaches) {
                 listCaches[i].lat = fullCache.lat;
                 listCaches[i].lon = fullCache.lon;
             }
-            cachesSingleList.caches = listCaches
             return;
         }
     }
