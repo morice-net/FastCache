@@ -302,12 +302,12 @@ void Cache::setIsCompleted(const bool &complete)
     emit isCompletedChanged();
 }
 
-int Cache::ratingsAverage() const
+double Cache::ratingsAverage() const
 {
     return m_ratingsAverage;
 }
 
-void Cache::setRatingsAverage(const int &average)
+void Cache::setRatingsAverage(const double &average)
 {
     m_ratingsAverage = average ;
     emit ratingsAverageChanged();

@@ -128,6 +128,30 @@ Item {
             spacing: 15
 
             Text {
+                id: note
+                visible: fullCache.type === "labCache"
+                width: fastCache.width * 0.25
+                font.family: localFont.name
+                horizontalAlignment: Text.AlignRight
+                font.pointSize: 14
+                text: "Note"
+                color: Palette.silver()
+            }
+
+            RaterField {
+                visible: fullCache.type === "labCache"
+                anchors.verticalCenter: note.verticalCenter
+                y: 5
+                reversedColor: true
+                ratingName: "   " + fullCache.ratingsAverage.toString()  + " sur un total de " + fullCache.ratingsTotalCount
+                ratingValue: fullCache.ratingsAverage
+            }
+        }
+
+        Row {
+            spacing: 15
+
+            Text {
                 id: diff
                 visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25

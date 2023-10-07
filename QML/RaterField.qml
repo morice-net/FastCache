@@ -14,14 +14,6 @@ Row {
 
     spacing: 4
 
-    Text {
-        id: raterText
-        font.family: localFont.name
-        color: reversedColor ? Palette.white() : Palette.black()
-        text: raterField.ratingName
-        font.bold: reversedColor
-    }
-
     Repeater {
         model: 5
 
@@ -51,6 +43,14 @@ Row {
                 }
             }
         }
+    }
+
+    Text {
+        id: raterText
+        font.family: localFont.name
+        font.pointSize: 14
+        color: Palette.white()
+        text: raterField.ratingName
     }
 
     function rectangleType(indexModel) {

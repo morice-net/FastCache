@@ -35,7 +35,7 @@ class Cache : public QObject
     // add for lab caches
     Q_PROPERTY(QString imageUrl READ imageUrl WRITE setImageUrl NOTIFY imageUrlChanged)
     Q_PROPERTY(bool isCompleted READ isCompleted WRITE setIsCompleted NOTIFY isCompletedChanged)
-    Q_PROPERTY(int ratingsAverage READ ratingsAverage WRITE setRatingsAverage NOTIFY ratingsAverageChanged)
+    Q_PROPERTY(double ratingsAverage READ ratingsAverage WRITE setRatingsAverage NOTIFY ratingsAverageChanged)
     Q_PROPERTY(int ratingsTotalCount READ ratingsTotalCount WRITE setRatingsTotalCount NOTIFY ratingsTotalCountChanged)
     Q_PROPERTY(int stagesTotalCount READ stagesTotalCount WRITE setStagesTotalCount NOTIFY stagesTotalCountChanged)
 
@@ -115,8 +115,8 @@ public:
     bool isCompleted() const;
     void setIsCompleted(const bool &complete);
 
-    int ratingsAverage() const;
-    void setRatingsAverage(const int &average);
+    double ratingsAverage() const;
+    void setRatingsAverage(const double &average);
 
     int ratingsTotalCount() const;
     void setRatingsTotalCount(const int &totalCount);
@@ -174,7 +174,7 @@ protected:
     bool m_own;
     QString m_imageUrl;
     bool m_isCompleted;
-    int m_ratingsAverage;
+    double m_ratingsAverage;
     int m_ratingsTotalCount;
     int m_stagesTotalCount;
 

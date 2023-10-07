@@ -56,6 +56,11 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
             m_fullCache->setName(caches[i]->name());
             m_fullCache->setLat(caches[i]->lat());
             m_fullCache->setLon(caches[i]->lon());
+            m_fullCache->setRatingsAverage(caches[i]->ratingsAverage());
+            m_fullCache->setRatingsTotalCount(caches[i]->ratingsTotalCount());
+            m_fullCache->setStagesTotalCount(caches[i]->stagesTotalCount());
+            m_fullCache->setIsCompleted(caches[i]->isCompleted());
+            m_fullCache->setImageUrl(caches[i]->imageUrl());
             break;
         }
     }
