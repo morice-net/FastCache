@@ -25,7 +25,7 @@ Item {
             source: "qrc:/Image/menuIcon.png"
             y: parent.height*0.1
             x: y
-            height: parent.height*0.8
+            height: parent.height * 0.8
             width: height
 
             MouseArea {

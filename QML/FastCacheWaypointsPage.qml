@@ -64,7 +64,7 @@ Item {
                                 when: true
                                 value: fullCache.wptsIcon[index]
                             }
-                            scale: 1.5
+                            scale: 1.2
                         }
 
                         Text {

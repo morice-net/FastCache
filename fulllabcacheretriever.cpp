@@ -64,23 +64,22 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
             break;
         }
     }
-
     m_fullCache->setType("labCache");
     m_fullCache->setSize("Virtuelle");
 
-    QJsonObject v1 ;
 
     //  description
     m_fullCache->setLongDescription(cacheJson["firebaseDynamicLink"].toString());
 
-    // Waypoints
+    // stages of lab cache
     QList<QString> listWptsDescription ;
     QList<QString> listWptsName ;
     QList<QString> listWptsIcon ;
     QList<double> listWptsLat ;
     QList<double> listWptsLon ;
     QList<QString> listWptsComment ;
-    QJsonArray additionalWaypoints = cacheJson["additionalWaypoints"].toArray();
+
+    QJsonArray stages = cacheJson["stages"].toArray();
 
     listWptsDescription.clear();
     listWptsName.clear();
@@ -88,29 +87,26 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listWptsLat.clear();
     listWptsLon.clear();
     listWptsComment.clear();
-    for (const QJsonValue &waypoint: qAsConst(additionalWaypoints))
+
+    for (const QJsonValue &stage: qAsConst(stages))
     {
-        listWptsDescription.append(waypoint["name"].toString());
-        listWptsName.append(WPT_TYPE_MAP.key(waypoint["typeId"].toInt()));
-        listWptsIcon.append(WPT_TYPE_ICON_MAP.key(waypoint["typeId"].toInt()));
+        listWptsDescription.append(stage["title"].toString());
+        listWptsComment.append(stage["description"].toString());
+        listWptsName.append(WPT_TYPE_MAP.key(219));
+        listWptsIcon.append(WPT_TYPE_ICON_MAP.key(219));
 
-        v1 = waypoint["coordinates"].toObject();
-        if(v1["latitude"].isNull()) {
-            listWptsLat.append(200) ;
-        } else{
-            listWptsLat.append(v1["latitude"].toDouble());
-        }
+        QJsonObject v1 ;
+        v1 = stage["location"].toObject();
+        listWptsLat.append(v1["latitude"].toDouble());
         listWptsLon.append(v1["longitude"].toDouble());
-        listWptsComment.append(waypoint["description"].toString());
-    }
-    m_fullCache->setWptsDescription(listWptsDescription);
-    m_fullCache->setWptsName(listWptsName);
-    m_fullCache->setWptsIcon(listWptsIcon);
-    m_fullCache->setWptsLat(listWptsLat);
-    m_fullCache->setWptsLon(listWptsLon);
-    m_fullCache->setWptsComment(listWptsComment);
 
-    emit m_fullCache->registeredChanged();
+        m_fullCache->setWptsDescription(listWptsDescription);
+        m_fullCache->setWptsName(listWptsName);
+        m_fullCache->setWptsIcon(listWptsIcon);
+        m_fullCache->setWptsLat(listWptsLat);
+        m_fullCache->setWptsLon(listWptsLon);
+        m_fullCache->setWptsComment(listWptsComment);
+    }
 }
 
 

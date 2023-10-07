@@ -12,6 +12,6 @@ MapQuickItem {
     sourceItem: Image {
         id: image
         source: fullCache.wptsIcon[index] !== undefined ? fullCache.wptsIcon[index] : ""
-        scale: 1.8
+        scale: 1.5
     }
 }
