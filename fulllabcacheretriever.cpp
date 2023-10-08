@@ -122,6 +122,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setWptsComment(listWptsComment);
         m_fullCache->setImagesName(listImagesName);
         m_fullCache->setImagesUrl(listImagesUrl);
+        m_fullCache->setListStagesCount(stages.size());
     }
 }
 

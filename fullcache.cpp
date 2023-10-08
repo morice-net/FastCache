@@ -37,6 +37,7 @@ FullCache::FullCache(Cache *parent)
     , m_correctedLat(0.0)
     , m_correctedLon(0.0)
     , m_correctedCode("")
+    , m_listStagesCount(0)
 {
 }
 
@@ -441,6 +442,17 @@ void FullCache::setCorrectedCode(const QString &code)
 {
     m_correctedCode = code ;
     emit correctedCodeChanged();
+}
+
+int FullCache::listStagesCount() const
+{
+    return m_listStagesCount;
+}
+
+void FullCache::setListStagesCount(const int &count)
+{
+    m_listStagesCount = count ;
+    emit listStagesCountChanged();
 }
 
 

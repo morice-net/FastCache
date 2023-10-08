@@ -43,6 +43,9 @@ class FullCache : public Cache
     Q_PROPERTY(double correctedLon READ correctedLon WRITE setCorrectedLon NOTIFY correctedLonChanged)
     Q_PROPERTY(QString correctedCode READ correctedCode WRITE setCorrectedCode NOTIFY correctedCodeChanged)
 
+    // lab cache
+    Q_PROPERTY(int listStagesCount READ listStagesCount WRITE setListStagesCount NOTIFY listStagesCountChanged)
+
 public:
     explicit FullCache(Cache *parent = nullptr);
 
@@ -152,7 +155,10 @@ public:
     void setCorrectedLon(const double &lon);
 
     QString correctedCode() const;
-    void setCorrectedCode(const QString &code);    
+    void setCorrectedCode(const QString &code);
+
+    int listStagesCount() const;
+    void setListStagesCount(const int &count);
 
 signals:
     void attributesChanged();
@@ -189,7 +195,8 @@ signals:
     void isCorrectedCoordinatesChanged();
     void correctedLatChanged();
     void correctedLonChanged();
-    void correctedCodeChanged();   
+    void correctedCodeChanged();
+    void listStagesCountChanged();
 
 private:
     QList<int> m_attributes;
@@ -226,6 +233,7 @@ private:
     bool m_isCorrectedCoordinates;
     double m_correctedLat;
     double m_correctedLon;
-    QString m_correctedCode;    
+    QString m_correctedCode;
+    int m_listStagesCount;
 };
 #endif // FULLCACHE_H

@@ -83,6 +83,28 @@ Item {
 
             Text {
                 width: fastCache.width * 0.25
+                visible: fullCache.type === "labCache"
+                font.family: localFont.name
+                horizontalAlignment: Text.AlignRight
+                font.pointSize: 14
+                text: "Mode"
+                color: Palette.silver()
+            }
+
+            Text {
+                visible: fullCache.type === "labCache"
+                font.family: localFont.name
+                font.pointSize: 14
+                text: fullCache.stagesTotalCount === fullCache.listStagesCount ? "Non séquentiel" : "Séquentiel"
+                color: Palette.white()
+            }
+        }
+
+        Row {
+            spacing: 15
+
+            Text {
+                width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 14
