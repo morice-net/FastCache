@@ -69,6 +69,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
 
     //  description
+    m_fullCache->setLongDescriptionIsHtml(true);
     m_fullCache->setLongDescription(cacheJson["firebaseDynamicLink"].toString());
 
     // stages of lab cache
@@ -78,9 +79,6 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QList<double> listWptsLat ;
     QList<double> listWptsLon ;
     QList<QString> listWptsComment ;
-
-    QJsonArray stages = cacheJson["stages"].toArray();
-
     listWptsDescription.clear();
     listWptsName.clear();
     listWptsIcon.clear();
@@ -88,12 +86,28 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listWptsLon.clear();
     listWptsComment.clear();
 
+    QList<QString> listImagesName ;
+    QList<QString> listImagesUrl ;
+    listImagesName .clear();
+    listImagesUrl.clear();
+
+    QJsonArray stages = cacheJson["stages"].toArray();
+
+    listImagesName .append(m_fullCache->name());
+    listImagesUrl.append(m_fullCache->imageUrl());
+
     for (const QJsonValue &stage: qAsConst(stages))
     {
         listWptsDescription.append(stage["title"].toString());
         listWptsComment.append(stage["description"].toString());
         listWptsName.append(WPT_TYPE_MAP.key(219));
         listWptsIcon.append(WPT_TYPE_ICON_MAP.key(219));
+
+        listImagesName .append(stage["title"].toString());
+        listImagesUrl.append(stage["stageImageUrl"].toString());
+
+        qDebug() << "*** imagesName**\n" <<listImagesName ;
+        qDebug() << "*** imagesUrl**\n" <<listImagesUrl ;
 
         QJsonObject v1 ;
         v1 = stage["location"].toObject();
@@ -106,6 +120,8 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setWptsLat(listWptsLat);
         m_fullCache->setWptsLon(listWptsLon);
         m_fullCache->setWptsComment(listWptsComment);
+        m_fullCache->setImagesName(listImagesName);
+        m_fullCache->setImagesUrl(listImagesUrl);
     }
 }
 
