@@ -38,6 +38,7 @@ FullCache::FullCache(Cache *parent)
     , m_correctedLon(0.0)
     , m_correctedCode("")
     , m_listStagesCount(0)
+    , m_wptsIsComplete(QList<bool>())
 {
 }
 
@@ -453,6 +454,17 @@ void FullCache::setListStagesCount(const int &count)
 {
     m_listStagesCount = count ;
     emit listStagesCountChanged();
+}
+
+QList<bool> FullCache::wptsIsComplete() const
+{
+    return m_wptsIsComplete;
+}
+
+void FullCache::setWptsIsComplete(const QList<bool> &isComplete)
+{
+    m_wptsIsComplete = isComplete ;
+    emit wptsIsCompleteChanged();
 }
 
 

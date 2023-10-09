@@ -26,6 +26,7 @@ Item {
 
             FastButton {
                 id:buttonAddWpt
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.pointSize: 18
                 text:"Ajouter une étape personnelle"
@@ -94,6 +95,35 @@ Item {
                         font.pointSize: 15
                         color: Palette.white()
                         wrapMode: Text.Wrap
+                    }
+
+                    Row {
+                        leftPadding: 15
+                        spacing: 15
+
+                        Image {
+                            visible: fullCache.type === "labCache"
+
+                            Binding on source {
+                                when: true
+                                value: fullCache.imagesUrl[index + 1]
+                            }
+                            sourceSize.width: waypoints.width * 0.5
+                        }
+
+                        Text {
+                            visible: fullCache.type === "labCache"
+                            anchors.verticalCenter: parent.verticalCenter
+
+                            Binding on text {
+                                when: true
+                                value: fullCache.wptsIsComplete[index] ? "Terminé" : ""
+                            }
+                            font.family: localFont.name
+                            font.bold: true
+                            font.pointSize: 17
+                            color: Palette.black()
+                        }
                     }
 
                     Text {

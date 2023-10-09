@@ -79,12 +79,14 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QList<double> listWptsLat ;
     QList<double> listWptsLon ;
     QList<QString> listWptsComment ;
+    QList<bool> listWptsIsComplete ;
     listWptsDescription.clear();
     listWptsName.clear();
     listWptsIcon.clear();
     listWptsLat.clear();
     listWptsLon.clear();
     listWptsComment.clear();
+    listWptsIsComplete .clear();
 
     QList<QString> listImagesName ;
     QList<QString> listImagesUrl ;
@@ -100,6 +102,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     {
         listWptsDescription.append(stage["title"].toString());
         listWptsComment.append(stage["description"].toString());
+        listWptsIsComplete.append(stage["isComplete"].toBool());
         listWptsName.append(WPT_TYPE_MAP.key(219));
         listWptsIcon.append(WPT_TYPE_ICON_MAP.key(219));
 
@@ -123,6 +126,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setImagesName(listImagesName);
         m_fullCache->setImagesUrl(listImagesUrl);
         m_fullCache->setListStagesCount(stages.size());
+        m_fullCache->setWptsIsComplete(listWptsIsComplete);
     }
 }
 
