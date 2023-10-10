@@ -205,5 +205,6 @@
         <file>Image/icon_compass.png</file>
         <file>Image/labCache.png</file>
         <file>QML/SelectableLabCache.qml</file>
+        <file>Image/icon_check.png</file>
     </qresource>
 </RCC>
