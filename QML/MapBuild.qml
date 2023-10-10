@@ -82,8 +82,8 @@ Map {
         font.pointSize: 17
         color: Palette.black()
         font.family: localFont.name
-        text: !fastMap.compassMapButton ? listModeText(fastMap.cachesOnMap) : "Cache   " + fullCache.geocode
-
+        text: !fastMap.compassMapButton ? listModeText(fastMap.cachesOnMap) : fullCache.type !== "labCache" ?
+                                              "Cache   " + fullCache.geocode : "Lab Cache   " + fullCache.geocode.substring(0,10) + "..."
     }
 
     LoadingPage {
