@@ -9,16 +9,21 @@ Item {
     id: descriptionPage
     height: swipeFastCache.height
 
-    property string descriptionText: fullCache.shortDescription + fullCache.longDescription
-    property int webHistoryRank
-    property int webHistoryRankMax
+    property string descriptionText: fullCache.type !== "labCache" ? fullCache.shortDescription + fullCache.longDescription :
+                                                                     fullCache.longDescription
     property bool codedHint: true
+    property WebView  webEngineView
 
     onDescriptionTextChanged: {
+        deleteWebView()
+
         if((main.state !== "recorded") || (main.state === "cachesActive")) {
-            webEngineView.loadHtml(descriptionText , "html")
-            webHistoryRank = -1
-            webHistoryRankMax = -1
+            createWebView() //destroy and create to initialize browsing history of WebView
+            if(fullCache.type !== "labCache") {
+                webEngineView.loadHtml(descriptionText , "html")   // cacheGC ...
+            } else {
+                webEngineView.url = descriptionText // lab cache
+            }
         }
     }
 
@@ -64,11 +69,8 @@ Item {
                     icon.height: 30
                     onClicked:{
                         webEngineView.goBack()
-                        webHistoryRank = webHistoryRank -2
-                        console.log("web history rank:   " + webHistoryRank)
-                        console.log("web history rank max:   " + webHistoryRankMax)
                     }
-                    visible: webEngineView.canGoBack && webHistoryRank >> 0
+                    visible: webEngineView != null ? webEngineView.canGoBack : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -81,10 +83,8 @@ Item {
                     icon.height: 30
                     onClicked:{
                         webEngineView.goForward()
-                        console.log("web history rank:   " + webHistoryRank)
-                        console.log("web history rank max:   " + webHistoryRankMax)
                     }
-                    visible: webEngineView.canGoForward && (webHistoryRank << webHistoryRankMax)
+                    visible: webEngineView != null ? webEngineView.canGoForward : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -92,24 +92,17 @@ Item {
                 }
             }
 
-            WebView {
-                id: webEngineView
-                clip: true
-                visible: webViewDescriptionPageVisible && (userSettings.isMenuVisible() === false) && (fastMenu.isMenuVisible() === false)
+            Item {
+                id: itemWebView
+                visible: main.state !== "recorded"
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter
-                onLoadingChanged: (loadRequest) => {
-                                      console.log("Loaded: " + loadRequest.status)
-                                      webHistoryRank = webHistoryRank + 1
-                                      webHistoryRankMax = webHistoryRankMax + 1
-                                      console.log("web history rank:   " + webHistoryRank)
-                                      console.log("web history rank max:   " + webHistoryRankMax)
-                                  }
             }
 
             Rectangle {
                 id: separator1
+                visible: fullCache.type !== "labCache"
                 width: parent.width * 0.95
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 2
@@ -118,7 +111,8 @@ Item {
             }
 
             Text {
-                id:ind
+                id: ind
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 14
@@ -129,7 +123,7 @@ Item {
             Image {
                 source:"qrc:/Image/" + "icon_photo.png"
                 scale: 0.7
-                visible:fullCache.cacheImagesIndex[0] === 0 ? false : true
+                visible: fullCache.cacheImagesIndex[0] === 0  || fullCache.type === "labCache" ? false : true
 
                 MouseArea {
                     anchors.fill: parent
@@ -143,6 +137,7 @@ Item {
 
             Text {
                 id:hint
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.95
                 font.family: localFont.name
@@ -165,6 +160,7 @@ Item {
 
             Rectangle {
                 width: parent.width * 0.95
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 2
                 color: Palette.white()
@@ -173,6 +169,7 @@ Item {
 
             Text {
                 id: note
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 14
@@ -182,6 +179,7 @@ Item {
 
             FastButtonIcon {
                 id: buttonDelete
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 40
                 width: 30
@@ -191,6 +189,7 @@ Item {
 
             TextArea {
                 id: personalNote
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.9
                 font.family: localFont.name
@@ -205,6 +204,7 @@ Item {
 
             FastButton {
                 id:buttonSend
+                visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Envoyer"
                 font.pointSize: 17
@@ -228,5 +228,26 @@ Item {
         fullCache.setListVisibleImages(visible);
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
+    }
+
+    function createWebView() {
+        webEngineView = Qt.createQmlObject('import QtWebView
+        WebView {
+            id: webEngineView
+            clip: true
+            visible: webViewDescriptionPageVisible && (userSettings.isMenuVisible() === false) &&
+                     (fastMenu.isMenuVisible() === false)
+            width: parent.width * 0.95
+            height: main.height * 0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+            onUrlChanged: {
+                    console.log("[URL] The load request URL is: " + url);
+                }
+                                  }', itemWebView)
+    }
+
+    function deleteWebView() {
+        if(webEngineView != null)
+            webEngineView = null
     }
 }

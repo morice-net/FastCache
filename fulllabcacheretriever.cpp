@@ -69,7 +69,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
 
     //  description
-    m_fullCache->setLongDescriptionIsHtml(true);
+    m_fullCache->setLongDescriptionIsHtml(false);
     m_fullCache->setLongDescription(cacheJson["firebaseDynamicLink"].toString());
 
     // stages of lab cache

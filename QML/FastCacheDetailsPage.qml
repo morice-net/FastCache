@@ -53,7 +53,7 @@ Item {
             Text {
                 font.family: localFont.name
                 font.pointSize: 14
-                text: fullCache.type
+                text: fullCache.type !== "labCache" ? fullCache.type : "Lab Cache"
                 color: Palette.white()
             }
         }
