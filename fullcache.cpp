@@ -39,6 +39,7 @@ FullCache::FullCache(Cache *parent)
     , m_correctedCode("")
     , m_listStagesCount(0)
     , m_wptsIsComplete(QList<bool>())
+
 {
 }
 

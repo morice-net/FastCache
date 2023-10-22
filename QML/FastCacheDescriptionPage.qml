@@ -12,17 +12,15 @@ Item {
     property string descriptionText: fullCache.type !== "labCache" ? fullCache.shortDescription + fullCache.longDescription :
                                                                      fullCache.longDescription
     property bool codedHint: true
-    property WebView  webEngineView
+    property int gobackRank
 
     onDescriptionTextChanged: {
-        deleteWebView()
-
+        gobackRank = -1
         if((main.state !== "recorded") || (main.state === "cachesActive")) {
-            createWebView() //destroy and create to initialize browsing history of WebView
             if(fullCache.type !== "labCache") {
-                webEngineView.loadHtml(descriptionText , "html")   // cacheGC ...
+                webView.loadHtml(descriptionText , "html")   // cacheGC ...
             } else {
-                webEngineView.url = descriptionText // lab cache
+                webView.url = descriptionText // lab cache
             }
         }
     }
@@ -64,13 +62,16 @@ Item {
                 bottomPadding: 10
 
                 Button {
+                    id: buttonGoback
                     icon.source: "qrc:/Image/goback.png"
                     icon.width: 40
                     icon.height: 30
                     onClicked:{
-                        webEngineView.goBack()
+                        webView.goBack()
+                        gobackRank = gobackRank -2
+                        console.log("Go Back rank: " + gobackRank)
                     }
-                    visible: webEngineView != null ? webEngineView.canGoBack : false
+                    visible: webView != null ? webView.canGoBack && gobackRank >> 0 : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -78,13 +79,15 @@ Item {
                 }
 
                 Button {
+                    id: buttonForward
                     icon.source: "qrc:/Image/forward.png"
                     icon.width: 40
                     icon.height: 30
                     onClicked:{
-                        webEngineView.goForward()
+                        webView.goForward()
+                        console.log("Go Back rank: " + gobackRank)
                     }
-                    visible: webEngineView != null ? webEngineView.canGoForward : false
+                    visible: webView != null ? webView.canGoForward && gobackRank >> 0  : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -92,12 +95,33 @@ Item {
                 }
             }
 
-            Item {
-                id: itemWebView
-                visible: main.state !== "recorded"
+            WebView {
+                id: webView
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter
+                clip: true
+                onLoadingChanged: (loadRequest) => {
+                                      if (loadRequest.status === WebView.LoadStartedStatus) {
+                                          console.log("Load start: " + loadRequest.url)
+                                          if(fullCache.type !== "labCache" && url.toString().indexOf("data:text/html") === 0 ) { //GC code with html
+                                              gobackRank = gobackRank + 1
+                                              console.log("Go Back rank: " + gobackRank)
+                                          }
+                                      } else if (loadRequest.status === WebView.LoadSucceededStatus) {
+                                          console.log("Load succeeded: " + loadRequest.url)
+                                          if(fullCache.type === "labCache" ||     //lab cache
+                                             (fullCache.type !== "labCache" && url.toString().indexOf("data:text/html") !== 0)) { //internet with CG code
+                                              gobackRank = gobackRank + 1
+                                              console.log("Go Back rank: " + gobackRank)
+                                          }
+                                      } else if (loadRequest.status === WebView.LoadFailedStatus) {
+                                          console.log("Load failed: " + loadRequest.url + ". Error code: " + loadRequest.errorString)
+                                          if(url !== parseMalformedUrl(url)) { // redirection error for lab cache
+                                              url = parseMalformedUrl(url)
+                                          }
+                                      }
+                                  }
             }
 
             Rectangle {
@@ -230,24 +254,13 @@ Item {
         console.log("Visible Images:  " + fullCache.listVisibleImages)
     }
 
-    function createWebView() {
-        webEngineView = Qt.createQmlObject('import QtWebView
-        WebView {
-            id: webEngineView
-            clip: true
-            visible: webViewDescriptionPageVisible && (userSettings.isMenuVisible() === false) &&
-                     (fastMenu.isMenuVisible() === false)
-            width: parent.width * 0.95
-            height: main.height * 0.7
-            anchors.horizontalCenter: parent.horizontalCenter
-            onUrlChanged: {
-                    console.log("[URL] The load request URL is: " + url);
-                }
-                                  }', itemWebView)
-    }
-
-    function deleteWebView() {
-        if(webEngineView != null)
-            webEngineView = null
+    function parseMalformedUrl(url) {            // parse the url because of a redirection bug on android for a lab cache.
+        if(fullCache.type === "labCache" ) {
+            var indexOfFirst = url.toString().indexOf("https://labs.geocaching.com/goto/"); // no correct url on android
+            var indexOfSecond = url.toString().indexOf(";", indexOfFirst);
+            console.log("URL parsed:  " + url.toString().substring(indexOfFirst, indexOfSecond))
+            return url.toString().substring(indexOfFirst, indexOfSecond)
+        }
+        return url
     }
 }

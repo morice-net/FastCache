@@ -107,6 +107,6 @@ DISTFILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 ANDROID_ABIS = armeabi-v7a
-# ANDROID_ABIS = arm64-v8a
+#ANDROID_ABIS = arm64-v8a
 
 android: include(/home/artaud/Android/Sdk/android_openssl/openssl.pri)
