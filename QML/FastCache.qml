@@ -14,8 +14,8 @@ Rectangle {
     property int waypointsPageIndex: 1
     property int descriptionPageIndex: 2
     property int detailsPageIndex: 3
-    property int logsPageIndex: 4
-    property int imagesPageIndex: 5
+    property int imagesPageIndex: 4
+    property int logsPageIndex: 5
     property int logPageIndex: 6
     property int tbsPageIndex: 7
     property int userLogsPageIndex: 8
@@ -145,8 +145,26 @@ Rectangle {
 
     SwipeView {
         id: swipeFastCache
+
+        property int swipeViewCountCache: 9
+        property int swipeViewCountLabCache: 5
+        property string cacheGeocode: fullCache.geocode
+
+        onCacheGeocodeChanged: {
+            if(cacheGeocode.substring(0,2) !== "GC" && swipeFastCache.count === swipeViewCountCache ) {   // lab cache
+                swipeFastCache.takeItem(5)
+                swipeFastCache.takeItem(5)
+                swipeFastCache.takeItem(5)
+                swipeFastCache.takeItem(5)
+            } else if(cacheGeocode.substring(0,2) === "GC" && swipeFastCache.count === swipeViewCountLabCache) {  // GC.. cache
+                swipeFastCache.addItem(logsPage)
+                swipeFastCache.addItem(logPage)
+                swipeFastCache.addItem(tbsPage)
+                swipeFastCache.addItem(userLogsPage)
+            }
+        }
         visible: fullCacheRetriever.state !== "loading"
-        currentIndex: 3
+        currentIndex: detailsPageIndex
         anchors.top: fastCacheHeader.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
@@ -166,9 +184,9 @@ Rectangle {
 
         FastCacheDetailsPage { id: detailsPage }
 
-        FastCacheLogsPage { id: logsPage }
-
         FastCacheImagesPage { id: imagesPage }
+
+        FastCacheLogsPage { id: logsPage  }
 
         FastCacheLogPage {id: logPage }
 
@@ -180,12 +198,13 @@ Rectangle {
     Flickable {
         anchors.top: fastCacheHeader.bottom
         width: main.width
-        contentWidth: width * 2
+        contentWidth: swipeFastCache.count === swipeFastCache.swipeViewCountCache ? width * 1.75 : width
         height: fastCacheHeader.height + 2
         flickableDirection: Flickable.HorizontalFlick
 
         PageIndicator {
             id: indicatorFastCache
+            anchors.horizontalCenter: parent.horizontalCenter
             visible: fullCacheRetriever.state !== "loading"
             interactive: true
             count: swipeFastCache.count
@@ -210,21 +229,6 @@ Rectangle {
 
     function swipeToPage(pageNumber) {
         swipeFastCache.setCurrentIndex(pageNumber)
-    }
-
-    function addPage(page) {
-        swipeFastCache.addItem(page)
-        page.visible = true
-    }
-
-    function removePage(page) {
-        for (var n = 0; n < indicatorFastCache.count; n++) {
-            if (page === swipeFastCache.itemAt(n)) {
-                swipeFastCache.removeItem(n)
-                page.visible = false
-                return
-            }
-        }
     }
 
     function compassPageInit(title , lat , lon) {
@@ -297,7 +301,7 @@ Rectangle {
             return listDescription
     }
 
-    function pageIndicatorMenu(index) {
+    function pageIndicatorMenu(index)  {
         if(index === compassPageIndex)
             return "Boussole   "
         if(index ===  waypointsPageIndex)
@@ -306,10 +310,10 @@ Rectangle {
             return "Description  "
         if(index === detailsPageIndex)
             return "Détails  "
-        if(index === logsPageIndex)
-            return "Logs   "
         if(index === imagesPageIndex)
             return "Images  "
+        if(index === logsPageIndex)
+            return "Logs   "
         if(index === logPageIndex)
             return "Loguer  "
         if(index === tbsPageIndex)

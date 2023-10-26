@@ -73,23 +73,6 @@ Rectangle {
         swipeFastTravelbug.setCurrentIndex(pageNumber)
     }
 
-    function addPage(page) {
-        swipeFastTravelbug.addItem(page);
-        page.visible = true ;
-    }
-
-    function removePage(page) {
-        for (var n = 0; n < indicatorFastTravelbug.count; n++) {
-            if (page === swipeFastTravelbug.itemAt(n)) {
-                swipeFastTravelbug.removeItem(n) ;
-                page.visible = false ;
-                return ;
-            }
-        }
-        page.visible = false ;
-        return ;
-    }
-
     function pageIndicatorMenu(index) {
         if(index === 0)
             return "Détails   "
