@@ -125,7 +125,7 @@ Item {
         opacity: 0.85
         font.pointSize: 17
         text: "Voir la\ncarte"
-        y: fastCacheHeader.height * 2
+        y: main.height * 0.12
         anchors.right: parent.right
         anchors.rightMargin: 20
         onClicked: {
