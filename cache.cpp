@@ -58,6 +58,12 @@ void Cache::launchMaps(double lat , double lon)
     QDesktopServices::openUrl(QUrl(mapsUrl));
 }
 
+void Cache::launchAdventureLab(QString url)
+{
+    QString mapsUrl = url;
+    QDesktopServices::openUrl(QUrl(mapsUrl));
+}
+
 /** Getters & Setters **/
 
 QString Cache::name() const
