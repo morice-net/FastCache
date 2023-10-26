@@ -336,11 +336,33 @@ Item {
         }
 
         Rectangle {
-            visible: fullCache.type !== "labCache"
             width: parent.width
             height: 2
             color: Palette.white()
             radius: 10
+        }
+
+        Text {
+            visible: fullCache.type === "labCache"
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 17
+            text: "Ouvrez l'application Adventure Lab pour\n continuer cette aventure...."
+            color: Palette.white()
+        }
+
+        FastButtonIcon {
+            id: buttonAdventureLab
+            visible: fullCache.type === "labCache"
+            anchors.horizontalCenter: parent.horizontalCenter
+            height: 60
+            width: 60
+            source: "qrc:/Image/" + "icon_AdventureLab.png"
+            sourceWidth: 60
+            sourceHeight: 60
+            onClicked:{
+
+            }
         }
 
         Text {

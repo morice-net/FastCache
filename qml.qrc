@@ -206,5 +206,6 @@
         <file>Image/labCache.png</file>
         <file>QML/SelectableLabCache.qml</file>
         <file>Image/icon_check.png</file>
+        <file>Image/icon_AdventureLab.png</file>
     </qresource>
 </RCC>
