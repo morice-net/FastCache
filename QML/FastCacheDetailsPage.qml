@@ -360,8 +360,9 @@ Item {
             source: "qrc:/Image/" + "icon_AdventureLab.png"
             sourceWidth: 60
             sourceHeight: 60
-            onClicked:{
+            onClicked: {
                 fullCache.launchAdventureLab(fullCache.longDescription)
+                userInfo.sendRequest(connector.tokenKey, getTravelbugUser)  // updates the number of caches found
             }
         }
 
