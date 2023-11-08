@@ -612,10 +612,12 @@ Item {
     }
 
     function updatelistTypes(flag) {
+        var list = []
         for (var i = 0; i < listTypes.length; i++) {
-            listTypes[i] = flag
-            listTypes = listTypes
+            list.push(flag)
         }
+        listTypes = list
+
         settings.traditional = listTypes[0]
         settings.mystery = listTypes[1]
         settings.multi = listTypes[2]
