@@ -207,5 +207,6 @@
         <file>QML/SelectableLabCache.qml</file>
         <file>Image/icon_check.png</file>
         <file>Image/icon_AdventureLab.png</file>
+        <file>QML/SelectableFilterSize.qml</file>
     </qresource>
 </RCC>
