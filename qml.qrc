@@ -204,7 +204,7 @@
         <file>Image/icon_north.png</file>
         <file>Image/icon_compass.png</file>
         <file>Image/labCache.png</file>
-        <file>QML/SelectableLabCache.qml</file>
+        <file>QML/SelectableFilterLabCache.qml</file>
         <file>Image/icon_check.png</file>
         <file>Image/icon_AdventureLab.png</file>
         <file>QML/SelectableFilterSize.qml</file>

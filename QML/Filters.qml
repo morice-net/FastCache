@@ -18,8 +18,8 @@ Item {
         id: internFilterColumn
         spacing: filters.height / 50
 
-        SelectableLabCache {
-            id: selectableLabCache
+        SelectableFilterLabCache {
+            id: selectableFilterLabCache
             Layout.alignment: Qt.AlignCenter
             Layout.preferredHeight: main.width / 15
             text: "Lab Cache"
