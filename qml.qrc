@@ -14,7 +14,7 @@
         <file>Image/magnifying-glass.png</file>
         <file>QML/CacheFilter.qml</file>
         <file>Image/filterHeadArrow.png</file>
-        <file>QML/SelectableIcon.qml</file>
+        <file>QML/SelectableFilterType.qml</file>
         <file>QML/SelectableFilter.qml</file>
         <file>QML/Filters.qml</file>
         <file>Ressources/DellaRespira-Regular.ttf</file>

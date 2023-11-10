@@ -41,11 +41,11 @@ Item {
             Repeater {
                 model: main.listTypes
 
-                SelectableIcon {
-                    id: selectableIcon
+                SelectableFilterType {
+                    id: selectableFilterType
                     width: selectableIconWidth
                     height: width
-                    type: modelData
+                    typeCache: modelData
                 }
             }
         }

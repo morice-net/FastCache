@@ -6,14 +6,14 @@ import "JavaScript/Palette.js" as Palette
 CheckBox {
     id: control
 
-    property bool type
+    property bool typeCache
 
-    checked: type
+    checked: typeCache
     onClicked: {
         main.listTypes[index] = control.checked
         updateFilterType()
     }
-    onPressAndHold: updateListTypes(!type)
+    onPressAndHold: updateListTypes(!typeCache)
     indicator: Rectangle {
         opacity: 0.8
         implicitWidth: control.width
@@ -38,7 +38,7 @@ CheckBox {
             currentFrame: index
             width: parent.width * 0.9
             height: width
-        }        
+        }
         Component.onDestruction: {
             settings.traditional = listTypes[0]
             settings.mystery = listTypes[1]
@@ -87,7 +87,7 @@ CheckBox {
             settings.wherigo = main.listTypes[12]
         else if (index === 13)
             settings.gchq = main.listTypes[13]
-        else console.log("Erreur d'index dans SelectableIcon")
+        else console.log("Erreur d'index dans SelectableFilterType")
     }
 
     function updateListTypes(flag) {
