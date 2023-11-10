@@ -13,6 +13,7 @@ CheckBox {
         main.listTypes[index] = control.checked
         updateFilterType()
     }
+    onPressAndHold: updateListTypes(!type)
     indicator: Rectangle {
         opacity: 0.8
         implicitWidth: control.width
@@ -37,6 +38,22 @@ CheckBox {
             currentFrame: index
             width: parent.width * 0.9
             height: width
+        }        
+        Component.onDestruction: {
+            settings.traditional = listTypes[0]
+            settings.mystery = listTypes[1]
+            settings.multi = listTypes[2]
+            settings.earth = listTypes[3]
+            settings.cito = listTypes[4]
+            settings.ape = listTypes[5]
+            settings.event= listTypes[6]
+            settings.giga = listTypes[7]
+            settings.letterbox = listTypes[8]
+            settings.mega = listTypes[9]
+            settings.virtual = listTypes[10]
+            settings.webcam = listTypes[11]
+            settings.wherigo = listTypes[12]
+            settings.gchq = listTypes[13]
         }
     }
 
@@ -71,6 +88,14 @@ CheckBox {
         else if (index === 13)
             settings.gchq = main.listTypes[13]
         else console.log("Erreur d'index dans SelectableIcon")
+    }
+
+    function updateListTypes(flag) {
+        var list = []
+        for (var i = 0; i < listTypes.length; i++) {
+            list.push(flag)
+        }
+        listTypes = list
     }
 }
 

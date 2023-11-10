@@ -46,7 +46,6 @@ Item {
                     width: selectableIconWidth
                     height: width
                     type: modelData
-                    onPressAndHold: updatelistTypes(!selectableIcon.type)
                 }
             }
         }
@@ -329,28 +328,5 @@ Item {
         mot.recordMotInSettings()
         decouvreur.recordDiscoverInSettings()
         proprietaire.recordOwnerInSettings()
-    }
-
-    function updatelistTypes(flag) {
-        var list = []
-        for (var i = 0; i < listTypes.length; i++) {
-            list.push(flag)
-        }
-        listTypes = list
-
-        settings.traditional = listTypes[0]
-        settings.mystery = listTypes[1]
-        settings.multi = listTypes[2]
-        settings.earth = listTypes[3]
-        settings.cito = listTypes[4]
-        settings.ape = listTypes[5]
-        settings.event= listTypes[6]
-        settings.giga = listTypes[7]
-        settings.letterbox = listTypes[8]
-        settings.mega = listTypes[9]
-        settings.virtual = listTypes[10]
-        settings.webcam = listTypes[11]
-        settings.wherigo = listTypes[12]
-        settings.gchq = listTypes[13]
     }
 }
