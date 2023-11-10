@@ -208,5 +208,7 @@
         <file>Image/icon_check.png</file>
         <file>Image/icon_AdventureLab.png</file>
         <file>QML/SelectableFilterSize.qml</file>
+        <file>QML/SelectableFilterExclude.qml</file>
+        <file>QML/SelectableFilterKeyWord.qml</file>
     </qresource>
 </RCC>

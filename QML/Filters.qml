@@ -18,6 +18,7 @@ Item {
         id: internFilterColumn
         spacing: filters.height / 50
 
+        // lab caches
         SelectableFilterLabCache {
             id: selectableFilterLabCache
             Layout.alignment: Qt.AlignCenter
@@ -25,6 +26,7 @@ Item {
             text: "Lab Cache"
         }
 
+        // caches type
         SelectableFilter {
             id: typeFilterSelectable
             filterText: "Type"
@@ -50,6 +52,7 @@ Item {
             }
         }
 
+        // caches size
         SelectableFilter {
             id: sizeFilterSelectable
             filterText: "Taille"
@@ -95,6 +98,7 @@ Item {
             }
         }
 
+        // caches difficulty
         SelectableFilter {
             id: difficultyFilterSelectable
             filterText: "Difficulté"
@@ -110,6 +114,7 @@ Item {
             second.onValueChanged: settings.difficultyMax = maxValueSlider()
         }
 
+        // caches terrain
         SelectableFilter {
             id: fieldFilterSelectable
             filterText: "Terrain"
@@ -125,77 +130,28 @@ Item {
             second.onValueChanged: settings.terrainMax = maxValueSlider()
         }
 
-        CheckBox {
-            id :found
-            Layout.alignment: Qt.AlignLeft
-            Layout.preferredHeight: 28
+        // exclude caches
+        SelectableFilterExclude {
+            id : found
+            text: "Exclure les caches trouvées et mes.."
             checked: settings.excludeCachesFound
-            onCheckedChanged: main.excludeFound = found.checkState
-            contentItem: Text {
-                text: "Exclure les caches trouvées et mes.."
-                font.family: localFont.name
-                font.pointSize: 16
-                color: Palette.greenSea()
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: found.indicator.width + found .spacing + 10
-            }
-            indicator: Rectangle {
-                implicitWidth: 22
-                implicitHeight: 22
-                radius: 3
-                border.width: 1
-                x: 10
-                y: parent.height / 2 - height / 2
-
-                Rectangle {
-                    anchors.fill: parent
-                    visible: found .checked
-                    color: Palette.greenSea()
-                    radius: 3
-                    anchors.margins: 4
-                }
-            }
-
-            function recordFoundInSettings() {
-                settings.excludeCachesFound = found.checkState
+            onClicked: {
+                main.excludeFound = found.checked
+                settings.excludeCachesFound = found.checked
             }
         }
 
-        CheckBox {
-            id :archived
-            Layout.alignment: Qt.AlignLeft
-            Layout.preferredHeight: 28
+        SelectableFilterExclude {
+            id : archived
+            text: "Exclure les caches désactivées"
             checked: settings.excludeCachesArchived
-            onCheckedChanged: main.excludeArchived = archived.checkState
-            contentItem: Text {
-                text: "Exclure les caches désactivées"
-                font.family: localFont.name
-                font.pointSize: 16
-                color: Palette.greenSea()
-                verticalAlignment: Text.AlignVCenter
-                leftPadding: archived.indicator.width + archived.spacing + 10
-            }
-            indicator: Rectangle {
-                implicitWidth: 22
-                implicitHeight: 22
-                radius: 3
-                border.width: 1
-                x: 10
-                y: parent.height / 2 - height / 2
-                Rectangle {
-                    anchors.fill: parent
-                    visible: archived .checked
-                    color: Palette.greenSea()
-                    radius: 3
-                    anchors.margins: 4
-                }
-            }
-
-            function recordArchivedInSettings() {
-                settings.excludeCachesArchived = archived.checkState
+            onClicked: {
+                main.excludeArchived = archived.checked
+                settings.excludeCachesArchived = archived.checked
             }
         }
 
+        // filter by key, word
         SelectableFilter {
             id: keywordFilterSelectable
             Layout.alignment: Qt.AlignCenter
@@ -205,128 +161,17 @@ Item {
         FastButton {
             id: keywordButtonId
             Layout.alignment: Qt.AlignCenter
-            text:"Pas de filtres.."
+            text: "Pas de filtres"
             font.pointSize: 16
             onClicked: keyWordPopup.open()
         }
 
-        // key word popup
-        FastPopup {
+        SelectableFilterKeyWord {
             id: keyWordPopup
-            height: main.height * 0.6
-            width: main.width * 0.8
-            backgroundOpacity: 0.9
-            backgroundRadius: 8
-
-            Column {
-                id: column
-                spacing: 15
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                Label {
-                    id:label1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Mot-clé:"
-                    font.pointSize: 16
-                    color:Palette.white()
-                    font.family: localFont.name
-                }
-
-                TextField {
-                    id:mot
-                    text:  qsTr(settings.keyWord)
-                    color: Palette.greenSea()
-                    background: Rectangle {
-                        implicitWidth: main.width/1.5
-                        radius: 6
-                        border.color: mot.focus ? Palette.silver() :Palette.greenSea()
-                    }
-                    onTextChanged: keyWordButton()
-
-                    function recordMotInSettings() {
-                        settings.keyWord = mot.text
-                    }
-                }
-
-                Label {
-                    id:label2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Découvreur:"
-                    font.pointSize: 16
-                    color: Palette.white()
-                    anchors.topMargin: 5
-                    font.family: localFont.name
-                }
-
-                TextField {
-                    id:decouvreur
-                    text: qsTr(settings.discover)
-                    color: Palette.greenSea()
-                    background: Rectangle {
-                        implicitWidth: main.width/1.5
-                        radius: 6
-                        border.color: decouvreur.focus ? Palette.silver() :Palette.greenSea()
-                    }
-                    onTextChanged: keyWordButton()
-
-                    function recordDiscoverInSettings() {
-                        settings.discover = decouvreur.text
-                    }
-                }
-
-                Label {
-                    id: label3
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Proprietaire:"
-                    font.pointSize: 16
-                    color: Palette.white()
-                    font.family: localFont.name
-                }
-
-                TextField {
-                    id: proprietaire
-                    text: qsTr(settings.owner)
-                    color: Palette.greenSea()
-                    background: Rectangle {
-                        implicitWidth: main.width/1.5
-                        radius: 6
-                        border.color: proprietaire.focus ? Palette.silver() :Palette.greenSea()
-                    }
-                    onTextChanged: keyWordButton()
-
-                    function recordOwnerInSettings() {
-                        settings.owner = proprietaire.text
-                    }
-                }
-
-                FastButton {
-                    id: efface
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Effacer"
-                    font.pointSize: 16
-                    onClicked:{
-                        mot.text=""
-                        decouvreur.text=""
-                        proprietaire.text=""
-                        main.listKeywordDiscoverOwner[0] = mot.text
-                        main.listKeywordDiscoverOwner[1] = decouvreur.text
-                        main.listKeywordDiscoverOwner[2] = proprietaire.text
-                    }
-                }
-            }
-
-            function closeIfMenu() {
-                if (fastMenu.isMenuVisible())
-                    visible = false
-            }
         }
     }
 
     function recordFiltersInSettings() {
-        found.recordFoundInSettings()
-        archived.recordArchivedInSettings()
-        mot.recordMotInSettings()
-        decouvreur.recordDiscoverInSettings()
-        proprietaire.recordOwnerInSettings()
+        keyWordPopup.recordInSettings()
     }
 }
