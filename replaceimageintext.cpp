@@ -28,7 +28,7 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
     QString path = "";
     QString url = "";
     QString shortDescription = cacheJson["ShortDescription"].toString();
-    QRegularExpressionMatchIterator  j = rx.globalMatch(shortDescription);
+    QRegularExpressionMatchIterator j = rx.globalMatch(shortDescription);
 
     while (j.hasNext()) {
         QRegularExpressionMatch match = j.next();
