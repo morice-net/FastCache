@@ -12,6 +12,7 @@ CheckBox {
     checked: sizeCache
     onClicked: {
         main.listSizes[index] = control.checked
+        textSizeButton()
         updateFilterSize()
     }
     onPressAndHold: updatelistSizes(!sizeCache)
