@@ -28,8 +28,8 @@ SmileyGc::SmileyGc(QObject *parent)
 QString SmileyGc::replaceSmileyTextToImgSrc(const QString &text) const
 {
     QString newString = text;
-    for(const auto &e : m_mapSmileyGc.keys())    {
-
+    QList<QString> mapKeys = m_mapSmileyGc.keys();
+    for(const QString &e : mapKeys) {
         newString.replace("[" + e + "]" , R"(<img src=)" + m_mapSmileyGc.value(e) + R"( width="25")" +  R"(/>)" );
     }
     return newString;
