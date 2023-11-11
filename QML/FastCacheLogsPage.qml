@@ -107,7 +107,7 @@ Item {
                                 anchors.fill: parent
                                 onClicked: {
                                     imagesLog(index);
-                                    swipeFastCache.setCurrentIndex(5) ;
+                                    swipeFastCache.setCurrentIndex(fastCache.imagesPageIndex) ;
                                     fastCache.allVisible = false ;
                                 }
                             }

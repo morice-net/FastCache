@@ -144,7 +144,7 @@ Item  {
                                     updateLogIndex = index
                                     logPage.typeLog = logPage.initTypeLog()
                                     // log page
-                                    swipeFastCache.setCurrentIndex(6) ;
+                                    swipeFastCache.setCurrentIndex(fastCache.logPageIndex) ;
                                 }
                                 onPressAndHold: {
                                     updateLog = false

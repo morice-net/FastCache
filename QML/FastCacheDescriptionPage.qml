@@ -153,7 +153,7 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         imagesCache();
-                        swipeFastCache.setCurrentIndex(5) ;
+                        swipeFastCache.setCurrentIndex(fastCache.imagesPageIndex) ;
                         fastCache.allVisible = false ;
                     }
                 }
