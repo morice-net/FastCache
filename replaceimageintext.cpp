@@ -4,7 +4,6 @@
 #include <QJsonArray>
 #include <QDebug>
 
-
 ReplaceImageInText::ReplaceImageInText(Downloador *parent)
     : Downloador(parent)
 {
@@ -18,7 +17,7 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
 {
     QJsonDocument jsonDoc = dataJsonDoc;
     QJsonObject cacheJson = jsonDoc.object();
-    QRegularExpression rx("(https?://\\S+(\\.jpg|\\.jpeg|\\.gif|\\.png))" , QRegularExpression::CaseInsensitiveOption );
+    static QRegularExpression rx("(https?://\\S+(\\.jpg|\\.jpeg|\\.gif|\\.png))" , QRegularExpression::CaseInsensitiveOption );
 
     QDir dir(m_dir + geocode);
     if (!dir.exists())
@@ -29,7 +28,7 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
     QString path = "";
     QString url = "";
     QString shortDescription = cacheJson["ShortDescription"].toString();
-    QRegularExpressionMatchIterator j = rx.globalMatch(shortDescription);
+    QRegularExpressionMatchIterator  j = rx.globalMatch(shortDescription);
 
     while (j.hasNext()) {
         QRegularExpressionMatch match = j.next();
