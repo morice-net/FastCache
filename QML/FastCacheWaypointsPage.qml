@@ -198,7 +198,7 @@ Item {
 
             // correction of coordinates
             Text {
-                visible: fullCache.isCorrectedCoordinates
+                visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 15
@@ -207,7 +207,7 @@ Item {
             }
 
             Text {
-                visible: fullCache.isCorrectedCoordinates
+                visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                 width: parent.width
                 font.family: localFont.name
                 leftPadding: 15
@@ -226,7 +226,7 @@ Item {
 
                 Image {
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: fullCache.isCorrectedCoordinates
+                    visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                     source: "qrc:/Image/Compass/compassIcon.png"
                     scale: 0.6
 
@@ -241,7 +241,7 @@ Item {
 
                 Image {
                     anchors.verticalCenter: parent.verticalCenter
-                    visible: fullCache.isCorrectedCoordinates
+                    visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                     source: "qrc:/Image/mapsIcon.png"
                     scale: 0.5
 
@@ -258,7 +258,7 @@ Item {
 
                 FastButton {
                     id: correctedDelete
-                    visible: fullCache.isCorrectedCoordinates
+                    visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                     font.pointSize: 18
                     text: "Annuler"
                     onClicked:{
@@ -270,7 +270,7 @@ Item {
 
                 FastButton {
                     id: correctedUpdate
-                    visible: fullCache.isCorrectedCoordinates
+                    visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                     text: "Modifier"
                     font.family: localFont.name
                     font.pointSize: 18
@@ -283,7 +283,7 @@ Item {
             }
 
             Rectangle {
-                visible: fullCache.isCorrectedCoordinates
+                visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
                 height: 2
                 width: waypointsPage.width
                 color: Palette.silver()
@@ -291,7 +291,7 @@ Item {
 
             // list of user waypoints
             Text {
-                visible: fullCache.userWptsCode.length !== 0
+                visible: fullCache.userWptsCode.length !== 0 && fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
                 font.pointSize: 15
@@ -300,7 +300,7 @@ Item {
             }
 
             Repeater{
-                model:fullCache.userWptsCode.length
+                model: fullCache.userWptsCode.length
 
                 Column{
                     spacing: 5
@@ -310,13 +310,14 @@ Item {
 
                         Image {
                             id: iconUserwaypoint
+                            visible: fullCache.type !== "labCache"
                             source: "qrc:/Image/Waypoints/waypoint_user.png"
                             anchors.top: textCode.top
                         }
 
                         Text {
                             id: textCode
-                            //   anchors.bottom: iconUserwaypoint.bottom
+                            visible: fullCache.type !== "labCache"
                             leftPadding: 15
                             text: fullCache.userWptsCode[index]
                             font.family: localFont.name
@@ -327,7 +328,7 @@ Item {
                     }
 
                     Text {
-                        visible: fullCache.userWptsLat[index] >180  ? false : true
+                        visible: fullCache.userWptsLat[index] >180  ? false : true && fullCache.type !== "labCache"
                         text: formatLatText(formatCoordinatesUserWaypoint , fullCache.userWptsLat[index]) + "  ,   " +
                               formatLonText(formatCoordinatesUserWaypoint , fullCache.userWptsLon[index])
                         leftPadding: 15
@@ -347,7 +348,7 @@ Item {
 
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
-                            visible: fullCache.userWptsLat[index] >180  ? false : true
+                            visible: fullCache.userWptsLat[index] >180  ? false : true && fullCache.type !== "labCache"
                             source: "qrc:/Image/Compass/compassIcon.png"
                             scale: 0.6
 
@@ -362,7 +363,7 @@ Item {
 
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
-                            visible: fullCache.userWptsLat[index] >180  ? false : true
+                            visible: fullCache.userWptsLat[index] >180  ? false : true && fullCache.type !== "labCache"
                             source: "qrc:/Image/mapsIcon.png"
                             scale: 0.5
 
@@ -375,7 +376,7 @@ Item {
 
                     Text {
                         width: waypointsPage.width
-                        visible: fullCache.userWptsDescription[index] === "" ? false : true
+                        visible: fullCache.userWptsDescription[index] === "" ? false : true && fullCache.type !== "labCache"
                         font.family: localFont.name
                         font.pointSize: 15
                         horizontalAlignment: TextEdit.AlignJustify
@@ -394,6 +395,7 @@ Item {
 
                         FastButton {
                             id: uwDelete
+                            visible: fullCache.type !== "labCache"
                             text: "Supprimer"
                             font.pointSize: 18
                             onClicked:{
@@ -406,6 +408,7 @@ Item {
 
                         FastButton {
                             id: uwUpdate
+                            visible: fullCache.type !== "labCache"
                             text: "Modifier"
                             font.pointSize: 18
                             onClicked: {
@@ -418,6 +421,7 @@ Item {
                     }
 
                     Rectangle {
+                        visible: fullCache.type !== "labCache"
                         height: 1
                         width: waypointsPage.width
                         color: Palette.silver()
