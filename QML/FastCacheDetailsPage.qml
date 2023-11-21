@@ -314,7 +314,7 @@ Item {
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 14
-                text:  fullCache.isCorrectedCoordinates ? "Coord.modif" : "Coordonnées"
+                text: fullCache.isCorrectedCoordinates ? "Coord.modif" : "Coordonnées"
                 color: Palette.silver()
             }
 

@@ -66,7 +66,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
     m_fullCache->setType("labCache");
     m_fullCache->setSize("Virtuelle");
-
+    m_fullCache->setIsCorrectedCoordinates(false);
 
     //  description
     m_fullCache->setLongDescriptionIsHtml(false);
