@@ -23,6 +23,9 @@ public:
     void  deleteAll();
     int  length();
 
+    Q_INVOKABLE void correctedCoordinates(QString geocode, double lat , double lon , bool isCorrectedCoordinates , double correctedLat ,
+                                          double correctedLon);
+
 signals:
     void cachesChanged();
 

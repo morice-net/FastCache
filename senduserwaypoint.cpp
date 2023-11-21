@@ -138,10 +138,10 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
 
     } else if(state() == "Created" && userWaypoint["isCorrectedCoordinates"].toBool() == true){
         // Add a change to the coordinates
-        m_fullCache->setIsCorrectedCoordinates(true);
-        m_fullCache->setCorrectedCode(userWaypoint["referenceCode"].toString());
         m_fullCache->setCorrectedLat(coord["latitude"].toDouble());
         m_fullCache->setCorrectedLon(coord["longitude"].toDouble());
+        m_fullCache->setCorrectedCode(userWaypoint["referenceCode"].toString());
+        m_fullCache->setIsCorrectedCoordinates(true);
 
     }  else if(state() == "OK" && userWaypoint["isCorrectedCoordinates"].toBool() == false){
         //Update userWaypoint
@@ -164,10 +164,10 @@ void SendUserWaypoint::parseJson(const QJsonDocument &dataJsonDoc)
         }
 
     } else if(state() == "OK" && userWaypoint["isCorrectedCoordinates"].toBool() == true){
-        // Update a change to the coordinates
-        m_fullCache->setIsCorrectedCoordinates(true);
+        // Update a change to the coordinates        
         m_fullCache->setCorrectedLat(coord["latitude"].toDouble());
         m_fullCache->setCorrectedLon(coord["longitude"].toDouble());
+        m_fullCache->setIsCorrectedCoordinates(true);
     }
     return ;
 }

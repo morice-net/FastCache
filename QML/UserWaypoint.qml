@@ -41,7 +41,7 @@ FastPopup {
             id:coordinates
             anchors.horizontalCenter: parent.horizontalCenter
             y: 10
-            text:"Coordonnées"
+            text: "Coordonnées"
             font.pointSize: 18
             onClicked: {
                 coordinatesBox.backgroundOpacity = 1

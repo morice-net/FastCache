@@ -79,21 +79,11 @@ function registeredDynamic(listCaches) {
 }
 
 //dynamic changes on list and  map
-function correctedCoordinatesDynamic(listCaches) {
+function correctedCoordinatesDynamic() {
     if(!fastCache.geocodeInCachesList) //cache not in list
         return
-    for (var i = 0; i < listCaches.length; i++) {
-        if(listCaches[i].geocode === fullCache.geocode){
-            if(fullCache.isCorrectedCoordinates){
-                listCaches[i].lat = fullCache.correctedLat;
-                listCaches[i].lon = fullCache.correctedLon;
-            } else {
-                listCaches[i].lat = fullCache.lat;
-                listCaches[i].lon = fullCache.lon;
-            }
-            return;
-        }
-    }
+    cachesSingleList.correctedCoordinates(fullCache.geocode , fullCache.lat , fullCache.lon , fullCache.isCorrectedCoordinates,
+                                          fullCache.correctedLat , fullCache.correctedLon)
 }
 
 function recordAppSettings() {

@@ -47,6 +47,24 @@ int  CachesSingleList::length()
     return m_caches.length();
 }
 
+void CachesSingleList::correctedCoordinates(QString geocode, double lat , double lon , bool isCorrectedCoordinates , double correctedLat ,
+                                            double correctedLon)
+{
+    for (int i = 0; i < m_caches.size(); i++) {
+        if(m_caches[i]->geocode() == geocode){
+            if(isCorrectedCoordinates){
+                m_caches[i]->setLat(correctedLat);
+                m_caches[i]->setLon(correctedLon);
+            } else {
+                m_caches[i]->setLat(lat);
+                m_caches[i]->setLon(lon);
+            }
+            emit cachesChanged();
+            return;
+        }
+    }
+}
+
 
 
 
