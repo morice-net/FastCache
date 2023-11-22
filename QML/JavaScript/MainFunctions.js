@@ -45,15 +45,10 @@ function centerMapCaches(listCaches) {
     fastMap.currentZoomlevel= fastMap.mapItem.zoomLevel
 }
 
-function toDoLogDynamic(listCaches) {
+function toDoLogDynamic() {
     if(!fastCache.geocodeInCachesList) //cache not in list
         return
-    for (var i = 0; i < listCaches.length; i++) {
-        if(listCaches[i].geocode === fullCache.geocode){
-            listCaches[i].toDoLog = fullCache.toDoLog;
-            return;
-        }
-    }
+    cachesSingleList.toDoLog(fullCache.geocode , fullCache.toDoLog)
 }
 
 function foundDynamic() {

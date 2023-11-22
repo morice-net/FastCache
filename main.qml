@@ -278,7 +278,7 @@ Item {
             }
             fastCache.swipeLogPage.typeLog = fastCache.swipeLogPage.initTypeLog()
         }
-        onToDoLogChanged: Functions.toDoLogDynamic(cachesSingleList.caches)
+        onToDoLogChanged: Functions.toDoLogDynamic()
     }
 
     FullCacheRetriever {

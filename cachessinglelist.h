@@ -27,6 +27,7 @@ public:
                                           double correctedLon);
     Q_INVOKABLE void registered(QString geocode, bool recorded);
     Q_INVOKABLE void found(QString geocode, bool found);
+    Q_INVOKABLE void toDoLog(QString geocode, bool toDoLog);
 
 signals:
     void cachesChanged();
