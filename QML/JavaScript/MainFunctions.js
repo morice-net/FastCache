@@ -56,15 +56,10 @@ function toDoLogDynamic(listCaches) {
     }
 }
 
-function foundDynamic(listCaches) {
+function foundDynamic() {
     if(!fastCache.geocodeInCachesList) //cache not in list
         return
-    for (var i = 0; i < listCaches.length; i++) {
-        if(listCaches[i].geocode === fullCache.geocode) {
-            listCaches[i].found = fullCache.found;
-            return;
-        }
-    }
+    cachesSingleList.found(fullCache.geocode , fullCache.found)
 }
 
 function registeredDynamic() {

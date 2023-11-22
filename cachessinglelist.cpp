@@ -76,6 +76,17 @@ void CachesSingleList::registered(QString geocode, bool recorded)
     }
 }
 
+void CachesSingleList::found(QString geocode, bool found)
+{
+    for (int i = 0; i < m_caches.size(); i++) {
+        if(m_caches[i]->geocode() == geocode){
+            m_caches[i]->setFound(found);
+            emit cachesChanged();
+            return;
+        }
+    }
+}
+
 
 
 

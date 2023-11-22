@@ -269,7 +269,7 @@ Item {
         onIsCorrectedCoordinatesChanged: Functions.correctedCoordinatesDynamic()
         onRegisteredChanged: Functions.registeredDynamic()
         onFoundChanged: {
-            Functions.foundDynamic(cachesSingleList.caches)
+            Functions.foundDynamic()
             fastCache.updateLog = false
             if(state !== "recorded" || !registered)  {
                 getUserGeocacheLogs.sendRequest(connector.tokenKey , fullCache.geocode)

@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE void correctedCoordinates(QString geocode, double lat , double lon , bool isCorrectedCoordinates , double correctedLat ,
                                           double correctedLon);
     Q_INVOKABLE void registered(QString geocode, bool recorded);
+    Q_INVOKABLE void found(QString geocode, bool found);
 
 signals:
     void cachesChanged();
