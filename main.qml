@@ -762,8 +762,6 @@ Item {
                                 fastMenuHeader.changeFiltersVisibility()
                             } else if (main.viewState == "fullcache") {
                                 main.viewState = previousViewState[0]
-                            } else if (main.viewState == "travelbug") {
-                                main.viewState = previousViewState[1]
                             } else {
                                 sureQuit.visible = true
                             }

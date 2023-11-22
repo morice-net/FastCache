@@ -11,6 +11,19 @@ Item {
     visible:true
 
     property bool formatCoordinates: true
+    property bool adventureLabLaunched: false //adventure Lab launched for lab caches
+
+    Connections {
+        target: Qt.application
+        function onStateChanged() {
+            console.log("Application state:  " + Qt.application.state)
+            if(Qt.application.state === Qt.ApplicationActive && adventureLabLaunched === true ) { // we return to the main application
+                adventureLabLaunched = false
+                userInfo.sendRequest(connector.tokenKey, getTravelbugUser)  // updates the number of caches found
+                return
+            }
+        }
+    }
 
     Column {
         spacing: 5
@@ -362,7 +375,7 @@ Item {
             sourceHeight: 60
             onClicked: {
                 fullCache.launchAdventureLab(fullCache.longDescription)
-                userInfo.sendRequest(connector.tokenKey, getTravelbugUser)  // updates the number of caches found
+                adventureLabLaunched = true
             }
         }
 
