@@ -65,6 +65,17 @@ void CachesSingleList::correctedCoordinates(QString geocode, double lat , double
     }
 }
 
+void CachesSingleList::registered(QString geocode, bool recorded)
+{
+    for (int i = 0; i < m_caches.size(); i++) {
+        if(m_caches[i]->geocode() == geocode){
+            m_caches[i]->setRegistered(recorded);
+            emit cachesChanged();
+            return;
+        }
+    }
+}
+
 
 
 

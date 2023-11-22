@@ -267,7 +267,7 @@ Item {
     FullCache {
         id: fullCache
         onIsCorrectedCoordinatesChanged: Functions.correctedCoordinatesDynamic()
-        onRegisteredChanged: Functions.registeredDynamic(cachesSingleList.caches)
+        onRegisteredChanged: Functions.registeredDynamic()
         onFoundChanged: {
             Functions.foundDynamic(cachesSingleList.caches)
             fastCache.updateLog = false

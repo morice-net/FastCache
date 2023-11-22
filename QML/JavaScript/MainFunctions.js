@@ -67,15 +67,10 @@ function foundDynamic(listCaches) {
     }
 }
 
-function registeredDynamic(listCaches) {
+function registeredDynamic() {
     if(!fastCache.geocodeInCachesList) //cache not in list
         return
-    for (var i = 0; i < listCaches.length; i++) {
-        if(listCaches[i].geocode === fullCache.geocode){
-            listCaches[i].registered = fullCache.registered;
-            return;
-        }
-    }
+    cachesSingleList.registered(fullCache.geocode , fullCache.registered)
 }
 
 //dynamic changes on list and  map
