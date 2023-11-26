@@ -9,6 +9,8 @@ import "JavaScript/MainFunctions.js" as Functions
 Item {
     id: compassPage
 
+    property string ifFullCache: compassPageFullCache()
+
     Location {
         id: goalLocation
         coordinate {
@@ -85,25 +87,13 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                var cachetype = "Cache "
-                var cacheGeocode = ""
-                if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
-                    cachetype = "Lab Cache "
-                    cacheGeocode = fullCache.geocode.substring(0,10) + "..."
-                } else {
-                    cacheGeocode = fullCache.geocode // cache GC..
-                }
-                compassPageInit(cachetype +  cacheGeocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
-                                fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
-                swipeToPage(compassPageIndex);
-            }
+            onClicked: compassPageFullCache()
         }
     }
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: title.y + title.height + 5
+        y: title.y + title.height + 3
         font.family: localFont.name
         font.pointSize: 16
         text: "Lat  " + Functions.formatLat(goalLocation.coordinate.latitude) + "   Lon  " + Functions.formatLon(goalLocation.coordinate.longitude)
@@ -112,12 +102,21 @@ Item {
 
     Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        y: title.y + 2*title.height + 5
+        y: title.y + 2 * title.height
         font.family: localFont.name
-        font.pointSize: 16
+        font.pointSize: 14
+        text:"position actuelle"
+        color: Palette.silver()
+    }
+
+    Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: title.y + 2.7 * title.height
+        font.family: localFont.name
+        font.pointSize: 14
         text: "Lat  " + Functions.formatLat(currentPosition.position.coordinate.latitude) + "   Lon  " +
               Functions.formatLon(currentPosition.position.coordinate.longitude)
-        color: Palette.white()
+        color: Palette.silver()
     }
 
     FastButton {
@@ -166,12 +165,26 @@ Item {
     }
 
     function updateRotation() {
-        compassRose.rotation = -1*beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
+        compassRose.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
         compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate)
         main.beginLat = currentPosition.position.coordinate.latitude;
         main.beginLon = currentPosition.position.coordinate.longitude;
     }
 
+    function compassPageFullCache() {
+        var cachetype = "Cache: "
+        var cacheGeocode = ""
+        if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
+            cachetype = "Lab Cache: "
+            cacheGeocode = fullCache.geocode.substring(0,10) + "..."
+        } else {
+            cacheGeocode = fullCache.geocode // cache GC..
+        }
+        wptName = cachetype + cacheGeocode
+        goalLat = fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
+        goalLon = fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
+        return fullCache.geocode
+    }
     Component.onCompleted: {
         main.positionUpdated.connect(updateRotation)
     }

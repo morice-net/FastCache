@@ -50,7 +50,6 @@ Rectangle {
     property var listImagesLog: createListImagesLog()
 
     // used by compassPage
-    property string ifFullCache: compassPageFullCache()
     property string wptName
     property double goalLat
     property double goalLon
@@ -235,21 +234,6 @@ Rectangle {
         wptName = title;
         goalLat = lat;
         goalLon = lon;
-    }
-
-    function compassPageFullCache() {
-        var cachetype = "Cache "
-        var cacheGeocode = ""
-        if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
-            cachetype = "Lab Cache "
-            cacheGeocode = fullCache.geocode.substring(0,10) + "..."
-        } else {
-            cacheGeocode = fullCache.geocode // cache GC..
-        }
-        wptName = cachetype + cacheGeocode
-        goalLat = fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
-        goalLon = fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
-        return fullCache.geocode
     }
 
     function addImagesToLog() {
