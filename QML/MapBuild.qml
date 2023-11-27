@@ -141,7 +141,7 @@ Map {
 
             fastMap.compassMapButton = false
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
-            fastMap.mapItem.oneCircleOnMap(fullCache.geocode , false) // makes all circle caches visible on map
+            fastMap.mapItem.allCirclesOnMap(true) // makes all cache circles visible on the map
             // is cache in list of caches?
             if(!fastCache.geocodeInCachesList) {
                 deleteCacheOnMap() // delete cache on map
@@ -307,12 +307,11 @@ Map {
         }
     }
 
-    // Makes a single cercle cache visible on the map if flag is true, makes all circle caches visible if not.
-    function oneCircleOnMap(geocode , flag) {
+    // Makes all cache circles visible on the map if flag is true, makes all cache circles invisible if not
+    function allCirclesOnMap(flag) {
         if(settings.circlesCaches)  {
             for (var i = 0; i < cacheItems.length; i++) {
-                if(cacheItems[i].geocode !== geocode)
-                    circleCacheItems[i].visible = !flag
+                circleCacheItems[i].visible = flag
             }
         }
     }
@@ -349,7 +348,7 @@ Map {
     function createCircleRadius(radius) {
         circleRadius = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
         circleRadius.center = mapItem.center
-        circleRadius.radius = radius*1000
+        circleRadius.radius = radius * 1000
         circleRadius.color = 'green'
         circleRadius.opacity = 0.2
         circleRadius.z = 0

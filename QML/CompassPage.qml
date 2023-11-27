@@ -139,7 +139,7 @@ Item {
 
             fastMap.compassMapButton = true
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
-            fastMap.mapItem.oneCircleOnMap(fullCache.geocode , true) // makes one circle cache visible on map
+            fastMap.mapItem.allCirclesOnMap(false) // makes all cache circles invisible on the map
             // center cache on map
             fastMap.mapItem.center = QtPositioning.coordinate(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
                                                               fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon )
