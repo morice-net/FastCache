@@ -228,7 +228,7 @@ FastPopup {
                 if(correctCoordinates()) {
                     fastCache.compassPageInit("Correction de coordonnées" , userWptLat , userWptLon)
                 } else {
-                    fastCache.compassPageInit("Etape personnelle" , userWptLat , userWptLon)
+                    fastCache.compassPageInit(description.text , userWptLat , userWptLon)
                 }
 
                 if(fastCache.userWptAdd === true){

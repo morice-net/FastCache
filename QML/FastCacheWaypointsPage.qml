@@ -154,7 +154,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    compassPageInit(fullCache.wptsName[index] , fullCache.wptsLat[index] , fullCache.wptsLon[index]);
+                                    compassPageInit(fullCache.wptsDescription[index] , fullCache.wptsLat[index] , fullCache.wptsLon[index]);
                                     swipeToPage(compassPageIndex);
                                 }
                             }
@@ -355,7 +355,7 @@ Item {
                             MouseArea {
                                 anchors.fill: parent
                                 onClicked: {
-                                    compassPageInit("Etape personnelle" , fullCache.userWptsLat[index] , fullCache.userWptsLon[index]);
+                                    compassPageInit(fullCache.userWptsDescription[index] , fullCache.userWptsLat[index] , fullCache.userWptsLon[index]);
                                     swipeToPage(compassPageIndex);
                                 }
                             }

@@ -78,12 +78,15 @@ Item {
     Text {
         id: title
         anchors.horizontalCenter: parent.horizontalCenter
+        width: main.width * 0.5
         y: compassBackground.y + compassBackground.height
         visible: fastCache.wptName.length !== 0
         font.family: localFont.name
         font.pointSize: 20
         text: fastCache.wptName
         color: Palette.white()
+        elide: Text.ElideRight
+        clip: true
 
         MouseArea {
             anchors.fill: parent
