@@ -143,11 +143,8 @@ Map {
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , false) //makes all caches visible on map
             fastMap.mapItem.allCirclesOnMap(true) // makes all cache circles visible on the map
             // is cache in list of caches?
-            if(!fastCache.geocodeInCachesList) {
+            if(!fastCache.geocodeInCachesList)
                 deleteCacheOnMap() // delete cache on map
-            //    if(settings.circlesCaches)
-              //      deleteCircleSingleCache() // delete circle around single cache
-            }
             // restores the center and the zoom of the map
             center = QtPositioning.coordinate(latCenterMap , lonCenterMap)
             fastMap.currentZoomlevel = zoomMap
@@ -306,22 +303,6 @@ Map {
                 circleCacheItems[i].visible = flag
             }
         }
-    }
-
-    // create a circle on map around a single cache with radius 161m
-    function createCircleSingleCache(lat, lon) {
-        circleSingleCache = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
-        circleSingleCache.center = QtPositioning.coordinate(lat, lon)
-        circleSingleCache.radius = 161.0
-        circleSingleCache.color = 'red'
-        circleSingleCache.opacity = 0.3
-        circleSingleCache.z = 0
-        addMapItem(circleSingleCache)
-    }
-
-    // delete a circle on map around a single cache with radius 161m
-    function deleteCircleSingleCache(lat, lon) {
-        removeMapItem(circleSingleCache)
     }
 
     // create a circle on map around a cache with radius 161m
