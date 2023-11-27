@@ -145,12 +145,9 @@ Item {
 
             fastMap.currentZoomlevel = 17
             // is cache in list of caches?
-            if(!fastCache.geocodeInCachesList) {
+            if(!fastCache.geocodeInCachesList)
                 fastMap.mapItem.addCacheOnMap() // add full cache on map, not in list
-                if(settings.circlesCaches)
-                    fastMap.mapItem.createCircleSingleCache(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
-                                                            fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
-            }
+
             // Add waypoints cache on map
             fastMap.mapItem.addWaypointsCacheOnMap()
 

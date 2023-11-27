@@ -145,8 +145,8 @@ Map {
             // is cache in list of caches?
             if(!fastCache.geocodeInCachesList) {
                 deleteCacheOnMap() // delete cache on map
-                if(settings.circlesCaches)
-                    deleteCircleSingleCache() // delete circle around single cache
+            //    if(settings.circlesCaches)
+              //      deleteCircleSingleCache() // delete circle around single cache
             }
             // restores the center and the zoom of the map
             center = QtPositioning.coordinate(latCenterMap , lonCenterMap)
