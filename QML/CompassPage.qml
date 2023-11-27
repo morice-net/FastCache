@@ -140,9 +140,8 @@ Item {
             fastMap.compassMapButton = true
             fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
             fastMap.mapItem.allCirclesOnMap(false) // makes all cache circles invisible on the map
-            // center cache on map
-            fastMap.mapItem.center = QtPositioning.coordinate(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
-                                                              fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon )
+            // center cache or waypoint on map
+            fastMap.mapItem.center = QtPositioning.coordinate(goalLat , goalLon)
 
             fastMap.currentZoomlevel = 17
             // is cache in list of caches?
@@ -160,10 +159,7 @@ Item {
 
             // Orient the map if necessary
             if(!fastMap.oldMapNorth)
-                fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
-                                                                                                                     fullCache.correctedLat : fullCache.lat,
-                                                                                                                 fullCache.isCorrectedCoordinates ?
-                                                                                                                     fullCache.correctedLon : fullCache.lon))
+                fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(goalLat , goalLon))
         }
     }
 

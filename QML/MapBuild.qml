@@ -146,7 +146,7 @@ Map {
             if(!fastCache.geocodeInCachesList) {
                 deleteCacheOnMap() // delete cache on map
                 if(settings.circlesCaches)
-                    deleteCircleSingleCache() // delete circle around singlecache
+                    deleteCircleSingleCache() // delete circle around single cache
             }
             // restores the center and the zoom of the map
             center = QtPositioning.coordinate(latCenterMap , lonCenterMap)
@@ -176,10 +176,7 @@ Map {
                 north.source = "qrc:/Image/" + "icon_compass.png"
                 fastMap.mapNorth = false
                 fastMap.oldMapNorth = fastMap.mapNorth
-                map.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
-                                                                                                         fullCache.correctedLat : fullCache.lat,
-                                                                                                     fullCache.isCorrectedCoordinates ?
-                                                                                                         fullCache.correctedLon : fullCache.lon))
+                map.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
             } else {
                 north.source = "qrc:/Image/" + "icon_north.png"
                 fastMap.mapNorth = true
@@ -206,10 +203,8 @@ Map {
             font.pointSize: 17
             color: Palette.black()
             clip: true
-            text: Helper.formatDistance(Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
-                                                                                                                               fullCache.correctedLat : fullCache.lat,
-                                                                                                                           fullCache.isCorrectedCoordinates ?
-                                                                                                                               fullCache.correctedLon : fullCache.lon))))
+            text: Helper.formatDistance(Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(fastCache.goalLat ,
+                                                                                                                           fastCache.goalLon))))
         }
 
         Image {
@@ -225,10 +220,7 @@ Map {
 
         function updateRotation() {
             smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
-                    currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
-                                                                                               fullCache.correctedLat : fullCache.lat,
-                                                                                           fullCache.isCorrectedCoordinates ?
-                                                                                               fullCache.correctedLon : fullCache.lon))
+                    currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
             main.beginLat = currentPosition.position.coordinate.latitude;
             main.beginLon = currentPosition.position.coordinate.longitude;
         }
