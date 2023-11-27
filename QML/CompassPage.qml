@@ -154,6 +154,9 @@ Item {
             // Add user waypoints cache on map
             fastMap.mapItem.addUserWaypointsCacheOnMap()
 
+            // Add circle around cache or waypoint
+            fastMap.mapItem.createCircleWaypoint(goalLat , goalLon)
+
             // Orient the map if necessary
             if(!fastMap.oldMapNorth)
                 fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(goalLat , goalLon))

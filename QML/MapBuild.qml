@@ -11,7 +11,7 @@ Map {
 
     property var selectedCache
     property MapCircle circle
-    property MapCircle circleSingleCache
+    property MapCircle circleWaypoint
     property MapCircle circleRadius
     property MapFullCacheItem singleCache
     property var waypointCacheItems: []  // list of waypoints of cache
@@ -154,6 +154,9 @@ Map {
 
             // delete user waypoints cache on map
             deleteUserWaypointsCacheOnMap()
+
+            // delete circle around  waypoint or cache on map
+            deleteCircleWaypoint()
 
             viewState = "fullcache"
         }
@@ -331,6 +334,26 @@ Map {
     function deleteCircleRadius() {
         removeMapItem(circleRadius)
     }
+
+    // create a circle on map around a waypoint
+    function createCircleWaypoint(lat, lon) {
+        circleWaypoint = Qt.createQmlObject('import QtLocation 5.3; MapCircle {}', map)
+        circleWaypoint.center = QtPositioning.coordinate(lat, lon)
+        circleWaypoint.radius = 6.0
+        circleWaypoint.color = Palette.turquoise()
+        circleWaypoint.border.color = Palette.black()
+        circleWaypoint.border.width = 4
+        circleWaypoint.opacity = 0.6
+        circleWaypoint.z = 0
+        fastMap.circleCacheItems.push(circleWaypoint)
+        addMapItem(circleWaypoint)
+    }
+
+    function deleteCircleWaypoint() {
+        removeMapItem(circleWaypoint)
+    }
+
+
 
     function supportedMap() {
         //osm
