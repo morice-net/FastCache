@@ -226,7 +226,7 @@ FastPopup {
             onClicked:{
                 // Update the compass page
                 if(correctCoordinates()) {
-                    fastCache.compassPageInit("Correction de coordonnées" , userWptLat , userWptLon)
+                    fastCache.compassPageInit("Cache: " + fullCache.geocode , userWptLat , userWptLon)
                 } else {
                     fastCache.compassPageInit(description.text , userWptLat , userWptLon)
                 }

@@ -232,10 +232,7 @@ Item {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: {
-                            compassPageInit("Correction de coordonnées" , fullCache.correctedLat , fullCache.correctedLon);
-                            swipeToPage(compassPageIndex);
-                        }
+                        onClicked: swipeToPage(compassPageIndex);
                     }
                 }
 
@@ -398,7 +395,7 @@ Item {
                             visible: fullCache.type !== "labCache"
                             text: "Supprimer"
                             font.pointSize: 18
-                            onClicked:{
+                            onClicked: {
                                 //Delete userWaypoint
                                 fastCache.deleteUserWpt = true
                                 sendUserWaypoint.sendRequest(connector.tokenKey, fullCache.userWptsCode[index])

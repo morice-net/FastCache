@@ -12,6 +12,5 @@ MapQuickItem {
     sourceItem: Image {
         id: image
         source: "qrc:/Image/Waypoints/waypoint_user.png"
-        scale: 1.3
     }
 }

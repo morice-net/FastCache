@@ -589,13 +589,15 @@ Item {
                     toast.show("Erreur d'envoi des étapes personnelles  " + "(" + state + ")")
                 }
             } else if (sendUserWaypoint.state === "Created"){
-                toast.show("L'étape personnelle a été crée ");
+                toast.show("L'étape personnelle a été créee ");
             } else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === true){
                 fullCache.removeUserWpt(fastCache.userWptIndex);
                 toast.show("L'étape personnelle a été supprimée");
+                fastCache.compassPageInit("Cache: " + fullCache.geocode , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
+                                          , fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
             } else if (sendUserWaypoint.state === "No Content" && fastCache.deleteUserWpt === false){
                 fullCache.removeCorrectedcoordinates();
-                toast.show("L'étape personnelle a été supprimée");
+                toast.show("La correction de coordonnées a été supprimée");
             } else if (sendUserWaypoint.state === "OK"){
                 toast.show("L'étape personnelle a été modifiée");
             }
