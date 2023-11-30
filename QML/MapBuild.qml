@@ -228,7 +228,16 @@ Map {
             main.positionUpdated.connect(updateRotation)
         }
     }
-    onSelectedCacheChanged: selectedCacheItem.show(selectedCache)
+    onSelectedCacheChanged: {
+        if(fastMap.compassMapButton) {
+            fastMap.mapItem.deleteCircleWaypoint()
+            fastMap.mapItem.createCircleWaypoint(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                                 fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
+            fastCache.compassPageInit(fastCache.compassPageTitleFullCache() , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                      fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
+        }
+        selectedCacheItem.show(selectedCache)
+    }
 
     function updateCachesOnMap(caches) {
         while(fastMap.currentCacheIndex < caches.length) {

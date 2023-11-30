@@ -236,6 +236,18 @@ Rectangle {
         goalLon = lon;
     }
 
+    function compassPageTitleFullCache() {
+        var cachetype = "Cache: "
+        var cacheGeocode = ""
+        if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
+            cachetype = "Lab Cache: "
+            cacheGeocode = fullCache.geocode.substring(0,10) + "..."
+        } else {
+            cacheGeocode = fullCache.geocode // cache GC..
+        }
+        return cachetype + cacheGeocode
+    }
+
     function addImagesToLog() {
         var code
         if(updateLog === false) {

@@ -37,7 +37,7 @@ Item {
         source: "qrc:/Image/labCache.png"
         width: cacheIconBackground.width * 0.65
         height: width
-        anchors.centerIn: cacheIconBackground
+        anchors.centerIn: cacheIconBackground        
     }
 
     Image {

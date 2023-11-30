@@ -168,15 +168,7 @@ Item {
     }
 
     function compassPageFullCache() {
-        var cachetype = "Cache: "
-        var cacheGeocode = ""
-        if(fullCache.geocode.substring(0,2) !== "GC" ) { // lab cache
-            cachetype = "Lab Cache: "
-            cacheGeocode = fullCache.geocode.substring(0,10) + "..."
-        } else {
-            cacheGeocode = fullCache.geocode // cache GC..
-        }
-        wptName = cachetype + cacheGeocode
+        wptName = compassPageTitleFullCache()
         goalLat = fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat
         goalLon = fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
         return fullCache.geocode

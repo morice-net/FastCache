@@ -17,6 +17,20 @@ MapQuickItem {
         registered: fullCache.registered
         toDoLog: fullCache.toDoLog
         own: fullCache.own
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                if(fastMap.compassMapButton) {
+                    fastMap.mapItem.deleteCircleWaypoint()
+                    fastMap.mapItem.createCircleWaypoint(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                                         fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
+                    fastCache.compassPageInit(fastCache.compassPageTitleFullCache() , fullCache.isCorrectedCoordinates ?
+                                                  fullCache.correctedLat : fullCache.lat , fullCache.isCorrectedCoordinates ?
+                                                  fullCache.correctedLon : fullCache.lon)
+                }
+            }
+        }
     }
 }
 
