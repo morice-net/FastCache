@@ -21,6 +21,7 @@ Rectangle {
     ScrollView {
         anchors.fill: parent
         contentWidth: parent.width
+        contentHeight: userSettings.height * 2
 
         Column {
             anchors.fill: parent
