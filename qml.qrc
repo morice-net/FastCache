@@ -210,5 +210,6 @@
         <file>QML/SelectableFilterSize.qml</file>
         <file>QML/SelectableFilterExclude.qml</file>
         <file>QML/SelectableFilterKeyWord.qml</file>
+        <file>QML/UserSettingsMap.qml</file>
     </qresource>
 </RCC>

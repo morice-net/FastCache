@@ -51,172 +51,11 @@ Rectangle {
                     id: columnMaps
                     spacing: 20
 
-                    RadioButton {
-                        id:button1
-                        visible: true
-                        text: "Open Street Map"
-                        checked: settings.namePlugin === settings.listPlugins[0]
-                        onClicked: {
-                            settings.sat = false
-                            if(settings.namePlugin !== settings.listPlugins[0]) {
-                                updateMap(0)
-                            }
-                        }
-                        contentItem: Text {
-                            text: button1.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button1.checked ? Palette.greenSea() : Palette.silver()
-                            leftPadding: button1.indicator.width + button1.spacing
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        indicator: Rectangle {
-                            y: parent.height / 2 - height / 2
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button1.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
+                    Repeater {
+                        model: 4
 
-                    ButtonTiles {
-                        anchors.top: button1.bottom
-                        folderTiles: tilesDownloader.dirOsm
-                        satTiles: false
-                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirOsm , false)
-                    }
-
-                    RadioButton {
-                        id:button2
-                        visible: true
-                        text: "Google Maps : plan"
-                        checked: settings.namePlugin === settings.listPlugins[1] && settings.sat === false
-                        onClicked: {
-                            settings.sat = false
-                            if(settings.namePlugin !== settings.listPlugins[1]) {
-                                updateMap(1)
-                            }
+                        UserSettingsMap {
                         }
-                        contentItem: Text {
-                            text: button2.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button2.checked ? Palette.greenSea() : Palette.silver()
-                            leftPadding: button2.indicator.width + button2.spacing
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        indicator: Rectangle {
-                            y: parent.height / 2 - height / 2
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button2.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    ButtonTiles {
-                        anchors.top: button2.bottom
-                        folderTiles: tilesDownloader.dirGooglemaps
-                        satTiles: false
-                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirGooglemaps , false)
-                    }
-
-                    RadioButton {
-                        id:button3
-                        visible: true
-                        text: "Google Maps : satellite"
-                        checked: settings.namePlugin === settings.listPlugins[1] && settings.sat === true
-                        onClicked: {
-                            settings.sat = true
-                            if(settings.namePlugin !== settings.listPlugins[1]) {
-                                updateMap(1)
-                            }
-                        }
-                        contentItem: Text {
-                            text: button3.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button3.checked ? Palette.greenSea() : Palette.silver()
-                            leftPadding: button3.indicator.width + button3.spacing
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        indicator: Rectangle {
-                            y: parent.height / 2 - height / 2
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button3.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    ButtonTiles {
-                        anchors.top: button3.bottom
-                        folderTiles: tilesDownloader.dirGooglemaps
-                        satTiles: true
-                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirGooglemaps , true)
-                    }
-
-                    RadioButton {
-                        id:button4
-                        visible: true
-                        text: "Cyclo OSM"
-                        checked: settings.namePlugin === settings.listPlugins[2]
-                        onClicked: {
-                            settings.sat = false
-                            if(settings.namePlugin !== settings.listPlugins[2]) {
-                                updateMap(2)
-                            }
-                        }
-                        contentItem: Text {
-                            text: button4.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: button4.checked ? Palette.greenSea() : Palette.silver()
-                            leftPadding: button4.indicator.width + button4.spacing
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        indicator: Rectangle {
-                            y: parent.height / 2 - height / 2
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: button4.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
-
-                    ButtonTiles {
-                        anchors.top: button4.bottom
-                        folderTiles: tilesDownloader.dirCyclOsm
-                        satTiles: false
-                        Component.onCompleted: tilesDownloader.dirSizeFolder(tilesDownloader.dirCyclOsm , false)
                     }
                 }
             }
@@ -243,7 +82,7 @@ Rectangle {
                 Column {
 
                     Switch {
-                        id:buttonCircles
+                        id: buttonCircles
                         visible: true
                         text: "Cerles autour des caches"
                         checked: settings.circlesCaches
@@ -277,7 +116,7 @@ Rectangle {
                     }
 
                     Switch {
-                        id:buttonCircle
+                        id: buttonCircle
                         visible: true
                         text: "Cercle (rayon en km) "
                         checked: settings.circleMap
@@ -453,15 +292,6 @@ Rectangle {
     function addCachesOnMap() {
         if(main.state !== "")
             fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-    }
-
-    function updateMap(index) {
-        var center = fastMap.mapItem.center
-        fastMap.deleteMap()
-        settings.namePlugin = settings.listPlugins[index]
-        fastMap.createMap()
-        fastMap.mapItem.center = center
-        addCachesOnMap()
     }
 
     function closeIfMenu() {
