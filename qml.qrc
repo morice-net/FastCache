@@ -211,5 +211,6 @@
         <file>QML/SelectableFilterExclude.qml</file>
         <file>QML/SelectableFilterKeyWord.qml</file>
         <file>QML/UserSettingsMap.qml</file>
+        <file>QML/UserSettingsCircle.qml</file>
     </qresource>
 </RCC>

@@ -60,6 +60,7 @@ Rectangle {
                 }
             }
 
+            //Display Circles
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
@@ -69,7 +70,6 @@ Rectangle {
                 color: Palette.greenSea()
             }
 
-            //Display Circles
             GroupBox {
                 id: circlesCaches
                 width: parent.width * 0.8
@@ -80,73 +80,12 @@ Rectangle {
                 }
 
                 Column {
+                    spacing: 20
 
-                    Switch {
-                        id: buttonCircles
-                        visible: true
-                        text: "Cerles autour des caches"
-                        checked: settings.circlesCaches
-                        onClicked: {
-                            settings.circlesCaches = !settings.circlesCaches
-                            fastMap.clearMap()
-                            addCachesOnMap()
-                        }
-                        contentItem: Text {
-                            text: buttonCircles.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: buttonCircles.checked ? Palette.greenSea() : Palette.silver()
-                            leftPadding: buttonCircles.indicator.width + buttonCircles.spacing
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        indicator: Rectangle {
-                            y: parent.height / 2 - height / 2
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: buttonCircles.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
-                        }
-                    }
+                    Repeater {
+                        model: 2
 
-                    Switch {
-                        id: buttonCircle
-                        visible: true
-                        text: "Cercle (rayon en km) "
-                        checked: settings.circleMap
-                        onClicked: {
-                            settings.circleMap = !settings.circleMap
-                            fastMap.mapItem.deleteCircleRadius()
-                            if(settings.circleMap && distance.text !== "")
-                                fastMap.mapItem.createCircleRadius(settings.circleMapRadius)
-                        }
-                        contentItem: Text {
-                            text: buttonCircle.text
-                            font.family: localFont.name
-                            font.pointSize: 16
-                            color: buttonCircle.checked ? Palette.greenSea() : Palette.silver()
-                            leftPadding: buttonCircle.indicator.width + buttonCircle.spacing
-                            verticalAlignment: Text.AlignVCenter
-                        }
-                        indicator: Rectangle {
-                            y: parent.height / 2 - height / 2
-                            implicitWidth: 25
-                            implicitHeight: 25
-                            radius: 10
-                            border.width: 1
-                            Rectangle {
-                                anchors.fill: parent
-                                visible: buttonCircle.checked
-                                color: Palette.greenSea()
-                                radius: 10
-                                anchors.margins: 4
-                            }
+                        UserSettingsCircle {
                         }
                     }
 
@@ -179,6 +118,7 @@ Rectangle {
                 }
             }
 
+            //maximum number of caches in a list
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.family: localFont.name
@@ -188,7 +128,6 @@ Rectangle {
                 color: Palette.greenSea()
             }
 
-            //maximum number of caches in a list
             GroupBox {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.8
