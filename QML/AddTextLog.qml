@@ -5,6 +5,12 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: addText
+
+    property var textList: ["Date" , "Heure" , "Utilisateur" , "Propriétaire" , "Nom de la cache" , "Difficulté" , "Terrain" , "Taille"]
+    property var clickedList: [new Date().toLocaleDateString(Qt.LocaleDate) , new Date().getHours(Qt.LocaleDate) + " h : " +
+        new Date().getMinutes(Qt.LocaleDate) , userInfo.name , fullCache.owner , fullCache.name , fullCache.difficulty ,
+        fullCache.terrain , fullCache.size]
+
     width: main.width / 2
     height: item.height + 20
     backgroundRadius: 10
@@ -16,121 +22,21 @@ FastPopup {
         id: item
         spacing: 25
 
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Date"
-            color: Palette.greenSea()
+        Repeater {
+            model: textList.length
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = new Date().toLocaleDateString(Qt.LocaleDate);
-                    addText.close() ;
-                }
-            }
-        }
+            Label {
+                font.pointSize: 16
+                font.family: localFont.name
+                text: textList[index]
+                color: Palette.greenSea()
 
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Heure"
-            color: Palette.greenSea()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = new Date().getHours(Qt.LocaleDate) + " h : " + new Date().getMinutes(Qt.LocaleDate);
-                    addText.close() ;
-                }
-            }
-        }
-
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Utilisateur"
-            color: Palette.greenSea()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = userInfo.name ;
-                    addText.close() ;
-                }
-            }
-        }
-
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Propriétaire"
-            color: Palette.greenSea()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = fullCache.owner
-                    addText.close()
-                }
-            }
-        }
-
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Nom de la cache"
-            color: Palette.greenSea()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = fullCache.name;
-                    addText.close() ;
-                }
-            }
-        }
-
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Difficulté"
-            color: Palette.greenSea()
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = fullCache.difficulty;
-                    addText.close() ;
-                }
-            }
-        }
-
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Terrain"
-            color: Palette.greenSea()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = fullCache.terrain;
-                    addText.close() ;
-                }
-            }
-        }
-
-        Label {
-            font.pointSize: 16
-            font.family: localFont.name
-            text: "Taille"
-            color: Palette.greenSea()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    addLog = fullCache.size;
-                    addText.close() ;
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        addLog = clickedList[index]
+                        addText.close() ;
+                    }
                 }
             }
         }
