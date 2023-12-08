@@ -15,7 +15,7 @@ Rectangle {
     property var cacheItems: []
     property var circleCacheItems: []
 
-    // Map properties
+    // map properties
     property real currentZoomlevel: 13
     property int currentCacheIndex: 0
 
@@ -131,11 +131,31 @@ Rectangle {
     function listGeocodesOnMap() {
         var listGeocodes = []
         for (var i = 0; i < cacheItems.length; i++) {
-            // is in viewport
-            if(map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN")
+            //is cache GC and is in viewport
+            if(cacheItems[i].geocode.substring(0,2) === "GC" && (map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN"))
                 listGeocodes.push(cacheItems[i].geocode)
         }
         return listGeocodes
+    }
+
+    function listIdsLabCachesOnMap() {
+        var listIds = []
+        for (var i = 0; i < cacheItems.length; i++) {
+            //is lab cache and is in viewport
+            if(cacheItems[i].geocode.substring(0,2) !== "GC" && (map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN"))
+                listIds.push(cacheItems[i].geocode)
+        }
+        return listIds
+    }
+
+    function listAllCodesOnMap() {
+        var list = []
+        for (var i = 0; i < cacheItems.length; i++) {
+            // is in viewport
+            if((map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN"))
+                list.push(cacheItems[i].geocode)
+        }
+        return list
     }
 
     function countCachesOnMap() {

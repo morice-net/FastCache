@@ -183,10 +183,28 @@ Rectangle {
     function listGeocodesOnList() {
         var listGeocodes = []
         for (var i = 0; i <selectedInList.length ; i++) {
-            if(selectedInList[i])
+            if(listCaches[i].geocode.substring(0,2) === "GC" && selectedInList[i])
                 listGeocodes.push(listCaches[i].geocode)
         }
         return listGeocodes
+    }
+
+    function listIdsLabCachesOnList() {
+        var listIds = []
+        for (var i = 0; i <selectedInList.length ; i++) {
+            if(listCaches[i].geocode.substring(0,2) !== "GC" && selectedInList[i])
+                listIds.push(listCaches[i].geocode)
+        }
+        return listIds
+    }
+
+    function listAllCodesOnList() {
+        var list = []
+        for (var i = 0; i <selectedInList.length ; i++) {
+            if(selectedInList[i])
+                list.push(listCaches[i].geocode)
+        }
+        return list
     }
 
     function sortByDistance() {
