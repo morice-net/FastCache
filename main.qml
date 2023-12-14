@@ -351,6 +351,25 @@ Item {
         Component.onCompleted: fullCachesRecorded.updateReplaceImageInText(replaceImageInText)
     }
 
+    FullLabCachesRecorded {
+        id: fullLabCachesRecorded
+        onStateChanged: {
+            toast.visible = fullLabCachesRecorded.state !== "loading";
+            if(fullLabCachesRecorded.state !== "OK") {
+                if(fullLabCachesRecorded.state === "timeOutConnection") {
+                    toast.show("Délai de connexion dépassé pour l'enregistrement de la lab cache");
+                } else {
+                    toast.show("Erreur de chargement de la lab cache " + "(" + state + ")")
+                }
+            }
+            if (fullLabCachesRecorded.state === "OK"){
+                fastMap.markedCachesRegistered()
+                toast.show("La lab cache a été enregistrée");
+            }
+        }
+        Component.onCompleted: fullLabCachesRecorded.updateCachesSingleList(cachesSingleList)
+    }
+
     Travelbug {
         id: travelbug
         onStateChanged: {

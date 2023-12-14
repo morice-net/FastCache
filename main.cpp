@@ -37,6 +37,7 @@
 #include "cachemaptiles.h"
 #include "adventurelabcachesretriever.h"
 #include "fulllabcacheretriever.h"
+#include "fulllabcachesrecorded.h"
 
 int main(int argc, char *argv[])
 {
@@ -70,6 +71,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheMapTiles>("com.mycompany.connecting", 1, 0, "CacheMapTiles");
     qmlRegisterType<AdventureLabCachesRetriever>("com.mycompany.connecting", 1, 0, "AdventureLabCachesRetriever");
     qmlRegisterType<FullLabCacheRetriever>("com.mycompany.connecting", 1, 0, "FullLabCacheRetriever");
+    qmlRegisterType<FullLabCachesRecorded>("com.mycompany.connecting", 1, 0, "FullLabCachesRecorded");
+
 
 #if !defined Q_OS_ANDROID
     QtWebEngineQuick::initialize();

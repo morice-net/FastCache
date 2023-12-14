@@ -412,8 +412,8 @@ FastPopup {
             if(listGeocodes.length > 0  && listChecked.indexOf(true) !== -1)
                 fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodes , listChecked , sqliteStorage)
             if(listIds.length > 0  && listChecked.indexOf(true) !== -1)
-                //  toDo
-                cachesRecordedLists.close()
+                fullLabCachesRecorded.sendRequest(connector.tokenKey , listIds , listChecked , sqliteStorage)
+            cachesRecordedLists.close()
         }
     }
 
@@ -480,7 +480,7 @@ FastPopup {
                     cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                 }
                 if(listIds.length > 0 && listChecked.indexOf(true) !== -1){
-                    // toDo
+                    fullLabCachesRecorded.sendRequest(connector.tokenKey , listIds , listChecked , sqliteStorage)
                     cachesRecorded.updateMapCachesRecorded()
                     fastList.selectedInList = fastList.createAllSelectedInList(false)
                     cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])

@@ -23,6 +23,7 @@ SOURCES += main.cpp \
     fullcacheretriever.cpp \
     fullcachesrecorded.cpp \
     fulllabcacheretriever.cpp \
+    fulllabcachesrecorded.cpp \
     getgeocachelogimages.cpp \
     getpocketsquerieslist.cpp \
     gettravelbuguser.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     fullcacheretriever.h \
     fullcachesrecorded.h \
     fulllabcacheretriever.h \
+    fulllabcachesrecorded.h \
     getgeocachelogimages.h \
     getpocketsquerieslist.h \
     gettravelbuguser.h \
