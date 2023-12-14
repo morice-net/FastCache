@@ -108,7 +108,7 @@ Item {
                 visible: fullCache.type === "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
-                text: fullCache.stagesTotalCount === fullCache.listStagesCount ? "Non séquentiel" : "Séquentiel"
+                text: fullCache.adventureType === "Nonsequential" ? "Non séquentiel" : "Séquentiel"
                 color: Palette.white()
             }
         }

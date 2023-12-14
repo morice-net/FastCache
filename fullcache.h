@@ -46,6 +46,7 @@ class FullCache : public Cache
     // lab cache
     Q_PROPERTY(int listStagesCount READ listStagesCount WRITE setListStagesCount NOTIFY listStagesCountChanged)
     Q_PROPERTY(QList<bool> wptsIsComplete  READ wptsIsComplete WRITE setWptsIsComplete NOTIFY wptsIsCompleteChanged)
+    Q_PROPERTY(QString adventureType  READ adventureType WRITE setAdventureType NOTIFY adventureTypeChanged)
 
 public:
     explicit FullCache(Cache *parent = nullptr);
@@ -164,6 +165,9 @@ public:
     QList<bool> wptsIsComplete() const;
     void setWptsIsComplete(const QList<bool > &isComplete);
 
+    QString adventureType() const;
+    void setAdventureType(const QString &type);
+
 signals:
     void attributesChanged();
     void attributesBoolChanged();
@@ -202,6 +206,7 @@ signals:
     void correctedCodeChanged();
     void listStagesCountChanged();
     void wptsIsCompleteChanged();
+    void adventureTypeChanged();
 
 private:
     QList<int> m_attributes;
@@ -241,5 +246,6 @@ private:
     QString m_correctedCode;
     int m_listStagesCount;
     QList<bool> m_wptsIsComplete;
+    QString m_adventureType;
 };
 #endif // FULLCACHE_H

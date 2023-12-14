@@ -68,6 +68,9 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setSize("Virtuelle");
     m_fullCache->setIsCorrectedCoordinates(false);
 
+    // adventure type, "Nonsequential" for non sequential lab cache
+    m_fullCache->setAdventureType(cacheJson["adventureType"].toString());
+
     //  description
     m_fullCache->setLongDescriptionIsHtml(false);
     m_fullCache->setLongDescription(cacheJson["firebaseDynamicLink"].toString());

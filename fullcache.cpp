@@ -39,6 +39,7 @@ FullCache::FullCache(Cache *parent)
     , m_correctedCode("")
     , m_listStagesCount(0)
     , m_wptsIsComplete(QList<bool>())
+    , m_adventureType("")
 
 {
 }
@@ -466,6 +467,17 @@ void FullCache::setWptsIsComplete(const QList<bool> &isComplete)
 {
     m_wptsIsComplete = isComplete ;
     emit wptsIsCompleteChanged();
+}
+
+QString FullCache::adventureType() const
+{
+    return m_adventureType;
+}
+
+void FullCache::setAdventureType(const QString &type)
+{
+    m_adventureType = type ;
+    emit adventureTypeChanged();
 }
 
 
