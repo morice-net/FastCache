@@ -178,8 +178,10 @@ Rectangle {
 
     function markedCachesRegistered() {
         if(main.state !== "recorded") {
+            var listGeocodes = listGeocodesOnMap()
+            var listIds = listIdsLabCachesOnMap()
             for (var i = 0; i < cachesSingleList.caches.length; i++) {
-                if(listGeocodesOnMap().indexOf(cachesSingleList.caches[i].geocode) !== -1){
+                if(listGeocodes.indexOf(cachesSingleList.caches[i].geocode) !== -1 || listIds.indexOf(cachesSingleList.caches[i].geocode) !== -1 ){
                     cachesSingleList.caches[i].registered = true
                 }
             }

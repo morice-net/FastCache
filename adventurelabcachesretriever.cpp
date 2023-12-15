@@ -80,7 +80,7 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         cache = new Cache();
 
         cache->setType("labCache");
-        cache->setSize("Virtuelle");
+        cache->setSize("Virtuelle");        
         cache->setGeocode(v["id"].toString());
         cache->setOwn(v["isOwned"].toBool());
         cache->setName(v["title"].toString());
@@ -95,6 +95,8 @@ void AdventureLabCachesRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         QJsonObject v1 = v["location"].toObject();
         cache->setLat(v1["latitude"].toDouble());
         cache->setLon(v1["longitude"].toDouble());
+
+        cache->setRegistered(cache->checkRegistered());
 
         m_listCaches->append(*cache);
     }

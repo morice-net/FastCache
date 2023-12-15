@@ -357,14 +357,14 @@ Item {
             toast.visible = fullLabCachesRecorded.state !== "loading";
             if(fullLabCachesRecorded.state !== "OK") {
                 if(fullLabCachesRecorded.state === "timeOutConnection") {
-                    toast.show("Délai de connexion dépassé pour l'enregistrement de la lab cache");
+                    toast.show("Délai de connexion dépassé pour l'enregistrement des lab caches");
                 } else {
-                    toast.show("Erreur de chargement de la lab cache " + "(" + state + ")")
+                    toast.show("Erreur de chargement des lab caches " + "(" + state + ")")
                 }
             }
             if (fullLabCachesRecorded.state === "OK"){
                 fastMap.markedCachesRegistered()
-                toast.show("La lab cache a été enregistrée");
+                toast.show("Les lab caches ont été enregistrées");
             }
         }
         Component.onCompleted: fullLabCachesRecorded.updateCachesSingleList(cachesSingleList)
