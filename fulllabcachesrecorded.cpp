@@ -86,12 +86,19 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
             lon =v1["longitude"].toDouble();            
         }
         QJsonObject cacheJson = m_dataJson.object();
+        cacheJson.insert("isOwned" , QJsonValue(own));
+        cacheJson.insert("isCompleted" , QJsonValue(found));
         cacheJson.insert("ratingsAverage" , QJsonValue(ratingsAverage));
         cacheJson.insert("ratingsTotalCount" , QJsonValue(ratingsTotalCount));
         cacheJson.insert("stagesTotalCount" , QJsonValue(stagesTotalCount));
         cacheJson.insert("keyImageUrl" , QJsonValue(imageUrl));
-        m_dataJson.setObject(cacheJson);
 
+        QJsonObject location = cacheJson["location"].toObject();
+        location.insert("latitude" , QJsonValue(lat));
+        location.insert("longitude" , QJsonValue(lon));
+        cacheJson.insert("location" , QJsonValue::fromVariant(location));
+
+        m_dataJson.setObject(cacheJson);
         m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own,
                                                 m_dataJson , QJsonDocument());
     }
