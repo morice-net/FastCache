@@ -148,6 +148,26 @@ Rectangle {
         return listIds
     }
 
+    function listLatitudeLabCachesOnMap() {
+        var listLatitude = []
+        for (var i = 0; i < cacheItems.length; i++) {
+            //is lab cache and is in viewport
+            if(cacheItems[i].geocode.substring(0,2) !== "GC" && (map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN"))
+                listLatitude.push(cacheItems[i].coordinate.latitude)
+        }
+        return listLatitude
+    }
+
+    function listLongitudeLabCachesOnMap() {
+        var listLongitude = []
+        for (var i = 0; i < cacheItems.length; i++) {
+            //is lab cache and is in viewport
+            if(cacheItems[i].geocode.substring(0,2) !== "GC" && (map.fromCoordinate(cacheItems[i].coordinate, true).x.toString() !== "NaN"))
+                listLongitude.push(cacheItems[i].coordinate.longitude)
+        }
+        return listLongitude
+    }
+
     function listAllCodesOnMap() {
         var list = []
         for (var i = 0; i < cacheItems.length; i++) {

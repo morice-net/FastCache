@@ -198,6 +198,25 @@ Rectangle {
         return listIds
     }
 
+    function listLatitudesLabCachesOnList() {
+        var listLatitudes = []
+        for (var i = 0; i <selectedInList.length ; i++) {
+            if(listCaches[i].geocode.substring(0,2) !== "GC" && selectedInList[i])
+                listLatitudes.push(listCaches[i].lat)
+        }
+        return listLatitudes
+    }
+
+    function listLongitudesLabCachesOnList() {
+        var listLongitudes = []
+        for (var i = 0; i <selectedInList.length ; i++) {
+            if(listCaches[i].geocode.substring(0,2) !== "GC" && selectedInList[i])
+                listLongitudes.push(listCaches[i].lon)
+        }
+        return listLongitudes
+    }
+
+
     function listAllCodesOnList() {
         var list = []
         for (var i = 0; i <selectedInList.length ; i++) {

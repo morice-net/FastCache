@@ -366,8 +366,7 @@ Item {
                 fastMap.markedCachesRegistered()
                 toast.show("Les lab caches ont été enregistrées");
             }
-        }
-        Component.onCompleted: fullLabCachesRecorded.updateCachesSingleList(cachesSingleList)
+        }        
     }
 
     Travelbug {

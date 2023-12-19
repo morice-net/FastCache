@@ -394,25 +394,37 @@ FastPopup {
         anchors.margins: 10
         onClicked: {
             console.log("list checked:   " + listChecked)
-            var listGeocodes = []
+            var listGeocodes = [] // GC codes
+            // lists for lab caches
             var listIds = []
+            var listLatitudes = []
+            var listLongitudes = []
+
             if(viewState === "map"){
                 if(saveMapBox.checked)
                     Functions.downloadTiles()  // download tiles
                 listGeocodes = fastMap.listGeocodesOnMap()
                 listIds = fastMap.listIdsLabCachesOnMap()
+                listLatitudes = fastMap.listLatitudeLabCachesOnMap()
+                listLongitudes = fastMap.listLongitudeLabCachesOnMap()
                 console.log("list of geocodes(map):   " + listGeocodes)
                 console.log("list of ids(map):   " + listIds)
+                console.log("list of latitudes(map):   " + listLatitudes)
+                console.log("list of longitudes(map):   " + listLongitudes)
             } else if (viewState === "list"){
                 listGeocodes = fastList.listGeocodesOnList()
                 listIds = fastList.listIdsLabCachesOnList()
+                listLatitudes = fastList.listLatitudesLabCachesOnList()
+                listLongitudes = fastList.listLongitudesLabCachesOnList()
                 console.log("list of geocodes(list):   " + listGeocodes)
                 console.log("list of ids(list):   " + listIds)
+                console.log("list of latitudes(list):   " + listLatitudes)
+                console.log("list of longitudes(list):   " + listLongitudes)
             }
             if(listGeocodes.length > 0  && listChecked.indexOf(true) !== -1)
                 fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodes , listChecked , sqliteStorage)
             if(listIds.length > 0  && listChecked.indexOf(true) !== -1)
-                fullLabCachesRecorded.sendRequest(connector.tokenKey , listIds , listChecked , sqliteStorage)
+                fullLabCachesRecorded.sendRequest(connector.tokenKey , listIds , listLatitudes , listLongitudes , listChecked , sqliteStorage)
             cachesRecordedLists.close()
         }
     }
@@ -460,18 +472,29 @@ FastPopup {
             font.pointSize: 15
             anchors.horizontalCenter: parent.horizontalCenter
             onClicked: {
-                var listGeocodes = []
+                var listGeocodes = [] // GC codes
+                // lists for lab caches
                 var listIds = []
+                var listLatitudes = []
+                var listLongitudes = []
                 if(viewState === "map"){
                     listGeocodes = fastMap.listGeocodesOnMap()
                     listIds = fastMap.listIdsLabCachesOnMap()
+                    listLatitudes = fastMap.listLatitudeLabCachesOnMap()
+                    listLongitudes = fastMap.listLongitudeLabCachesOnMap()
                     console.log("list of geocodes(map):   " + listGeocodes)
                     console.log("list of ids(map):   " + listIds)
+                    console.log("list of latitudes(map):   " + listLatitudes)
+                    console.log("list of longitudes(map):   " + listLongitudes)
                 } else if (viewState === "list"){
                     listGeocodes = fastList.listGeocodesOnList()
                     listIds = fastList.listIdsLabCachesOnList()
+                    listLatitudes = fastList.listLatitudesLabCachesOnList()
+                    listLongitudes = fastList.listLongitudesLabCachesOnList()
                     console.log("list of geocodes(list):   " + listGeocodes)
                     console.log("list of ids(list):   " + listIds)
+                    console.log("list of latitudes(list):   " + listLatitudes)
+                    console.log("list of longitudes(list):   " + listLongitudes)
                 }
                 if(listGeocodes.length > 0 && listChecked.indexOf(true) !== -1){
                     fullCachesRecorded.sendRequest(connector.tokenKey , listGeocodes , listChecked , sqliteStorage)
@@ -480,7 +503,7 @@ FastPopup {
                     cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                 }
                 if(listIds.length > 0 && listChecked.indexOf(true) !== -1){
-                    fullLabCachesRecorded.sendRequest(connector.tokenKey , listIds , listChecked , sqliteStorage)
+                    fullLabCachesRecorded.sendRequest(connector.tokenKey , listIds , listLatitudes , listLongitudes , listChecked , sqliteStorage)
                     cachesRecorded.updateMapCachesRecorded()
                     fastList.selectedInList = fastList.createAllSelectedInList(false)
                     cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])

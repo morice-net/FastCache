@@ -3,8 +3,6 @@
 
 #include "requestor.h"
 #include "sqlitestorage.h"
-#include "fullcache.h"
-#include "cachessinglelist.h"
 
 #include <QNetworkReply>
 
@@ -16,17 +14,14 @@ public:
     explicit  FullLabCachesRecorded(Requestor *parent = nullptr);
     ~FullLabCachesRecorded() override;
 
-    Q_INVOKABLE void sendRequest(QString token , QList<QString> geocodes , QList<bool> cachesLists , SQLiteStorage *sqliteStorage);
-    Q_INVOKABLE void updateCachesSingleList(CachesSingleList *listCaches);
+    Q_INVOKABLE void sendRequest(QString token , QList<QString> geocodes , QList<double> latitudes, QList<double> longitudes
+                                 , QList<bool> cachesLists , SQLiteStorage *sqliteStorage);    
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
     QList<bool> m_cachesLists;    
     SQLiteStorage *m_sqliteStorage;   
-    QString m_tokenTemp;
-    FullCache *m_fullCache;
-    QJsonDocument m_dataJson;
-    CachesSingleList *m_listCaches;    
+    QString m_tokenTemp;  
+    QJsonDocument m_dataJson;   // json for get adventure lab
 };
-
 #endif // FULLLABCACHESRECORDED_H
