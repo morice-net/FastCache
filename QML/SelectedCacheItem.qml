@@ -159,7 +159,11 @@ Rectangle {
                 fullCache.geocode = selectedCache.geocode
                 if(main.state === "recorded" && selectedCache.registered === true){
                     previousViewState[0] = viewState
-                    fullCacheRetriever.parseJson(sqliteStorage.readColumnJson("fullcache" , fullCache.geocode ))
+                    if(fullCache.geocode.substring(0,2) === "GC" )  //cache GC..
+                        fullCacheRetriever.parseJson(sqliteStorage.readColumnJson("fullcache" , fullCache.geocode ))
+                    else {
+                        fullLabCacheRetriever.parseJson(sqliteStorage.readColumnJson("fullcache" , fullCache.geocode )) // lab cache
+                    }
                 } else {
                     if(fullCache.geocode.substring(0,2) === "GC" )  //cache GC..
                         fullCacheRetriever.sendRequest(connector.tokenKey)

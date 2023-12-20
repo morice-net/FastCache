@@ -48,25 +48,43 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     cacheJson = dataJsonDoc.object();
     qDebug() << "lab cache Oject:" << cacheJson;
 
-    QList<Cache*> caches = m_listCaches->getCaches(); // extract cache list information
-    for(int i = 0; i < caches.length(); ++i)
-    {
-        if(caches[i]->geocode() == m_fullCache->geocode())
+    if(dataJsonDoc["location"].isUndefined()) {  // dataJsonDoc comes from groundspeak database
+        QList<Cache*> caches = m_listCaches->getCaches(); // extract cache list information
+        for(int i = 0; i < caches.length(); ++i)
         {
-            m_fullCache->setName(caches[i]->name());
-            m_fullCache->setLat(caches[i]->lat());
-            m_fullCache->setLon(caches[i]->lon());
-            m_fullCache->setRatingsAverage(caches[i]->ratingsAverage());
-            m_fullCache->setRatingsTotalCount(caches[i]->ratingsTotalCount());
-            m_fullCache->setStagesTotalCount(caches[i]->stagesTotalCount());
-            m_fullCache->setIsCompleted(caches[i]->isCompleted());
-            m_fullCache->setImageUrl(caches[i]->imageUrl());
-            break;
+            if(caches[i]->geocode() == m_fullCache->geocode())
+            {
+                m_fullCache->setName(caches[i]->name());
+                m_fullCache->setLat(caches[i]->lat());
+                m_fullCache->setLon(caches[i]->lon());
+                m_fullCache->setRatingsAverage(caches[i]->ratingsAverage());
+                m_fullCache->setRatingsTotalCount(caches[i]->ratingsTotalCount());
+                m_fullCache->setStagesTotalCount(caches[i]->stagesTotalCount());
+                m_fullCache->setIsCompleted(caches[i]->isCompleted());
+                m_fullCache->setImageUrl(caches[i]->imageUrl());
+                m_fullCache->setOwn(caches[i]->own());
+                break;
+            }
         }
+    } else { // dataJsonDoc comes from internal database
+        m_fullCache->setName(cacheJson["title"].toString());
+        m_fullCache->setRatingsAverage(cacheJson["ratingsAverage"].toDouble());
+        m_fullCache->setRatingsTotalCount(cacheJson["ratingsTotalCount"].toInt());
+        m_fullCache->setStagesTotalCount(cacheJson["stagesTotalCount"].toInt());
+        m_fullCache->setIsCompleted(cacheJson["isCompleted"].toBool());
+        m_fullCache->setImageUrl(cacheJson["keyImageUrl"].toString());
+        m_fullCache->setOwn(cacheJson["isOwned"].toBool());
+
+        // coordinates
+        QJsonObject loc = cacheJson["location"].toObject();
+        m_fullCache->setLat(loc["latitude"].toDouble());
+        m_fullCache->setLon(loc["longitude"].toDouble());
     }
     m_fullCache->setType("labCache");
     m_fullCache->setSize("Virtuelle");
     m_fullCache->setIsCorrectedCoordinates(false);
+    m_fullCache->setToDoLog(false);
+    m_fullCache->setRegistered(m_fullCache->checkRegistered());
 
     // adventure type, "Nonsequential" for non sequential lab cache
     m_fullCache->setAdventureType(cacheJson["adventureType"].toString());

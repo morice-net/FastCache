@@ -93,10 +93,10 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type === "labCache"
 
             Text {
                 width: fastCache.width * 0.25
-                visible: fullCache.type === "labCache"
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
                 font.pointSize: 14
@@ -105,7 +105,6 @@ Item {
             }
 
             Text {
-                visible: fullCache.type === "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.adventureType === "Nonsequential" ? "Non séquentiel" : "Séquentiel"
@@ -161,10 +160,10 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type === "labCache"
 
             Text {
                 id: note
-                visible: fullCache.type === "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -174,7 +173,6 @@ Item {
             }
 
             RaterField {
-                visible: fullCache.type === "labCache"
                 anchors.verticalCenter: note.verticalCenter
                 y: 5
                 reversedColor: true
@@ -185,10 +183,10 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type !== "labCache"
 
             Text {
                 id: diff
-                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -198,7 +196,6 @@ Item {
             }
 
             RaterField {
-                visible: fullCache.type !== "labCache"
                 anchors.verticalCenter: diff.verticalCenter
                 y: 5
                 reversedColor: true
@@ -209,10 +206,10 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type !== "labCache"
 
             Text {
                 id:terr
-                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -222,7 +219,6 @@ Item {
             }
 
             RaterField {
-                visible: fullCache.type !== "labCache"
                 anchors.verticalCenter: terr.verticalCenter
                 y: 5
                 reversedColor: true
@@ -233,9 +229,9 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type !== "labCache"
 
             Text {
-                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -245,7 +241,6 @@ Item {
             }
 
             Text {
-                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.favoritePoints
@@ -255,9 +250,9 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type !== "labCache"
 
             Text {
-                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -267,7 +262,6 @@ Item {
             }
 
             Text {
-                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.owner
@@ -277,9 +271,9 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type !== "labCache"
 
             Text {
-                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -289,7 +283,6 @@ Item {
             }
 
             Text {
-                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: new Date(fullCache.date).toLocaleDateString(Qt.locale("fr_FR"))
@@ -299,9 +292,9 @@ Item {
 
         Row {
             spacing: 15
+            visible: fullCache.type !== "labCache"
 
             Text {
-                visible: fullCache.type !== "labCache"
                 width: fastCache.width * 0.25
                 font.family: localFont.name
                 horizontalAlignment: Text.AlignRight
@@ -311,7 +304,6 @@ Item {
             }
 
             Text {
-                visible: fullCache.type !== "labCache"
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.location

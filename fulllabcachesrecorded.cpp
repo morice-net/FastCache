@@ -86,6 +86,7 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
             lon =v1["longitude"].toDouble();            
         }
         QJsonObject cacheJson = m_dataJson.object();
+        cacheJson.insert("title" , QJsonValue(name));
         cacheJson.insert("isOwned" , QJsonValue(own));
         cacheJson.insert("isCompleted" , QJsonValue(found));
         cacheJson.insert("ratingsAverage" , QJsonValue(ratingsAverage));
