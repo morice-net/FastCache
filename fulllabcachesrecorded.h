@@ -3,6 +3,7 @@
 
 #include "requestor.h"
 #include "sqlitestorage.h"
+#include "replaceimageintext.h"
 
 #include <QNetworkReply>
 
@@ -15,13 +16,16 @@ public:
     ~FullLabCachesRecorded() override;
 
     Q_INVOKABLE void sendRequest(QString token , QList<QString> geocodes , QList<double> latitudes, QList<double> longitudes
-                                 , QList<bool> cachesLists , SQLiteStorage *sqliteStorage);    
+                                 , QList<bool> cachesLists , SQLiteStorage *sqliteStorage);
+    Q_INVOKABLE void updateReplaceImageInText(ReplaceImageInText *replace);
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
 private:
+    ReplaceImageInText* m_replaceImageInText;
     QList<bool> m_cachesLists;    
     SQLiteStorage *m_sqliteStorage;   
     QString m_tokenTemp;  
     QJsonDocument m_dataJson;   // json for get adventure lab
 };
+
 #endif // FULLLABCACHESRECORDED_H

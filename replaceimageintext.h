@@ -12,10 +12,12 @@ public:
     explicit ReplaceImageInText(Downloador *parent = nullptr);
     ~ReplaceImageInText() ;
     QJsonDocument replaceUrlImageToPath(const QString &geocode , const QJsonDocument &dataJsonDoc , const bool &saveImage);
-    void removeDir(const QString &geocode);
+    QJsonDocument replaceUrlImageToPathLabCache(const QString &geocode , const QJsonDocument &dataJsonDoc , const bool &saveImage);
+    void removeDir(const QString &geocode);    
 
 private:
     QString m_dir = "./ImagesRecorded/";
+    QString m_dirLab = "./ImagesRecordedLabCaches/";
 };
 
 #endif // REPLACEIMAGEINTEXT_H

@@ -15,6 +15,11 @@ FullLabCachesRecorded::~FullLabCachesRecorded()
 {
 }
 
+void FullLabCachesRecorded::updateReplaceImageInText(ReplaceImageInText *replace)
+{
+    m_replaceImageInText = replace;
+}
+
 void FullLabCachesRecorded::sendRequest(QString token , QList<QString> geocodes , QList<double> latitudes , QList<double> longitudes
                                         , QList<bool> cachesLists , SQLiteStorage *sqliteStorage)
 {
@@ -64,9 +69,9 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
 
     if(!dataJsonDoc.isArray()) {   // parsing get adventure        
         geocode = dataJsonDoc["id"].toString();
-        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own,
-                                                dataJsonDoc , QJsonDocument());
-        m_dataJson = dataJsonDoc;
+        m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own, dataJsonDoc ,
+                                                QJsonDocument());
+        m_dataJson =  dataJsonDoc;
     } else {   // parsing search lab caches
         QJsonArray adventureLabCaches = dataJsonDoc.array();
         qDebug() << "adventureLabCachesArray: " << adventureLabCaches ;
@@ -101,7 +106,8 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
 
         m_dataJson.setObject(cacheJson);
         m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own,
-                                                m_dataJson , QJsonDocument());
+                                                m_replaceImageInText->replaceUrlImageToPathLabCache(geocode , m_dataJson , true) ,
+                                                QJsonDocument());
     }
     m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode , false);
     m_sqliteStorage->numberCachesInLists("cacheslists");    

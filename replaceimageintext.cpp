@@ -89,9 +89,64 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPath(const QString &geocode ,
     return jsonDoc;
 }
 
-void ReplaceImageInText::removeDir(const QString &geocode)
+QJsonDocument ReplaceImageInText::replaceUrlImageToPathLabCache(const QString &geocode , const QJsonDocument &dataJsonDoc , const bool &saveImage)
 {
-    QDir dir(m_dir + geocode);
-    if (dir.exists())
-        dir.removeRecursively();
+    QJsonDocument jsonDoc = dataJsonDoc;
+    QJsonObject cacheJson = jsonDoc.object();
+    QDir dir(m_dirLab + geocode);
+    if (!dir.exists())
+        dir.mkpath(".");
+
+    // replace in "keyImageUrl" of recorded cache
+    QString path = "";
+    QString url = cacheJson["keyImageUrl"].toString();
+    path = dir.absolutePath() + "/keyImageUrl";
+    qDebug()<< url;
+    qDebug()<< path;
+    if(saveImage)
+        downloadFile(QUrl(url), "", path);    
+    cacheJson.insert("keyImageUrl" , "file:" + path);
+
+    // replace in "stages" of recorded cache
+    int i = 1;
+    path = "";
+    url = "";
+    QJsonArray array;
+    QJsonObject obj;
+
+    QJsonArray stages = cacheJson["stages"].toArray();
+    for (const QJsonValue &stage: std::as_const(stages))
+    {
+        url = stage["stageImageUrl"].toString();
+        path = dir.absolutePath() + "/stage-" + QString::number(i);
+        qDebug()<< url;
+        qDebug()<< path;
+        if(saveImage)
+            downloadFile(QUrl(url), "", path);
+        obj = stage.toObject();
+        obj.insert("stageImageUrl", "file:" + path);
+        array.append(obj);
+        i += 1;
+    }
+    cacheJson.insert("stages" , array);
+    jsonDoc.setObject(cacheJson);
+    qDebug()<<jsonDoc;
+    return jsonDoc;
 }
+
+void ReplaceImageInText::removeDir(const QString &geocode)
+{    
+    if(geocode.startsWith("GC")) {  // geocode GC...
+        QDir dir(m_dir + geocode);
+        if (dir.exists()) {
+            dir.removeRecursively();
+        }
+    } else {   // lab cache
+        QDir dir(m_dirLab + geocode);
+        if (dir.exists()) {
+            dir.removeRecursively();
+        }
+    }
+}
+
+
