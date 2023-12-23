@@ -127,7 +127,7 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     m_imagesUrl.clear();
 
     QJsonArray array = tbJson["images"].toArray();
-    for (const QJsonValue &image: qAsConst(array))
+    for (const QJsonValue &image: std::as_const(array))
     {
         m_imagesName.append(smileys->replaceSmileyTextToImgSrc(image["description"].toString()));
         m_imagesUrl.append(image["url"].toString());
@@ -147,7 +147,7 @@ void Travelbug::parseJson(const QJsonDocument &dataJsonDoc)
     QJsonArray tbLogs = tbJson["trackableLogs"].toArray();
     qDebug() << "tbLogs:" << tbLogs;
 
-    for (QJsonValue tbLog: qAsConst(tbLogs))
+    for (QJsonValue tbLog: std::as_const(tbLogs))
     {
         m_logsText.append(smileys->replaceSmileyTextToImgSrc(tbLog["text"].toString()));
         m_logsDate.append(tbLog["loggedDate"].toString());

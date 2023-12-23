@@ -80,7 +80,7 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
     bool found;
     bool own;
 
-    for (const QJsonValue &fullCache: qAsConst(dataJsonArray))
+    for (const QJsonValue &fullCache: std::as_const(dataJsonArray))
     {
         geocode = fullCache["referenceCode"].toString();
         difficulty = fullCache["difficulty"].toDouble();

@@ -221,7 +221,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listVisibleImages.clear();
 
     QJsonArray geocacheLogs = cacheJson["geocacheLogs"].toArray();
-    for (QJsonValue geocacheLog: qAsConst(geocacheLogs))
+    for (QJsonValue geocacheLog: std::as_const(geocacheLogs))
     {
         listLogs.append(smileys->replaceSmileyTextToImgSrc(geocacheLog["text"].toString()));
         listFindersDate.append(geocacheLog["loggedDate"].toString());
@@ -234,7 +234,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         listLogsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
 
         QJsonArray logsImage = geocacheLog["images"].toArray();
-        for (const QJsonValue &logImage: qAsConst(logsImage))
+        for (const QJsonValue &logImage: std::as_const(logsImage))
         {
             listImagesName.append(smileys->replaceSmileyTextToImgSrc(logImage["description"].toString()));
             listImagesUrl.append(logImage["url"].toString());
@@ -271,7 +271,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listWptsLat.clear();
     listWptsLon.clear();
     listWptsComment.clear();
-    for (const QJsonValue &waypoint: qAsConst(additionalWaypoints))
+    for (const QJsonValue &waypoint: std::as_const(additionalWaypoints))
     {
         listWptsDescription.append(waypoint["name"].toString());
         listWptsName.append(WPT_TYPE_MAP.key(waypoint["typeId"].toInt()));
@@ -305,7 +305,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listUserWptsLon.clear();
     listUserWptsCode.clear();
 
-    for (const QJsonValue &userWaypoint: qAsConst(userWaypoints))
+    for (const QJsonValue &userWaypoint: std::as_const(userWaypoints))
     {
         listUserWptsDescription.append(userWaypoint["description"].toString());
         listUserWptsCode.append(userWaypoint["referenceCode"].toString());
@@ -330,7 +330,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
     listTrackableNames.clear();
     listTrackableCodes.clear();
-    for (const QJsonValue &travel: qAsConst(trackables))
+    for (const QJsonValue &travel: std::as_const(trackables))
     {
         listTrackableNames.append(travel["name"].toString());
         listTrackableCodes.append(travel["referenceCode"].toString());

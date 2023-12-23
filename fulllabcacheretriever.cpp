@@ -119,7 +119,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listImagesName .append(m_fullCache->name());
     listImagesUrl.append(m_fullCache->imageUrl());
 
-    for (const QJsonValue &stage: qAsConst(stages))
+    for (const QJsonValue &stage: std::as_const(stages))
     {
         listWptsDescription.append(stage["title"].toString());
         listWptsComment.append(stage["description"].toString());
