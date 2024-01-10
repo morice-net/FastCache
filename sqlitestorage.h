@@ -26,6 +26,7 @@ public:
                                 const double &difficulty, const double &terrain , const double &lat, const double &lon, const bool &found,
                                 const bool &own, const QJsonDocument &json , const QJsonDocument &userlogs);
     bool updateFullCacheColumnUserlogs(const QString &tableName, const QString &id, const QJsonDocument &userlogs);
+    bool updateFullCacheColumnJson(const QString &tableName, const QString &id, const QJsonDocument &json);
     Q_INVOKABLE void deleteCacheInList(const QString &tableName , const int &list , const QString &code);
     Q_INVOKABLE bool isCacheInTable(const QString &tableName, const QString &id);
     Q_INVOKABLE void deleteObject(const QString &tableName, const QString &id);

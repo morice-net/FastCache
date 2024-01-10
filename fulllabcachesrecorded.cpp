@@ -9,10 +9,71 @@
 FullLabCachesRecorded::FullLabCachesRecorded(Requestor *parent)
     : Requestor (parent)
 {
+    m_manager = new QNetworkAccessManager(this);  
 }
 
 FullLabCachesRecorded::~FullLabCachesRecorded()
 {
+    m_manager->deleteLater();
+}
+
+void FullLabCachesRecorded::parseHtml()
+{
+    QString geocode;
+    QString description;
+    QString owner;
+    int indexBegin;
+    int indexEnd;
+    QString descriptionTagBegin = "<meta property=\"og:description\" content=\"";
+    QString descriptionTagEnd = "\" />";
+    QString ownerTagBegin = "<h6 class=\"pt-3\">";
+    QString ownerTagEnd = "</h6>";
+    QJsonDocument dataJson;
+    QJsonObject cacheJson ;
+
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    QString dataHtml = reply->readAll();
+    geocode = m_replytoid.value(reply);
+
+    switch(reply->error())
+    {
+    case QNetworkReply::NoError:
+        setState("OK");
+
+        indexBegin = dataHtml.indexOf(descriptionTagBegin) + descriptionTagBegin.size();
+        indexEnd = dataHtml.indexOf(descriptionTagEnd , indexBegin);
+        description = dataHtml.sliced(indexBegin , indexEnd - indexBegin);
+
+        indexBegin = dataHtml.indexOf(ownerTagBegin) + ownerTagBegin.size();
+        indexEnd = dataHtml.indexOf(ownerTagEnd , indexBegin);
+        owner = dataHtml.sliced(indexBegin , indexEnd - indexBegin);
+
+        cacheJson = m_sqliteStorage->readColumnJson("fullcache" , geocode).object();
+        cacheJson.insert("description" , QJsonValue(description));
+        cacheJson.insert("owner" , QJsonValue(owner));
+        dataJson.setObject(cacheJson);
+
+        m_sqliteStorage->updateFullCacheColumnJson("fullcache", geocode , dataJson);
+        break;
+    default:
+        setState(reply->errorString().toLatin1());
+        break;
+    }
+    m_replytoid.remove(reply);
+    delete reply;
+}
+
+void FullLabCachesRecorded::getHtml(QString url, QString id)
+{
+    QNetworkRequest request(url);
+    request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+    request.setRawHeader("User-Agent", userAgent);
+    // Inform  we are loading
+    setState("loading");
+
+    QNetworkReply *reply = m_manager->get(request);
+    m_replytoid.insert(reply, id);
+    QObject::connect(reply, &QNetworkReply::finished, this, &FullLabCachesRecorded::parseHtml);
 }
 
 void FullLabCachesRecorded::updateReplaceImageInText(ReplaceImageInText *replace)
@@ -66,6 +127,7 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
     int ratingsTotalCount = 0;
     int stagesTotalCount = 0;
     QString imageUrl;
+    QString dynamicLink;
 
     if(!dataJsonDoc.isArray()) {   // parsing get adventure        
         geocode = dataJsonDoc["id"].toString();
@@ -85,6 +147,7 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
             ratingsTotalCount = v["ratingsTotalCount"].toInt();
             stagesTotalCount = v["stagesTotalCount"].toInt();
             imageUrl = v["keyImageUrl"].toString();
+            dynamicLink = v["dynamicLink"].toString();
 
             QJsonObject v1 = v["location"].toObject();
             lat = v1["latitude"].toDouble();
@@ -105,13 +168,16 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         cacheJson.insert("location" , QJsonValue::fromVariant(location));
 
         m_dataJson.setObject(cacheJson);
+        m_dataJson = m_replaceImageInText->replaceUrlImageToPathLabCache(geocode , m_dataJson , true);
         m_sqliteStorage->updateFullCacheColumns("fullcache", geocode, name, type, size, difficulty, terrain, lat, lon, found, own,
-                                                m_replaceImageInText->replaceUrlImageToPathLabCache(geocode , m_dataJson , true) ,
-                                                QJsonDocument());
+                                                m_dataJson , QJsonDocument());
+        getHtml(dynamicLink , geocode);
     }
     m_sqliteStorage->updateListWithGeocode("cacheslists" , m_cachesLists , geocode , false);
     m_sqliteStorage->numberCachesInLists("cacheslists");    
 }
+
+
 
 
 

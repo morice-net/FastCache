@@ -97,6 +97,7 @@ Item {
 
             WebView {
                 id: webView
+                visible: main.state !== "recorded"
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter
