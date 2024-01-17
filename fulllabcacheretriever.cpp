@@ -23,6 +23,35 @@ void FullLabCacheRetriever::listCachesObject(CachesSingleList *listCaches)
     m_listCaches = listCaches;
 }
 
+void FullLabCacheRetriever::descriptionLabCache(QString url, QString imageUrl, QString name)
+{
+    const auto manager = new QNetworkAccessManager(this);
+    QObject::connect(this, &FullLabCacheRetriever::descriptionChanged, this, &FullLabCacheRetriever::setDescription);
+    connect(manager, &QNetworkAccessManager::finished,
+            this , [imageUrl, name, this](auto reply) {
+                QString descriptionTagBegin = "<meta property=\"og:description\" content=\"";
+                QString descriptionTagEnd = "\" />";
+                QString ownerTagBegin = "<h6 class=\"pt-3\">";
+                QString ownerTagEnd = "</h6>";
+
+                QString read = reply->readAll();
+                int  indexBegin = read.indexOf(descriptionTagBegin) + descriptionTagBegin.size();
+                int  indexEnd = read.indexOf(descriptionTagEnd , indexBegin);
+                QString description = read.sliced(indexBegin , indexEnd - indexBegin);
+
+                indexBegin = read.indexOf(ownerTagBegin) + ownerTagBegin.size();
+                indexEnd = read.indexOf(ownerTagEnd , indexBegin);
+                QString owner = read.sliced(indexBegin , indexEnd - indexBegin);
+
+                QString longDescription = "<p align=\"center\"><img src= " + imageUrl + " width=\"250\"  />" +
+                                          "<center><strong>"  + name + "</strong></center><br />" +
+                                          description +
+                                          "<br /><center><strong>" + owner + "</strong></center>";
+                emit descriptionChanged(longDescription);
+            });
+    manager->get(QNetworkRequest({ url }));
+}
+
 void FullLabCacheRetriever::sendRequest(QString token)
 {
     //Build url
@@ -63,11 +92,17 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
                 m_fullCache->setIsCompleted(caches[i]->isCompleted());
                 m_fullCache->setImageUrl(caches[i]->imageUrl());
                 m_fullCache->setOwn(caches[i]->own());
-                m_fullCache->setLongDescription(cacheJson["firebaseDynamicLink"].toString());
+
+                descriptionLabCache(cacheJson["firebaseDynamicLink"].toString(), m_fullCache->imageUrl() ,  m_fullCache->name());
                 break;
             }
         }
     } else { // dataJsonDoc comes from internal database
+        // coordinates
+        QJsonObject loc = cacheJson["location"].toObject();
+        m_fullCache->setLat(loc["latitude"].toDouble());
+        m_fullCache->setLon(loc["longitude"].toDouble());
+
         m_fullCache->setName(cacheJson["title"].toString());
         m_fullCache->setRatingsAverage(cacheJson["ratingsAverage"].toDouble());
         m_fullCache->setRatingsTotalCount(cacheJson["ratingsTotalCount"].toInt());
@@ -77,27 +112,22 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setOwn(cacheJson["isOwned"].toBool());
         m_fullCache->setOwner(cacheJson["owner"].toString());
 
-        QString description = "<img src=" + m_fullCache->imageUrl() + " width=\"500\" />" +
+        QString description = "<p align=\"center\"><img src= " + m_fullCache->imageUrl() + " width=\"250\"  />" +
                               "<center><strong>"  + m_fullCache->name() + "</strong></center><br />" +
                               cacheJson["description"].toString() +
                               "<br /><center><strong>" + m_fullCache->owner() + "</strong></center>";
         m_fullCache->setLongDescription(description);
-
-        // coordinates
-        QJsonObject loc = cacheJson["location"].toObject();
-        m_fullCache->setLat(loc["latitude"].toDouble());
-        m_fullCache->setLon(loc["longitude"].toDouble());
     }
+
+    // adventure type, "Nonsequential" for non sequential lab cache
+    m_fullCache->setAdventureType(cacheJson["adventureType"].toString());
+
+    m_fullCache->setLongDescriptionIsHtml(false);
     m_fullCache->setType("labCache");
     m_fullCache->setSize("Virtuelle");
     m_fullCache->setIsCorrectedCoordinates(false);
     m_fullCache->setToDoLog(false);
     m_fullCache->setRegistered(m_fullCache->checkRegistered());
-
-    // adventure type, "Nonsequential" for non sequential lab cache
-    m_fullCache->setAdventureType(cacheJson["adventureType"].toString());
-
-    m_fullCache->setLongDescriptionIsHtml(false);    
 
     // stages of lab cache
     QList<QString> listWptsDescription ;
@@ -157,7 +187,10 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
 }
 
-
+void FullLabCacheRetriever::setDescription(QString value)
+{
+    m_fullCache->setLongDescription(value);
+}
 
 
 

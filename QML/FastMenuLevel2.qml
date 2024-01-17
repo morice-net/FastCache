@@ -90,7 +90,7 @@ Item {
                 hideMenu()
                 fullCache.geocode = geocodeCache.text.toUpperCase()
                 fullCacheRetriever.sendRequest(connector.tokenKey)
-
+                main.state = ""
             }
         }
     }

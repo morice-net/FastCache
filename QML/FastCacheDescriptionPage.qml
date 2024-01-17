@@ -12,16 +12,15 @@ Item {
     property string descriptionText: fullCache.type !== "labCache" ? fullCache.shortDescription + fullCache.longDescription :
                                                                      fullCache.longDescription
     property bool codedHint: true
-    property int gobackRank
+    property bool goBackWeb: false
 
     onDescriptionTextChanged: {
-        gobackRank = -1
-        if((main.state !== "recorded") || (main.state === "cachesActive")) {
-            if(fullCache.type !== "labCache") {
-                webView.loadHtml(descriptionText , "html")   // cacheGC ...
-            } else {
-                webView.url = descriptionText // lab cache
-            }
+        goBackWeb = false
+        webView.settings.setAllowFileAccess(true)
+        if(main.state === "recorded" ) {  // cache recorded
+            webView.loadHtml(descriptionText , "file:")
+        } else  {   // lab cache not recorded
+            webView.loadHtml(descriptionText , "html")
         }
     }
 
@@ -38,25 +37,8 @@ Item {
             spacing: 5
             topPadding: 15
 
-            Text {
-                visible: main.state === "recorded"
-                clip: true
-                width: parent.width * 0.95
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.family: localFont.name
-                font.pointSize: 14
-                horizontalAlignment: TextEdit.AlignJustify
-                color: Palette.white()
-                textFormat: Qt.RichText
-                wrapMode: Text.Wrap
-                minimumPointSize: 14
-                topPadding: 25
-                onLinkActivated: Qt.openUrlExternally(link)
-                text: fullCache.shortDescription + fullCache.longDescription
-            }
-
             Row {
-                visible: main.state !== "recorded"
+                visible: fullCache.geocode.substring(0,2) === "GC"
                 spacing: descriptionPage.width / 3
                 anchors.horizontalCenter: parent.horizontalCenter
                 bottomPadding: 10
@@ -68,10 +50,10 @@ Item {
                     icon.height: 30
                     onClicked:{
                         webView.goBack()
-                        gobackRank = gobackRank -2
-                        console.log("Go Back rank: " + gobackRank)
+                        console.log("Go Back Web: " + goBackWeb)
+
                     }
-                    visible: webView != null ? webView.canGoBack && gobackRank >> 0 : false
+                    visible: webView != null ? webView.canGoBack && goBackWeb : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -85,9 +67,9 @@ Item {
                     icon.height: 30
                     onClicked:{
                         webView.goForward()
-                        console.log("Go Back rank: " + gobackRank)
+                        console.log("Go Back Web: " + goBackWeb)
                     }
-                    visible: webView != null ? webView.canGoForward && gobackRank >> 0  : false
+                    visible: webView != null ? webView.canGoForward : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -97,32 +79,19 @@ Item {
 
             WebView {
                 id: webView
-                visible: main.state !== "recorded"
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 anchors.horizontalCenter: parent.horizontalCenter
                 clip: true
-                onLoadingChanged: (loadRequest) => {
-                                      if (loadRequest.status === WebView.LoadStartedStatus) {
-                                          console.log("Load start: " + loadRequest.url)
-                                          if(fullCache.type !== "labCache" && url.toString().indexOf("data:text/html") === 0 ) { //GC code with html
-                                              gobackRank = gobackRank + 1
-                                              console.log("Go Back rank: " + gobackRank)
-                                          }
-                                      } else if (loadRequest.status === WebView.LoadSucceededStatus) {
-                                          console.log("Load succeeded: " + loadRequest.url)
-                                          if(fullCache.type === "labCache" ||     //lab cache
-                                             (fullCache.type !== "labCache" && url.toString().indexOf("data:text/html") !== 0)) { //internet with CG code
-                                              gobackRank = gobackRank + 1
-                                              console.log("Go Back rank: " + gobackRank)
-                                          }
-                                      } else if (loadRequest.status === WebView.LoadFailedStatus) {
-                                          console.log("Load failed: " + loadRequest.url + ". Error code: " + loadRequest.errorString)
-                                          if(url !== parseMalformedUrl(url)) { // redirection error for lab cache
-                                              url = parseMalformedUrl(url)
-                                          }
-                                      }
-                                  }
+                onUrlChanged: {
+                    console.log("URL is: " + url);
+                    if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
+                        goBackWeb = false
+                    } else {
+                        goBackWeb = true
+                    }
+                    console.log("Go Back Web: " + goBackWeb)
+                }
             }
 
             Rectangle {
@@ -253,15 +222,5 @@ Item {
         fullCache.setListVisibleImages(visible);
         console.log("Images index:  " + fullCache.cacheImagesIndex)
         console.log("Visible Images:  " + fullCache.listVisibleImages)
-    }
-
-    function parseMalformedUrl(url) {            // parse the url because of a redirection bug on android for a lab cache.
-        if(fullCache.type === "labCache" ) {
-            var indexOfFirst = url.toString().indexOf("https://labs.geocaching.com/goto/"); // no correct url on android
-            var indexOfSecond = url.toString().indexOf(";", indexOfFirst);
-            console.log("URL parsed:  " + url.toString().substring(indexOfFirst, indexOfSecond))
-            return url.toString().substring(indexOfFirst, indexOfSecond)
-        }
-        return url
     }
 }

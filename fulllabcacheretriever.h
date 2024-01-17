@@ -21,10 +21,18 @@ public:
     Q_INVOKABLE  void parseJson(const QJsonDocument &dataJsonDoc) override;
     Q_INVOKABLE void listCachesObject(CachesSingleList *listCaches);
 
+private slots:
+    void setDescription(QString value);
+
+private: signals:
+    void descriptionChanged(QString newValue);
+
 private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;
     CachesSingleList *m_listCaches;
+
+    void descriptionLabCache(QString url, QString imageUrl , QString name);
 };
 
 #endif // FULLLABCACHERETRIEVER_H
