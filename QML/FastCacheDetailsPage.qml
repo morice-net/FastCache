@@ -12,6 +12,19 @@ Item {
 
     property bool formatCoordinates: true
     property bool adventureLabLaunched: false //adventure Lab launched for lab caches
+    property int cachesFindCount: findCount
+
+    onCachesFindCountChanged: {
+        // dynamic updating of a lab cache
+        if(fullCache.type === "labCache" && main.state !== "recorded") {  //lab cache not recorded
+            fullLabCacheRetriever.sendRequest(connector.tokenKey)
+        } else if(fullCache.type === "labCache" && main.state === "recorded") { //lab cache recorded
+            var listGeocode = []
+            listGeocode.push(fullCache.geocode)
+            fullCachesRecorded.sendRequest(connector.tokenKey , listGeocode , sqliteStorage.cacheInLists("cacheslists", fullCache.geocode) ,
+                                           sqliteStorage)
+        }
+    }
 
     Connections {
         target: Qt.application
