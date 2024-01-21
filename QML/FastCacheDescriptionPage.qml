@@ -12,10 +12,12 @@ Item {
     property string descriptionText: fullCache.type !== "labCache" ? fullCache.shortDescription + fullCache.longDescription :
                                                                      fullCache.longDescription
     property bool codedHint: true
-    property bool goBackWeb: false
+    property bool backWeb: false
+    property bool forwardWeb: false
 
     onDescriptionTextChanged: {
-        goBackWeb = false
+        backWeb = false
+        forwardWeb = false
         webView.settings.setAllowFileAccess(true)
         if(main.state === "recorded" ) {  // cache recorded
             webView.loadHtml(descriptionText , "file:")
@@ -50,10 +52,11 @@ Item {
                     icon.height: 30
                     onClicked:{
                         webView.goBack()
-                        console.log("Go Back Web: " + goBackWeb)
+                        console.log("Go Back Web: " + backWeb)
+                        console.log("Go Forward Web: " + forwardWeb)
 
                     }
-                    visible: webView != null ? webView.canGoBack && goBackWeb : false
+                    visible: webView != null ? webView.canGoBack && backWeb : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -67,9 +70,10 @@ Item {
                     icon.height: 30
                     onClicked:{
                         webView.goForward()
-                        console.log("Go Back Web: " + goBackWeb)
+                        console.log("Go Back Web: " + backWeb)
+                        console.log("Go Forward Web: " + forwardWeb)
                     }
-                    visible: webView != null ? webView.canGoForward : false
+                    visible: webView != null ? webView.canGoForward && forwardWeb : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -86,11 +90,13 @@ Item {
                 onUrlChanged: {
                     console.log("URL is: " + url);
                     if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
-                        goBackWeb = false
-                    } else {
-                        goBackWeb = true
+                        backWeb = false
+                    } else if(url.toString().substring(0,4) === "http") {
+                        backWeb = true
+                        forwardWeb = true
                     }
-                    console.log("Go Back Web: " + goBackWeb)
+                    console.log("Go Back Web: " + backWeb)
+                    console.log("Go Forward Web: " + forwardWeb)
                 }
             }
 
