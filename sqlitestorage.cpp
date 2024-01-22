@@ -62,7 +62,7 @@ QList<bool> SQLiteStorage::cacheInLists(const QString &tableName , const QString
         list.append(select.value(0).toInt());
     }
 
-    foreach ( const int & a, listsIds())
+    foreach ( const int & a, m_listsIds)
     {
         if(list.indexOf(a) == -1){
             listBool.append(false);
@@ -97,9 +97,9 @@ QList<int> SQLiteStorage::numberCachesInLists(const QString &tableName)
     }
 
     int j = 0;
-    for ( int i = 0; i < listsIds().length();i++)
+    for ( int i = 0; i < m_listsIds.length();i++)
     {
-        if(list.indexOf(listsIds()[i]) == -1){
+        if(list.indexOf(m_listsIds[i]) == -1){
             listResult.append(0);
         } else {
             listResult.append(listCount[j]);
@@ -322,7 +322,7 @@ bool SQLiteStorage::updateLists(const QString &tableName, const int &id,  const 
     if (query.lastError().type() == QSqlError::NoError) {
         qDebug() << "Request success";
         setListsIds( readAllIdsFromLists("lists"));
-        setCountLists(listsIds().length());
+        setCountLists(m_listsIds.length());
     } else {
         qDebug() << "Error ? " << query.lastError().text();
         return  false;
@@ -430,7 +430,7 @@ void SQLiteStorage::deleteList(const QString &tableName, const QString &id)
     if (query.lastError().type() == QSqlError::NoError) {
         qDebug() << "Request success";
         setListsIds( readAllIdsFromLists("lists"));
-        setCountLists(listsIds().length());
+        setCountLists(m_listsIds.length());
     } else {
         qDebug() << "Error ? " << query.lastError().text();
     }
