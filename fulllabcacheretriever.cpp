@@ -92,6 +92,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
                 m_fullCache->setIsCompleted(caches[i]->isCompleted());
                 m_fullCache->setImageUrl(caches[i]->imageUrl());
                 m_fullCache->setOwn(caches[i]->own());
+                m_fullCache->setShortDescription(cacheJson["firebaseDynamicLink"].toString());
 
                 descriptionLabCache(cacheJson["firebaseDynamicLink"].toString(), m_fullCache->imageUrl() ,  m_fullCache->name());
                 break;
@@ -117,6 +118,7 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
                               cacheJson["description"].toString() +
                               "<br /><center><strong>" + m_fullCache->owner() + "</strong></center>";
         m_fullCache->setLongDescription(description);
+        m_fullCache->setShortDescription(cacheJson["firebaseDynamicLink"].toString());
     }
 
     // adventure type, "Nonsequential" for non sequential lab cache

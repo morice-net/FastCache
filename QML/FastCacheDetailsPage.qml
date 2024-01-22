@@ -379,7 +379,7 @@ Item {
             sourceWidth: 60
             sourceHeight: 60
             onClicked: {
-                fullCache.launchAdventureLab(fullCache.longDescription)
+                fullCache.launchAdventureLab(fullCache.shortDescription)
                 adventureLabLaunched = true
             }
         }
