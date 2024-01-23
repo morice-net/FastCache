@@ -516,9 +516,11 @@ FastPopup {
     function radioButtontext() {
         if(main.viewState === "fullcache")
             if(fullCache.registered) {
-                return "Supprimer la cache  " + fullCache.geocode
+                return fullCache.geocode.substring(0,2) !== "GC" ? "Supprimer la cache  " + fullCache.geocode.substring(0,10) + "..." :
+                                                                   "Supprimer la cache  " + fullCache.geocode
             } else {
-                return "enregistrer la cache  " + fullCache.geocode
+                return fullCache.geocode.substring(0,2) !== "GC" ? "Enregistrer la cache  " + fullCache.geocode.substring(0,10) + "..." :
+                                                                   "Enregistrer la cache  " + fullCache.geocode
             }
         if(main.state === "recorded" && viewState !== "fullcache")
             return "Caches enregistrées"

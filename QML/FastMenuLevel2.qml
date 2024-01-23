@@ -70,7 +70,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: TextInput.AlignHCenter
-            anchors.bottomMargin: 10
+            anchors.bottomMargin: 10            
             color: Palette.turquoise()
             font.capitalization: Font.AllUppercase
             font.pointSize: 16
