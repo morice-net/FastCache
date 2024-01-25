@@ -23,6 +23,53 @@ void FullLabCacheRetriever::listCachesObject(CachesSingleList *listCaches)
     m_listCaches = listCaches;
 }
 
+void FullLabCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
+{
+    QString descriptionTagBegin = "<br />";
+    QString descriptionTagEnd = "<br />";
+    QString ownerTagBegin = "<br /><center><strong>";
+    QString ownerTagEnd = "</strong></center>";
+
+    int  indexBegin = m_fullCache->longDescription().indexOf(descriptionTagBegin) + descriptionTagBegin.size();
+    int  indexEnd = m_fullCache->longDescription().indexOf(descriptionTagEnd , indexBegin);
+    QString description = m_fullCache->longDescription().sliced(indexBegin , indexEnd - indexBegin);
+
+    indexBegin = m_fullCache->longDescription().indexOf(ownerTagBegin) + ownerTagBegin.size();
+    indexEnd = m_fullCache->longDescription().indexOf(ownerTagEnd , indexBegin);
+    QString owner = m_fullCache->longDescription().sliced(indexBegin , indexEnd - indexBegin);
+
+    QJsonObject cacheJson = m_dataJson.object();
+    cacheJson.insert("title" , QJsonValue(m_fullCache->name()));
+    cacheJson.insert("isOwned" , QJsonValue(m_fullCache->own()));
+    cacheJson.insert("isCompleted" , QJsonValue(m_fullCache->found()));
+    cacheJson.insert("ratingsAverage" , QJsonValue(m_fullCache->ratingsAverage()));
+    cacheJson.insert("ratingsTotalCount" , QJsonValue(m_fullCache->ratingsTotalCount()));
+    cacheJson.insert("stagesTotalCount" , QJsonValue(m_fullCache->stagesTotalCount()));
+    cacheJson.insert("description" , QJsonValue(description));
+    cacheJson.insert("owner" , QJsonValue(owner));
+    cacheJson.insert("keyImageUrl" , QJsonValue(m_fullCache->imageUrl()));
+
+    QJsonObject location = cacheJson["location"].toObject();
+    location.insert("latitude" , QJsonValue(m_fullCache->lat()));
+    location.insert("longitude" , QJsonValue(m_fullCache->lon()));
+    cacheJson.insert("location" , QJsonValue::fromVariant(location));
+
+    m_dataJson.setObject(cacheJson);
+
+    // Save in database and download images of cache recorded
+    sqliteStorage->updateFullCacheColumns("fullcache", m_fullCache->geocode(), m_fullCache->name(), m_fullCache->type(), m_fullCache->size(),
+                                          m_fullCache->difficulty(), m_fullCache->terrain(), m_fullCache->lat(), m_fullCache->lon(), m_fullCache->found()
+                                          , m_fullCache->own(), m_replaceImageInText->replaceUrlImageToPathLabCache(m_fullCache->geocode(), m_dataJson ,true) ,
+                                          QJsonDocument());
+}
+
+void FullLabCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage)
+{
+    sqliteStorage->deleteObject("fullcache", m_fullCache->geocode());
+    // delete dir of recorded cache images
+    m_replaceImageInText->removeDir(m_fullCache->geocode());
+}
+
 void FullLabCacheRetriever::descriptionLabCache(QString url, QString imageUrl, QString name)
 {
     const auto manager = new QNetworkAccessManager(this);
@@ -68,6 +115,11 @@ void FullLabCacheRetriever::sendRequest(QString token)
 void FullLabCacheRetriever::updateFullCache(FullCache *fullCache)
 {
     m_fullCache = fullCache;
+}
+
+void FullLabCacheRetriever::updateReplaceImageInText(ReplaceImageInText *replace)
+{
+    m_replaceImageInText = replace;
 }
 
 void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)

@@ -101,8 +101,8 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPathLabCache(const QString &g
     QString path = "";
     QString url = cacheJson["keyImageUrl"].toString();
     path = dir.absolutePath() + "/keyImageUrl";
-    qDebug()<< url;
-    qDebug()<< path;
+    qDebug()<<"key image url: "<< url;
+    qDebug()<<"path: "<< path;
     if(saveImage)
         downloadFile(QUrl(url), "", path);    
     cacheJson.insert("keyImageUrl" , "file:" + path);
@@ -119,8 +119,8 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPathLabCache(const QString &g
     {
         url = stage["stageImageUrl"].toString();
         path = dir.absolutePath() + "/stage-" + QString::number(i);
-        qDebug()<< url;
-        qDebug()<< path;
+        qDebug()<<"stage:  "<<url;
+        qDebug()<<"path: "<< path;
         if(saveImage)
             downloadFile(QUrl(url), "", path);
         obj = stage.toObject();

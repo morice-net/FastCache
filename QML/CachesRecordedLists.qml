@@ -151,10 +151,12 @@ FastPopup {
                         {
                             if(listChecked.indexOf(true) === -1)
                             {
-                                fullCacheRetriever.deleteToStorage(sqliteStorage)
+                                fullCache.geocode.substring(0,2) === "GC" ? fullCacheRetriever.deleteToStorage(sqliteStorage):  //cache GC or lab
+                                                                            fullLabCacheRetriever.deleteToStorage(sqliteStorage)
                                 fullCache.registered = false
                             } else if((listChecked.indexOf(true) !== -1)  &&  (fullCache.registered === false)) {
-                                fullCacheRetriever.writeToStorage(sqliteStorage)
+                                fullCache.geocode.substring(0,2) === "GC" ? fullCacheRetriever.writeToStorage(sqliteStorage) : //cache GC or lab
+                                                                            fullLabCacheRetriever.writeToStorage(sqliteStorage)
                                 fullCache.registered = true
                             }
                             sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode , true)

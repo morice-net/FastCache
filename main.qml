@@ -327,6 +327,7 @@ Item {
         Component.onCompleted: {
             fullLabCacheRetriever.updateFullCache(fullCache)
             listCachesObject(cachesSingleList)
+            fullLabCacheRetriever.updateReplaceImageInText(replaceImageInText)
         }
     }
 

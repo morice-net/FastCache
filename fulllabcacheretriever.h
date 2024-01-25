@@ -4,6 +4,8 @@
 #include "requestor.h"
 #include "fullcache.h"
 #include "cachessinglelist.h"
+#include "sqlitestorage.h"
+#include "replaceimageintext.h"
 
 #include <QNetworkReply>
 
@@ -20,6 +22,9 @@ public:
     Q_INVOKABLE void updateFullCache(FullCache *fullCache);
     Q_INVOKABLE  void parseJson(const QJsonDocument &dataJsonDoc) override;
     Q_INVOKABLE void listCachesObject(CachesSingleList *listCaches);
+    Q_INVOKABLE void writeToStorage(SQLiteStorage *sqliteStorage);
+    Q_INVOKABLE void deleteToStorage(SQLiteStorage *sqliteStorage);
+    Q_INVOKABLE void updateReplaceImageInText(ReplaceImageInText *replace);
 
 private slots:
     void setDescription(QString value);
@@ -31,6 +36,7 @@ private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;
     CachesSingleList *m_listCaches;
+    ReplaceImageInText* m_replaceImageInText ;
 
     void descriptionLabCache(QString url, QString imageUrl , QString name);
 };
