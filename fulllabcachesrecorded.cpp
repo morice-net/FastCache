@@ -161,11 +161,22 @@ void FullLabCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         cacheJson.insert("ratingsTotalCount" , QJsonValue(ratingsTotalCount));
         cacheJson.insert("stagesTotalCount" , QJsonValue(stagesTotalCount));
         cacheJson.insert("keyImageUrl" , QJsonValue(imageUrl));
+        cacheJson.insert("keyImageUrlFile" , QJsonValue(""));
 
         QJsonObject location = cacheJson["location"].toObject();
         location.insert("latitude" , QJsonValue(lat));
         location.insert("longitude" , QJsonValue(lon));
         cacheJson.insert("location" , QJsonValue::fromVariant(location));
+
+        QJsonArray array ;
+        QJsonArray values = m_dataJson["stages"].toArray();
+        for(const QJsonValue &v : values)
+        {
+            QJsonObject val = v.toObject();
+            val.insert("stageImageUrlFile" , QJsonValue(""));
+            array.push_back(val);
+        }
+        cacheJson.insert("stages" , QJsonValue(array));
 
         m_dataJson.setObject(cacheJson);
         m_dataJson = m_replaceImageInText->replaceUrlImageToPathLabCache(geocode , m_dataJson , true);

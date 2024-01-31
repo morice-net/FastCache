@@ -35,10 +35,11 @@ private: signals:
 private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;
+    QString m_keyImageUrl;
     CachesSingleList *m_listCaches;
     ReplaceImageInText* m_replaceImageInText ;
 
-    void descriptionLabCache(QString url, QString imageUrl , QString name);
+    void descriptionLabCache(QString url, QString imageUrl , QString name);    
 };
 
 #endif // FULLLABCACHERETRIEVER_H

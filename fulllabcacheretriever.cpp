@@ -11,6 +11,7 @@
 
 FullLabCacheRetriever::FullLabCacheRetriever(Requestor *parent)
     : Requestor (parent)
+    , m_keyImageUrl("")
 {
 }
 
@@ -47,7 +48,7 @@ void FullLabCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
     cacheJson.insert("stagesTotalCount" , QJsonValue(m_fullCache->stagesTotalCount()));
     cacheJson.insert("description" , QJsonValue(description));
     cacheJson.insert("owner" , QJsonValue(owner));
-    cacheJson.insert("keyImageUrl" , QJsonValue(m_fullCache->imageUrl()));
+    cacheJson.insert("keyImageUrl" , m_keyImageUrl);
 
     QJsonObject location = cacheJson["location"].toObject();
     location.insert("latitude" , QJsonValue(m_fullCache->lat()));
@@ -146,6 +147,8 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
                 m_fullCache->setOwn(caches[i]->own());
                 m_fullCache->setShortDescription(cacheJson["firebaseDynamicLink"].toString());
 
+                m_keyImageUrl = m_fullCache->imageUrl();
+
                 descriptionLabCache(cacheJson["firebaseDynamicLink"].toString(), m_fullCache->imageUrl() ,  m_fullCache->name());
                 break;
             }
@@ -161,9 +164,11 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         m_fullCache->setRatingsTotalCount(cacheJson["ratingsTotalCount"].toInt());
         m_fullCache->setStagesTotalCount(cacheJson["stagesTotalCount"].toInt());
         m_fullCache->setIsCompleted(cacheJson["isCompleted"].toBool());
-        m_fullCache->setImageUrl(cacheJson["keyImageUrl"].toString());
+        m_fullCache->setImageUrl(cacheJson["keyImageUrlFile"].toString());
         m_fullCache->setOwn(cacheJson["isOwned"].toBool());
         m_fullCache->setOwner(cacheJson["owner"].toString());
+
+        m_keyImageUrl = cacheJson["keyImageUrl"].toString();
 
         QString description = "<p align=\"center\"><img src= " + m_fullCache->imageUrl() + " width=\"250\"  />" +
                               "<center><strong>"  + m_fullCache->name() + "</strong></center><br />" +
