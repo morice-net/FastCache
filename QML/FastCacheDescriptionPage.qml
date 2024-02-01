@@ -80,23 +80,29 @@ Item {
                     }
                 }
             }
-
-            WebView {
-                id: webView
+            
+            Rectangle {
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.95
                 height: main.height * 0.7
-                anchors.horizontalCenter: parent.horizontalCenter
-                clip: true
-                onUrlChanged: {
-                    console.log("URL is: " + url);
-                    if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
-                        backWeb = false
-                    } else if(url.toString().substring(0,4) === "http") {
-                        backWeb = true
-                        forwardWeb = true
+                color: Palette.white()
+
+                WebView {
+                    id: webView
+                    anchors.fill: parent
+                    visible: fastMenu.isMenuVisible() || userSettings.isMenuVisible() || cachesRecordedLists.opened ? false : true
+                    clip: true
+                    onUrlChanged: {
+                        console.log("URL is: " + url);
+                        if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
+                            backWeb = false
+                        } else if(url.toString().substring(0,4) === "http") {
+                            backWeb = true
+                            forwardWeb = true
+                        }
+                        console.log("Go Back Web: " + backWeb)
+                        console.log("Go Forward Web: " + forwardWeb)
                     }
-                    console.log("Go Back Web: " + backWeb)
-                    console.log("Go Forward Web: " + forwardWeb)
                 }
             }
 
