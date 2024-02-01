@@ -87,13 +87,8 @@ Item {
         onPositionChanged: {
             main.positionUpdated()
             fastList.sortByDistance() // dynamically sort the list by distance if necessary
-
             if(!fastMap.mapNorth)  // map not oriented to north
-                fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fullCache.isCorrectedCoordinates ?
-                                                                                                                     fullCache.correctedLat : fullCache.lat,
-                                                                                                                 fullCache.isCorrectedCoordinates ?
-                                                                                                                     fullCache.correctedLon : fullCache.lon))
-
+                fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
         }
     }
 
