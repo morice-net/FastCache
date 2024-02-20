@@ -3,9 +3,14 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 import "JavaScript/Palette.js" as Palette
+import com.mycompany.connecting 1.0
 
 Rectangle {
     id: root
+
+    BluetoothGps {
+        id: bluetoothGps
+    }
 
     property alias latitudeString: latValue.text
     property alias longitudeString: lonValue.text
@@ -121,7 +126,10 @@ Rectangle {
                 CheckBox {
                     id: external
                     checked: page.externalSource
-                    onCheckedChanged: page.externalSource = external.checked
+                    onCheckedChanged:{
+                        page.externalSource = external.checked
+                        externalGps(page.externalSource)
+                    }
                     contentItem: Text {
                         text: "Gps externe"
                         font.family: localFont.name
@@ -137,6 +145,7 @@ Rectangle {
                         border.width: 1
                         border.color: Palette.greenSea()
                         y: parent.height / 2 - height / 2
+
                         Rectangle {
                             anchors.fill: parent
                             visible: external.checked
@@ -147,6 +156,14 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+
+    function externalGps(external) {
+        if(external) {
+            bluetoothGps.searchBluetooth()
+        } else {
+            bluetoothGps.quitBluetooth()
         }
     }
 }

@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT +=  qml quick svg location sql core core5compat bluetooth
+QT +=  qml quick svg location sql core core5compat bluetooth serialport
 
 !android {
     QT += webenginequick
@@ -12,6 +12,7 @@ QT +=  qml quick svg location sql core core5compat bluetooth
 
 SOURCES += main.cpp \
     adventurelabcachesretriever.cpp \
+    bluetoothgps.cpp \
     cachemaptiles.cpp \
     cachespocketqueries.cpp \
     cachesrecorded.cpp \
@@ -60,6 +61,7 @@ include(deployment.pri)
 
 HEADERS += \
     adventurelabcachesretriever.h \
+    bluetoothgps.h \
     cachemaptiles.h \
     cachespocketqueries.h \
     cachesrecorded.h \

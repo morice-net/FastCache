@@ -3,7 +3,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
-import com.mycompany.connecting 1.0
 import "JavaScript/Palette.js" as Palette
 
 Rectangle {
@@ -69,7 +68,7 @@ Rectangle {
 
         PluginParameter {
             name: "nmea.source"
-            value: "socket://Bluetooth:1"
+            value: "./NmeaGps/nmealog.txt"
         }
         onSatellitesInViewChanged: page.updateModel()
         onSatellitesInUseChanged: {
@@ -80,7 +79,7 @@ Rectangle {
             page.updateModel()
         }
         onSourceErrorChanged: {
-            if (sourceError != SatelliteSource.NoError)
+            if (sourceError !== SatelliteSource.NoError)
                 positionAndStatus.statusString = qsTr("SatelliteSource Error: %1").arg(sourceError)
         }
     }
@@ -91,7 +90,7 @@ Rectangle {
 
         PluginParameter {
             name: "nmea.source"
-            value: "socket://Bluetooth:1"
+            value: "./NmeaGps/nmealog.txt"
         }
         onPositionChanged: {
             let posData = position.coordinate.toString().split(", ")

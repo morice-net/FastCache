@@ -1,3 +1,4 @@
+#include "bluetoothgps.h"
 #include <QGuiApplication>
 
 #if !defined Q_OS_ANDROID
@@ -71,8 +72,8 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheMapTiles>("com.mycompany.connecting", 1, 0, "CacheMapTiles");
     qmlRegisterType<AdventureLabCachesRetriever>("com.mycompany.connecting", 1, 0, "AdventureLabCachesRetriever");
     qmlRegisterType<FullLabCacheRetriever>("com.mycompany.connecting", 1, 0, "FullLabCacheRetriever");
-    qmlRegisterType<FullLabCachesRecorded>("com.mycompany.connecting", 1, 0, "FullLabCachesRecorded");
-
+    qmlRegisterType<FullLabCachesRecorded>("com.mycompany.connecting", 1, 0, "FullLabCachesRecorded");    
+    qmlRegisterType<BluetoothGps>("com.mycompany.connecting", 1, 0, "BluetoothGps");
 
 #if !defined Q_OS_ANDROID
     QtWebEngineQuick::initialize();
