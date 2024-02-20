@@ -40,9 +40,6 @@ Rectangle {
     function toggleState() {
         switch (statesItem.state) {
         case "stopped":
-            statesItem.state = "single"
-            break
-        case "single":
             statesItem.state = "running"
             break
         case "running":
@@ -54,12 +51,6 @@ Rectangle {
     function updateActive(state) {
         satelliteSource.active = state
         positionSource.active = state
-    }
-
-    function enterSingle() {
-        updateActive(false)
-        satelliteSource.update()
-        positionSource.update()
     }
 
     SatelliteSource {
@@ -170,7 +161,7 @@ Rectangle {
                 name: "stopped"
                 PropertyChanges {
                     target: modeButton
-                    text: qsTr("Unique")
+                    text: qsTr("Commencer")
                 }
                 PropertyChanges {
                     target: positionAndStatus
@@ -178,20 +169,6 @@ Rectangle {
                 }
                 StateChangeScript {
                     script: page.updateActive(false)
-                }
-            },
-            State {
-                name: "single"
-                PropertyChanges {
-                    target: modeButton
-                    text: qsTr("Commencer")
-                }
-                PropertyChanges {
-                    target: positionAndStatus
-                    statusString: qsTr("Requête unique")
-                }
-                StateChangeScript {
-                    script: page.enterSingle()
                 }
             },
             State {
