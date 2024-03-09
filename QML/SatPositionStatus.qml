@@ -86,6 +86,60 @@ Rectangle {
                     font.pointSize: 12
                     color: Palette.greenSea()
                 }
+
+                Text {
+                    visible: externalSource
+                    text: qsTr("précision:")
+                    font.family: localFont.name
+                    font.pointSize: 11
+                    color: Palette.greenSea()
+                    leftPadding: 5
+                }
+
+                Text {
+                    id: precisionValue
+                    visible: externalSource
+                    text: qsTr("N/A")
+                    font.family: localFont.name
+                    font.pointSize: 10
+                    color: Palette.greenSea()
+                }
+
+                Text {
+                    visible: externalSource
+                    text: qsTr("altitude:")
+                    font.family: localFont.name
+                    font.pointSize: 11
+                    color: Palette.greenSea()
+                    leftPadding: 5
+                }
+
+                Text {
+                    id: altValue
+                    visible: externalSource
+                    text: qsTr("N/A")
+                    font.family: localFont.name
+                    font.pointSize: 10
+                    color: Palette.greenSea()
+                }
+
+                Text {
+                    visible: externalSource
+                    text: qsTr("vitesse:")
+                    font.family: localFont.name
+                    font.pointSize: 11
+                    color: Palette.greenSea()
+                    leftPadding: 5
+                }
+
+                Text {
+                    id: speedValue
+                    visible: externalSource
+                    text: qsTr("N/A")
+                    font.family: localFont.name
+                    font.pointSize: 10
+                    color: Palette.greenSea()
+                }
             }
         }
 

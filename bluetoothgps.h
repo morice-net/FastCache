@@ -9,8 +9,6 @@
 #include <QGeoSatelliteInfo>
 #include <QGeoCoordinate>
 
-#include <QPair>
-
 #include <QtBluetooth/qbluetoothsocket.h>
 #include "nmeaparsing.h"
 
