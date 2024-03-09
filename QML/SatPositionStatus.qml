@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import QtPositioning
+
 import "JavaScript/Palette.js" as Palette
 import com.mycompany.connecting 1.0
 
@@ -10,6 +12,24 @@ Rectangle {
 
     BluetoothGps {
         id: bluetoothGps
+        onSatellitesInViewChanged: {
+            let intermediateModel = []
+            intermediateModel.length = satellitesInView.length
+            for (var i = 0; i < satellitesInView.length; ++i) {
+                let sat = satellitesInView[i]
+                intermediateModel[i] = {
+                    "id": sat.satelliteIdentifier,
+                    "rssi": sat.signalStrength,
+                    "azimuth": sat.attribute(GeoSatelliteInfo.Azimuth),
+                    "elevation": sat.attribute(GeoSatelliteInfo.Elevation),
+                    "inUse": true
+                }
+            }
+            satellitesModel = intermediateModel
+        }
+        onSatellitesInUseChanged: {
+
+        }
     }
 
     property alias latitudeString: latValue.text
@@ -125,10 +145,10 @@ Rectangle {
 
                 CheckBox {
                     id: external
-                    checked: page.externalSource
+                    checked: externalSource
                     onCheckedChanged:{
-                        page.externalSource = external.checked
-                        externalGps(page.externalSource)
+                        externalSource = external.checked
+                        externalGps(externalSource)
                     }
                     contentItem: Text {
                         text: "Gps externe"
@@ -164,6 +184,7 @@ Rectangle {
             bluetoothGps.searchBluetooth()
         } else {
             bluetoothGps.quitBluetooth()
+            currentPosition.active = true
         }
     }
 }

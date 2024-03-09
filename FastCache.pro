@@ -29,6 +29,7 @@ SOURCES += main.cpp \
     getpocketsquerieslist.cpp \
     gettravelbuguser.cpp \
     getusergeocachelogs.cpp \
+    nmeaparsing.cpp \
     parameter.cpp \
     replaceimageintext.cpp \
     sendedituserlog.cpp \
@@ -77,6 +78,7 @@ HEADERS += \
     getpocketsquerieslist.h \
     gettravelbuguser.h \
     getusergeocachelogs.h \
+    nmeaparsing.h \
     parameter.h \
     replaceimageintext.h \
     sendedituserlog.h \

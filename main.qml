@@ -70,6 +70,8 @@ Item {
 
     property int userLogImagesLoaded: - 1 // number of images of a user log downloaded
 
+    property bool externalSource: false  // gps bluetooth
+
     FastSettings { id: settings }
 
     Location {

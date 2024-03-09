@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 
 import "JavaScript/Palette.js" as Palette
+import "JavaScript/MainFunctions.js" as Functions
 
 Rectangle {
     id: page
@@ -14,7 +15,11 @@ Rectangle {
     property color inUseColor: "#7FFF0000"
     property color inViewColor: "#7F0000FF"
 
-    property bool externalSource: false
+    property var posData: currentPosition.position.coordinate
+    onPosDataChanged: {
+        positionAndStatus.latitudeString = Functions.formatLat(posData.latitude)
+        positionAndStatus.longitudeString = Functions.formatLon(posData.longitude)
+    }
 
     // The model structure is:
     // { "id": 1, "rssi": 10, "azimuth": 150, "elevation": 25, "inUse": false }
@@ -40,6 +45,9 @@ Rectangle {
     function toggleState() {
         switch (statesItem.state) {
         case "stopped":
+            statesItem.state = "single"
+            break
+        case "single":
             statesItem.state = "running"
             break
         case "running":
@@ -50,17 +58,18 @@ Rectangle {
 
     function updateActive(state) {
         satelliteSource.active = state
-        positionSource.active = state
+        currentPosition.active = state
+    }
+
+    function enterSingle() {
+        updateActive(false)
+        satelliteSource.update()
+        currentPosition.update()
     }
 
     SatelliteSource {
         id: satelliteSource
-        name: page.externalSource ? "nmea" : ""
-
-        PluginParameter {
-            name: "nmea.source"
-            value: "./NmeaGps/nmealog.txt"
-        }
+        updateInterval: 1000
         onSatellitesInViewChanged: page.updateModel()
         onSatellitesInUseChanged: {
             page.inUseIds.clear()
@@ -72,25 +81,6 @@ Rectangle {
         onSourceErrorChanged: {
             if (sourceError !== SatelliteSource.NoError)
                 positionAndStatus.statusString = qsTr("SatelliteSource Error: %1").arg(sourceError)
-        }
-    }
-
-    PositionSource {
-        id: positionSource
-        name: page.externalSource ? "nmea" : ""
-
-        PluginParameter {
-            name: "nmea.source"
-            value: "./NmeaGps/nmealog.txt"
-        }
-        onPositionChanged: {
-            let posData = position.coordinate.toString().split(", ")
-            positionAndStatus.latitudeString = posData[0]
-            positionAndStatus.longitudeString = posData[1]
-        }
-        onSourceErrorChanged: {
-            if (sourceError != PositionSource.NoError)
-                positionAndStatus.statusString = qsTr("PositionSource Error: %1").arg(sourceError)
         }
     }
 
@@ -161,7 +151,7 @@ Rectangle {
                 name: "stopped"
                 PropertyChanges {
                     target: modeButton
-                    text: qsTr("Commencer")
+                    text: qsTr("Unique")
                 }
                 PropertyChanges {
                     target: positionAndStatus
@@ -169,6 +159,20 @@ Rectangle {
                 }
                 StateChangeScript {
                     script: page.updateActive(false)
+                }
+            },
+            State {
+                name: "single"
+                PropertyChanges {
+                    target: modeButton
+                    text: qsTr("Commencer")
+                }
+                PropertyChanges {
+                    target: positionAndStatus
+                    statusString: qsTr("Requête unique")
+                }
+                StateChangeScript {
+                    script: page.enterSingle()
                 }
             },
             State {
