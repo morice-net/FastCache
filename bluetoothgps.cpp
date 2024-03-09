@@ -2,15 +2,13 @@
 #include "qdir.h"
 #include "qobjectdefs.h"
 
-BluetoothGps::BluetoothGps(QObject *parent) : QObject(parent)
-    ,m_altitude(0)
+BluetoothGps::BluetoothGps(QObject *parent) : QObject(parent)    
     ,m_precision(0)
-    ,m_speed(0)
-    ,m_lat(0)
-    ,m_lon(0)
+    ,m_speed(0)       
 {
     socketBuffer = new QString;
-    m_gps = new NMEAPARSING;  
+    m_gps = new NMEAPARSING;
+    m_position = *new QGeoCoordinate;
 }
 
 BluetoothGps::~BluetoothGps()
@@ -170,9 +168,7 @@ void BluetoothGps::showGPS(QByteArray gpsPackage) {
     m_gps->parseGPS(gpsPackage);
 
     if(m_gps->_gpgga != NULL) {
-        setLat(m_gps->_gpgga->_latitude);
-        setLon(m_gps->_gpgga->_longitude);
-        setAltitude( m_gps->_gpgga->_altitude);
+        setPosition(QGeoCoordinate(m_gps->_gpgga->_latitude , m_gps->_gpgga->_longitude , m_gps->_gpgga->_altitude));
         setPrecision(m_gps->_gpgga->_hdop);
     }
     if(m_gps->_gprmc != NULL) {
@@ -232,17 +228,6 @@ void BluetoothGps::setSatellitesInUse(const QList<QGeoSatelliteInfo> &satellites
     emit satellitesInUseChanged();
 }
 
-float BluetoothGps::altitude() const
-{
-    return m_altitude;
-}
-
-void BluetoothGps::setAltitude(const float &altitude)
-{
-    m_altitude = altitude;
-    emit altitudeChanged();
-}
-
 float BluetoothGps::precision() const
 {
     return m_precision;
@@ -265,26 +250,15 @@ void BluetoothGps::setSpeed(const float &speed)
     emit speedChanged();
 }
 
-float BluetoothGps::lat() const
+QGeoCoordinate BluetoothGps::position() const
 {
-    return m_lat;
+    return m_position;
 }
 
-void BluetoothGps::setLat(const float &lat)
+void BluetoothGps::setPosition(const QGeoCoordinate &position)
 {
-    m_lat = lat;
-    emit latChanged();
-}
-
-float BluetoothGps::lon() const
-{
-    return m_lon;
-}
-
-void BluetoothGps::setLon(const float &lon)
-{
-    m_lon = lon;
-    emit lonChanged();
+    m_position = position;
+    emit positionChanged();
 }
 
 

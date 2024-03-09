@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-
 import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
@@ -11,25 +10,7 @@ Rectangle {
     id: root
 
     BluetoothGps {
-        id: bluetoothGps
-        onSatellitesInViewChanged: {
-            let intermediateModel = []
-            intermediateModel.length = satellitesInView.length
-            for (var i = 0; i < satellitesInView.length; ++i) {
-                let sat = satellitesInView[i]
-                intermediateModel[i] = {
-                    "id": sat.satelliteIdentifier,
-                    "rssi": sat.signalStrength,
-                    "azimuth": sat.attribute(GeoSatelliteInfo.Azimuth),
-                    "elevation": sat.attribute(GeoSatelliteInfo.Elevation),
-                    "inUse": true
-                }
-            }
-            satellitesModel = intermediateModel
-        }
-        onSatellitesInUseChanged: {
-
-        }
+        id: bluetoothGps        
     }
 
     property alias latitudeString: latValue.text

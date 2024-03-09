@@ -7,6 +7,7 @@
 #include <QBluetoothLocalDevice>
 #include <QDebug>
 #include <QGeoSatelliteInfo>
+#include <QGeoCoordinate>
 
 #include <QtBluetooth/qbluetoothsocket.h>
 #include "nmeaparsing.h"
@@ -16,13 +17,10 @@ class BluetoothGps : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInView READ satellitesInView WRITE setSatellitesInView NOTIFY satellitesInViewChanged)
-    Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInUse READ satellitesInUse WRITE setSatellitesInUse NOTIFY satellitesInUseChanged)    
-    Q_PROPERTY(float altitude READ altitude WRITE setAltitude NOTIFY altitudeChanged)
+    Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInUse READ satellitesInUse WRITE setSatellitesInUse NOTIFY satellitesInUseChanged)
+    Q_PROPERTY(QGeoCoordinate position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(float precision READ precision WRITE setPrecision NOTIFY precisionChanged)
     Q_PROPERTY(float speed READ speed WRITE setSpeed NOTIFY speedChanged)
-    Q_PROPERTY(float lat READ lat WRITE setLat NOTIFY latChanged)
-    Q_PROPERTY(float lon READ lon WRITE setLon NOTIFY lonChanged)
-
 
 public:
     explicit BluetoothGps(QObject *parent = nullptr);
@@ -35,26 +33,20 @@ public:
     void setSatellitesInView(const QList<QGeoSatelliteInfo> &satellitesInView);
     QList<QGeoSatelliteInfo> satellitesInUse() const;
     void setSatellitesInUse(const QList<QGeoSatelliteInfo> &satellitesInUse);
-    float altitude() const;
-    void setAltitude(const float &altitude);
+    QGeoCoordinate position() const;
+    void setPosition(const QGeoCoordinate &position);
     float precision() const;
     void setPrecision(const float &precision);
     float speed() const;
     void setSpeed(const float &speed);
-    float lat() const;
-    void setLat(const float &lat);
-    float lon() const;
-    void setLon(const float &lon);
 
 signals:
     void socketReadyRead(QByteArray gpsPackage);    
     void satellitesInViewChanged();
     void satellitesInUseChanged();
-    void altitudeChanged();
+    void positionChanged();
     void precisionChanged();
     void speedChanged();
-    void latChanged();
-    void lonChanged();
 
 private slots:
     void deviceDiscovered(const QBluetoothDeviceInfo &device);
@@ -79,11 +71,9 @@ private:
     NMEAPARSING *m_gps;    
     QList<QGeoSatelliteInfo> m_satellitesInView;
     QList<QGeoSatelliteInfo> m_satellitesInUse;
-    float m_altitude;
+    QGeoCoordinate m_position;
     float m_precision;
     float m_speed;
-    float m_lat;
-    float m_lon;
 
     void parseSocketBuffer();    
 };
