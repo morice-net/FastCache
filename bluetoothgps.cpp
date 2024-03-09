@@ -2,9 +2,9 @@
 #include "qdir.h"
 #include "qobjectdefs.h"
 
-BluetoothGps::BluetoothGps(QObject *parent) : QObject(parent)    
+BluetoothGps::BluetoothGps(QObject *parent) : QObject(parent)
     ,m_precision(0)
-    ,m_speed(0)       
+    ,m_speed(0)
 {
     socketBuffer = new QString;
     m_gps = new NMEAPARSING;
@@ -260,6 +260,8 @@ void BluetoothGps::setPosition(const QGeoCoordinate &position)
     m_position = position;
     emit positionChanged();
 }
+
+
 
 
 
