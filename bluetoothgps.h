@@ -19,8 +19,9 @@ class BluetoothGps : public QObject
     Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInView READ satellitesInView WRITE setSatellitesInView NOTIFY satellitesInViewChanged)
     Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInUse READ satellitesInUse WRITE setSatellitesInUse NOTIFY satellitesInUseChanged)
     Q_PROPERTY(QGeoCoordinate position READ position WRITE setPosition NOTIFY positionChanged)
-    Q_PROPERTY(float precision READ precision WRITE setPrecision NOTIFY precisionChanged)
-    Q_PROPERTY(float speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(double precision READ precision WRITE setPrecision NOTIFY precisionChanged)
+    Q_PROPERTY(double speed READ speed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(QString gpsName READ gpsName WRITE setGpsName NOTIFY gpsNameChanged)
 
 public:
     explicit BluetoothGps(QObject *parent = nullptr);
@@ -35,10 +36,12 @@ public:
     void setSatellitesInUse(const QList<QGeoSatelliteInfo> &satellitesInUse);
     QGeoCoordinate position() const;
     void setPosition(const QGeoCoordinate &position);
-    float precision() const;
-    void setPrecision(const float &precision);
-    float speed() const;
-    void setSpeed(const float &speed);
+    double precision() const;
+    void setPrecision(const double &precision);
+    double speed() const;
+    void setSpeed(const double &speed);
+    QString gpsName() const;
+    void setGpsName(const QString &name);
 
 signals:
     void socketReadyRead(QByteArray gpsPackage);    
@@ -47,6 +50,8 @@ signals:
     void positionChanged();
     void precisionChanged();
     void speedChanged();
+    void gpsNameChanged();
+
 
 private slots:
     void deviceDiscovered(const QBluetoothDeviceInfo &device);
@@ -72,8 +77,9 @@ private:
     QList<QGeoSatelliteInfo> m_satellitesInView;
     QList<QGeoSatelliteInfo> m_satellitesInUse;
     QGeoCoordinate m_position;
-    float m_precision;
-    float m_speed;
+    double m_precision;
+    double m_speed;
+    QString m_gpsName;
 
     void parseSocketBuffer();    
 };

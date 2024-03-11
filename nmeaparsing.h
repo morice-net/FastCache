@@ -7,14 +7,14 @@
 
 class GPGGA {
 public:
-    float _utcTime; //hhmmss.ss
-    float _latitude;
-    float _longitude;
+    double _utcTime; //hhmmss.ss
+    double _latitude;
+    double _longitude;
     int _quality; //0 = Invalid, 1 = GPS fix, 2 = DGPS fix
     int _satellites; //In view
-    float _hdop; //Relative accuracy of horizontal position
-    float _altitude; //Meters above mean sea level
-    float _geoildalSeparation; //Height of geoid above WGS84 ellipsoid
+    double _hdop; //Relative accuracy of horizontal position
+    double _altitude; //Meters above mean sea level
+    double _geoildalSeparation; //Height of geoid above WGS84 ellipsoid
 
     GPGGA();
 };
@@ -24,9 +24,9 @@ public:
     char _modeType; //M = Manual, A = Automatic
     int _mode; //1 = Fix not available, 2 = 2D, 3 = 3D
     QList<int> *_satellites = NULL; //IDs of SVs used in position fix
-    float _pdop;
-    float _hdop;
-    float _vdop;
+    double _pdop;
+    double _hdop;
+    double _vdop;
 
     GPGSA();
 };
@@ -50,12 +50,12 @@ public:
 
 class GPRMC {
 public:
-    float _utcTime; //Time Stamp
+    double _utcTime; //Time Stamp
     char _validity; //A = ok, V = invalid
-    float _latitude; //Current Latitude
-    float _longitude; //Current Longitude
-    float _speed; //Speed in Kilometers per hour
-    float _course; //True course
+    double _latitude; //Current Latitude
+    double _longitude; //Current Longitude
+    double _speed; //Speed in Kilometers per hour
+    double _course; //True course
     int _utDate; //Date Stamp
 
     GPRMC();

@@ -75,19 +75,21 @@ GPGGA *NMEAPARSING::parseGPGGA(QByteArray gpggaPackage) {
         delete(gpgga);
         return NULL;
     }
-    gpgga->_utcTime = splitedPackage->at(1).toFloat();
-    float latitude = splitedPackage->at(2).toFloat(), longitude = splitedPackage->at(4).toFloat();
+    gpgga->_utcTime = splitedPackage->at(1).toDouble();
+    float latitude = splitedPackage->at(2).toDouble(), longitude = splitedPackage->at(4).toDouble();
     char ns = splitedPackage->at(3)[0], ew = splitedPackage->at(5)[0];
     int msbLatitude = latitude / 100, msbLongitude = longitude / 100;
     gpgga->_latitude = ((latitude - msbLatitude * 100) / 60 + msbLatitude);
-    if(ns == 'S') gpgga->_latitude *= -1;
+    if(ns == 'S')
+        gpgga->_latitude *= -1;
     gpgga->_longitude = ((longitude - msbLongitude * 100) / 60 + msbLongitude);
-    if(ew == 'W') gpgga->_longitude *= -1;
+    if(ew == 'W')
+        gpgga->_longitude *= -1;
     gpgga->_quality = splitedPackage->at(6).toInt();
     gpgga->_satellites = splitedPackage->at(7).toInt();
-    gpgga->_hdop = splitedPackage->at(8).toFloat();
-    gpgga->_altitude = splitedPackage->at(9).toFloat();
-    gpgga->_geoildalSeparation = splitedPackage->at(11).toFloat();
+    gpgga->_hdop = splitedPackage->at(8).toDouble();
+    gpgga->_altitude = splitedPackage->at(9).toDouble();
+    gpgga->_geoildalSeparation = splitedPackage->at(11).toDouble();
     delete splitedPackage;
     return gpgga;
 }
@@ -108,9 +110,9 @@ GPGSA *NMEAPARSING::parseGPGSA(QByteArray gpgsaPackage) {
         }
     }
     std::sort(gpgsa->_satellites->begin(), gpgsa->_satellites->end());
-    gpgsa->_pdop = splitedPackage->at(15).toFloat();
-    gpgsa->_hdop = splitedPackage->at(16).toFloat();
-    gpgsa->_vdop = splitedPackage->at(17).toFloat();
+    gpgsa->_pdop = splitedPackage->at(15).toDouble();
+    gpgsa->_hdop = splitedPackage->at(16).toDouble();
+    gpgsa->_vdop = splitedPackage->at(17).toDouble();
     delete splitedPackage;
     return gpgsa;
 }
@@ -151,17 +153,19 @@ GPRMC *NMEAPARSING::parseGPRMC(QByteArray gprmcPackage) {
         delete(gprmc);
         return NULL;
     }
-    gprmc->_utcTime = splitedPackage->at(1).toFloat();
+    gprmc->_utcTime = splitedPackage->at(1).toDouble();
     gprmc->_validity = splitedPackage->at(2)[0];
-    float latitude = splitedPackage->at(3).toFloat(), longitude = splitedPackage->at(5).toFloat();
+    float latitude = splitedPackage->at(3).toDouble(), longitude = splitedPackage->at(5).toDouble();
     char ns = splitedPackage->at(4)[0], ew = splitedPackage->at(6)[0];
     int msbLatitude = latitude / 100, msbLongitude = longitude / 100;
     gprmc->_latitude = ((latitude - msbLatitude * 100) / 60 + msbLatitude);
-    if(ns == 'S') gprmc->_latitude *= -1;
+    if(ns == 'S')
+        gprmc->_latitude *= -1;
     gprmc->_longitude = ((longitude - msbLongitude * 100) / 60 + msbLongitude);
-    if(ew == 'W') gprmc->_longitude *= -1;
-    gprmc->_speed = splitedPackage->at(7).toFloat() * 1.852000;
-    gprmc->_course = splitedPackage->at(8).toFloat();
+    if(ew == 'W')
+        gprmc->_longitude *= -1;
+    gprmc->_speed = splitedPackage->at(7).toDouble() * 1.852;
+    gprmc->_course = splitedPackage->at(8).toDouble();
     gprmc->_utDate = splitedPackage->at(9).toInt();    
     return gprmc;
 }

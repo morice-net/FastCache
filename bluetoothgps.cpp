@@ -3,8 +3,9 @@
 #include "qobjectdefs.h"
 
 BluetoothGps::BluetoothGps(QObject *parent) : QObject(parent)
-    ,m_precision(0)
-    ,m_speed(0)
+    ,m_precision(0.0)
+    ,m_speed(0.0)
+    ,m_gpsName("")
 {
     socketBuffer = new QString;
     m_gps = new NMEAPARSING;
@@ -17,6 +18,7 @@ BluetoothGps::~BluetoothGps()
 
 void BluetoothGps::searchBluetooth() {
     qDebug() << "Bluetooth Searcher Starting";
+    setGpsName("attendre..");
     if (localDevice == nullptr) {
         localDevice = new QBluetoothLocalDevice(this);
         connect(localDevice, &QBluetoothLocalDevice::pairingFinished,
@@ -93,20 +95,20 @@ void BluetoothGps::requestPairing(QString address)
 }
 
 void BluetoothGps::scanError(QBluetoothDeviceDiscoveryAgent::Error error)
-{
+{    
     QBluetoothDeviceDiscoveryAgent *deviceAgent = static_cast<QBluetoothDeviceDiscoveryAgent*>(QObject::sender());
     if (error == QBluetoothDeviceDiscoveryAgent::PoweredOffError)
-        qInfo() << "The Bluetooth adaptor is powered off.";
+        setGpsName("Bluetooth adaptor powered off.");
     else if (error == QBluetoothDeviceDiscoveryAgent::InputOutputError) {
-        qInfo() << "Writing or reading from the device resulted in an error." << deviceAgent->errorString();
+        setGpsName("Writing or reading error.");
     } else {
-        qInfo() << "An unknown error has occurred." << error << deviceAgent->errorString();
+        setGpsName("Unknown error has occurred.");
     }
 }
 
 void BluetoothGps::socketConnected()
 {
-    qDebug() << "Socket connected";
+    qDebug() << "Socket connected";    
     qDebug() << "Local: "
              << socket->localName()
              << socket->localAddress().toString()
@@ -114,12 +116,14 @@ void BluetoothGps::socketConnected()
     qDebug() << "Peer: "
              << socket->peerName()
              << socket->peerAddress().toString()
-             << socket->peerPort();    
+             << socket->peerPort();
+    setGpsName(socket->peerName());
 }
 
 void BluetoothGps::socketError(QBluetoothSocket::SocketError error)
 {
     qDebug() << "Socket error: " << error;
+    setGpsName("Socket error:");
 }
 
 void BluetoothGps::socketRead(){
@@ -133,12 +137,14 @@ void BluetoothGps::socketDisconnected()
 {
     qDebug() << "Socket disconnected";  
     socket->close();
+    setGpsName("");
 }
 
 void BluetoothGps::quitBluetooth()
 {
     qDebug() << "quit bluetooth";
-    socket->close();    
+    socket->close();
+    setGpsName("");
 }
 
 void BluetoothGps::parseSocketBuffer() {
@@ -228,23 +234,23 @@ void BluetoothGps::setSatellitesInUse(const QList<QGeoSatelliteInfo> &satellites
     emit satellitesInUseChanged();
 }
 
-float BluetoothGps::precision() const
+double BluetoothGps::precision() const
 {
     return m_precision;
 }
 
-void BluetoothGps::setPrecision(const float &precision)
+void BluetoothGps::setPrecision(const double &precision)
 {
     m_precision = precision;
     emit precisionChanged();
 }
 
-float BluetoothGps::speed() const
+double BluetoothGps::speed() const
 {
     return m_speed;
 }
 
-void BluetoothGps::setSpeed(const float &speed)
+void BluetoothGps::setSpeed(const double &speed)
 {
     m_speed = speed;
     emit speedChanged();
@@ -261,6 +267,16 @@ void BluetoothGps::setPosition(const QGeoCoordinate &position)
     emit positionChanged();
 }
 
+QString BluetoothGps::gpsName() const
+{
+    return m_gpsName;
+}
+
+void BluetoothGps::setGpsName(const QString &name)
+{
+    m_gpsName = name;
+    emit gpsNameChanged();
+}
 
 
 

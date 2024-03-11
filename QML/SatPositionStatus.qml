@@ -4,18 +4,16 @@ import QtQuick.Layouts
 import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
 
 Rectangle {
     id: root
 
-    BluetoothGps {
-        id: bluetoothGps        
-    }
-
     property alias latitudeString: latValue.text
     property alias longitudeString: lonValue.text
     property alias statusString: statusValue.text
+    property alias precisionString: precisionValue.text
+    property alias altString: altValue.text
+    property alias speedString: speedValue.text
 
     height: rootLayout.implicitHeight + rootLayout.anchors.bottomMargin
 
@@ -89,27 +87,9 @@ Rectangle {
 
                 Text {
                     visible: externalSource
-                    text: qsTr("précision:")
-                    font.family: localFont.name
-                    font.pointSize: 11
-                    color: Palette.greenSea()
-                    leftPadding: 5
-                }
-
-                Text {
-                    id: precisionValue
-                    visible: externalSource
-                    text: qsTr("N/A")
-                    font.family: localFont.name
-                    font.pointSize: 10
-                    color: Palette.greenSea()
-                }
-
-                Text {
-                    visible: externalSource
                     text: qsTr("altitude:")
                     font.family: localFont.name
-                    font.pointSize: 11
+                    font.pointSize: 13
                     color: Palette.greenSea()
                     leftPadding: 5
                 }
@@ -119,7 +99,7 @@ Rectangle {
                     visible: externalSource
                     text: qsTr("N/A")
                     font.family: localFont.name
-                    font.pointSize: 10
+                    font.pointSize: 12
                     color: Palette.greenSea()
                 }
 
@@ -127,7 +107,7 @@ Rectangle {
                     visible: externalSource
                     text: qsTr("vitesse:")
                     font.family: localFont.name
-                    font.pointSize: 11
+                    font.pointSize: 13
                     color: Palette.greenSea()
                     leftPadding: 5
                 }
@@ -137,7 +117,25 @@ Rectangle {
                     visible: externalSource
                     text: qsTr("N/A")
                     font.family: localFont.name
-                    font.pointSize: 10
+                    font.pointSize: 12
+                    color: Palette.greenSea()
+                }
+
+                Text {
+                    visible: externalSource
+                    text: qsTr("précision:")
+                    font.family: localFont.name
+                    font.pointSize: 13
+                    color: Palette.greenSea()
+                    leftPadding: 5
+                }
+
+                Text {
+                    id: precisionValue
+                    visible: externalSource
+                    text: qsTr("N/A")
+                    font.family: localFont.name
+                    font.pointSize: 12
                     color: Palette.greenSea()
                 }
             }
@@ -211,15 +209,6 @@ Rectangle {
                     }
                 }
             }
-        }
-    }
-
-    function externalGps(external) {
-        if(external) {
-            bluetoothGps.searchBluetooth()
-        } else {
-            bluetoothGps.quitBluetooth()
-            currentPosition.active = true
         }
     }
 }

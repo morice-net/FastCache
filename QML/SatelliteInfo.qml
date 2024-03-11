@@ -2,6 +2,7 @@ import QtPositioning
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import com.mycompany.connecting 1.0
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
@@ -17,8 +18,10 @@ Rectangle {
 
     property var posData: currentPosition.position.coordinate
     onPosDataChanged: {
-        positionAndStatus.latitudeString = Functions.formatLat(posData.latitude)
-        positionAndStatus.longitudeString = Functions.formatLon(posData.longitude)
+        if(posData.latitude.toString() !== "NaN")
+            positionAndStatus.latitudeString = Functions.formatLat(posData.latitude)
+        if(posData.longitude.toString() !== "NaN")
+            positionAndStatus.longitudeString = Functions.formatLon(posData.longitude)
     }
 
     // The model structure is:
@@ -26,17 +29,31 @@ Rectangle {
     property var satellitesModel: []
     property var inUseIds: new Set()
 
-    function updateModel() {
+    function updateModel(external) {
         let intermediateModel = []
-        intermediateModel.length = satelliteSource.satellitesInView.length
-        for (var i = 0; i < satelliteSource.satellitesInView.length; ++i) {
-            let sat = satelliteSource.satellitesInView[i]
-            intermediateModel[i] = {
-                "id": sat.satelliteIdentifier,
-                "rssi": sat.signalStrength,
-                "azimuth": sat.attribute(GeoSatelliteInfo.Azimuth),
-                "elevation": sat.attribute(GeoSatelliteInfo.Elevation),
-                "inUse": inUseIds.has(sat.satelliteIdentifier)
+        if(!external) {
+            intermediateModel.length = satelliteSource.satellitesInView.length
+            for (var i = 0; i < satelliteSource.satellitesInView.length; ++i) {
+                let sat = satelliteSource.satellitesInView[i]
+                intermediateModel[i] = {
+                    "id": sat.satelliteIdentifier,
+                    "rssi": sat.signalStrength,
+                    "azimuth": sat.attribute(GeoSatelliteInfo.Azimuth),
+                    "elevation": sat.attribute(GeoSatelliteInfo.Elevation),
+                    "inUse": inUseIds.has(sat.satelliteIdentifier)
+                }
+            }
+        } else {
+            intermediateModel.length = bluetoothGps.satellitesInView.length
+            for (var j = 0; j < bluetoothGps.satellitesInView.length; ++j) {
+                let sat = bluetoothGps.satellitesInView[j]
+                intermediateModel[j] = {
+                    "id": sat.satelliteIdentifier,
+                    "rssi": sat.signalStrength,
+                    "azimuth": sat.attribute(GeoSatelliteInfo.Azimuth),
+                    "elevation": sat.attribute(GeoSatelliteInfo.Elevation),
+                    "inUse": inUseIds.has(sat.satelliteIdentifier)
+                }
             }
         }
         satellitesModel = intermediateModel
@@ -58,20 +75,44 @@ Rectangle {
         currentPosition.active = state
     }
 
+    BluetoothGps {
+        id: bluetoothGps
+        onSatellitesInViewChanged: {
+            if(statesItem.state !== "stopped")
+                page.updateModel(true)
+        }
+        onSatellitesInUseChanged: {
+            if(statesItem.state !== "stopped") {
+                page.inUseIds.clear()
+                for (var i = 0; i < bluetoothGps.satellitesInUse.length; ++i)
+                    page.inUseIds.add(bluetoothGps.satellitesInUse[i].satelliteIdentifier)
+                page.updateModel(true)
+            }
+        }
+        onPositionChanged: {
+            positionAndStatus.altString = bluetoothGps.position.altitude.toFixed(0) + " m"
+            currentPosition.position.coordinate.latitude = bluetoothGps.position.latitude
+            currentPosition.position.coordinate.longitude = bluetoothGps.position.longitude
+        }
+        onSpeedChanged: {
+            positionAndStatus.speedString = bluetoothGps.speed.toFixed(0) + " km/h"
+        }
+        onPrecisionChanged: {
+            positionAndStatus.precisionString = bluetoothGps.precision.toFixed(3)
+        }        
+        onGpsNameChanged: positionAndStatus.statusString = bluetoothGps.gpsName
+    }
+
     SatelliteSource {
         id: satelliteSource
         updateInterval: 1000
-        onSatellitesInViewChanged: page.updateModel()
+        onSatellitesInViewChanged: page.updateModel(false)
         onSatellitesInUseChanged: {
             page.inUseIds.clear()
             for (var i = 0; i < satellitesInUse.length; ++i)
                 page.inUseIds.add(satellitesInUse[i].satelliteIdentifier)
 
-            page.updateModel()
-        }
-        onSourceErrorChanged: {
-            if (sourceError !== SatelliteSource.NoError)
-                positionAndStatus.statusString = qsTr("SatelliteSource Error: %1").arg(sourceError)
+            page.updateModel(false)
         }
     }
 
@@ -133,6 +174,7 @@ Rectangle {
         onClicked: page.toggleState()
     }
 
+
     Item {
         id: statesItem
         visible: false
@@ -168,4 +210,15 @@ Rectangle {
             }
         ]
     }
+
+    function externalGps(external) {
+        if(external) {
+            bluetoothGps.searchBluetooth()
+        } else {
+            bluetoothGps.quitBluetooth()
+            currentPosition.active = true
+        }
+    }
 }
+
+
