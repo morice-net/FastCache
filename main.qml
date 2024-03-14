@@ -20,10 +20,8 @@ Item {
 
     // Used for downloading a full cache by geocode
     property string previousGeocode: ""
-
     // main.state can take "near" "address" "coordinates" "recorded" "pocketQuery" "cachesActive" or ""
     property string annexMainState: ""
-
     property string viewState: "" // "map" or "list" or "fullcache" or "travelbug"
     onViewStateChanged: {
         if(main.viewState !== "list")
@@ -32,23 +30,17 @@ Item {
 
     // Previous viewstate used when downloading a fullcache or a travel bug
     property var previousViewState: ["" , ""]
-
     property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
         settings.webcam , settings.wherigo , settings.gchq]
-
     property var listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,
         settings.virtualSize , settings.other]
-
     property var listKeywordDiscoverOwner : [settings.keyWord , settings.discover , settings.owner]
-
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
-
     // used for the compass.
     property double beginLat
     property double beginLon
-
     // number of caches found
     property int findCount: userInfo.finds
 
@@ -56,7 +48,6 @@ Item {
 
     // current index in TabViewRecordedCaches
     property alias tabBarRecordedCachesIndex: fastList.tabBarRecordedCachesIndex
-
     // list sort type by: géocode, name , type , size , difficulty , terrain , distance.
     property int sortGeocode: 0
     property int sortName: 1
@@ -65,12 +56,12 @@ Item {
     property int sortDifficulty: 4
     property int sortTerrain: 5
     property int sortDistance: 6
-
     property int sortingBy: sortDistance // sorting by distance.
-
     property int userLogImagesLoaded: - 1 // number of images of a user log downloaded
-
     property bool externalSource: false  // gps bluetooth
+    property double externalLatitude: 0.0
+    property double externalLongitude: 0.0
+    property var locationSource: externalSource ? externalLocation.coordinate : currentPosition.position.coordinate
 
     FastSettings { id: settings }
 
@@ -79,6 +70,20 @@ Item {
         coordinate {
             latitude: beginLat.toFixed(5)
             longitude: beginLon.toFixed(5)
+        }
+    }
+
+    Location {
+        id: externalLocation
+        coordinate {
+            latitude: externalLatitude
+            longitude: externalLongitude
+        }
+        onCoordinateChanged: {
+            main.positionUpdated()
+            fastList.sortByDistance() // dynamically sort the list by distance if necessary
+            if(!fastMap.mapNorth)  // map not oriented to north
+                fastMap.mapItem.bearing = externalLocation.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
         }
     }
 

@@ -16,7 +16,7 @@ Rectangle {
     property color inUseColor: "#7FFF0000"
     property color inViewColor: "#7F0000FF"
 
-    property var posData: currentPosition.position.coordinate
+    property var posData: locationSource
     onPosDataChanged: {
         if(posData.latitude.toString() !== "NaN")
             positionAndStatus.latitudeString = Functions.formatLat(posData.latitude)
@@ -72,7 +72,6 @@ Rectangle {
 
     function updateActive(state) {
         satelliteSource.active = state
-        currentPosition.active = state
     }
 
     BluetoothGps {
@@ -91,15 +90,15 @@ Rectangle {
         }
         onPositionChanged: {
             positionAndStatus.altString = bluetoothGps.position.altitude.toFixed(0) + " m"
-            currentPosition.position.coordinate.latitude = bluetoothGps.position.latitude
-            currentPosition.position.coordinate.longitude = bluetoothGps.position.longitude
+            externalLatitude = bluetoothGps.position.latitude
+            externalLongitude = bluetoothGps.position.longitude
         }
         onSpeedChanged: {
             positionAndStatus.speedString = bluetoothGps.speed.toFixed(0) + " km/h"
         }
         onPrecisionChanged: {
             positionAndStatus.precisionString = bluetoothGps.precision.toFixed(3)
-        }        
+        }
         onGpsNameChanged: positionAndStatus.statusString = bluetoothGps.gpsName
     }
 

@@ -208,9 +208,8 @@ Rectangle {
             font.pointSize: selectedCacheItem.height * 0.16
             color: Palette.black()
             clip: true
-            text: selectedCache !== null ? Helper.formatDistance(Math.round(currentPosition.position.coordinate
-                                                                            .distanceTo(QtPositioning.coordinate(selectedCache.lat,
-                                                                                                                 selectedCache.lon)))) : ""
+            text: selectedCache !== null ? Helper.formatDistance(Math.round(locationSource.distanceTo(QtPositioning.coordinate(selectedCache.lat,
+                                                                                                                               selectedCache.lon)))) : ""
         }
 
         Image {
@@ -226,12 +225,12 @@ Rectangle {
             if (selectedCache === undefined)
                 return
             console.log("Updating small compass... for cache", selectedCache.name)
-            if (currentPosition == undefined)
+            if (locationSource === undefined)
                 return
-            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
-                    currentPosition.position.coordinate.azimuthTo(selectedCacheLocation.coordinate)
-            main.beginLat = currentPosition.position.coordinate.latitude;
-            main.beginLon = currentPosition.position.coordinate.longitude;
+            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(locationSource) +
+                    locationSource.azimuthTo(selectedCacheLocation.coordinate)
+            main.beginLat = locationSource.latitude;
+            main.beginLon = locationSource.longitude;
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)

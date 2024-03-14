@@ -82,7 +82,7 @@ Item {
             } else {
                 hideMenu()
                 nearCachesClicked()
-                fastMap.mapItem.center = currentPosition.position.coordinate
+                fastMap.mapItem.center = locationSource
             }
         }
     }

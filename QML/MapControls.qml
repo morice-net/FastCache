@@ -34,7 +34,7 @@ Column {
             anchors.fill: parent
             onClicked: {
                 console.log("Tracker clicked")
-                map.center = currentPosition.position.coordinate
+                map.center = locationSource
             }
         }
     }

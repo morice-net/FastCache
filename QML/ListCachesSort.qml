@@ -15,8 +15,8 @@ DelegateModel {
         function(left, right) { return left.size < right.size },
         function(left, right) { return left.difficulty < right.difficulty },
         function(left, right) { return left.terrain < right.terrain },
-        function(left, right) { return Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(left.lat, left.lon)))
-                                < Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(right.lat, right.lon))) }
+        function(left, right) { return Math.round(locationSource.distanceTo(QtPositioning.coordinate(left.lat, left.lon)))
+                                < Math.round(locationSource.distanceTo(QtPositioning.coordinate(right.lat, right.lon))) }
     ]
 
     property int sortOrder: main.sortingBy

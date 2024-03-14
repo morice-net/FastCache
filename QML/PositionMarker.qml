@@ -10,8 +10,8 @@ Rectangle {
     width: 25
     height: width
     radius: height/2
-    x: map.fromCoordinate(currentPosition.position.coordinate).x
-    y: map.fromCoordinate(currentPosition.position.coordinate).y
+    x: map.fromCoordinate(locationSource).x
+    y: map.fromCoordinate(locationSource).y
     
     NumberAnimation on opacity { from: 0; to: 0.8; duration: 1200;  easing.type: Easing.OutCubic; running: true; loops: NumberAnimation.Infinite }
     Behavior on x { NumberAnimation { duration: 250} }
@@ -20,9 +20,9 @@ Rectangle {
     Timer {
         interval: 300; running: true; repeat: true
         onTriggered: {
-            if (map.visibleRegion.contains(currentPosition.position.coordinate)) {
-                positionMarker.x = map.fromCoordinate(currentPosition.position.coordinate).x
-                positionMarker.y = map.fromCoordinate(currentPosition.position.coordinate).y
+            if (map.visibleRegion.contains(locationSource)) {
+                positionMarker.x = map.fromCoordinate(locationSource).x
+                positionMarker.y = map.fromCoordinate(locationSource).y
             } else {
                 positionMarker.x = -positionMarker.width
             }

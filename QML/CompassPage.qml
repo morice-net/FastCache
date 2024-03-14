@@ -28,8 +28,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pointSize: 20
-            text: "Distance  " + Helper.formatDistance(Math.round(currentPosition.position.coordinate
-                                                                  .distanceTo(goalLocation.coordinate)))
+            text: "Distance  " + Helper.formatDistance(Math.round(locationSource.distanceTo(goalLocation.coordinate)))
             color: Palette.white()
         }
 
@@ -37,7 +36,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
             font.pointSize: 18
-            text: "Azimut  " + currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate).toFixed(0)+"°"
+            text: "Azimut  " + locationSource.azimuthTo(goalLocation.coordinate).toFixed(0)+"°"
             color: Palette.white()
         }
     }
@@ -114,8 +113,8 @@ Item {
         y: title.y + 2.7 * title.height
         font.family: localFont.name
         font.pointSize: 14
-        text: "Lat  " + Functions.formatLat(currentPosition.position.coordinate.latitude) + "   Lon  " +
-              Functions.formatLon(currentPosition.position.coordinate.longitude)
+        text: "Lat  " + Functions.formatLat(locationSource.latitude) + "   Lon  " +
+              Functions.formatLon(locationSource.longitude)
         color: Palette.silver()
     }
 
@@ -156,15 +155,15 @@ Item {
 
             // Orient the map if necessary
             if(!fastMap.oldMapNorth)
-                fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(goalLat , goalLon))
+                fastMap.mapItem.bearing = locationSource.azimuthTo(QtPositioning.coordinate(goalLat , goalLon))
         }
     }
 
     function updateRotation() {
-        compassRose.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate)
-        compassArrow.rotation = currentPosition.position.coordinate.azimuthTo(goalLocation.coordinate)
-        main.beginLat = currentPosition.position.coordinate.latitude;
-        main.beginLon = currentPosition.position.coordinate.longitude;
+        compassRose.rotation = -1 * beginLocation.coordinate.azimuthTo(locationSource)
+        compassArrow.rotation = locationSource.azimuthTo(goalLocation.coordinate)
+        main.beginLat = locationSource.latitude;
+        main.beginLon = locationSource.longitude;
     }
 
     function compassPageFullCache() {

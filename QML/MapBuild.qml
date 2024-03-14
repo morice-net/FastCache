@@ -176,7 +176,7 @@ Map {
                 north.source = "qrc:/Image/" + "icon_compass.png"
                 fastMap.mapNorth = false
                 fastMap.oldMapNorth = fastMap.mapNorth
-                map.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
+                map.bearing = locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
             } else {
                 north.source = "qrc:/Image/" + "icon_north.png"
                 fastMap.mapNorth = true
@@ -203,8 +203,8 @@ Map {
             font.pointSize: 17
             color: Palette.black()
             clip: true
-            text: Helper.formatDistance(Math.round(currentPosition.position.coordinate.distanceTo(QtPositioning.coordinate(fastCache.goalLat ,
-                                                                                                                           fastCache.goalLon))))
+            text: Helper.formatDistance(Math.round(locationSource.distanceTo(QtPositioning.coordinate(fastCache.goalLat ,
+                                                                                                      fastCache.goalLon))))
         }
 
         Image {
@@ -219,10 +219,10 @@ Map {
         }
 
         function updateRotation() {
-            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(currentPosition.position.coordinate) +
-                    currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
-            main.beginLat = currentPosition.position.coordinate.latitude;
-            main.beginLon = currentPosition.position.coordinate.longitude;
+            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(locationSource) +
+                    locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
+            main.beginLat = locationSource.latitude;
+            main.beginLon = locationSource.longitude;
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)
@@ -397,7 +397,7 @@ Map {
     }
 
     Component.onCompleted: {
-        map.center = currentPosition.position.coordinate
+        map.center = locationSource
     }
 }
 
