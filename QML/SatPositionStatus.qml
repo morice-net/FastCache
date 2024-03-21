@@ -43,6 +43,7 @@ Rectangle {
 
                 anchors.fill: parent
                 columns: 2
+                columnSpacing: -3
 
                 Text {
                     text: qsTr("Position courante")
