@@ -95,8 +95,7 @@ void BluetoothGps::requestPairing(QString address)
 }
 
 void BluetoothGps::scanError(QBluetoothDeviceDiscoveryAgent::Error error)
-{    
-    QBluetoothDeviceDiscoveryAgent *deviceAgent = static_cast<QBluetoothDeviceDiscoveryAgent*>(QObject::sender());
+{
     if (error == QBluetoothDeviceDiscoveryAgent::PoweredOffError)
         setGpsName("Bluetooth adaptor powered off.");
     else if (error == QBluetoothDeviceDiscoveryAgent::InputOutputError) {
