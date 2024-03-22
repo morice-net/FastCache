@@ -146,8 +146,9 @@ void BluetoothGps::quitBluetooth()
     setGpsName("");
 }
 
-void BluetoothGps::parseSocketBuffer() {
-    if(socketBuffer->left(6).compare("$GPGGA") == 0) {
+void BluetoothGps::parseSocketBuffer() {    
+    QString leftString = socketBuffer->left(6);
+    if(leftString.compare("$GPGGA") == 0) {
         unsigned char subPackages = 0;
         for(int index = 0; index < socketBuffer->size(); index++) {
             if(socketBuffer->at(index) == '\n') {
@@ -160,7 +161,7 @@ void BluetoothGps::parseSocketBuffer() {
         }
     } else {
         qDebug() << "Removing incomplete package from socket buffer!";
-        while(socketBuffer->left(6).compare("$GPGGA") && socketBuffer->size()) {
+        while(leftString.compare("$GPGGA") && socketBuffer->size()) {
             socketBuffer->remove(0, 1);
         }
     }
