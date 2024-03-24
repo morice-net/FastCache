@@ -12,18 +12,21 @@ import "JavaScript/MainFunctions.js" as Functions
 FastPopup {
     id: geocode
 
-    property bool geocodeResponseOpened: geocodeResponse.opened
+    property bool geocodeResponseOpened: geocodeResponse.visible
+    property alias geocodeResponseVisible: geocodeResponse.visible
 
     width: main.width * 0.9
     height: main.height * 0.7
     anchors.centerIn: parent
     backgroundRadius: 10
     backgroundOpacity: 0.9
+    onVisibleChanged: geocodeResponse.visible = false
 
     Column {
         spacing: 5
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.7
+        enabled: !geocodeResponse.visible
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -157,6 +160,7 @@ FastPopup {
         }
     }
 
+    // address
     Address {
         id: address
         street: ""
@@ -166,6 +170,7 @@ FastPopup {
         postalCode: ""
     }
 
+    // geocode model
     GeocodeModel {
         id: geocodeModel
         plugin: fastMap.checkedPluginMap()
@@ -176,20 +181,16 @@ FastPopup {
         }
     }
 
-    FastPopup {
+    // geocode response
+    Item {
         id: geocodeResponse
         width: main.width * 0.9
-        height: geocodelist.height + 30
-        x: (parent.width - geocodeResponse.width) / 2
-        y: -geocode.y + 20
-        closeButtonVisible: false
-        backgroundRadius: 10
 
         ListView {
             id: geocodelist
             clip: true
             width: parent.width
-            height: popupResponseHeight() * 0.85
+            height: responseHeight() * 0.85
             model: listModel
             delegate: delegate
         }
@@ -203,7 +204,7 @@ FastPopup {
 
             Rectangle {
                 id: item
-                width: parent.width
+                width: main.width * 0.9
                 height: main.height / 5
                 color: Palette.white()
                 border.width: 1
@@ -213,7 +214,7 @@ FastPopup {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        geocodeResponse.close()
+                        geocodeResponse.visible = false
                         main.state = "address"
                         // caches
                         cachesNear.latPoint = listModel.get(index).valLat
@@ -274,17 +275,12 @@ FastPopup {
                 }
             }
         }
-
-        function closeIfMenu() {
-            if (fastMenu.isMenuVisible())
-                visible = false
-        }
     }
 
-    function popupResponseHeight( )  {
-        if((geocodeModel.count)*(main.height / 6 )<= main.height * 0.9)
+    function responseHeight()  {
+        if((geocodeModel.count) * (main.height / 6 ) <= main.height * 0.9)
         {
-            return (geocodeModel.count)*(main.height/6 )
+            return (geocodeModel.count) * (main.height / 6)
         } else {
             return main.height * 0.9
         }
@@ -297,8 +293,8 @@ FastPopup {
 
     function geocodeMessage()  {
         var   count = geocodeModel.count
-
         if(count <= 0){
+            geocodeResponse.visible = false
             geocode.close()
         } else {
             listModel.clear()
@@ -309,8 +305,7 @@ FastPopup {
                                      "state":"Etat: " ,"valState":geocodeModel.get(i).address.state,
                                      "country":"Pays: " , "valCountry": geocodeModel.get(i).address.country});
             }
-            geocodeResponse.open()
-            geocode.close()
+            geocodeResponse.visible = true
         }
     }
 

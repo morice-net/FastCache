@@ -777,6 +777,7 @@ Item {
                             } else if (cachesRecordedLists.opened) {
                                 cachesRecordedLists.close()
                             } else if (geocode.opened) {
+                                geocode.geocodeResponseVisible = false
                                 geocode.close()
                             } else if (fastMenu.isMenuVisible()) {
                                 fastMenu.hideMenu()
