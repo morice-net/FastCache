@@ -26,7 +26,7 @@ FastPopup {
         spacing: 5
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.7
-        enabled: !geocodeResponse.visible
+        visible: !geocodeResponse.visible
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -185,12 +185,13 @@ FastPopup {
     Item {
         id: geocodeResponse
         width: main.width * 0.9
+        x: (parent.width - geocodeResponse.width) / 2
 
         ListView {
             id: geocodelist
             clip: true
             width: parent.width
-            height: responseHeight() * 0.85
+            height: geocode.height
             model: listModel
             delegate: delegate
         }
@@ -215,6 +216,7 @@ FastPopup {
                     anchors.fill: parent
                     onClicked: {
                         geocodeResponse.visible = false
+                        geocode.visible =false
                         main.state = "address"
                         // caches
                         cachesNear.latPoint = listModel.get(index).valLat
@@ -274,15 +276,6 @@ FastPopup {
                     }
                 }
             }
-        }
-    }
-
-    function responseHeight()  {
-        if((geocodeModel.count) * (main.height / 6 ) <= main.height * 0.9)
-        {
-            return (geocodeModel.count) * (main.height / 6)
-        } else {
-            return main.height * 0.9
         }
     }
 
