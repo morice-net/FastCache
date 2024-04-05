@@ -186,6 +186,7 @@ FastPopup {
         id: geocodeResponse
         width: main.width * 0.9
         x: (parent.width - geocodeResponse.width) / 2
+        y: -10
 
         ListView {
             id: geocodelist
@@ -216,7 +217,7 @@ FastPopup {
                     anchors.fill: parent
                     onClicked: {
                         geocodeResponse.visible = false
-                        geocode.visible =false
+                        geocode.visible = false
                         main.state = "address"
                         // caches
                         cachesNear.latPoint = listModel.get(index).valLat
