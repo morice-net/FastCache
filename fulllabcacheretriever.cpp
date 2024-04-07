@@ -97,7 +97,7 @@ void FullLabCacheRetriever::descriptionLabCache(QString url, QString imageUrl, Q
                                           "<br /><center><strong>" + owner + "</strong></center>";
                 emit descriptionChanged(longDescription);
             });
-    manager->get(QNetworkRequest({ url }));
+    manager->get(QNetworkRequest( url ));
 }
 
 void FullLabCacheRetriever::sendRequest(QString token)

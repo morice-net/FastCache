@@ -18,7 +18,6 @@ SOURCES += main.cpp \
     cachesrecorded.cpp \
     cachessinglelist.cpp \
     connector.cpp \
-    constants.cpp \
     deletelogimage.cpp \
     downloador.cpp \
     fullcacheretriever.cpp \
