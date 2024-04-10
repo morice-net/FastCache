@@ -12,6 +12,8 @@ Connector::Connector(QObject *parent)
     , m_redirectUri("https://geocaching4locus.eu/oauth")
     , m_tokenKey()
     , m_refreshToken()
+    , m_codeVerifier("")
+    , m_codeChallenge("")
 {
     m_networkManager = new QNetworkAccessManager(this);
     QObject::connect(m_networkManager, &QNetworkAccessManager::finished,
@@ -25,15 +27,26 @@ Connector::~Connector()
     delete m_networkManager;
 }
 
+void Connector::createCodes_verifier_challenge()
+{  
+    m_codeVerifier = (QUuid::createUuid().toString(QUuid::WithoutBraces) + QUuid::createUuid().toString(QUuid::WithoutBraces)).toLatin1();
+    m_codeChallenge = QCryptographicHash::hash(m_codeVerifier, QCryptographicHash::Sha256).toBase64(
+        QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
+}
+
 void Connector::connect()
-{
+{    
     if(m_expiresAt == 0)
     {
+        createCodes_verifier_challenge();
+
         // Building parameters of the request(oauth2)
         addGetParam("client_id", m_consumerKey , false);
         addGetParam("response_type", "code", false);
         addGetParam("scope", "*", false);
         addGetParam("redirect_uri", m_redirectUri, false);
+        addGetParam("code_challenge_method", "S256", false);
+        addGetParam("code_challenge", m_codeChallenge, false);
 
         m_requestString = "https://www.geocaching.com/oauth/Authorize.aspx?" + joinParams();
 
@@ -95,7 +108,8 @@ void Connector::oauthAuthorizeCode(QString url)
     postData.append("client_secret=" + QUrl::toPercentEncoding(m_consumerSecret)+"&");
     postData.append("grant_type=authorization_code&" );
     postData.append("redirect_uri=" +QUrl::toPercentEncoding( redirectUri()) + "&");
-    postData.append("code=" + codeParameter.toLocal8Bit() );
+    postData.append("code=" + codeParameter.toLocal8Bit() + + "&");
+    postData.append("code_verifier=" + m_codeVerifier);
 
     qDebug() << "POST DATA with the code =====>>>>>> " << postData;
 

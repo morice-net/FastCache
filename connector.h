@@ -70,15 +70,18 @@ private:
     QString m_tokenKey;
     QString m_refreshToken;
     qint64  m_expiresAt;
+    QByteArray m_codeVerifier;
+    QString m_codeChallenge;
 
     /// Privates members
     QString m_requestString;
     QList<Parameter*> m_parameters;
-    QList<Parameter*> m_postParameters;
+    QList<Parameter*> m_postParameters;    
 
     /// Privates methods
     QString joinParams();
     void addGetParam(QString parameterName, QString parameterValue, bool encoding = false);
+    void createCodes_verifier_challenge();
 };
 
 #endif // CONNECTOR_H
