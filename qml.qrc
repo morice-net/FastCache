@@ -212,5 +212,6 @@
         <file>QML/SelectableFilterKeyWord.qml</file>
         <file>QML/UserSettingsMap.qml</file>
         <file>QML/UserSettingsCircle.qml</file>
+        <file>Image/satellite.png</file>
     </qresource>
 </RCC>

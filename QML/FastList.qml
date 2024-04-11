@@ -49,13 +49,13 @@ Rectangle {
 
     Rectangle {
         id: fastListHeader
+        x: main.width * 0.32
         width: parent.width
         height: parent.height * 0.07
         color: Palette.white()
 
         Text {
             verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
             anchors.fill: parent
             font.family: localFont.name
             font.pointSize: 18

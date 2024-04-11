@@ -27,7 +27,7 @@ Item {
         clip:true
 
 
-        Column{
+        Column {
             spacing:10
             width: tbsPage.width
             leftPadding: 20

@@ -119,7 +119,7 @@ Rectangle {
             text: fullCache.name
             color: Palette.white()
             onTextChanged: {
-                parent.x = fastCache.width * 0.21
+                parent.x = fastCache.width * 0.31
                 if(fastCacheHeaderIcon.width + fastCacheHeaderName.width <= fastCache.width - parent.x - fastCache.width * 0.1)  {
                     parent.xGoal = parent.x
                 } else {

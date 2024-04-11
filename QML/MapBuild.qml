@@ -76,9 +76,9 @@ Map {
 
     Text {
         id: numberCaches
+        x: main.width * 0.32
         z: map.z + 3
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
         font.pointSize: 17
         color: Palette.black()
         font.family: localFont.name

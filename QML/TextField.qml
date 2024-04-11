@@ -15,7 +15,6 @@ Item {
         width: parent.width
         height: 1
         color: Palette.white()
-
         anchors.bottom: parent.bottom
         anchors.margins: 5
     }

@@ -23,7 +23,7 @@ Item {
         Image {
             id: menuIcon
             source: "qrc:/Image/menuIcon.png"
-            y: parent.height*0.1
+            y: parent.height * 0.1
             x: y
             height: parent.height * 0.8
             width: height
@@ -36,6 +36,7 @@ Item {
     }
 
     Rectangle {
+        id: settingsMenu
         visible: !fastMap.compassMapButton
         color: Palette.turquoise().replace("#","#99")
         radius: 10
@@ -48,14 +49,38 @@ Item {
         Image {
             id: settingsIcon
             source: "qrc:/Image/settings.png"
-            y: parent.height*0.1
+            y: parent.height * 0.1
             x: y
-            height: parent.height*0.8
+            height: parent.height * 0.8
             width: height
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: userSettings.showMenu()
+            }
+        }
+    }
+
+    Rectangle {
+        visible: !fastMap.compassMapButton
+        color: Palette.turquoise().replace("#","#99")
+        radius: 10
+        height: parent.height * 0.05
+        width: height
+        anchors.margins: 5
+        anchors.top: parent.top
+        anchors.left: settingsMenu.right
+
+        Image {
+            id: satelliteIcon
+            source: "qrc:/Image/satellite.png"
+            y: parent.height * 0.1
+            x: y
+            height: parent.height * 0.8
+            width: height
+
+            MouseArea {
+
             }
         }
     }
