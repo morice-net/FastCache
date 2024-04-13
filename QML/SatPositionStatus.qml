@@ -25,7 +25,7 @@ Rectangle {
             rightMargin: 5
             bottomMargin: 5
         }
-        spacing: 5
+        spacing: 3
 
         Rectangle {
             implicitWidth: (parent.width - parent.spacing) / 2
@@ -154,8 +154,8 @@ Rectangle {
             ColumnLayout {
                 id: statusLayout
                 property real actualHeight: implicitHeight + anchors.margins * 2
-                anchors {
-                    fill: parent
+                anchors {                 
+                    horizontalCenter: parent.horizontalCenter
                     margins: 5
                 }
 
@@ -175,39 +175,6 @@ Rectangle {
                     color: Palette.greenSea()
                     wrapMode: Text.WordWrap
                     Layout.alignment: Qt.AlignHCenter
-                }
-
-                CheckBox {
-                    id: external
-                    checked: externalSource
-                    onCheckedChanged:{
-                        externalSource = external.checked
-                        externalGps(externalSource)
-                    }
-                    contentItem: Text {
-                        text: "Gps externe"
-                        font.family: localFont.name
-                        font.pointSize: 13
-                        color: external.checked ? Palette.greenSea() : Palette.silver()
-                        verticalAlignment: Text.AlignVCenter
-                        leftPadding: external.indicator.width + external.spacing
-                    }
-                    indicator: Rectangle {
-                        implicitWidth: 12
-                        implicitHeight: 12
-                        radius: 3
-                        border.width: 1
-                        border.color: Palette.greenSea()
-                        y: parent.height / 2 - height / 2
-
-                        Rectangle {
-                            anchors.fill: parent
-                            visible: external.checked
-                            color: Palette.greenSea()
-                            radius: 3
-                            anchors.margins: 2
-                        }
-                    }
                 }
             }
         }

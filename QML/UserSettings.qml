@@ -199,22 +199,6 @@ Rectangle {
                 }
             }
 
-            // Satellite info
-            Text  {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "INFOS SATELLITE"
-                font.family: localFont.name
-                font.pointSize: 14
-                color: Palette.greenSea()
-            }
-
-            SatelliteInfo {
-                id: satelliteInfo
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width * 0.8
-                height: parent.height * 0.3
-            }
-
             // Disconnect button
             FastButton {
                 anchors.horizontalCenter: parent.horizontalCenter

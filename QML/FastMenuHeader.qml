@@ -80,7 +80,8 @@ Item {
             width: height
 
             MouseArea {
-
+                anchors.fill: parent
+                onClicked: satelliteInfo.showMenu()
             }
         }
     }

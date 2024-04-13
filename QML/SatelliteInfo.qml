@@ -9,9 +9,16 @@ import "JavaScript/MainFunctions.js" as Functions
 
 Rectangle {
     id: page
+    height: parent.height * 0.93
+    width: parent.width * 0.9
+    x: -parent.width
+    y: -parent.height
+    radius: 5
     border.color: Palette.greenSea()
     border.width: 2
-    visible: true
+
+    Behavior on x { NumberAnimation { duration: 700 } }
+    Behavior on y { NumberAnimation { duration: 700 } }
 
     property color inUseColor: "#7FFF0000"
     property color inViewColor: "#7F0000FF"
@@ -99,7 +106,7 @@ Rectangle {
         onPrecisionChanged: {
             positionAndStatus.precisionString = bluetoothGps.precision.toFixed(3)
         }
-        onGpsNameChanged: positionAndStatus.statusString = bluetoothGps.gpsName
+        onGpsNameChanged: positionAndStatus.statusString = statusStringGps(externalSource)
     }
 
     SatelliteSource {
@@ -115,64 +122,99 @@ Rectangle {
         }
     }
 
-    Row {
-        id: switchButtons
+    // display
+    Column {
+        spacing: 1
+        leftPadding: 5
+        rightPadding: 5
+        width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 8
+
+        CheckBox {
+            id: external
+            anchors.horizontalCenter: parent.horizontalCenter
+            checked: externalSource
+            onCheckedChanged:{
+                externalSource = external.checked
+                externalGps(externalSource)
+            }
+            contentItem: Text {
+                text: "Gps externe"
+                font.family: localFont.name
+                font.pointSize: 16
+                color: Palette.greenSea()
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: external.indicator.width + external.spacing
+            }
+            indicator: Rectangle {
+                implicitWidth: 15
+                implicitHeight: 15
+                radius: 3
+                border.width: 1
+                border.color: Palette.greenSea()
+                y: parent.height / 2 - height / 2
+
+                Rectangle {
+                    anchors.fill: parent
+                    visible: external.checked
+                    color: Palette.greenSea()
+                    radius: 3
+                    anchors.margins: 2
+                }
+            }
+        }
+
+        StackLayout {
+            id: viewsLayout
+            width: parent.width * 0.95
+            height: main.width * 0.7
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            SatSkyView {
+                satellitesModel: page.satellitesModel
+                inViewColor: page.inViewColor
+                inUseColor: page.inUseColor
+            }
+
+            SatRssiView {
+                satellitesModel: page.satellitesModel
+                inViewColor: page.inViewColor
+                inUseColor: page.inUseColor
+            }
+        }
+
+        Row {
+            id: switchButtons
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 8
+
+            FastButton {
+                id: skyView
+                text: "Vue du ciel"
+                font.pointSize: 15
+                onClicked: viewsLayout.currentIndex = 0 // sky view
+            }
+
+            FastButton {
+                id: rssiView
+                text: "Vue RSSI"
+                font.pointSize: 15
+                onClicked: viewsLayout.currentIndex = 1  // RSSI view
+            }
+        }
 
         FastButton {
-            id: skyView
-            text: "Vue du ciel"
+            id: modeButton
+            anchors.horizontalCenter: parent.horizontalCenter
             font.pointSize: 15
-            onClicked: viewsLayout.currentIndex = 0 // sky view
+            onClicked: page.toggleState()
         }
 
-        FastButton {
-            id: rssiView
-            text: "Vue RSSI"
-            font.pointSize: 15
-            onClicked: viewsLayout.currentIndex = 1  // RSSI view
+        SatPositionStatus {
+            id: positionAndStatus
+            width: parent.width * 0.95
         }
     }
-
-    StackLayout {
-        id: viewsLayout
-        width: parent.width * 0.98
-        anchors {
-            top: switchButtons.bottom
-            bottom: positionAndStatus.top
-            horizontalCenter: parent.horizontalCenter
-        }
-
-        SatSkyView {
-            satellitesModel: page.satellitesModel
-            inViewColor: page.inViewColor
-            inUseColor: page.inUseColor
-        }
-
-        SatRssiView {
-            satellitesModel: page.satellitesModel
-            inViewColor: page.inViewColor
-            inUseColor: page.inUseColor
-        }
-    }
-
-    SatPositionStatus {
-        id: positionAndStatus
-        width: parent.width * 0.98
-        anchors {
-            bottom: modeButton.top
-            horizontalCenter: parent.horizontalCenter
-        }
-    }
-
-    FastButton {
-        id: modeButton
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        onClicked: page.toggleState()
-    }
-
 
     Item {
         id: statesItem
@@ -183,11 +225,11 @@ Rectangle {
                 name: "stopped"
                 PropertyChanges {
                     target: modeButton
-                    text: qsTr("Commencer")
+                    text: qsTr("Activer")
                 }
                 PropertyChanges {
                     target: positionAndStatus
-                    statusString: qsTr("Arrêté")
+                    statusString: externalSource ? bluetoothGps.gpsName + "\n" + qsTr("Arrêté") : "Gps interne\n" + qsTr("Arrêté")
                 }
                 StateChangeScript {
                     script: page.updateActive(false)
@@ -201,7 +243,7 @@ Rectangle {
                 }
                 PropertyChanges {
                     target: positionAndStatus
-                    statusString: qsTr("En cours")
+                    statusString: externalSource ? bluetoothGps.gpsName + "\n" +  qsTr("En cours") : "Gps interne\n" + qsTr("En cours")
                 }
                 StateChangeScript {
                     script: page.updateActive(true)
@@ -217,6 +259,37 @@ Rectangle {
             bluetoothGps.quitBluetooth()
             currentPosition.active = true
         }
+    }
+
+    function statusStringGps(external) {
+        if(statesItem.state === "stopped" && external) {
+            return  bluetoothGps.gpsName + "\n" + qsTr("Arrêté")
+        } else if(statesItem.state === "stopped" && !external) {
+            return "Gps interne\n" + qsTr("Arrêté")
+        } else if(statesItem.state === "running" && external) {
+            return bluetoothGps.gpsName + "\n" +  qsTr("En cours")
+        } else if(statesItem.state === "running" && !external) {
+            return "Gps interne\n" + qsTr("En cours")
+        }
+    }
+
+    function closeIfMenu() {
+    }
+
+    function showMenu() {
+        console.log("Show menu...")
+        page.x = 10
+        page.y = 30
+    }
+
+    function hideMenu() {
+        console.log("Hide menu...")
+        page.x = page.width * -1
+        page.y = page.height * -1
+    }
+
+    function isMenuVisible() {
+        return (page.x >= 0)
     }
 }
 

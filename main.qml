@@ -215,6 +215,8 @@ Item {
 
     UserSettings { id: userSettings }
 
+    SatelliteInfo { id: satelliteInfo }
+
     CoordinatesBox { id: coordinatesBox }
 
     UserWaypoint { id: userWaypoint }
@@ -781,6 +783,8 @@ Item {
                                 geocode.close()
                             } else if (fastMenu.isMenuVisible()) {
                                 fastMenu.hideMenu()
+                            } else if (satelliteInfo.isMenuVisible()) {
+                                satelliteInfo.hideMenu()
                             } else if (userSettings.isMenuVisible()) {
                                 userSettings.hideMenu()
                             } else if (fastMenuHeader.isFiltersVisible()) {
