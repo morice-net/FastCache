@@ -27,9 +27,9 @@ Item {
         clip: true
         radius:10
 
-        Behavior on x { NumberAnimation { duration: 700 } }
+        Behavior on x { NumberAnimation { duration: 600 } }
 
-        Behavior on y { NumberAnimation { duration: 700 } }
+        Behavior on y { NumberAnimation { duration: 600 } }
 
         ///////////////////////////////////////////////////////////////////////////
         //                      user info on the top of the menu                 //
@@ -157,7 +157,7 @@ Item {
             anchors.top: userInfoMenu.bottom
 
             Behavior on x { NumberAnimation {
-                    duration: 700
+                    duration: 600
                     onRunningChanged: {
                         if ((openMenu === 1) && (!running)) {
                             fastMenuLevel2.x  = 0
@@ -178,7 +178,7 @@ Item {
             anchors.top: userInfoMenu.bottom
 
             Behavior on x { NumberAnimation {
-                    duration: 700
+                    duration: 600
                     onRunningChanged: {
                         if ((openMenu === 2) && (direction) && (!running)) {
                             pocketsqueries.x  = 15
@@ -199,7 +199,7 @@ Item {
             anchors.topMargin: 18
 
             Behavior on x { NumberAnimation {
-                    duration: 700
+                    duration: 600
                     onRunningChanged: {
                         if ((openMenu === 3) && (!running)) {
                             fastMenuLevel2.x = 0

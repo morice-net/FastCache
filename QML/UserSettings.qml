@@ -15,8 +15,8 @@ Rectangle {
     opacity: 0.8
     radius: 10
 
-    Behavior on x { NumberAnimation { duration: 700 } }
-    Behavior on y { NumberAnimation { duration: 700 } }
+    Behavior on x { NumberAnimation { duration: 600 } }
+    Behavior on y { NumberAnimation { duration: 600 } }
 
     ScrollView {
         anchors.fill: parent

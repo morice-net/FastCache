@@ -17,8 +17,8 @@ Rectangle {
     border.color: Palette.greenSea()
     border.width: 2
 
-    Behavior on x { NumberAnimation { duration: 700 } }
-    Behavior on y { NumberAnimation { duration: 700 } }
+    Behavior on x { NumberAnimation { duration: 600 } }
+    Behavior on y { NumberAnimation { duration: 600 } }
 
     property color inUseColor: "#7FFF0000"
     property color inViewColor: "#7F0000FF"
