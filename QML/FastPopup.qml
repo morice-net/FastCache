@@ -14,20 +14,12 @@ Popup {
     property alias backgroundOpacity: backgroundRectangle.opacity
     property alias closeButtonVisible: closeButton.visible
 
-    opacity: 0
-
-    Behavior on opacity { NumberAnimation { duration: 300 ; easing.type: Easing.OutCurve } }
-
+    enter: Transition {
+        NumberAnimation { properties: "opacity"; from: 0 ; to: backgroundOpacity ; duration: 900 }
+    }
     background: Rectangle {
         id: backgroundRectangle
         color: Palette.turquoise()
-    }
-
-    Timer {
-        id: popupTimer
-        interval: 500
-        repeat: true
-        onTriggered: closeIfMenu()
     }
 
     Text {
@@ -47,14 +39,4 @@ Popup {
 
     // Exit and focus management
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-    onVisibleChanged: {
-        if (visible) {
-            opacity = backgroundOpacity
-            popupTimer.running = true
-        } else {
-            opacity = 0
-            popupTimer.running = false
-        }
-        main.forceActiveFocus()
-    }
 }
