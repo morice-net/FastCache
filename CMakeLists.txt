@@ -61,7 +61,6 @@ qt_add_executable(appFastCache WIN32 MACOSX_BUNDLE
     gettravelbuguser.h
     getusergeocachelogs.cpp
     getusergeocachelogs.h
-    googlemapsOffline.diff
     main.cpp
     nmeaparsing.cpp
     nmeaparsing.h
@@ -377,7 +376,7 @@ if (QT_ANDROID_ABIS STREQUAL "arm64-v8a")
     set_target_properties(appFastCache PROPERTIES
         QT_ANDROID_EXTRA_LIBS "${CMAKE_PREFIX_PATH}/plugins/geoservices/libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so"
     )
-qt_add_executable(libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so)
+    qt_add_executable(libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so)
 
 #Add openssl in arm64-v8a
     add_library(ssl_3 SHARED IMPORTED) # or STATIC instead of SHARED
