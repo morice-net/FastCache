@@ -136,7 +136,7 @@ Rectangle {
 
                     Image {
                         id: deleteImage
-                        source: "qrc:/Image/" + "icon_delete.png"
+                        source: "../Image/" + "icon_delete.png"
                         fillMode: Image.PreserveAspectFit
 
                         MouseArea {

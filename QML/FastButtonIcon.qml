@@ -20,7 +20,7 @@ Button {
         implicitHeight: image.sourceSize.height + 5
 
         Image {
-            id:image
+            id: image
             source: button.source
             sourceSize.width: button.sourceWidth
             sourceSize.height: button.sourceHeight

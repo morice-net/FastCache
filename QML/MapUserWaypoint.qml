@@ -11,7 +11,7 @@ MapQuickItem {
     anchorPoint.y: image.height
     sourceItem: Image {
         id: image
-        source: "qrc:/Image/Waypoints/waypoint_user.png"
+        source: "../Image/Waypoints/waypoint_user.png"
 
         MouseArea {
             anchors.fill: parent

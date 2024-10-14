@@ -170,15 +170,15 @@ Map {
         anchors.top: parent.top
         buttonRadius: width / 2
         sourceHeight: 30
-        source: fastMap.oldMapNorth ? "qrc:/Image/" + "icon_north.png" : "qrc:/Image/" + "icon_compass.png"
+        source: fastMap.oldMapNorth ? "../Image/" + "icon_north.png" : "../Image/" + "icon_compass.png"
         onClicked: {
             if(fastMap.oldMapNorth) {
-                north.source = "qrc:/Image/" + "icon_compass.png"
+                north.source = "../Image/" + "icon_compass.png"
                 fastMap.mapNorth = false
                 fastMap.oldMapNorth = fastMap.mapNorth
                 map.bearing = locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
             } else {
-                north.source = "qrc:/Image/" + "icon_north.png"
+                north.source = "../Image/" + "icon_north.png"
                 fastMap.mapNorth = true
                 fastMap.oldMapNorth = fastMap.mapNorth
                 map.bearing = 0
@@ -213,7 +213,7 @@ Map {
             anchors.right: parent.right
             anchors.rightMargin: 8
             scale: 1.2
-            source: "qrc:/Image/Compass/compass_mini.png"
+            source: "../Image/Compass/compass_mini.png"
 
             Behavior on rotation { NumberAnimation { duration: 2000 } }
         }

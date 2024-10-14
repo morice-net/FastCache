@@ -197,7 +197,7 @@ Rectangle {
     }
 
     function markedCachesRegistered() {
-        if(main.state !== "recorded") {
+        if(main.listState !== "recorded") {
             var listGeocodes = listGeocodesOnMap()
             var listIds = listIdsLabCachesOnMap()
             for (var i = 0; i < cachesSingleList.caches.length; i++) {

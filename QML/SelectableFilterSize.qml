@@ -51,7 +51,7 @@ CheckBox {
     }
 
     function updateFilterSize()  {
-        main.forceActiveFocus()
+        mainItem.forceActiveFocus()
         if(index === 0)
             settings.micro = main.listSizes[0]
         else if (index === 1)

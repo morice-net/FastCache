@@ -46,11 +46,11 @@ Item {
                     Image {
                         anchors.fill: parent
                         source: cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index]-1] !== undefined ?
-                                    "qrc:/Image/" + cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index]-1] : ""
+                                    "../Image/" + cacheAttribute.listIcon[cacheAttribute.sortedAttributesByGroup[index]-1] : ""
 
                         Image {
                             anchors.fill: parent
-                            source: "qrc:/Image/Attributes/attribute_no.png"
+                            source: "../Image/Attributes/attribute_no.png"
                             visible: !cacheAttribute.sortedBoolByGroup[index]
                         }
                     }

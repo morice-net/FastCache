@@ -30,7 +30,7 @@ CheckBox {
             id: cacheIcon
             anchors.fill: parent
             anchors.margins: 5
-            source: "qrc:/Image/labCache.png"
+            source: "../Image/labCache.png"
         }
     }
     contentItem:  Text {

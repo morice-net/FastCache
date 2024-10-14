@@ -22,7 +22,7 @@ Item {
 
         Image {
             id: menuIcon
-            source: "qrc:/Image/menuIcon.png"
+            source: "../Image/menuIcon.png"
             y: parent.height * 0.1
             x: y
             height: parent.height * 0.8
@@ -48,7 +48,7 @@ Item {
 
         Image {
             id: settingsIcon
-            source: "qrc:/Image/settings.png"
+            source: "../Image/settings.png"
             y: parent.height * 0.1
             x: y
             height: parent.height * 0.8
@@ -73,7 +73,7 @@ Item {
 
         Image {
             id: satelliteIcon
-            source: "qrc:/Image/satellite.png"
+            source: "../Image/satellite.png"
             y: parent.height * 0.1
             x: y
             height: parent.height * 0.8
@@ -100,7 +100,7 @@ Item {
         anchors.top: parent.top
 
         Image {
-            source: "qrc:/Image/filter.png"
+            source: "../Image/filter.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
             anchors.margins: 5
@@ -129,7 +129,7 @@ Item {
         anchors.top: parent.top
 
         Image {
-            source: "qrc:/Image/sort_alphabetically.png"
+            source: "../Image/sort_alphabetically.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
             anchors.margins: 5
@@ -154,7 +154,7 @@ Item {
         anchors.top: parent.top
 
         Image {
-            source: "qrc:/Image/marker_save.png"
+            source: "../Image/marker_save.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
             anchors.margins: 5
@@ -181,7 +181,7 @@ Item {
 
         Image {
             anchors.fill: parent
-            source: "qrc:/Image/saved-on.png"
+            source: "../Image/saved-on.png"
             scale: 0.7
             horizontalAlignment: Image.AlignHCenter
             verticalAlignment: Image.AlignVCenter
@@ -189,7 +189,7 @@ Item {
             Image {
                 anchors.fill: parent
                 visible: !fullCache.registered
-                source: "qrc:/Image/saved-off.png"
+                source: "../Image/saved-off.png"
                 horizontalAlignment: Image.AlignHCenter
                 verticalAlignment: Image.AlignVCenter
             }

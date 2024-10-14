@@ -227,7 +227,9 @@ Item {
     }
 
     function nearCachesClicked() {
-        main.state = "near"
+        main.listState = "near"
+
+
         hideMenu()
         var coord = locationSource
         // caches

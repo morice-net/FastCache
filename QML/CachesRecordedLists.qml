@@ -161,7 +161,7 @@ FastPopup {
                             }
                             sqliteStorage.updateListWithGeocode("cacheslists" , listChecked , fullCache.geocode , true)
                             sqliteStorage.numberCachesInLists("cacheslists")
-                            if(main.state === "recorded"){
+                            if(main.listState === "recorded"){
                                 cachesRecorded.updateMapCachesRecorded()
                                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
                             }
@@ -171,7 +171,7 @@ FastPopup {
                     function isCheckable(index) {
                         if(!recordingMode)
                             return false
-                        if(main.state !== "recorded" || viewState === "fullcache") {
+                        if(main.listState !== "recorded" || viewState === "fullcache") {
                             return true
                         } else {
                             return main.tabBarRecordedCachesIndex === index
@@ -185,7 +185,7 @@ FastPopup {
     //  save map
     CheckBox {
         id: saveMapBox
-        visible: recordingMode && main.viewState !== "fullcache" && main.state !== "recorded"  ? true : false
+        visible: recordingMode && main.viewState !== "fullcache" && main.listState !== "recorded"  ? true : false
         checkable: true
         anchors.top: displayListColumn.bottom
         indicator: Rectangle {
@@ -206,7 +206,7 @@ FastPopup {
 
     Text {
         id: saveMapText
-        visible: recordingMode && main.viewState !== "fullcache" && main.state !== "recorded"  ? true : false
+        visible: recordingMode && main.viewState !== "fullcache" && main.listState !== "recorded"  ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: saveMapBox.bottom
         anchors.top: saveMapBox.top
@@ -230,7 +230,7 @@ FastPopup {
     // title
     Text {
         id: title
-        visible: !recordingMode || (main.viewState !== "fullcache" && main.state !== "recorded") ? true : false
+        visible: !recordingMode || (main.viewState !== "fullcache" && main.listState !== "recorded") ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: line.bottom
         font.family: localFont.name
@@ -389,7 +389,7 @@ FastPopup {
     FastButton {
         id: recordCachesButton
         text: "Ok"
-        visible: main.state !== "recorded" && (viewState !== "fullcache" ) && recordingMode  ? true : false
+        visible: main.listState !== "recorded" && (viewState !== "fullcache" ) && recordingMode  ? true : false
         font.pointSize: 15
         anchors.top: title.bottom
         anchors.horizontalCenter: parent.horizontalCenter
@@ -435,7 +435,7 @@ FastPopup {
     Column{
         id: deleteRefresh
         anchors.horizontalCenter: parent.horizontalCenter
-        visible: main.state === "recorded" && viewState !== "fullcache" && recordingMode  ? true : false
+        visible: main.listState === "recorded" && viewState !== "fullcache" && recordingMode  ? true : false
         anchors.top: title.bottom
         spacing: 10
         // delete caches
@@ -524,7 +524,7 @@ FastPopup {
                 return fullCache.geocode.substring(0,2) !== "GC" ? "Enregistrer la cache  " + fullCache.geocode.substring(0,10) + "..." :
                                                                    "Enregistrer la cache  " + fullCache.geocode
             }
-        if(main.state === "recorded" && viewState !== "fullcache")
+        if(main.listState === "recorded" && viewState !== "fullcache")
             return "Caches enregistrées"
         return "Enregistrer les caches"
     }

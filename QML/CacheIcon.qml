@@ -14,7 +14,7 @@ Item {
 
     Image {
         id: cacheIconBackground
-        source: "qrc:/Image/marker.png"
+        source: "../Image/marker.png"
     }
 
     AnimatedSprite {
@@ -22,7 +22,7 @@ Item {
         visible: !isLabCache
         running: false
         x: cacheIconBackground.width * 0.05
-        source: "qrc:/Image/cacheList.png"
+        source: "../Image/cacheList.png"
         frameCount: 15
         currentFrame: type
         width: cacheIconBackground.width * 0.9
@@ -34,15 +34,15 @@ Item {
         id: labCache
         visible: isLabCache
         x: cacheIconBackground.width * 0.05
-        source: "qrc:/Image/labCache.png"
+        source: "../Image/labCache.png"
         width: cacheIconBackground.width * 0.65
         height: width
-        anchors.centerIn: cacheIconBackground        
+        anchors.centerIn: cacheIconBackground
     }
 
     Image {
         visible: found
-        source: "qrc:/Image/marker_found.png"
+        source: "../Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: parent.width / 2
         height: parent.height / 3
@@ -52,7 +52,7 @@ Item {
 
     Image {
         visible: toDoLog
-        source: "qrc:/Image/not_logged.png"
+        source: "../Image/not_logged.png"
         fillMode: Image.PreserveAspectFit
         width: parent.width / 2
         height: parent.height / 3
@@ -62,7 +62,7 @@ Item {
 
     Image {
         visible: own
-        source: "qrc:/Image/marker_own.png"
+        source: "../Image/marker_own.png"
         fillMode: Image.PreserveAspectFit
         width: parent.width / 2
         height: parent.height / 3
@@ -73,7 +73,7 @@ Item {
 
     Image {
         visible: registered
-        source: "qrc:/Image/marker_save.png"
+        source: "../Image/marker_save.png"
         fillMode: Image.PreserveAspectFit
         width: parent.width / 1.2
         height: parent.height / 2.2

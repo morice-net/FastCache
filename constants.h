@@ -143,12 +143,12 @@ const QMap<QString, int> WPT_TYPE_MAP = {
 
 // Type of logs (icons)
 const QMap<QString, int> WPT_TYPE_ICON_MAP = {
-    {"qrc:/Image/Waypoints/waypoint_pkg.png", 217},
-    {"qrc:/Image/Waypoints/waypoint_puzzle.png", 218},
-    {"qrc:/Image/Waypoints/waypoint_stage.png", 219},
-    {"qrc:/Image/Waypoints/waypoint_flag.png", 220},
-    {"qrc:/Image/Waypoints/waypoint_trailhead.png", 221},
-    {"qrc:/Image/Waypoints/waypoint_waypoint.png", 452}
+    {"../Image/Waypoints/waypoint_pkg.png", 217},
+    {"../Image/Waypoints/waypoint_puzzle.png", 218},
+    {"../Image/Waypoints/waypoint_stage.png", 219},
+    {"../Image/Waypoints/waypoint_flag.png", 220},
+    {"../Image/Waypoints/waypoint_trailhead.png", 221},
+    {"../Image/Waypoints/waypoint_waypoint.png", 452}
 };
 
 

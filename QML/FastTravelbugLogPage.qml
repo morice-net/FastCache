@@ -121,7 +121,7 @@ Item {
                     width: 30
                     anchors.right: buttonDelete.left
                     anchors.margins: 10
-                    source: "qrc:/Image/" + "icon_edit.png"
+                    source: "../Image/" + "icon_edit.png"
                     onClicked:{
                         addText.open();
                     }
@@ -133,7 +133,7 @@ Item {
                     height: 40
                     width: 30
                     anchors.right: parent.right
-                    source: "qrc:/Image/" + "icon_erase.png"
+                    source: "../Image/" + "icon_erase.png"
                     onClicked: {
                         message.text = ""
                     }

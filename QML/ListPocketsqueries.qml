@@ -10,7 +10,7 @@ Item {
 
         Button {
             id: buttonGoback
-            icon.source: "qrc:/Image/goback.png"
+            icon.source: "../Image/goback.png"
             icon.width: 40
             icon.height: 30
             leftPadding: 20
@@ -68,7 +68,7 @@ Item {
                             hideMenu()
                             pocketsqueries.x  = -parent.width
                             fastMenuLevel1.x = 0
-                            main.state = "pocketQuery"
+                            main.listState = "pocketQuery"
                             cachesPocketqueries.indexMoreCaches = 0
                             cachesPocketqueries.sendRequest(connector.tokenKey , getPocketsqueriesList.referenceCodes[index])
                         }

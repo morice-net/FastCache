@@ -33,7 +33,7 @@ CheckBox {
         AnimatedSprite {
             id: cacheIconSprite
             running: false
-            source: "qrc:/Image/cacheList.png"
+            source: "../Image/cacheList.png"
             frameCount: 15
             currentFrame: index
             width: parent.width * 0.9
@@ -58,7 +58,7 @@ CheckBox {
     }
 
     function updateFilterType()  {
-        main.forceActiveFocus()
+        mainItem.forceActiveFocus()
         if(index === 0)
             settings.traditional = main.listTypes[0]
         else if (index === 1)

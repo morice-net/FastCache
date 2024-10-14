@@ -53,7 +53,7 @@ Item {
             Image {
                 anchors.fill: parent
                 anchors.margins: 5
-                source: "qrc:/Image/update-arrows.png"
+                source: "../Image/update-arrows.png"
             }
 
             MouseArea {
@@ -75,7 +75,7 @@ Item {
 
     Image {
         id: filterHeadArrow
-        source: "qrc:/Image/filterHeadArrow.png"
+        source: "../Image/filterHeadArrow.png"
         anchors.right: parent.right
         anchors.bottom: parent.top
     }

@@ -7,7 +7,7 @@ Item {
 
     Button {
         id: buttonGoback
-        icon.source: "qrc:/Image/goback.png"
+        icon.source: "../Image/goback.png"
         icon.width: 40
         icon.height: 30
         leftPadding: 20
@@ -24,7 +24,7 @@ Item {
     FastSelectableButtonMenu {
         id: addressButtonMenu
         anchors.top: buttonGoback.bottom
-        buttonSelected: main.state === "address"
+        buttonSelected: main.listState === "address"
         buttonText: "Adresse"
 
         function buttonClicked() {
@@ -45,7 +45,7 @@ Item {
     FastSelectableButtonMenu {
         id: coordinatesButtonMenu
         anchors.top: addressButtonMenu.bottom
-        buttonSelected: main.state === "coordinates"
+        buttonSelected: main.listState === "coordinates"
         buttonText: "Coordonnées"
 
         function buttonClicked() {
@@ -70,7 +70,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: TextInput.AlignHCenter
-            anchors.bottomMargin: 10            
+            anchors.bottomMargin: 10
             color: Palette.turquoise()
             font.capitalization: Font.AllUppercase
             font.pointSize: 16
@@ -90,7 +90,7 @@ Item {
                 hideMenu()
                 fullCache.geocode = geocodeCache.text.toUpperCase()
                 fullCacheRetriever.sendRequest(connector.tokenKey)
-                main.state = ""
+                main.listState = ""
             }
         }
     }
@@ -130,7 +130,7 @@ Item {
     FastSelectableButtonMenu {
         id: pocketQueriesButtonMenu
         anchors.top: codeTravelBugButtonMenu.bottom
-        buttonSelected: main.state === "pocketQuery"
+        buttonSelected: main.listState === "pocketQuery"
         buttonText: "Pockets Queries"
 
         function buttonClicked() {

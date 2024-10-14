@@ -30,7 +30,7 @@ Rectangle {
     property bool userLogImages: false
 
     // use to allow overlap of the web view by the menu
-    property bool webViewDescriptionPageVisible: (main.state !== "recorded" || main.state === "cachesActive")
+    property bool webViewDescriptionPageVisible: (main.listState !== "recorded" || main.listState === "cachesActive")
 
     // used to send images to a log
     property var listImagesUrl: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
@@ -96,7 +96,7 @@ Rectangle {
             visible: fullCache.type !== "labCache"   // geocode GC...
             anchors.verticalCenter: parent.verticalCenter
             running: false
-            source: "qrc:/Image/cacheList.png"
+            source: "../Image/cacheList.png"
             frameCount: 15
             currentFrame: fullCache.typeIndex
         }
@@ -107,7 +107,7 @@ Rectangle {
             width: 25
             height: 25
             anchors.verticalCenter: parent.verticalCenter
-            source: "qrc:/Image/labCache.png"
+            source: "../Image/labCache.png"
         }
 
         Text {

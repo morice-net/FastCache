@@ -218,7 +218,7 @@ FastPopup {
                     onClicked: {
                         geocodeResponse.visible = false
                         geocode.visible = false
-                        main.state = "address"
+                        main.listState = "address"
                         // caches
                         cachesNear.latPoint = listModel.get(index).valLat
                         cachesNear.lonPoint = listModel.get(index).valLon

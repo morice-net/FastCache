@@ -24,7 +24,7 @@ Column {
         radius: 10
         
         Image {
-            source: "qrc:/Image/tracker.png"
+            source: "../Image/tracker.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
             anchors.margins: 5
@@ -48,7 +48,7 @@ Column {
         radius: 10
         
         Image {
-            source: "qrc:/Image/add.png"
+            source: "../Image/add.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
             anchors.margins: 8
@@ -72,7 +72,7 @@ Column {
         radius: 10
         
         Image {
-            source: "qrc:/Image/remove.png"
+            source: "../Image/remove.png"
             fillMode: Image.PreserveAspectFit
             anchors.fill: parent
             anchors.margins: 8

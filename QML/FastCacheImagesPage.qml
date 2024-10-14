@@ -11,7 +11,7 @@ Item {
     Button {
         id: buttonGoback
         visible: userLogImages === true
-        icon.source: "qrc:/Image/icon_backwards.png"
+        icon.source: "../Image/icon_backwards.png"
         icon.width: 50
         icon.height: 50
         topPadding: 60
@@ -66,7 +66,7 @@ Item {
                             visible: userLogImages === true
                             anchors.horizontalCenter: parent.horizontalCenter
                             contentItem: Image {
-                                source: "qrc:/Image/" + "icon_delete.png"
+                                source: "../Image/" + "icon_delete.png"
                             }
                             onClicked: {
                                 buttonYes.visible = !buttonYes.visible

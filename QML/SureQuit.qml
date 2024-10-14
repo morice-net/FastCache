@@ -80,7 +80,7 @@ Rectangle {
                     anchors.fill: parent
                     onClicked: {
                         sureQuit.visible = false
-                        main.forceActiveFocus()
+                        mainItem.forceActiveFocus()
                     }
                 }
             }

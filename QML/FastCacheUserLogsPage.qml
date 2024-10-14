@@ -85,7 +85,7 @@ Item  {
 
                             Image {
                                 x:15
-                                source: "qrc:/Image/" + "icon_photo.png"
+                                source: "../Image/" + "icon_photo.png"
                                 scale: 0.7
                                 visible: getUserGeocacheLogs.imagesCount[index] !== 0
 
@@ -136,7 +136,7 @@ Item  {
 
                             FastButtonIcon {
                                 id: iconUpdate
-                                source: "qrc:/Image/" + "icon_update.png"
+                                source: "../Image/" + "icon_update.png"
                                 height: 40
                                 width: 30
                                 onClicked: {
@@ -155,7 +155,7 @@ Item  {
 
                             FastButtonIcon {
                                 id: iconDeleteLog
-                                source: "qrc:/Image/" + "icon_delete.png"
+                                source: "../Image/" + "icon_delete.png"
                                 height: 40
                                 width: 30
                                 onClicked: {

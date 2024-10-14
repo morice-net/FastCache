@@ -148,7 +148,7 @@ Item {
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.wptsLat[index] >180  ? false : true
-                            source: "qrc:/Image/Compass/compassIcon.png"
+                            source: "../Image/Compass/compassIcon.png"
                             scale: 0.6
 
                             MouseArea {
@@ -163,7 +163,7 @@ Item {
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.wptsLat[index] >180  ? false : true
-                            source: "qrc:/Image/mapsIcon.png"
+                            source: "../Image/mapsIcon.png"
                             scale: 0.5
 
                             MouseArea {
@@ -227,7 +227,7 @@ Item {
                 Image {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
-                    source: "qrc:/Image/Compass/compassIcon.png"
+                    source: "../Image/Compass/compassIcon.png"
                     scale: 0.6
 
                     MouseArea {
@@ -239,7 +239,7 @@ Item {
                 Image {
                     anchors.verticalCenter: parent.verticalCenter
                     visible: fullCache.isCorrectedCoordinates && fullCache.type !== "labCache"
-                    source: "qrc:/Image/mapsIcon.png"
+                    source: "../Image/mapsIcon.png"
                     scale: 0.5
 
                     MouseArea {
@@ -308,7 +308,7 @@ Item {
                         Image {
                             id: iconUserwaypoint
                             visible: fullCache.type !== "labCache"
-                            source: "qrc:/Image/Waypoints/waypoint_user.png"
+                            source: "../Image/Waypoints/waypoint_user.png"
                             anchors.top: textCode.top
                         }
 
@@ -346,7 +346,7 @@ Item {
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.userWptsLat[index] >180  ? false : true && fullCache.type !== "labCache"
-                            source: "qrc:/Image/Compass/compassIcon.png"
+                            source: "../Image/Compass/compassIcon.png"
                             scale: 0.6
 
                             MouseArea {
@@ -361,7 +361,7 @@ Item {
                         Image {
                             anchors.verticalCenter: parent.verticalCenter
                             visible: fullCache.userWptsLat[index] >180  ? false : true && fullCache.type !== "labCache"
-                            source: "qrc:/Image/mapsIcon.png"
+                            source: "../Image/mapsIcon.png"
                             scale: 0.5
 
                             MouseArea {

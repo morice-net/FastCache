@@ -19,7 +19,7 @@ Item {
         backWeb = false
         forwardWeb = false
         webView.settings.setAllowFileAccess(true)
-        if(main.state === "recorded" ) {  // cache recorded
+        if(main.listState === "recorded" ) {  // cache recorded
             webView.loadHtml(descriptionText , "file:")
         } else  {   // lab cache not recorded
             webView.loadHtml(descriptionText , "html")
@@ -47,7 +47,7 @@ Item {
 
                 Button {
                     id: buttonGoback
-                    icon.source: "qrc:/Image/goback.png"
+                    icon.source: "../Image/goback.png"
                     icon.width: 40
                     icon.height: 30
                     onClicked:{
@@ -65,7 +65,7 @@ Item {
 
                 Button {
                     id: buttonForward
-                    icon.source: "qrc:/Image/forward.png"
+                    icon.source: "../Image/forward.png"
                     icon.width: 40
                     icon.height: 30
                     onClicked:{
@@ -80,7 +80,7 @@ Item {
                     }
                 }
             }
-            
+
             Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.95
@@ -127,7 +127,7 @@ Item {
             }
 
             Image {
-                source:"qrc:/Image/" + "icon_photo.png"
+                source:"../Image/" + "icon_photo.png"
                 scale: 0.7
                 visible: fullCache.cacheImagesIndex[0] === 0  || fullCache.type === "labCache" ? false : true
 
@@ -189,7 +189,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 height: 40
                 width: 30
-                source: "qrc:/Image/" + "icon_erase.png"
+                source: "../Image/" + "icon_erase.png"
                 onClicked: personalNote.text = ""
             }
 

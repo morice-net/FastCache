@@ -178,7 +178,7 @@ FastPopup {
                 id: buttonAdd
                 visible: visibleDescription()
                 y: descriptionTitle.y - buttonAdd.height / 4
-                source: "qrc:/Image/" + "icon_edit.png"
+                source: "../Image/" + "icon_edit.png"
                 anchors.right: buttonDelete.left
                 anchors.margins: 10
                 height: 40
@@ -194,7 +194,7 @@ FastPopup {
                 visible: visibleDescription()
                 y: descriptionTitle.y - buttonDelete.height / 4
                 anchors.right: parent.right
-                source: "qrc:/Image/" + "icon_erase.png"
+                source: "../Image/" + "icon_erase.png"
                 height: 40
                 width: 30
                 onClicked:{

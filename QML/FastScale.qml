@@ -16,21 +16,21 @@ Item {
 
     Image {
         id: scaleImageLeft
-        source: "qrc:/Image/scaleEnd.png"
+        source: "../Image/scaleEnd.png"
         anchors.bottom: parent.bottom
         anchors.right: scaleImage.left
     }
 
     Image {
         id: scaleImage
-        source: "qrc:/Image/scale.png"
+        source: "../Image/scale.png"
         anchors.bottom: parent.bottom
         anchors.right: scaleImageRight.left
     }
 
     Image {
         id: scaleImageRight
-        source: "qrc:/Image/scaleEnd.png"
+        source: "../Image/scaleEnd.png"
         anchors.bottom: parent.bottom
         anchors.right: parent.right
     }

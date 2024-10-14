@@ -26,7 +26,7 @@ Rectangle {
 
     TabViewRecordedCaches{
         id : tabViewRecordedCaches
-        visible: main.state === "recorded" && main.viewState === "list" ? true:false
+        visible: main.listState === "recorded" && main.viewState === "list" ? true:false
     }
 
     LoadingPage {
@@ -40,8 +40,8 @@ Rectangle {
     ListView {
         id: fastListColumn
         width: parent.width
-        height: main.state === "near" || main.state === "address" || main.state === "coordinates" || main.state === "recorded" ||
-                main.state === "pocketQuery"
+        height: main.listState === "near" || main.listState === "address" || main.listState === "coordinates" || main.listState === "recorded" ||
+                main.listState === "pocketQuery"
                 ? parent.height - fastListHeader.height - fastListBottom.height - 30 : parent.height - fastListHeader.height - 30
         spacing: 5
         model: sorting
@@ -90,7 +90,7 @@ Rectangle {
         color: Palette.silver()
         radius:10
         anchors.top: fastListHeader.bottom
-        visible: main.state === "near" || main.state === "address" || main.state === "coordinates"  ? true : false
+        visible: main.listState === "near" || main.listState === "address" || main.listState === "coordinates"  ? true : false
 
         Text {
             verticalAlignment: Text.AlignVCenter

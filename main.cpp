@@ -1,9 +1,14 @@
 #include "bluetoothgps.h"
 #include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
 #if !defined Q_OS_ANDROID
 #include <QtWebEngineQuick/qtwebenginequickglobal.h>
 #endif
+
+// #if QT_CONFIG(ssl)
+// #include <QtNetwork/QSslSocket>
+// #endif
 
 #include <QQuickView>
 #include <QQuickItem>
@@ -72,21 +77,24 @@ int main(int argc, char *argv[])
     qmlRegisterType<CacheMapTiles>("com.mycompany.connecting", 1, 0, "CacheMapTiles");
     qmlRegisterType<AdventureLabCachesRetriever>("com.mycompany.connecting", 1, 0, "AdventureLabCachesRetriever");
     qmlRegisterType<FullLabCacheRetriever>("com.mycompany.connecting", 1, 0, "FullLabCacheRetriever");
-    qmlRegisterType<FullLabCachesRecorded>("com.mycompany.connecting", 1, 0, "FullLabCachesRecorded");    
+    qmlRegisterType<FullLabCachesRecorded>("com.mycompany.connecting", 1, 0, "FullLabCachesRecorded");
     qmlRegisterType<BluetoothGps>("com.mycompany.connecting", 1, 0, "BluetoothGps");
 
 #if !defined Q_OS_ANDROID
     QtWebEngineQuick::initialize();
 #endif
 
+    QCoreApplication::setOrganizationName("QtProject");
+    QCoreApplication::setApplicationName("FastCache");
     QGuiApplication app(argc, argv);
-    app.setOrganizationName("morice");
-    app.setOrganizationDomain("ipsquad.net");
-    app.setApplicationName("FastCache");
-    QQuickView view(QUrl(QStringLiteral("qrc:/main.qml")));
-    view.setWidth(510);
-    view.setHeight(800);
-    view.show();
-    QObject::connect((QObject*)view.engine(), SIGNAL(quit()), &app, SLOT(quit()));
+    QQmlApplicationEngine engine;
+
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
+                     &app, []() { QCoreApplication::exit(-1); },
+                     Qt::QueuedConnection);
+    engine.loadFromModule("FastCache", "Main");
     return app.exec();
 }
+
+
+

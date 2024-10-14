@@ -16,9 +16,9 @@ Item {
 
     onCachesFindCountChanged: {
         // dynamic updating of a lab cache
-        if(fullCache.type === "labCache" && main.state !== "recorded") {  //lab cache not recorded
+        if(fullCache.type === "labCache" && main.listState !== "recorded") {  //lab cache not recorded
             fullLabCacheRetriever.sendRequest(connector.tokenKey)
-        } else if(fullCache.type === "labCache" && main.state === "recorded") { //lab cache recorded
+        } else if(fullCache.type === "labCache" && main.listState === "recorded") { //lab cache recorded
             var listGeocode = []
             listGeocode.push(fullCache.geocode)
             fullCachesRecorded.sendRequest(connector.tokenKey , listGeocode , sqliteStorage.cacheInLists("cacheslists", fullCache.geocode) ,
@@ -375,7 +375,7 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             height: 60
             width: 60
-            source: "qrc:/Image/" + "icon_AdventureLab.png"
+            source: "../Image/" + "icon_AdventureLab.png"
             sourceWidth: 60
             sourceHeight: 60
             onClicked: {

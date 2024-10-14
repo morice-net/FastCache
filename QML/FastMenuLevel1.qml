@@ -16,7 +16,7 @@ Item {
                 main.viewState = "map"
             else
                 main.viewState = "list"
-            if (main.state === "cachesActive")
+            if (main.listState === "cachesActive")
                 fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
         }
     }
@@ -40,16 +40,16 @@ Item {
             FastDoubleButtonMenu {
                 id: activeCaches
                 height: parent.height
-                firstButtonSelected: main.state === "cachesActive"
+                firstButtonSelected: main.listState === "cachesActive"
                 button1Text: "On"
                 button2Text: "Off"
                 small: true
 
                 function buttonClicked() {
-                    if(main.state === "cachesActive") {
-                        main.state = ""
+                    if(main.listState === "cachesActive") {
+                        main.listState = ""
                     } else {
-                        main.state = "cachesActive"
+                        main.listState = "cachesActive"
                     }
                     if (firstButtonSelected) {
                         hideMenu()
@@ -57,7 +57,7 @@ Item {
                         Functions.reloadCachesBBox()
                     } else {
                         hideMenu()
-                        main.state = ""
+                        main.listState = ""
                     }
                 }
             }
@@ -72,7 +72,7 @@ Item {
         anchors.top: bboxButtonMenu.bottom
         anchors.topMargin: 30
         anchors.bottomMargin: 18
-        buttonSelected: main.state === "near"
+        buttonSelected: main.listState === "near"
         buttonText: main.viewState === "fullcache" ? "Lancer Maps" : "Caches proches"
 
         function buttonClicked() {
@@ -120,7 +120,7 @@ Item {
                 fastCache.swipeToPage(fastCache.logPageIndex)
             } else {
                 // Display list of recorded caches and prepare Center Map.
-                main.state = "recorded";
+                main.listState = "recorded";
                 cachesRecorded.updateMapCachesRecorded()
                 fastMap.clearMap()
                 cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])

@@ -51,13 +51,13 @@ Item {
 
         Image {
             id: compassUnderlay
-            source: "qrc:/Image/Compass/compass_underlay.png"
+            source: "../Image/Compass/compass_underlay.png"
             anchors.fill: parent
 
             Image {
                 id: compassRose
                 anchors.centerIn: parent
-                source: "qrc:/Image/Compass/compass_rose.png"
+                source: "../Image/Compass/compass_rose.png"
                 scale: 0.72
 
                 Behavior on rotation { NumberAnimation { duration: 2000 } }
@@ -65,7 +65,7 @@ Item {
                 Image {
                     id: compassArrow
                     anchors.centerIn: parent
-                    source: "qrc:/Image/Compass/compass_arrow.png"
+                    source: "../Image/Compass/compass_arrow.png"
                     scale: 0.72
 
                     Behavior on rotation { NumberAnimation { duration: 2000 } }

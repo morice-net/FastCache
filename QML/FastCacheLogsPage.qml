@@ -99,7 +99,7 @@ Item {
 
                         Image {
                             x:15
-                            source:"qrc:/Image/" + "icon_photo.png"
+                            source:"../Image/" + "icon_photo.png"
                             scale: 0.7
                             visible:(fullCache.cacheImagesIndex[index + 1] - fullCache.cacheImagesIndex[index]) === 0 ? false : true
 

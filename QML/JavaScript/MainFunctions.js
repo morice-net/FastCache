@@ -104,7 +104,7 @@ function  formatLat( lat) {
 }
 
 function reloadCachesNear() {
-    if(main.state === "near" || main.state === "address" || main.state === "coordinates") {
+    if(main.listState === "near" || main.listState === "address" || main.listState === "coordinates") {
         // caches
         cachesNear.latPoint = fastMap.mapItem.center.latitude
         cachesNear.lonPoint = fastMap.mapItem.center.longitude
@@ -128,7 +128,7 @@ function reloadCachesNear() {
 }
 
 function reloadCachesBBox() {
-    if(main.state === "cachesActive" && cachesBBox.state !== "loading" && fastMap.compassMapButton === false) {
+    if(main.listState === "cachesActive" && cachesBBox.state !== "loading" && fastMap.compassMapButton === false) {
         // caches
         cachesBBox.latBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).latitude
         cachesBBox.lonBottomRight = fastMap.mapItem.toCoordinate(Qt.point(main.x + main.width , main.y + main.height)).longitude

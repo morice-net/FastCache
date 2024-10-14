@@ -42,7 +42,7 @@ Item {
                         height: tbsPage.height * 0.08
 
                         Image {
-                            source: "qrc:/Image/" + "trackable_travelbug.png"
+                            source: "../Image/" + "trackable_travelbug.png"
                             horizontalAlignment: Image.AlignHCenter
                         }
 

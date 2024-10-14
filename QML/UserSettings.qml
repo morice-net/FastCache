@@ -179,7 +179,7 @@ Rectangle {
                             anchors.leftMargin: 5
 
                             Image {
-                                source: "qrc:/Image/minus.png"
+                                source: "../Image/minus.png"
                                 anchors.fill: parent
                             }
                         }
@@ -191,7 +191,7 @@ Rectangle {
                             anchors.rightMargin: 5
 
                             Image {
-                                source: "qrc:/Image/plus.png"
+                                source: "../Image/plus.png"
                                 anchors.fill: parent
                             }
                         }
@@ -213,7 +213,7 @@ Rectangle {
     }
 
     function addCachesOnMap() {
-        if(main.state !== "")
+        if(main.listState !== "")
             fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
     }
 

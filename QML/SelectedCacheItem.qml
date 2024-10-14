@@ -26,7 +26,7 @@ Rectangle {
         property int type: 0
 
         running: false
-        source: "qrc:/Image/cacheList.png"
+        source: "../Image/cacheList.png"
         frameCount: 15
         currentFrame: type
         width: selectedCacheNameField.height + selectedCacheGeocodeField.height
@@ -41,7 +41,7 @@ Rectangle {
         visible: selectedCache !== null ? selectedCache.type === "labCache" : false
         width: (selectedCacheNameField.height + selectedCacheGeocodeField.height) * 0.8
         height: width
-        source: "qrc:/Image/labCache.png"
+        source: "../Image/labCache.png"
         anchors.margins: 10
         anchors.top: parent.top
         anchors.left: parent.left
@@ -49,7 +49,7 @@ Rectangle {
 
     Image {
         visible: selectedCache !== null ? selectedCache.found : false
-        source: "qrc:/Image/marker_found.png"
+        source: "../Image/marker_found.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
         height: selectedCacheIconField.height / 3
@@ -59,7 +59,7 @@ Rectangle {
 
     Image {
         visible: selectedCache !== null ? selectedCache.toDoLog : false
-        source: "qrc:/Image/not_logged.png"
+        source: "../Image/not_logged.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
         height: selectedCacheIconField.height / 3
@@ -69,7 +69,7 @@ Rectangle {
 
     Image {
         visible: selectedCache !== null ? selectedCache.own : false
-        source: "qrc:/Image/marker_own.png"
+        source: "../Image/marker_own.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 2
         height: selectedCacheIconField.height / 3
@@ -79,7 +79,7 @@ Rectangle {
 
     Image {
         visible: selectedCache !== null ? selectedCache.registered : false
-        source: "qrc:/Image/marker_save.png"
+        source: "../Image/marker_save.png"
         fillMode: Image.PreserveAspectFit
         width: selectedCacheIconField.width / 1.2
         height: selectedCacheIconField.height / 2.2
@@ -157,7 +157,7 @@ Rectangle {
                 selectedInList = getSelectedInList()
             } else {
                 fullCache.geocode = selectedCache.geocode
-                if(main.state === "recorded" && selectedCache.registered === true){
+                if(main.listState === "recorded" && selectedCache.registered === true){
                     previousViewState[0] = viewState
                     if(fullCache.geocode.substring(0,2) === "GC" )  //cache GC..
                         fullCacheRetriever.parseJson(sqliteStorage.readColumnJson("fullcache" , fullCache.geocode ))
@@ -216,7 +216,7 @@ Rectangle {
             id: smallCompassNeedle
             anchors.bottom: parent.bottom
             anchors.right: parent.right
-            source: "qrc:/Image/Compass/compass_mini.png"
+            source: "../Image/Compass/compass_mini.png"
 
             Behavior on rotation { NumberAnimation { duration: 2000 } }
         }

@@ -104,7 +104,7 @@ FastPopup {
                     if(box1.box1Lat() !== "" && box1.box1Lon()  !== "") {
                         resultLat =  box1.box1Lat()
                         resultLon =  box1.box1Lon()
-                        main.state = "coordinates"
+                        main.listState = "coordinates"
                         // signal
                         okCoordinatesClicked()
                         coordinatesBox.close()
@@ -114,7 +114,7 @@ FastPopup {
                     if(box2.box2Lat() !== "" && box2.box2Lon()  !== "") {
                         resultLat =  box2.box2Lat()
                         resultLon =  box2.box2Lon()
-                        main.state = "coordinates"
+                        main.listState = "coordinates"
                         // signal
                         okCoordinatesClicked()
                         coordinatesBox.close()
@@ -124,7 +124,7 @@ FastPopup {
                     if(box3.box3Lat() !== "" && box3.box3Lon() !== "") {
                         resultLat =  box3.box3Lat()
                         resultLon =  box3.box3Lon()
-                        main.state = "coordinates"
+                        main.listState = "coordinates"
                         // signal
                         okCoordinatesClicked()
                         coordinatesBox.close()

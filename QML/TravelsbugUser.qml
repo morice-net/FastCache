@@ -24,7 +24,7 @@ Repeater {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Image {
-                source: "qrc:/Image/" + "trackable_travelbug.png"
+                source: "../Image/" + "trackable_travelbug.png"
                 y: text.y - text.height / 2
             }
 
