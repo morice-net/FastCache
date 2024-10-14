@@ -6,10 +6,6 @@
 #include <QtWebEngineQuick/qtwebenginequickglobal.h>
 #endif
 
-// #if QT_CONFIG(ssl)
-// #include <QtNetwork/QSslSocket>
-// #endif
-
 #include <QQuickView>
 #include <QQuickItem>
 #include "connector.h"
