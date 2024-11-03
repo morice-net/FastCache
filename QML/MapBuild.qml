@@ -219,10 +219,7 @@ Map {
         }
 
         function updateRotation() {
-            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(locationSource) +
-                    locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
-            main.beginLat = locationSource.latitude;
-            main.beginLon = locationSource.longitude;
+            smallCompassNeedle.rotation = locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)
