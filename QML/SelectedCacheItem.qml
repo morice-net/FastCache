@@ -227,10 +227,7 @@ Rectangle {
             console.log("Updating small compass... for cache", selectedCache.name)
             if (locationSource === undefined)
                 return
-            smallCompassNeedle.rotation = -1 * beginLocation.coordinate.azimuthTo(locationSource) +
-                    locationSource.azimuthTo(selectedCacheLocation.coordinate)
-            main.beginLat = locationSource.latitude;
-            main.beginLon = locationSource.longitude;
+            smallCompassNeedle.rotation = locationSource.azimuthTo(selectedCacheLocation.coordinate)
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)
