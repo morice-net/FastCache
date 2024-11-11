@@ -1,6 +1,7 @@
 import QtQuick
 import QtLocation
 import QtPositioning
+import QtSensors
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/helper.js" as Helper
@@ -227,7 +228,7 @@ Rectangle {
             console.log("Updating small compass... for cache", selectedCache.name)
             if (locationSource === undefined)
                 return
-            smallCompassNeedle.rotation = locationSource.azimuthTo(selectedCacheLocation.coordinate)
+            smallCompassNeedle.rotation = - azimutDevice + locationSource.azimuthTo(selectedCacheLocation.coordinate)
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)

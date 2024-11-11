@@ -39,9 +39,7 @@ Window {
     property var listKeywordDiscoverOwner : [settings.keyWord , settings.discover , settings.owner]
     property bool excludeFound : settings.excludeCachesFound
     property bool excludeArchived: settings.excludeCachesArchived
-    // used for the compass.
-    property double beginLat
-    property double beginLon
+
     // number of caches found
     property int findCount: userInfo.finds
 
@@ -63,6 +61,7 @@ Window {
     property double externalLatitude: 0.0
     property double externalLongitude: 0.0
     property var locationSource: externalSource ? externalLocation.coordinate : currentPosition.position.coordinate
+    property int azimutDevice: 0  // used by magnetic compass
 
     Item {
         id: mainItem
@@ -70,14 +69,6 @@ Window {
         anchors.fill: parent
 
         FastSettings { id: settings }
-
-        Location {
-            id: beginLocation
-            coordinate {
-                latitude: beginLat.toFixed(5)
-                longitude: beginLon.toFixed(5)
-            }
-        }
 
         Location {
             id: externalLocation
@@ -693,7 +684,11 @@ Window {
 
         Compass { // the compass sensor object
             id: compass
-            active: false // turn the compass on
+            active: true // turn the compass on
+            dataRate: 1
+            onReadingChanged: {
+                azimutDevice = reading.azimuth !== undefined ? reading.azimuth.toFixed(0) : 0
+            }
         }
 
         OrientationSensor {

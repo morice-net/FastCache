@@ -60,19 +60,19 @@ Item {
                 source: "../Image/Compass/compass_rose.png"
                 scale: 0.72
 
+                Behavior on rotation { NumberAnimation { duration: 2000 } } }
+
+            Image {
+                id: compassArrow
+                anchors.centerIn: parent
+                source: "../Image/Compass/compass_arrow.png"
+                scale: 0.72
+
                 Behavior on rotation { NumberAnimation { duration: 2000 } }
-
-                Image {
-                    id: compassArrow
-                    anchors.centerIn: parent
-                    source: "../Image/Compass/compass_arrow.png"
-                    scale: 0.72
-
-                    Behavior on rotation { NumberAnimation { duration: 2000 } }
-                }
             }
         }
     }
+
 
     Text {
         id: title
@@ -160,10 +160,8 @@ Item {
     }
 
     function updateRotation() {
-        compassRose.rotation = -1 * beginLocation.coordinate.azimuthTo(locationSource)
-        compassArrow.rotation = locationSource.azimuthTo(goalLocation.coordinate)
-        main.beginLat = locationSource.latitude;
-        main.beginLon = locationSource.longitude;
+        compassRose.rotation =  - azimutDevice
+        compassArrow.rotation = compassRose.rotation + locationSource.azimuthTo(goalLocation.coordinate)
     }
 
     function compassPageFullCache() {

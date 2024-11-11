@@ -1,6 +1,7 @@
 import QtQuick
 import QtLocation
 import QtPositioning
+import QtSensors
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
@@ -219,7 +220,7 @@ Map {
         }
 
         function updateRotation() {
-            smallCompassNeedle.rotation = locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
+            smallCompassNeedle.rotation = - azimutDevice + locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)
