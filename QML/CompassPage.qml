@@ -60,7 +60,8 @@ Item {
                 source: "../Image/Compass/compass_rose.png"
                 scale: 0.72
 
-                Behavior on rotation { NumberAnimation { duration: 2000 } } }
+                Behavior on rotation { NumberAnimation { duration: 2000 } }
+            }
 
             Image {
                 id: compassArrow
