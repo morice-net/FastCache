@@ -225,7 +225,6 @@ Rectangle {
         function updateRotation() {
             if (selectedCache === undefined)
                 return
-            console.log("Updating small compass... for cache", selectedCache.name)
             if (locationSource === undefined)
                 return
             smallCompassNeedle.rotation = - azimutDevice + locationSource.azimuthTo(selectedCacheLocation.coordinate)

@@ -118,7 +118,8 @@ Window {
                 }
             }
             onClearMapRequested: {
-                fastMap.clearMap();
+                if(fastMap.cacheItems.length >= cachesBBox.maxCaches)
+                    fastMap.clearMap()
             }
             Component.onCompleted: listCachesObject(cachesSingleList)
         }
