@@ -354,36 +354,46 @@ install(TARGETS appFastCache
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-# Add googlemaps plugin geoservice in armeabi-v7a
+# Add googlemaps plugin geoservice if gcc_64
+if (NOT QT_ANDROID_ABIS STREQUAL "armeabi-v7a" AND NOT ANDROID_ABIS STREQUAL "arm64-v8a" )
+    file(COPY ${CMAKE_SOURCE_DIR}/Ressources/googlemaps/gcc-64/libqtgeoservices_googlemaps.so
+        DESTINATION  ${CMAKE_PREFIX_PATH}/plugins/geoservices/)
+endif()
+
+# Add googlemaps plugin geoservice if armeabi-v7a
 if (QT_ANDROID_ABIS STREQUAL "armeabi-v7a")
+    file(COPY ${CMAKE_SOURCE_DIR}/Ressources/googlemaps/armeabi-v7a/libplugins_geoservices_qtgeoservices_googlemaps_armeabi-v7a_armeabi-v7a.so
+        DESTINATION  ${CMAKE_PREFIX_PATH}/plugins/geoservices/)
     set_target_properties(appFastCache PROPERTIES
         QT_ANDROID_EXTRA_LIBS "${CMAKE_PREFIX_PATH}/plugins/geoservices/libplugins_geoservices_qtgeoservices_googlemaps_armeabi-v7a_armeabi-v7a.so"
     )
-    qt_add_executable(libplugins_geoservices_qtgeoservices_googlemaps_armeabi-v7a_armeabi-v7a.so)
+qt_add_executable(libplugins_geoservices_qtgeoservices_googlemaps_armeabi-v7a_armeabi-v7a.so)
 
 #Add openssl in armeabi-v7a
-    add_library(ssl_3 SHARED IMPORTED) # or STATIC instead of SHARED
-    set_target_properties(ssl_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/armeabi-v7a/libssl_3.so")
-    target_link_libraries(appFastCache PRIVATE ssl_3) # also adds the required include path
+add_library(ssl_3 SHARED IMPORTED) # or STATIC instead of SHARED
+set_target_properties(ssl_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/armeabi-v7a/libssl_3.so")
+target_link_libraries(appFastCache PRIVATE ssl_3) # also adds the required include path
 
-    add_library(crypto_3 SHARED IMPORTED) # or STATIC instead of SHARED
-    set_target_properties(crypto_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/armeabi-v7a/libcrypto_3.so")
-    target_link_libraries(appFastCache PRIVATE crypto_3) # also adds the required include path
+add_library(crypto_3 SHARED IMPORTED) # or STATIC instead of SHARED
+set_target_properties(crypto_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/armeabi-v7a/libcrypto_3.so")
+target_link_libraries(appFastCache PRIVATE crypto_3) # also adds the required include path
 endif()
 
-# Add googlemaps plugin geoservice in arm64-v8a
-if (QT_ANDROID_ABIS STREQUAL "arm64-v8a")
+# Add googlemaps plugin geoservice if arm64-v8a
+if (QT_ANDROID_ABIS STREQUAL "arm64-v8a")    
+    file(COPY ${CMAKE_SOURCE_DIR}/Ressources/googlemaps/arm64-v8a/libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so
+        DESTINATION  ${CMAKE_PREFIX_PATH}/plugins/geoservices/)
     set_target_properties(appFastCache PROPERTIES
         QT_ANDROID_EXTRA_LIBS "${CMAKE_PREFIX_PATH}/plugins/geoservices/libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so"
     )
-    qt_add_executable(libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so)
+qt_add_executable(libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so)
 
 #Add openssl in arm64-v8a
-    add_library(ssl_3 SHARED IMPORTED) # or STATIC instead of SHARED
-    set_target_properties(ssl_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/arm64-v8a/libssl_3.so")
-    target_link_libraries(appFastCache PRIVATE ssl_3) # also adds the required include path
+add_library(ssl_3 SHARED IMPORTED) # or STATIC instead of SHARED
+set_target_properties(ssl_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/arm64-v8a/libssl_3.so")
+target_link_libraries(appFastCache PRIVATE ssl_3) # also adds the required include path
 
-    add_library(crypto_3 SHARED IMPORTED) # or STATIC instead of SHARED
-    set_target_properties(crypto_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/arm64-v8a/libcrypto_3.so")
-    target_link_libraries(appFastCache PRIVATE crypto_3) # also adds the required include path
+add_library(crypto_3 SHARED IMPORTED) # or STATIC instead of SHARED
+set_target_properties(crypto_3 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/Ressources/ssl_3/arm64-v8a/libcrypto_3.so")
+target_link_libraries(appFastCache PRIVATE crypto_3) # also adds the required include path
 endif()
