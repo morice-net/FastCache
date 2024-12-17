@@ -1,8 +1,5 @@
-import QtQuick.Layouts
-import QtQuick.Dialogs
 import QtQuick
 import QtQuick.Controls
-import Qt.labs.settings
 import QtPositioning
 import QtLocation
 

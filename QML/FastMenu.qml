@@ -1,6 +1,4 @@
 import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
 import QtPositioning
 
 import "JavaScript/Palette.js" as Palette

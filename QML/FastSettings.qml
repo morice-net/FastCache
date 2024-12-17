@@ -1,9 +1,6 @@
 import QtQuick
 import QtCore
 
-import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
-
 Settings {
     id: settings
 

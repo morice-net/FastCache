@@ -1,7 +1,6 @@
 import QtQuick
 
 import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
 
 Rectangle {
     id: rect

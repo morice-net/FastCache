@@ -1,6 +1,5 @@
 import QtQuick
 import QtQml.Models
-import QtLocation
 import QtPositioning
 
 import "JavaScript/Palette.js" as Palette

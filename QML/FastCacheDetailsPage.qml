@@ -1,10 +1,8 @@
 import QtQuick
-import QtQuick.Controls
 import QtPositioning
 
 import "JavaScript/helper.js" as Helper
 import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
 
 Item {
     id: detailsPage

@@ -1,12 +1,9 @@
 import QtQuick
 import QtQuick.Controls
 import QtPositioning
-import QtLocation
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
-
-import com.mycompany.connecting 1.0
 
 FastPopup {
     id: userWaypoint

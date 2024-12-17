@@ -1,13 +1,9 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Window
 import QtPositioning
 import QtWebView
-import Qt.labs.settings
-import QtLocation
 import QtSensors
 
-import "QML/JavaScript/Palette.js" as Palette
 import "QML/JavaScript/MainFunctions.js" as Functions
 import "QML"
 import com.mycompany.connecting 1.0

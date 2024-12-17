@@ -1,5 +1,4 @@
 import QtQuick
-import QtSensors  // to use Compass
 import QtPositioning
 
 import "JavaScript/helper.js" as Helper

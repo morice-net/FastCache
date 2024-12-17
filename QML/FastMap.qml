@@ -2,8 +2,6 @@ import QtQuick
 import QtLocation
 import QtPositioning
 
-import "JavaScript/Palette.js" as Palette
-
 Rectangle {
     id: fastMap
     anchors.fill: parent

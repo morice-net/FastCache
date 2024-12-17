@@ -273,7 +273,7 @@ Rectangle {
         }
     }
 
-    function closeIfMenu() {        
+    function closeIfMenu() {
     }
 
     function showMenu() {
@@ -288,7 +288,7 @@ Rectangle {
         page.y = page.height * -1
     }
 
-    function isMenuVisible() {        
+    function isMenuVisible() {
         return (page.x >= 0)
     }
 }

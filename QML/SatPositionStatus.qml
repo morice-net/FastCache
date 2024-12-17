@@ -1,7 +1,5 @@
 import QtQuick
-import QtQuick.Controls
 import QtQuick.Layouts
-import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 
@@ -154,7 +152,7 @@ Rectangle {
             ColumnLayout {
                 id: statusLayout
                 property real actualHeight: implicitHeight + anchors.margins * 2
-                anchors {                 
+                anchors {
                     horizontalCenter: parent.horizontalCenter
                     margins: 5
                 }

@@ -1,11 +1,8 @@
 import QtQuick
-import QtLocation
-import QtPositioning
 import QtQuick.Controls
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
-import com.mycompany.connecting 1.0
 
 Rectangle {
     id: fastCache

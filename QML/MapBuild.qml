@@ -1,7 +1,6 @@
 import QtQuick
 import QtLocation
 import QtPositioning
-import QtSensors
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
