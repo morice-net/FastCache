@@ -17,7 +17,7 @@ Item {
     onDescriptionTextChanged: {
         backWeb = false
         forwardWeb = false
-        webView.settings.setAllowFileAccess(true)
+        webView.settings.setAllowFileAccess(true)        
         webView.loadHtml(descriptionText , "")
     }
 
@@ -91,7 +91,7 @@ Item {
                         console.log("URL is: " + url);
                         if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
                             backWeb = false
-                        } else if(url.toString().substring(0,4) === "http") {
+                        } else if(url.toString().substring(0,4) === "http") {                            
                             backWeb = true
                             forwardWeb = true
                         }
