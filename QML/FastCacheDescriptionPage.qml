@@ -18,12 +18,7 @@ Item {
         backWeb = false
         forwardWeb = false
         webView.settings.setAllowFileAccess(true)
-
-        if(main.listState === "recorded" ) {  // cache recorded
-            webView.loadHtml(descriptionText , "file:")
-        } else  {   // lab cache not recorded
-            webView.loadHtml(descriptionText , "html")
-        }
+        webView.loadHtml(descriptionText , "")
     }
 
     Flickable {
