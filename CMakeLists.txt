@@ -326,7 +326,7 @@ if(ANDROID)
     set_target_properties(appFastCache
         PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android
-        QT_ANDROID_TARGET_SDK_VERSION "33")
+        QT_ANDROID_TARGET_SDK_VERSION "33" )
 endif()
 
 target_link_libraries(appFastCache
