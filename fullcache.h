@@ -3,9 +3,12 @@
 
 #include "cache.h"
 
+#include <QtQml>
+
 class FullCache : public Cache
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QList<int> attributes READ attributes WRITE setAttributes NOTIFY attributesChanged)
     Q_PROPERTY(QList<bool> attributesBool READ attributesBool WRITE setAttributesBool NOTIFY attributesBoolChanged)

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 
 import "JavaScript/Palette.js" as Palette
-import com.mycompany.connecting 1.0
+import FastCache
 
 Item {
     id: cacheAttributes

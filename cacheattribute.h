@@ -2,10 +2,12 @@
 #define CACHEATTRIBUTE_H
 
 #include <QObject>
+#include <QtQml>
 
 class CacheAttribute : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     //all attributes
     Q_PROPERTY(QList<QString> listTextYes READ listTextYes  NOTIFY listTextYesChanged)

@@ -16,6 +16,7 @@ class GetUserGeocacheLogs;
 class FullCacheRetriever : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  FullCacheRetriever(Requestor *parent = nullptr);

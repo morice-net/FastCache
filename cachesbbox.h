@@ -3,11 +3,14 @@
 
 #include "cachesretriever.h"
 
+#include <QtQml>
+
 class Cache;
 
 class CachesBBox : public CachesRetriever
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(double latBottomRight READ latBottomRight WRITE setLatBottomRight NOTIFY latBottomRightChanged)
     Q_PROPERTY(double lonBottomRight READ lonBottomRight WRITE setLonBottomRight NOTIFY lonBottomRightChanged)

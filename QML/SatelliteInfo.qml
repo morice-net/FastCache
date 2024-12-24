@@ -2,7 +2,7 @@ import QtPositioning
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import com.mycompany.connecting 1.0
+import FastCache
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions

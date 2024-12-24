@@ -3,11 +3,14 @@
 
 #include "cachesretriever.h"
 
+#include <QtQml>
+
 class Cache;
 
 class CachesNear : public CachesRetriever
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(double latPoint READ latPoint WRITE setLatPoint NOTIFY latPointChanged)
     Q_PROPERTY(double lonPoint READ lonPoint WRITE setLonPoint NOTIFY lonPointChanged)

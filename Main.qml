@@ -3,10 +3,10 @@ import QtQuick.Window
 import QtPositioning
 import QtWebView
 import QtSensors
+import FastCache
 
 import "QML/JavaScript/MainFunctions.js" as Functions
 import "QML"
-import com.mycompany.connecting 1.0
 
 Window {
     id: main

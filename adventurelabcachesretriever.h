@@ -4,14 +4,16 @@
 #include "requestor.h"
 #include "cachessinglelist.h"
 
-class Cache;
-
 #include <QNetworkReply>
 #include <QGeoCoordinate>
+#include <QtQml>
+
+class Cache;
 
 class AdventureLabCachesRetriever : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(int indexMoreLabCaches READ indexMoreLabCaches WRITE setIndexMoreLabCaches NOTIFY indexMoreLabCachesChanged)
     Q_PROPERTY(int maxCaches READ maxCaches WRITE setMaxCaches NOTIFY maxCachesChanged)

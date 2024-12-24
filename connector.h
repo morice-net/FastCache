@@ -3,12 +3,14 @@
 
 #include <QNetworkReply>
 #include <QObject>
+#include <QtQml>
 
 #include "parameter.h"
 
 class Connector : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QString consumerKey READ consumerKey WRITE setConsumerKey NOTIFY consumerKeyChanged)
     Q_PROPERTY(QString consumerSecret READ consumerSecret WRITE setConsumerSecret NOTIFY consumerSecretChanged)

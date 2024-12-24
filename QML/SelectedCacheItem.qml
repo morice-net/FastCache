@@ -3,7 +3,7 @@ import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/helper.js" as Helper
-import com.mycompany.connecting 1.0
+import FastCache
 
 Rectangle {
     id: selectedCacheItem

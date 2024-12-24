@@ -6,12 +6,14 @@
 
 #include <QNetworkReply>
 #include <QObject>
+#include <QtQml>
 
 class SQLiteStorage;
 
 class GetUserGeocacheLogs : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QList<QString> referenceCodes READ referenceCodes WRITE setReferenceCodes NOTIFY referenceCodesChanged)
     Q_PROPERTY(QList<QString> logs READ logs WRITE setLogs NOTIFY logsChanged)

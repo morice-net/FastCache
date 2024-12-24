@@ -5,10 +5,12 @@
 
 #include <QNetworkReply>
 #include <QObject>
+#include <QtQml>
 
 class SendImagesLog : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit SendImagesLog(Requestor *parent = nullptr);

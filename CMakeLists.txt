@@ -13,91 +13,60 @@ qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(appFastCache WIN32 MACOSX_BUNDLE
     main.cpp
-    adventurelabcachesretriever.cpp
-    adventurelabcachesretriever.h
     allrequest.cpp
     allrequest.h
-    bluetoothgps.cpp
-    bluetoothgps.h
-    cache.cpp
-    cache.h
-    cacheattribute.cpp
-    cacheattribute.h
-    cachemaptiles.cpp
-    cachemaptiles.h
-    cachesbbox.cpp
-    cachesbbox.h
-    cachesnear.cpp
-    cachesnear.h
-    cachespocketqueries.cpp
-    cachespocketqueries.h
-    cachesrecorded.cpp
-    cachesrecorded.h
     cachesretriever.cpp
     cachesretriever.h
-    cachessinglelist.cpp
-    cachessinglelist.h
-    connector.cpp
-    connector.h
     constants.h
-    deletelogimage.cpp
-    deletelogimage.h
     downloador.cpp
     downloador.h
-    fullcache.cpp
-    fullcache.h
-    fullcacheretriever.cpp
-    fullcacheretriever.h
-    fullcachesrecorded.cpp
-    fullcachesrecorded.h
-    fulllabcacheretriever.cpp
-    fulllabcacheretriever.h
-    fulllabcachesrecorded.cpp
-    fulllabcachesrecorded.h
-    getgeocachelogimages.cpp
-    getgeocachelogimages.h
-    getpocketsquerieslist.cpp
-    getpocketsquerieslist.h
-    gettravelbuguser.cpp
-    gettravelbuguser.h
-    getusergeocachelogs.cpp
-    getusergeocachelogs.h
-    main.cpp
     nmeaparsing.cpp
     nmeaparsing.h
     parameter.cpp
     parameter.h
-    replaceimageintext.cpp
-    replaceimageintext.h
     requestor.cpp
     requestor.h
-    sendcachelog.cpp
-    sendcachelog.h
-    sendcachenote.cpp
-    sendcachenote.h
-    sendedituserlog.cpp
-    sendedituserlog.h
-    sendimageslog.cpp
-    sendimageslog.h
-    sendtravelbuglog.cpp
-    sendtravelbuglog.h
-    senduserwaypoint.cpp
-    senduserwaypoint.h
     smileygc.cpp
     smileygc.h
-    sqlitestorage.cpp
-    sqlitestorage.h
-    tilesdownloader.cpp
-    tilesdownloader.h
-    travelbug.cpp
-    travelbug.h
-    userinfo.cpp
-    userinfo.h
 )
 
 qt_add_qml_module(appFastCache
     URI FastCache
     VERSION 1.0
+
+    SOURCES
+    bluetoothgps.h bluetoothgps.cpp
+    cachessinglelist.h  cachessinglelist.cpp
+    cachesbbox.h cachesbbox.cpp
+    adventurelabcachesretriever.h adventurelabcachesretriever.cpp
+    cachesnear.h cachesnear.cpp
+    cachesrecorded.h cachesrecorded.cpp
+    cachespocketqueries.h cachespocketqueries.cpp
+    connector.h connector.cpp
+    userinfo.h userinfo.cpp
+    fullcache.h fullcache.cpp
+    fullcacheretriever.h fullcacheretriever.cpp
+    fullcachesrecorded.h fullcachesrecorded.cpp
+    fulllabcachesrecorded.h fulllabcachesrecorded.cpp
+    travelbug.h travelbug.cpp
+    sendcachenote.h sendcachenote.cpp
+    deletelogimage.h deletelogimage.cpp
+    sendedituserlog.h sendedituserlog.cpp
+    sendcachelog.h sendcachelog.cpp
+    sendimageslog.h sendimageslog.cpp
+    sendtravelbuglog.h sendtravelbuglog.cpp
+    senduserwaypoint.h senduserwaypoint.cpp
+    gettravelbuguser.h gettravelbuguser.cpp
+    getpocketsquerieslist.h getpocketsquerieslist.cpp
+    getusergeocachelogs.h getusergeocachelogs.cpp
+    getgeocachelogimages.h getgeocachelogimages.cpp
+    tilesdownloader.h tilesdownloader.cpp
+    replaceimageintext.h replaceimageintext.cpp
+    sqlitestorage.h sqlitestorage.cpp
+    cachemaptiles.h cachemaptiles.cpp
+    cache.h cache.cpp
+    cacheattribute.h cacheattribute.cpp
+    fulllabcacheretriever.h fulllabcacheretriever.cpp
 
     QML_FILES
     Main.qml
@@ -381,7 +350,7 @@ if (QT_ANDROID_ABIS STREQUAL "armeabi-v7a")
 endif()
 
 # Add googlemaps plugin geoservice if arm64-v8a
-if (QT_ANDROID_ABIS STREQUAL "arm64-v8a")    
+if (QT_ANDROID_ABIS STREQUAL "arm64-v8a")
     file(COPY ${CMAKE_SOURCE_DIR}/Ressources/googlemaps/arm64-v8a/libplugins_geoservices_qtgeoservices_googlemaps_arm64-v8a_arm64-v8a.so
         DESTINATION  ${CMAKE_PREFIX_PATH}/plugins/geoservices/)
     set_target_properties(appFastCache PROPERTIES

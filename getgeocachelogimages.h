@@ -5,10 +5,12 @@
 
 #include <QNetworkReply>
 #include <QObject>
+#include <QtQml>
 
 class GetGeocacheLogImages : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QList<QString> descriptions READ descriptions WRITE setDescriptions NOTIFY descriptionsChanged)
     Q_PROPERTY(QList<QString> urls READ  urls WRITE setUrls NOTIFY  urlsChanged)

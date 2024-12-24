@@ -2,11 +2,14 @@
 #define REPLACEIMAGEINTEXT_H
 
 #include "downloador.h"
+
 #include <QJsonDocument>
+#include <QtQml>
 
 class ReplaceImageInText : public Downloador
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:    
     explicit ReplaceImageInText(Downloador *parent = nullptr);

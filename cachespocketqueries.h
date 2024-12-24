@@ -8,6 +8,7 @@ class Cache;
 class CachesPocketqueries : public CachesRetriever
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(bool parsingCompleted READ parsingCompleted WRITE setParsingCompleted NOTIFY parsingCompletedChanged)
 

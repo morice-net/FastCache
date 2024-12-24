@@ -11,6 +11,7 @@ class CachesRecorded : public CachesRetriever
 
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  CachesRecorded(CachesRetriever *parent = nullptr);

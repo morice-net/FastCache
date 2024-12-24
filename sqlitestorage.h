@@ -4,11 +4,13 @@
 #include <QObject>
 #include <QSqlDatabase>
 #include <QJsonDocument>
+
 #include "replaceimageintext.h"
 
 class SQLiteStorage: public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QList<bool> listWithGeocode READ listWithGeocode WRITE setListWithGeocode NOTIFY listWithGeocodeChanged)
     Q_PROPERTY(QList<int> listsIds READ listsIds WRITE setListsIds NOTIFY listsIdsChanged)

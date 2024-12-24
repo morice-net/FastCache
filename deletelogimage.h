@@ -3,9 +3,12 @@
 
 #include "requestor.h"
 
+#include <QtQml>
+
 class DeleteLogImage : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
 

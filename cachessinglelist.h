@@ -2,11 +2,13 @@
 #define CACHESSINGLELIST_H
 
 #include <QQmlListProperty>
+#include <QtQml>
 
 class Cache;
 class CachesSingleList : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY ( QQmlListProperty<Cache> caches READ caches NOTIFY cachesChanged)
 

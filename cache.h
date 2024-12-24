@@ -4,12 +4,12 @@
 #include "sqlitestorage.h"
 
 #include <QMap>
-
 #include <QObject>
 
 class Cache : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString geocode READ geocode WRITE setGeocode NOTIFY geocodeChanged)

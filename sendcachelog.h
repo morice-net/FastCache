@@ -6,10 +6,12 @@
 #include <QNetworkReply>
 #include <QObject>
 #include <QJsonDocument>
+#include <QtQml>
 
 class SendCacheLog : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(int founds READ founds WRITE setFounds NOTIFY foundsChanged)
     Q_PROPERTY(QString codeLog READ codeLog WRITE setCodeLog NOTIFY codeLogChanged)

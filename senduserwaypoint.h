@@ -11,6 +11,7 @@ class FullCache;
 class SendUserWaypoint : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  SendUserWaypoint(Requestor *parent = nullptr);
@@ -22,7 +23,7 @@ public:
 
     void parseJson(const QJsonDocument &dataJsonDoc) override;
 
-private:    
+private:
     FullCache *m_fullCache;
 };
 

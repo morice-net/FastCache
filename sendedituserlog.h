@@ -5,11 +5,12 @@
 
 #include <QNetworkReply>
 #include <QObject>
-
+#include <QtQml>
 
 class SendEditUserLog : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QString codeLog READ codeLog WRITE setCodeLog NOTIFY codeLogChanged)
     Q_PROPERTY(int logTypeResponse READ logTypeResponse WRITE setLogTypeResponse NOTIFY logTypeResponseChanged)

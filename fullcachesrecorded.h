@@ -7,6 +7,7 @@
 #include "getusergeocachelogs.h"
 
 #include <QNetworkReply>
+#include <QtQml>
 
 class ReplaceImageInText;
 class GetUserGeocacheLogs;
@@ -14,6 +15,7 @@ class GetUserGeocacheLogs;
 class FullCachesRecorded : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
 

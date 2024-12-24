@@ -5,10 +5,12 @@
 
 #include <QNetworkReply>
 #include <QObject>
+#include <QtQml>
 
 class GetTravelbugUser : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QList<QString> tbsCode READ tbsCode WRITE setTbsCode NOTIFY tbsCodeChanged)
     Q_PROPERTY(QList<QString> tbsName READ tbsName WRITE setTbsName NOTIFY tbsNameChanged)

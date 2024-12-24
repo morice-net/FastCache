@@ -5,11 +5,12 @@
 
 #include <QNetworkReply>
 #include <QObject>
-
+#include <QtQml>
 
 class SendTravelbugLog : public Requestor
 {    
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  SendTravelbugLog(Requestor *parent = nullptr);

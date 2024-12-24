@@ -5,10 +5,12 @@
 
 #include <QNetworkReply>
 #include <QObject>
+#include <QtQml>
 
 class SendCacheNote : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  SendCacheNote(Requestor *parent = nullptr);

@@ -9,10 +9,12 @@
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
+#include <QtQml>
 
 class TilesDownloader : public Downloador
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QString folderSizeOsm READ folderSizeOsm WRITE setFolderSizeOsm NOTIFY folderSizeOsmChanged)
     Q_PROPERTY(QString folderSizeGooglemapsPlan READ folderSizeGooglemapsPlan WRITE setFolderSizeGooglemapsPlan NOTIFY folderSizeGooglemapsPlanChanged)

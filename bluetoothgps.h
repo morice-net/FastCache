@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QGeoSatelliteInfo>
 #include <QGeoCoordinate>
+#include <QtQml>
 
 #include <QtBluetooth/qbluetoothsocket.h>
 #include "nmeaparsing.h"
@@ -15,6 +16,7 @@
 class BluetoothGps : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInView READ satellitesInView WRITE setSatellitesInView NOTIFY satellitesInViewChanged)
     Q_PROPERTY(QList<QGeoSatelliteInfo> satellitesInUse READ satellitesInUse WRITE setSatellitesInUse NOTIFY satellitesInUseChanged)

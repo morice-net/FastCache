@@ -7,10 +7,12 @@
 #include <QDebug>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QtQml>
 
 class Travelbug : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString type READ type WRITE setType NOTIFY typeChanged)

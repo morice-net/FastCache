@@ -13,6 +13,7 @@ class FullCache;
 class FullLabCacheRetriever : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  FullLabCacheRetriever(Requestor *parent = nullptr);

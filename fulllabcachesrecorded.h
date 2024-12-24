@@ -5,9 +5,12 @@
 #include "sqlitestorage.h"
 #include "replaceimageintext.h"
 
+#include <QtQml>
+
 class FullLabCachesRecorded : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     explicit  FullLabCachesRecorded(Requestor *parent = nullptr);

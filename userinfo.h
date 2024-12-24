@@ -4,9 +4,13 @@
 #include "requestor.h"
 #include"gettravelbuguser.h"
 
+#include <QtQml>
+
 class UserInfo : public Requestor
 {
     Q_OBJECT
+    QML_ELEMENT
+
     Q_ENUMS(UserInfoStatus)
 
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
