@@ -29,6 +29,12 @@ Rectangle {
             positionAndStatus.latitudeString = Functions.formatLat(posData.latitude)
         if(posData.longitude.toString() !== "NaN")
             positionAndStatus.longitudeString = Functions.formatLon(posData.longitude)
+        if(!externalSource && currentPosition.position.altitudeValid)
+            positionAndStatus.altString = currentPosition.position.coordinate.altitude.toFixed(0) + " m"
+        if(!externalSource && currentPosition.position.speedValid)
+            positionAndStatus.speedString = (currentPosition.position.speed  * 3.6 ).toFixed(0)    + " km/h"
+        if(!externalSource && currentPosition.position.horizontalAccuracyValid)
+            positionAndStatus.precisionString = currentPosition.position.horizontalAccuracy.toFixed(0) + " m"
     }
 
     // The model structure is:
@@ -73,8 +79,7 @@ Rectangle {
             break
         case "running":
             statesItem.state = "stopped"
-            break
-        }
+            break        }
     }
 
     function updateActive(state) {
@@ -104,7 +109,7 @@ Rectangle {
             positionAndStatus.speedString = bluetoothGps.speed.toFixed(0) + " km/h"
         }
         onPrecisionChanged: {
-            positionAndStatus.precisionString = bluetoothGps.precision.toFixed(3)
+            positionAndStatus.precisionString = (bluetoothGps.precision * 5).toFixed(0)  + " m"
         }
         onGpsNameChanged: positionAndStatus.statusString = statusStringGps(externalSource)
     }

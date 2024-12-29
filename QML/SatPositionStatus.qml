@@ -85,7 +85,6 @@ Rectangle {
                 }
 
                 Text {
-                    visible: externalSource
                     text: qsTr("altitude:")
                     font.family: localFont.name
                     font.pointSize: 13
@@ -95,7 +94,6 @@ Rectangle {
 
                 Text {
                     id: altValue
-                    visible: externalSource
                     text: qsTr("N/A")
                     font.family: localFont.name
                     font.pointSize: 12
@@ -103,7 +101,6 @@ Rectangle {
                 }
 
                 Text {
-                    visible: externalSource
                     text: qsTr("vitesse:")
                     font.family: localFont.name
                     font.pointSize: 13
@@ -113,7 +110,6 @@ Rectangle {
 
                 Text {
                     id: speedValue
-                    visible: externalSource
                     text: qsTr("N/A")
                     font.family: localFont.name
                     font.pointSize: 12
@@ -121,7 +117,6 @@ Rectangle {
                 }
 
                 Text {
-                    visible: externalSource
                     text: qsTr("précision:")
                     font.family: localFont.name
                     font.pointSize: 13
@@ -131,7 +126,6 @@ Rectangle {
 
                 Text {
                     id: precisionValue
-                    visible: externalSource
                     text: qsTr("N/A")
                     font.family: localFont.name
                     font.pointSize: 12
