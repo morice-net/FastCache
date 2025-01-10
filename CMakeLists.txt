@@ -148,6 +148,7 @@ qt_add_qml_module(appFastCache
     QML/UserSettingsCircle.qml
     QML/UserSettingsMap.qml
     QML/UserWaypoint.qml
+    QML/OwnerProfile.qml
 
     RESOURCES
     Image/add.png
@@ -289,7 +290,7 @@ qt_add_qml_module(appFastCache
     QML/JavaScript/Palette.js
     QML/JavaScript/helper.js
 
-    Ressources/DellaRespira-Regular.ttf
+    Ressources/DellaRespira-Regular.ttf    
 )
 
 if(ANDROID)

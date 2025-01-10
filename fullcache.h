@@ -44,7 +44,8 @@ class FullCache : public Cache
     Q_PROPERTY(bool isCorrectedCoordinates READ isCorrectedCoordinates WRITE setIsCorrectedCoordinates NOTIFY isCorrectedCoordinatesChanged)
     Q_PROPERTY(double correctedLat READ correctedLat WRITE setCorrectedLat NOTIFY correctedLatChanged)
     Q_PROPERTY(double correctedLon READ correctedLon WRITE setCorrectedLon NOTIFY correctedLonChanged)
-    Q_PROPERTY(QString correctedCode READ correctedCode WRITE setCorrectedCode NOTIFY correctedCodeChanged)
+    Q_PROPERTY(QString correctedCode READ correctedCode WRITE setCorrectedCode NOTIFY correctedCodeChanged)    
+    Q_PROPERTY(QString ownerUrl READ ownerUrl WRITE setOwnerUrl NOTIFY ownerUrlChanged)
 
     // lab cache
     Q_PROPERTY(int listStagesCount READ listStagesCount WRITE setListStagesCount NOTIFY listStagesCountChanged)
@@ -171,6 +172,9 @@ public:
     QString adventureType() const;
     void setAdventureType(const QString &type);
 
+    QString ownerUrl() const;
+    void setOwnerUrl(const QString &url);
+
 signals:
     void attributesChanged();
     void attributesBoolChanged();
@@ -210,6 +214,7 @@ signals:
     void listStagesCountChanged();
     void wptsIsCompleteChanged();
     void adventureTypeChanged();
+    void ownerUrlChanged();
 
 private:
     QList<int> m_attributes;
@@ -250,5 +255,6 @@ private:
     int m_listStagesCount;
     QList<bool> m_wptsIsComplete;
     QString m_adventureType;
+    QString m_ownerUrl;
 };
 #endif // FULLCACHE_H

@@ -27,7 +27,7 @@ void FullCacheRetriever::sendRequest(QString token)
     requestName.append("?lite=false");
 
     // Fields
-    requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
+    requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,owner,placedDate,geocacheType,"
                        "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml,additionalWaypoints");
     // Expand
     requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOGS_COUNT) +
@@ -104,8 +104,10 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setRegistered(m_fullCache->checkRegistered());
     m_fullCache->setToDoLog(m_fullCache->checkToDoLog());
 
+    QJsonObject v = cacheJson["owner"].toObject();
+    m_fullCache->setOwner(v["username"].toString());
+    m_fullCache->setOwnerUrl(v["url"].toString());
 
-    m_fullCache->setOwner(cacheJson["ownerAlias"].toString());
     m_fullCache->setDate(cacheJson["placedDate"].toString());
 
     QJsonObject v1 = cacheJson["geocacheType"].toObject();

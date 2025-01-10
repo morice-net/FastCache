@@ -277,6 +277,11 @@ Item {
                 font.pointSize: 14
                 text: fullCache.owner
                 color: Palette.white()
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressAndHold: ownerProfile.open()
+                }
             }
         }
 

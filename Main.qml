@@ -231,6 +231,11 @@ Window {
             }
         }
 
+        OwnerProfile {
+            id: ownerProfile
+            leftPadding: 0
+        }
+
         SureQuit {
             id: sureQuit
         }
@@ -779,6 +784,8 @@ Window {
                                 } else if (geocode.opened) {
                                     geocode.geocodeResponseVisible = false
                                     geocode.close()
+                                } else if (ownerProfile.opened) {
+                                    ownerProfile.close()
                                 } else if (fastMenu.isMenuVisible()) {
                                     fastMenu.hideMenu()
                                 } else if (satelliteInfo.isMenuVisible()) {

@@ -40,6 +40,7 @@ FullCache::FullCache(Cache *parent)
     , m_listStagesCount(0)
     , m_wptsIsComplete(QList<bool>())
     , m_adventureType("")
+, m_ownerUrl("")
 
 {
 }
@@ -478,6 +479,17 @@ void FullCache::setAdventureType(const QString &type)
 {
     m_adventureType = type ;
     emit adventureTypeChanged();
+}
+
+QString FullCache::ownerUrl() const
+{
+    return m_ownerUrl;
+}
+
+void FullCache::setOwnerUrl(const QString &url)
+{
+    m_ownerUrl = url ;
+    emit ownerUrlChanged();
 }
 
 
