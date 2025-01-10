@@ -17,7 +17,7 @@ Item {
     onDescriptionTextChanged: {
         backWeb = false
         forwardWeb = false
-        webView.settings.setAllowFileAccess(true)        
+        webView.settings.setAllowFileAccess(true)
         webView.loadHtml(descriptionText , "")
     }
 
@@ -51,7 +51,7 @@ Item {
                         console.log("Go Forward Web: " + forwardWeb)
 
                     }
-                    visible: webView != null ? webView.canGoBack && backWeb : false
+                    enabled: webView != null ? webView.canGoBack && backWeb : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -68,7 +68,7 @@ Item {
                         console.log("Go Back Web: " + backWeb)
                         console.log("Go Forward Web: " + forwardWeb)
                     }
-                    visible: webView != null ? webView.canGoForward && forwardWeb : false
+                    enabled: webView != null ? webView.canGoForward && forwardWeb : false
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -91,7 +91,7 @@ Item {
                         console.log("URL is: " + url);
                         if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
                             backWeb = false
-                        } else if(url.toString().substring(0,4) === "http") {                            
+                        } else if(url.toString().substring(0,4) === "http") {
                             backWeb = true
                             forwardWeb = true
                         }
