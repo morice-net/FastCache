@@ -280,7 +280,10 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onPressAndHold: ownerProfile.open()
+                    onPressAndHold: {
+                        ownerProfile.originalUrl = fullCache.ownerUrl
+                        ownerProfile.open()
+                    }
                 }
             }
         }

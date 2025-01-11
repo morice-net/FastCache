@@ -40,7 +40,8 @@ FullCache::FullCache(Cache *parent)
     , m_listStagesCount(0)
     , m_wptsIsComplete(QList<bool>())
     , m_adventureType("")
-, m_ownerUrl("")
+    , m_ownerUrl("")
+    , m_findersUrl(QList<QString>())
 
 {
 }
@@ -206,6 +207,17 @@ void FullCache::setFindersName(const QList<QString> &names)
 {
     m_findersName = names;
     emit findersNameChanged();
+}
+
+QList<QString> FullCache::findersUrl() const
+{
+    return  m_findersUrl;
+}
+
+void FullCache::setFindersUrl(const QList<QString> &urls)
+{
+    m_findersUrl = urls;
+    emit findersUrlChanged();
 }
 
 QList<QString> FullCache::findersDate() const

@@ -7,7 +7,7 @@ FastPopup {
     closeButtonVisible: false
 
     property bool backWeb: false
-    property string originalUrl: fullCache.ownerUrl
+    property string originalUrl
 
     onOriginalUrlChanged: backWeb = false
 
@@ -52,7 +52,7 @@ FastPopup {
             WebView {
                 id: webView
                 anchors.fill: parent
-                url: fullCache.ownerUrl
+                url: originalUrl
                 clip: true
                 onUrlChanged: {
                     if(webView.url.toString().indexOf("?code=") !== -1) {

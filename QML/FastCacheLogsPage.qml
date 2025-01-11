@@ -51,6 +51,14 @@ Item {
                                 font.pointSize: 15
                                 color: Palette.black()
                                 wrapMode: Text.Wrap
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onPressAndHold: {
+                                        ownerProfile.originalUrl = fullCache.findersUrl[index]
+                                        ownerProfile.open()
+                                    }
+                                }
                             }
 
                             Text {

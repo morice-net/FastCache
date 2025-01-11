@@ -211,6 +211,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     QList<int> listFindersCount ;
     QList<QString> listFindersDate ;
     QList<QString> listFindersName ;
+    QList<QString> listFindersUrl ;
     QList<QString> listLogs ;
     QList<QString> listLogsType ;
     QList<bool> listVisibleImages;
@@ -218,6 +219,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     listFindersCount.clear();
     listFindersDate.clear();
     listFindersName.clear();
+    listFindersUrl.clear();
     listLogs.clear();
     listLogsType.clear();
     listVisibleImages.clear();
@@ -231,6 +233,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         QJsonObject finder = geocacheLog.toObject()["owner"].toObject();
         listFindersName.append(finder["username"].toString());
         listFindersCount.append(finder["findCount"].toInt());
+        listFindersUrl.append(finder["url"].toString());
 
         QJsonObject type = geocacheLog["geocacheLogType"].toObject();
         listLogsType.append(LOG_TYPE_CACHE_MAP.key(type["id"].toInt()));
@@ -255,6 +258,7 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setFindersCount(listFindersCount);
     m_fullCache->setFindersDate(listFindersDate);
     m_fullCache->setFindersName(listFindersName);
+    m_fullCache->setFindersUrl(listFindersUrl);
     m_fullCache->setCacheImagesIndex(listImagesIndex);
     m_fullCache->setListVisibleImages(listVisibleImages);
 

@@ -23,6 +23,7 @@ class FullCache : public Cache
     Q_PROPERTY(QList<QString > imagesName READ imagesName WRITE setImagesName NOTIFY imagesNameChanged)
     Q_PROPERTY(QList<QString > imagesUrl READ imagesUrl WRITE setImagesUrl NOTIFY imagesUrlChanged)
     Q_PROPERTY(QList<QString > findersName READ findersName WRITE setFindersName NOTIFY findersNameChanged)
+    Q_PROPERTY(QList<QString > findersUrl READ findersUrl WRITE setFindersUrl NOTIFY findersUrlChanged)
     Q_PROPERTY(QList<QString > logs READ logs WRITE setLogs NOTIFY logsChanged)
     Q_PROPERTY(QList<QString > logsType READ logsType WRITE setLogsType NOTIFY logsTypeChanged)
     Q_PROPERTY(QList<int > findersCount READ findersCount WRITE setFindersCount NOTIFY findersCountChanged)
@@ -96,6 +97,9 @@ public:
 
     QList<QString> findersName() const;
     void setFindersName(const QList<QString> &trackableNames);
+
+    QList<QString> findersUrl() const;
+    void setFindersUrl(const QList<QString> &urls);
 
     QList<int> findersCount() const;
     void setFindersCount(const QList<int> &counts);
@@ -215,6 +219,7 @@ signals:
     void wptsIsCompleteChanged();
     void adventureTypeChanged();
     void ownerUrlChanged();
+    void findersUrlChanged();
 
 private:
     QList<int> m_attributes;
@@ -256,5 +261,6 @@ private:
     QList<bool> m_wptsIsComplete;
     QString m_adventureType;
     QString m_ownerUrl;
+    QList<QString> m_findersUrl;
 };
 #endif // FULLCACHE_H
