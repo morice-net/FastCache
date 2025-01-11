@@ -47,7 +47,7 @@ void FullCachesRecorded::sendRequest(QString token , QList<QString> geocodes , Q
         requestName.append("&lite=false");
 
         // Fields
-        requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,ownerAlias,placedDate,geocacheType,"
+        requestName.append("&fields=referenceCode,name,difficulty,terrain,favoritePoints,trackableCount,postedCoordinates,owner,placedDate,geocacheType,"
                            "geocacheSize,location,status,userData,shortDescription,longDescription,hints,attributes,containsHtml,additionalWaypoints");
         // Expand
         requestName.append("&expand=geocachelogs:" + QString::number(GEOCACHE_LOGS_COUNT) +
@@ -86,7 +86,9 @@ void FullCachesRecorded::parseJson(const QJsonDocument &dataJsonDoc)
         difficulty = fullCache["difficulty"].toDouble();
         terrain = fullCache["terrain"].toDouble();
         name = fullCache["name"].toString();
-        if(fullCache["ownerAlias"].toString() == userName()) {
+
+        QJsonObject v = fullCache["owner"].toObject();
+        if(v["username"].toString() == userName()) {
             own = true;
         } else {
             own = false;
