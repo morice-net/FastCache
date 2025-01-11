@@ -276,7 +276,7 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.owner
-                color: Palette.white()
+                color: Palette.htmlBlue()
 
                 MouseArea {
                     anchors.fill: parent
@@ -350,7 +350,7 @@ Item {
                                                          formatLonText(formatCoordinates , fullCache.correctedLon) :
                                                          formatLatText(formatCoordinates , fullCache.lat) + "  ,   " +
                                                          formatLonText(formatCoordinates , fullCache.lon)
-                color: Palette.white()
+                color: Palette.htmlBlue()
 
                 MouseArea {
                     anchors.fill: parent

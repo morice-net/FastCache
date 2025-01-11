@@ -49,7 +49,7 @@ Item {
                                 font.family: localFont.name
                                 font.bold: true
                                 font.pointSize: 15
-                                color: Palette.black()
+                                color: Palette.htmlBlue()
                                 wrapMode: Text.Wrap
 
                                 MouseArea {
