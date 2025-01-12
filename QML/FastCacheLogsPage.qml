@@ -49,12 +49,12 @@ Item {
                                 font.family: localFont.name
                                 font.bold: true
                                 font.pointSize: 15
-                                color: Palette.htmlBlue()
+                                color: Palette.blueGreen()
                                 wrapMode: Text.Wrap
 
                                 MouseArea {
                                     anchors.fill: parent
-                                    onPressAndHold: {
+                                    onClicked: {
                                         ownerProfile.originalUrl = fullCache.findersUrl[index]
                                         ownerProfile.open()
                                     }

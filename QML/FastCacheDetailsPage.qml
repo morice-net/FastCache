@@ -276,11 +276,11 @@ Item {
                 font.family: localFont.name
                 font.pointSize: 14
                 text: fullCache.owner
-                color: Palette.htmlBlue()
+                color: Palette.blueGreen()
 
                 MouseArea {
                     anchors.fill: parent
-                    onPressAndHold: {
+                    onClicked: {
                         ownerProfile.originalUrl = fullCache.ownerUrl
                         ownerProfile.open()
                     }
@@ -350,7 +350,7 @@ Item {
                                                          formatLonText(formatCoordinates , fullCache.correctedLon) :
                                                          formatLatText(formatCoordinates , fullCache.lat) + "  ,   " +
                                                          formatLonText(formatCoordinates , fullCache.lon)
-                color: Palette.htmlBlue()
+                color: Palette.blueGreen()
 
                 MouseArea {
                     anchors.fill: parent

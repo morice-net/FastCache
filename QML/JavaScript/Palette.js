@@ -24,6 +24,6 @@ function black() {
     return "#313131";
 }
 
-function htmlBlue() {
-    return "#0000FF";
+function blueGreen() {
+    return "#00cec8";
 }
