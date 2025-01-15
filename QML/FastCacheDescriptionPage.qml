@@ -17,7 +17,6 @@ Item {
     onDescriptionTextChanged: {
         backWeb = false
         forwardWeb = false
-        webView.settings.setAllowFileAccess(true)
         webView.loadHtml(descriptionText , "")
     }
 
@@ -97,6 +96,11 @@ Item {
                         }
                         console.log("Go Back Web: " + backWeb)
                         console.log("Go Forward Web: " + forwardWeb)
+                    }
+                    Component.onCompleted: {
+                        webView.settings.setAllowFileAccess(true)
+                        webView.settings.setLocalStorageEnabled(true)
+                        webView.settings.setLocalContentCanAccessFileUrls(true)
                     }
                 }
             }
@@ -218,7 +222,6 @@ Item {
 
     function imagesCache() {
         var visible =[];
-
         for (var i = 0; i < fullCache.imagesName.length; i++) {
             if( i < fullCache.cacheImagesIndex[0]){
                 visible.push(true) ;

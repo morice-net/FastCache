@@ -17,10 +17,7 @@ Item {
         if(fullCache.type === "labCache" && main.listState !== "recorded") {  //lab cache not recorded
             fullLabCacheRetriever.sendRequest(connector.tokenKey)
         } else if(fullCache.type === "labCache" && main.listState === "recorded") { //lab cache recorded
-            var listGeocode = []
-            listGeocode.push(fullCache.geocode)
-            fullCachesRecorded.sendRequest(connector.tokenKey , listGeocode , sqliteStorage.cacheInLists("cacheslists", fullCache.geocode) ,
-                                           sqliteStorage)
+            fullLabCacheRetriever.parseJson(sqliteStorage.readColumnJson("fullcache" , fullCache.geocode ))
         }
     }
 
@@ -30,6 +27,16 @@ Item {
             console.log("Application state:  " + Qt.application.state)
             if(Qt.application.state === Qt.ApplicationActive && adventureLabLaunched === true ) { // we return to the main application
                 adventureLabLaunched = false
+                if(fullCache.type === "labCache" && main.listState === "recorded") { //lab cache recorded
+                    var listGeocode = []
+                    var listLatitude = []
+                    var listLongitude = []
+                    listGeocode.push(fullCache.geocode)
+                    listLatitude.push(fullCache.lat)
+                    listLongitude.push(fullCache.lon)
+                    fullLabCachesRecorded.sendRequest(connector.tokenKey , listGeocode ,listLatitude ,listLongitude ,
+                                                      sqliteStorage.cacheInLists("cacheslists", fullCache.geocode) , sqliteStorage)
+                }
                 userInfo.sendRequest(connector.tokenKey, getTravelbugUser)  // updates the number of caches found
                 return
             }
