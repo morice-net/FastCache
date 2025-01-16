@@ -104,7 +104,7 @@ QJsonDocument ReplaceImageInText::replaceUrlImageToPathLabCache(const QString &g
     qDebug()<<"key image url: "<< url;
     qDebug()<<"path: "<< path;
     if(saveImage)
-        downloadFile(QUrl(url), "", path);    
+        downloadFile(QUrl(url), "", path);
     cacheJson.insert("keyImageUrlFile" , "file:" + path);
 
     // replace in "stages" of recorded cache

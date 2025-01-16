@@ -17,7 +17,8 @@ Item {
     onDescriptionTextChanged: {
         backWeb = false
         forwardWeb = false
-        webView.loadHtml(descriptionText , "")
+        if(fullCache.type !== "labCache")
+            webView.loadHtml(descriptionText, "" )
     }
 
     Flickable {
@@ -48,7 +49,6 @@ Item {
                         webView.goBack()
                         console.log("Go Back Web: " + backWeb)
                         console.log("Go Forward Web: " + forwardWeb)
-
                     }
                     enabled: webView != null ? webView.canGoBack && backWeb : false
                     background: Rectangle {
@@ -76,15 +76,51 @@ Item {
             }
 
             Rectangle {
+                id: rectangle
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.95
                 height: main.height * 0.7
                 color: Palette.white()
 
+                // if labCache
+                Flickable {
+                    anchors.fill: parent
+                    contentHeight: textLab.height + imageLab.height + 10
+                    flickableDirection: Flickable.VerticalFlick
+                    clip: true
+
+                    Image {
+                        id: imageLab
+                        visible: fullCache.type === "labCache"
+                        x: (rectangle.width - imageLab.width) / 2
+                        y: 5
+                        width: rectangle.width * 0.7
+                        height: rectangle.height * 0.4
+                        source: fullCache.imageUrl
+                    }
+
+                    Text {
+                        id:textLab
+                        visible: fullCache.type === "labCache"
+                        anchors.horizontalCenterOffset: (main.width - parent.width) / 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.top: imageLab.bottom
+                        width: main.width * 0.8
+                        text: descriptionText
+                        wrapMode: Text.Wrap
+                        textFormat: Text.RichText
+                        font.family: localFont.name
+                        font.pointSize: 15
+                        color: Palette.black()
+                    }
+                }
+
+                // if not labCache
                 WebView {
                     id: webView
                     anchors.fill: parent
-                    visible: fastMenu.isMenuVisible() || userSettings.isMenuVisible() || cachesRecordedLists.opened ? false : true
+                    visible: fastMenu.isMenuVisible() || userSettings.isMenuVisible() || cachesRecordedLists.opened || fullCache.type === "labCache"
+                             ? false : true
                     clip: true
                     onUrlChanged: {
                         console.log("URL is: " + url);
@@ -101,6 +137,7 @@ Item {
                         webView.settings.setAllowFileAccess(true)
                         webView.settings.setLocalStorageEnabled(true)
                         webView.settings.setLocalContentCanAccessFileUrls(true)
+                        webView.settings.setJavaScriptEnabled(true)
                     }
                 }
             }

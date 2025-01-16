@@ -91,9 +91,7 @@ void FullLabCacheRetriever::descriptionLabCache(QString url, QString imageUrl, Q
                 indexEnd = read.indexOf(ownerTagEnd , indexBegin);
                 QString owner = read.sliced(indexBegin , indexEnd - indexBegin);
 
-                QString longDescription = "<p align=\"center\"><img src= " + imageUrl + " width=\"250\"  />" +
-                                          "<center><strong>"  + name + "</strong></center><br />" +
-                                          description +
+                QString longDescription = "<center><strong>"  + name + "</strong></center><br />" + description +
                                           "<br /><center><strong>" + owner + "</strong></center>";
                 emit descriptionChanged(longDescription);
             });
@@ -170,12 +168,11 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
 
         m_keyImageUrl = cacheJson["keyImageUrl"].toString();
 
-        QString description = "<p align=\"center\"><img src= " + m_fullCache->imageUrl() + " width=\"250\"  />" +
-                              "<center><strong>"  + m_fullCache->name() + "</strong></center><br />" +
+        QString description = "<center><strong>"  + m_fullCache->name() + "</strong></center><br />" +
                               cacheJson["description"].toString() +
                               "<br /><center><strong>" + m_fullCache->owner() + "</strong></center>";
         m_fullCache->setLongDescription(description);
-        m_fullCache->setShortDescription(cacheJson["firebaseDynamicLink"].toString());        
+        m_fullCache->setShortDescription(cacheJson["firebaseDynamicLink"].toString());
     }
 
     // adventure type, "Nonsequential" for non sequential lab cache
