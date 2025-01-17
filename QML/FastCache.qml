@@ -83,7 +83,7 @@ Rectangle {
 
     Row {
         id:fastCacheHeader
-        y: 5
+        y: fullCache.type === "labCache" ? 15 : 5
         property int xGoal: 0
         x: -100
         spacing: 10
