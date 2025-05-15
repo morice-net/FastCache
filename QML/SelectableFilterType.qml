@@ -5,15 +5,12 @@ import "JavaScript/Palette.js" as Palette
 
 CheckBox {
     id: control
-
-    property bool typeCache
-
-    checked: typeCache
+    checked: listTypes[index]
     onClicked: {
         main.listTypes[index] = control.checked
         updateFilterType()
     }
-    onPressAndHold: updateListTypes(!typeCache)
+    onPressAndHold: updateListTypes(!listTypes[index])
     indicator: Rectangle {
         opacity: 0.8
         implicitWidth: control.width
@@ -95,7 +92,7 @@ CheckBox {
         for (var i = 0; i < listTypes.length; i++) {
             list.push(flag)
         }
-        listTypes = list
+        listTypes =list
     }
 }
 

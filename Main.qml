@@ -27,7 +27,7 @@ Window {
 
     // Previous viewstate used when downloading a fullcache or a travel bug
     property var previousViewState: ["" , ""]
-    property var listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
+    property list <bool> listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
         settings.webcam , settings.wherigo , settings.gchq]
     property var listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,

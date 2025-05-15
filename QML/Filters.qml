@@ -37,13 +37,11 @@ Item {
             rowSpacing: 5
 
             Repeater {
-                model: main.listTypes
-
-                SelectableFilterType {
+                model: listTypes.length
+                delegate: SelectableFilterType {
                     id: selectableFilterType
                     width: selectableIconWidth
                     height: width
-                    typeCache: modelData
                 }
             }
         }
