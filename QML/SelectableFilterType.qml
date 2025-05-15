@@ -92,7 +92,7 @@ CheckBox {
         for (var i = 0; i < listTypes.length; i++) {
             list.push(flag)
         }
-        listTypes =list
+        listTypes = list
     }
 }
 

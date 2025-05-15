@@ -30,7 +30,7 @@ Window {
     property list <bool> listTypes : [settings.traditional , settings.mystery , settings.multi , settings.earth , settings.cito,
         settings.ape , settings.event , settings.giga , settings.letterbox , settings.mega , settings.virtual ,
         settings.webcam , settings.wherigo , settings.gchq]
-    property var listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,
+    property list <bool> listSizes : [settings.micro , settings.small , settings.regular , settings.large , settings.notChosen,
         settings.virtualSize , settings.other]
     property var listKeywordDiscoverOwner : [settings.keyWord , settings.discover , settings.owner]
     property bool excludeFound : settings.excludeCachesFound

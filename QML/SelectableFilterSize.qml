@@ -6,16 +6,20 @@ import "JavaScript/Palette.js" as Palette
 CheckBox {
     id: control
 
-    property bool sizeCache
-    property var listSizeFr: ["Micro" , "Petite" , "Normale" , "Grande" , "Non renseignée" , "Virtuelle" , "Autre"]
+    property list <string> listSizeFr: ["Micro" , "Petite" , "Normale" , "Grande" , "Non renseignée" , "Virtuelle" , "Autre"]
 
-    checked: sizeCache
+    checked: listSizes[index]
     onClicked: {
         main.listSizes[index] = control.checked
         textSizeButton()
         updateFilterSize()
+
+
     }
-    onPressAndHold: updatelistSizes(!sizeCache)
+    onPressAndHold: {
+        updatelistSizes(!listSizes[index])
+        textSizeButton()
+    }
     contentItem: Text {
         text: listSizeFr[index]
         font.family: localFont.name
@@ -39,7 +43,6 @@ CheckBox {
             anchors.margins: 4
         }
     }
-    Component.onCompleted: textSizeButton()
     Component.onDestruction: {
         settings.micro = listSizes[0]
         settings.small = listSizes[1]
@@ -67,39 +70,6 @@ CheckBox {
         else if (index === 6)
             settings.other= main.listSizes[6]
         else console.log("Erreur d'index dans SelectableSize")
-    }
-
-    function textSizeButton() {
-        if(listSizes[0] && listSizes[1] && listSizes[2] && listSizes[3] && listSizes[4] && listSizes[5] && listSizes[6])
-        {
-            textButtonId.text = "Toutes..."
-            return
-        }
-        var textArray = ""
-        if(listSizes[0]) {
-            textArray += "Mc "
-        }
-        if(listSizes[1]) {
-            textArray += "Pt "
-        }
-        if(listSizes[2]) {
-            textArray += "Nm "
-        }
-        if(listSizes[3]) {
-            textArray += "Gr "
-        }
-        if(listSizes[4]) {
-            textArray += "NonRenseignée "
-        }
-        if(listSizes[5]) {
-            textArray += "Virt "
-        }
-        if(listSizes[6]) {
-            textArray += "Autre "
-        }
-        if(textArray === "")
-            textArray = "Aucune"
-        textButtonId.text = textArray
     }
 
     function updatelistSizes(flag) {

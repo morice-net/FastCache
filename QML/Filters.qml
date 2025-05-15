@@ -59,6 +59,7 @@ Item {
             font.pointSize: 16
             onClicked: popupSize.open()
             onWidthChanged: x = (filters.width - width) / 2
+            Component.onCompleted: textSizeButton()
         }
 
         FastPopup {
@@ -75,15 +76,14 @@ Item {
             Column {
 
                 Repeater {
-                    model: main.listSizes
-
-                    SelectableFilterSize {
+                    model: listSizes.length
+                    delegate: SelectableFilterSize {
                         id: selectableFilterSize
                         width: selectableIconWidth
                         height: width
-                        sizeCache: modelData
                     }
                 }
+
             }
 
             function closeIfMenu() {
@@ -167,5 +167,38 @@ Item {
 
     function recordFiltersInSettings() {
         keyWordPopup.recordInSettings()
+    }
+
+    function textSizeButton() {
+        if(listSizes[0] && listSizes[1] && listSizes[2] && listSizes[3] && listSizes[4] && listSizes[5] && listSizes[6])
+        {
+            textButtonId.text = "Toutes..."
+            return
+        }
+        var textArray = ""
+        if(listSizes[0]) {
+            textArray += "Mc "
+        }
+        if(listSizes[1]) {
+            textArray += "Pt "
+        }
+        if(listSizes[2]) {
+            textArray += "Nm "
+        }
+        if(listSizes[3]) {
+            textArray += "Gr "
+        }
+        if(listSizes[4]) {
+            textArray += "NonRenseignée "
+        }
+        if(listSizes[5]) {
+            textArray += "Virt "
+        }
+        if(listSizes[6]) {
+            textArray += "Autre "
+        }
+        if(textArray === "")
+            textArray = "Aucune"
+        textButtonId.text = textArray
     }
 }
