@@ -7,9 +7,9 @@ Column {
     id: columnMaps
     spacing: 20
 
-    property var mapNames: ["Open Street Map" , "Google Maps : plan" , "Google Maps : satellite" , "Cyclo OSM"]
+    property list <string> mapNames: ["Open Street Map" , "Google Maps : plan" , "Google Maps : satellite" , "Cyclo OSM"]
     property var folders: [tilesDownloader.dirOsm , tilesDownloader.dirGooglemaps , tilesDownloader.dirGooglemaps , tilesDownloader.dirCyclOsm]
-    property var sats: [false , false , true , false]
+    property list <bool> sats: [false , false , true , false]
 
     RadioButton {
         id: button

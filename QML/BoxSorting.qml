@@ -8,9 +8,9 @@ Item {
     x: parent.width/3
     y:parent.height/8
 
-    property var textList: ["Tri par Géocode" , "Tri par Nom" , "Tri par Type", "Tri par Taille" , "Tri par Difficulté" ,"Tri par Terrain" ,
+    property list <string> textList: ["Tri par Géocode" , "Tri par Nom" , "Tri par Type", "Tri par Taille" , "Tri par Difficulté" ,"Tri par Terrain" ,
         "Tri par Distance"]
-    property var checkedList: [main.sortGeocode , main.sortName , main.sortType , main.sortSize , main.sortDifficulty , main.sortTerrain ,
+    property list <int> checkedList: [main.sortGeocode , main.sortName , main.sortType , main.sortSize , main.sortDifficulty , main.sortTerrain ,
         main.sortDistance]
 
     GroupBox {

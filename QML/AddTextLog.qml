@@ -6,8 +6,8 @@ import "JavaScript/Palette.js" as Palette
 FastPopup {
     id: addText
 
-    property var textList: ["Date" , "Heure" , "Utilisateur" , "Propriétaire" , "Nom de la cache" , "Difficulté" , "Terrain" , "Taille"]
-    property var clickedList: [new Date().toLocaleDateString(Qt.LocaleDate) , new Date().getHours(Qt.LocaleDate) + " h : " +
+    property list <string> textList: ["Date" , "Heure" , "Utilisateur" , "Propriétaire" , "Nom de la cache" , "Difficulté" , "Terrain" , "Taille"]
+    property list <string> clickedList: [new Date().toLocaleDateString(Qt.LocaleDate) , new Date().getHours(Qt.LocaleDate) + " h : " +
         new Date().getMinutes(Qt.LocaleDate) , userInfo.name , fullCache.owner , fullCache.name , fullCache.difficulty ,
         fullCache.terrain , fullCache.size]
 
