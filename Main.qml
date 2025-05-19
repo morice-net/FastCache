@@ -527,10 +527,13 @@ Window {
                 }
             }
             onParsingCompletedChanged: {
+                fastCache.swipeToPage(fastCache.detailsPageIndex);
+
                 if(sendCacheLog.logTypeResponse !== 2 && sendCacheLog.parsingCompleted) {
                     fullCache.found = false
                 } else if(sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted){
                     fullCache.found = true
+                    findCount = findCount + 1
                 }
                 // if it is a registered cache and logType=2(found), mark found on list and map.
                 if(fullCache.registered && sendCacheLog.logTypeResponse === 2 && sendCacheLog.parsingCompleted) {
@@ -539,10 +542,6 @@ Window {
                                                                       sqliteStorage.readColumnJson("fullcache", fullCache.geocode), new Date().toISOString(), fav))
                     fullCache.favorited = fav
                 }
-            }
-            onFoundsChanged: {
-                findCount = sendCacheLog.founds;
-                fastCache.swipeToPage(fastCache.detailsPageIndex);
             }
             onCodeLogChanged: {
                 fastCache.addImagesToLog()
