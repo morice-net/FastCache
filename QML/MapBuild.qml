@@ -219,6 +219,8 @@ Map {
         }
 
         function updateRotation() {
+            if (fastCache === undefined || fastCache === undefined)
+                return
             smallCompassNeedle.rotation = - azimutDevice + locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
         }
         Component.onCompleted: {
