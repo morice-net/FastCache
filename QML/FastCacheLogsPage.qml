@@ -132,6 +132,14 @@ Item {
                             wrapMode: TextArea.Wrap
                             onLinkActivated: Qt.openUrlExternally(link)
                             text: fullCache.logs[index]
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onPressAndHold: {
+                                    translateText.open()
+                                    translate = fullCache.logs[index]
+                                }
+                            }
                         }
                     }
                 }

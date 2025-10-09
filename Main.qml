@@ -58,6 +58,7 @@ Window {
     property double externalLongitude: 0.0
     property var locationSource: externalSource ? externalLocation.coordinate : currentPosition.position.coordinate
     property int azimutDevice: 0  // used by magnetic compass
+    property string translate: "" // used to translate text
 
     Item {
         id: mainItem
@@ -65,6 +66,8 @@ Window {
         anchors.fill: parent
 
         FastSettings { id: settings }
+
+        Translate { id: translateText }
 
         Location {
             id: externalLocation
