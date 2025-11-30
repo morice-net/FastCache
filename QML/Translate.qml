@@ -14,56 +14,62 @@ FastPopup {
 
     property var listLangs: ["francais" ,"anglais" , "espagnol" , "italien" , "allemand" , "portugais"]
 
-    Column {
-        spacing: 20
+    FastButton {
+        id: buttonTraduct
+        leftPadding: 5
+        font.pointSize: 12
+        text: "Traduction..."
+    }
 
-        Row {
-            spacing: 10
-
-            FastButton {
-                font.pointSize: 12
-                text: "Traduction..."
-            }
-
-            ComboBox {
-                id: langsCombo
-                width: main.width * 0.3
-                model: listLangs
-
-                delegate: ItemDelegate {
-                    width: langsCombo.width
-                    contentItem: Text {
-                        text: modelData
-                        color: Palette.turquoise()
-                        font.family: localFont.name
-                        font.pointSize: 11
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                }
-                contentItem: Text {
-                    leftPadding: 20
-                    text: langsCombo.displayText
-                    font.family: localFont.name
-                    font.pointSize: 11
-                    color: Palette.turquoise()
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
+    ComboBox {
+        id: langsCombo
+        width: main.width * 0.3
+        anchors.left: buttonTraduct.right
+        anchors.margins: (translateText.width -  buttonTraduct.width - langsCombo.width - 10)
+        model: listLangs
+        delegate: ItemDelegate {
+            width: langsCombo.width
+            contentItem: Text {
+                text: modelData
+                color: Palette.turquoise()
+                font.family: localFont.name
+                font.pointSize: 11
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
             }
         }
+        contentItem: Text {
+            leftPadding: 20
+            text: langsCombo.displayText
+            font.family: localFont.name
+            font.pointSize: 11
+            color: Palette.turquoise()
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
 
-        Text {
-            width: translateText.width *0.9
-          //  height: main.height * 0.8
+    ScrollView {
+        anchors.top : langsCombo.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        topPadding: 15
+        width: translateText.width * 0.95
+        height: translateText.height * 0.9
+
+        TextArea {
+            font.family: localFont.name
+            font.pointSize: 11
             text: translate
-            color: Palette.white()
+            color: Palette.greenSea()
+            horizontalAlignment: TextEdit.AlignJustify
+            textFormat: Qt.RichText
+            wrapMode: TextArea.Wrap
         }
+    }
 
-        function closeIfMenu() {
-            if (fastMenu.isMenuVisible())
-                visible = false
-        }
+    function closeIfMenu() {
+        if (fastMenu.isMenuVisible())
+            visible = false
     }
 }
 
