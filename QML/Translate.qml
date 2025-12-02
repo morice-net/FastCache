@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import FastCache
 
 import "JavaScript/Palette.js" as Palette
 
@@ -13,54 +14,112 @@ FastPopup {
     y: 50
 
     property var listLangs: ["francais" ,"anglais" , "espagnol" , "italien" , "allemand" , "portugais"]
+    property var listLangsAbbreviation: ["fr" ,"en" , "es" , "it" , "de" , "pt-PT"]
+
+    Translator {
+        id: translator
+        onTranslateTextChanged: main.translate = translator.translateText
+    }
 
     FastButton {
         id: buttonTraduct
-        leftPadding: 5
-        font.pointSize: 12
+        font.pointSize: 13
         text: "Traduction..."
+        onClicked: {
+            translate = textToTranslate.text
+            translator.translate(translate , listLangsAbbreviation[langTarget.currentIndex]  , listLangsAbbreviation[langSource.currentIndex])
+        }
     }
 
     ComboBox {
-        id: langsCombo
-        width: main.width * 0.3
+        id: langSource
+        width: main.width * 0.25
         anchors.left: buttonTraduct.right
-        anchors.margins: (translateText.width -  buttonTraduct.width - langsCombo.width - 10)
+        anchors.margins: (translateText.width -  buttonTraduct.width - langSource.width - 20)
         model: listLangs
         delegate: ItemDelegate {
-            width: langsCombo.width
+            width: langSource.width
             contentItem: Text {
                 text: modelData
                 color: Palette.turquoise()
                 font.family: localFont.name
-                font.pointSize: 11
+                font.pointSize: 12
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
         }
         contentItem: Text {
             leftPadding: 20
-            text: langsCombo.displayText
+            text: langSource.displayText
             font.family: localFont.name
-            font.pointSize: 11
+            font.pointSize: 12
             color: Palette.turquoise()
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
+
+        background: Rectangle {
+            implicitWidth: 120
+            implicitHeight: 30
+            border.color: Palette.silver()
+            border.width: 1
+            radius: 8
+        }
+    }
+
+    ComboBox {
+        id: langTarget
+        width: main.width * 0.25
+        anchors.top: langSource.bottom
+        anchors.left: langSource.left
+        anchors.topMargin: 5
+        model: listLangs
+        delegate: ItemDelegate {
+            width: langTarget.width
+            contentItem: Text {
+                text: modelData
+                color: Palette.turquoise()
+                font.family: localFont.name
+                font.pointSize: 12
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+            }
+        }
+        contentItem: Text {
+            leftPadding: 20
+            text: langTarget.displayText
+            font.family: localFont.name
+            font.pointSize: 12
+            color: Palette.turquoise()
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+
+        background: Rectangle {
+            implicitWidth: 120
+            implicitHeight: 30
+            border.color: Palette.silver()
+            border.width: 1
+            radius: 8
+        }
     }
 
     ScrollView {
-        anchors.top : langsCombo.bottom
+        anchors.top : langTarget.bottom
+        anchors.topMargin: 5
         anchors.horizontalCenter: parent.horizontalCenter
-        topPadding: 15
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         width: translateText.width * 0.95
-        height: translateText.height * 0.9
+        height: translateText.height * 0.8
+        clip : true
 
-        TextArea {
+        Text {
+            id: textToTranslate
+            width: translateText.width * 0.95
             font.family: localFont.name
-            font.pointSize: 11
+            font.pointSize: 14
             text: translate
-            color: Palette.greenSea()
+            color: Palette.white()
             horizontalAlignment: TextEdit.AlignJustify
             textFormat: Qt.RichText
             wrapMode: TextArea.Wrap

@@ -784,6 +784,8 @@ Window {
                                     geocode.close()
                                 } else if (ownerProfile.opened) {
                                     ownerProfile.close()
+                                } else if (translateText.opened) {
+                                    translateText.close()
                                 } else if (fastMenu.isMenuVisible()) {
                                     fastMenu.hideMenu()
                                 } else if (satelliteInfo.isMenuVisible()) {

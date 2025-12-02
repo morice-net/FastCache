@@ -11,6 +11,7 @@
 
 Translator::Translator(QObject *parent)
     : QObject(parent)
+    ,m_translateText("")
 {
     manager = new QNetworkAccessManager(this);
     QObject::connect(manager, &QNetworkAccessManager::finished,
@@ -27,7 +28,7 @@ void Translator::translate(const QString &text, const QString &targetLang, const
     // URL Configuration
     QUrl url("https://translation.googleapis.com/language/translate/v2");
     QUrlQuery query;
-    query.addQueryItem("key", "apiKey");
+    query.addQueryItem("key", QByteArray::fromBase64("QUl6YVN5Q2JiSXJkYi1DbFM4REQ1VDVacGV2SExBUWx3ME43ME1z"));
     url.setQuery(query);
 
     // Preparing JSON data
@@ -47,21 +48,34 @@ void Translator::translate(const QString &text, const QString &targetLang, const
 }
 
 void Translator::onTranslationFinished(QNetworkReply *reply) {
-    if (reply->error() == QNetworkReply::NoError) {        
+    if (reply->error() == QNetworkReply::NoError) {
         QByteArray response = reply->readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
         QJsonObject jsonObj = jsonDoc.object();        
         QJsonArray translations = jsonObj["data"].toObject()["translations"].toArray();
         if (!translations.isEmpty()) {
-            QString translatedText = translations[0].toObject()["translatedText"].toString();
-            emit Translator::translationComplete(translatedText);
+            QString translatedText = translations[0].toObject()["translatedText"].toString();            
+            setTranslateText(translatedText);
         } else {
-            emit Translator::errorOccurred("Aucune traduction trouvée");
+            setTranslateText("Aucune traduction trouvée");
         }
     } else {
-        emit Translator::errorOccurred("Erreur réseau: " + reply->errorString());
+        setTranslateText("Erreur réseau: " + reply->errorString());
     }
     reply->deleteLater();
+}
+
+/** Getters & Setters **/
+
+QString Translator::translateText() const
+{
+    return m_translateText;
+}
+
+void Translator::setTranslateText(const QString &text)
+{
+    m_translateText = text;
+    emit translateTextChanged();
 }
 
 
