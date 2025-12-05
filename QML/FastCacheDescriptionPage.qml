@@ -178,7 +178,7 @@ Item {
             }
 
             Text {
-                id:hint
+                id: hint
                 visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.95
@@ -195,6 +195,10 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         codedHint = !codedHint
+                    }
+                    onPressAndHold: {
+                        translateText.open()
+                        translate = hint.text
                     }
                 }
                 onVisibleChanged: codedHint = true
