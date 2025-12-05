@@ -108,7 +108,8 @@ FastPopup {
         anchors.top : langTarget.bottom
         anchors.topMargin: 5
         anchors.horizontalCenter: parent.horizontalCenter
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+        contentWidth: availableWidth
+     //   ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         width: translateText.width * 0.95
         height: translateText.height * 0.8
         clip : true
