@@ -126,6 +126,14 @@ Item  {
                             textFormat: Qt.RichText
                             wrapMode: TextArea.Wrap
                             onLinkActivated: Qt.openUrlExternally(link)
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onPressAndHold: {
+                                    translateText.open()
+                                    translate = listLogs[index]
+                                }
+                            }
                         }
 
                         // icons
