@@ -94,6 +94,14 @@ Item {
                         font.pointSize: 15
                         color: Palette.white()
                         wrapMode: Text.Wrap
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onPressAndHold: {
+                                translateText.open()
+                                translate = fullCache.wptsDescription[index]
+                            }
+                        }
                     }
 
                     Row {
@@ -185,6 +193,14 @@ Item {
                         rightPadding: 15
                         onLinkActivated: Qt.openUrlExternally(link)
                         text: fullCache.wptsComment[index]
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onPressAndHold: {
+                                translateText.open()
+                                translate = fullCache.wptsComment[index]
+                            }
+                        }
                     }
 
                     Rectangle {
