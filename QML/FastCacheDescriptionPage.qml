@@ -119,8 +119,8 @@ Item {
                 WebView {
                     id: webView
                     anchors.fill: parent
-                    visible: fastMenu.isMenuVisible() || userSettings.isMenuVisible() || cachesRecordedLists.opened || fullCache.type === "labCache"
-                             ? false : true
+                    visible: fastMenu.isMenuVisible() || userSettings.isMenuVisible() || cachesRecordedLists.opened || fullCache.type === "labCache"  ||
+                             translateText.opened ? false : true
                     clip: true
                     onUrlChanged: {
                         console.log("URL is: " + url);
