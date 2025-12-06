@@ -115,6 +115,14 @@ Item {
                             rightPadding: 15
                             onLinkActivated: Qt.openUrlExternally(link)
                             text: travelbug.logsText[index]
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onPressAndHold: {
+                                    translateText.open()
+                                    translate = travelbug.logsText[index]
+                                }
+                            }
                         }
                     }
                 }

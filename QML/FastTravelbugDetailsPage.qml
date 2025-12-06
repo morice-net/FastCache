@@ -212,7 +212,7 @@ Item {
             }
 
             Text {
-                id:goalText
+                id: goalText
                 visible: travelbug.goal.length !== 0
                 width: fastTravelbugDetailsPage.width * 0.98
                 x: fastTravelbugDetailsPage.width * 0.01
@@ -225,6 +225,14 @@ Item {
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: travelbug.goal
                 clip: true
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressAndHold: {
+                        translateText.open()
+                        translate = travelbug.goal
+                    }
+                }
             }
 
             Rectangle {
@@ -261,6 +269,14 @@ Item {
                 font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
                 text: travelbug.description
+
+                MouseArea {
+                    anchors.fill: parent
+                    onPressAndHold: {
+                        translateText.open()
+                        translate = travelbug.description
+                    }
+                }
             }
 
             Rectangle {
@@ -273,7 +289,7 @@ Item {
             }
 
             Text {
-                id:images
+                id: images
                 visible:travelbug.imagesName.length !== 0
                 width: parent.width
                 y: separator3.y + 10
@@ -302,6 +318,14 @@ Item {
                         font.pointSize: 15
                         color: Palette.white()
                         wrapMode: Text.Wrap
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onPressAndHold: {
+                                translateText.open()
+                                translate = travelbug.imagesName[index]
+                            }
+                        }
                     }
 
                     Image {

@@ -141,6 +141,7 @@ Item {
 
             TextArea {
                 id: message
+                text: translate
                 x: (logPage.width - message.width) / 2
                 width: logPage.width * 0.9
                 font.family: localFont.name
@@ -149,6 +150,10 @@ Item {
                 wrapMode: Text.Wrap
                 background: Rectangle {
                     implicitHeight: 100
+                }
+                onPressAndHold: {
+                    translateText.open()
+                    translate = message.text
                 }
             }
 

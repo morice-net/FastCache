@@ -60,6 +60,7 @@ Rectangle {
         currentIndex: swipeFastTravelbug.currentIndex
         onCurrentIndexChanged: swipeToPage(currentIndex)
         delegate:
+
             Text {
             font.pointSize: 14
             text: pageIndicatorMenu(index)
