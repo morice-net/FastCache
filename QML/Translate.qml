@@ -107,9 +107,8 @@ FastPopup {
     ScrollView {
         anchors.top : langTarget.bottom
         anchors.topMargin: 5
-        anchors.horizontalCenter: parent.horizontalCenter
-        contentWidth: availableWidth
-        width: translateText.width * 0.95
+        anchors.horizontalCenter: parent.horizontalCenter      
+        width: translateText.width * 0.95        
         height: translateText.height * 0.8
         clip : true
 

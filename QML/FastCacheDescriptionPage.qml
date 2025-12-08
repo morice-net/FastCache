@@ -36,7 +36,7 @@ Item {
 
             Row {
                 visible: fullCache.geocode.substring(0,2) === "GC"
-                spacing: descriptionPage.width / 3
+                spacing: descriptionPage.width / 8
                 anchors.horizontalCenter: parent.horizontalCenter
                 bottomPadding: 10
 
@@ -54,6 +54,16 @@ Item {
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
+                    }
+                }
+
+                FastButton {
+                    id: buttonTraduct
+                    text: "traduire"
+                    font.pointSize: 13
+                    onClicked: {
+                        translateText.open()
+                        translate = descriptionText
                     }
                 }
 
