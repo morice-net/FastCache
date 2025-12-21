@@ -68,6 +68,7 @@ qt_add_qml_module(appFastCache
     cacheattribute.h cacheattribute.cpp
     fulllabcacheretriever.h fulllabcacheretriever.cpp
     translator.h translator.cpp
+    wherigocartridge.h wherigocartridge.cpp
 
     QML_FILES
     Main.qml

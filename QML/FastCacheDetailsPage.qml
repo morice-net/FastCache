@@ -373,6 +373,7 @@ Item {
             radius: 10
         }
 
+
         Text {
             visible: fullCache.type === "labCache"
             anchors.horizontalCenter: parent.horizontalCenter
@@ -407,7 +408,7 @@ Item {
         }
 
         Rectangle {
-            id: rect
+            id: line
             visible: fullCache.type !== "labCache"
             width: parent.width
             height: 2
@@ -418,7 +419,19 @@ Item {
         CacheAttributes {
             id: cacheAttributes
             visible: fullCache.type !== "labCache"
-            anchors.top: rect.bottom
+            //   anchors.top: line.bottom
+        }
+
+        //load wherigo cartridge
+        FastButton {
+            id: buttonWherigo
+            visible: fullCache.type === "Wherigo"    // cache wherigo
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pointSize: 13
+            text: "charger le cartouche wherigo"
+            onClicked: {
+                wherigoCartridge.downloadCartridge(connector.tokenKey, fullCache.cartridgeGuid , fullCache.geocode)
+            }
         }
     }
 }

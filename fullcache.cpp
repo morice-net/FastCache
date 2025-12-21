@@ -42,7 +42,7 @@ FullCache::FullCache(Cache *parent)
     , m_adventureType("")
     , m_ownerUrl("")
     , m_findersUrl(QList<QString>())
-
+    , m_cartridgeGuid("")
 {
 }
 
@@ -502,6 +502,17 @@ void FullCache::setOwnerUrl(const QString &url)
 {
     m_ownerUrl = url ;
     emit ownerUrlChanged();
+}
+
+QString FullCache::cartridgeGuid() const
+{
+    return m_cartridgeGuid;
+}
+
+void FullCache::setCartridgeGuid(const QString &guid)
+{
+    m_cartridgeGuid = guid;
+    emit cartridgeGuidChanged();
 }
 
 

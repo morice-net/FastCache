@@ -45,7 +45,7 @@ class FullCache : public Cache
     Q_PROPERTY(bool isCorrectedCoordinates READ isCorrectedCoordinates WRITE setIsCorrectedCoordinates NOTIFY isCorrectedCoordinatesChanged)
     Q_PROPERTY(double correctedLat READ correctedLat WRITE setCorrectedLat NOTIFY correctedLatChanged)
     Q_PROPERTY(double correctedLon READ correctedLon WRITE setCorrectedLon NOTIFY correctedLonChanged)
-    Q_PROPERTY(QString correctedCode READ correctedCode WRITE setCorrectedCode NOTIFY correctedCodeChanged)    
+    Q_PROPERTY(QString correctedCode READ correctedCode WRITE setCorrectedCode NOTIFY correctedCodeChanged)
     Q_PROPERTY(QString ownerUrl READ ownerUrl WRITE setOwnerUrl NOTIFY ownerUrlChanged)
 
     // lab cache
@@ -53,11 +53,14 @@ class FullCache : public Cache
     Q_PROPERTY(QList<bool> wptsIsComplete  READ wptsIsComplete WRITE setWptsIsComplete NOTIFY wptsIsCompleteChanged)
     Q_PROPERTY(QString adventureType  READ adventureType WRITE setAdventureType NOTIFY adventureTypeChanged)
 
+    // wherigo cache
+    Q_PROPERTY(QString cartridgeGuid READ cartridgeGuid WRITE setCartridgeGuid NOTIFY cartridgeGuidChanged)
+
 public:
     explicit FullCache(Cache *parent = nullptr);
 
     Q_INVOKABLE void removeUserWpt(int index);
-    Q_INVOKABLE void removeCorrectedcoordinates();  
+    Q_INVOKABLE void removeCorrectedcoordinates();
 
     QList<int> attributes() const;
     void setAttributes(const QList<int> &attributes);
@@ -179,6 +182,10 @@ public:
     QString ownerUrl() const;
     void setOwnerUrl(const QString &url);
 
+    QString cartridgeGuid() const;
+    void setCartridgeGuid(const QString &guid);
+
+
 signals:
     void attributesChanged();
     void attributesBoolChanged();
@@ -220,6 +227,7 @@ signals:
     void adventureTypeChanged();
     void ownerUrlChanged();
     void findersUrlChanged();
+    void cartridgeGuidChanged();
 
 private:
     QList<int> m_attributes;
@@ -262,5 +270,6 @@ private:
     QString m_adventureType;
     QString m_ownerUrl;
     QList<QString> m_findersUrl;
+    QString m_cartridgeGuid;
 };
 #endif // FULLCACHE_H

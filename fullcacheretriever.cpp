@@ -184,6 +184,20 @@ void FullCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     m_fullCache->setLongDescriptionIsHtml(cacheJson["containsHtml"].toBool());
     m_fullCache->setLongDescription(cacheJson["longDescription"].toString());
 
+    // Extracting the CGUID if Wherigo cache
+    m_fullCache->setCartridgeGuid("");
+    if(m_fullCache->type() == "Wherigo") {  // wherigo cache
+        QRegularExpression regex("wherigo\.com/cartridge/details\\.aspx\\?CGUID=[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+                                 , QRegularExpression::CaseInsensitiveOption);
+        QRegularExpressionMatch match = regex.match(m_fullCache->longDescription());
+        if(match.hasMatch()) {
+            QString matched = match.captured(0);
+            QUrl url (matched);
+            QString guid = QUrlQuery(url).queryItemValue("CGUID");
+            m_fullCache->setCartridgeGuid(guid);
+        }
+    }
+
     // Hints
     m_fullCache->setHints(cacheJson["hints"].toString());
 

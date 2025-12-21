@@ -69,6 +69,24 @@ Window {
 
         Translate { id: translateText }
 
+        WherigoCartridge {
+            id: wherigoCartridge
+            onStateChanged: {
+                if(wherigoCartridge.state !== "OK" && wherigoCartridge.state !== "loading") {
+                    toast.visible = true
+                    if(wherigoCartridge.state === "timeOutConnection") {
+                        toast.show("Délai de connexion dépassé pour le chargement du Guid du cartouche");
+                    } else {
+                        toast.show("Erreur de chargement du Guid du cartouche " + "(" + state + ")")
+                    }
+                }
+                if (wherigoCartridge.state === "OK"){
+                    toast.show("Le cartouche à été bien enregistré");
+                }
+            }
+
+        }
+
         Location {
             id: externalLocation
             coordinate {
