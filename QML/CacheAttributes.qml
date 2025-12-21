@@ -6,6 +6,8 @@ import FastCache
 
 Item {
     id: cacheAttributes
+    width:  main.width
+    height: attIcons.visible ? attIcons.height : attText.height
 
     CacheAttribute {
         id: cacheAttribute
@@ -15,8 +17,8 @@ Item {
     property var textAttributes: cacheAttribute.sortAttributes(fullCache.attributesBool , fullCache.attributes)
 
     Rectangle {
-        width:  main.width
-        height: attIcons.visible ? attIcons.height : attText.height
+        width:  parent.width
+        height: parent.height
         color: Palette.greenSea()
         visible: true
 

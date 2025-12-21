@@ -44,10 +44,22 @@ Item {
     }
 
     Column {
-        spacing: 5
+        spacing: 3
         anchors.fill: parent
         anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         clip: true
+
+        //load wherigo cartridge
+        FastButton {
+            id: buttonWherigo
+            visible: fullCache.type === "Wherigo"    // cache wherigo
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.pointSize: 13
+            text: "charger le cartouche wherigo"
+            onClicked: {
+                wherigoCartridge.downloadCartridge(connector.tokenKey, fullCache.cartridgeGuid , fullCache.geocode)
+            }
+        }
 
         Row {
             spacing: 15
@@ -419,19 +431,6 @@ Item {
         CacheAttributes {
             id: cacheAttributes
             visible: fullCache.type !== "labCache"
-            //   anchors.top: line.bottom
-        }
-
-        //load wherigo cartridge
-        FastButton {
-            id: buttonWherigo
-            visible: fullCache.type === "Wherigo"    // cache wherigo
-            anchors.horizontalCenter: parent.horizontalCenter
-            font.pointSize: 13
-            text: "charger le cartouche wherigo"
-            onClicked: {
-                wherigoCartridge.downloadCartridge(connector.tokenKey, fullCache.cartridgeGuid , fullCache.geocode)
-            }
         }
     }
 }
