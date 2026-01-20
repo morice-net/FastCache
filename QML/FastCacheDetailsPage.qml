@@ -49,16 +49,24 @@ Item {
         anchors.topMargin: fastCacheHeaderIcon.height * 1.3
         clip: true
 
-        //load wherigo cartridge
-        FastButton {
-            id: buttonWherigo
+        // launch wherigo
+        Text {
             visible: fullCache.type === "Wherigo"    // cache wherigo
             anchors.horizontalCenter: parent.horizontalCenter
-            font.pointSize: 13
-            text: "charger le cartouche wherigo"
-            onClicked: {
-                wherigoCartridge.downloadCartridge(connector.tokenKey, fullCache.cartridgeGuid , fullCache.geocode)
-            }
+            font.family: localFont.name
+            font.pointSize: 17
+            text: "Ouvrez whereYouGo pour\n continuer cette aventure...."
+            color: Palette.white()
+        }
+
+        FastButtonIcon {
+            id: buttonWherigo
+            visible: fullCache.type === "Wherigo"    // cache wherigo
+            anchors.horizontalCenter: parent.horizontalCenter           
+            source: "../Image/" + "icon_whereYouGo.png"
+            sourceWidth: 50
+            sourceHeight: 50
+            onClicked: fullCache.launchApplication("https://wherigo.com/cartridge/download.aspx?CGUID=" + fullCache.cartridgeGuid)
         }
 
         Row {
@@ -398,14 +406,12 @@ Item {
         FastButtonIcon {
             id: buttonAdventureLab
             visible: fullCache.type === "labCache"
-            anchors.horizontalCenter: parent.horizontalCenter
-            height: 60
-            width: 60
+            anchors.horizontalCenter: parent.horizontalCenter          
             source: "../Image/" + "icon_AdventureLab.png"
-            sourceWidth: 60
-            sourceHeight: 60
+            sourceWidth: 50
+            sourceHeight: 50
             onClicked: {
-                fullCache.launchAdventureLab(fullCache.shortDescription)
+                fullCache.launchApplication(fullCache.shortDescription)
                 adventureLabLaunched = true
             }
         }

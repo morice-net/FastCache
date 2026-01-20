@@ -48,7 +48,7 @@ public:
 
     Q_INVOKABLE void updateSqliteStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void launchMaps(double lat , double lon);
-    Q_INVOKABLE void launchAdventureLab(QString url);
+    Q_INVOKABLE void launchApplication(QString url);
 
     QString name() const;
     void setName(const QString &name);

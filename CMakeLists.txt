@@ -68,7 +68,6 @@ qt_add_qml_module(appFastCache
     cacheattribute.h cacheattribute.cpp
     fulllabcacheretriever.h fulllabcacheretriever.cpp
     translator.h translator.cpp
-    wherigocartridge.h wherigocartridge.cpp
 
     QML_FILES
     Main.qml
@@ -294,6 +293,9 @@ qt_add_qml_module(appFastCache
     QML/JavaScript/helper.js
 
     Ressources/DellaRespira-Regular.ttf
+    RESOURCES
+    RESOURCES
+    RESOURCES Image/icon_whereYouGo.png
 )
 
 if(ANDROID)
