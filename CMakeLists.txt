@@ -173,6 +173,7 @@ qt_add_qml_module(appFastCache
     Image/icon_north.png
     Image/icon_photo.png
     Image/icon_update.png
+    Image/icon_whereYouGo.png
     Image/labCache.png
     Image/magnifying-glass.png
     Image/mapsIcon.png
@@ -293,9 +294,7 @@ qt_add_qml_module(appFastCache
     QML/JavaScript/helper.js
 
     Ressources/DellaRespira-Regular.ttf
-    RESOURCES
-    RESOURCES
-    RESOURCES Image/icon_whereYouGo.png
+
 )
 
 if(ANDROID)
