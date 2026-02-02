@@ -6,7 +6,7 @@
 #include <QJsonDocument>
 
 Connector::Connector(QObject *parent)
-    : QObject(parent)  
+    : QObject(parent)
     , m_consumerKey(QByteArray::fromBase64("QjMxMkE3N0EtQkEyNS00NUQ0LUJDMTItOTM3MTE0NzUxNTEy"))
     , m_consumerSecret(QByteArray::fromBase64("ODk0QjY4OTMtQzY1MS00NEZCLTgzRTEtRTVFOEFFQjU4MDFD"))
     , m_redirectUri("https://geocaching4locus.eu/oauth")
@@ -28,19 +28,21 @@ Connector::~Connector()
 }
 
 void Connector::createCodes_verifier_challenge()
-{  
+{
     m_codeVerifier = (QUuid::createUuid().toString(QUuid::WithoutBraces) + QUuid::createUuid().toString(QUuid::WithoutBraces)).toLatin1();
     m_codeChallenge = QCryptographicHash::hash(m_codeVerifier, QCryptographicHash::Sha256).toBase64(
         QByteArray::Base64UrlEncoding | QByteArray::OmitTrailingEquals);
 }
 
 void Connector::connect()
-{    
+{
     if(m_expiresAt == 0)
     {
         createCodes_verifier_challenge();
 
         // Building parameters of the request(oauth2)
+        m_requestString.clear();
+        m_parameters.clear();
         addGetParam("client_id", m_consumerKey , false);
         addGetParam("response_type", "code", false);
         addGetParam("scope", "*", false);
@@ -51,13 +53,13 @@ void Connector::connect()
         m_requestString = "https://www.geocaching.com/oauth/Authorize.aspx?" + joinParams();
 
         // Building getRequest
-        qDebug() << "GET Request string" << m_requestString;
         emit logOn(m_requestString);
+        qDebug() << "GET Request string" << m_requestString;
         return;
     }
 
     // In case a simple refresh token is necessary
-    if (m_expiresAt <= QDateTime::currentDateTime().toSecsSinceEpoch())
+    if (m_expiresAt <= QDateTime::currentSecsSinceEpoch())
     {
         oauthRefreshToken();
         return;
@@ -81,7 +83,7 @@ void Connector::replyFinished(QNetworkReply *reply)
         // Check if this the second step
         setTokenKey( JsonObj["access_token"].toString());
         setRefreshToken( JsonObj["refresh_token"].toString());
-        setExpiresAt(QDateTime::currentDateTime().toSecsSinceEpoch() + JsonObj["expires_in"].toInt());
+        setExpiresAt(QDateTime::currentSecsSinceEpoch() + JsonObj["expires_in"].toInt());
         qDebug() << "TokenKey:" << m_tokenKey;
         qDebug() << "RefreshToken:" << m_refreshToken;
         qDebug() << "Expires At:" <<QDateTime::fromSecsSinceEpoch(m_expiresAt);
@@ -95,7 +97,7 @@ void Connector::replyFinished(QNetworkReply *reply)
     }
 }
 
-void Connector::oauthAuthorizeCode(QString url)
+void Connector::oauthAuthorizeCode(const QString &url)
 {
     QString codeParameter(url.split("code=").last());
     QNetworkRequest requestUrl;
@@ -104,11 +106,11 @@ void Connector::oauthAuthorizeCode(QString url)
 
     // Adding parameters to the request POST
     QByteArray postData;
-    postData.append("client_id=" + QUrl::toPercentEncoding(m_consumerKey)+"&");
-    postData.append("client_secret=" + QUrl::toPercentEncoding(m_consumerSecret)+"&");
+    postData.append("client_id=" + QUrl::toPercentEncoding(m_consumerKey) + "&");
+    postData.append("client_secret=" + QUrl::toPercentEncoding(m_consumerSecret) + "&");
     postData.append("grant_type=authorization_code&" );
     postData.append("redirect_uri=" +QUrl::toPercentEncoding( redirectUri()) + "&");
-    postData.append("code=" + codeParameter.toLocal8Bit() + + "&");
+    postData.append("code=" + codeParameter.toLocal8Bit() + "&");
     postData.append("code_verifier=" + m_codeVerifier);
 
     qDebug() << "POST DATA with the code =====>>>>>> " << postData;

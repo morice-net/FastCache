@@ -67,7 +67,7 @@ Window {
 
         FastSettings { id: settings }
 
-        Translate { id: translateText }        
+        Translate { id: translateText }
 
         Location {
             id: externalLocation
@@ -215,19 +215,49 @@ Window {
         UserWaypoint { id: userWaypoint }
 
         // Used for loggin
-        WebView {
-            id: webEngine
-            url: ""
+        Item {
+            id: webContainer
             anchors.fill: parent
             visible: false
-            onUrlChanged: {
-                console.log("[URL] The load request URL is: " + url);
-                console.log("[URL] redirectUri: ", connector.redirectUri)
-                if(url.toString().indexOf(connector.redirectUri + "?") === 0) {
-                    connector.oauthAuthorizeCode(url)
-                    webEngine.visible = false
+
+            Loader {
+                id: webLoader
+                anchors.fill: parent
+                active: webContainer.visible
+                sourceComponent: webComponent
+            }
+
+            Component {
+                id: webComponent
+
+                WebView {
+                    id: webView
+                    anchors.fill: parent
+                    onUrlChanged: {
+                        const redirect = webView.url.toString()
+                        console.log("url:", redirect)
+                        if (redirect.startsWith(connector.redirectUri)) {
+                            console.log("OAuth redirect:", redirect)
+                            webContainer.visible = false
+                            connector.oauthAuthorizeCode(redirect)
+                        }
+                    }
                 }
             }
+        }
+
+        Connector {
+            id: connector
+            onLogOn: (authUrl) => {
+                         webContainer.visible = true
+
+                         Qt.callLater(() => {
+                                          if (webLoader.item)
+                                          webLoader.item.url = authUrl
+                                      })
+                     }
+            onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
+            onExpiresAtChanged: settings.expiresAt = expiresAt
         }
 
         OwnerProfile {
@@ -235,22 +265,9 @@ Window {
             leftPadding: 0
         }
 
-        SureQuit {
-            id: sureQuit
-        }
+        SureQuit { id: sureQuit }
 
         FontLoader { id: localFont; source: "Ressources/DellaRespira-Regular.ttf" }
-
-        Connector {
-            id: connector
-            onLogOn: (url) => {
-                         console.log("\n\n***\nDownloading... " + url);
-                         webEngine.url = url;
-                         webEngine.visible = true;
-                     }
-            onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
-            onExpiresAtChanged: settings.expiresAt = expiresAt
-        }
 
         UserInfo {
             id: userInfo
@@ -771,9 +788,7 @@ Window {
         Keys.onPressed: (event) => {
                             event.accepted = true
                             if (event.key === Qt.Key_Escape || event.key === Qt.Key_Back) {
-                                if (webEngine.visible) {
-                                    webEngine.visible = false
-                                } else if (coordinatesBox.opened) {
+                                if (coordinatesBox.opened) {
                                     coordinatesBox.close()
                                 } else if (userWaypoint.opened) {
                                     userWaypoint.close()
