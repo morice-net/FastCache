@@ -194,4 +194,35 @@ function downloadTiles() {
     }
 }
 
+function keyBackEscape() {
+    if (coordinatesBox.opened) {
+        coordinatesBox.close()
+    } else if (userWaypoint.opened) {
+        userWaypoint.close()
+    } else if (cachesRecordedLists.opened) {
+        cachesRecordedLists.close()
+    } else if (geocode.opened) {
+        geocode.geocodeResponseVisible = false
+        geocode.close()
+    } else if (ownerProfile.opened) {
+        ownerProfile.close()
+    } else if (translateText.opened) {
+        translateText.close()
+    } else if (fastMenu.isMenuVisible()) {
+        fastMenu.hideMenu()
+    } else if (satelliteInfo.isMenuVisible()) {
+        satelliteInfo.hideMenu()
+    } else if (userSettings.isMenuVisible()) {
+        userSettings.hideMenu()
+    } else if (fastMenuHeader.isFiltersVisible()) {
+        fastMenuHeader.changeFiltersVisibility()
+    } else if (main.viewState === "fullcache") {
+        main.viewState = previousViewState[0]
+    } else if (main.viewState === "travelbug") {
+        main.viewState = previousViewState[1]
+    } else {
+        sureQuit.visible = true
+    }
+}
+
 
