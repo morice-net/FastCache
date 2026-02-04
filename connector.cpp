@@ -109,7 +109,7 @@ void Connector::oauthAuthorizeCode(const QString &url)
     postData.append("client_id=" + QUrl::toPercentEncoding(m_consumerKey) + "&");
     postData.append("client_secret=" + QUrl::toPercentEncoding(m_consumerSecret) + "&");
     postData.append("grant_type=authorization_code&" );
-    postData.append("redirect_uri=" +QUrl::toPercentEncoding( redirectUri()) + "&");
+    postData.append("redirect_uri=" + QUrl::toPercentEncoding( redirectUri()) + "&");
     postData.append("code=" + codeParameter.toLocal8Bit() + "&");
     postData.append("code_verifier=" + m_codeVerifier);
 

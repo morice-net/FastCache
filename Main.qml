@@ -250,7 +250,6 @@ Window {
             id: connector
             onLogOn: (authUrl) => {
                          webContainer.visible = true
-
                          Qt.callLater(() => {
                                           if (webLoader.item)
                                           webLoader.item.url = authUrl
@@ -258,6 +257,8 @@ Window {
                      }
             onLoginProcedureDone: userInfo.sendRequest(connector.tokenKey, getTravelbugUser)
             onExpiresAtChanged: settings.expiresAt = expiresAt
+            onTokenKeyChanged: settings.tokenKey =  tokenKey
+            onRefreshTokenChanged: settings.refreshToken =  refreshToken
         }
 
         OwnerProfile {
@@ -787,7 +788,8 @@ Window {
             connector.tokenKey = settings.tokenKey
             connector.refreshToken = settings.refreshToken
             connector.expiresAt = settings.expiresAt
-            console.log("Token expiresAt: " + new Date(settings.expiresAt*1000))
+
+            console.log("Token expiresAt: " + new Date(settings.expiresAt * 1000))
 
             // token key is directly managed in the connect function that decides for long (with agree process)
             // or short procedure called refresh should be called
