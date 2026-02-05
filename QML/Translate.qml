@@ -11,7 +11,7 @@ FastPopup {
     width: main.width * 0.7
     height: main.height * 0.7
     x: 50
-    y: 50
+    y: 50    
 
     property var listLangs: ["francais" ,"anglais" , "espagnol" , "italien" , "allemand" , "portugais"]
     property var listLangsAbbreviation: ["fr" ,"en" , "es" , "it" , "de" , "pt-PT"]

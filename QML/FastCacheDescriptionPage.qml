@@ -17,8 +17,8 @@ Item {
     onDescriptionTextChanged: {
         backWeb = false
         forwardWeb = false
-        if(fullCache.type !== "labCache")
-            webView.loadHtml(descriptionText, "" )
+        if(fullCache.type !== "labCache" && webLoader.item)
+            webLoader.item.loadHtml(descriptionText, "" )
     }
 
     Flickable {
@@ -46,11 +46,13 @@ Item {
                     icon.width: 40
                     icon.height: 30
                     onClicked:{
-                        webView.goBack()
+                        webLoader.item?.goBack()
                         console.log("Go Back Web: " + backWeb)
                         console.log("Go Forward Web: " + forwardWeb)
                     }
-                    enabled: webView != null ? webView.canGoBack && backWeb : false
+                    enabled: webLoader.item
+                             && webLoader.item.canGoBack
+                             && backWeb
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -73,11 +75,13 @@ Item {
                     icon.width: 40
                     icon.height: 30
                     onClicked:{
-                        webView.goForward()
+                        webLoader.item?.goForward()
                         console.log("Go Back Web: " + backWeb)
                         console.log("Go Forward Web: " + forwardWeb)
                     }
-                    enabled: webView != null ? webView.canGoForward && forwardWeb : false
+                    enabled: webLoader.item
+                             && webLoader.item.canGoForward
+                             && forwardWeb
                     background: Rectangle {
                         implicitWidth: descriptionPage.width / 3
                         color: "transparent"
@@ -110,7 +114,7 @@ Item {
                     }
 
                     Text {
-                        id:textLab
+                        id: textLab
                         visible: fullCache.type === "labCache"
                         anchors.horizontalCenterOffset: (main.width - parent.width) / 2
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -126,28 +130,49 @@ Item {
                 }
 
                 // if not labCache
-                WebView {
-                    id: webView
+                Item {
+                    id: webContainer
                     anchors.fill: parent
                     visible: fastMenu.isMenuVisible() || userSettings.isMenuVisible() || cachesRecordedLists.opened || fullCache.type === "labCache"  ||
                              translateText.opened ? false : true
-                    clip: true
-                    onUrlChanged: {
-                        console.log("URL is: " + url);
-                        if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
-                            backWeb = false
-                        } else if(url.toString().substring(0,4) === "http") {
-                            backWeb = true
-                            forwardWeb = true
-                        }
-                        console.log("Go Back Web: " + backWeb)
-                        console.log("Go Forward Web: " + forwardWeb)
+
+                    Loader {
+                        id: webLoader
+                        anchors.fill: parent
+                        active: webContainer.visible
+                        sourceComponent: webComponent
+                        onLoaded: {
+                                if (fullCache.type !== "labCache") {
+                                    webLoader.item.loadHtml(descriptionText, "")
+                                }
+                            }
                     }
-                    Component.onCompleted: {
-                        webView.settings.setAllowFileAccess(true)
-                        webView.settings.setLocalStorageEnabled(true)
-                        webView.settings.setLocalContentCanAccessFileUrls(true)
-                        webView.settings.setJavaScriptEnabled(true)
+
+                    Component {
+                        id: webComponent
+
+                        WebView {
+                            id: webView
+                            anchors.fill: parent
+                            clip: true
+                            onUrlChanged: {
+                                console.log("URL is: " + url);
+                                if(url.toString().substring(0,5) === "data:" || url.toString().substring(0,5) === "file:" ) {
+                                    backWeb = false
+                                } else if(url.toString().substring(0,4) === "http") {
+                                    backWeb = true
+                                    forwardWeb = true
+                                }
+                                console.log("Go Back Web: " + backWeb)
+                                console.log("Go Forward Web: " + forwardWeb)
+                            }
+                            Component.onCompleted: {
+                                webView.settings.setAllowFileAccess(true)
+                                webView.settings.setLocalStorageEnabled(true)
+                                webView.settings.setLocalContentCanAccessFileUrls(true)
+                                webView.settings.setJavaScriptEnabled(true)
+                            }
+                        }
                     }
                 }
             }

@@ -22,8 +22,10 @@ FastPopup {
                 icon.source: "../Image/goback.png"
                 icon.width: 40
                 icon.height: 30
-                onClicked: webView.goBack()
-                enabled: webView.canGoBack && backWeb
+                onClicked: webLoader.item?.goBack()
+                enabled: webLoader.item
+                         && webLoader.item.canGoBack
+                         && backWeb
                 background: Rectangle {
                     implicitWidth: main.width / 2
                     color: "transparent"
@@ -35,8 +37,9 @@ FastPopup {
                 icon.source: "../Image/forward.png"
                 icon.width: 40
                 icon.height: 30
-                onClicked: webView.goForward()
-                enabled: webView.canGoForward
+                onClicked: webLoader.item?.goForward()
+                enabled: webLoader.item
+                         && webLoader.item.canGoForward
                 background: Rectangle {
                     implicitWidth: main.width / 2
                     color: "transparent"
@@ -45,30 +48,42 @@ FastPopup {
         }
 
         Rectangle {
+            id: webContainer
             anchors.horizontalCenter: parent.horizontalCenter
             width: main.width * 0.95
             height: main.height * 0.85
 
-            WebView {
-                id: webView
+            Loader {
+                id: webLoader
                 anchors.fill: parent
-                url: originalUrl
-                clip: true
-                onUrlChanged: {
-                    if(webView.url.toString().indexOf("?code=") !== -1) {
-                        backWeb = false
-                    } else {
-                        backWeb = true
-                    }
-                }
-                onLoadingChanged: function(loadRequest) {
-                    if (loadRequest.errorString)
-                        console.error(loadRequest.errorString);
-                }
+                active: webContainer.visible
+                sourceComponent: webComponent
+            }
 
-                Component.onCompleted: {
-                    webView.settings.setAllowFileAccess(true)
-                    webView.settings.setLocalContentCanAccessFileUrls(true)
+            Component {
+                id: webComponent
+
+                WebView {
+                    id: webView
+                    visible: true
+                    anchors.fill: parent
+                    url: originalUrl
+                    clip: true
+                    onUrlChanged: {
+                        if(webView.url.toString().indexOf("?code=") !== -1) {
+                            backWeb = false
+                        } else {
+                            backWeb = true
+                        }
+                    }
+                    onLoadingChanged: function(loadRequest) {
+                        if (loadRequest.errorString)
+                            console.error(loadRequest.errorString);
+                    }
+                    Component.onCompleted: {
+                        webView.settings.setAllowFileAccess(true)
+                        webView.settings.setLocalContentCanAccessFileUrls(true)
+                    }
                 }
             }
 

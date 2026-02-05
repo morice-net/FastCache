@@ -60,6 +60,23 @@ Window {
     property int azimutDevice: 0  // used by magnetic compass
     property string translate: "" // used to translate text
 
+    // Manage key back and escape
+    Shortcut {
+        sequence: "Escape"
+        context: Qt.ApplicationShortcut
+        onActivated: {
+            Functions.keyBackEscape()
+        }
+    }
+
+    Shortcut {
+        sequence: "Back"
+        context: Qt.ApplicationShortcut
+        onActivated: {
+            Functions.keyBackEscape()
+        }
+    }
+
     Item {
         id: mainItem
         focus: true
@@ -768,16 +785,6 @@ Window {
 
         CacheMapTiles {
             id: cacheMapTiles
-        }
-
-        Shortcut {
-            sequence: "Escape"
-            onActivated: Functions.keyBackEscape()
-        }
-
-        Shortcut {
-            sequence: "Back"
-            onActivated: Functions.keyBackEscape()
         }
 
         Component.onCompleted: {
