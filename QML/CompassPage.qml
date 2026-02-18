@@ -73,7 +73,6 @@ Item {
         }
     }
 
-
     Text {
         id: title
         anchors.horizontalCenter: parent.horizontalCenter
@@ -116,48 +115,7 @@ Item {
         text: "Lat  " + Functions.formatLat(locationSource.latitude) + "   Lon  " +
               Functions.formatLon(locationSource.longitude)
         color: Palette.silver()
-    }
-
-    FastButton {
-        id: compassMapSwipeButton
-        opacity: 0.85
-        font.pointSize: 17
-        text: "Voir la\ncarte"
-        y: main.height * 0.12
-        anchors.right: parent.right
-        anchors.rightMargin: 20
-        onClicked: {
-            viewState = "map"
-            // memorizes the center and the zoom of the map
-            fastMap.mapItem.latCenterMap = fastMap.mapItem.center.latitude
-            fastMap.mapItem.lonCenterMap = fastMap.mapItem.center.longitude
-            fastMap.mapItem.zoomMap = fastMap.mapItem.zoomLevel
-
-            fastMap.compassMapButton = true
-            fastMap.mapItem.oneCacheOnMap(fullCache.geocode , true) //makes one cache visible on map
-            fastMap.mapItem.allCirclesOnMap(false) // makes all cache circles invisible on the map
-            // center cache or waypoint on map
-            fastMap.mapItem.center = QtPositioning.coordinate(goalLat , goalLon)
-
-            fastMap.currentZoomlevel = 17
-            // is cache in list of caches?
-            if(!fastCache.geocodeInCachesList)
-                fastMap.mapItem.addCacheOnMap() // add full cache on map, not in list
-
-            // Add waypoints cache on map
-            fastMap.mapItem.addWaypointsCacheOnMap()
-
-            // Add user waypoints cache on map
-            fastMap.mapItem.addUserWaypointsCacheOnMap()
-
-            // Add circle around cache or waypoint
-            fastMap.mapItem.createCircleWaypoint(goalLat , goalLon)
-
-            // Orient the map if necessary
-            if(!fastMap.oldMapNorth)
-                fastMap.mapItem.bearing = locationSource.azimuthTo(QtPositioning.coordinate(goalLat , goalLon))
-        }
-    }
+    }    
 
     function updateRotation() {
         compassRose.rotation =  - azimutDevice

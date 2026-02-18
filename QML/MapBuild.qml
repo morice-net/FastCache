@@ -159,6 +159,7 @@ Map {
             deleteCircleWaypoint()
 
             viewState = "fullcache"
+            fastCache.swipeToPage(fastCache.compassPageIndex)
         }
     }
 
@@ -360,8 +361,6 @@ Map {
     function deleteCircleWaypoint() {
         removeMapItem(circleWaypoint)
     }
-
-
 
     function supportedMap() {
         //osm

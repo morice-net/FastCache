@@ -96,7 +96,6 @@ qt_add_qml_module(appFastCache
     QML/FastCacheUserLogsPage.qml
     QML/FastCacheWaypointsPage.qml
     QML/FastCalendar.qml
-    QML/FastDoubleButtonMenu.qml
     QML/FastList.qml
     QML/FastMap.qml
     QML/FastMapItem.qml
@@ -106,7 +105,6 @@ qt_add_qml_module(appFastCache
     QML/FastMenuLevel2.qml
     QML/FastPopup.qml
     QML/FastScale.qml
-    QML/FastSelectableButtonMenu.qml
     QML/FastSettings.qml
     QML/FastTravelbug.qml
     QML/FastTravelbugDetailsPage.qml
@@ -157,7 +155,6 @@ qt_add_qml_module(appFastCache
     Image/cache.png
     Image/cacheList.png
     Image/fastCache_icon.png
-    Image/filter.png
     Image/filterHeadArrow.png
     Image/forward.png
     Image/goback.png
@@ -181,22 +178,40 @@ qt_add_qml_module(appFastCache
     Image/marker_found.png
     Image/marker_own.png
     Image/marker_save.png
-    Image/menuIcon.png
+    Image/menuIcon.png    
+     Image/menu_Address.png
+     Image/menu_CodeTb.png
+     Image/menu_Coordinates.png
+     Image/menu_Filter.png
+     Image/menu_GeocodeCache.png
+     Image/menu_List.png
+     Image/menu_Map.png
+     Image/menu_Near.png
+     Image/menu_PocketsQueries.png
+     Image/menu_Quit.png
+     Image/menu_Saved.png
+     Image/menu_Disconnect.png
+     Image/menu_Gps.png
+     Image/menu_Sort.png
+     Image/menu_Settings.png
+     Image/menu_Compass.png
+     Image/menu_Description.png
+     Image/menu_Details.png
+     Image/menu_Images.png
+     Image/menu_LaunchMaps.png
+     Image/menu_LogIn.png
+     Image/menu_Logs.png
+     Image/menu_UserLogs.png
+     Image/menu_Waypoints.png
     Image/minus.png
     Image/not_logged.png
     Image/plus.png
     Image/remove.png
-    Image/satellite.png
-    Image/saved-off.png
-    Image/saved-on.png
     Image/scale.png
     Image/scaleEnd.png
-    Image/settings.png
-    Image/sort_alphabetically.png
     Image/trackable_travelbug.png
     Image/tracker.png
     Image/update-arrows.png
-
     Image/Attributes/attribute_abandonedbuilding.png
     Image/Attributes/attribute_available.png
     Image/Attributes/attribute_bicycles.png
@@ -268,13 +283,11 @@ qt_add_qml_module(appFastCache
     Image/Attributes/attribute_wheelchair.png
     Image/Attributes/attribute_winter.png
     Image/Attributes/attribute_wirelessbeacon.png
-
     Image/Compass/compassIcon.png
     Image/Compass/compass_arrow.png
     Image/Compass/compass_mini.png
     Image/Compass/compass_rose.png
     Image/Compass/compass_underlay.png
-
     Image/Waypoints/waypoint_flag.png
     Image/Waypoints/waypoint_pkg.png
     Image/Waypoints/waypoint_puzzle.png
@@ -282,7 +295,6 @@ qt_add_qml_module(appFastCache
     Image/Waypoints/waypoint_trailhead.png
     Image/Waypoints/waypoint_user.png
     Image/Waypoints/waypoint_waypoint.png
-
     Image/logTypes/marker_archive.png
     Image/logTypes/marker_found_offline.png
     Image/logTypes/marker_maintenance.png
@@ -294,8 +306,9 @@ qt_add_qml_module(appFastCache
     QML/JavaScript/helper.js
 
     Ressources/DellaRespira-Regular.ttf
-
-)
+    QML_FILES
+    QML_FILES
+    )
 
 if(ANDROID)
     set_target_properties(appFastCache

@@ -197,17 +197,6 @@ Rectangle {
                     }
                 }
             }
-
-            // Disconnect button
-            FastButton {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Se déconnecter"
-                font.pointSize: 18
-                onClicked: {
-                    Functions.disconnectAccount()
-                    userSettings.hideMenu()
-                }
-            }
         }
     }
 

@@ -49,26 +49,6 @@ Rectangle {
         FastTravelbugLogPage{ id: fastTravelbugLogPage }
     }
 
-    PageIndicator {
-        id: indicatorFastTravelbug
-        anchors.top: fastTravelbugHeader.bottom
-        anchors.topMargin: 5
-        anchors.horizontalCenter: parent.horizontalCenter
-        count: swipeFastTravelbug.count
-        visible: travelbug.state !== "loading"
-        interactive: true
-        currentIndex: swipeFastTravelbug.currentIndex
-        onCurrentIndexChanged: swipeToPage(currentIndex)
-        delegate:
-
-            Text {
-            font.pointSize: 14
-            text: pageIndicatorMenu(index)
-            color: index === indicatorFastTravelbug.currentIndex ? Palette.white() : Palette.black()
-        }
-
-    }
-
     function swipeToPage(pageNumber) {
         swipeFastTravelbug.setCurrentIndex(pageNumber)
     }

@@ -22,7 +22,7 @@ Window {
     property string viewState: "" // "map" or "list" or "fullcache" or "travelbug"
     onViewStateChanged: {
         if(main.viewState !== "list")
-            fastMenuHeader.clearBoxSorting()
+            fastMenu.clearBoxSorting()
     }
 
     // Previous viewstate used when downloading a fullcache or a travel bug

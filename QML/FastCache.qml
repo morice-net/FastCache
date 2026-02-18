@@ -186,31 +186,7 @@ Rectangle {
         FastCacheTBsPage { id: tbsPage }
 
         FastCacheUserLogsPage { id: userLogsPage }
-    }
-
-    Flickable {
-        anchors.top: fastCacheHeader.bottom
-        width: main.width
-        contentWidth: swipeFastCache.count === swipeFastCache.swipeViewCountCache ? width * 1.75 : width
-        height: fastCacheHeader.height + 2
-        flickableDirection: Flickable.HorizontalFlick
-
-        PageIndicator {
-            id: indicatorFastCache
-            anchors.horizontalCenter: parent.horizontalCenter
-            visible: fullCacheRetriever.state !== "loading"
-            interactive: true
-            count: swipeFastCache.count
-            currentIndex: swipeFastCache.currentIndex
-            onCurrentIndexChanged: swipeToPage(currentIndex)
-            delegate:
-                Text {
-                font.pointSize: 14
-                text: pageIndicatorMenu(index)
-                color: index === indicatorFastCache.currentIndex ? Palette.white() : Palette.black()
-            }
-        }
-    }
+    }    
 
     function imagesTrue() {
         var visible =[];

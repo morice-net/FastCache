@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
@@ -8,39 +9,37 @@ Item {
     id: fastMenu
     anchors.fill: parent
 
-    property int openMenu: 1  // 1: menu 1 open, 2: menu 2 open, 3: pockets queries list open
-    property bool direction: true  // true: menu go forward, false: menu go back
-
     LoadingPage {
         id: loadingPage
+    }
+
+    BoxSorting {
+        id: groupBoxSorting
+        visible: false
     }
 
     Rectangle {
         id: menu
         width: parent.width * 0.8
         height: parent.height
-        x: -parent.width
-        y: -parent.height
         color: Palette.white()
         clip: true
-        radius:10
+        radius: 10
+        border.width: 3
+        border.color: Palette.greenSea()
+        x: -parent.width
 
-        Behavior on x { NumberAnimation { duration: 600 } }
+        Behavior on x { NumberAnimation { duration: 200 } }
 
-        Behavior on y { NumberAnimation { duration: 600 } }
-
-        ///////////////////////////////////////////////////////////////////////////
-        //                      user info on the top of the menu                 //
-        ///////////////////////////////////////////////////////////////////////////
-
+        // user infos
         Item {
             id: userInfoMenu
-            height: parent.height * 0.17
+            height: parent.height * 0.12
             width: parent.width
 
             Row {
                 anchors.fill: parent
-                anchors.margins: 5
+                anchors.margins: 10
                 spacing: 10
                 visible: userInfo.name.length > 0
 
@@ -53,17 +52,16 @@ Item {
 
                 Column {
                     height: parent.height
-                    spacing: 0
+                    spacing: 10
                     clip: true
 
                     Text {
-                        height: parent.height * 0.5
+                        height: parent.height * 0.3
                         text: userInfo.name
                         font.family: localFont.name
                         verticalAlignment: Text.AlignVCenter
                         font.pointSize: height
-                        color: Palette.black()
-
+                        color: Palette.greenSea()
                         onTextChanged: (text) => {
                                            if (text === "") return
                                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
@@ -71,13 +69,12 @@ Item {
                     }
 
                     Text {
-                        height: parent.height * 0.25
+                        height: parent.height * 0.2
                         text: findCount + " caches trouvées"
                         font.family: localFont.name
                         verticalAlignment: Text.AlignBottom
                         font.pointSize: height
                         color: Palette.greenSea()
-
                         onTextChanged: (text) => {
                                            if (text === "0 caches trouvées") return
                                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
@@ -85,13 +82,12 @@ Item {
                     }
 
                     Text {
-                        height: parent.height * 0.25
+                        height: parent.height * 0.2
                         text: "Membre : " + userInfo.premium
                         font.family: localFont.name
                         verticalAlignment: Text.AlignVCenter
                         font.pointSize: height
                         color: Palette.greenSea()
-
                         onTextChanged: (text) => {
                                            if (text === "Membre : ") return
                                            while (width > (userInfoMenu.width - userInfoIcon.width - 20)) font.pointSize--
@@ -106,105 +102,41 @@ Item {
                 width: parent.width
                 visible: userInfo.name.length === 0
 
-                Rectangle {
-                    id: connectButtonMenuRectangle
-                    radius: 20
+                Text {
+                    id: connectButtonName
                     anchors.fill: parent
-                    anchors.margins: 18
-                    color: Palette.turquoise()
+                    font.family: localFont.name
+                    font.pointSize: 17
+                    text: "Se connecter"
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    color: Palette.greenSea()
+                }
 
-                    SequentialAnimation on opacity {
-                        id: buttonAnimation
-                        running: false
-                        loops: 3
-                        NumberAnimation { to: 0; duration: 200 }
-                        NumberAnimation { to: 1; duration: 200 }
-                    }
-
-                    Text {
-                        id: connectButtonName
-                        anchors.fill: parent
-                        font.family: localFont.name
-                        font.pointSize: 24
-                        text: "Se connecter"
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        color: Palette.white()
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            buttonAnimation.start()
-                            Functions.reconnectAccount()
-                        }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        buttonAnimation.start()
+                        Functions.reconnectAccount()
                     }
                 }
             }
         }
 
-        ///////////////////////////////////////////////////////////////////////////
-        //                      items on the menu                 //
-        ///////////////////////////////////////////////////////////////////////////
-
         FastMenuLevel1 {
-            id: fastMenuLevel1
-            width: parent.width
+            id: fastMenu1
+            visible : main.viewState === "map" || main.viewState === "list"
             height: parent.height
-            anchors.bottomMargin: 2
+            width: parent.width
             anchors.top: userInfoMenu.bottom
-
-            Behavior on x { NumberAnimation {
-                    duration: 600
-                    onRunningChanged: {
-                        if ((openMenu === 1) && (!running)) {
-                            fastMenuLevel2.x  = 0
-                        } else if ((openMenu === 2) && (!running))  {
-                            openMenu = 1
-                        }
-                    }
-                }
-            }
         }
 
         FastMenuLevel2 {
-            id: fastMenuLevel2
-            x: - parent.width
+            id: fastMenu2
+            visible: main.viewState === "fullcache" || main.viewState === "travelbug"
             height: parent.height
             width: parent.width
-            anchors.bottomMargin: 2
             anchors.top: userInfoMenu.bottom
-
-            Behavior on x { NumberAnimation {
-                    duration: 600
-                    onRunningChanged: {
-                        if ((openMenu === 2) && (direction) && (!running)) {
-                            pocketsqueries.x  = 15
-                        } else if ((openMenu === 2) && (!direction) && (!running)){
-                            fastMenuLevel1.x = 0
-                        }
-                    }
-                }
-            }
-        }
-
-        ListPocketsqueries {
-            id: pocketsqueries
-            x: -parent.width
-            height: parent.height
-            width: parent.width * 0.9
-            anchors.top: userInfoMenu.bottom
-            anchors.topMargin: 18
-
-            Behavior on x { NumberAnimation {
-                    duration: 600
-                    onRunningChanged: {
-                        if ((openMenu === 3) && (!running)) {
-                            fastMenuLevel2.x = 0
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -215,18 +147,19 @@ Item {
     function showMenu() {
         console.log("Show menu...")
         menu.x = 0
-        menu.y = 0
     }
 
     function hideMenu() {
         console.log("Hide menu...")
         menu.x = menu.width * -1
-        menu.y = menu.width * -1
+    }
+
+    function clearBoxSorting() {
+        groupBoxSorting.visible = false
     }
 
     function nearCachesClicked() {
         main.listState = "near"
-
 
         hideMenu()
         var coord = locationSource
