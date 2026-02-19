@@ -21,7 +21,7 @@ Item  {
     ScrollView {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         contentHeight: columnLogs.height + 30
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
         clip : true

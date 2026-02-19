@@ -14,7 +14,7 @@ Rectangle {
     }
 
     Row {
-        id:fastTravelbugHeader
+        id: fastTravelbugHeader
         x: main.width / 3
         y: 10
         spacing: 10
@@ -35,12 +35,12 @@ Rectangle {
 
     SwipeView {
         id: swipeFastTravelbug
-        visible: travelbug.state !== "loading"
-        anchors.fill: parent
-        currentIndex: 1
+        visible: travelbug.state !== "loading"        
         anchors.top: fastTravelbugHeader.bottom
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        currentIndex: 1    
 
         FastTravelbugDetailsPage { id: fastTravelbugDetailsPage }
 

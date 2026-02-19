@@ -8,7 +8,7 @@ Item {
     visible:true
 
     Flickable {
-        anchors.topMargin: fastTravelbugHeader.height * 2.7
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 10

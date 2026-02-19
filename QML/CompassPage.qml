@@ -21,7 +21,7 @@ Item {
     Column {
         spacing: 8
         anchors.fill: parent
-        anchors.topMargin: parent.height * 0.07
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
 
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -115,7 +115,7 @@ Item {
         text: "Lat  " + Functions.formatLat(locationSource.latitude) + "   Lon  " +
               Functions.formatLon(locationSource.longitude)
         color: Palette.silver()
-    }    
+    }
 
     function updateRotation() {
         compassRose.rotation =  - azimutDevice

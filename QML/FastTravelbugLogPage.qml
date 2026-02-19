@@ -54,7 +54,7 @@ Item {
     Flickable {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: fastTravelbugHeader.height * 2.7
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         anchors.leftMargin: 20
         anchors.rightMargin: 20
         contentHeight: column.height

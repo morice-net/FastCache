@@ -46,7 +46,7 @@ Item {
     Column {
         spacing: 3
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         clip: true
 
         // launch wherigo
@@ -62,7 +62,7 @@ Item {
         FastButtonIcon {
             id: buttonWherigo
             visible: fullCache.type === "Wherigo"    // cache wherigo
-            anchors.horizontalCenter: parent.horizontalCenter           
+            anchors.horizontalCenter: parent.horizontalCenter
             source: "../Image/" + "icon_whereYouGo.png"
             sourceWidth: 50
             sourceHeight: 50
@@ -406,7 +406,7 @@ Item {
         FastButtonIcon {
             id: buttonAdventureLab
             visible: fullCache.type === "labCache"
-            anchors.horizontalCenter: parent.horizontalCenter          
+            anchors.horizontalCenter: parent.horizontalCenter
             source: "../Image/" + "icon_AdventureLab.png"
             sourceWidth: 50
             sourceHeight: 50

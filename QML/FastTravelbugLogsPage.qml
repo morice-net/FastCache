@@ -19,7 +19,7 @@ Item {
     Flickable {
         id: logs
         anchors.fill: parent
-        anchors.topMargin: fastTravelbugHeader.height * 2.7
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         clip:true

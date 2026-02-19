@@ -20,14 +20,14 @@ Item {
     Flickable {
         id: travelbugs
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 1.6
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         clip:true
 
 
         Column {
-            spacing:10
+            spacing: 10
             width: tbsPage.width
             leftPadding: 20
 

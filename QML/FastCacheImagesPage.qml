@@ -36,7 +36,7 @@ Item {
     Flickable {
         id: images
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 20
         clip: true

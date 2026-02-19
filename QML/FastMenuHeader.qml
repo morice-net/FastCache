@@ -73,4 +73,8 @@ Item {
     function changeFiltersVisibility() {
         cacheFilter.opacity = 1 - cacheFilter.opacity
     }
+
+    function menuIconHeight() {
+        return menuIcon.height / 2
+    }
 }

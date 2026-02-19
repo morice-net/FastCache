@@ -24,7 +24,7 @@ Rectangle {
     property int updateLogIndex: 0
 
     // userLogImages to true for a list of images from a user log, false otherwise
-    property bool userLogImages: false    
+    property bool userLogImages: false
 
     // used to send images to a log
     property var listImagesUrl: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
@@ -186,7 +186,7 @@ Rectangle {
         FastCacheTBsPage { id: tbsPage }
 
         FastCacheUserLogsPage { id: userLogsPage }
-    }    
+    }
 
     function imagesTrue() {
         var visible =[];

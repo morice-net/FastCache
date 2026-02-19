@@ -13,7 +13,7 @@ Item {
     Flickable {
         id: waypoints
         anchors.fill: parent
-        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height
         clip: true

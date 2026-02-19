@@ -23,7 +23,7 @@ Item {
 
     Flickable {
         id: shortLongDescription
-        anchors.topMargin: fastCacheHeaderIcon.height * 1.3
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
         anchors.fill: parent
         flickableDirection: Flickable.VerticalFlick
         contentHeight: contentItem.childrenRect.height + 15
@@ -142,10 +142,10 @@ Item {
                         active: webContainer.visible
                         sourceComponent: webComponent
                         onLoaded: {
-                                if (fullCache.type !== "labCache") {
-                                    webLoader.item.loadHtml(descriptionText, "")
-                                }
+                            if (fullCache.type !== "labCache") {
+                                webLoader.item.loadHtml(descriptionText, "")
                             }
+                        }
                     }
 
                     Component {
