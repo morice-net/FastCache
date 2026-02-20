@@ -6,6 +6,9 @@ import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
 
 Item {
+    id: menu
+
+    property int currentSelectedIndex: -1
 
     Flickable {
         id: flickable
@@ -18,7 +21,7 @@ Item {
             width: parent.width
             spacing: 15
 
-            // map / list
+            // maps / lists
             Text {
                 text: "Cartes , listes"
                 font.family: localFont.name
@@ -28,110 +31,155 @@ Item {
                 Layout.leftMargin: 10
             }
 
-            RowLayout {
+            // map (index 0)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Map.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
-                }
-
-                Text {
-                    text: "Carte"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
-                    Layout.fillWidth: true
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            main.viewState = "map"
-                            if (main.listState === "cachesActive")
-                                fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-                        }
-                    }
-                }
-            }
-
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 10
-
-                Image {
-                    source: "../Image/menu_List.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
-                }
-
-                Text {
-                    text: "Liste"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: main.viewState === "list" ? Palette.greenSea() : Palette.silver()
-                    Layout.fillWidth: true
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            main.viewState = "list"
-                            if (main.listState === "cachesActive")
-                                fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
-                        }
-                    }
-                }
-            }
-
-            // active/inactive map
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 10
-
-                Image {
-                    source: "../Image/menu_Map.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
-                }
-
-                Text {
-                    id: mapActive
-                    text: main.listState === "cachesActive" ? "Carte active" : "Carte inactive"
-                    font.family: localFont.name
-                    font.pointSize: 17
+                Rectangle {
+                    anchors.fill: parent
                     color: Palette.greenSea()
-                    Layout.fillWidth: true
+                    radius: 6
+                    opacity: menu.currentSelectedIndex === 0 ? 0.2 : 0
+                }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            if(main.listState !== "cachesActive") {
-                                main.listState = "cachesActive"
-                                mapActive.text = "Carte active"
-                                hideMenu()
-                                fastMap.currentZoomlevel = 13
-                                Functions.reloadCachesBBox()
-                            } else {
-                                main.listState = ""
-                                mapActive.text = "Carte inactive"
-                                hideMenu()
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
+
+                    Image {
+                        source: "../Image/menu_Map.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Carte"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: main.viewState === "map" ? Palette.greenSea() : Palette.silver()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 0
+                                main.viewState = "map"
+                                if (main.listState === "cachesActive")
+                                    fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
                             }
                         }
                     }
                 }
             }
 
-            // filter caches
+            //  List (index 1)
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 1 ? 0.2 : 0
+                    radius : 6
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
+
+                    Image {
+                        source: "../Image/menu_List.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Liste"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: main.viewState === "list" ? Palette.greenSea() : Palette.silver()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 1
+                                main.viewState = "list"
+                                if (main.listState === "cachesActive")
+                                    fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
+                            }
+                        }
+                    }
+                }
+            }
+
+            // map active , inactive (index 2)
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 2 ? 0.2 : 0
+                    radius: 6
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
+
+                    Image {
+                        source: "../Image/menu_Map.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: mapActive
+                        text: main.listState === "cachesActive" ? "Carte active" : "Carte inactive"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 2
+                                if(main.listState !== "cachesActive") {
+                                    main.listState = "cachesActive"
+                                    mapActive.text = "Carte active"
+                                    hideMenu()
+                                    fastMap.currentZoomlevel = 13
+                                    Functions.reloadCachesBBox()
+                                } else {
+                                    main.listState = ""
+                                    mapActive.text = "Carte inactive"
+                                    hideMenu()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // filters
             Text {
-                visible:(!fastMap.compassMapButton) && ((main.viewState === "map" || main.viewState === "list") && fastList.state === "") ||
-                        (main.viewState === "map" && fastList.state === "selectedInList")
                 text: "Filtres"
                 font.family: localFont.name
                 font.pointSize: 15
@@ -140,69 +188,100 @@ Item {
                 Layout.leftMargin: 10
             }
 
-            RowLayout {
+            // Filter caches (index 3)
+            Item {
                 visible:(!fastMap.compassMapButton) && ((main.viewState === "map" || main.viewState === "list") && fastList.state === "") ||
                         (main.viewState === "map" && fastList.state === "selectedInList")
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Filter.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 3 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    text: "Filtrer les caches"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            fastMenuHeader.changeFiltersVisibility()
-                            hideMenu()
+                    Image {
+                        source: "../Image/menu_Filter.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Filtrer les caches"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 3
+                                fastMenuHeader.changeFiltersVisibility()
+                                hideMenu()
+                            }
                         }
                     }
                 }
             }
 
-            // list sort
-            RowLayout {
+            //  sort lists (index 4)
+            Item {
                 visible: main.viewState !== "fullcache" && viewState === "list"
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Sort.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 4 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    text: "Trier les listes"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            groupBoxSorting.visible = !groupBoxSorting.visible
-                            hideMenu()
+                    Image {
+                        source: "../Image/menu_Sort.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Trier les listes"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 4
+                                groupBoxSorting.visible = !groupBoxSorting.visible
+                                hideMenu()
+                            }
                         }
                     }
                 }
             }
 
-            // caches near
+            // research
             Text {
                 text: "Recherches"
                 font.family: localFont.name
@@ -212,181 +291,251 @@ Item {
                 Layout.leftMargin: 10
             }
 
-            RowLayout {
+            // caches near (index 5)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Near.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 5 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    text: "Caches proches"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            hideMenu()
-                            nearCachesClicked()
-                            fastMap.mapItem.center = locationSource
-                        }
+                    Image {
+                        source: "../Image/menu_Near.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
                     }
-                }
-            }
 
-            // saved caches
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 10
+                    Text {
+                        text: "Caches proches"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
 
-                Image {
-                    source: "../Image/menu_Saved.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
-                }
-
-                Text {
-                    text: "Caches enregistrées"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            // Display list of recorded caches and prepare Center Map.
-                            main.listState = "recorded";
-                            cachesRecorded.updateMapCachesRecorded()
-                            fastMap.clearMap()
-                            cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
-
-                            // center and zoom level
-                            hideMenu()
-                            Functions.centerMapCaches(cachesSingleList.caches)
-
-                            fastMap.cachesOnMap = fastMap.countCachesOnMap()  // number of caches on map
-                        }
-                    }
-                }
-            }
-
-            // search by address
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 10
-
-                Image {
-                    source: "../Image/menu_Address.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
-                }
-
-                Text {
-                    id: byAddress
-                    text: "Recherche par adresse"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            main.listState === "address"
-                            if(fastMap.checkedPluginMap().supportsGeocoding()){
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 5
                                 hideMenu()
-                                geocode.open()
-                            } else {
-                                hideMenu()
-                                toast.visible = true
-                                toast.show("Le plugin ne gère pas le géocoding.")
+                                nearCachesClicked()
+                                fastMap.mapItem.center = locationSource
                             }
                         }
                     }
                 }
             }
 
-            // search by coordinates
-            RowLayout {
+            // saved caches (index 6)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Coordinates.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 6 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    id: byCoordinates
-                    text: "Recherche par coordonnées"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            main.listState === "coordinates"
-                            hideMenu()
-                            coordinatesBox.backgroundOpacity = 0.9
-                            coordinatesBox.open()
+                    Image {
+                        source: "../Image/menu_Saved.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Caches enregistrées"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 6
+                                main.listState = "recorded";
+                                cachesRecorded.updateMapCachesRecorded()
+                                fastMap.clearMap()
+                                cachesRecorded.updateListCachesRecorded(sqliteStorage.listsIds[tabBarRecordedCachesIndex])
+                                hideMenu()
+                                Functions.centerMapCaches(cachesSingleList.caches)
+                                fastMap.cachesOnMap = fastMap.countCachesOnMap()
+                            }
                         }
                     }
                 }
             }
 
-            // search by géocode
-            RowLayout {
+            // search by address (index 7)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_GeocodeCache.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 7 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    id: byGeocode
-                    text: "Recherche par géocode"
-                    font.family: localFont.name
-                    font.pointSize: 17
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
+
+                    Image {
+                        source: "../Image/menu_Address.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: byAddress
+                        text: "Recherche par adresse"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 7
+                                main.listState = "address"
+                                if(fastMap.checkedPluginMap().supportsGeocoding()){
+                                    hideMenu()
+                                    geocode.open()
+                                } else {
+                                    hideMenu()
+                                    toast.visible = true
+                                    toast.show("Le plugin ne gère pas le géocoding.")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // search by coordinates (index 8)
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
+
+                Rectangle {
+                    anchors.fill: parent
                     color: Palette.greenSea()
-                    Layout.fillWidth: true
+                    opacity: menu.currentSelectedIndex === 8 ? 0.2 : 0
+                    radius: 6
+                }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            geocodeCache.visible = !geocodeCache.visible
-                            if(geocodeCache.text.length !== 0) {
-                                if(main.viewState === "fullcache")
-                                    // previous cache in case the download fails
-                                    previousGeocode = fullCache.geocode
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
+
+                    Image {
+                        source: "../Image/menu_Coordinates.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: byCoordinates
+                        text: "Recherche par coordonnées"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 8
+                                main.listState = "coordinates"
                                 hideMenu()
-                                fullCache.geocode = geocodeCache.text.toUpperCase()
-                                fullCacheRetriever.sendRequest(connector.tokenKey)
-                                main.listState = ""
-                                geocodeCache.text = ""
+                                coordinatesBox.backgroundOpacity = 0.9
+                                coordinatesBox.open()
+                            }
+                        }
+                    }
+                }
+            }
 
+            // search by geocode (index 9)
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
+
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 9 ? 0.2 : 0
+                    radius: 6
+                }
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
+
+                    Image {
+                        source: "../Image/menu_GeocodeCache.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: byGeocode
+                        text: "Recherche par géocode"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 9
+                                geocodeCache.visible = !geocodeCache.visible
+                                if(geocodeCache.text.length !== 0) {
+                                    if(main.viewState === "fullcache")
+                                        previousGeocode = fullCache.geocode
+                                    hideMenu()
+                                    fullCache.geocode = geocodeCache.text.toUpperCase()
+                                    fullCacheRetriever.sendRequest(connector.tokenKey)
+                                    main.listState = ""
+                                    geocodeCache.text = ""
+                                }
                             }
                         }
                     }
@@ -400,8 +549,10 @@ Item {
                 font.capitalization: Font.AllUppercase
                 font.pointSize: 16
                 Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: main.width / 4.5
+                Layout.leftMargin: 15
+                Layout.rightMargin: 15
                 background: Rectangle {
-                    implicitWidth: main.width / 4.5
                     color: Palette.white()
                     border.color: Palette.greenSea()
                     border.width: 1
@@ -409,35 +560,50 @@ Item {
                 }
             }
 
-            // search by travel bug code
-            RowLayout {
+            // search by code travel bug (index 10)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_CodeTb.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 10 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    id: byCodeTravelBug
-                    text: "Recherche par code travel bug"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            codeTravelBug.visible = !codeTravelBug.visible
-                            if(codeTravelBug.text.length !== 0) {
-                                hideMenu()
-                                travelbug.sendRequest(connector.tokenKey , codeTravelBug.text.toUpperCase());
-                                codeTravelBug.text = ""
+                    Image {
+                        source: "../Image/menu_CodeTb.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: byCodeTravelBug
+                        text: "Recherche par code travel bug"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 10
+                                codeTravelBug.visible = !codeTravelBug.visible
+                                if(codeTravelBug.text.length !== 0) {
+                                    hideMenu()
+                                    travelbug.sendRequest(connector.tokenKey , codeTravelBug.text.toUpperCase());
+                                    codeTravelBug.text = ""
+                                }
                             }
                         }
                     }
@@ -451,8 +617,10 @@ Item {
                 font.capitalization: Font.AllUppercase
                 font.pointSize: 16
                 Layout.alignment: Qt.AlignHCenter
+                Layout.preferredWidth: main.width / 4.5
+                Layout.leftMargin: 15
+                Layout.rightMargin: 15
                 background: Rectangle {
-                    implicitWidth: main.width / 4.5
                     color: Palette.white()
                     border.color: Palette.greenSea()
                     border.width: 1
@@ -460,40 +628,54 @@ Item {
                 }
             }
 
-
-            // pockets queries
-            RowLayout {
+            // search  Pockets Queries (index 11)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_PocketsQueries.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 11 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    id: pockets
-                    text: "Pockets Queries"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            main.listState === "pocketQuery"
-                            getPocketsqueriesList.sendRequest(connector.tokenKey)
-                            pocketsqueries.visible = true
+                    Image {
+                        source: "../Image/menu_PocketsQueries.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: pockets
+                        text: "Pockets Queries"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 11
+                                main.listState = "pocketQuery"
+                                getPocketsqueriesList.sendRequest(connector.tokenKey)
+                                pocketsqueries.visible = true
+                            }
                         }
                     }
                 }
             }
 
-            // settings: maps, lists
+            // settings
             Text {
                 visible: !fastMap.compassMapButton
                 text: "Paramètres cartes, listes , gps"
@@ -504,70 +686,101 @@ Item {
                 Layout.leftMargin: 10
             }
 
-            RowLayout {
+            // settings maps/lists (index 12)
+            Item {
                 visible: !fastMap.compassMapButton
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Settings.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 12 ? 0.2 : 0
+                    radius: 6
                 }
 
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                Text {
-                    id: settingsMenu
-                    text: "Paramètres cartes , listes"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                    Image {
+                        source: "../Image/menu_Settings.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            userSettings.showMenu()
-                            hideMenu()
+                    Text {
+                        id: settingsMenu
+                        text: "Paramètres cartes , listes"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 12
+                                userSettings.showMenu()
+                                hideMenu()
+                            }
                         }
                     }
                 }
             }
 
-            // gps
-            RowLayout {
+            // informations GPS (index 13)
+            Item {
                 visible: !fastMap.compassMapButton
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Gps.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 13 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    id: settingsGps
-                    text: "Informations gps"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            satelliteInfo.showMenu()
-                            hideMenu()
+                    Image {
+                        source: "../Image/menu_Gps.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        id: settingsGps
+                        text: "Informations gps"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 13
+                                satelliteInfo.showMenu()
+                                hideMenu()
+                            }
                         }
                     }
                 }
             }
 
+            // disconnect
             Text {
                 text: "Déconnexion"
                 font.family: localFont.name
@@ -577,65 +790,96 @@ Item {
                 Layout.leftMargin: 10
             }
 
-            // disconnect
-            RowLayout {
+            // disconnect (index 14)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
-                //  Layout.topMargin: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Disconnect.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 14 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    text: "Se déconnecter ( appui long )"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onPressAndHold: {
-                            Functions.disconnectAccount()
-                            userSettings.hideMenu()
+                    Image {
+                        source: "../Image/menu_Disconnect.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Se déconnecter (appui long)"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onPressAndHold: {
+                                menu.currentSelectedIndex = 14
+                                Functions.disconnectAccount()
+                                userSettings.hideMenu()
+                            }
                         }
                     }
                 }
             }
 
-            // quit
-            RowLayout {
+            // quit (index 15)
+            Item {
                 Layout.fillWidth: true
-                spacing: 10
+                Layout.preferredHeight: 50
+                Layout.leftMargin: 10
+                Layout.rightMargin : 10
 
-                Image {
-                    source: "../Image/menu_Quit.png"
-                    sourceSize: Qt.size(23, 23)
-                    fillMode: Image.PreserveAspectFit
-                    Layout.leftMargin: 15
-                    Layout.preferredWidth: 30
+                Rectangle {
+                    anchors.fill: parent
+                    color: Palette.greenSea()
+                    opacity: menu.currentSelectedIndex === 15 ? 0.2 : 0
+                    radius: 6
                 }
 
-                Text {
-                    text: "Quitter Fast Cache"
-                    font.family: localFont.name
-                    font.pointSize: 17
-                    color: Palette.greenSea()
-                    Layout.fillWidth: true
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.leftMargin: 15
+                    spacing: 10
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: sureQuit.visible = true
+                    Image {
+                        source: "../Image/menu_Quit.png"
+                        sourceSize: Qt.size(23, 23)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 30
+                    }
+
+                    Text {
+                        text: "Quitter Fast Cache"
+                        font.family: localFont.name
+                        font.pointSize: 17
+                        color: Palette.greenSea()
+                        Layout.fillWidth: true
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                menu.currentSelectedIndex = 15
+                                sureQuit.visible = true
+                            }
+                        }
                     }
                 }
             }
 
-            // list pockets queries
+            // Pockets queries list
             Text {
                 visible : pocketsqueries.visible && getPocketsqueriesList.names.length !== 0
                 text: "Pockets queries"
