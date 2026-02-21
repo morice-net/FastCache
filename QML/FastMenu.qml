@@ -24,9 +24,7 @@ Item {
         height: parent.height
         color: Palette.white()
         clip: true
-        radius: 10
-        border.width: 3
-        border.color: Palette.greenSea()
+        radius: 10       
         x: -parent.width
 
         Behavior on x { NumberAnimation { duration: 200 } }

@@ -188,6 +188,19 @@ Rectangle {
         FastCacheUserLogsPage { id: userLogsPage }
     }
 
+    // When the menu is open, it allows you to darken the background.
+    Rectangle {
+        id: overlay
+        anchors.fill: parent
+        color: Palette.black()
+        opacity: fastMenu.isMenuVisible() ? 0.9 : 0
+        visible: fastMenu.isMenuVisible()
+
+        Behavior on opacity {
+            NumberAnimation { duration: 200 }
+        }
+    }
+
     function imagesTrue() {
         var visible =[];
         for (var i = 0; i < fullCache.imagesName.length; i++) {

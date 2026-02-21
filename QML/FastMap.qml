@@ -92,7 +92,7 @@ Rectangle {
     Component.onCompleted: {
         mapItem = Qt.createQmlObject('MapBuild {id:map; plugin: checkedPluginMap()}', fastMap)
         map = mapItem
-    }
+    }    
 
     function checkedPluginMap() {
         if(settings.namePlugin === "osmPlugin")
@@ -206,3 +206,5 @@ Rectangle {
         }
     }
 }
+
+

@@ -28,6 +28,19 @@ Map {
     anchors.fill: parent
     zoomLevel: currentZoomlevel
 
+    // When the menu is open, it allows you to darken the background.
+    Rectangle {
+        id: overlay
+        anchors.fill: parent
+        color: Palette.black()
+        opacity: fastMenu.isMenuVisible() ? 0.9 : 0
+        visible: fastMenu.isMenuVisible()
+
+        Behavior on opacity {
+            NumberAnimation { duration: 200 }
+        }
+    }
+
     PinchHandler {
         id: pinch
         enabled: !userSettings.isMenuVisible() && viewState === "map" && !geocode.geocodeResponseOpened && !fastMenu.isMenuVisible() &&
@@ -217,7 +230,7 @@ Map {
             source: "../Image/Compass/compass_mini.png"
 
             Behavior on rotation { NumberAnimation { duration: 2000 } }
-        }
+        }        
 
         function updateRotation() {
             if (fastCache === undefined || fastCache === undefined)
