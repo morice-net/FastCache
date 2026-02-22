@@ -54,7 +54,7 @@ Rectangle {
         id: overlay
         anchors.fill: parent
         color: Palette.black()
-        opacity: fastMenu.isMenuVisible() ? 0.9 : 0
+        opacity: fastMenu.isMenuVisible() ? 0.8 : 0
         visible: fastMenu.isMenuVisible()
 
         Behavior on opacity {

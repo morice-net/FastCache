@@ -33,7 +33,7 @@ Map {
         id: overlay
         anchors.fill: parent
         color: Palette.black()
-        opacity: fastMenu.isMenuVisible() ? 0.9 : 0
+        opacity: fastMenu.isMenuVisible() ? 0.8 : 0
         visible: fastMenu.isMenuVisible()
 
         Behavior on opacity {
@@ -230,7 +230,7 @@ Map {
             source: "../Image/Compass/compass_mini.png"
 
             Behavior on rotation { NumberAnimation { duration: 2000 } }
-        }        
+        }
 
         function updateRotation() {
             if (fastCache === undefined || fastCache === undefined)
@@ -240,16 +240,6 @@ Map {
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)
         }
-    }
-    onSelectedCacheChanged: {
-        if(fastMap.compassMapButton) {
-            fastMap.mapItem.deleteCircleWaypoint()
-            fastMap.mapItem.createCircleWaypoint(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
-                                                 fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
-            fastCache.compassPageInit(fastCache.compassPageTitleFullCache() , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
-                                      fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
-        }
-        selectedCacheItem.show(selectedCache)
     }
 
     function updateCachesOnMap(caches) {

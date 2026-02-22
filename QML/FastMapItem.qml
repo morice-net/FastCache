@@ -22,8 +22,18 @@ MapQuickItem {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if(listCaches().length !==0)
+                if(listCaches().length !==0) {
                     selectedCache = listCaches()[index]
+
+                    if(fastMap.compassMapButton) {
+                        fastMap.mapItem.deleteCircleWaypoint()
+                        fastMap.mapItem.createCircleWaypoint(fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                                             fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
+                        fastCache.compassPageInit(fastCache.compassPageTitleFullCache() , fullCache.isCorrectedCoordinates ? fullCache.correctedLat : fullCache.lat ,
+                                                  fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon)
+                    }
+                    selectedCacheItem.show(selectedCache)
+                }
             }
         }
     }
