@@ -113,8 +113,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: {
-                        buttonAnimation.start()
+                    onClicked: {                        
                         Functions.reconnectAccount()
                     }
                 }
