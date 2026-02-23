@@ -21,7 +21,7 @@ Rectangle {
         }
     ]
 
-    TabViewRecordedCaches{
+    TabViewRecordedCaches {
         id : tabViewRecordedCaches
         visible: main.listState === "recorded" && main.viewState === "list" ? true:false
     }
@@ -36,6 +36,7 @@ Rectangle {
 
     ListView {
         id: fastListColumn
+        x: main.width * 0.025
         width: parent.width
         height: main.listState === "near" || main.listState === "address" || main.listState === "coordinates" || main.listState === "recorded" ||
                 main.listState === "pocketQuery"
