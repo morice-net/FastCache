@@ -94,12 +94,6 @@ Item {
                         height: width
                     }
                 }
-
-            }
-
-            function closeIfMenu() {
-                if (fastMenu.isMenuVisible())
-                    visible = false
             }
         }
 

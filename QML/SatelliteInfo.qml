@@ -278,9 +278,6 @@ Rectangle {
         }
     }
 
-    function closeIfMenu() {
-    }
-
     function showMenu() {
         console.log("Show menu...")
         page.x = 10

@@ -265,11 +265,6 @@ FastPopup {
         }
     }
 
-    function closeIfMenu() {
-        if (fastMenu.isMenuVisible())
-            visible = false
-    }
-
     function correctCoordinates() {
         if (!corrected.visible)
             return false

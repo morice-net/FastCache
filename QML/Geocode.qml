@@ -299,9 +299,4 @@ FastPopup {
             geocodeResponse.visible = true
         }
     }
-
-    function closeIfMenu() {
-        if (fastMenu.isMenuVisible())
-            visible = false
-    }
 }

@@ -205,9 +205,6 @@ Rectangle {
             fastMap.mapItem.updateCachesOnMap(cachesSingleList.caches)
     }
 
-    function closeIfMenu() {
-    }
-
     function showMenu() {
         console.log("Show menu...")
         userSettings.x = 0

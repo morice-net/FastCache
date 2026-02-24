@@ -143,12 +143,6 @@ FastPopup {
                 box3.eraseText()
             }
         }
-
-    }
-
-    function closeIfMenu() {
-        if (fastMenu.isMenuVisible())
-            visible = false
     }
 }
 

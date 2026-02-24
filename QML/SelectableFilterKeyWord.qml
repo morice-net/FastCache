@@ -93,12 +93,7 @@ FastPopup {
                 main.listKeywordDiscoverOwner[2] = proprietaire.text
             }
         }
-    }
-
-    function closeIfMenu() {
-        if (fastMenu.isMenuVisible())
-            visible = false
-    }
+    }    
 
     function recordInSettings() {
         settings.keyWord = mot.text

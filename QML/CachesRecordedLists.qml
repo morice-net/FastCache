@@ -528,11 +528,6 @@ FastPopup {
         return "Enregistrer les caches"
     }
 
-    function closeIfMenu() {
-        if (fastMenu.isMenuVisible())
-            visible = false
-    }
-
     function listCheckedBool(geocode) {
         var list = sqliteStorage.cacheInLists("cacheslists", geocode)
         return list
