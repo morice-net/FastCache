@@ -18,6 +18,22 @@ Item {
         visible: false
     }
 
+    MouseArea {
+            anchors.fill: parent
+            // N'activer que quand le menu est ouvert
+            enabled: menu.x === 0
+            onClicked: {
+                // Vérifier si on a cliqué en dehors du menu
+                if (!menu.contains(mapToItem(menu, mouse.x, mouse.y))) {
+                    hideMenu()
+                }
+            }
+            // Pour que les clics traversent quand le menu est fermé
+            propagateComposedEvents: true
+            // Rendre invisible
+            opacity: 0
+        }
+
     Rectangle {
         id: menu
         width: parent.width * 0.8
@@ -143,7 +159,7 @@ Item {
 
     function showMenu() {
         console.log("Show menu...")
-        menu.x = 0
+        menu.x = 0        
     }
 
     function hideMenu() {
