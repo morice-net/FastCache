@@ -155,7 +155,6 @@ qt_add_qml_module(appFastCache
     Image/cache.png
     Image/cacheList.png
     Image/fastCache_icon.png
-    Image/filterHeadArrow.png
     Image/forward.png
     Image/goback.png
     Image/heart-green.png

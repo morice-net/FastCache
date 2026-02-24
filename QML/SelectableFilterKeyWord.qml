@@ -4,7 +4,8 @@ import QtQuick.Controls
 import "JavaScript/Palette.js" as Palette
 
 FastPopup {
-    height: main.height * 0.6
+    leftMargin: 20
+    height: column.implicitHeight + 20
     width: main.width * 0.8
     backgroundOpacity: 0.9
     backgroundRadius: 8

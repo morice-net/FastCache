@@ -12,7 +12,7 @@ Item {
 
     ColumnLayout {
         id: internFilterColumn
-        spacing: filters.height / 50
+        spacing: 22
 
         // lab caches
         SelectableFilterLabCache {
@@ -64,8 +64,18 @@ Item {
 
         FastPopup {
             id: popupSize
+
+            Connections {
+                target: popupSize.parent
+                function onVisibleChanged() {
+                    if (!cacheFilter.opacity !== 0 && popupSize.opened) {
+                        popupSize.close()
+                    }
+                }
+            }
+            leftMargin: 20
             width: main.width * 0.6
-            height: main.height * 0.7
+            height: sizeColumn.implicitHeight + 20
             backgroundRadius: 8
             backgroundOpacity: 0.9
             backgroundBorder {
@@ -74,6 +84,7 @@ Item {
             }
 
             Column {
+                id: sizeColumn
 
                 Repeater {
                     model: listSizes.length
@@ -162,6 +173,15 @@ Item {
 
         SelectableFilterKeyWord {
             id: keyWordPopup
+
+            Connections {
+                target: keyWordPopup.parent
+                function onVisibleChanged() {
+                    if (!cacheFilter.opacity !== 0 && keyWordPopup.opened) {
+                        keyWordPopup.close()
+                    }
+                }
+            }
         }
     }
 

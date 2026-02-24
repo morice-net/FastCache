@@ -5,11 +5,7 @@ import "JavaScript/MainFunctions.js" as Functions
 
 Item {
     id: cacheFilter
-    anchors.fill: parent
-    anchors.topMargin: 40
-    anchors.bottomMargin: anchors.topMargin/2
-    anchors.rightMargin: anchors.topMargin/3
-    anchors.leftMargin: anchors.topMargin/3
+    anchors.fill: parent  
     opacity: 0
     visible: opacity > 0
 
@@ -22,10 +18,6 @@ Item {
         anchors.fill: parent
         color: Palette.white()
         opacity: 0.9
-        radius: parent.width/20
-        border.width: 2
-        border.color: Palette.greenSea()
-        anchors.top: filterHeadArrow.bottom
 
         Text {
             anchors.top: parent.top
@@ -70,14 +62,7 @@ Item {
             anchors.top: rectangleImage.bottom
             anchors.topMargin: 5
         }
-    }
-
-    Image {
-        id: filterHeadArrow
-        source: "../Image/filterHeadArrow.png"
-        anchors.right: parent.right
-        anchors.bottom: parent.top
-    }
+    }    
     onVisibleChanged: recordCacheFiltersInSettings()
 
     function recordCacheFiltersInSettings() {
