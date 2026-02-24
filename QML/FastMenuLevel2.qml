@@ -59,7 +59,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page boussole"
+                        text: "Page Boussole"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -108,7 +108,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page carte"
+                        text: "Page Carte"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -182,7 +182,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page étapes"
+                        text: "Page Etapes"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -228,7 +228,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page description"
+                        text: "Page Description"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -274,7 +274,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page détails"
+                        text: "Page Détails"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -324,7 +324,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page images"
+                        text: "Page Images"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -370,7 +370,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page logs"
+                        text: "Page logs"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -420,7 +420,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page loguer"
+                        text: "Page Loguer"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -470,7 +470,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page travelbug"
+                        text: "Page Travelbug"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -516,7 +516,7 @@ Item {
                     }
 
                     Text {
-                        text: "Aller à la page logs utilisateur"
+                        text: "Page Logs utilisateur"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
@@ -592,7 +592,7 @@ Item {
             // store  or delete cache (index 11)
             Text {
                 visible: main.viewState === "fullcache" && fullCacheRetriever.state !== "loading"
-                text: "Enregistrement ou suppression de cache"
+                text: !fullCache.registered ? "Enregistrement de cache" : "Suppression de cache"
                 font.family: localFont.name
                 font.pointSize: 15
                 font.bold: true

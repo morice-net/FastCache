@@ -18,19 +18,16 @@ Item {
         visible: false
     }
 
+    // closes the menu when you click outside
     MouseArea {
-            anchors.fill: parent
-            // N'activer que quand le menu est ouvert
+            anchors.fill: parent           
             enabled: menu.x === 0
-            onClicked: {
-                // Vérifier si on a cliqué en dehors du menu
+            onClicked: {                
                 if (!menu.contains(mapToItem(menu, mouse.x, mouse.y))) {
                     hideMenu()
                 }
-            }
-            // Pour que les clics traversent quand le menu est fermé
-            propagateComposedEvents: true
-            // Rendre invisible
+            }            
+            propagateComposedEvents: true            
             opacity: 0
         }
 
@@ -39,8 +36,7 @@ Item {
         width: parent.width * 0.8
         height: parent.height
         color: Palette.white()
-        clip: true
-        radius: 10       
+        clip: true               
         x: -parent.width
 
         Behavior on x { NumberAnimation { duration: 200 } }
