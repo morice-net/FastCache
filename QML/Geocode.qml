@@ -42,6 +42,9 @@ FastPopup {
                 border.width: 3
                 border.color: street.focus ? Palette.silver() :Palette.greenSea()
             }
+            cursorDelegate : CursorRectangle {
+                height : street.height * 0.6
+            }
             font.family: localFont.name
         }
 
@@ -61,6 +64,9 @@ FastPopup {
                 radius:5
                 border.width: 3
                 border.color: city.focus ? Palette.silver() :Palette.greenSea()
+            }
+            cursorDelegate : CursorRectangle {
+                height : city.height * 0.6
             }
             font.family: localFont.name
         }
@@ -82,6 +88,10 @@ FastPopup {
                 border.width: 3
                 border.color: stateName.focus ? Palette.silver() :Palette.greenSea()
             }
+            cursorDelegate : CursorRectangle {
+                height : stateName.height * 0.6
+            }
+            font.family: localFont.name
         }
 
         Label {
@@ -100,6 +110,9 @@ FastPopup {
                 radius:5
                 border.width: 3
                 border.color: country.focus ? Palette.silver() :Palette.greenSea()
+            }
+            cursorDelegate : CursorRectangle {
+                height : country.height * 0.6
             }
             font.family: localFont.name
         }
@@ -120,6 +133,9 @@ FastPopup {
                 radius:5
                 border.width: 3
                 border.color: postalCode.focus ? Palette.silver() :Palette.greenSea()
+            }
+            cursorDelegate : CursorRectangle {
+                height : postalCode.height * 0.6
             }
             font.family: localFont.name
         }

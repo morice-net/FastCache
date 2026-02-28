@@ -31,7 +31,10 @@ FastPopup {
             background: Rectangle {
                 implicitWidth: main.width/1.5
                 radius: 6
-                border.color: mot.focus ? Palette.silver() :Palette.greenSea()
+                border.color: mot.focus ? Palette.silver() : Palette.greenSea()
+            }
+            cursorDelegate : CursorRectangle {
+                height : mot.height * 0.6
             }
             onTextChanged: keyWordButton()
         }
@@ -55,6 +58,9 @@ FastPopup {
                 radius: 6
                 border.color: decouvreur.focus ? Palette.silver() :Palette.greenSea()
             }
+            cursorDelegate : CursorRectangle {
+                height : decouvreur.height * 0.6
+            }
             onTextChanged: keyWordButton()
         }
 
@@ -76,6 +82,9 @@ FastPopup {
                 radius: 6
                 border.color: proprietaire.focus ? Palette.silver() :Palette.greenSea()
             }
+            cursorDelegate : CursorRectangle {
+                height : proprietaire.height * 0.6
+            }
             onTextChanged: keyWordButton()
         }
 
@@ -93,7 +102,7 @@ FastPopup {
                 main.listKeywordDiscoverOwner[2] = proprietaire.text
             }
         }
-    }    
+    }
 
     function recordInSettings() {
         settings.keyWord = mot.text

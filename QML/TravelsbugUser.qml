@@ -155,6 +155,9 @@ Repeater {
             background: Rectangle {
                 implicitHeight: 100
             }
+            cursorDelegate : CursorRectangle {
+                height : 40
+            }
             onVisibleChanged: {
                 if (visible)
                     scrollView.scrollToBottom()

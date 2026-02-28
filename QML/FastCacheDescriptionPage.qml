@@ -281,6 +281,9 @@ Item {
                 background: Rectangle {
                     implicitHeight: 100
                 }
+                cursorDelegate : CursorRectangle {
+                    height : 40
+                }
             }
 
             FastButton {

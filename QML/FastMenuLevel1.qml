@@ -558,6 +558,9 @@ Item {
                     border.width: 1
                     radius: 5
                 }
+                cursorDelegate : CursorRectangle {
+                    height : geocodeCache.height * 0.6
+                }
             }
 
             // search by code travel bug (index 10)
@@ -625,6 +628,9 @@ Item {
                     border.color: Palette.greenSea()
                     border.width: 1
                     radius: 5
+                }
+                cursorDelegate : CursorRectangle {
+                    height : codeTravelBug.height * 0.6
                 }
             }
 

@@ -114,6 +114,9 @@ Rectangle {
                             radius: 5
                             implicitHeight: 50
                         }
+                        cursorDelegate : CursorRectangle {
+                            height : 40
+                        }
                     }
 
                     Image {

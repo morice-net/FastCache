@@ -151,6 +151,9 @@ Item {
                 background: Rectangle {
                     implicitHeight: 100
                 }
+                cursorDelegate : CursorRectangle {
+                    height : 40
+                }
                 onPressAndHold: {
                     translateText.open()
                     translate = message.text
@@ -179,6 +182,9 @@ Item {
                     color: Palette.white()
                     border.color: Palette.greenSea()
                     radius: 6
+                }
+                cursorDelegate : CursorRectangle {
+                    height : trackingCode.height * 0.6
                 }
             }
 

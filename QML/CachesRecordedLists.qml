@@ -259,6 +259,9 @@ FastPopup {
                 border.width: 1
                 radius: 5
             }
+            cursorDelegate : CursorRectangle {
+                height : rename.height * 0.6
+            }
         }
 
         FastButton {
@@ -350,6 +353,9 @@ FastPopup {
                 border.color: Palette.turquoise()
                 border.width: 1
                 radius: 5
+            }
+            cursorDelegate : CursorRectangle {
+                height : createNewList.height * 0.6
             }
         }
 

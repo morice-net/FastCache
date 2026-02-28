@@ -113,6 +113,14 @@ Rectangle {
                         color: Palette.greenSea()
                         font.pointSize: 16
                         horizontalAlignment: TextInput.AlignHCenter
+                        background: Rectangle {
+                            implicitWidth: main.width / 5
+                            radius: 10
+                            border.color: Palette.greenSea()
+                        }
+                        cursorDelegate : CursorRectangle {
+                            height : distance.height * 0.6
+                        }
                     }
                 }
             }

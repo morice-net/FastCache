@@ -70,6 +70,9 @@ FastPopup {
                 border.width: 1
                 radius: 5
             }
+            cursorDelegate : CursorRectangle {
+                height : bearing.height * 0.6
+            }
         }
 
         Text {
@@ -95,6 +98,9 @@ FastPopup {
                 border.color: Palette.turquoise()
                 border.width: 1
                 radius: 5
+            }
+            cursorDelegate : CursorRectangle {
+                height : distance.height * 0.6
             }
         }
 
@@ -212,6 +218,9 @@ FastPopup {
             background: Rectangle {
                 radius: 5
                 implicitHeight: userWaypoint.height * 0.2
+            }
+            cursorDelegate : CursorRectangle {
+                height : 40
             }
         }
 

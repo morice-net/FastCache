@@ -43,7 +43,6 @@ Item {
                 cursorDelegate : CursorRectangle {
                     height : box1Degrees.height * 0.6
                 }
-
             }
 
             Label {
