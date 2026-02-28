@@ -26,8 +26,8 @@ Item {
             TextField {
                 id: box1Degrees
                 onTextChanged: {
-                    if(text.length === 2) {
-                        box1Minutes.focus = true
+                    if(text.length === maximumLength && acceptableInput) {
+                        box1Minutes.forceActiveFocus()
                     }
                 }
                 maximumLength : 2
@@ -42,8 +42,8 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box1Degrees.height * 0.6
-                    running: box1Degrees.activeFocus
                 }
+
             }
 
             Label {
@@ -55,8 +55,8 @@ Item {
             TextField {
                 id: box1Minutes
                 onTextChanged: {
-                    if(text.length === 2) {
-                        box1Decimal.focus = true
+                    if(text.length === maximumLength && acceptableInput) {
+                        box1Decimal.forceActiveFocus()
                     }
                 }
                 maximumLength : 2
@@ -71,7 +71,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box1Minutes.height * 0.6
-                    running: box1Minutes.activeFocus
                 }
             }
 
@@ -84,8 +83,8 @@ Item {
             TextField {
                 id: box1Decimal
                 onTextChanged: {
-                    if(text.length === 3) {
-                        box1Degrees2.focus = true
+                    if(text.length === maximumLength && acceptableInput) {
+                        box1Degrees2.forceActiveFocus()
                     }
                 }
                 maximumLength : 3
@@ -100,7 +99,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box1Decimal.height * 0.6
-                    running: box1Decimal.activeFocus
                 }
             }
 
@@ -128,8 +126,8 @@ Item {
             TextField {
                 id: box1Degrees2
                 onTextChanged: {
-                    if(text.length === 3) {
-                        box1Minutes2.focus = true
+                    if(text.length === maximumLength && acceptableInput) {
+                        box1Minutes2.forceActiveFocus()
                     }
                 }
                 maximumLength : 3
@@ -144,7 +142,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box1Degrees2.height * 0.6
-                    running: box1Degrees2.activeFocus
                 }
             }
 
@@ -157,8 +154,8 @@ Item {
             TextField {
                 id: box1Minutes2
                 onTextChanged: {
-                    if(text.length === 2) {
-                        box1Decimal2.focus = true
+                    if(text.length === maximumLength && acceptableInput) {
+                        box1Decimal2.forceActiveFocus()
                     }
 
                 }
@@ -174,7 +171,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box1Minutes2.height * 0.6
-                    running: box1Minutes2.activeFocus
                 }
             }
 
@@ -198,7 +194,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box1Decimal2.height * 0.6
-                    running: box1Decimal2.activeFocus
                 }
             }
 

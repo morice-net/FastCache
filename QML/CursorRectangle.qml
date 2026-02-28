@@ -4,16 +4,23 @@ import "JavaScript/Palette.js" as Palette
 
 Rectangle {
     id : cursorRect
-    property alias running: timer.running
-
     width: 2
     color: Palette.turquoise()
+    opacity: parent.focus ? 1 : 0
 
-    Timer{
-        id: timer
-        interval: 500
-        repeat: true
-        onRunningChanged: cursorRect.visible = running
-        onTriggered: cursorRect.visible = !cursorRect.visible
+    SequentialAnimation on opacity {
+        running: parent.focus
+        loops: Animation.Infinite
+
+        NumberAnimation { from: 1; to: 0; duration: 600 }
+        NumberAnimation { from: 0; to: 1; duration: 600 }
     }
 }
+
+
+
+
+
+
+
+

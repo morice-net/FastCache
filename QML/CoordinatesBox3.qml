@@ -26,7 +26,7 @@ Item {
             TextField {
                 id: box3Degrees
                 onTextChanged: {
-                    if(text.length === 2) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Minutes.focus = true
                     }
                 }
@@ -42,7 +42,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Degrees.height * 0.6
-                    running: box3Degrees.activeFocus
                 }
             }
 
@@ -55,7 +54,7 @@ Item {
             TextField {
                 id: box3Minutes
                 onTextChanged: {
-                    if(text.length === 2) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Seconds.focus = true
                     }
                 }
@@ -71,7 +70,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Minutes.height * 0.6
-                    running: box3Minutes.activeFocus
                 }
             }
 
@@ -84,7 +82,7 @@ Item {
             TextField {
                 id: box3Seconds
                 onTextChanged: {
-                    if(text.length === 2) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Decimal.focus = true
                     }
                 }
@@ -100,7 +98,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Seconds.height * 0.6
-                    running: box3Seconds.activeFocus
                 }
             }
 
@@ -113,7 +110,7 @@ Item {
             TextField {
                 id: box3Decimal
                 onTextChanged: {
-                    if(text.length === 3) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Degrees2.focus = true
                     }
                 }
@@ -129,7 +126,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Decimal.height * 0.6
-                    running: box3Decimal.activeFocus
                 }
             }
 
@@ -157,7 +153,7 @@ Item {
             TextField {
                 id: box3Degrees2
                 onTextChanged: {
-                    if(text.length === 3) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Minutes2.focus = true
                     }
                 }
@@ -173,7 +169,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Degrees2.height * 0.6
-                    running: box3Degrees2.activeFocus
                 }
             }
 
@@ -186,7 +181,7 @@ Item {
             TextField {
                 id: box3Minutes2
                 onTextChanged: {
-                    if(text.length === 2) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Seconds2.focus = true
                     }
                 }
@@ -202,7 +197,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Minutes2.height * 0.6
-                    running: box3Minutes2.activeFocus
                 }
             }
 
@@ -215,7 +209,7 @@ Item {
             TextField {
                 id: box3Seconds2
                 onTextChanged: {
-                    if(text.length === 2) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box3Decimal2.focus = true
                     }
                 }
@@ -231,7 +225,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Seconds2.height * 0.6
-                    running: box3Seconds2.activeFocus
                 }
             }
 
@@ -255,7 +248,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box3Decimal2.height * 0.6
-                    running: box3Decimal2.activeFocus
                 }
             }
 

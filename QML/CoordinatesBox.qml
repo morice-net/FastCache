@@ -5,11 +5,9 @@ import "JavaScript/Palette.js" as Palette
 
 FastPopup {
     id: coordinatesBox
-    y:20
     width: parent.width
-    height: parent.height * 0.8
-    backgroundRadius: 10
-    backgroundOpacity: 0.9
+    height: parent.height
+    backgroundColor: Palette.greenSea()
 
     // The box gives latitude and longitude in resultLat and resultLon.
     property double resultLat: 0.0
@@ -23,7 +21,16 @@ FastPopup {
         id: gpsFormatCombo
         y: 80
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width*0.6
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                gpsFormatCombo.popup.open()
+            }
+            cursorShape: Qt.PointingHandCursor
+            propagateComposedEvents: true
+        }
+        width: parent.width * 0.6
         model: ["DDD°MM.MMM'", "DDD.DDDDD°", "DDD°MM'SS.SSS''"]
         delegate: ItemDelegate {
             width: gpsFormatCombo.width

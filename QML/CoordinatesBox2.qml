@@ -26,7 +26,7 @@ Item {
             TextField {
                 id: box2Degrees
                 onTextChanged: {
-                    if(text.length === 2) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box2Decimal.focus = true
                     }
                 }
@@ -42,7 +42,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box2Degrees.height * 0.6
-                    running: box2Degrees.activeFocus
                 }
             }
 
@@ -55,7 +54,7 @@ Item {
             TextField {
                 id: box2Decimal
                 onTextChanged: {
-                    if(text.length === 5) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box2Degrees2.focus = true
                     }
                 }
@@ -71,7 +70,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box2Decimal.height * 0.6
-                    running: box2Decimal.activeFocus
                 }
             }
 
@@ -99,7 +97,7 @@ Item {
             TextField {
                 id: box2Degrees2
                 onTextChanged: {
-                    if(text.length === 3) {
+                    if(text.length === maximumLength && acceptableInput) {
                         box2Decimal2.focus = true
                     }
                 }
@@ -115,7 +113,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box2Degrees2.height * 0.6
-                    running: box2Degrees2.activeFocus
                 }
             }
 
@@ -139,7 +136,6 @@ Item {
                 }
                 cursorDelegate : CursorRectangle {
                     height : box2Decimal2.height * 0.6
-                    running: box2Decimal2.activeFocus
                 }
             }
 
