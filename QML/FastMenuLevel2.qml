@@ -344,7 +344,7 @@ Item {
 
             // logs (index 6)
             Item {
-                visible: main.viewState === "fullcache" || main.viewState === "travelbug"
+                visible: (main.viewState === "fullcache" && fullCache.type !== "labCache") || main.viewState === "travelbug"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
                 Layout.leftMargin: 10
@@ -394,7 +394,7 @@ Item {
 
             // log in (index 7)
             Item {
-                visible: main.viewState === "fullcache" || main.viewState === "travelbug"
+                visible: (main.viewState === "fullcache" && fullCache.type !== "labCache") || main.viewState === "travelbug"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
                 Layout.leftMargin: 10
@@ -444,7 +444,7 @@ Item {
 
             // travelBug (index 8)
             Item {
-                visible: main.viewState === "fullcache"
+                visible: main.viewState === "fullcache" && fullCache.type !== "labCache"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
                 Layout.leftMargin: 10
@@ -490,7 +490,7 @@ Item {
 
             // user logs (index 9)
             Item {
-                visible: main.viewState === "fullcache"
+                visible: main.viewState === "fullcache" && fullCache.type !== "labCache"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
                 Layout.leftMargin: 10
