@@ -171,6 +171,9 @@ Item {
                                 webView.settings.setLocalStorageEnabled(true)
                                 webView.settings.setLocalContentCanAccessFileUrls(true)
                                 webView.settings.setJavaScriptEnabled(true)
+
+
+                                Qt.resourceExists(":/Content/images/al-logo-balloon.svg")
                             }
                         }
                     }

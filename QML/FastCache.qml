@@ -82,7 +82,7 @@ Rectangle {
         id:fastCacheHeader
         y: fullCache.type === "labCache" ? 15 : 5
         property int xGoal: 0
-        x: -100
+        x: - 100
         spacing: 10
 
         AnimatedSprite {
@@ -113,11 +113,11 @@ Rectangle {
             text: fullCache.name
             color: Palette.white()
             onTextChanged: {
-                parent.x = fastCache.width * 0.31
-                if(fastCacheHeaderIcon.width + fastCacheHeaderName.width <= fastCache.width - parent.x - fastCache.width * 0.1)  {
+                parent.x = fastMenuHeader.menuIconHeight() * 2 + 20
+                if(fastCacheHeaderIcon.width + fastCacheHeaderName.width <= fastCache.width - parent.x - 10){
                     parent.xGoal = parent.x
                 } else {
-                    parent.xGoal = Math.min(fastCache.width - parent.x - fastCacheHeaderIcon.width - fastCacheHeaderName.width - fastCache.width * 0.1 ,
+                    parent.xGoal = Math.min(fastCache.width - parent.x - fastCacheHeaderIcon.width - fastCacheHeaderName.width - 10 ,
                                             parent.x)
                 }
                 headerAnimation.restart()
