@@ -18,16 +18,18 @@ Rectangle {
     RowLayout {
         id: rootLayout
         anchors {
-            fill: parent
-            leftMargin: 5
-            rightMargin: 5
-            bottomMargin: 5
+            left: parent.left
+            right: parent.right
+            leftMargin: 10
+            rightMargin: 10
+            top: parent.top
         }
-        spacing: 3
+        spacing: 20
 
         Rectangle {
-            implicitWidth: (parent.width - parent.spacing) / 2
-            implicitHeight: Math.max(statusLayout.actualHeight, posLayout.actualHeight)
+            id: rectangle
+            Layout.fillWidth: true
+            Layout.preferredHeight: posLayout.implicitHeight
             border {
                 color: Palette.greenSea()
                 width: 1
@@ -135,8 +137,8 @@ Rectangle {
         }
 
         Rectangle {
-            implicitWidth: (parent.width - parent.spacing) / 2
-            implicitHeight: Math.max(statusLayout.actualHeight, posLayout.actualHeight)
+            Layout.fillWidth: true
+            Layout.preferredHeight: rectangle.Layout.preferredHeight
             border {
                 color: Palette.greenSea()
                 width: 1

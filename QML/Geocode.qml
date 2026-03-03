@@ -12,15 +12,14 @@ FastPopup {
     property bool geocodeResponseOpened: geocodeResponse.visible
     property alias geocodeResponseVisible: geocodeResponse.visible
 
-    width: main.width * 0.9
-    height: main.height * 0.7
-    anchors.centerIn: parent
-    backgroundRadius: 10
+    width: main.width
+    height: main.height
+    anchors.centerIn: parent    
     backgroundOpacity: 0.9
     onVisibleChanged: geocodeResponse.visible = false
 
     Column {
-        spacing: 5
+        spacing: 20
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.7
         visible: !geocodeResponse.visible

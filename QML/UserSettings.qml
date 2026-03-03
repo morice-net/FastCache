@@ -6,13 +6,12 @@ import "JavaScript/MainFunctions.js" as Functions
 
 Rectangle {
     id: userSettings
-    height: parent.height * 0.95
-    width: parent.width * 0.95
+    height: parent.height
+    width: parent.width
     x: -parent.width
     y: -parent.height
     color: Palette.white()
     opacity: 0.8
-    radius: 10
 
     Behavior on x { NumberAnimation { duration: 600 } }
     Behavior on y { NumberAnimation { duration: 600 } }

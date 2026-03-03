@@ -9,13 +9,10 @@ import "JavaScript/MainFunctions.js" as Functions
 
 Rectangle {
     id: page
-    height: parent.height * 0.93
-    width: parent.width * 0.9
+    height: parent.height
+    width: parent.width
     x: -parent.width
     y: -parent.height
-    radius: 5
-    border.color: Palette.greenSea()
-    border.width: 2
 
     Behavior on x { NumberAnimation { duration: 600 } }
     Behavior on y { NumberAnimation { duration: 600 } }
@@ -129,9 +126,7 @@ Rectangle {
 
     // display
     Column {
-        spacing: 1
-        leftPadding: 5
-        rightPadding: 5
+        spacing: 20
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
 
@@ -171,7 +166,7 @@ Rectangle {
 
         StackLayout {
             id: viewsLayout
-            width: parent.width * 0.95
+            width: parent.width
             height: main.width * 0.7
             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -217,7 +212,7 @@ Rectangle {
 
         SatPositionStatus {
             id: positionAndStatus
-            width: parent.width * 0.95
+            width: parent.width
         }
     }
 
@@ -280,8 +275,8 @@ Rectangle {
 
     function showMenu() {
         console.log("Show menu...")
-        page.x = 10
-        page.y = 30
+        page.x = 0
+        page.y = 0
     }
 
     function hideMenu() {
