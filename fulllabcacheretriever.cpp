@@ -26,42 +26,75 @@ void FullLabCacheRetriever::listCachesObject(CachesSingleList *listCaches)
 
 void FullLabCacheRetriever::writeToStorage(SQLiteStorage *sqliteStorage)
 {
-    QString descriptionTagBegin = "<br />";
-    QString descriptionTagEnd = "<br />";
-    QString ownerTagBegin = "<br /><center><strong>";
-    QString ownerTagEnd = "</strong></center>";
+    auto extractBetween = [](const QString &text,
+                             const QString &beginTag,
+                             const QString &endTag) -> QString
+    {
+        int begin = text.indexOf(beginTag);
+        if (begin < 0)
+            return "";
 
-    int  indexBegin = m_fullCache->longDescription().indexOf(descriptionTagBegin) + descriptionTagBegin.size();
-    int  indexEnd = m_fullCache->longDescription().indexOf(descriptionTagEnd , indexBegin);
-    QString description = m_fullCache->longDescription().sliced(indexBegin , indexEnd - indexBegin);
+        begin += beginTag.size();
 
-    indexBegin = m_fullCache->longDescription().indexOf(ownerTagBegin) + ownerTagBegin.size();
-    indexEnd = m_fullCache->longDescription().indexOf(ownerTagEnd , indexBegin);
-    QString owner = m_fullCache->longDescription().sliced(indexBegin , indexEnd - indexBegin);
+        int end = text.indexOf(endTag, begin);
+        if (end < 0 || end <= begin)
+            return "";
+
+        return text.sliced(begin, end - begin).trimmed();
+    };
+
+    QString longDesc = m_fullCache->longDescription();
+
+    QString description = extractBetween(
+        longDesc,
+        "<br />",
+        "<br />"
+        );
+
+    QString owner = extractBetween(
+        longDesc,
+        "<br /><center><strong>",
+        "</strong></center>"
+        );
 
     QJsonObject cacheJson = m_dataJson.object();
-    cacheJson.insert("title" , QJsonValue(m_fullCache->name()));
-    cacheJson.insert("isOwned" , QJsonValue(m_fullCache->own()));
-    cacheJson.insert("isCompleted" , QJsonValue(m_fullCache->found()));
-    cacheJson.insert("ratingsAverage" , QJsonValue(m_fullCache->ratingsAverage()));
-    cacheJson.insert("ratingsTotalCount" , QJsonValue(m_fullCache->ratingsTotalCount()));
-    cacheJson.insert("stagesTotalCount" , QJsonValue(m_fullCache->stagesTotalCount()));
-    cacheJson.insert("description" , QJsonValue(description));
-    cacheJson.insert("owner" , QJsonValue(owner));
-    cacheJson.insert("keyImageUrl" , m_keyImageUrl);
+
+    cacheJson.insert("title", m_fullCache->name());
+    cacheJson.insert("isOwned", m_fullCache->own());
+    cacheJson.insert("isCompleted", m_fullCache->found());
+    cacheJson.insert("ratingsAverage", m_fullCache->ratingsAverage());
+    cacheJson.insert("ratingsTotalCount", m_fullCache->ratingsTotalCount());
+    cacheJson.insert("stagesTotalCount", m_fullCache->stagesTotalCount());
+    cacheJson.insert("description", description);
+    cacheJson.insert("owner", owner);
+    cacheJson.insert("keyImageUrl", m_keyImageUrl);
 
     QJsonObject location = cacheJson["location"].toObject();
-    location.insert("latitude" , QJsonValue(m_fullCache->lat()));
-    location.insert("longitude" , QJsonValue(m_fullCache->lon()));
-    cacheJson.insert("location" , QJsonValue::fromVariant(location));
+    location.insert("latitude", m_fullCache->lat());
+    location.insert("longitude", m_fullCache->lon());
+    cacheJson.insert("location", location);
 
     m_dataJson.setObject(cacheJson);
 
-    // Save in database and download images of cache recorded
-    sqliteStorage->updateFullCacheColumns("fullcache", m_fullCache->geocode(), m_fullCache->name(), m_fullCache->type(), m_fullCache->size(),
-                                          m_fullCache->difficulty(), m_fullCache->terrain(), m_fullCache->lat(), m_fullCache->lon(), m_fullCache->found()
-                                          , m_fullCache->own(), m_replaceImageInText->replaceUrlImageToPathLabCache(m_fullCache->geocode(), m_dataJson ,true) ,
-                                          QJsonDocument());
+    sqliteStorage->updateFullCacheColumns(
+        "fullcache",
+        m_fullCache->geocode(),
+        m_fullCache->name(),
+        m_fullCache->type(),
+        m_fullCache->size(),
+        m_fullCache->difficulty(),
+        m_fullCache->terrain(),
+        m_fullCache->lat(),
+        m_fullCache->lon(),
+        m_fullCache->found(),
+        m_fullCache->own(),
+        m_replaceImageInText->replaceUrlImageToPathLabCache(
+            m_fullCache->geocode(),
+            m_dataJson,
+            true
+            ),
+        QJsonDocument()
+        );
 }
 
 void FullLabCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage)
@@ -73,29 +106,60 @@ void FullLabCacheRetriever::deleteToStorage(SQLiteStorage *sqliteStorage)
 
 void FullLabCacheRetriever::descriptionLabCache(QString url, QString imageUrl, QString name)
 {
-    const auto manager = new QNetworkAccessManager(this);
-    QObject::connect(this, &FullLabCacheRetriever::descriptionChanged, this, &FullLabCacheRetriever::setDescription);
+    auto manager = new QNetworkAccessManager(this);
+
     connect(manager, &QNetworkAccessManager::finished,
-            this , [imageUrl, name, this](auto reply) {
-                QString descriptionTagBegin = "<meta property=\"og:description\" content=\"";
-                QString descriptionTagEnd = "\" />";
-                QString ownerTagBegin = "<h6 class=\"pt-3\">";
-                QString ownerTagEnd = "</h6>";
+            this,
+            [this, name](QNetworkReply *reply)
+            {
+                if (reply->error() != QNetworkReply::NoError) {
+                    qWarning() << "Network error while loading description:"
+                               << reply->errorString();
+                    reply->deleteLater();
+                    return;
+                }
 
-                QString read = reply->readAll();
-                int  indexBegin = read.indexOf(descriptionTagBegin) + descriptionTagBegin.size();
-                int  indexEnd = read.indexOf(descriptionTagEnd , indexBegin);
-                QString description = read.sliced(indexBegin , indexEnd - indexBegin);
+                QString html = QString::fromUtf8(reply->readAll());                
 
-                indexBegin = read.indexOf(ownerTagBegin) + ownerTagBegin.size();
-                indexEnd = read.indexOf(ownerTagEnd , indexBegin);
-                QString owner = read.sliced(indexBegin , indexEnd - indexBegin);
+                auto extractBetween = [](const QString &text,
+                                         const QString &beginTag,
+                                         const QString &endTag) -> QString
+                {
+                    int begin = text.indexOf(beginTag);
+                    if (begin < 0)
+                        return "";
 
-                QString longDescription = "<center><strong>"  + name + "</strong></center><br />" + description +
-                                          "<br /><center><strong>" + owner + "</strong></center>";
-                emit descriptionChanged(longDescription);
+                    begin += beginTag.size();
+
+                    int end = text.indexOf(endTag, begin);
+                    if (end < 0 || end <= begin)
+                        return "";
+
+                    return text.sliced(begin, end - begin).trimmed();
+                };
+
+                QString description = extractBetween(
+                    html,
+                    "<meta property=\"og:description\" content=\"",
+                    "\" />"
+                    );
+
+                QString owner = extractBetween(
+                    html,
+                    "ownerUsername\":\"",
+                    "\""
+                    );
+
+                QString longDescription =
+                    "<center><strong>" + name + "</strong></center><br />"
+                    + description
+                    + "<br /><center><strong>" + owner + "</strong></center>";
+
+                m_fullCache->setLongDescription(longDescription);
+                reply->deleteLater();
             });
-    manager->get(QNetworkRequest( url ));
+
+    manager->get(QNetworkRequest(QUrl(url)));
 }
 
 void FullLabCacheRetriever::sendRequest(QString token)
@@ -218,7 +282,6 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
         listWptsIsComplete.append(stage["isComplete"].toBool());
         listWptsName.append(WPT_TYPE_MAP.key(219));
         listWptsIcon.append(WPT_TYPE_ICON_MAP.key(219));
-
         listImagesName .append(stage["title"].toString());
         listImagesUrl.append(stage["stageImageUrl"].toString());
 
@@ -243,10 +306,6 @@ void FullLabCacheRetriever::parseJson(const QJsonDocument &dataJsonDoc)
     }
 }
 
-void FullLabCacheRetriever::setDescription(QString value)
-{
-    m_fullCache->setLongDescription(value);
-}
 
 
 

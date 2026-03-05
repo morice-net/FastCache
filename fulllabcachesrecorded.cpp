@@ -19,50 +19,65 @@ FullLabCachesRecorded::~FullLabCachesRecorded()
 
 void FullLabCachesRecorded::parseHtml()
 {
-    QString geocode;
+    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if(!reply)
+        return;
+
+    QString geocode = m_replytoid.value(reply);
+
+    if(reply->error() != QNetworkReply::NoError)
+    {
+        setState(reply->errorString().toLatin1());
+        m_replytoid.remove(reply);
+        reply->deleteLater();
+        return;
+    }
+
+    setState("OK");
+
+    QString dataHtml = QString::fromUtf8(reply->readAll());
     QString description;
     QString owner;
-    int indexBegin;
-    int indexEnd;
-    QString descriptionTagBegin = "<meta property=\"og:description\" content=\"";
-    QString descriptionTagEnd = "\" />";
-    QString ownerTagBegin = "<h6 class=\"pt-3\">";
-    QString ownerTagEnd = "</h6>";
-    QJsonDocument dataJson;
-    QJsonObject cacheJson ;
 
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    QString dataHtml = reply->readAll();
-    geocode = m_replytoid.value(reply);
+    const QString descriptionTagBegin = "<meta property=\"og:description\" content=\"";
+    const QString descriptionTagEnd   = "\" />";
+    const QString ownerTagBegin       = "ownerUsername\":\"";
+    const QString ownerTagEnd         = "\"";
 
-    switch(reply->error())
+    // extract description
+    int indexBegin = dataHtml.indexOf(descriptionTagBegin);
+    if(indexBegin != -1)
     {
-    case QNetworkReply::NoError:
-        setState("OK");
+        indexBegin += descriptionTagBegin.size();
+        int indexEnd = dataHtml.indexOf(descriptionTagEnd, indexBegin);
 
-        indexBegin = dataHtml.indexOf(descriptionTagBegin) + descriptionTagBegin.size();
-        indexEnd = dataHtml.indexOf(descriptionTagEnd , indexBegin);
-        description = dataHtml.sliced(indexBegin , indexEnd - indexBegin);
-
-        indexBegin = dataHtml.indexOf(ownerTagBegin) + ownerTagBegin.size();
-        indexEnd = dataHtml.indexOf(ownerTagEnd , indexBegin);
-        owner = dataHtml.sliced(indexBegin , indexEnd - indexBegin);
-
-        cacheJson = m_sqliteStorage->readColumnJson("fullcache" , geocode).object();
-        cacheJson.insert("description" , QJsonValue(description));
-        cacheJson.insert("owner" , QJsonValue(owner));
-        dataJson.setObject(cacheJson);
-
-        m_sqliteStorage->updateFullCacheColumnJson("fullcache", geocode , dataJson);
-        break;
-    default:
-        setState(reply->errorString().toLatin1());
-        break;
+        if(indexEnd != -1 && indexEnd > indexBegin)
+            description = dataHtml.mid(indexBegin, indexEnd - indexBegin);
     }
-    m_replytoid.remove(reply);
-    delete reply;
-}
 
+    // extract owner
+    indexBegin = dataHtml.indexOf(ownerTagBegin);
+    if(indexBegin != -1)
+    {
+        indexBegin += ownerTagBegin.size();
+        int indexEnd = dataHtml.indexOf(ownerTagEnd, indexBegin);
+
+        if(indexEnd != -1 && indexEnd > indexBegin)
+            owner = dataHtml.mid(indexBegin, indexEnd - indexBegin);
+    }    
+
+    //  update JSON
+    QJsonDocument dataJson = m_sqliteStorage->readColumnJson("fullcache", geocode);
+    QJsonObject cacheJson = dataJson.object();
+
+    cacheJson.insert("description", description);
+    cacheJson.insert("owner", owner);
+    dataJson.setObject(cacheJson);
+
+    m_sqliteStorage->updateFullCacheColumnJson("fullcache", geocode, dataJson);
+    m_replytoid.remove(reply);
+    reply->deleteLater();
+}
 void FullLabCachesRecorded::getHtml(QString url, QString id)
 {
     QNetworkRequest request(url);

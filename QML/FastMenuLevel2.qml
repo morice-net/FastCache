@@ -298,7 +298,7 @@ Item {
 
             // images (index 5)
             Item {
-                visible: main.viewState === "fullcache"
+                visible: main.viewState === "fullcache" && fullCache.type !== "labCache"
                 Layout.fillWidth: true
                 Layout.preferredHeight: 50
                 Layout.leftMargin: 10

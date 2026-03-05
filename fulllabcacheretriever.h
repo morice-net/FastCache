@@ -27,12 +27,6 @@ public:
     Q_INVOKABLE void deleteToStorage(SQLiteStorage *sqliteStorage);
     Q_INVOKABLE void updateReplaceImageInText(ReplaceImageInText *replace);
 
-private slots:
-    void setDescription(QString value);
-
-private: signals:
-    void descriptionChanged(QString newValue);
-
 private:
     FullCache *m_fullCache;
     QJsonDocument m_dataJson;

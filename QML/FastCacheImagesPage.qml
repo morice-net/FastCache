@@ -5,7 +5,7 @@ import "JavaScript/Palette.js" as Palette
 
 Item {
     id: imagesPage
-    clip: true
+    clip: true    
 
     Button {
         id: buttonGoback
