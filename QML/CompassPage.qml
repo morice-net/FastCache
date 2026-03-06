@@ -34,7 +34,7 @@ Item {
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
             font.family: localFont.name
-            font.pointSize: 18
+            font.pointSize: 20
             text: "Azimut  " + locationSource.azimuthTo(goalLocation.coordinate).toFixed(0)+"°"
             color: Palette.white()
         }
@@ -42,8 +42,10 @@ Item {
 
     Rectangle { // the compass view background
         id: compassBackground
-        anchors.centerIn: parent
-        width: Math.min(parent.width, parent.height) - 20
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 110
+        width: main.width * 0.8
         height: width
         radius: width / 2
         color: Palette.greenSea()
@@ -51,7 +53,8 @@ Item {
         Image {
             id: compassUnderlay
             source: "../Image/Compass/compass_underlay.png"
-            anchors.fill: parent
+            anchors.centerIn: parent
+            scale: 0.9
 
             Image {
                 id: compassRose
@@ -76,10 +79,11 @@ Item {
     Text {
         id: title
         anchors.horizontalCenter: parent.horizontalCenter
-        y: compassBackground.y + compassBackground.height
+        anchors.top: compassBackground.bottom
+        anchors.topMargin: 20
         visible: fastCache.wptName.length !== 0
         font.family: localFont.name
-        font.pointSize: 16
+        font.pointSize: 19
         text: fastCache.wptName.length >= 50 ? fastCache.wptName.substring(0,50) + "..." : fastCache.wptName
         color: Palette.white()
 
@@ -90,28 +94,31 @@ Item {
     }
 
     Text {
+        id: titleCoord
         anchors.horizontalCenter: parent.horizontalCenter
-        y: title.y + title.height + 3
+        anchors.top: title.bottom
         font.family: localFont.name
-        font.pointSize: 16
+        font.pointSize: 19
         text: "Lat  " + Functions.formatLat(goalLocation.coordinate.latitude) + "   Lon  " + Functions.formatLon(goalLocation.coordinate.longitude)
         color: Palette.white()
     }
 
     Text {
+        id: title1
         anchors.horizontalCenter: parent.horizontalCenter
-        y: title.y + 2 * title.height
+       anchors.top: titleCoord.bottom
         font.family: localFont.name
-        font.pointSize: 14
-        text:"position actuelle"
+        font.pointSize: 19
+        text:"Position actuelle"
         color: Palette.silver()
     }
 
     Text {
+        id: title1Coord
         anchors.horizontalCenter: parent.horizontalCenter
-        y: title.y + 2.7 * title.height
+        anchors.top: title1.bottom
         font.family: localFont.name
-        font.pointSize: 14
+        font.pointSize: 19
         text: "Lat  " + Functions.formatLat(locationSource.latitude) + "   Lon  " +
               Functions.formatLon(locationSource.longitude)
         color: Palette.silver()
