@@ -181,11 +181,13 @@ FastPopup {
                 id: buttonAdd
                 visible: visibleDescription()
                 y: descriptionTitle.y - buttonAdd.height / 4
-                source: "../Image/" + "icon_edit.png"
+                source: "../Image/" + "icon_addText.png"
                 anchors.right: buttonDelete.left
                 anchors.margins: 10
-                height: 40
-                width: 30
+                height: 32
+                width: 32
+                sourceWidth: 32
+                sourceHeight: 32
                 onClicked:{
                     addText.open();
                     textLog = "" ;
@@ -197,9 +199,11 @@ FastPopup {
                 visible: visibleDescription()
                 y: descriptionTitle.y - buttonDelete.height / 4
                 anchors.right: parent.right
+                height: 32
+                width: 32
+                sourceWidth: 32
+                sourceHeight: 32
                 source: "../Image/" + "icon_erase.png"
-                height: 40
-                width: 30
                 onClicked:{
                     description.text = ""
                 }

@@ -110,11 +110,13 @@ Item {
                 FastButtonIcon {
                     id: buttonAdd
                     y: logTextTitle.y - buttonAdd.height / 4
-                    height: 40
-                    width: 30
                     anchors.right: buttonDelete.left
                     anchors.margins: 10
-                    source: "../Image/" + "icon_edit.png"
+                    source: "../Image/" + "icon_addText.png"
+                    height: 32
+                    width: 32
+                    sourceWidth: 32
+                    sourceHeight: 32
                     onClicked:{
                         addText.open();
                     }
@@ -123,10 +125,12 @@ Item {
                 FastButtonIcon {
                     id: buttonDelete
                     y: logTextTitle.y - buttonDelete.height / 4
-                    height: 40
-                    width: 30
                     anchors.right: parent.right
+                    height: 32
+                    width: 32
                     source: "../Image/" + "icon_erase.png"
+                    sourceWidth: 32
+                    sourceHeight: 32
                     onClicked:{
                         message.text = ""
                     }

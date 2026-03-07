@@ -262,9 +262,11 @@ Item {
                 id: buttonDelete
                 visible: fullCache.type !== "labCache"
                 anchors.horizontalCenter: parent.horizontalCenter
-                height: 40
-                width: 30
+                height: 32
+                width: 32
                 source: "../Image/" + "icon_erase.png"
+                sourceWidth: 32
+                sourceHeight: 32
                 onClicked: personalNote.text = ""
             }
 

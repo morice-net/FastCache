@@ -166,6 +166,7 @@ qt_add_qml_module(appFastCache
     Image/icon_delete.png
     Image/icon_edit.png
     Image/icon_erase.png
+    Image/icon_addText.png
     Image/icon_north.png
     Image/icon_photo.png
     Image/icon_update.png
@@ -306,7 +307,7 @@ qt_add_qml_module(appFastCache
 
     Ressources/DellaRespira-Regular.ttf
     QML_FILES
-    QML_FILES
+    QML_FILES    
     )
 
 if(ANDROID)
