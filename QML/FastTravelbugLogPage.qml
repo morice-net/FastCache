@@ -49,6 +49,8 @@ Item {
 
     AddTextLog{
         id:addText
+        x: 30
+        y: 30
     }
 
     Flickable {
@@ -98,26 +100,21 @@ Item {
                 }
             }
 
+            Text {
+                id: logTextTitle
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                font.pointSize: 16
+                text: "Texte du Log du travelbug"
+                color: Palette.silver()
+            }
 
-            Item {
-                anchors.margins: 10
-                anchors.left: parent.left
-                anchors.right: parent.right
-                height: childrenRect.height
-
-                Text {
-                    id: logTextTitle
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    text: "Texte du Log du travelbug"
-                    color: Palette.silver()
-                }
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 30
 
                 FastButtonIcon {
                     id: buttonAdd
-                    y: logTextTitle.y - buttonAdd.height / 4
-                    anchors.right: buttonDelete.left
-                    anchors.margins: 10
                     source: "../Image/" + "icon_addText.png"
                     height: 32
                     width: 32
@@ -130,8 +127,6 @@ Item {
 
                 FastButtonIcon {
                     id: buttonDelete
-                    y: logTextTitle.y - buttonDelete.height / 4
-                    anchors.right: parent.right
                     height: 32
                     width: 32
                     source: "../Image/" + "icon_erase.png"

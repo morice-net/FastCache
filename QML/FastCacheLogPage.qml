@@ -46,6 +46,8 @@ Item {
 
     AddTextLog {
         id: addText
+        x: 30
+        y: 30
     }
 
     Flickable {
@@ -57,7 +59,7 @@ Item {
 
         Column {
             id: column
-            spacing: 10
+            spacing: 5
             width: parent.width
 
             LogTypes {
@@ -85,7 +87,7 @@ Item {
             FastCalendar {
                 id:calendar
                 width: logPage.width * 0.9
-                x: (logPage.width - calendar.width) / 2
+                anchors.horizontalCenter: parent.horizontalCenter
                 visible: false
                 onDateCalendarChanged:{
                     dateIso = dateCalendar.toISOString()
@@ -93,25 +95,21 @@ Item {
                 }
             }
 
-            Item {
-                anchors.margins: 20
-                anchors.left: parent.left
-                anchors.right: parent.right
-                height: childrenRect.height
+            Text {
+                id: logTextTitle
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.family: localFont.name
+                font.pointSize: 16
+                text: "Texte du Log de la cache"
+                color: Palette.silver()
+            }
 
-                Text {
-                    id: logTextTitle
-                    font.family: localFont.name
-                    font.pointSize: 16
-                    text: "Texte du Log de la cache"
-                    color: Palette.silver()
-                }
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 30
 
                 FastButtonIcon {
                     id: buttonAdd
-                    y: logTextTitle.y - buttonAdd.height / 4
-                    anchors.right: buttonDelete.left
-                    anchors.margins: 10
                     source: "../Image/" + "icon_addText.png"
                     height: 32
                     width: 32
@@ -124,8 +122,6 @@ Item {
 
                 FastButtonIcon {
                     id: buttonDelete
-                    y: logTextTitle.y - buttonDelete.height / 4
-                    anchors.right: parent.right
                     height: 32
                     width: 32
                     source: "../Image/" + "icon_erase.png"

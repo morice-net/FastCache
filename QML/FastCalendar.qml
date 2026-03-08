@@ -74,7 +74,7 @@ Rectangle {
     Item {
         anchors.bottom: calendar.bottom
         width: calendar.width
-        height: calendar.height*0.8
+        height: calendar.height * 0.8
 
         MonthGrid {
             id: monthGrid

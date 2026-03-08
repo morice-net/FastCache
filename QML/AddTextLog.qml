@@ -11,12 +11,10 @@ FastPopup {
         new Date().getMinutes(Qt.LocaleDate) , userInfo.name , fullCache.owner , fullCache.name , fullCache.difficulty ,
         fullCache.terrain , fullCache.size]
 
-    width: main.width / 2
+    width: item.width + 20
     height: item.height + 20
-    backgroundRadius: 10
-    backgroundColor: Palette.silver()
-    x: 30
-    y: 30
+    backgroundRadius: 8
+    backgroundColor: Palette.backgroundGrey()
 
     Column {
         id: item

@@ -8,6 +8,7 @@ Item {
     id: descriptionPage
     height: swipeFastCache.height
 
+    property string addLog: ""
     property string descriptionText: fullCache.type !== "labCache" ? fullCache.shortDescription + fullCache.longDescription :
                                                                      fullCache.longDescription
     property bool codedHint: true
@@ -19,6 +20,20 @@ Item {
         forwardWeb = false
         if(fullCache.type !== "labCache" && webLoader.item)
             webLoader.item.loadHtml(descriptionText, "" )
+    }
+
+    onAddLogChanged: {
+        console.log("addLog: " + addLog)
+        if(addLog !== "") {
+            personalNote.insert(personalNote.cursorPosition , addLog)
+            addLog = ""
+        }
+    }
+
+    AddTextLog {
+        id: addText
+        x: 30
+        y: 30
     }
 
     Flickable {
@@ -258,16 +273,34 @@ Item {
                 color: Palette.silver()
             }
 
-            FastButtonIcon {
-                id: buttonDelete
-                visible: fullCache.type !== "labCache"
+            Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                height: 32
-                width: 32
-                source: "../Image/" + "icon_erase.png"
-                sourceWidth: 32
-                sourceHeight: 32
-                onClicked: personalNote.text = ""
+                spacing: 30
+
+                FastButtonIcon {
+                    id: buttonAdd
+                    visible: fullCache.type !== "labCache"
+                    anchors.margins: 10
+                    source: "../Image/" + "icon_addText.png"
+                    height: 32
+                    width: 32
+                    sourceWidth: 32
+                    sourceHeight: 32
+                    onClicked:{
+                        addText.open();
+                    }
+                }
+
+                FastButtonIcon {
+                    id: buttonDelete
+                    visible: fullCache.type !== "labCache"
+                    height: 32
+                    width: 32
+                    source: "../Image/" + "icon_erase.png"
+                    sourceWidth: 32
+                    sourceHeight: 32
+                    onClicked: personalNote.text = ""
+                }
             }
 
             TextArea {
