@@ -106,15 +106,13 @@ Item {
 
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 30
+                spacing: 20
 
                 FastButtonIcon {
                     id: buttonAdd
                     source: "../Image/" + "icon_addText.png"
-                    height: 32
-                    width: 32
-                    sourceWidth: 32
-                    sourceHeight: 32
+                    sourceWidth: 25
+                    sourceHeight: 25
                     onClicked:{
                         addText.open();
                     }
@@ -122,11 +120,9 @@ Item {
 
                 FastButtonIcon {
                     id: buttonDelete
-                    height: 32
-                    width: 32
                     source: "../Image/" + "icon_erase.png"
-                    sourceWidth: 32
-                    sourceHeight: 32
+                    sourceWidth: 25
+                    sourceHeight: 25
                     onClicked:{
                         message.text = ""
                     }
@@ -136,7 +132,7 @@ Item {
             TextArea {
                 id: message
                 text: translate
-                x: (logPage.width - message.width) / 2
+                anchors.horizontalCenter: parent.horizontalCenter
                 width: logPage.width * 0.9
                 font.family: localFont.name
                 font.pointSize: 14

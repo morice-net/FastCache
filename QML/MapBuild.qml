@@ -182,8 +182,9 @@ Map {
         anchors.left: parent.left
         anchors.leftMargin: 10
         anchors.top: parent.top
-        buttonRadius: width / 2
-        sourceHeight: 30
+      //  buttonRadius: width / 2
+        sourceHeight: 20
+        sourceWidth: 20
         source: fastMap.oldMapNorth ? "../Image/" + "icon_north.png" : "../Image/" + "icon_compass.png"
         onClicked: {
             if(fastMap.oldMapNorth) {

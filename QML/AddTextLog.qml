@@ -18,7 +18,7 @@ FastPopup {
 
     Column {
         id: item
-        spacing: 25
+        spacing: 5
 
         Repeater {
             model: textList.length

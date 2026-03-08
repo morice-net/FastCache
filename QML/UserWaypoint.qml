@@ -162,32 +162,26 @@ FastPopup {
             }
         }
 
-        Item {
-            anchors.margins: 20
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: childrenRect.height
+        Text {
+            id: descriptionTitle
+            visible: visibleDescription()
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: localFont.name
+            font.pointSize: 17
+            text: "Description de l'étape"
+            color: Palette.white()
+        }
 
-            Text {
-                id: descriptionTitle
-                visible: visibleDescription()
-                font.family: localFont.name
-                font.pointSize: 17
-                text: "Description de l'étape"
-                color: Palette.white()
-            }
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 20
 
             FastButtonIcon {
                 id: buttonAdd
                 visible: visibleDescription()
-                y: descriptionTitle.y - buttonAdd.height / 4
                 source: "../Image/" + "icon_addText.png"
-                anchors.right: buttonDelete.left
-                anchors.margins: 10
-                height: 32
-                width: 32
-                sourceWidth: 32
-                sourceHeight: 32
+                sourceWidth: 25
+                sourceHeight: 25
                 onClicked:{
                     addText.open();
                     textLog = "" ;
@@ -197,12 +191,8 @@ FastPopup {
             FastButtonIcon {
                 id: buttonDelete
                 visible: visibleDescription()
-                y: descriptionTitle.y - buttonDelete.height / 4
-                anchors.right: parent.right
-                height: 32
-                width: 32
-                sourceWidth: 32
-                sourceHeight: 32
+                sourceWidth: 25
+                sourceHeight: 25
                 source: "../Image/" + "icon_erase.png"
                 onClicked:{
                     description.text = ""

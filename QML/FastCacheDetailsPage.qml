@@ -64,12 +64,19 @@ Item {
             visible: fullCache.type === "Wherigo"    // cache wherigo
             anchors.horizontalCenter: parent.horizontalCenter
             source: "../Image/" + "icon_whereYouGo.png"
-            sourceWidth: 50
-            sourceHeight: 50
+            sourceWidth: 30
+            sourceHeight: 30
             onClicked: fullCache.launchApplication("https://wherigo.com/cartridge/download.aspx?CGUID=" + fullCache.cartridgeGuid)
         }
 
+        Item {
+            width: parent.width
+            height: 15
+            visible: fullCache.type === "Wherigo"
+        }
+
         Row {
+            anchors.topMargin: 10
             spacing: 15
 
             Text {
@@ -408,8 +415,8 @@ Item {
             visible: fullCache.type === "labCache"
             anchors.horizontalCenter: parent.horizontalCenter
             source: "../Image/" + "icon_AdventureLab.png"
-            sourceWidth: 50
-            sourceHeight: 50
+            sourceWidth: 30
+            sourceHeight: 30
             onClicked: {
                 fullCache.launchApplication(fullCache.shortDescription)
                 adventureLabLaunched = true

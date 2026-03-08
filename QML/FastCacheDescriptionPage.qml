@@ -33,7 +33,7 @@ Item {
     AddTextLog {
         id: addText
         x: 30
-        y: 30
+        y: main.height * 0.4
     }
 
     Flickable {
@@ -275,17 +275,14 @@ Item {
 
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 30
+                spacing: 20
 
                 FastButtonIcon {
                     id: buttonAdd
-                    visible: fullCache.type !== "labCache"
-                    anchors.margins: 10
-                    source: "../Image/" + "icon_addText.png"
-                    height: 32
-                    width: 32
-                    sourceWidth: 32
-                    sourceHeight: 32
+                    visible: fullCache.type !== "labCache"                    
+                    source: "../Image/" + "icon_addText.png"                  
+                    sourceWidth: 25
+                    sourceHeight: 25
                     onClicked:{
                         addText.open();
                     }
@@ -293,12 +290,10 @@ Item {
 
                 FastButtonIcon {
                     id: buttonDelete
-                    visible: fullCache.type !== "labCache"
-                    height: 32
-                    width: 32
+                    visible: fullCache.type !== "labCache"                   
                     source: "../Image/" + "icon_erase.png"
-                    sourceWidth: 32
-                    sourceHeight: 32
+                    sourceWidth: 25
+                    sourceHeight: 25
                     onClicked: personalNote.text = ""
                 }
             }

@@ -16,8 +16,8 @@ Button {
         border.color: Palette.silver()
         color: Palette.white()
         radius: buttonRadius
-        implicitWidth: image.sourceSize.width + 5
-        implicitHeight: image.sourceSize.height + 5
+        width: image.sourceSize.width + 1
+        height: image.sourceSize.height + 1
 
         Image {
             id: image
@@ -25,6 +25,7 @@ Button {
             sourceSize.width: button.sourceWidth
             sourceSize.height: button.sourceHeight
             anchors.centerIn: parent
+            anchors.fill: parent
         }
     }
 }
