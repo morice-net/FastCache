@@ -39,11 +39,6 @@ Item {
         message.text = textRecorded
     }
 
-    ImagesBrowser {
-        id: imagesBrowser
-        visible: false
-    }
-
     AddTextLog {
         id: addText
         x: 30
@@ -170,6 +165,7 @@ Item {
                     radius: 3
                     border.width: 1
                     y: parent.height / 2 - height / 2
+
                     Rectangle {
                         anchors.fill: parent
                         visible: favorited.checked
@@ -185,8 +181,31 @@ Item {
                 x: (logPage.width - buttonAddImages.width) / 2
                 text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
                 font.pointSize: 17
-                onClicked:{
-                    imagesBrowser.visible = true
+                onClicked: {
+                    if(imagesBrowser.visible) {
+                        imagesBrowser.openDialog()
+                    } else {
+                        imagesBrowser.visible = true
+                        imagesBrowser.openDialog()
+                    }
+                }
+                onPressAndHold: {
+                    imagesBrowser.closeDialog()
+                    imagesBrowser.visible = false
+                }
+            }
+
+            ImagesBrowser {
+                id: imagesBrowser
+                visible: false
+                width: logPage.width * 0.9
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                property int imagesCount: imagesBrowser.repeaterCount
+
+                onImagesCountChanged: {
+                    if(!imagesCount)
+                        visible = false
                 }
             }
 

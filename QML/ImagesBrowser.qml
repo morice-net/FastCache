@@ -9,19 +9,15 @@ Rectangle {
 
     property int repeaterCount: sqliteStorage.isCacheInTable("cachesimageslog", fullCache.geocode) ?
                                     sendImagesLog.readJsonArray(sqliteStorage.readColumnJson("cachesimageslog" , fullCache.geocode)).length : 0
-    anchors.fill: parent
-    anchors.topMargin: 60
-    anchors.bottomMargin: anchors.topMargin/2
-    anchors.rightMargin: anchors.topMargin/3
-    anchors.leftMargin: anchors.topMargin/3
-    z: 4
+
     clip: true
-    color: Palette.turquoise()
-    radius: 8
+    color: Palette.greenSea()
+    border.width: 1
+    border.color: Palette.silver()
+    height: fastCache.height / 2.6
 
     FileDialog {
         id: fileDialog
-        visible: fileDialogVisible.checked
         nameFilters: [ "Image files (*.png *.jpg *.gif)" ]
         onAccepted: {
             listImagesDescription.push("")
@@ -37,54 +33,12 @@ Rectangle {
         }
     }
 
-    Row {
-        id: buttons
-        spacing: 60
-        leftPadding: 40
-
-        FastButton {
-            id: fileDialogVisible
-            y: 10
-            text: "Ajouter une image"
-            font.pointSize: 18
-            onClicked: {
-                fileDialog.open()
-            }
-        }
-
-        Text {
-            id: closePage
-            text: "X"
-            topPadding: fileDialogVisible.y + fileDialogVisible.height / 4
-            font.pointSize: 25
-            color: Palette.black()
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    console.log("Descriptions:  " + listImagesDescription)
-                    console.log("Urls:  " + listImagesUrl)
-                    console.log("Rotations:  " + listImagesRotation)
-                    imagesBrowser.visible = false
-                    fileDialog.close()
-                }
-            }
-        }
-    }
-
     ScrollView {
         id: scrollView
         focus: true
         clip: true
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        height: Math.min(repeaterColumn.height, 4 * main.height / 5)
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: buttons.bottom
-            leftMargin: 12
-            topMargin: 20
-        }
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff      
+        height: imagesBrowser.height - 10
 
         Column {
             id: repeaterColumn
@@ -95,43 +49,56 @@ Rectangle {
             Repeater{
                 model: repeaterCount
                 delegate:
-                    Row{
+
+                    Row {
                     spacing: 40
                     width: imagesBrowser.width
+                    height: 120
                     topPadding: 10
+                    leftPadding: 10
 
                     TextArea {
                         id: description
                         text: listImagesDescription[index]
                         onTextChanged: listImagesDescription[index] = description.text
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
                         width: parent.width / 3
-                        implicitHeight: image.height / 2
+                        implicitHeight: 30
                         font.family: localFont.name
                         font.pointSize: 14
                         color: Palette.greenSea()
                         wrapMode: Text.Wrap
                         background: Rectangle {
                             radius: 5
-                            implicitHeight: 50
+                            implicitHeight: 40
                         }
                         cursorDelegate : CursorRectangle {
-                            height : 40
+                            height : 30
                         }
                     }
 
-                    Image {
-                        id: image
-                        visible: true
-                        source: listImagesUrl[index]
-                        rotation: listImagesRotation[index]
-                        sourceSize.width: parent.width / 4
+                    Rectangle {
+                        width: parent.width / 4
+                        height: width
+                        color: Palette.greenSea()
 
-                        MouseArea {
+                        Image {
+                            id: image
+                            visible: true
                             anchors.fill: parent
-                            onClicked: {
-                                listImagesRotation[index] = (listImagesRotation[index] + 90) % 360
-                                image.rotation = (image.rotation + 90) % 360
-                                console.log("Rotations:  " + listImagesRotation)
+                            width: parent.width
+                            height: parent.height
+                            source: listImagesUrl[index]
+                            rotation: listImagesRotation[index]
+
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    listImagesRotation[index] = (listImagesRotation[index] + 90) % 360
+                                    image.rotation = (image.rotation + 90) % 360
+                                    console.log("Rotations:  " + listImagesRotation)
+                                }
                             }
                         }
                     }
@@ -154,6 +121,14 @@ Rectangle {
                 }
             }
         }
+    }
+
+    function openDialog() {
+        fileDialog.open()
+    }
+
+    function closeDialog() {
+        fileDialog.close()
     }
 }
 
