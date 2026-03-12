@@ -5,7 +5,8 @@ import "JavaScript/Palette.js" as Palette
 
 Column {
     id: groupBox
-    spacing: -15
+    spacing: 2
+
     property alias button1Checked: button1.checked
     property alias button2Checked: button2.checked
     property alias button3Checked: button3.checked
@@ -16,7 +17,8 @@ Column {
     property alias button8Checked: button8.checked
 
     RadioButton {
-        id:button1
+        id: button1
+        implicitHeight: 25
         visible: (fastCache.updateLog || !(fullCache.found)) && !(fullCache.owner === userInfo.name)
         text: "Trouvée"
         checked: !(fullCache.found) && !(fullCache.owner === userInfo.name)
@@ -35,6 +37,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button1.checked
@@ -46,7 +49,8 @@ Column {
     }
 
     RadioButton {
-        id:button2
+        id: button2
+        implicitHeight: 25
         visible: !(fullCache.owner === userInfo.name)
         text: "Non trouvée"
         onClicked: typeLog = 3
@@ -64,6 +68,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button2.checked
@@ -75,7 +80,8 @@ Column {
     }
 
     RadioButton {
-        id:button3
+        id: button3
+        implicitHeight: 25
         visible: true
         checked: (fullCache.found) || (fullCache.owner === userInfo.name)
         text: "Note"
@@ -94,6 +100,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button3.checked
@@ -104,8 +111,9 @@ Column {
         }
     }
 
-    RadioButton {
-        id:button4
+    RadioButton {        
+        id: button4
+        implicitHeight: 25
         visible: !(fullCache.owner === userInfo.name)
         text: "Nécessite une maintenance"
         onClicked: typeLog = 45
@@ -123,6 +131,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button4.checked
@@ -134,7 +143,8 @@ Column {
     }
 
     RadioButton {
-        id:button5
+        id: button5
+        implicitHeight: 25
         visible: !(fullCache.owner === userInfo.name)
         text: "Nécessite d'être archivée"
         onClicked: typeLog = 7
@@ -152,6 +162,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button5.checked
@@ -163,7 +174,8 @@ Column {
     }
 
     RadioButton {
-        id:button6
+        id: button6
+        implicitHeight: 25
         visible: (fullCache.owner === userInfo.name)
         text: "Maintenance effectuée"
         onClicked: typeLog = 46
@@ -181,6 +193,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button6.checked
@@ -192,7 +205,8 @@ Column {
     }
 
     RadioButton {
-        id:button7
+        id: button7
+        implicitHeight: 25
         visible: (fullCache.owner === userInfo.name)
         text: "Désactivée"
         onClicked: typeLog = 22
@@ -210,6 +224,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button7.checked
@@ -221,7 +236,8 @@ Column {
     }
 
     RadioButton {
-        id:button8
+        id: button8
+        implicitHeight: 25
         text: "Archivée"
         visible: (fullCache.owner === userInfo.name)
         onClicked: typeLog = 5
@@ -239,6 +255,7 @@ Column {
             implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button8.checked

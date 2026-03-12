@@ -5,7 +5,7 @@ import "JavaScript/Palette.js" as Palette
 
 Column {
     id: groupBox
-    spacing: -15
+    spacing: 2
 
     property alias button1Checked: button1.checked
     property alias button2Checked: button2.checked
@@ -13,8 +13,9 @@ Column {
     property alias button4Checked: button4.checked
 
     RadioButton {
-        id:button1
+        id: button1
         text: "Récupéré"
+        implicitHeight: 25
         visible: travelbug.tbStatus === 1 //travelbug in cache
         checked: false
         onClicked: typeLog = 13
@@ -28,10 +29,11 @@ Column {
         }
         indicator: Rectangle {
             y: parent.height / 2 - height / 2
-            implicitWidth: 25
-            implicitHeight: 25
+            implicitWidth: 18
+            implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button1.checked
@@ -43,7 +45,8 @@ Column {
     }
 
     RadioButton {
-        id:button2
+        id: button2
+        implicitHeight: 25
         text: "Pris ailleurs"
         //travelbug in possession of owner or holder of the trackable and not in possession of user
         visible: (travelbug.tbStatus === 2 || travelbug.tbStatus === 3) && travelbug.located !== userInfo.name
@@ -59,10 +62,11 @@ Column {
         }
         indicator: Rectangle {
             y: parent.height / 2 - height / 2
-            implicitWidth: 25
-            implicitHeight: 25
+            implicitWidth: 18
+            implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button2.checked
@@ -74,8 +78,9 @@ Column {
     }
 
     RadioButton {
-        id:button3
+        id: button3
         text: "Note"
+        implicitHeight: 25
         visible:true
         checked: true
         onClicked: typeLog = 4
@@ -89,10 +94,11 @@ Column {
         }
         indicator: Rectangle {
             y: parent.height / 2 - height / 2
-            implicitWidth: 25
-            implicitHeight: 25
+            implicitWidth: 18
+            implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button3.checked
@@ -104,7 +110,8 @@ Column {
     }
 
     RadioButton {
-        id:button4
+        id: button4
+        implicitHeight: 25
         text: "Découvert"
         visible: ((travelbug.tbStatus === 2 || travelbug.tbStatus === 3) && travelbug.located !== userInfo.name) ||
                  travelbug.tbStatus === 1
@@ -120,10 +127,11 @@ Column {
         }
         indicator: Rectangle {
             y: parent.height / 2 - height / 2
-            implicitWidth: 25
-            implicitHeight: 25
+            implicitWidth: 18
+            implicitHeight: 18
             radius: 10
             border.width: 1
+
             Rectangle {
                 anchors.fill: parent
                 visible: button4.checked

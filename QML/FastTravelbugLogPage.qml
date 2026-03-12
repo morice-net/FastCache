@@ -56,9 +56,7 @@ Item {
     Flickable {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
-        anchors.leftMargin: 20
-        anchors.rightMargin: 20
+        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5        
         contentHeight: column.height
         clip : true
 
@@ -70,7 +68,7 @@ Item {
             LogTypesTravelbug {
                 id: logTypesTravelbug
                 width: logPage.width * 0.8
-                anchors.horizontalCenter: parent.horizontalCenter
+                x: message.x
             }
 
             Text {

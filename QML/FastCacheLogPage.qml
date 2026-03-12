@@ -48,19 +48,19 @@ Item {
     Flickable {
         id: scrollView
         anchors.fill: parent
-        anchors.topMargin: fastMenuHeader.menuIconHeight() + 5
+        anchors.topMargin: fastMenuHeader.menuIconHeight()
         contentHeight: column.height + 10
         clip : true
 
         Column {
             id: column
-            spacing: 5
+            spacing: 10
             width: parent.width
 
             LogTypes {
                 id: logTypes
                 width: logPage.width * 0.8
-                x: (logPage.width - logTypes.width) / 2
+                x: message.x
             }
 
             Text {
@@ -68,8 +68,7 @@ Item {
                 x: (logPage.width - logDate.width) / 2
                 font.family: localFont.name
                 font.pointSize: 18
-                color: Palette.white()
-                height: 60
+                color: Palette.white()              
 
                 MouseArea {
                     anchors.fill: logDate
@@ -148,7 +147,7 @@ Item {
 
             CheckBox {
                 id : favorited
-                x: 15
+                x: message.x
                 visible: typeLog === 2  && updateLog === false // found and create log
                 checked: initFavorited()
                 contentItem: Text {
@@ -178,7 +177,7 @@ Item {
 
             FastButton {
                 id: buttonAddImages
-                x: (logPage.width - buttonAddImages.width) / 2
+                anchors.horizontalCenter: parent.horizontalCenter
                 text: "Ajouter des images ( " + imagesBrowser.repeaterCount + " )"
                 font.pointSize: 17
                 onClicked: {
@@ -211,7 +210,7 @@ Item {
 
             FastButton {
                 id: buttonSendLog
-                x: (logPage.width - buttonSendLog.width) / 2
+                anchors.horizontalCenter: parent.horizontalCenter
                 text: updateLog === false ? "Envoyer le log" : "Mettre à jour le log"
                 font.pointSize: 17
                 onClicked: {
@@ -237,7 +236,7 @@ Item {
 
             Text {
                 id: inventory
-                x: (logPage.width - inventory.width) / 2
+                anchors.horizontalCenter: parent.horizontalCenter
                 visible: getTravelbugUser.tbsCode.length !== 0 && updateLog === false
                 font.family: localFont.name
                 font.pointSize: 14
