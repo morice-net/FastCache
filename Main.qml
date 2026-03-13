@@ -203,11 +203,7 @@ Window {
             Component.onCompleted: listCachesObject(cachesSingleList)
         }
 
-        CachesRecordedLists {
-            id: cachesRecordedLists
-            x: (main.width - width) / 2
-            y: 10
-        }
+        CachesRecordedLists {  id: cachesRecordedLists }
 
         FastMap { id: fastMap }
 

@@ -12,13 +12,11 @@ FastPopup {
     property bool recordingMode: true //two modes: recording mode or edit mode
     property int listIndex: 0
 
-    width: displayListColumn.width
-    height: Math.min(radioButtons.height + displayListColumn.height + saveMapBox.height + recordCachesButton.height + refreshCachesButton.height +
-                     newListColumn.height , main.height * 0.8)
+    width: main.width
+    height: main.height
     background: Rectangle {
         id: backgroundRectangle
-        color: Palette.turquoise()
-        radius: 10
+        color: Palette.greenSea()
     }
 
     // radio buttons

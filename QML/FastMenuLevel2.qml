@@ -637,7 +637,6 @@ Item {
                             anchors.fill: parent
                             onClicked: {
                                 menu.currentSelectedIndex = 11
-                                cachesRecordedLists.x = (main.width - cachesRecordedLists.width) /2
                                 cachesRecordedLists.open()
                             }
                         }
