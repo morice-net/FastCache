@@ -52,7 +52,7 @@ Rectangle {
         height: parent.height * 0.07
         color: Palette.white()
 
-        Text {
+        Text {            
             verticalAlignment: Text.AlignVCenter
             anchors.fill: parent
             font.family: localFont.name
@@ -183,13 +183,7 @@ Rectangle {
         }
         console.log("selected in list:  " + selected)
         return selected
-    }
-
-    function getSelectedInList() {
-        var selected = selectedInList
-        console.log("selected in list:  " + selected)
-        return selected
-    }
+    }    
 
     function listGeocodesOnList() {
         var listGeocodes = []

@@ -30,6 +30,7 @@ Item {
             radius: 3
             border.width: 1
             y: parent.height / 2 - height / 2
+
             Rectangle {
                 anchors.fill: parent
                 visible: checked

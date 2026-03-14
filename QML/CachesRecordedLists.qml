@@ -49,6 +49,7 @@ FastPopup {
                 implicitHeight: 18
                 radius: 10
                 border.width: 1
+
                 Rectangle {
                     anchors.fill: parent
                     visible: button1.checked
@@ -441,6 +442,7 @@ FastPopup {
         visible: main.listState === "recorded" && viewState !== "fullcache" && recordingMode  ? true : false
         anchors.top: title.bottom
         spacing: 10
+
         // delete caches
         FastButton {
             id: deleteCachesButton

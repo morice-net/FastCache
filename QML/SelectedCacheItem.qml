@@ -152,8 +152,9 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if(fastList.state === "selectedInList" && viewState === "list") {
-                selectedInList[index] = !selectedInList[index]
-                selectedInList = getSelectedInList()
+                var newSelectedList = selectedInList.slice()
+                newSelectedList[index] = !newSelectedList[index]
+                selectedInList = newSelectedList
             } else {
                 fullCache.geocode = selectedCache.geocode
                 if(main.listState === "recorded" && selectedCache.registered === true){
