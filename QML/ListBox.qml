@@ -61,7 +61,7 @@ Item {
         id: editList
         visible: editable
         source: "../Image/" + "icon_edit.png"
-        scale: 0.4
+        scale: 0.6
         anchors.right: deleteList.left
         anchors.bottom: parent.bottom
         anchors.top: parent.top
@@ -79,7 +79,7 @@ Item {
         id: deleteList
         visible: editable
         source: "../Image/" + "icon_delete.png"
-        scale: 0.4
+        scale: 0.6
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.top: parent.top

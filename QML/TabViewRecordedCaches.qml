@@ -10,7 +10,7 @@ TabBar {
     width: parent.width * 0.98
     anchors.horizontalCenter: parent.horizontalCenter
     y: parent.height * 0.07
-    Material.accent: Palette.black()
+    Material.accent: Palette.silver()
 
     Repeater {
         model: modelList()
@@ -35,7 +35,8 @@ TabBar {
             }
             background: Rectangle {
                 color: tabButton.checked ? Palette.turquoise() : Palette.greenSea()
-                radius: 4
+                border.width: tabButton.checked ? 3 : 1
+                border.color: Palette.silver()
             }
         }
     }

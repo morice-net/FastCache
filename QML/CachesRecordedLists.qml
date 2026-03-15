@@ -19,9 +19,19 @@ FastPopup {
         color: Palette.greenSea()
     }
 
+    Text {
+        id: mode
+        text: "Choix du mode"
+        font.family: localFont.name
+        font.pointSize: 20
+        font.bold: true
+        color: Palette.white()
+    }
+
     // radio buttons
     Column {
         id: radioButtons
+        anchors.top: mode.bottom
 
         RadioButton {
             id:button1
@@ -85,6 +95,7 @@ FastPopup {
                 implicitHeight: 18
                 radius: 10
                 border.width: 1
+
                 Rectangle {
                     anchors.fill: parent
                     visible: button2.checked
@@ -95,12 +106,17 @@ FastPopup {
             }
         }
 
+        Item {
+            height: 20
+            width: parent.width
+        }
+
         Text {
-            x: (cachesRecordedLists.width - width) / 2
-            font.family: localFont.name
-            font.pointSize: 18
-            color: Palette.white()
             text: sqliteStorage.countLists === 1 ? "Liste" : "Listes"
+            font.family: localFont.name
+            font.pointSize: 20
+            font.bold: true
+            color: Palette.white()
         }
     }
 
@@ -192,6 +208,7 @@ FastPopup {
             radius: 8
             border.width: 1
             y: parent.height / 2 - height / 2
+
             Rectangle {
                 anchors.fill: parent
                 visible: saveMapBox.checked
@@ -215,13 +232,25 @@ FastPopup {
         color: saveMapBox.checked ? Palette.white() : Palette.silver()
     }
 
-    //line
-    Rectangle {
-        id: line
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: cachesRecordedLists.width
+    Item {
+        id: item
         anchors.top: saveMapBox.bottom
-        height: 2
+        visible: renameList.visible === true || deleteList.visible === true ||  newListColumn.visible === true ||
+                 deleteRefresh.visible || recordCachesButton.visible
+        height: 5
+        width: parent.width
+    }
+
+    // dialog boxs
+    Text {
+        id: dialog
+        visible: renameList.visible === true || deleteList.visible === true ||  newListColumn.visible === true ||
+                 deleteRefresh.visible || recordCachesButton.visible
+        text: "Boites de dialogue"
+        font.family: localFont.name
+        font.pointSize: 20
+        font.bold: true
+        anchors.top: item.bottom
         color: Palette.white()
     }
 
@@ -230,7 +259,7 @@ FastPopup {
         id: title
         visible: !recordingMode || (main.viewState !== "fullcache" && main.listState !== "recorded") ? true : false
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: line.bottom
+        anchors.top: dialog.bottom
         font.family: localFont.name
         font.pointSize: 20
         color: Palette.white()
@@ -440,7 +469,7 @@ FastPopup {
         id: deleteRefresh
         anchors.horizontalCenter: parent.horizontalCenter
         visible: main.listState === "recorded" && viewState !== "fullcache" && recordingMode  ? true : false
-        anchors.top: title.bottom
+        anchors.top: dialog.bottom
         spacing: 10
 
         // delete caches
@@ -523,9 +552,6 @@ FastPopup {
     function radioButtontext() {
         if(main.viewState === "fullcache")
             if(fullCache.registered) {
-                return fullCache.geocode.substring(0,2) !== "GC" ? "Supprimer la cache  " + fullCache.geocode.substring(0,10) + "..." :
-                                                                   "Supprimer la cache  " + fullCache.geocode
-            } else {
                 return fullCache.geocode.substring(0,2) !== "GC" ? "Enregistrer la cache  " + fullCache.geocode.substring(0,10) + "..." :
                                                                    "Enregistrer la cache  " + fullCache.geocode
             }

@@ -589,10 +589,10 @@ Item {
                 }
             }
 
-            // store  or delete cache (index 11)
+            // store (index 11)
             Text {
                 visible: main.viewState === "fullcache" && fullCacheRetriever.state !== "loading"
-                text: !fullCache.registered ? "Enregistrement de cache" : "Suppression de cache"
+                text: "Enregistrement de cache"
                 font.family: localFont.name
                 font.pointSize: 15
                 font.bold: true
@@ -627,7 +627,7 @@ Item {
                     }
 
                     Text {
-                        text: !fullCache.registered ? "Enregistrement de cache" : "Suppression de cache"
+                        text: "Enregistrement de cache"
                         font.family: localFont.name
                         font.pointSize: 17
                         color: Palette.greenSea()
