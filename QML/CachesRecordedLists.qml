@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Controls.Material
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/MainFunctions.js" as Functions
@@ -19,89 +20,62 @@ FastPopup {
         color: Palette.greenSea()
     }
 
-    Text {
-        id: mode
-        text: "Choix du mode"
-        font.family: localFont.name
-        font.pointSize: 20
-        font.bold: true
-        color: Palette.white()
-    }
-
-    // radio buttons
     Column {
-        id: radioButtons
-        anchors.top: mode.bottom
+        id: barModes
+        width: parent.width
 
-        RadioButton {
-            id:button1
-            visible: true
-            text: radioButtontext()
-            checked: true
-            onClicked: {
-                recordingMode = true
-                title.text = "Enregistrement"
-                renameList.visible = false
-                deleteList.visible = false
-                newListColumn.visible = false
-            }
-            contentItem: Text {
-                text: button1.text
-                font.family: localFont.name
-                font.pointSize: 16
-                color: button1.checked ? Palette.white() : Palette.silver()
-                leftPadding: button1.indicator.width + button1.spacing
-                verticalAlignment: Text.AlignVCenter
-            }
-            indicator: Rectangle {
-                y: parent.height / 2 - height / 2
-                implicitWidth: 18
-                implicitHeight: 18
-                radius: 10
-                border.width: 1
+        // tab Bar modes
+        TabBar {
+            width: parent.width
+            Material.accent: Palette.silver()
 
-                Rectangle {
-                    anchors.fill: parent
-                    visible: button1.checked
-                    color: Palette.greenSea()
-                    radius: 10
-                    anchors.margins: 4
+            TabButton {
+                id: tabButtonSave
+                onClicked: {
+                    recordingMode = true
+                    title.text = "Enregistrement"
+                    renameList.visible = false
+                    deleteList.visible = false
+                    newListColumn.visible = false
+                }
+                contentItem: Text {
+                    text: "Enregistrement"
+                    font.family: localFont.name
+                    font.pointSize: 18
+                    color: tabButtonSave.checked ? Palette.greenSea() : Palette.turquoise()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+                background: Rectangle {
+                    color: Palette.white()
+                    border.width: tabButtonSave.checked ? 3 : 1
+                    border.color: Palette.silver()
                 }
             }
-        }
 
-        RadioButton {
-            id:button2
-            visible: true
-            text: "Editer les listes"
-            onClicked:{
-                recordingMode = false
-                title.text = "Nouvelle liste"
-                renameList.visible = false
-                deleteList.visible = false
-                newListColumn.visible = true
-            }
-            contentItem: Text {
-                text: button2.text
-                font.family: localFont.name
-                font.pointSize: 16
-                color: button2.checked ? Palette.white() : Palette.silver()
-                leftPadding: button2.indicator.width + button2.spacing
-                verticalAlignment: Text.AlignVCenter
-            }
-            indicator: Rectangle {
-                y: parent.height / 2 - height / 2
-                implicitWidth: 18
-                implicitHeight: 18
-                radius: 10
-                border.width: 1
-
-                Rectangle {
-                    anchors.fill: parent
-                    visible: button2.checked
-                    color: Palette.greenSea()
-                    radius: 10
-                    anchors.margins: 4
+            TabButton {
+                id: tabButtonEdit
+                onClicked: {
+                    recordingMode = false
+                    title.text = "Nouvelle liste"
+                    renameList.visible = false
+                    deleteList.visible = false
+                    newListColumn.visible = true
+                }
+                contentItem: Text {
+                    text:"Edition"
+                    font.family: localFont.name
+                    font.pointSize: 18
+                    color: tabButtonEdit.checked ? Palette.greenSea() : Palette.turquoise()
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
+                background: Rectangle {
+                    color: Palette.white()
+                    border.width: tabButtonEdit.checked ? 3 : 1
+                    border.color: Palette.silver()
                 }
             }
         }
@@ -127,8 +101,7 @@ FastPopup {
         clip: true
         width: repeaterColumn.width
         height: Math.min(repeaterColumn.height,  main.height * 0.4)
-        contentHeight: repeaterColumn.height
-        anchors.top: radioButtons.bottom
+        anchors.top: barModes.bottom
 
         Column {
             id: repeaterColumn
@@ -232,15 +205,6 @@ FastPopup {
         color: saveMapBox.checked ? Palette.white() : Palette.silver()
     }
 
-    Item {
-        id: item
-        anchors.top: saveMapBox.bottom
-        visible: renameList.visible === true || deleteList.visible === true ||  newListColumn.visible === true ||
-                 deleteRefresh.visible || recordCachesButton.visible
-        height: 5
-        width: parent.width
-    }
-
     // dialog boxs
     Text {
         id: dialog
@@ -250,7 +214,8 @@ FastPopup {
         font.family: localFont.name
         font.pointSize: 20
         font.bold: true
-        anchors.top: item.bottom
+        anchors.top: saveMapText.visible ? saveMapText.bottom : displayListColumn.bottom
+        anchors.topMargin: 15
         color: Palette.white()
     }
 
@@ -547,17 +512,6 @@ FastPopup {
                 cachesRecordedLists.close()
             }
         }
-    }
-
-    function radioButtontext() {
-        if(main.viewState === "fullcache")
-            if(fullCache.registered) {
-                return fullCache.geocode.substring(0,2) !== "GC" ? "Enregistrer la cache  " + fullCache.geocode.substring(0,10) + "..." :
-                                                                   "Enregistrer la cache  " + fullCache.geocode
-            }
-        if(main.listState === "recorded" && viewState !== "fullcache")
-            return "Caches enregistrées"
-        return "Enregistrer les caches"
     }
 
     function listCheckedBool(geocode) {
