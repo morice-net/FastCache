@@ -53,11 +53,22 @@ Window {
     property int sortDistance: 6
     property int sortingBy: sortDistance // sorting by distance.
     property int userLogImagesLoaded: - 1 // number of images of a user log downloaded
+
+    // gps and magnetic compass
     property bool externalSource: false  // gps bluetooth
+    property var locationSource: externalSource ? externalLocation.coordinate : currentPosition.position.coordinate
     property double externalLatitude: 0.0
     property double externalLongitude: 0.0
-    property var locationSource: externalSource ? externalLocation.coordinate : currentPosition.position.coordinate
+    property bool hasCompass: true // magnetic compass or not
     property int azimutDevice: 0  // used by magnetic compass
+    property double gpsHeading: 0   // used by gps and magnetic compass
+    property bool navigationMode: false   // true = GPS  false = magnetic compass
+    property double speed: 0 // m/s
+    property double speedThreshold: 1.5   // m/s
+    property double lastLatitude: 0
+    property double lastLongitude: 0
+    property double gpsBearing: 0
+
     property string translate: "" // used to translate text
 
     // Manage key back and escape
@@ -93,7 +104,9 @@ Window {
                 longitude: externalLongitude
             }
             onCoordinateChanged: {
-                main.positionUpdated()
+                main.positionUpdated() //signal
+                Functions.updateMode() // mode gps or magnetic compass
+                Functions.calculateGpsHeading()  // Updates gpsHeading
                 fastList.sortByDistance() // dynamically sort the list by distance if necessary
                 if(!fastMap.mapNorth)  // map not oriented to north
                     fastMap.mapItem.bearing = externalLocation.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
@@ -105,7 +118,9 @@ Window {
             updateInterval: 1000
             active: true
             onPositionChanged: {
-                main.positionUpdated()
+                main.positionUpdated() //signal
+                Functions.updateMode() // mode gps or magnetic compass
+                Functions.calculateGpsHeading()  // Updates gpsHeading
                 fastList.sortByDistance() // dynamically sort the list by distance if necessary
                 if(!fastMap.mapNorth)  // map not oriented to north
                     fastMap.mapItem.bearing = currentPosition.position.coordinate.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
@@ -718,6 +733,7 @@ Window {
             active: true // turn the compass on
             dataRate: 1
             onReadingChanged: {
+                hasCompass = reading.azimuth !== undefined ? true : false
                 azimutDevice = reading.azimuth !== undefined ? reading.azimuth.toFixed(0) : 0
             }
         }

@@ -225,4 +225,51 @@ function keyBackEscape() {
     }
 }
 
+// used by magnetic compass and gps
+function shortestAngle(from, to) {
+    let diff = (to - from + 540) % 360 - 180
+    return from + diff
+}
+
+function updateMode() {
+    if (!hasCompass) {
+        navigationMode = true //gps
+        return
+    }
+    if (speed > speedThreshold) {
+        navigationMode = true  //gps
+    } else {
+        navigationMode = false  //magnetic compass
+    }
+}
+
+function calculateGpsBearing() {
+    if (lastLatitude === 0 && lastLongitude === 0) {
+        lastLatitude = locationSource.latitude
+        lastLongitude = locationSource.longitude
+        return gpsBearing
+    }
+    let dLon = (locationSource.longitude - lastLongitude) * Math.PI / 180
+    let lat1 = lastLatitude * Math.PI / 180
+    let lat2 = locationSource.latitude * Math.PI / 180
+
+    let y = Math.sin(dLon) * Math.cos(lat2)
+    let x = Math.cos(lat1) * Math.sin(lat2) -  Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon)
+    let bearing = Math.atan2(y, x) * 180 / Math.PI
+    lastLatitude = locationSource.latitude
+    lastLongitude = locationSource.longitude
+    return (bearing + 360) % 360
+}
+
+function calculateGpsHeading() {
+    if (navigationMode || !hasCompass) {
+        gpsBearing = gpsBearing * 0.8 + calculateGpsBearing() * 0.2
+        gpsHeading = gpsBearing
+    } else {
+        gpsHeading = azimutDevice
+    }
+    gpsHeading = (gpsHeading + 360) % 360
+}
+
+
 

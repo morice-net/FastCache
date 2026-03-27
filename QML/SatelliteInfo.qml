@@ -28,8 +28,10 @@ Rectangle {
             positionAndStatus.longitudeString = Functions.formatLon(posData.longitude)
         if(!externalSource && currentPosition.position.altitudeValid)
             positionAndStatus.altString = currentPosition.position.coordinate.altitude.toFixed(0) + " m"
-        if(!externalSource && currentPosition.position.speedValid)
+        if(!externalSource && currentPosition.position.speedValid)  {
             positionAndStatus.speedString = (currentPosition.position.speed  * 3.6 ).toFixed(0)    + " km/h"
+            speed = currentPosition.position.speed   // m/s
+        }
         if(!externalSource && currentPosition.position.horizontalAccuracyValid)
             positionAndStatus.precisionString = currentPosition.position.horizontalAccuracy.toFixed(0) + " m"
     }
@@ -104,6 +106,7 @@ Rectangle {
         }
         onSpeedChanged: {
             positionAndStatus.speedString = bluetoothGps.speed.toFixed(0) + " km/h"
+            speed = bluetoothGps.speed / 3.6  // m/s
         }
         onPrecisionChanged: {
             positionAndStatus.precisionString = (bluetoothGps.precision * 5).toFixed(0)  + " m"

@@ -181,7 +181,7 @@ Map {
         visible: fastMap.compassMapButton
         anchors.left: parent.left
         anchors.leftMargin: 10
-        anchors.top: parent.top      
+        anchors.top: parent.top
         sourceHeight: 20
         sourceWidth: 20
         source: fastMap.oldMapNorth ? "../Image/" + "icon_north.png" : "../Image/" + "icon_compass.png"
@@ -229,13 +229,18 @@ Map {
             scale: 1.2
             source: "../Image/Compass/compass_mini.png"
 
-            Behavior on rotation { NumberAnimation { duration: 2000 } }
+            Behavior on rotation { NumberAnimation { duration: 1000 } }
         }
 
         function updateRotation() {
-            if (fastCache === undefined || fastCache === undefined)
+            if (fastCache === undefined || isNaN(locationSource.latitude) || isNaN(locationSource.longitude) )
                 return
-            smallCompassNeedle.rotation = - azimutDevice + locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
+            let azimutToTarget = locationSource.azimuthTo(QtPositioning.coordinate(fastCache.goalLat , fastCache.goalLon))
+            if (isNaN(azimutToTarget))
+                return
+            azimutToTarget = (azimutToTarget + 360) % 360
+            let targetCompassNeedleRotation = - gpsHeading  + azimutToTarget
+            smallCompassNeedle.rotation = Functions.shortestAngle(smallCompassNeedle.rotation , targetCompassNeedleRotation)
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)

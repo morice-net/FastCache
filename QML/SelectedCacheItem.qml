@@ -3,6 +3,8 @@ import QtPositioning
 
 import "JavaScript/Palette.js" as Palette
 import "JavaScript/helper.js" as Helper
+import "JavaScript/MainFunctions.js" as Functions
+
 import FastCache
 
 Rectangle {
@@ -218,15 +220,18 @@ Rectangle {
             anchors.right: parent.right
             source: "../Image/Compass/compass_mini.png"
 
-            Behavior on rotation { NumberAnimation { duration: 2000 } }
+            Behavior on rotation { NumberAnimation { duration: 1000 } }
         }
 
         function updateRotation() {
-            if (selectedCache === undefined)
+            if (selectedCache === undefined || isNaN(locationSource.latitude) || isNaN(locationSource.longitude) )
                 return
-            if (locationSource === undefined)
+            let azimutToTarget = locationSource.azimuthTo(selectedCacheLocation.coordinate)
+            if (isNaN(azimutToTarget))
                 return
-            smallCompassNeedle.rotation = - azimutDevice + locationSource.azimuthTo(selectedCacheLocation.coordinate)
+            azimutToTarget = (azimutToTarget + 360) % 360
+            let targetCompassNeedleRotation = - gpsHeading  + azimutToTarget
+            smallCompassNeedle.rotation = Functions.shortestAngle(smallCompassNeedle.rotation , targetCompassNeedleRotation)
         }
         Component.onCompleted: {
             main.positionUpdated.connect(updateRotation)

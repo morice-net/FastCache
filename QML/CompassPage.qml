@@ -62,7 +62,7 @@ Item {
                 source: "../Image/Compass/compass_rose.png"
                 scale: 0.72
 
-                Behavior on rotation { NumberAnimation { duration: 2000 } }
+                Behavior on rotation { NumberAnimation { duration: 1000 } }
             }
 
             Image {
@@ -71,7 +71,7 @@ Item {
                 source: "../Image/Compass/compass_arrow.png"
                 scale: 0.72
 
-                Behavior on rotation { NumberAnimation { duration: 2000 } }
+                Behavior on rotation { NumberAnimation { duration: 1000 } }
             }
         }
     }
@@ -106,10 +106,10 @@ Item {
     Text {
         id: title1
         anchors.horizontalCenter: parent.horizontalCenter
-       anchors.top: titleCoord.bottom
+        anchors.top: titleCoord.bottom
         font.family: localFont.name
         font.pointSize: 19
-        text:"Position actuelle"
+        text: "Position actuelle"
         color: Palette.silver()
     }
 
@@ -125,8 +125,17 @@ Item {
     }
 
     function updateRotation() {
-        compassRose.rotation =  - azimutDevice
-        compassArrow.rotation = compassRose.rotation + locationSource.azimuthTo(goalLocation.coordinate)
+        if (!goalLocation.coordinate.isValid || isNaN(locationSource.latitude) || isNaN(locationSource.longitude))
+            return
+        let azimutToTarget = locationSource.azimuthTo(goalLocation.coordinate)
+        if (isNaN(azimutToTarget))
+            return
+        azimutToTarget = (azimutToTarget + 360) % 360
+
+        let targetRoseRotation = - gpsHeading
+        let targetArrowRotation = targetRoseRotation + azimutToTarget
+        compassRose.rotation = Functions.shortestAngle(compassRose.rotation, targetRoseRotation)
+        compassArrow.rotation = Functions.shortestAngle(compassArrow.rotation, targetArrowRotation)
     }
 
     function compassPageFullCache() {
@@ -135,6 +144,7 @@ Item {
         goalLon = fullCache.isCorrectedCoordinates ? fullCache.correctedLon : fullCache.lon
         return fullCache.geocode
     }
+
     Component.onCompleted: {
         main.positionUpdated.connect(updateRotation)
     }
