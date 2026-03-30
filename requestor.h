@@ -29,6 +29,8 @@ public:
 
     int requestsLength() const;
     void setRequestsLength(const int &requestsLength);
+    void retryRequest(int delayMs);
+    void finalizeRequest(QNetworkReply *reply);
 
 signals:    
     void stateChanged();

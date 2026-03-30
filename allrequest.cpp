@@ -25,3 +25,18 @@ void AllRequest::process(QNetworkAccessManager *networkManager)
         break;
     }
 }
+
+bool AllRequest::canRetry() const
+{
+    return m_retryCount < m_maxRetries;
+}
+
+void AllRequest::incrementRetry()
+{
+    m_retryCount++;
+}
+
+int AllRequest::retryCount() const
+{
+    return m_retryCount;
+}

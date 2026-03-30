@@ -144,7 +144,7 @@ Window {
                     if(cachesBBox.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement de la carte active");
                     } else {
-                        toast.show("Erreur de chargement de la carte active " + "(" + state + ")")
+                        toast.show("Erreur de chargement de la carte active " + "(" + cachesBBox.state + ")")
                     }
                 }
             }
@@ -159,7 +159,7 @@ Window {
                     if(adventureLabCachesRetriever.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des adventurelab caches");
                     } else {
-                        toast.show("Erreur de chargement des adventurelab caches " + "(" + state + ")")
+                        toast.show("Erreur de chargement des adventurelab caches " + "(" + adventureLabCachesRetriever.state + ")")
                     }
                 }
             }
@@ -177,7 +177,7 @@ Window {
                     if(cachesNear.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des caches proches");
                     } else {
-                        toast.show("Erreur de chargement des caches proches " + "(" + state + ")")
+                        toast.show("Erreur de chargement des caches proches " + "(" + cachesNear.state + ")")
                     }
                 }
             }
@@ -207,7 +207,7 @@ Window {
                     if(cachesPocketqueries.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des pocket queries");
                     } else {
-                        toast.show("Erreur de chargement des pocket queries " + "(" + state + ")")
+                        toast.show("Erreur de chargement des pocket queries " + "(" + cachesPocketqueries.state + ")")
                     }
                 }
             }
@@ -306,7 +306,7 @@ Window {
                     if(userInfo.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des informations de l'utilisateur");
                     } else {
-                        toast.show("Erreur de chargement des informations de l'utilisateur " + "(" + state + ")")
+                        toast.show("Erreur de chargement des informations de l'utilisateur " + "(" + userInfo.state + ")")
                     }
                 }
             }
@@ -341,7 +341,7 @@ Window {
                     if(fullCacheRetriever.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement de la cache");
                     } else {
-                        toast.show("Erreur de chargement de la cache " + "(" + state + ")")
+                        toast.show("Erreur de chargement de la cache " + "(" + fullCacheRetriever.state + ")")
                     }
                     if(viewState === "fullcache")
                         fullCache.geocode = previousGeocode
@@ -366,7 +366,7 @@ Window {
                     if(fullLabCacheRetriever.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement de la lab cache");
                     } else {
-                        toast.show("Erreur de chargement de la lab cache " + "(" + state + ")")
+                        toast.show("Erreur de chargement de la lab cache " + "(" + fullLabCacheRetriever.state + ")")
                     }
                     if(viewState === "fullcache")
                         fullCache.geocode = previousGeocode
@@ -389,7 +389,7 @@ Window {
                     if(fullCachesRecorded.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'enregistrement des caches");
                     } else {
-                        toast.show("Erreur de chargement des caches " + "(" + state + ")")
+                        toast.show("Erreur de chargement des caches " + "(" + fullCachesRecorded.state + ")")
                     }
                 }
                 if (fullCachesRecorded.state === "OK"){
@@ -408,7 +408,7 @@ Window {
                     if(fullLabCachesRecorded.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'enregistrement des lab caches");
                     } else {
-                        toast.show("Erreur de chargement des lab caches " + "(" + state + ")")
+                        toast.show("Erreur de chargement des lab caches " + "(" + fullLabCachesRecorded.state + ")")
                     }
                 }
                 if (fullLabCachesRecorded.state === "OK"){
@@ -432,7 +432,7 @@ Window {
                     if(travelbug.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement du travel bug");
                     } else {
-                        toast.show("Erreur de chargement du travel bug " + "(" + state + ")")
+                        toast.show("Erreur de chargement du travel bug " + "(" + travelbug.state + ")")
                     }
                 }
             }
@@ -446,7 +446,7 @@ Window {
                     if(sendCacheNote.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'envoi de la note");
                     } else {
-                        toast.show("Erreur d'envoi de la note " + "(" + state + ")")
+                        toast.show("Erreur d'envoi de la note " + "(" + sendCacheNote.state + ")")
                     }
                 }
                 if (sendCacheNote.state === "OK"){
@@ -465,7 +465,7 @@ Window {
                     if(deleteLogImage.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour la suppression de l'image");
                     } else {
-                        toast.show("Erreur de supression de l'image  " + "(" + state + ")")
+                        toast.show("Erreur de supression de l'image  " + "(" + deleteLogImage.state + ")")
                     }
                 }
                 else {
@@ -484,7 +484,7 @@ Window {
                     if(sendEditUserLog.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour la modification ou suppression du log");
                     } else {
-                        toast.show("Erreur de modification du log  " + "(" + state + ")")
+                        toast.show("Erreur de modification du log  " + "(" + sendEditUserLog.state + ")")
                     }
                 }
                 if(sendEditUserLog.state === "OK") {
@@ -539,7 +539,7 @@ Window {
                     if(sendCacheLog.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'envoi du log")
                     } else {
-                        toast.show("Erreur d'envoi du log  " + "(" + state + ")")
+                        toast.show("Erreur d'envoi du log  " + "(" + sendCacheLog.state + ")")
                     }
                 } else {
                     toast.show("Le log de la cache a été correctement envoyé ");
@@ -604,7 +604,7 @@ Window {
                     if(sendImagesLog.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'envoi de l'image du log")
                     } else {
-                        toast.show("Erreur d'envoi de l'image  " + "(" + state + ")")
+                        toast.show("Erreur d'envoi de l'image  " + "(" + sendImagesLog.state + ")")
                     }
                 } else if (sendImagesLog.state !== "loading" && sendImagesLog.state === "Created") {
                     userLogImagesLoaded  = userLogImagesLoaded  + 1
@@ -635,7 +635,7 @@ Window {
                     if(sendTravelbugLog.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'envoi du log du travelbug")
                     } else {
-                        toast.show("Erreur d'envoi du travelbug  " + "(" + state + ")")
+                        toast.show("Erreur d'envoi du travelbug  " + "(" + sendTravelbugLog.state + ")")
                     }
                 } else {
                     toast.show("Le log du travelbug a été correctement envoyé ");
@@ -653,7 +653,7 @@ Window {
                     if(sendUserWaypoint.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour l'envoi des étapes personnelles")
                     } else {
-                        toast.show("Erreur d'envoi des étapes personnelles  " + "(" + state + ")")
+                        toast.show("Erreur d'envoi des étapes personnelles  " + "(" + sendUserWaypoint.state + ")")
                     }
                 } else if (sendUserWaypoint.state === "Created"){
                     toast.show("L'étape personnelle a été créee ");
@@ -680,7 +680,7 @@ Window {
                     if(getTravelbugUser.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des travel bugs de l'utilisateur")
                     } else {
-                        toast.show("Erreur d'envoi des travel bugs de l'utilisateur  " + "(" + state + ")")
+                        toast.show("Erreur d'envoi des travel bugs de l'utilisateur  " + "(" + getTravelbugUser.state + ")")
                     }
                 }
             }
@@ -694,7 +694,7 @@ Window {
                     if(getPocketsqueriesList.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement de la liste des pockets queries")
                     } else {
-                        toast.show("Erreur de chargement de la liste des pockets queries "  + "(" + state + ")")
+                        toast.show("Erreur de chargement de la liste des pockets queries "  + "(" + getPocketsqueriesList.state + ")")
                     }
                 }
             }
@@ -708,7 +708,7 @@ Window {
                     if(getUserGeocacheLogs.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des logs de l'utilisateur")
                     } else {
-                        toast.show("Erreur de chargement des logs de l'utilisateur "  + "(" + state + ")")
+                        toast.show("Erreur de chargement des logs de l'utilisateur "  + "(" + getUserGeocacheLogs.state + ")")
                     }
                 }
             }
@@ -722,7 +722,7 @@ Window {
                     if(getGeocacheLogImages.state === "timeOutConnection") {
                         toast.show("Délai de connexion dépassé pour le chargement des images du log")
                     } else {
-                        toast.show("Erreur de chargement des images "   + "(" + state + ")")
+                        toast.show("Erreur de chargement des images "   + "(" + getGeocacheLogImages.state + ")")
                     }
                 }
             }
@@ -750,7 +750,7 @@ Window {
             onStateChanged: {
                 if(tilesDownloader.state !== "OK" && tilesDownloader.state !== "loading") {
                     toast.visible = true
-                    toast.show(state)
+                    toast.show(tilesDownloader.state)
                 }
             }
         }
@@ -760,7 +760,7 @@ Window {
             onStateChanged: {
                 if(replaceImageInText.state !== "OK" && replaceImageInText.state !== "loading") {
                     toast.visible = true
-                    toast.show("Erreur de chargement des images "   + "(" + state + ")")
+                    toast.show("Erreur de chargement des images "   + "(" + replaceImageInText.state + ")")
                 }
             }
         }
