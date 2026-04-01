@@ -57,6 +57,7 @@ signals:
     void dirOsmChanged();
     void dirGooglemapsChanged();
     void dirCyclOsmChanged();
+    void progressChanged();
 
 private:
     QString m_folderSizeOsm;

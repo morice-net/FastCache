@@ -213,6 +213,7 @@ QString TilesDownloader::formatSize(qint64 size) {
 
 void TilesDownloader::downloaded(QNetworkReply* reply)
 {
+    emit progressChanged();
     if(replytopathid[reply].second == m_dirOsm )
         dirSizeFolder(m_dirOsm, false);
     else if(replytopathid[reply].second == m_dirGooglemaps + "false" )

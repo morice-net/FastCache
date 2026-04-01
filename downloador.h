@@ -34,7 +34,7 @@ protected:
     const QByteArray userAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36";
 
     virtual void downloaded(QNetworkReply* reply);
-    void downloadFile(QUrl url, QString id, QString path);
+    void downloadFile(const QUrl &url, const QString &id, const QString &path);
 
 private:
     //  network manager

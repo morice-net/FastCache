@@ -9,61 +9,58 @@ Downloador::Downloador(QObject *parent)
 }
 
 Downloador::~Downloador()
-{
-    delete webCtrl;
+{    
 }
 
-void Downloador::downloadFile(QUrl url, QString id, QString path)
+void Downloador::downloadFile(const QUrl &url, const QString &id, const QString &path)
 {
-    QFile *file = new QFile(path, this);
-    if(!file->open(QIODevice::WriteOnly))
-    {
+    auto file = new QFile(path, this);
+    if (!file->open(QIODevice::WriteOnly)) {
+        setState("unableOpenFile");
         return;
     }
-
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
     request.setRawHeader("User-Agent", userAgent);
-    // Inform  we are loading
     setState("loading");
 
     QNetworkReply *reply = webCtrl->get(request);
     replytofile.insert(reply, file);
-    replytopathid.insert(reply, QPair<QString, QString>(path, id));
+    replytopathid.insert(reply, {path, id});
 
-    QObject::connect(reply, &QNetworkReply::finished, this, &Downloador::fileDownloaded);
-    QObject::connect(reply, &QNetworkReply::readyRead, this, &Downloador::onReadyRead);
+    connect(reply, &QNetworkReply::readyRead, this, &Downloador::onReadyRead);
+    connect(reply, &QNetworkReply::finished, this, &Downloador::fileDownloaded);
 }
 
 void Downloador::fileDownloaded()
 {
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+    if (auto reply = qobject_cast<QNetworkReply*>(sender())) {
+        QFile *file = replytofile.take(reply);
+        auto pathId = replytopathid.take(reply);
 
-    if (replytofile[reply]->isOpen())
-    {
-        replytofile[reply]->close();
-        replytofile[reply]->deleteLater();
-    }
+        if (file) {
+            if (file->isOpen()) file->close();
+            file->deleteLater();
+        }
 
-    switch(reply->error())
-    {
-    case QNetworkReply::NoError:
-        setState("OK");
-        downloaded(reply);
-        break;
-    default:
-        setState(reply->errorString().toLatin1());
-        break;
+        if (reply->error() == QNetworkReply::NoError) {
+            setState("OK");
+            downloaded(reply);
+        } else {
+            setState(reply->errorString());
+        }
+
+        reply->deleteLater();
     }
-    replytofile.remove(reply);
-    replytopathid.remove(reply);
-    delete reply;
 }
 
 void Downloador::onReadyRead()
 {
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    replytofile[reply]->write(reply->readAll());
+    if (auto reply = qobject_cast<QNetworkReply*>(sender())) {
+        if (auto file = replytofile.value(reply, nullptr)) {
+            file->write(reply->readAll());
+        }
+    }
 }
 
 void Downloador::downloaded(QNetworkReply* reply)
@@ -83,6 +80,17 @@ void Downloador::setState(const QString &state)
     m_state = state;
     emit stateChanged();
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

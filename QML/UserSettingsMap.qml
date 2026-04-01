@@ -51,6 +51,14 @@ Column {
         folderTiles: folders[index]
         satTiles: sats[index]
         Component.onCompleted: tilesDownloader.dirSizeFolder(folders[index] , sats[index])
+
+        Connections {
+            target: tilesDownloader
+
+            function onProgressChanged() {
+                tilesDownloader.dirSizeFolder(folders[index] , sats[index])
+            }
+        }
     }
 
     function pluginName(index) {
