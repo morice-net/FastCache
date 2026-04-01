@@ -47,7 +47,7 @@ Rectangle {
 
                 Column {
                     id: columnMaps
-                    spacing: 20
+                    spacing: 15
 
                     Repeater {
                         model: 4

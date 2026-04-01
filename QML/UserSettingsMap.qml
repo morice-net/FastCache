@@ -5,7 +5,7 @@ import "JavaScript/Palette.js" as Palette
 
 Column {
     id: columnMaps
-    spacing: 20
+    spacing: 15
 
     property list <string> mapNames: ["Open Street Map" , "Google Maps : plan" , "Google Maps : satellite" , "Cyclo OSM"]
     property var folders: [tilesDownloader.dirOsm , tilesDownloader.dirGooglemaps , tilesDownloader.dirGooglemaps , tilesDownloader.dirCyclOsm]
@@ -48,7 +48,6 @@ Column {
     }
 
     ButtonTiles {
-        anchors.top: button.bottom
         folderTiles: folders[index]
         satTiles: sats[index]
         Component.onCompleted: tilesDownloader.dirSizeFolder(folders[index] , sats[index])
