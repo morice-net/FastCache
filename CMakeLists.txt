@@ -9,6 +9,8 @@ if(NOT ANDROID)
     find_package(Qt6WebEngineQuick REQUIRED )
 endif()
 
+set(CONFIG_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/config.json")
+
 qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(appFastCache WIN32 MACOSX_BUNDLE
@@ -68,6 +70,7 @@ qt_add_qml_module(appFastCache
     cacheattribute.h cacheattribute.cpp
     fulllabcacheretriever.h fulllabcacheretriever.cpp
     translator.h translator.cpp
+    appconfig.h appconfig.cpp     
 
     QML_FILES
     Main.qml
@@ -178,31 +181,31 @@ qt_add_qml_module(appFastCache
     Image/marker_found.png
     Image/marker_own.png
     Image/marker_save.png
-    Image/menuIcon.png    
-     Image/menu_Address.png
-     Image/menu_CodeTb.png
-     Image/menu_Coordinates.png
-     Image/menu_Filter.png
-     Image/menu_GeocodeCache.png
-     Image/menu_List.png
-     Image/menu_Map.png
-     Image/menu_Near.png
-     Image/menu_PocketsQueries.png
-     Image/menu_Quit.png
-     Image/menu_Saved.png
-     Image/menu_Disconnect.png
-     Image/menu_Gps.png
-     Image/menu_Sort.png
-     Image/menu_Settings.png
-     Image/menu_Compass.png
-     Image/menu_Description.png
-     Image/menu_Details.png
-     Image/menu_Images.png
-     Image/menu_LaunchMaps.png
-     Image/menu_LogIn.png
-     Image/menu_Logs.png
-     Image/menu_UserLogs.png
-     Image/menu_Waypoints.png
+    Image/menuIcon.png
+    Image/menu_Address.png
+    Image/menu_CodeTb.png
+    Image/menu_Coordinates.png
+    Image/menu_Filter.png
+    Image/menu_GeocodeCache.png
+    Image/menu_List.png
+    Image/menu_Map.png
+    Image/menu_Near.png
+    Image/menu_PocketsQueries.png
+    Image/menu_Quit.png
+    Image/menu_Saved.png
+    Image/menu_Disconnect.png
+    Image/menu_Gps.png
+    Image/menu_Sort.png
+    Image/menu_Settings.png
+    Image/menu_Compass.png
+    Image/menu_Description.png
+    Image/menu_Details.png
+    Image/menu_Images.png
+    Image/menu_LaunchMaps.png
+    Image/menu_LogIn.png
+    Image/menu_Logs.png
+    Image/menu_UserLogs.png
+    Image/menu_Waypoints.png
     Image/minus.png
     Image/not_logged.png
     Image/plus.png
@@ -305,16 +308,34 @@ qt_add_qml_module(appFastCache
     QML/JavaScript/Palette.js
     QML/JavaScript/helper.js
 
-    Ressources/DellaRespira-Regular.ttf
-    QML_FILES
-    QML_FILES    
+    Ressources/DellaRespira-Regular.ttf   
+)
+
+if(ANDROID)
+    set_property(TARGET appFastCache PROPERTY
+        QT_ANDROID_PACKAGE_SOURCE_DIR
+        "${CMAKE_CURRENT_SOURCE_DIR}/android"
     )
+    add_custom_command(TARGET appFastCache PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+            "${CMAKE_CURRENT_BINARY_DIR}/android/assets"
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${CONFIG_SOURCE}"
+            "${CMAKE_CURRENT_BINARY_DIR}/android/assets/config.json"
+    )
+else()
+    add_custom_command(TARGET appFastCache POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${CONFIG_SOURCE}"
+            "$<TARGET_FILE_DIR:appFastCache>/config.json"
+    )
+endif()
 
 if(ANDROID)
     set_target_properties(appFastCache
         PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android
-        QT_ANDROID_TARGET_SDK_VERSION "33")
+        QT_ANDROID_TARGET_SDK_VERSION "33")    
 endif()
 
 target_link_libraries(appFastCache

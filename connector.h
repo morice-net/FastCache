@@ -6,6 +6,7 @@
 #include <QtQml>
 
 #include "parameter.h"
+#include "appconfig.h"
 
 class Connector : public QObject
 {
@@ -78,7 +79,7 @@ private:
     /// Privates members
     QString m_requestString;
     QList<Parameter*> m_parameters;
-    QList<Parameter*> m_postParameters;    
+    QList<Parameter*> m_postParameters;
 
     /// Privates methods
     QString joinParams();

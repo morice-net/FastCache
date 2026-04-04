@@ -35,11 +35,11 @@ Rectangle {
             },
             PluginParameter {
                 name: "googlemaps.maps.apikey"
-                value: Qt.atob("QUl6YVN5QUpXZUFyZUdtbE1tdGlVN1lROWVEWFM5Z1ZMLVV2ZkE0")
+                value: googleMapsApiKey
             },
             PluginParameter {
                 name: "googlemaps.geocode.apikey"
-                value: Qt.atob("QUl6YVN5Q2JiSXJkYi1DbFM4REQ1VDVacGV2SExBUWx3ME43ME1z")
+                value: googleGeocodeApiKey
             }]
     }
 
@@ -92,7 +92,7 @@ Rectangle {
     Component.onCompleted: {
         mapItem = Qt.createQmlObject('MapBuild {id:map; plugin: checkedPluginMap()}', fastMap)
         map = mapItem
-    }    
+    }
 
     function checkedPluginMap() {
         if(settings.namePlugin === "osmPlugin")

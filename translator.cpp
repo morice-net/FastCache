@@ -14,8 +14,7 @@ Translator::Translator(QObject *parent)
     ,m_translateText("")
 {
     manager = new QNetworkAccessManager(this);
-    QObject::connect(manager, &QNetworkAccessManager::finished,
-                     this, &Translator::onTranslationFinished);
+    QObject::connect(manager, &QNetworkAccessManager::finished, this, &Translator::onTranslationFinished);    
 }
 
 Translator::~Translator()
@@ -28,7 +27,8 @@ void Translator::translate(const QString &text, const QString &targetLang, const
     // URL Configuration
     QUrl url("https://translation.googleapis.com/language/translate/v2");
     QUrlQuery query;
-    query.addQueryItem("key", QByteArray::fromBase64("QUl6YVN5Q2JiSXJkYi1DbFM4REQ1VDVacGV2SExBUWx3ME43ME1z"));
+    query.addQueryItem("key", AppConfig::googleTranslateApiKey());
+    query.addQueryItem("key", m_apiKey);
     url.setQuery(query);
 
     // Preparing JSON data

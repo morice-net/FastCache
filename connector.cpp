@@ -7,9 +7,9 @@
 
 Connector::Connector(QObject *parent)
     : QObject(parent)
-    , m_consumerKey(QByteArray::fromBase64("QjMxMkE3N0EtQkEyNS00NUQ0LUJDMTItOTM3MTE0NzUxNTEy"))
-    , m_consumerSecret(QByteArray::fromBase64("ODk0QjY4OTMtQzY1MS00NEZCLTgzRTEtRTVFOEFFQjU4MDFD"))
-    , m_redirectUri("https://geocaching4locus.eu/oauth")
+    , m_consumerKey(AppConfig::consumerKey().toUtf8())
+    , m_consumerSecret(AppConfig::consumerSecret().toUtf8())
+    , m_redirectUri(AppConfig::redirectUri())
     , m_tokenKey()
     , m_refreshToken()
     , m_codeVerifier("")

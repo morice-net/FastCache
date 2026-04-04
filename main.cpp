@@ -1,4 +1,5 @@
 #include "bluetoothgps.h"
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
@@ -8,6 +9,8 @@
 
 #include <QQuickView>
 #include <QQuickItem>
+
+#include "appconfig.h"
 #include "connector.h"
 #include "userinfo.h"
 #include "cachesbbox.h"
@@ -56,6 +59,11 @@ int main(int argc, char *argv[])
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
                      &app, []() { QCoreApplication::exit(-1); },
                      Qt::QueuedConnection);
+
+    AppConfig::load();
+    engine.rootContext()->setContextProperty("googleMapsApiKey", AppConfig::googleMapsApiKey());
+    engine.rootContext()->setContextProperty("googleGeocodeApiKey", AppConfig::googleGeocodeApiKey());
+
     engine.loadFromModule("FastCache", "Main");
     return app.exec();
 }

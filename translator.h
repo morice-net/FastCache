@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QNetworkReply>
 
+#include "appconfig.h"
+
 #include <QtQml>
 
 class Translator : public QObject
@@ -30,6 +32,7 @@ private slots:
 
 private:
     QString m_translateText;
+    QString m_apiKey;
 
     QNetworkAccessManager *manager;
 };
