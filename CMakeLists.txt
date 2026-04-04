@@ -9,8 +9,6 @@ if(NOT ANDROID)
     find_package(Qt6WebEngineQuick REQUIRED )
 endif()
 
-set(CONFIG_SOURCE "${CMAKE_CURRENT_SOURCE_DIR}/config.json")
-
 qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable(appFastCache WIN32 MACOSX_BUNDLE
@@ -308,28 +306,8 @@ qt_add_qml_module(appFastCache
     QML/JavaScript/Palette.js
     QML/JavaScript/helper.js
 
-    Ressources/DellaRespira-Regular.ttf   
+    Ressources/DellaRespira-Regular.ttf
 )
-
-if(ANDROID)
-    set_property(TARGET appFastCache PROPERTY
-        QT_ANDROID_PACKAGE_SOURCE_DIR
-        "${CMAKE_CURRENT_SOURCE_DIR}/android"
-    )
-    add_custom_command(TARGET appFastCache PRE_BUILD
-        COMMAND ${CMAKE_COMMAND} -E make_directory
-            "${CMAKE_CURRENT_BINARY_DIR}/android/assets"
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${CONFIG_SOURCE}"
-            "${CMAKE_CURRENT_BINARY_DIR}/android/assets/config.json"
-    )
-else()
-    add_custom_command(TARGET appFastCache POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${CONFIG_SOURCE}"
-            "$<TARGET_FILE_DIR:appFastCache>/config.json"
-    )
-endif()
 
 if(ANDROID)
     set_target_properties(appFastCache
